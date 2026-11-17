@@ -1,0 +1,23 @@
+MiningModule:
+  color-001: LIGHT_PURPLE
+  color-002: LIGHT_PURPLE
+  color-003: DARK_PURPLE
+  color-004: BLUE
+  color-005: GREEN
+  color-006: LIGHT_PURPLE
+  ofmillis-001-arg0: 150
+  ofseconds-002-arg0: 2
+  ofmillis-003-arg0: 350
+  sound-007: BLOCK_AMETHYST_BLOCK_CHIME
+  playsound-004-arg2: 1.0
+  playsound-005-arg3: 1.2
+  sound-008: BLOCK_AMETHYST_BLOCK_RESONATE
+  playsound-006-arg2: 1.0
+  playsound-007-arg3: 1.4
+  color-009: LIGHT_PURPLE
+  color-010: LIGHT_PURPLE
+  color-011: DARK_GRAY
+  color-012: WHITE
+  color-016: GRAY
+  color-017: WHITE
+  color-018: GREEN

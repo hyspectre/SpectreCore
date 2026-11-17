@@ -1,0 +1,46 @@
+status	$core		PUBLIC	/spectrecore status	Estado de habilidades
+modulos	$core		PUBLIC	/spectrecore modulos	Estado de módulos
+reload	$core		ADMIN	/spectrecore reload	Recargar configuración
+reset	$core	equipamiento	ADMIN	/spectrecore reset	Reiniciar tus habilidades y recargas
+demo	$core	equipamiento	ADMIN	/spectrecore demo <habilidad>	Alternar una habilidad de prueba
+blink	$core	equipamiento.ultimo-juramento	CONSOLE	/spectrecore blink <jugador>	Notificar un Blink confirmado
+armaduras	armaduras	equipamiento.libro	PUBLIC	/spectrecore armaduras	Libro de armaduras
+cocina	cocina	cocina	PUBLIC	/spectrecore cocina <ayuda|libro|recetas|estado|reparar|recargar>	Cocina y recetario
+trabajos	trabajo	trabajos	PUBLIC	/spectrecore trabajos	Niveles de trabajos
+resonancia	resonancia	resonancia	PUBLIC	/spectrecore resonancia	Carga del Pico Perdido
+resonancia debug	debugresonancia	resonancia	HYDEV_ADMIN	/spectrecore resonancia debug	Diagnóstico de resonancia
+item nombre	nombreitem		HYDEV_ADMIN	/spectrecore item nombre	Inspeccionar y copiar el nombre del objeto
+slayer estado	slayerstats	slayer	PUBLIC	/spectrecore slayer estado	Progreso de misiones Slayer
+slayer activar	activarslayer	slayer	HYDEV_ADMIN	/spectrecore slayer activar <categoria> <1|2|3>	Iniciar una misión Slayer
+slayer cancelar	cancelarslayer	slayer	HYDEV_ADMIN	/spectrecore slayer cancelar <categoria>	Cancelar una misión Slayer
+slayer reiniciar	resetslayer	slayer	HYDEV_ADMIN	/spectrecore slayer reiniciar <categoria>	Reiniciar una misión Slayer
+slayer invocar	slayerinvocar	slayer	HYDEV_ADMIN	/spectrecore slayer invocar <categoria>	Reintentar la invocación de un objetivo completado
+portal registrar	hydevportaljoin	dungeons.portal	CONSOLE	/spectrecore portal registrar <jugador> <sesion>	Registrar participante y sesión
+portal salir	hydevportalleave	dungeons.portal	CONSOLE	/spectrecore portal salir <jugador>	Retirar el registro de un participante
+portal estado	hydevportalstatus	dungeons.portal	HYDEV_ADMIN	/spectrecore portal estado [jugador]	Diagnóstico del portal
+portal demo	hydevportaldemo	dungeons.portal	HYDEV_ADMIN	/spectrecore portal demo [jugador]	Previsualizar el portal
+portal limpiar	hydevportalcleanup	dungeons.portal	HYDEV_ADMIN	/spectrecore portal limpiar	Retirar los portales activos
+tesoros abrir	opentreasure	actividades.cofre	ACTIVITIES_ADMIN	/spectrecore tesoros abrir	Abrir un cofre con premio
+tesoros mineria	$core	tesoros.mineria	HYDEV_ADMIN	/spectrecore tesoros mineria <1|2|3>	Previsualizar un tesoro minero
+tesoros gema	$core	resonancia	HYDEV_ADMIN	/spectrecore tesoros gema <basica|intermedia|superior>	Previsualizar una gema
+tesoros combate	$core	tesoros.combate	HYDEV_ADMIN	/spectrecore tesoros combate <1|2|3>	Previsualizar un alma
+tesoros agricultura	$core	tesoros.agricultura	HYDEV_ADMIN	/spectrecore tesoros agricultura <1|2|3>	Previsualizar un hallazgo agrícola
+cygnus rompemuelas	rompemuelas	actividades.cygnus	ACTIVITIES_ADMIN	/spectrecore cygnus rompemuelas	Oferta de Cygnus: rompemuelas
+cygnus taladroroto	taladroroto	actividades.cygnus	ACTIVITIES_ADMIN	/spectrecore cygnus taladroroto	Oferta de Cygnus: taladroroto
+cygnus furiaestelar	furiaestelar	actividades.cygnus	ACTIVITIES_ADMIN	/spectrecore cygnus furiaestelar	Oferta de Cygnus: furiaestelar
+cygnus capuchaencogedora	capuchaencogedora	actividades.cygnus	ACTIVITIES_ADMIN	/spectrecore cygnus capuchaencogedora	Oferta de Cygnus: capuchaencogedora
+cygnus slimehechizado	slimehechizado	actividades.cygnus	ACTIVITIES_ADMIN	/spectrecore cygnus slimehechizado	Oferta de Cygnus: slimehechizado
+cygnus compactador	compactador	actividades.cygnus	ACTIVITIES_ADMIN	/spectrecore cygnus compactador	Oferta de Cygnus: compactador
+cygnus golemcobre	golemcobre	actividades.cygnus	ACTIVITIES_ADMIN	/spectrecore cygnus golemcobre	Oferta de Cygnus: golemcobre
+polvos diamante	polvodiamante	actividades.polvos	ACTIVITIES_ADMIN	/spectrecore polvos diamante	Pago de polvo: diamante
+polvos hierro	polvohierro	actividades.polvos	ACTIVITIES_ADMIN	/spectrecore polvos hierro	Pago de polvo: hierro
+polvos oro	polvooro	actividades.polvos	ACTIVITIES_ADMIN	/spectrecore polvos oro	Pago de polvo: oro
+polvos cobre	polvocobre	actividades.polvos	ACTIVITIES_ADMIN	/spectrecore polvos cobre	Pago de polvo: cobre
+polvos lapis	polvolapis	actividades.polvos	ACTIVITIES_ADMIN	/spectrecore polvos lapis	Pago de polvo: lapis
+polvos redstone	polvoredstone	actividades.polvos	ACTIVITIES_ADMIN	/spectrecore polvos redstone	Pago de polvo: redstone
+desbloquear almas	almas1	actividades.desbloqueos	ACTIVITIES_ADMIN	/spectrecore desbloquear almas	Desbloquear almas de tier 1
+desbloquear mineria	mineria1	actividades.desbloqueos	ACTIVITIES_ADMIN	/spectrecore desbloquear mineria	Desbloquear minería de tier 1
+desbloquear slayerzombie 1	slayerzombie1	actividades.desbloqueos	ACTIVITIES_ADMIN	/spectrecore desbloquear slayerzombie 1	Desbloquear Revenant de tier 1
+desbloquear slayerzombie 2	slayerzombie2	actividades.desbloqueos	ACTIVITIES_ADMIN	/spectrecore desbloquear slayerzombie 2	Desbloquear Revenant de tier 2
+desbloquear slayerzombie 3	slayerzombie3	actividades.desbloqueos	ACTIVITIES_ADMIN	/spectrecore desbloquear slayerzombie 3	Desbloquear Revenant de tier 3
+telefono	telefono1	actividades.telefono	ACTIVITIES_ADMIN	/spectrecore telefono	Abrir el menú de Slayers

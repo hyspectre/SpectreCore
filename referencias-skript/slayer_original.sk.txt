@@ -1,0 +1,261 @@
+options:
+    prefix: &6&lᴍɪsɪᴏɴᴇs &r
+
+# ============================================
+# COMANDO DE ACTIVACIÓN (Para NPCs)
+# ============================================
+command /activarslayer <text> <number>:
+    permission: op
+    trigger:
+        set {_categoria} to arg 1
+        set {_tier} to arg 2
+        set {_uuid} to uuid of player
+        
+        if {_tier} is not 1:
+            if {_tier} is not 2:
+                if {_tier} is not 3:
+                    send "&cTier inválido. Usa 1, 2 o 3." to player
+                    stop
+        
+        if {slayer::revenant::activo::%{_uuid}%} is true:
+            send "{@prefix} &cYa tienes una misión activa. Completa o cancela la actual antes de iniciar otra." to player
+            stop
+        if {slayer::necromancer::activo::%{_uuid}%} is true:
+            send "{@prefix} &cYa tienes una misión activa. Completa o cancela la actual antes de iniciar otra." to player
+            stop
+        if {slayer::spider::activo::%{_uuid}%} is true:
+            send "{@prefix} &cYa tienes una misión activa. Completa o cancela la actual antes de iniciar otra." to player
+            stop
+        
+        if {_categoria} is "revenant":
+            if player does not have permission "slayer.revenant.tier%{_tier}%":
+                send "{@prefix} &cNo tienes permiso para el Tier %{_tier}% de Monarquía Renacida." to player
+                stop
+            set {slayer::revenant::activo::%{_uuid}%} to true
+            set {slayer::revenant::tier::%{_uuid}%} to {_tier}
+            set {slayer::revenant::kills::%{_uuid}%} to 0
+            if {_tier} is 1:
+                set {_required} to 20
+            else if {_tier} is 2:
+                set {_required} to 50
+            else:
+                set {_required} to 90
+            set {slayer::revenant::required::%{_uuid}%} to {_required}
+            send "{@prefix} &c¡Has activado la misión de Monarquía Renacida Tier %{_tier}%! Mata %{_required}% zombis para completar." to player
+            play sound "entity.player.levelup" with volume 1 and pitch 1 to player
+            
+        else if {_categoria} is "necromancer":
+            if player does not have permission "slayer.necromancer.tier%{_tier}%":
+                send "{@prefix} &cNo tienes permiso para el Tier %{_tier}% del Nigromante." to player
+                stop
+            set {slayer::necromancer::activo::%{_uuid}%} to true
+            set {slayer::necromancer::tier::%{_uuid}%} to {_tier}
+            set {slayer::necromancer::kills::%{_uuid}%} to 0
+            if {_tier} is 1:
+                set {_required} to 20
+            else if {_tier} is 2:
+                set {_required} to 50
+            else:
+                set {_required} to 90
+            set {slayer::necromancer::required::%{_uuid}%} to {_required}
+            send "{@prefix} &f¡Has activado la misión del Nigromante Tier %{_tier}%! Mata %{_required}% esqueletos para completar." to player
+            play sound "entity.player.levelup" with volume 1 and pitch 1 to player
+            
+        else if {_categoria} is "spider":
+            if player does not have permission "slayer.spider.tier%{_tier}%":
+                send "{@prefix} &cNo tienes permiso para el Tier %{_tier}% de la Madre Araña." to player
+                stop
+            set {slayer::spider::activo::%{_uuid}%} to true
+            set {slayer::spider::tier::%{_uuid}%} to {_tier}
+            set {slayer::spider::kills::%{_uuid}%} to 0
+            if {_tier} is 1:
+                set {_required} to 20
+            else if {_tier} is 2:
+                set {_required} to 50
+            else:
+                set {_required} to 90
+            set {slayer::spider::required::%{_uuid}%} to {_required}
+            send "{@prefix} &a¡Has activado la misión de la Madre Araña Tier %{_tier}%! Mata %{_required}% arañas para completar." to player
+            play sound "entity.player.levelup" with volume 1 and pitch 1 to player
+            
+        else:
+            send "&cCategoría inválida. Usa: revenant, necromancer, spider" to player
+
+# ============================================
+# COMANDO DE CANCELACIÓN
+# ============================================
+command /cancelarslayer <text>:
+    permission: op
+    trigger:
+        set {_categoria} to arg 1
+        set {_uuid} to uuid of player
+        
+        if {_categoria} is "revenant":
+            if {slayer::revenant::activo::%{_uuid}%} is not true:
+                send "{@prefix} &cNo tienes una misión de Monarquía Renacida activa." to player
+                stop
+            set {slayer::revenant::activo::%{_uuid}%} to false
+            send "{@prefix} &cHas cancelado la misión de Monarquía Renacida." to player
+        else if {_categoria} is "necromancer":
+            if {slayer::necromancer::activo::%{_uuid}%} is not true:
+                send "{@prefix} &cNo tienes una misión del Nigromante activa." to player
+                stop
+            set {slayer::necromancer::activo::%{_uuid}%} to false
+            send "{@prefix} &fHas cancelado la misión del Nigromante." to player
+        else if {_categoria} is "spider":
+            if {slayer::spider::activo::%{_uuid}%} is not true:
+                send "{@prefix} &cNo tienes una misión de la Madre Araña activa." to player
+                stop
+            set {slayer::spider::activo::%{_uuid}%} to false
+            send "{@prefix} &aHas cancelado la misión de la Madre Araña." to player
+        else:
+            send "&cCategoría inválida. Usa: revenant, necromancer, spider" to player
+
+# ============================================
+# REY RENACIDO - ZOMBIES
+# ============================================
+on death of zombie:
+    set {_killer} to attacker
+    if {_killer} is not a player:
+        stop
+    set {_player} to {_killer}
+    set {_uuid} to uuid of {_player}
+    
+    if {slayer::revenant::activo::%{_uuid}%} is not true:
+        stop
+    
+    set {_tier} to {slayer::revenant::tier::%{_uuid}%}
+    set {_required} to {slayer::revenant::required::%{_uuid}%}
+    
+    add 1 to {slayer::revenant::kills::%{_uuid}%}
+    set {_kills} to {slayer::revenant::kills::%{_uuid}%}
+    
+    # Mensaje cada 10 kills
+    if "%{_kills}%" ends with "0":
+        send "{@prefix} &2&lMONARQUÍA RENACIDA &fProgreso: &e%{_kills}%/%{_required}%" to {_player}
+    
+    if {_kills} >= {_required}:
+        set {slayer::revenant::kills::%{_uuid}%} to 0
+        set {slayer::revenant::activo::%{_uuid}%} to false
+        
+        # Spawnea el jefe desde la consola en la ubicación del jugador
+        set {_world} to name of world of {_player}
+        set {_x} to x coord of {_player}
+        set {_y} to y coord of {_player}
+        set {_z} to z coord of {_player}
+        execute console command "mm m spawn ReyZombie%{_tier}% 1 %{_world}%,%{_x}%,%{_y}%,%{_z}%,0,0"
+        
+        send title "&c&l¡MISIÓN COMPLETADA!" with subtitle "&eEl Rey Renacido ha sido invocado..." to {_player} for 3 seconds
+        send "{@prefix} &c¡Has completado la misión de Monarquía Renacida Tier %{_tier}%! El jefe ha aparecido." to {_player}
+        play sound "entity.wither.spawn" with volume 1 and pitch 0.8 to {_player}
+
+# ============================================
+# NIGROMANTE - ESQUELETOS
+# ============================================
+on death of skeleton:
+    set {_killer} to attacker
+    if {_killer} is not a player:
+        stop
+    set {_player} to {_killer}
+    set {_uuid} to uuid of {_player}
+    
+    if {slayer::necromancer::activo::%{_uuid}%} is not true:
+        stop
+    
+    set {_tier} to {slayer::necromancer::tier::%{_uuid}%}
+    set {_required} to {slayer::necromancer::required::%{_uuid}%}
+    
+    add 1 to {slayer::necromancer::kills::%{_uuid}%}
+    set {_kills} to {slayer::necromancer::kills::%{_uuid}%}
+    
+    # Mensaje cada 10 kills
+    if "%{_kills}%" ends with "0":
+        send "{@prefix} &f&lNIGROMANTE &fProgreso: &e%{_kills}%/%{_required}%" to {_player}
+    
+    if {_kills} >= {_required}:
+        set {slayer::necromancer::kills::%{_uuid}%} to 0
+        set {slayer::necromancer::activo::%{_uuid}%} to false
+        
+        # Spawnea el jefe desde la consola en la ubicación del jugador
+        set {_world} to world of {_player}
+        set {_x} to x coord of {_player}
+        set {_y} to y coord of {_player}
+        set {_z} to z coord of {_player}
+        execute console command "mm m spawn Nigromante%{_tier}% %{_world}% %{_x}% %{_y}% %{_z}%"
+        
+        send title "&f&l¡MISIÓN COMPLETADA!" with subtitle "&eEl Nigromante ha sido invocado..." to {_player} for 3 seconds
+        send "{@prefix} &f¡Has completado la misión del Nigromante Tier %{_tier}%! El jefe ha aparecido." to {_player}
+        play sound "entity.wither.spawn" with volume 1 and pitch 0.8 to {_player}
+
+# ============================================
+# MADRE ARAÑA - ARAÑAS
+# ============================================
+on death of spider:
+    set {_killer} to attacker
+    if {_killer} is not a player:
+        stop
+    set {_player} to {_killer}
+    set {_uuid} to uuid of {_player}
+    
+    if {slayer::spider::activo::%{_uuid}%} is not true:
+        stop
+    
+    set {_tier} to {slayer::spider::tier::%{_uuid}%}
+    set {_required} to {slayer::spider::required::%{_uuid}%}
+    
+    add 1 to {slayer::spider::kills::%{_uuid}%}
+    set {_kills} to {slayer::spider::kills::%{_uuid}%}
+    
+    # Mensaje cada 10 kills
+    if "%{_kills}%" ends with "0":
+        send "{@prefix} &a&lMADRE ARAÑA &fProgreso: &e%{_kills}%/%{_required}%" to {_player}
+    
+    if {_kills} >= {_required}:
+        set {slayer::spider::kills::%{_uuid}%} to 0
+        set {slayer::spider::activo::%{_uuid}%} to false
+        
+        # Spawnea el jefe desde la consola en la ubicación del jugador
+        set {_world} to world of {_player}
+        set {_x} to x coord of {_player}
+        set {_y} to y coord of {_player}
+        set {_z} to z coord of {_player}
+        execute console command "mm m spawn MadreArana%{_tier}% %{_world}% %{_x}% %{_y}% %{_z}%"
+        
+        send title "&a&l¡MISIÓN COMPLETADA!" with subtitle "&eLa Madre Araña ha sido invocada..." to {_player} for 3 seconds
+        send "{@prefix} &a¡Has completado la misión de la Madre Araña Tier %{_tier}%! El jefe ha aparecido." to {_player}
+        play sound "entity.wither.spawn" with volume 1 and pitch 0.8 to {_player}
+
+# ============================================
+# COMANDO: VER PROGRESO
+# ============================================
+command /slayerstats:
+    trigger:
+        set {_uuid} to uuid of player
+        send "&6&l=== ESTADÍSTICAS DE MISIONES ===" to player
+        send "&cMonarquía Renacida: &f{slayer::revenant::kills::%{_uuid}%} kills (Tier: {slayer::revenant::tier::%{_uuid}%}, Activo: {slayer::revenant::activo::%{_uuid}%})" to player
+        send "&fNigromante: &f{slayer::necromancer::kills::%{_uuid}%} kills (Tier: {slayer::necromancer::tier::%{_uuid}%}, Activo: {slayer::necromancer::activo::%{_uuid}%})" to player
+        send "&aMadre Araña: &f{slayer::spider::kills::%{_uuid}%} kills (Tier: {slayer::spider::tier::%{_uuid}%}, Activo: {slayer::spider::activo::%{_uuid}%})" to player
+
+# ============================================
+# COMANDO: RESETAR PROGRESO (ADMIN)
+# ============================================
+command /resetslayer <text>:
+    permission: op
+    trigger:
+        set {_categoria} to arg 1
+        set {_uuid} to uuid of player
+        
+        if {_categoria} is "revenant":
+            set {slayer::revenant::kills::%{_uuid}%} to 0
+            set {slayer::revenant::activo::%{_uuid}%} to false
+            send "&aProgreso de Monarquía Renacida reseteado." to player
+        else if {_categoria} is "necromancer":
+            set {slayer::necromancer::kills::%{_uuid}%} to 0
+            set {slayer::necromancer::activo::%{_uuid}%} to false
+            send "&aProgreso de Nigromante reseteado." to player
+        else if {_categoria} is "spider":
+            set {slayer::spider::kills::%{_uuid}%} to 0
+            set {slayer::spider::activo::%{_uuid}%} to false
+            send "&aProgreso de Madre Araña reseteado." to player
+        else:
+            send "&cCategoría inválida. Usa: revenant, necromancer, spider" to player

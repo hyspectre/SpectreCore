@@ -1,0 +1,13 @@
+# SpectreCore: configura este sistema dentro de su módulo.
+multiplicadores:
+  HYDEV_DRACO_AGOTADO: 1.5
+  HYDEV_ENT_CORTEZA: 0.65
+  HYDEV_CABA_VULNERABLE: 1.25
+  HYDEV_MINO_VULNERABLE: 1.25
+  HYDEV_MINO_SHIELD: 0.2
+robo-vitalidad:
+  umbral-hp: 200
+
+bloqueos:
+  HYDEV_MINO_LOCK70: 0.70
+  HYDEV_MINO_LOCK35: 0.35

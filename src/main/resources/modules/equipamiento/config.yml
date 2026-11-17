@@ -1,0 +1,136 @@
+engine:
+  visual-update-ticks: 2
+  combat:
+    hostile-scoreboard-tags:
+    - HYDEV_HOSTILE
+    require-line-of-sight: true
+  visuals:
+    view-range: 0.75
+skills:
+  botania:
+    enabled: true
+    armor:
+      type: ARMOR
+      helmet: VERDANA_ARMOR_1
+      chestplate: VERDANA_ARMOR_2
+      leggings: VERDANA_ARMOR_3
+      boots: VERDANA_ARMOR_4
+    hits-required: 4
+    hit-window-ticks: 60
+    cooldown-seconds: 30
+    duration-seconds: 8
+    lash-count: 4
+    lash-first-delay-ticks: 20
+    lash-interval-ticks: 24
+    lash-range: 7.0
+    lash-damage: 3.0
+    slowness-ticks: 30
+    show-permanent-buds: true
+  necrotica:
+    enabled: true
+    armor:
+      type: ARMOR
+      helmet: NECROTICO_1
+      chestplate: NECROTICO_2
+      leggings: NECROTICO_3
+      boots: NECROTICO_4
+    activation: HOSTILE_DAMAGE_RECEIVED
+    cooldown-seconds: 45
+    duration-seconds: 30
+    summoning-ticks: 16
+    skulls: 3
+    shots-per-skull: 3
+    fire-interval-ticks: 60
+    fire-first-delay-ticks: 60
+    range: 8.0
+    damage-per-shot: 5.0
+    projectile-travel-ticks: 8
+    skull-scale: 0.4
+    orbit-radius: 1.1
+    pvp: false
+  asterion:
+    enabled: true
+    armor:
+      type: ARMOR
+      helmet: MINOTAURO_ARMOR_1
+      chestplate: MINOTAURO_ARMOR_2
+      leggings: MINOTAURO_ARMOR_3
+      boots: MINOTAURO_ARMOR_4
+    fury-on-hit: 12
+    fury-on-damage: 6
+    fury-decay-delay-ticks: 400
+    fury-decay-every-ticks: 10
+    double-shift-window-ticks: 9
+    duration-seconds: 10
+    cooldown-seconds: 50
+    combo-gap-ticks: 50
+    damage-per-stack: 0.03
+    max-combo-stacks: 4
+    passive-knockback-resistance: 0.1
+    show-fury-actionbar: true
+  ultimo-juramento:
+    enabled: true
+    armor:
+      type: ARMOR
+      helmet: CABALLERO_ARMOR_1
+      chestplate: CABALLERO_ARMOR_2
+      leggings: CABALLERO_ARMOR_3
+      boots: CABALLERO_ARMOR_4
+    weapon:
+      type: SWORD
+      id: JURAMENTO_PROFANADO
+    double-shift-window-ticks: 9
+    duration-seconds: 7
+    maximum-duration-seconds: 10
+    extension-per-hit-ticks: 12
+    cooldown-seconds: 40
+    melee-damage-bonus: 0.15
+    speed-bonus: 0.2
+    damage-taken-increase: 0.2
+    blink-next-hit-bonus: 0.1
+    blink-next-hit-window-ticks: 50
+    blink-max-range: 18.0
+  sangre-primer-dragon:
+    enabled: true
+    armor:
+      type: ARMOR
+      helmet: DRACONIDO_ARMOR_1
+      chestplate: DRACONIDO_ARMOR_2
+      leggings: DRACONIDO_ARMOR_3
+      boots: DRACONIDO_ARMOR_4
+    weapon:
+      type: SWORD
+      id: DRAGON
+    cooldown-seconds: 45
+    duration-seconds: 10
+    weapon-duration-bonus-seconds: 2
+    melee-hits-to-activate: 2
+    melee-hit-window-ticks: 60
+    heal-on-activation: 4.0
+    passive-damage-bonus: 0.03
+    passive-damage-reduction: 0.03
+    active-damage-bonus: 0.06
+    active-damage-reduction: 0.06
+    speed-bonus: 0.06
+    dragon-animation-ticks: 32
+libro:
+  enabled: true
+  conjuntos:
+    botania: HYDEV_RAIGAMBRE
+    necrotica: NECROTICO
+    asterion: HYDEV_LABERINTO
+    ultimo-juramento: HYDEV_VOTO
+    sangre-primer-dragon: HYDEV_IGNEA
+  colores:
+    botania: 5471547
+    necrotica: 6836371
+    asterion: 10639157
+    ultimo-juramento: 7304326
+    sangre-primer-dragon: 11156009
+pasivos:
+  piezas: 2
+  laberinto-vida: 6.0
+  voto-velocidad: 0.04
+  dragon-vida: 4.0
+  dragon-velocidad: 0.02
+furia-maxima: 100

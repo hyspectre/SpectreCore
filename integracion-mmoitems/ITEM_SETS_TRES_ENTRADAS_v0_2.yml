@@ -1,0 +1,37 @@
+# Solo REEMPLAZAR las entradas con estos tres IDs dentro de item-sets.yml.
+# No reemplazar el archivo global ni duplicar IDs.
+# La rama v0.2 de SpectreSkills administra VIDA/VELOCIDAD del bonus (2),
+# dano/mitigacion permanentes del Dragon (4) y habilidades (4).
+# MMOItems administra ÚNICAMENTE criticos pasivos de Voto (2) y Laberinto (5).
+# PRELIMINAR: probar el conteo (5) del arma en su versión real de MMOItems.
+
+HYDEV_IGNEA:
+  name: '&6Herencia Dracónica'
+  bonuses: {}
+  lore-tag:
+  - '&6✦ ʜᴇʀᴇɴᴄɪᴀ ᴅʀᴀᴄóɴɪᴄᴀ'
+  - '&e (2) &f+4 HP y +2% velocidad (SpectreSkills)'
+  - '&e (4) &fSangre del Primer Dragón; +3% daño y defensa (SpectreSkills)'
+  - '&e (5) &f+2 s de bendición con Dracoreliquia (SpectreSkills)'
+
+HYDEV_VOTO:
+  name: '&7Voto del Deshonrado'
+  bonuses:
+    '2':
+      critical-strike-chance: 8
+  lore-tag:
+  - '&7✦ ᴠᴏᴛᴏ ᴅᴇʟ ᴅᴇsʜᴏɴʀᴀᴅᴏ'
+  - '&e (2) &f+4% velocidad (SpectreSkills) y +8% crit (MMOItems)'
+  - '&e (4) &fÚltimo Juramento (SpectreSkills)'
+  - '&e (5) &fRéplica de Blink, próximo golpe +10% (SpectreSkills)'
+
+HYDEV_LABERINTO:
+  name: '&6Sangre del Laberinto'
+  bonuses:
+    '5':
+      critical-strike-chance: 5
+  lore-tag:
+  - '&6✦ sᴀɴɢʀᴇ ᴅᴇʟ ʟᴀʙᴇʀɪɴᴛᴏ'
+  - '&e (2) &f+6 HP (SpectreSkills)'
+  - '&e (4) &fAsterión y ligera resistencia al empuje (SpectreSkills)'
+  - '&e (5) &f+5% crítico con Hendedora (MMOItems)'

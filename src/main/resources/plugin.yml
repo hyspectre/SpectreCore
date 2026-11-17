@@ -1,0 +1,103 @@
+name: SpectreCore
+version: 0.7.3-m3-alpha
+main: dev.hydev.spectrecore.SpectreCorePlugin
+api-version: 1.21.10
+author: Hydev
+softdepend:
+- Vault
+- MMOItems
+- MythicLib
+- ItemsAdder
+- AuraSkills
+- FancyNPCs
+- FancyHolograms
+- zMenu
+- WorldGuard
+- LuckPerms
+- Essentials
+- FastAsyncWorldEdit
+- MythicMobs
+- SpectreSkills
+- SpectreCooking
+- HydevBotania
+description: Nucleo modular RPG de Hydev (habilidades legendarias + cocina arcana)
+commands:
+  mago:
+    description: Centro de conocimiento de Hydev
+    usage: /mago [seccion]
+  spectrecore:
+    description: Sistemas RPG y administración de Hydev
+    usage: /spectrecore ayuda
+permissions:
+  trabajo.minero.novato:
+    default: false
+  trabajo.minero.experimentado:
+    default: false
+  trabajo.minero.profesional:
+    default: false
+  trabajo.granjero.novato:
+    default: false
+  trabajo.granjero.experimentado:
+    default: false
+  trabajo.granjero.profesional:
+    default: false
+  trabajo.cazador.novato:
+    default: false
+  trabajo.cazador.experimentado:
+    default: false
+  trabajo.cazador.profesional:
+    default: false
+  slayer.revenant.tier1:
+    default: false
+  slayer.revenant.tier2:
+    default: false
+  slayer.revenant.tier3:
+    default: false
+  slayer.necromancer.tier1:
+    default: false
+  slayer.necromancer.tier2:
+    default: false
+  slayer.necromancer.tier3:
+    default: false
+  slayer.spider.tier1:
+    default: false
+  slayer.spider.tier2:
+    default: false
+  slayer.spider.tier3:
+    default: false
+  spectrecore.activities.admin:
+    default: op
+    description: Actividades y recompensas administrativas
+  tesoros.agricultura.tier1:
+    default: false
+  tesoros.agricultura.tier2:
+    default: false
+  tesoros.agricultura.tier3:
+    default: false
+  tesoros.combate.tier1:
+    default: false
+  tesoros.combate.tier2:
+    default: false
+  tesoros.combate.tier3:
+    default: false
+  hydev.admin:
+    default: op
+    description: Inspeccion y diagnostico de Hydev
+  tesoros.mineria.tier1:
+    default: false
+  tesoros.mineria.tier2:
+    default: false
+  tesoros.mineria.tier3:
+    default: false
+  spectrecore.admin:
+    default: op
+    description: Administracion general del motor RPG
+  spectrecore.cooking.admin:
+    default: op
+    description: Creacion y administracion de estaciones de cocina
+  hydev.cocina.admin:
+    default: op
+    description: Permiso antiguo mantenido por compatibilidad
+  spectreskills.admin:
+    default: op
+    description: Permiso antiguo mantenido por compatibilidad

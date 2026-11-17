@@ -1,0 +1,62 @@
+# SpectreCore: configura este sistema dentro de su módulo.
+recetas:
+  guardian:
+    pista: Una cosecha de tierra y el vigor de una bestia.
+    nombre: Guiso del Guardián
+    ingredientes:
+    - POTATO
+    - COOKED_BEEF
+    - BROWN_MUSHROOM
+    revolver-desde: 8
+    revolver-hasta: 14
+    listo-desde: 18
+    listo-hasta: 23
+    quemado: 30
+    resultado-normal: HC_GUARDIAN_NORMAL
+    resultado-exquisito: HC_GUARDIAN_EXQUISITO
+    resultado-pasado: HC_GUARDIAN_PASADO
+  alba:
+    pista: El amanecer favorece los ingredientes dorados.
+    nombre: Caldo del Alba
+    ingredientes:
+    - CARROT
+    - WHEAT
+    - GOLDEN_CARROT
+    revolver-desde: 5
+    revolver-hasta: 10
+    listo-desde: 12
+    listo-hasta: 18
+    quemado: 25
+    resultado-normal: HC_ALBA_NORMAL
+    resultado-exquisito: HC_ALBA_EXQUISITO
+    resultado-pasado: HC_ALBA_PASADO
+  carmesi:
+    pista: Raíces rojas y un ingrediente del Nether.
+    nombre: Estofado Carmesí
+    ingredientes:
+    - BEETROOT
+    - NETHER_WART
+    - COOKED_BEEF
+    revolver-desde: 10
+    revolver-hasta: 17
+    listo-desde: 24
+    listo-hasta: 30
+    quemado: 37
+    resultado-normal: HC_CARMESI_NORMAL
+    resultado-exquisito: HC_CARMESI_EXQUISITO
+    resultado-pasado: HC_CARMESI_PASADO
+  espectral:
+    pista: El bosque, los huesos y una lágrima perdida.
+    nombre: Consomé Espectral
+    ingredientes:
+    - RED_MUSHROOM
+    - BONE_MEAL
+    - GHAST_TEAR
+    revolver-desde: 6
+    revolver-hasta: 12
+    listo-desde: 15
+    listo-hasta: 21
+    quemado: 28
+    resultado-normal: HC_ESPECTRAL_NORMAL
+    resultado-exquisito: HC_ESPECTRAL_EXQUISITO
+    resultado-pasado: HC_ESPECTRAL_PASADO

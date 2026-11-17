@@ -1,0 +1,12 @@
+# SpectreCore: configura este sistema dentro de su módulo.
+enabled: true
+probabilidades:
+  combate: {}
+botin:
+  tipo: MATERIAL
+  id: ALMA_1
+visuales:
+  activados: true
+  max-animaciones: 32
+
+cantidad: 1

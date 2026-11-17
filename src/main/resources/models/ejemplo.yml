@@ -1,0 +1,23 @@
+# /spectrecore modelo vista ejemplo (administrador). Se elimina automáticamente.
+# Para una cabeza custom, cambia base64 por el valor textures en Base64 de Minecraft.
+duration-ticks: 200
+parts:
+  - type: BLOCK_DISPLAY
+    material: MAGMA_BLOCK
+    offset: [0.0, -0.4, 0.0]
+    rotation: [0, 0, 0]
+    scale: [0.75, 0.20, 0.75]
+  - type: ITEM_DISPLAY
+    material: PLAYER_HEAD
+    base64: ''
+    offset: [0.0, 0.25, 0.0]
+    rotation: [0, 0, 0]
+    scale: [0.45, 0.45, 0.45]
+    animation:
+      mode: BOB
+      amplitude: 0.10
+      period-ticks: 40
+  - type: TEXT_DISPLAY
+    text: '<gold>✦ Ejemplo de Display Entities</gold>'
+    offset: [0.0, 1.0, 0.0]
+    scale: [0.5, 0.5, 0.5]

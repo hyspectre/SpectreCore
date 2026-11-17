@@ -1,0 +1,330 @@
+options:
+    config-file: plugins/Skript/trabajos-config.yaml
+
+on script load:
+    load yaml "{@config-file}" as "trabajosConfig"
+    send "&a[Trabajos] &7Configuración cargada correctamente." to console
+
+on place:
+    set {_loc} to location of event-block
+    set {bloque.jugador::%{_loc}%} to true
+
+function verificarCooldown(player: player, trabajo: text, nivel: text) :: boolean:
+    set {_uuid} to uuid of {_player}
+    set {_ultimoUso} to {cooldown::%{_trabajo}%::%{_uuid}%}
+    
+    if {_ultimoUso} is not set:
+        return true
+    
+    set {_cooldown} to yaml value "cooldowns.%{_trabajo}%.%{_nivel}%" from "trabajosConfig"
+    set {_ahora} to unix timestamp of now
+    set {_diferencia} to {_ahora} - {_ultimoUso}
+    
+    if {_diferencia} >= {_cooldown}:
+        return true
+    else:
+        return false
+
+function actualizarCooldown(player: player, trabajo: text):
+    set {_uuid} to uuid of {_player}
+    set {_ahora} to unix timestamp of now
+    set {cooldown::%{_trabajo}%::%{_uuid}%} to {_ahora}
+
+# ============================================
+# MINERO - ROMPER BLOQUES
+# ============================================
+on break:
+    set {_bloque} to type of event-block
+    set {_player} to player
+    set {_uuid} to uuid of {_player}
+    set {_nombre} to name of {_player}
+    set {_loc} to location of event-block
+    
+    if {bloque.jugador::%{_loc}%} is true:
+        delete {bloque.jugador::%{_loc}%}
+        stop
+    
+    if {_player} has permission "trabajo.minero.profesional":
+        set {_nivelMax} to 3
+    else if {_player} has permission "trabajo.minero.experimentado":
+        set {_nivelMax} to 2
+    else if {_player} has permission "trabajo.minero.novato":
+        set {_nivelMax} to 1
+    else:
+        stop
+    
+    set {_nivelPago} to 0
+    
+    if {_bloque} is coal ore or deepslate coal ore or copper ore or deepslate copper ore or iron ore or deepslate iron ore or gold ore or deepslate gold ore:
+        if {_nivelMax} >= 1:
+            set {_nivelPago} to 1
+    else if {_bloque} is redstone ore or deepslate redstone ore or lapis ore or deepslate lapis ore:
+        if {_nivelMax} >= 2:
+            set {_nivelPago} to 2
+    else if {_bloque} is diamond ore or deepslate diamond ore or emerald ore or deepslate emerald ore or nether gold ore or nether quartz ore:
+        if {_nivelMax} >= 3:
+            set {_nivelPago} to 3
+    
+    if {_nivelPago} is 0:
+        stop
+    
+    if {_nivelPago} is 1:
+        set {_nivelTexto} to "novato"
+    else if {_nivelPago} is 2:
+        set {_nivelTexto} to "experimentado"
+    else:
+        set {_nivelTexto} to "profesional"
+    
+    if verificarCooldown({_player}, "minero", {_nivelTexto}) is false:
+        set {_cooldown} to yaml value "cooldowns.minero.%{_nivelTexto}%" from "trabajosConfig"
+        set {_ultimoUso} to {cooldown::minero::%{_uuid}%}
+        set {_ahora} to unix timestamp of now
+        set {_restante} to {_cooldown} - ({_ahora} - {_ultimoUso})
+        
+        # Verificar si mostrar el mensaje de cooldown (cada 5 segundos)
+        set {_ultimoMsg} to {cooldown_msg::minero::%{_uuid}%}
+        set {_puedeMostrar} to false
+        
+        if {_ultimoMsg} is not set:
+            set {_puedeMostrar} to true
+        else:
+            set {_diferenciaMsg} to {_ahora} - {_ultimoMsg}
+            if {_diferenciaMsg} >= 5:
+                set {_puedeMostrar} to true
+        
+        if {_puedeMostrar} is true:
+            send action bar "&cDebes esperar &e%{_restante}%s &cantes de recibir más recompensas." to {_player}
+            set {cooldown_msg::minero::%{_uuid}%} to {_ahora}
+        stop
+    
+    actualizarCooldown({_player}, "minero")
+    
+    # Efecto visual
+    make 10 of glow at {_loc} with offset vector(0.3, 0.3, 0.3) with extra 0.5
+    
+    # Dar dinero
+    set {_min} to yaml value "minero.%{_nivelTexto}%.dinero.minimo" from "trabajosConfig"
+    set {_max} to yaml value "minero.%{_nivelTexto}%.dinero.maximo" from "trabajosConfig"
+    set {_cantidad} to random integer between {_min} and {_max}
+    
+    execute console command "eco give %{_nombre}% %{_cantidad}%"
+    
+    # Efecto de sonido
+    play sound "entity.experience_orb.pickup" with volume 0.5 and pitch 1.5 to {_player}
+    
+    set {_msg} to "&e+%{_cantidad}% &f↾"
+    send action bar {_msg} to {_player}
+
+# ============================================
+# GRANJERO - COSECHAR CULTIVOS
+# ============================================
+on break:
+    set {_bloque} to type of event-block
+    set {_player} to player
+    set {_uuid} to uuid of {_player}
+    set {_nombre} to name of {_player}
+    set {_loc} to location of event-block
+    
+    if {bloque.jugador::%{_loc}%} is true:
+        delete {bloque.jugador::%{_loc}%}
+        stop
+    
+    if {_player} has permission "trabajo.granjero.profesional":
+        set {_nivelMax} to 3
+    else if {_player} has permission "trabajo.granjero.experimentado":
+        set {_nivelMax} to 2
+    else if {_player} has permission "trabajo.granjero.novato":
+        set {_nivelMax} to 1
+    else:
+        stop
+    
+    set {_nivelPago} to 0
+    
+    if {_bloque} is wheat or carrots or potatoes or beetroots:
+        if {_nivelMax} >= 1:
+            set {_nivelPago} to 1
+    else if {_bloque} is pumpkin or melon or sugar cane or cocoa:
+        if {_nivelMax} >= 2:
+            set {_nivelPago} to 2
+    else if {_bloque} is nether wart or glow berries or sweet berries:
+        if {_nivelMax} >= 3:
+            set {_nivelPago} to 3
+    
+    if {_nivelPago} is 0:
+        stop
+    
+    if {_nivelPago} is 1:
+        set {_nivelTexto} to "novato"
+    else if {_nivelPago} is 2:
+        set {_nivelTexto} to "experimentado"
+    else:
+        set {_nivelTexto} to "profesional"
+    
+    if verificarCooldown({_player}, "granjero", {_nivelTexto}) is false:
+        set {_cooldown} to yaml value "cooldowns.granjero.%{_nivelTexto}%" from "trabajosConfig"
+        set {_ultimoUso} to {cooldown::granjero::%{_uuid}%}
+        set {_ahora} to unix timestamp of now
+        set {_restante} to {_cooldown} - ({_ahora} - {_ultimoUso})
+        
+        # Verificar si mostrar el mensaje de cooldown (cada 5 segundos)
+        set {_ultimoMsg} to {cooldown_msg::granjero::%{_uuid}%}
+        set {_puedeMostrar} to false
+        
+        if {_ultimoMsg} is not set:
+            set {_puedeMostrar} to true
+        else:
+            set {_diferenciaMsg} to {_ahora} - {_ultimoMsg}
+            if {_diferenciaMsg} >= 5:
+                set {_puedeMostrar} to true
+        
+        if {_puedeMostrar} is true:
+            send action bar "&cDebes esperar &e%{_restante}%s &cantes de recibir más recompensas." to {_player}
+            set {cooldown_msg::granjero::%{_uuid}%} to {_ahora}
+        stop
+    
+    actualizarCooldown({_player}, "granjero")
+    
+    # Efecto visual
+    make 10 of glow at {_loc} with offset vector(0.3, 0.3, 0.3) with extra 0.5
+    
+    # Dar dinero
+    set {_min} to yaml value "granjero.%{_nivelTexto}%.dinero.minimo" from "trabajosConfig"
+    set {_max} to yaml value "granjero.%{_nivelTexto}%.dinero.maximo" from "trabajosConfig"
+    set {_cantidad} to random integer between {_min} and {_max}
+    
+    execute console command "eco give %{_nombre}% %{_cantidad}%"
+    
+    # Efecto de sonido
+    play sound "entity.experience_orb.pickup" with volume 0.5 and pitch 1.5 to {_player}
+    
+    set {_msg} to "&e+%{_cantidad}% &f↾"
+    send action bar {_msg} to {_player}
+
+# ============================================
+# CAZADOR - MATAR MOBS
+# ============================================
+on death:
+    set {_victim} to victim
+    set {_killer} to attacker
+    
+    if {_killer} is not a player:
+        stop
+    
+    set {_player} to {_killer}
+    set {_uuid} to uuid of {_player}
+    set {_nombre} to name of {_player}
+    
+    if {_player} has permission "trabajo.cazador.profesional":
+        set {_nivelMax} to 3
+    else if {_player} has permission "trabajo.cazador.experimentado":
+        set {_nivelMax} to 2
+    else if {_player} has permission "trabajo.cazador.novato":
+        set {_nivelMax} to 1
+    else:
+        stop
+    
+    set {_nivelPago} to 0
+    set {_tipoMob} to type of {_victim}
+    
+    if {_tipoMob} is zombie or skeleton or spider or creeper or slime:
+        if {_nivelMax} >= 1:
+            set {_nivelPago} to 1
+    else if {_tipoMob} is witch or enderman or blaze or guardian or phantom:
+        if {_nivelMax} >= 2:
+            set {_nivelPago} to 2
+    else if {_tipoMob} is wither skeleton or evoker or vindicator or warden:
+        if {_nivelMax} >= 3:
+            set {_nivelPago} to 3
+    
+    if {_nivelPago} is 0:
+        stop
+    
+    if {_nivelPago} is 1:
+        set {_nivelTexto} to "novato"
+    else if {_nivelPago} is 2:
+        set {_nivelTexto} to "experimentado"
+    else:
+        set {_nivelTexto} to "profesional"
+    
+    set {_locMob} to location of {_victim}
+    
+    if verificarCooldown({_player}, "cazador", {_nivelTexto}) is false:
+        set {_cooldown} to yaml value "cooldowns.cazador.%{_nivelTexto}%" from "trabajosConfig"
+        set {_ultimoUso} to {cooldown::cazador::%{_uuid}%}
+        set {_ahora} to unix timestamp of now
+        set {_restante} to {_cooldown} - ({_ahora} - {_ultimoUso})
+        
+        # Verificar si mostrar el mensaje de cooldown (cada 5 segundos)
+        set {_ultimoMsg} to {cooldown_msg::cazador::%{_uuid}%}
+        set {_puedeMostrar} to false
+        
+        if {_ultimoMsg} is not set:
+            set {_puedeMostrar} to true
+        else:
+            set {_diferenciaMsg} to {_ahora} - {_ultimoMsg}
+            if {_diferenciaMsg} >= 5:
+                set {_puedeMostrar} to true
+        
+        if {_puedeMostrar} is true:
+            send action bar "&cDebes esperar &e%{_restante}%s &cantes de recibir más recompensas." to {_player}
+            set {cooldown_msg::cazador::%{_uuid}%} to {_ahora}
+        stop
+    
+    actualizarCooldown({_player}, "cazador")
+    
+    # Efecto visual
+    make 10 of glow at {_locMob} with offset vector(0.3, 0.3, 0.3) with extra 0.5
+    
+    # Dar dinero
+    set {_min} to yaml value "cazador.%{_nivelTexto}%.dinero.minimo" from "trabajosConfig"
+    set {_max} to yaml value "cazador.%{_nivelTexto}%.dinero.maximo" from "trabajosConfig"
+    set {_cantidad} to random integer between {_min} and {_max}
+    
+    execute console command "eco give %{_nombre}% %{_cantidad}%"
+    
+    # Efecto de sonido
+    play sound "entity.experience_orb.pickup" with volume 0.5 and pitch 1.5 to {_player}
+    
+    set {_msg} to "&e+%{_cantidad}% &f"
+    send action bar {_msg} to {_player}
+
+# ============================================
+# COMANDO: VER TRABAJO ACTUAL
+# ============================================
+command /trabajo:
+    trigger:
+        set {_player} to player
+        
+        send "&6" to {_player}
+        send "&6 - &lɴɪᴠᴇʟᴇs ᴅᴇ ᴛʀᴀʙᴀᴊᴏ &r&6-" to {_player}
+        send "&6" to {_player}
+        
+        if {_player} has permission "trabajo.minero.profesional":
+            send "&7▪ &fMinero &eProfesional" to {_player}
+        else if {_player} has permission "trabajo.minero.experimentado":
+            send "&7▪ &fMinero &eExperimentado" to {_player}
+        else if {_player} has permission "trabajo.minero.novato":
+            send "&7▪ &fMinero &eNovato" to {_player}
+        else:
+            send "&7▪ &fMinero &cNo disponible" to {_player}
+        
+        if {_player} has permission "trabajo.granjero.profesional":
+            send "&7▪ &fGranjero &eProfesional" to {_player}
+        else if {_player} has permission "trabajo.granjero.experimentado":
+            send "&7▪ &fGranjero &eExperimentado" to {_player}
+        else if {_player} has permission "trabajo.granjero.novato":
+            send "&7▪ &fGranjero &eNovato" to {_player}
+        else:
+            send "&7▪ &fGranjero &cNo disponible" to {_player}
+        
+        if {_player} has permission "trabajo.cazador.profesional":
+            send "&7▪ &fCazador &eProfesional" to {_player}
+        else if {_player} has permission "trabajo.cazador.experimentado":
+            send "&7▪ &fCazador &eExperimentado" to {_player}
+        else if {_player} has permission "trabajo.cazador.novato":
+            send "&7▪ &fCazador &eNovato" to {_player}
+        else:
+            send "&7▪ &fCazador &cNo disponible" to {_player}
+        send "&6" to {_player}
+        send "&fMejora tu nivel de trabajo firmando &6&lᴄᴏɴᴛʀᴀᴛᴏs&r." to {_player}
+        send "&6" to {_player}

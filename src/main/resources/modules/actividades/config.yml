@@ -1,0 +1,95 @@
+cygnus:
+  enabled: true
+  mover-al-entrar: true
+  movimientos:
+  - npc move_to Cygnus 128.58 122 80.84 hydevspawn
+  - npc move_to Cygnus 32.57 118.06 90.4 hydevspawn
+  - npc move_to Cygnus 181.88 122.06 -31.71 hydevspawn
+  - npc move_to Cygnus 105.4 121 -96.47 hydevspawn
+  - npc move_to Cygnus 21.66 118 -97.48 hydevspawn
+  - npc move_to Cygnus 79.33 124 74.63 hydevspawn
+  - npc move_to Cygnus 101.44 124 96.65 hydevspawn
+  probabilidad-fuga: 30
+  ofertas:
+    rompemuelas:
+      tipo: SWORD
+      id: ROMPEMUELAS
+    taladroroto:
+      tipo: TOOL
+      id: TALADRO
+    furiaestelar:
+      tipo: SWORD
+      id: FURIA_ESTELAR
+    capuchaencogedora:
+      tipo: ARMOR
+      id: CAPUCHA
+    slimehechizado:
+      tipo: ARMOR
+      id: BOTASSLIME
+    compactador:
+      tipo: MATERIAL
+      id: COMPACTADOR
+    golemcobre:
+      tipo: ARMOR
+      id: COPPERGOLEM
+entrada:
+  enabled: true
+  nivel-resistencia: 100
+  duracion-segundos: 30
+visuales:
+  activados: true
+  max-animaciones: 32
+cofre:
+  raros: [DIAMOND_ORE, EMERALD_ORE]
+  nombres:
+    COAL_ORE: "COAL_ORE"
+    IRON_ORE: "IRON_ORE"
+    COPPER_ORE: "COPPER_ORE"
+    GOLD_ORE: "GOLD_ORE"
+    REDSTONE_ORE: "Redstone"
+    LAPIS_ORE: "Lapislázuli"
+    DIAMOND_ORE: "¡DIAMANTE!"
+    EMERALD_ORE: "¡ESMERALDA!"
+  enabled: true
+  apertura-ticks: 60
+  premios:
+    COAL_ORE: 35
+    IRON_ORE: 25
+    COPPER_ORE: 20
+    GOLD_ORE: 10
+    REDSTONE_ORE: 5
+    LAPIS_ORE: 3
+    DIAMOND_ORE: 1
+    EMERALD_ORE: 1
+polvos:
+  enabled: true
+  comandos:
+    polvodiamante:
+      minimo: 70
+      maximo: 200
+    polvohierro:
+      minimo: 20
+      maximo: 40
+    polvooro:
+      minimo: 40
+      maximo: 70
+    polvocobre:
+      minimo: 5
+      maximo: 20
+    polvolapis:
+      minimo: 20
+      maximo: 60
+    polvoredstone:
+      minimo: 20
+      maximo: 50
+desbloqueos:
+  enabled: true
+  comandos:
+    almas1: tesoros.combate.tier1
+    mineria1: tesoros.mineria.tier1
+    slayerzombie1: slayer.revenant.tier1
+    slayerzombie2: slayer.revenant.tier2
+    slayerzombie3: slayer.revenant.tier3
+telefono:
+  enabled: true
+  comando: zmenu open zmenu:slayers {player}

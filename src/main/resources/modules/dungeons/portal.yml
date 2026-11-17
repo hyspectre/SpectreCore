@@ -1,0 +1,14 @@
+# SpectreCore: configura este sistema dentro de su módulo.
+radio-participantes: 64
+tiempo-dentro-segundos: 5
+duracion-segundos: 900
+salida:
+  comando: dungeons end {player} --success
+  confirmacion-segundos: 10
+visuales:
+  max-portales: 16
+
+zona-extraccion:
+  radio-horizontal: 1.75
+  altura-inferior: -2.0
+  altura-superior: 4.5

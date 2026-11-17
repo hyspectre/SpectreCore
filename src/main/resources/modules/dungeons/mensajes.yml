@@ -1,0 +1,29 @@
+PortalModule:
+  mensaje-001: Este callback es solo de consola.
+  mensaje-002: 'Uso: /{command} <jugador>{valor2}'
+  mensaje-003: Jugador no conectado.
+  mensaje-004: Identificador de sesión vacío o sin resolver.
+  mensaje-005: 'Portal JOIN: {p-getname} | {session}'
+  mensaje-006: Sin permiso.
+  mensaje-007: Portales retirados.
+  mensaje-008: Indica un jugador conectado.
+  mensaje-009: Límite de portales alcanzado.
+  mensaje-010: '§7Vista previa por 15 s: no finaliza ninguna expedición.'
+  mensaje-011: 'Sesión: {sessions-get-id} | Portal: {eligible-get-id}'
+  mensaje-012: 'Inicio: {since-get-id} | Pendiente hasta: {pending-get-id}'
+  mensaje-013: 'Dentro: {inside-p-g} | Restantes: {g-members-size} | Expira en {valor3} s'
+  mensaje-014: Minotauro muerto sin sesiones registradas. Configura callbacks /spectrecore portal registrar y /spectrecore portal salir en Dungeons+.
+  mensaje-015: §6✦ EL MINOTAURO HA CAÍDO ✦
+  mensaje-016: §7Recoge tu cofre y permanece {valor1} segundos dentro del arco para salir.
+  mensaje-017: §cNo se confirmó tu salida. Puedes reintentar; revisa Dungeons+ con administración.
+  mensaje-018: Salida en {valor1} s · Permanece en el arco
+  mensaje-019: §cEl comando de salida no está configurado. Avisa a administración.
+  mensaje-020: '{valor1}'
+  texto-001: Finalizando tu expedición...
+  texto-002: Dungeons+ rechazó el comando de salida
+  mensaje-021: 'Falló salida de portal: {e-getmessage}'
+  mensaje-022: '{valor1}{valor2} segundos'
+  texto-003: Portal · Vista previa
+  texto-004: 'Salida de la Cripta
+
+    Permanece '

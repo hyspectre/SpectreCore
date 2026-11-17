@@ -1,0 +1,517 @@
+
+# =====================================================
+# HYDEV PORTAL DINAMICO v2.1
+# Minecraft 1.21.11 | Skript 2.16+
+# MythicMobs + Dungeons+ (FearfulDenizen)
+#
+# - Detecta la muerte del Minotauro por scoreboard tag.
+# - Construye un portal 5x5 donde muere el jefe.
+# - No reemplaza bloques existentes.
+# - Espera 5 segundos dentro del portal.
+# - Intenta finalizar la sesion mediante Dungeons+.
+# - Limpia los bloques colocados.
+# - Registra errores y eventos en consola.
+#
+# Los cofres personales los gestiona MythicMobs.
+# =====================================================
+
+options:
+    radio-participantes: 64
+    tiempo-dentro: 5 seconds
+    duracion-portal: 15 minutes
+
+# =====================================================
+# FUNCIONES
+# =====================================================
+
+
+# HYDEV PORTAL v2.2 - Deteccion corregida
+
+function hp_inside(p: player, id: text) :: boolean:
+    set {_c} to {hp::center::%{_id}%}
+
+    if {_c} is not set:
+        return false
+
+    if world of {_p} is not world of {_c}:
+        return false
+
+    set {_x} to abs(x-coordinate of {_p} - x-coordinate of {_c})
+    set {_z} to abs(z-coordinate of {_p} - z-coordinate of {_c})
+    set {_y} to y-coordinate of {_p} - y-coordinate of {_c}
+
+    # Area ampliada para pruebas.
+    # El arco tiene 5 bloques de ancho y 5 de alto.
+
+    if {_x} <= 1.75:
+        if {_z} <= 1.75:
+            if {_y} >= -2:
+                if {_y} <= 4.5:
+                    return true
+
+    return false
+
+
+function hp_clear(id: text):
+    loop {hp::blocks::%{_id}%::*}:
+        set {_loc} to loop-value
+        set {_expected} to {hp::placed::%{_id}%::%loop-index%}
+
+        if {_expected} is set:
+            if type of block at {_loc} is {_expected}:
+                set block at {_loc} to air
+
+    loop {hp::eligible::*}:
+        if loop-value is {_id}:
+            delete {hp::since::%loop-index%}
+            delete {hp::pending::%loop-index%}
+            delete {hp::eligible::%loop-index%}
+
+    delete {hp::blocks::%{_id}%::*}
+    delete {hp::placed::%{_id}%::*}
+    delete {hp::center::%{_id}%}
+    delete {hp::created::%{_id}%}
+    delete {hp::session::%{_id}%}
+
+    send "[HydevPortal] Portal limpiado: %{_id}%" to console
+
+
+function hp_reset(p: player):
+    set {_u} to uuid of {_p}
+    set {_id} to {hp::eligible::%{_u}%}
+
+    delete {hp::eligible::%{_u}%}
+    delete {hp::since::%{_u}%}
+    delete {hp::pending::%{_u}%}
+
+    if {_id} is set:
+        set {_remaining} to false
+
+        loop {hp::eligible::*}:
+            if loop-value is {_id}:
+                set {_remaining} to true
+
+        if {_remaining} is false:
+            hp_clear({_id})
+
+
+# Comprueba si un jugador ya abandono la zona de la dungeon.
+# Solo afecta a participantes con un portal activo.
+
+
+# ==========================================
+# HYDEV - LIMPIEZA AUTOMATICA DEL PORTAL
+# ==========================================
+
+function hp_check_exit(p: player):
+    set {_u} to uuid of {_p}
+    set {_id} to {hp::eligible::%{_u}%}
+
+    if {_id} is not set:
+        stop
+
+    set {_c} to {hp::center::%{_id}%}
+
+    if {_c} is not set:
+        hp_reset({_p})
+        delete {hp::active::%{_u}%}
+        stop
+
+    # Jugador abandono el mundo de la dungeon
+    if world of {_p} is not world of {_c}:
+        hp_reset({_p})
+        delete {hp::active::%{_u}%}
+        send "[HydevPortal] %name of {_p}% abandono la instancia." to console
+        stop
+
+    # Jugador se alejo de la zona del portal
+    if distance between {_p} and {_c} > 128:
+        hp_reset({_p})
+        delete {hp::active::%{_u}%}
+        send "[HydevPortal] %name of {_p}% abandono la zona de la dungeon." to console
+        stop
+
+
+# =====================================================
+# CALLBACKS DE DUNGEONS+
+# SOLO CONSOLA
+# =====================================================
+
+command /hydevportaljoin <player> <text>:
+    executable by: console
+    trigger:
+        hp_reset(arg-1)
+
+        if arg-2 contains "<":
+            send "[HydevPortal] ERROR: identificador de sesion sin resolver." to console
+            stop
+
+        set {hp::active::%uuid of arg-1%} to arg-2
+
+        send "[HydevPortal] JOIN: %name of arg-1% | Sesion: %arg-2%" to console
+
+
+command /hydevportalleave <player>:
+    executable by: console
+    trigger:
+        hp_reset(arg-1)
+
+        delete {hp::active::%uuid of arg-1%}
+
+        send "[HydevPortal] LEAVE: %name of arg-1%" to console
+
+
+# =====================================================
+# ADMINISTRACION
+# =====================================================
+
+command /hydevportalcleanup:
+    permission: hydev.admin
+    trigger:
+        set {_ids::*} to indices of {hp::center::*}
+
+        loop {_ids::*}:
+            hp_clear(loop-value)
+
+        send "&a[HydevPortal] Portales retirados."
+
+
+
+command /hydevportalstatus:
+    permission: hydev.admin
+    trigger:
+        set {_u} to uuid of player
+        set {_id} to {hp::eligible::%{_u}%}
+
+        send "&6--- HYDEV PORTAL DEBUG ---"
+        send "&7Sesion: &e%{hp::active::%{_u}%}%"
+        send "&7Portal: &e%{_id}%"
+        send "&7Inicio: &e%{hp::since::%{_u}%}%"
+        send "&7Pendiente: &e%{hp::pending::%{_u}%}%"
+
+        if {_id} is not set:
+            stop
+
+        set {_c} to {hp::center::%{_id}%}
+
+        if {_c} is not set:
+            send "&cCentro del portal no encontrado."
+            stop
+
+        set {_dx} to abs(x-coordinate of player - x-coordinate of {_c})
+        set {_dz} to abs(z-coordinate of player - z-coordinate of {_c})
+        set {_dy} to y-coordinate of player - y-coordinate of {_c}
+
+        set {_inside} to hp_inside(player, {_id})
+
+        send "&7Distancia X: &e%{_dx}%"
+        send "&7Distancia Z: &e%{_dz}%"
+        send "&7Altura relativa: &e%{_dy}%"
+        send "&7Dentro del portal: &e%{_inside}%"
+
+
+
+# =====================================================
+# CARGA Y DESCARGA
+# =====================================================
+
+on load:
+    send "[HydevPortal v2.1] Cargando sistema..." to console
+
+    set {_ids::*} to indices of {hp::center::*}
+
+    loop {_ids::*}:
+        hp_clear(loop-value)
+
+    delete {hp::*}
+
+    send "[HydevPortal v2.1] Sistema cargado. Inicia una partida NUEVA." to console
+
+
+on unload:
+    set {_ids::*} to indices of {hp::center::*}
+
+    loop {_ids::*}:
+        hp_clear(loop-value)
+
+    delete {hp::*}
+
+
+# =====================================================
+# LIMPIEZA DE JUGADORES
+# =====================================================
+
+on quit:
+    hp_reset(player)
+    delete {hp::active::%uuid of player%}
+
+
+on death of player:
+    delete {hp::since::%uuid of victim%}
+    delete {hp::pending::%uuid of victim%}
+
+
+on teleport:
+    set {_p} to player
+    set {_u} to uuid of {_p}
+
+    delete {hp::since::%{_u}%}
+    delete {hp::pending::%{_u}%}
+
+    # Comprobar posicion despues del teletransporte.
+    wait 2 ticks
+
+    if {_p} is online:
+        hp_check_exit({_p})
+
+
+# =====================================================
+# MUERTE DEL MINOTAURO
+# =====================================================
+
+on death of piglin brute:
+
+    send "[HydevPortal] Piglin Brute muerto. Tags: %scoreboard tags of victim%" to console
+
+    if victim doesn't have scoreboard tag "HYDEV_MINO_BOSS":
+        send "[HydevPortal] Entidad ignorada: no es el Minotauro registrado." to console
+        stop
+
+    send "[HydevPortal] MINOTAURO DETECTADO." to console
+
+    set {_id} to "%uuid of victim%"
+
+    if {hp::center::%{_id}%} is set:
+        send "[HydevPortal] Portal ya existente. Se evita duplicacion." to console
+        stop
+
+    set {_death} to location of victim
+
+    # Centro del bloque donde murio el jefe.
+    set {_c} to location of block at {_death}
+    add 0.5 to x-coordinate of {_c}
+    add 0.5 to z-coordinate of {_c}
+
+    # Buscar la sesion registrada mas cercana.
+    set {_nearest} to 100000
+
+    loop all players in radius {@radio-participantes} of {_death}:
+        set {_p} to loop-player
+        set {_u} to uuid of {_p}
+
+        if {hp::active::%{_u}%} is set:
+            if gamemode of {_p} is not spectator:
+                set {_distance} to distance between {_p} and {_death}
+
+                if {_distance} < {_nearest}:
+                    set {_nearest} to {_distance}
+                    set {_session} to {hp::active::%{_u}%}
+
+    if {_session} is not set:
+        send "[HydevPortal] ERROR: no se encontro ninguna sesion cerca del Minotauro." to console
+        send "[HydevPortal] Revisa /hydevportaljoin y los callbacks de Dungeons+." to console
+        stop
+
+    send "[HydevPortal] Sesion encontrada: %{_session}%" to console
+
+    # Registrar participantes elegibles.
+    set {_n} to 0
+
+    loop all players in radius {@radio-participantes} of {_death}:
+        set {_p} to loop-player
+        set {_u} to uuid of {_p}
+
+        if {hp::active::%{_u}%} is {_session}:
+            if gamemode of {_p} is not spectator:
+                hp_reset({_p})
+                set {hp::eligible::%{_u}%} to {_id}
+                add 1 to {_n}
+
+    if {_n} is 0:
+        send "[HydevPortal] ERROR: ningun participante elegible." to console
+        stop
+
+    set {hp::center::%{_id}%} to {_c}
+    set {hp::created::%{_id}%} to now
+    set {hp::session::%{_id}%} to {_session}
+
+    send "[HydevPortal] Participantes: %{_n}%" to console
+
+    # ================================================
+    # CONSTRUCCION DEL PORTAL 5x5
+    # ================================================
+
+    set {_placedCount} to 0
+    set {_dx} to -2
+
+    while {_dx} <= 2:
+        set {_dy} to 0
+
+        while {_dy} <= 4:
+
+            set {_frame} to false
+
+            if abs({_dx}) is 2:
+                set {_frame} to true
+
+            if {_dy} is 4:
+                set {_frame} to true
+
+            if {_frame} is true:
+                set {_l} to {_c}
+                add {_dx} to x-coordinate of {_l}
+                add {_dy} to y-coordinate of {_l}
+
+                set {_occupied} to false
+
+                loop all players in radius 1.5 of {_l}:
+                    set {_occupied} to true
+
+                if block at {_l} is air:
+                    if {_occupied} is false:
+
+                        set {_material} to crying obsidian
+
+                        if {_dy} is 4:
+                            set {_material} to gold block
+
+                        if {_dy} is 2:
+                            set {_material} to sea lantern
+
+                        set block at {_l} to {_material}
+
+                        add {_l} to {hp::blocks::%{_id}%::*}
+
+                        set {_index} to size of {hp::blocks::%{_id}%::*}
+
+                        set {hp::placed::%{_id}%::%{_index}%} to {_material}
+
+                        add 1 to {_placedCount}
+
+            add 1 to {_dy}
+
+        add 1 to {_dx}
+
+    send "[HydevPortal] Bloques colocados: %{_placedCount}%/13" to console
+
+    if {_placedCount} is 0:
+        send "[HydevPortal] ADVERTENCIA: el portal no pudo colocar bloques. Revisa espacio y jugadores cercanos." to console
+
+    # ================================================
+    # NOTIFICACIONES
+    # ================================================
+
+    loop all players in radius {@radio-participantes} of {_death}:
+        set {_p} to loop-player
+
+        if {hp::eligible::%uuid of {_p}%} is {_id}:
+
+            send "&6&l✦ EL MINOTAURO HA CAIDO ✦" to {_p}
+            send "&7El portal de salida se ha abierto." to {_p}
+            send "&eRecoge tu cofre antes de abandonar la Cripta." to {_p}
+            send "&7Permanece 5 segundos dentro del arco para salir." to {_p}
+
+            play sound "block.end_portal.spawn" with volume 0.6 and pitch 1.2 at {_c} for {_p}
+
+    send "[HydevPortal] Proceso de creacion finalizado." to console
+
+
+# =====================================================
+# DETECCION DE ENTRADA AL PORTAL
+# =====================================================
+
+every 5 ticks:
+    loop all players:
+        set {_p} to loop-player
+        set {_u} to uuid of {_p}
+        set {_id} to {hp::eligible::%{_u}%}
+
+        if {_id} is not set:
+            continue
+
+        if {hp::center::%{_id}%} is not set:
+            hp_reset({_p})
+            continue
+
+        if {hp::active::%{_u}%} is not {hp::session::%{_id}%}:
+            hp_reset({_p})
+            continue
+
+        if gamemode of {_p} is spectator:
+            delete {hp::since::%{_u}%}
+            delete {hp::pending::%{_u}%}
+            continue
+
+        set {_inside} to hp_inside({_p}, {_id})
+
+        if {_inside} is false:
+            if {hp::since::%{_u}%} is set:
+                send action bar "&7Salida cancelada. Vuelve al portal." to {_p}
+
+            delete {hp::since::%{_u}%}
+            delete {hp::pending::%{_u}%}
+            continue
+
+        if {hp::pending::%{_u}%} is set:
+            continue
+
+        if {hp::since::%{_u}%} is not set:
+            set {hp::since::%{_u}%} to now
+
+        set {_elapsed} to difference between now and {hp::since::%{_u}%}
+
+        if {_elapsed} >= {@tiempo-dentro}:
+            set {hp::pending::%{_u}%} to true
+
+            send action bar "&6Finalizando tu expedicion..." to {_p}
+
+            send "[HydevPortal] Solicitando salida de %name of {_p}%." to console
+
+            # NOTA:
+            # Este comando se conserva de v2.
+            # Confirmar que Dungeons+ reconoce esta sintaxis.
+            execute console command "dungeons end %name of {_p}% --success"
+
+            continue
+
+        set {_total} to {@tiempo-dentro}
+        set {_seconds} to seconds of {_total}
+        set {_passed} to seconds of {_elapsed}
+
+        subtract {_passed} from {_seconds}
+
+        send action bar "&6Salida en &e%{_seconds}% &6segundos. Permanece en el portal." to {_p}
+
+
+# =====================================================
+# EXPIRACION AUTOMATICA
+# =====================================================
+
+every 1 second:
+    set {_ids::*} to indices of {hp::center::*}
+
+    loop {_ids::*}:
+        set {_id} to loop-value
+
+        if {hp::created::%{_id}%} is set:
+            if difference between now and {hp::created::%{_id}%} >= {@duracion-portal}:
+                hp_clear({_id})
+
+
+# =====================================================
+# PROTEGER BLOQUES DEL PORTAL
+# =====================================================
+
+on break:
+    loop {hp::center::*}:
+        set {_id} to loop-index
+
+        loop {hp::blocks::%{_id}%::*}:
+            if location of event-block is location of block at loop-value-2:
+                cancel event
+                stop
+
+
+# =====================================================
+# FIN - HYDEV PORTAL DINAMICO v2.1
+# =====================================================

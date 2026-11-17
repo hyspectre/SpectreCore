@@ -1,0 +1,13 @@
+JobsModule:
+  mensaje-001: Usa /spectrecore trabajos dentro del juego.
+  mensaje-002: §6✦ NIVELES DE TRABAJO
+  mensaje-003: '§7▪ §f{job}: {valor2}'
+  texto-001: §cDesactivado
+  texto-002: §cNo disponible
+  texto-003: §e
+  mensaje-004: §7Mejora tu nivel firmando §6contratos§7.
+  mensaje-005: Espera {remaining-999-1000} s para otra recompensa de {job}
+  mensaje-006: 'Trabajos: no se pudo pagar; revisa Vault/economía o eco. No se consume cooldown.'
+  mensaje-007: '{valor1}+{amount} ↾ · {job}'
+  texto-004: 'Pago solicitado: '
+  mensaje-008: 'Trabajos: faltan o son inválidos dinero/cooldown de {job}.{level}. Esa categoría no paga hasta configurarse.'

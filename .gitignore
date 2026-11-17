@@ -1,0 +1,32 @@
+# Java / Gradle
+.gradle/
+build/
+out/
+*.class
+*.jar
+*.war
+*.log
+
+# IDE / OS
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Local runtime and secrets (do not publish real server data)
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+*.keystore
+secrets.yml
+**/plugins/
+**/world/
+**/world_nether/
+**/world_the_end/
+**/playerdata/
+**/userdata/
+**/logs/
+**/backups/

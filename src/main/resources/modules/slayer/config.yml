@@ -1,0 +1,24 @@
+# SpectreCore: configura este sistema dentro de su módulo.
+objetivos:
+  tier1: 20
+  tier2: 50
+  tier3: 90
+categorias:
+  revenant:
+    nombre: Monarquía Renacida
+    entidad: ZOMBIE
+    mob: ReyZombie{tier}
+  necromancer:
+    nombre: Nigromante
+    entidad: SKELETON
+    mob: Nigromante{tier}
+  spider:
+    nombre: Madre Araña
+    entidad: SPIDER
+    mob: MadreArana{tier}
+
+avisos:
+  cada-bajas: 10
+invocacion:
+  reintento-milisegundos: 5000
+  nivel-mob: 1

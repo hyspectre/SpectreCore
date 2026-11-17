@@ -1,0 +1,12 @@
+cooldowns: {}
+minero:
+  enabled: true
+granjero:
+  enabled: true
+cazador:
+  enabled: true
+economia:
+  permitir-comando-eco: true
+
+avisos:
+  intervalo-cooldown-milisegundos: 5000

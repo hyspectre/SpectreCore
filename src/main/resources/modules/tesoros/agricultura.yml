@@ -1,0 +1,19 @@
+# SpectreCore: configura este sistema dentro de su módulo.
+enabled: true
+probabilidades:
+  agricultura: {}
+botin:
+  tier1: AGRICULTURA_T1
+  tier2: AGRICULTURA_T2
+  tier3: AGRICULTURA_T3
+cosecha:
+  solo-maduros: false
+  solo-supervivencia: false
+  incluir-recoleccion-bayas: true
+  excluir-calabazas-sandias-colocadas: true
+visuales:
+  activados: true
+  max-animaciones: 32
+
+tipo: CONSUMABLE
+cantidad: 1

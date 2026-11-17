@@ -1,0 +1,9 @@
+# Cambios aplicables con /spectrecore reload (algunos límites requieren reinicio de modelos activos).
+# Límites defensivos: no superar 64 piezas/modelo, 256 modelos colocados.
+limits:
+  preview-players: 4
+  parts-per-model: 24
+  placed-models: 128
+animation:
+  update-ticks: 10
+  viewer-radius: 24

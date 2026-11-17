@@ -1,0 +1,22 @@
+SlayerModule:
+  mensaje-001: 'Conserva el uso del Skript: ejecuta estos comandos como jugador.'
+  mensaje-002: §6✦ ESTADÍSTICAS DE MISIONES
+  mensaje-003: '§e{name-c}§7: §f{m-kills}/{m-required} §7| Tier {m-tier} | {valor5}'
+  texto-001: §aActiva
+  texto-002: §7Inactiva
+  mensaje-004: §cNo tienes permiso.
+  mensaje-005: '§cCategoría: revenant, necromancer o spider.'
+  mensaje-006: §cTier inválido. Usa 1, 2 o 3.
+  mensaje-007: §cYa tienes una misión activa. Complétala o cancélala.
+  mensaje-008: §cNo tienes permiso para ese tier.
+  mensaje-009: '§6MISIONES §e{name-category} · Tier {tier} · Objetivo: {m-required}'
+  mensaje-010: §cTodavía no has completado ese objetivo.
+  mensaje-011: §cNo tienes esa misión activa.
+  mensaje-012: §7Misión {name-category}{valor2}
+  mensaje-013: §6MISIONES §e{name-category} §f{m-kills}/{m-required}
+  mensaje-014: 'Slayer: no se pudo invocar {mob}: {error-getmessage}'
+  mensaje-015: §cNo se pudo invocar {mob}. Tu objetivo se conserva. Reintenta con /spectrecore slayer invocar {category}
+  mensaje-016: ¡MISIÓN COMPLETADA!
+  mensaje-017: '{name-category} ha sido invocado'
+  mensaje-018: '{name-c} · {m-kills}/{m-required}'
+  mensaje-019: 'UUID inválido en slayer-data.yml: {id}'

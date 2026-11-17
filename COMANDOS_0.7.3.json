@@ -1,0 +1,370 @@
+[
+  {
+    "ruta": "status",
+    "comando": "/spectrecore status",
+    "interno": "$core",
+    "modulo": "",
+    "acceso": "PUBLIC",
+    "descripcion": "Estado de habilidades"
+  },
+  {
+    "ruta": "modulos",
+    "comando": "/spectrecore modulos",
+    "interno": "$core",
+    "modulo": "",
+    "acceso": "PUBLIC",
+    "descripcion": "Estado de módulos"
+  },
+  {
+    "ruta": "reload",
+    "comando": "/spectrecore reload",
+    "interno": "$core",
+    "modulo": "",
+    "acceso": "ADMIN",
+    "descripcion": "Recargar configuración"
+  },
+  {
+    "ruta": "reset",
+    "comando": "/spectrecore reset",
+    "interno": "$core",
+    "modulo": "equipamiento",
+    "acceso": "ADMIN",
+    "descripcion": "Reiniciar tus habilidades y recargas"
+  },
+  {
+    "ruta": "demo",
+    "comando": "/spectrecore demo <habilidad>",
+    "interno": "$core",
+    "modulo": "equipamiento",
+    "acceso": "ADMIN",
+    "descripcion": "Alternar una habilidad de prueba"
+  },
+  {
+    "ruta": "blink",
+    "comando": "/spectrecore blink <jugador>",
+    "interno": "$core",
+    "modulo": "equipamiento.ultimo-juramento",
+    "acceso": "CONSOLE",
+    "descripcion": "Notificar un Blink confirmado"
+  },
+  {
+    "ruta": "armaduras",
+    "comando": "/spectrecore armaduras",
+    "interno": "armaduras",
+    "modulo": "equipamiento.libro",
+    "acceso": "PUBLIC",
+    "descripcion": "Libro de armaduras"
+  },
+  {
+    "ruta": "cocina",
+    "comando": "/spectrecore cocina <ayuda|libro|recetas|estado|reparar|recargar>",
+    "interno": "cocina",
+    "modulo": "cocina",
+    "acceso": "PUBLIC",
+    "descripcion": "Cocina y recetario"
+  },
+  {
+    "ruta": "trabajos",
+    "comando": "/spectrecore trabajos",
+    "interno": "trabajo",
+    "modulo": "trabajos",
+    "acceso": "PUBLIC",
+    "descripcion": "Niveles de trabajos"
+  },
+  {
+    "ruta": "resonancia",
+    "comando": "/spectrecore resonancia",
+    "interno": "resonancia",
+    "modulo": "resonancia",
+    "acceso": "PUBLIC",
+    "descripcion": "Carga del Pico Perdido"
+  },
+  {
+    "ruta": "resonancia debug",
+    "comando": "/spectrecore resonancia debug",
+    "interno": "debugresonancia",
+    "modulo": "resonancia",
+    "acceso": "HYDEV_ADMIN",
+    "descripcion": "Diagnóstico de resonancia"
+  },
+  {
+    "ruta": "item nombre",
+    "comando": "/spectrecore item nombre",
+    "interno": "nombreitem",
+    "modulo": "",
+    "acceso": "HYDEV_ADMIN",
+    "descripcion": "Inspeccionar y copiar el nombre del objeto"
+  },
+  {
+    "ruta": "slayer estado",
+    "comando": "/spectrecore slayer estado",
+    "interno": "slayerstats",
+    "modulo": "slayer",
+    "acceso": "PUBLIC",
+    "descripcion": "Progreso de misiones Slayer"
+  },
+  {
+    "ruta": "slayer activar",
+    "comando": "/spectrecore slayer activar <categoria> <1|2|3>",
+    "interno": "activarslayer",
+    "modulo": "slayer",
+    "acceso": "HYDEV_ADMIN",
+    "descripcion": "Iniciar una misión Slayer"
+  },
+  {
+    "ruta": "slayer cancelar",
+    "comando": "/spectrecore slayer cancelar <categoria>",
+    "interno": "cancelarslayer",
+    "modulo": "slayer",
+    "acceso": "HYDEV_ADMIN",
+    "descripcion": "Cancelar una misión Slayer"
+  },
+  {
+    "ruta": "slayer reiniciar",
+    "comando": "/spectrecore slayer reiniciar <categoria>",
+    "interno": "resetslayer",
+    "modulo": "slayer",
+    "acceso": "HYDEV_ADMIN",
+    "descripcion": "Reiniciar una misión Slayer"
+  },
+  {
+    "ruta": "slayer invocar",
+    "comando": "/spectrecore slayer invocar <categoria>",
+    "interno": "slayerinvocar",
+    "modulo": "slayer",
+    "acceso": "HYDEV_ADMIN",
+    "descripcion": "Reintentar la invocación de un objetivo completado"
+  },
+  {
+    "ruta": "portal registrar",
+    "comando": "/spectrecore portal registrar <jugador> <sesion>",
+    "interno": "hydevportaljoin",
+    "modulo": "dungeons.portal",
+    "acceso": "CONSOLE",
+    "descripcion": "Registrar participante y sesión"
+  },
+  {
+    "ruta": "portal salir",
+    "comando": "/spectrecore portal salir <jugador>",
+    "interno": "hydevportalleave",
+    "modulo": "dungeons.portal",
+    "acceso": "CONSOLE",
+    "descripcion": "Retirar el registro de un participante"
+  },
+  {
+    "ruta": "portal estado",
+    "comando": "/spectrecore portal estado [jugador]",
+    "interno": "hydevportalstatus",
+    "modulo": "dungeons.portal",
+    "acceso": "HYDEV_ADMIN",
+    "descripcion": "Diagnóstico del portal"
+  },
+  {
+    "ruta": "portal demo",
+    "comando": "/spectrecore portal demo [jugador]",
+    "interno": "hydevportaldemo",
+    "modulo": "dungeons.portal",
+    "acceso": "HYDEV_ADMIN",
+    "descripcion": "Previsualizar el portal"
+  },
+  {
+    "ruta": "portal limpiar",
+    "comando": "/spectrecore portal limpiar",
+    "interno": "hydevportalcleanup",
+    "modulo": "dungeons.portal",
+    "acceso": "HYDEV_ADMIN",
+    "descripcion": "Retirar los portales activos"
+  },
+  {
+    "ruta": "tesoros abrir",
+    "comando": "/spectrecore tesoros abrir",
+    "interno": "opentreasure",
+    "modulo": "actividades.cofre",
+    "acceso": "ACTIVITIES_ADMIN",
+    "descripcion": "Abrir un cofre con premio"
+  },
+  {
+    "ruta": "tesoros mineria",
+    "comando": "/spectrecore tesoros mineria <1|2|3>",
+    "interno": "$core",
+    "modulo": "tesoros.mineria",
+    "acceso": "HYDEV_ADMIN",
+    "descripcion": "Previsualizar un tesoro minero"
+  },
+  {
+    "ruta": "tesoros gema",
+    "comando": "/spectrecore tesoros gema <basica|intermedia|superior>",
+    "interno": "$core",
+    "modulo": "resonancia",
+    "acceso": "HYDEV_ADMIN",
+    "descripcion": "Previsualizar una gema"
+  },
+  {
+    "ruta": "tesoros combate",
+    "comando": "/spectrecore tesoros combate <1|2|3>",
+    "interno": "$core",
+    "modulo": "tesoros.combate",
+    "acceso": "HYDEV_ADMIN",
+    "descripcion": "Previsualizar un alma"
+  },
+  {
+    "ruta": "tesoros agricultura",
+    "comando": "/spectrecore tesoros agricultura <1|2|3>",
+    "interno": "$core",
+    "modulo": "tesoros.agricultura",
+    "acceso": "HYDEV_ADMIN",
+    "descripcion": "Previsualizar un hallazgo agrícola"
+  },
+  {
+    "ruta": "cygnus rompemuelas",
+    "comando": "/spectrecore cygnus rompemuelas",
+    "interno": "rompemuelas",
+    "modulo": "actividades.cygnus",
+    "acceso": "ACTIVITIES_ADMIN",
+    "descripcion": "Oferta de Cygnus: rompemuelas"
+  },
+  {
+    "ruta": "cygnus taladroroto",
+    "comando": "/spectrecore cygnus taladroroto",
+    "interno": "taladroroto",
+    "modulo": "actividades.cygnus",
+    "acceso": "ACTIVITIES_ADMIN",
+    "descripcion": "Oferta de Cygnus: taladroroto"
+  },
+  {
+    "ruta": "cygnus furiaestelar",
+    "comando": "/spectrecore cygnus furiaestelar",
+    "interno": "furiaestelar",
+    "modulo": "actividades.cygnus",
+    "acceso": "ACTIVITIES_ADMIN",
+    "descripcion": "Oferta de Cygnus: furiaestelar"
+  },
+  {
+    "ruta": "cygnus capuchaencogedora",
+    "comando": "/spectrecore cygnus capuchaencogedora",
+    "interno": "capuchaencogedora",
+    "modulo": "actividades.cygnus",
+    "acceso": "ACTIVITIES_ADMIN",
+    "descripcion": "Oferta de Cygnus: capuchaencogedora"
+  },
+  {
+    "ruta": "cygnus slimehechizado",
+    "comando": "/spectrecore cygnus slimehechizado",
+    "interno": "slimehechizado",
+    "modulo": "actividades.cygnus",
+    "acceso": "ACTIVITIES_ADMIN",
+    "descripcion": "Oferta de Cygnus: slimehechizado"
+  },
+  {
+    "ruta": "cygnus compactador",
+    "comando": "/spectrecore cygnus compactador",
+    "interno": "compactador",
+    "modulo": "actividades.cygnus",
+    "acceso": "ACTIVITIES_ADMIN",
+    "descripcion": "Oferta de Cygnus: compactador"
+  },
+  {
+    "ruta": "cygnus golemcobre",
+    "comando": "/spectrecore cygnus golemcobre",
+    "interno": "golemcobre",
+    "modulo": "actividades.cygnus",
+    "acceso": "ACTIVITIES_ADMIN",
+    "descripcion": "Oferta de Cygnus: golemcobre"
+  },
+  {
+    "ruta": "polvos diamante",
+    "comando": "/spectrecore polvos diamante",
+    "interno": "polvodiamante",
+    "modulo": "actividades.polvos",
+    "acceso": "ACTIVITIES_ADMIN",
+    "descripcion": "Pago de polvo: diamante"
+  },
+  {
+    "ruta": "polvos hierro",
+    "comando": "/spectrecore polvos hierro",
+    "interno": "polvohierro",
+    "modulo": "actividades.polvos",
+    "acceso": "ACTIVITIES_ADMIN",
+    "descripcion": "Pago de polvo: hierro"
+  },
+  {
+    "ruta": "polvos oro",
+    "comando": "/spectrecore polvos oro",
+    "interno": "polvooro",
+    "modulo": "actividades.polvos",
+    "acceso": "ACTIVITIES_ADMIN",
+    "descripcion": "Pago de polvo: oro"
+  },
+  {
+    "ruta": "polvos cobre",
+    "comando": "/spectrecore polvos cobre",
+    "interno": "polvocobre",
+    "modulo": "actividades.polvos",
+    "acceso": "ACTIVITIES_ADMIN",
+    "descripcion": "Pago de polvo: cobre"
+  },
+  {
+    "ruta": "polvos lapis",
+    "comando": "/spectrecore polvos lapis",
+    "interno": "polvolapis",
+    "modulo": "actividades.polvos",
+    "acceso": "ACTIVITIES_ADMIN",
+    "descripcion": "Pago de polvo: lapis"
+  },
+  {
+    "ruta": "polvos redstone",
+    "comando": "/spectrecore polvos redstone",
+    "interno": "polvoredstone",
+    "modulo": "actividades.polvos",
+    "acceso": "ACTIVITIES_ADMIN",
+    "descripcion": "Pago de polvo: redstone"
+  },
+  {
+    "ruta": "desbloquear almas",
+    "comando": "/spectrecore desbloquear almas",
+    "interno": "almas1",
+    "modulo": "actividades.desbloqueos",
+    "acceso": "ACTIVITIES_ADMIN",
+    "descripcion": "Desbloquear almas de tier 1"
+  },
+  {
+    "ruta": "desbloquear mineria",
+    "comando": "/spectrecore desbloquear mineria",
+    "interno": "mineria1",
+    "modulo": "actividades.desbloqueos",
+    "acceso": "ACTIVITIES_ADMIN",
+    "descripcion": "Desbloquear minería de tier 1"
+  },
+  {
+    "ruta": "desbloquear slayerzombie 1",
+    "comando": "/spectrecore desbloquear slayerzombie 1",
+    "interno": "slayerzombie1",
+    "modulo": "actividades.desbloqueos",
+    "acceso": "ACTIVITIES_ADMIN",
+    "descripcion": "Desbloquear Revenant de tier 1"
+  },
+  {
+    "ruta": "desbloquear slayerzombie 2",
+    "comando": "/spectrecore desbloquear slayerzombie 2",
+    "interno": "slayerzombie2",
+    "modulo": "actividades.desbloqueos",
+    "acceso": "ACTIVITIES_ADMIN",
+    "descripcion": "Desbloquear Revenant de tier 2"
+  },
+  {
+    "ruta": "desbloquear slayerzombie 3",
+    "comando": "/spectrecore desbloquear slayerzombie 3",
+    "interno": "slayerzombie3",
+    "modulo": "actividades.desbloqueos",
+    "acceso": "ACTIVITIES_ADMIN",
+    "descripcion": "Desbloquear Revenant de tier 3"
+  },
+  {
+    "ruta": "telefono",
+    "comando": "/spectrecore telefono",
+    "interno": "telefono1",
+    "modulo": "actividades.telefono",
+    "acceso": "ACTIVITIES_ADMIN",
+    "descripcion": "Abrir el menú de Slayers"
+  }
+]

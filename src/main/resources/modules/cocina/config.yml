@@ -1,0 +1,34 @@
+# SpectreCore: configura este sistema dentro de su módulo.
+cooking:
+  visuals:
+    enabled: true
+    view-range: 0.7
+    text-scale: 0.34
+    particle-radius: 12.0
+    particles-enabled: true
+    sounds-enabled: true
+    visible-ingredients: true
+    animated-liquid: true
+    exquisite-celebration: true
+  book:
+    discovery-enabled: true
+  servings:
+    water-level-portions: true
+  stations:
+    minimum-separation: 3.0
+    incomplete-timeout-seconds: 90
+    require-lit-campfire-on-create: true
+    require-lit-campfire-while-cooking: true
+  ingredients:
+    allow-items-with-custom-meta: false
+  precision:
+    enabled: true
+    stir-sweetspot-fraction: 0.6
+  rewards:
+    mmoitems-type: CONSUMABLE
+
+herramientas:
+  crear: FLINT_AND_STEEL
+  revolver: WOODEN_SHOVEL
+  servir: BOWL
+  limpiar: [SPONGE, WET_SPONGE]

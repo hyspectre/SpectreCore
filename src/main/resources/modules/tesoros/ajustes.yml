@@ -1,0 +1,28 @@
+AgricultureTreasures:
+  color-001: YELLOW
+  color-002: GOLD
+  ofmillis-001-arg0: 150
+  ofseconds-002-arg0: 2
+  ofmillis-003-arg0: 350
+  sound-003: ENTITY_EXPERIENCE_ORB_PICKUP
+  playsound-004-arg2: 1.0
+  playsound-005-arg3: 1.5
+  color-004: GOLD
+MiningModule:
+  sound-013: ENTITY_EXPERIENCE_ORB_PICKUP
+  playsound-008-arg2: 1.0
+  playsound-009-arg3: 1.5
+  color-014: GOLD
+  color-015: YELLOW
+  ofmillis-010-arg0: 150
+  ofseconds-011-arg0: 2
+  ofmillis-012-arg0: 350
+CombatTreasures:
+  sound-001: ENTITY_EXPERIENCE_ORB_PICKUP
+  playsound-001-arg2: 1.0
+  playsound-002-arg3: 1.5
+  color-002: BLUE
+  color-003: WHITE
+  ofmillis-003-arg0: 150
+  ofseconds-004-arg0: 2
+  ofmillis-005-arg0: 350

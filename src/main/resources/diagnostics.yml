@@ -1,0 +1,4 @@
+# Métricas internas de bajo coste; no recolecta datos personales.
+# Modificable con /spectrecore reload.
+enabled: false
+show-on-command: true

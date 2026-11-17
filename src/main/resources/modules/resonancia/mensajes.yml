@@ -1,0 +1,47 @@
+MiningModule:
+  etiqueta-046: §8[§d✦§8] §r
+  mensaje-001: ✦ Resonancia lista · Shift + minar · {left} s
+  mensaje-002: '{prefix}§7La resonancia se ha disipado.'
+  mensaje-003: ✦ Resonancia completa · Agáchate y mina
+  texto-001: Superior
+  texto-002: Intermedia
+  etiqueta-047: Básica
+  mensaje-004: ✦ GEMA EXTRAÍDA
+  mensaje-005: 'Calidad: {label}'
+  mensaje-006: '{prefix}§fHas extraído una gema de calidad {label}.'
+  mensaje-007: '{prefix}§d§lRESONANCIA COMPLETA'
+  mensaje-008: §7Agáchate y rompe un mineral en los próximos {window} segundos.
+  mensaje-009: §7La calidad depende del mineral que elijas.
+  mensaje-010: '✦ '
+  mensaje-011: '{repeat-filled}'
+  mensaje-012: '{repeat-12-filled}'
+  mensaje-013: ' {state-charge}/{maximum}'
+  mensaje-017: '{prefix}§cLa recompensa no está disponible. Avisa a administración.'
+  mensaje-018: 'Minería: no se pudo generar {type}:{id}. Revisa el ID, MMOItems y su API.'
+  mensaje-019: §cNo tienes permiso.
+  mensaje-020: Usa la demostración dentro del juego.
+  mensaje-021: /spectrecore tesoros mineria <1|2|3> o /spectrecore tesoros gema <basica|intermedia|superior>
+  mensaje-022: Tesoros mineros desactivados.
+  mensaje-023: '§cTier válido: 1, 2 o 3.'
+  mensaje-024: Resonancia desactivada.
+  mensaje-025: '§cCalidad válida: basica, intermedia o superior.'
+  mensaje-026: §cUsa tesoro o gema.
+  mensaje-027: '§7Vista previa visual: no entrega objetos ni cambia la resonancia.'
+  mensaje-028: Usa este comando dentro del juego.
+  mensaje-029: §cNo tienes permiso.
+  mensaje-030: Resonancia desactivada.
+  mensaje-031: '{prefix}§fPico Perdido: §d{state-charge}§7/§d{maximum}'
+  mensaje-032: '§7Lista para extraer: {valor1} s.'
+  mensaje-033: §cDebes sostener un objeto con nombre personalizado.
+  mensaje-034: 'Nombre original: '
+  mensaje-035: 'Nombre sin colores: [{plain}]'
+  mensaje-036: '[COPIAR NOMBRE]'
+  mensaje-037: 'Nombre del item: [{valor1}]'
+  mensaje-038: §dHYDEV · DIAGNÓSTICO MINERO
+  mensaje-039: '§7Herramienta: §f{held-gettype} §7| Nombre: §f{plain}'
+  mensaje-040: '§7MMOItems: §f{mmo-type-held}:{mmo-id-held}'
+  mensaje-041: '§7Modo: §f{valor1} §7| Pico configurado: §f{valor2}'
+  mensaje-042: '§7Herramienta válida: §f{tool-held} §7| Carga: §f{state-charge}/{maximum}'
+  mensaje-043: '§7Probabilidades T1/T2/T3: §f{valor1}/{valor2}/{valor3}'
+  mensaje-044: 'UUID inválido en mining-data.yml: {key}'
+  mensaje-045: 'No se pudo guardar la minería: {error-getmessage}'

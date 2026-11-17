@@ -1,0 +1,18 @@
+SlayerModule:
+  sound-001: ENTITY_PLAYER_LEVELUP
+  playsound-001-arg2: 1.0
+  playsound-002-arg3: 1.0
+  color-002: GOLD
+  color-003: YELLOW
+  ofmillis-003-arg0: 150
+  ofseconds-004-arg0: 3
+  ofmillis-005-arg0: 400
+  sound-004: ENTITY_WITHER_SPAWN
+  playsound-006-arg2: 1.0
+  playsound-007-arg3: 0.8
+  particle-005: SOUL_FIRE_FLAME
+  spawnparticle-008-arg2: 1
+  spawnparticle-009-arg3: 0.0
+  spawnparticle-010-arg4: 0.0
+  spawnparticle-011-arg5: 0.0
+  spawnparticle-012-arg6: 0.02

@@ -1,0 +1,11 @@
+enabled: true
+tesoros:
+  tipo: MATERIAL
+  id: PALADIO
+  cantidad-minima: 2
+  cantidad-maxima: 8
+probabilidades:
+  mineria: {}
+visuales:
+  activados: true
+  max-animaciones: 32
