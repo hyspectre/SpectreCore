@@ -122,16 +122,22 @@ public final class ToastService {
         }
     }
 
-    public void forget(UUID player) { lastToast.remove(player); }
-    public void disable() {
-        // Do not delete registered advancements: Paper requires reloadData() to fully
-        // remove them. Advancement progress is revoked and no player progress is saved.
-        for (Player p : Bukkit.getOnlinePlayers()) for (Advancement advancement : advancements.values()) {
+    /** Explicitly clear progress at quit/join so a quick disconnect never saves a completed toast. */
+    public void clear(Player player) {
+        if (player == null) return;
+        lastToast.remove(player.getUniqueId());
+        for (Advancement advancement : advancements.values()) {
             try {
-                AdvancementProgress progress = p.getAdvancementProgress(advancement);
+                AdvancementProgress progress = player.getAdvancementProgress(advancement);
                 for (String criterion : progress.getAwardedCriteria()) progress.revokeCriteria(criterion);
             } catch (RuntimeException ignored) { }
         }
+    }
+
+    public void disable() {
+        // Do not delete registered advancements: Paper requires reloadData() to fully
+        // remove them. Advancement progress is revoked and no player progress is saved.
+        for (Player p : Bukkit.getOnlinePlayers()) clear(p);
         advancements.clear();
         lastToast.clear();
     }
