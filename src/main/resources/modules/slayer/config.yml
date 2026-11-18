@@ -64,3 +64,17 @@ progresion:
       "9": 3000
       "10": 3800
       "11": 5000
+
+# Datos mostrados en el menú (no modifican los YAML de MythicMobs).
+# Mantener sincronizados con los mobs de Monarquía Renacida v2.
+presentacion:
+  revenant:
+    tier1:
+      vida: 1600
+      dano: 8
+    tier2:
+      vida: 3800
+      dano: 20
+    tier3:
+      vida: 7800
+      dano: 50
