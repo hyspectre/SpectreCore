@@ -510,7 +510,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
         UUID id = player.getUniqueId();
         if (sub.equals("status")) {
             player.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-022","§d✦ SpectreCore {getpluginmeta-getversion} §7| demo: §f{valor2}","getpluginmeta-getversion", getPluginMeta().getVersion(),"valor2", demo.getOrDefault(id, "ninguno")));
-            for (SkillModule module : modules) player.sendMessage(module.status(player));
+            for (SkillModule module : modules) player.sendMessage(Settings.component(module.status(player)));
             return true;
         }
         if (!canAdmin(player)) { player.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-023", "§cSin permiso.")); return true; }
