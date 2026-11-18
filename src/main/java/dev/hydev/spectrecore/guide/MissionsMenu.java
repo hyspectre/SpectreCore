@@ -131,7 +131,8 @@ public final class MissionsMenu implements Listener {
             ItemMeta meta = item.getItemMeta();
             meta.displayName(styled(layout.getString(path + ".name", "Misiones")));
             List<Component> lore = new ArrayList<>();
-            for (String line : layout.getStringList(path + ".lore")) lore.add(styled(line));
+            for (String line : layout.getStringList(path + ".lore"))
+                lore.add(styled(resolveLore(page, id, line)));
             if (page.equals("revenant") && Set.of("1", "2", "3").contains(id)) {
                 int tier = Integer.parseInt(id);
                 lore.add(styled(""));
@@ -144,6 +145,25 @@ public final class MissionsMenu implements Listener {
         }
         player.openInventory(inventory);
         return true;
+    }
+
+    /** Known placeholders only, sourced from the authoritative Slayer module, never player commands. */
+    private String resolveLore(String page, String item, String source) {
+        if (source == null || !source.contains("{")) return source;
+        if (page.equals("misiones") && item.equals("telefono"))
+            return source.replace("{precio}", slayer.phonePriceLabel());
+        if (!page.equals("revenant")) return source;
+        if (Set.of("1", "2", "3").contains(item)) {
+            int tier = Integer.parseInt(item);
+            return source.replace("{precio}", slayer.contractPriceLabel("revenant", tier))
+                    .replace("{objetivo}", Integer.toString(slayer.objectiveForTier(tier)));
+        }
+        if (item.equals("cancelar")) return source.replace("{precio}", slayer.cancellationPriceLabel("revenant"));
+        if (item.equals("descripcion"))
+            return source.replace("{precio1}", slayer.contractPriceLabel("revenant", 1))
+                    .replace("{precio2}", slayer.contractPriceLabel("revenant", 2))
+                    .replace("{precio3}", slayer.contractPriceLabel("revenant", 3));
+        return source;
     }
 
     private static Component styled(String source) {
