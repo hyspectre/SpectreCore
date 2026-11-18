@@ -7,10 +7,9 @@ import dev.hydev.spectrecore.systems.JobsContractRules;
 import dev.hydev.spectrecore.systems.JobsModule;
 import dev.hydev.spectrecore.systems.ProgressRules;
 import net.kyori.adventure.text.Component;
+import dev.hydev.spectrecore.text.TextService;
 import net.kyori.adventure.text.format.TextDecoration;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -214,20 +213,9 @@ public final class JobsMenu implements Listener {
         return value == Math.rint(value) ? Long.toString(number.longValue()) : Double.toString(value);
     }
 
-    private static Component styled(String text) {
-        if (text == null || text.isEmpty()) return Component.empty();
-        Matcher matcher = HEX.matcher(text);
-        StringBuffer converted = new StringBuffer();
-        while (matcher.find()) {
-            StringBuilder color = new StringBuilder("&x");
-            for (char digit : matcher.group(1).toCharArray()) color.append('&').append(digit);
-            matcher.appendReplacement(converted, Matcher.quoteReplacement(color.toString()));
-        }
-        matcher.appendTail(converted);
-        return LegacyComponentSerializer.legacySection()
-                .deserialize(ChatColor.translateAlternateColorCodes('&', converted.toString()))
-                // Minecraft item lore/name defaults to italic unless explicitly disabled.
-                .decoration(TextDecoration.ITALIC, false);
+    /** MiniMessage for new YAML; legacy color codes remain readable for existing server configs. */
+    private static Component styled(String source) {
+        return TextService.component(source).decoration(TextDecoration.ITALIC, false);
     }
 
     @EventHandler public void onClick(InventoryClickEvent event) {
