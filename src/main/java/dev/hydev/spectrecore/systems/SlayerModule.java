@@ -423,8 +423,11 @@ public final class SlayerModule implements Listener {
         }
         refreshBar(p);
         p.showTitle(Title.title(
-                Settings.component("¡JEFE INVOCADO!", Settings.color("slayer", "SlayerModule.color-002", NamedTextColor.GOLD)),
-                Settings.component(name(category) + " §7· derrota al monarca", Settings.color("slayer", "SlayerModule.color-003", NamedTextColor.YELLOW)),
+                Settings.component(Settings.text("slayer", "SlayerModule.mensaje-016",
+                        "¡JEFE INVOCADO!"), Settings.color("slayer", "SlayerModule.color-002", NamedTextColor.GOLD)),
+                Settings.component(Settings.text("slayer", "SlayerModule.mensaje-017",
+                        "{name-category} ha aparecido. ¡Derrota al jefe!", "name-category", name(category)),
+                        Settings.color("slayer", "SlayerModule.color-003", NamedTextColor.YELLOW)),
                 Title.Times.times(
                         Duration.ofMillis(Settings.i("slayer", "SlayerModule.ofmillis-003-arg0", 150)),
                         Duration.ofSeconds(Settings.i("slayer", "SlayerModule.ofseconds-004-arg0", 3)),
