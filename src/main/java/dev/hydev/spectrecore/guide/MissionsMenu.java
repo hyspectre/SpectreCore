@@ -52,7 +52,7 @@ public final class MissionsMenu implements Listener {
         private final Map<Integer, String> choices;
         private Inventory inventory;
         MenuHolder(String page, Map<Integer, String> choices) {
-            this.page = page; this.choices = Map.copyOf(choices);
+            this.page = page; this.choices = choices;
         }
         @Override public Inventory getInventory() { return inventory; }
     }
