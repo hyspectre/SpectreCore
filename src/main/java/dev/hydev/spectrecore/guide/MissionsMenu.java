@@ -3,10 +3,9 @@ package dev.hydev.spectrecore.guide;
 import dev.hydev.spectrecore.model.CustomHeads;
 import dev.hydev.spectrecore.systems.SlayerModule;
 import net.kyori.adventure.text.Component;
+import dev.hydev.spectrecore.text.TextService;
 import net.kyori.adventure.text.format.TextDecoration;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -184,21 +183,9 @@ public final class MissionsMenu implements Listener {
         return source;
     }
 
+    /** MiniMessage for new YAML; legacy color codes remain readable for existing server configs. */
     private static Component styled(String source) {
-        if (source == null || source.isEmpty()) return Component.empty();
-        Matcher matcher = HEX.matcher(source);
-        StringBuffer legacy = new StringBuffer();
-        while (matcher.find()) {
-            String hex = matcher.group(1);
-            StringBuilder replacement = new StringBuilder("&x");
-            for (char c : hex.toCharArray()) replacement.append('&').append(c);
-            matcher.appendReplacement(legacy, Matcher.quoteReplacement(replacement.toString()));
-        }
-        matcher.appendTail(legacy);
-        return LegacyComponentSerializer.legacySection()
-                .deserialize(ChatColor.translateAlternateColorCodes('&', legacy.toString()))
-                // Minecraft item lore/name defaults to italic unless explicitly disabled.
-                .decoration(TextDecoration.ITALIC, false);
+        return TextService.component(source).decoration(TextDecoration.ITALIC, false);
     }
 
     @EventHandler public void click(InventoryClickEvent event) {
