@@ -50,10 +50,10 @@ for job, rows in expected.items():
         for token in ("{actividades}", "{minimo}", "{maximo}", "{cooldown}", "{precio}", "{estado}"):
             assert token in lore, (job, level, token)
 
-java = (resources.parents[2] / "java/dev/hydev/spectrecore/guide/JobsMenu.java").read_text(encoding="utf-8")
-module = (resources.parents[2] / "java/dev/hydev/spectrecore/systems/JobsModule.java").read_text(encoding="utf-8")
-bridge = (resources.parents[2] / "java/dev/hydev/spectrecore/integration/LuckPermsContractBridge.java").read_text(encoding="utf-8")
-routes = (resources.parents[2] / "java/dev/hydev/spectrecore/command/CommandRoutes.java").read_text(encoding="utf-8")
+java = (resources.parent / "java/dev/hydev/spectrecore/guide/JobsMenu.java").read_text(encoding="utf-8")
+module = (resources.parent / "java/dev/hydev/spectrecore/systems/JobsModule.java").read_text(encoding="utf-8")
+bridge = (resources.parent / "java/dev/hydev/spectrecore/integration/LuckPermsContractBridge.java").read_text(encoding="utf-8")
+routes = (resources.parent / "java/dev/hydev/spectrecore/command/CommandRoutes.java").read_text(encoding="utf-8")
 assert "InventoryClickEvent" in java and "InventoryDragEvent" in java
 assert "event.setCancelled(true)" in java and "Bukkit.getScheduler().runTask(plugin" in java
 assert "CustomHeads.fromBase64" in java
