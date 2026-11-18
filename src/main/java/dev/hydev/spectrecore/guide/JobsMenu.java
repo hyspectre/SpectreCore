@@ -7,6 +7,7 @@ import dev.hydev.spectrecore.systems.JobsContractRules;
 import dev.hydev.spectrecore.systems.JobsModule;
 import dev.hydev.spectrecore.systems.ProgressRules;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -224,7 +225,9 @@ public final class JobsMenu implements Listener {
         }
         matcher.appendTail(converted);
         return LegacyComponentSerializer.legacySection()
-                .deserialize(ChatColor.translateAlternateColorCodes('&', converted.toString()));
+                .deserialize(ChatColor.translateAlternateColorCodes('&', converted.toString()))
+                // Minecraft item lore/name defaults to italic unless explicitly disabled.
+                .decoration(TextDecoration.ITALIC, false);
     }
 
     @EventHandler public void onClick(InventoryClickEvent event) {
