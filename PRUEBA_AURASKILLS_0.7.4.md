@@ -64,3 +64,22 @@ Probar pérdida de conjunto, muerte, desconexión, CD y expiración: los IDs son
 - Medición ingame y compatibilidad de AuraSkills en el servidor real.
 - Reparación de Asterión y Herencia Dracónica (fuera del alcance de esta rama).
 - Validación de gemas y la Prueba 17 de persistencia general.
+
+## Toasts nativos — nueva integración experimental
+
+Configuración: `plugins/SpectreCore/modules/nucleo/ajustes.yml`, sección `toasts`. Funciona en Paper 1.21.10 usando `UnsafeValues#loadAdvancement`, API **obsoleta y dependiente de la versión**. Se registran únicamente ocho advancements fijos con criterio `minecraft:impossible`, sin recompensas ni anuncios de chat. Su progreso se revoca al poco tiempo y al desconectarse; los avances registrados permanecen en el almacén del servidor entre reinicios, no se borran ni se llama a `reloadData()`.
+
+- `/spectrecore toast prueba furia` — solo administradores; exige jugador en juego.
+- `/spectrecore toast prueba resonancia`.
+- `/spectrecore toast prueba gema-basica` / `gema-intermedia` / `gema-superior`.
+- `/spectrecore toast prueba trabajo-minero` / `trabajo-granjero` / `trabajo-cazador`.
+- Los activadores de juego son: carga de Asterión completa, Resonancia lista, gema **realmente entregada**, y pago de Trabajo **confirmado** por Vault. El pago solo enviado mediante comando conserva su texto anterior, sin toast de confirmación.
+- `toasts.enabled`, `toasts.eventos.*` y `toasts.intervalo-global-segundos` se recargan con `/spectrecore reload`. Los iconos/títulos/descripciones requieren un arranque posterior; no conviene llamar `reloadData()`.
+- El servicio devuelve estado de notificación atendida incluso cuando suprime una repetición por antispam. Así no vuelve a llenar el actionbar con eventos que acaba de filtrar.
+- Si la API deja de estar disponible, se conservan los títulos o actionbars anteriores. Furia conserva su indicador actual.
+
+**Aceptación obligatoria en staging:** confirmar toast visual arriba a la derecha; cero mensajes globales de logros, cero recompensas/XP no solicitadas, cero progresos de advancements dejados en los jugadores tras 5 s y reconexión, y sin conflictos con otros plugins que reaccionen a eventos de avances. Probar dos jugadores, ráfagas de eventos y configuración `enabled: false`. **No declarar producción apta sin validar el comportamiento real de Paper.**
+
+## Asterión — combo controlado
+
+Se ha aislado el algoritmo en `AsterionComboRules`: primer golpe fija la presa; siguientes 4 golpes rápidos alcanzan un máximo +12 %; cambio de objetivo o demora mayor que 50 ticks restablecen a cero. Las pruebas deterministas se ejecutan en `tests/AsterionComboSmoke.java`. El **daño final en combate contra MythicLib/MMOItems** todavía debe verificarse ingame: estos tests no prueban otros listeners de plugins.
