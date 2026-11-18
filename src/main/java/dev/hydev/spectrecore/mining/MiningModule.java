@@ -108,7 +108,7 @@ public final class MiningModule implements Listener {
     private boolean expire(Player player, State state) {
         if (MigrationRules.expired(state.activeUntil, System.currentTimeMillis())) {
             state.activeUntil = 0; state.charge = 0; dirty = true;
-            player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-002", "{prefix}§7La resonancia se ha disipado.", "prefix", prefix())); return true;
+            player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-002", "{prefix}§7La resonancia se ha disipado.", "prefix", Settings.component(prefix()))); return true;
         }
         return false;
     }
@@ -131,7 +131,7 @@ public final class MiningModule implements Listener {
                     && ((dev.hydev.spectrecore.SpectreCorePlugin) plugin).toasts().show(player, "gema-" + quality);
             if (!nativeToast) player.showTitle(Title.title(Settings.component(Settings.text("resonancia", "MiningModule.mensaje-004", "✦ GEMA EXTRAÍDA"), Settings.color("resonancia", "MiningModule.color-006", NamedTextColor.LIGHT_PURPLE)), Settings.component(Settings.text("resonancia", "MiningModule.mensaje-005", "Calidad: {label}", "label", label), color), Title.Times.times(Duration.ofMillis(Settings.i("resonancia", "MiningModule.ofmillis-001-arg0", 150)), Duration.ofSeconds(Settings.i("resonancia", "MiningModule.ofseconds-002-arg0", 2)), Duration.ofMillis(Settings.i("resonancia", "MiningModule.ofmillis-003-arg0", 350)))));
             player.playSound(player.getLocation(), Settings.sound("resonancia", "MiningModule.sound-007", Sound.BLOCK_AMETHYST_BLOCK_CHIME),Settings.f("resonancia", "MiningModule.playsound-004-arg2", 1),Settings.f("resonancia", "MiningModule.playsound-005-arg3", 1.2f));
-            player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-006", "{prefix}§fHas extraído una gema de calidad {label}.", "prefix", prefix(), "label", label));
+            player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-006", "{prefix}§fHas extraído una gema de calidad {label}.", "prefix", Settings.component(prefix()), "label", label));
             if (config.getBoolean("visuales-resonancia.activados",true)) visuals.gem(block.getLocation().add(.5, .5, .5), reward, quality);
             return;
         }
@@ -141,7 +141,7 @@ public final class MiningModule implements Listener {
             if (((dev.hydev.spectrecore.SpectreCorePlugin) plugin).toasts() != null)
                 ((dev.hydev.spectrecore.SpectreCorePlugin) plugin).toasts().show(player, "resonancia");
             player.playSound(player.getLocation(), Settings.sound("resonancia", "MiningModule.sound-008", Sound.BLOCK_AMETHYST_BLOCK_RESONATE),Settings.f("resonancia", "MiningModule.playsound-006-arg2", 1),Settings.f("resonancia", "MiningModule.playsound-007-arg3", 1.4f));
-            player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-007", "{prefix}§d§lRESONANCIA COMPLETA", "prefix", prefix()));
+            player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-007", "{prefix}§d§lRESONANCIA COMPLETA", "prefix", Settings.component(prefix())));
             player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-008", "§7Agáchate y rompe un mineral en los próximos {window} segundos.", "window", window()));
             player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-009", "§7La calidad depende del mineral que elijas.")); if(config.getBoolean("visuales-resonancia.activados",true)) visuals.charged(player);
         } else {
@@ -170,7 +170,7 @@ public final class MiningModule implements Listener {
         player.sendMessage(Settings.message("tesoros", "MiningModule.mensaje-016", "§f↹ §e¡Obtuviste un mineral raro!"));
     }
     private void missing(Player player, String type, String id) {
-        player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-017", "{prefix}§cLa recompensa no está disponible. Avisa a administración.", "prefix", prefix()));
+        player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-017", "{prefix}§cLa recompensa no está disponible. Avisa a administración.", "prefix", Settings.component(prefix())));
         if (reported.add(type + ":" + id)) plugin.getLogger().warning(Settings.plain("resonancia", "MiningModule.mensaje-018", "Minería: no se pudo generar {type}:{id}. Revisa el ID, MMOItems y su API.", "type", type, "id", id));
     }
     private void deliver(Player player, ItemStack reward) {
@@ -207,7 +207,7 @@ public final class MiningModule implements Listener {
         State state = state(player); expire(player, state);
         if (name.equals("resonancia")) {
             if(!config.getBoolean("gemas.activadas",true)){sender.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-030", "Resonancia desactivada."));return true;}
-            player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-031", "{prefix}§fPico Perdido: §d{state-charge}§7/§d{maximum}", "prefix", prefix(), "state-charge", state.charge, "maximum", maximum()));
+            player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-031", "{prefix}§fPico Perdido: §d{state-charge}§7/§d{maximum}", "prefix", Settings.component(prefix()), "state-charge", state.charge, "maximum", maximum()));
             if (state.activeUntil > 0) player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-032","§7Lista para extraer: {valor1} s.","valor1", Math.max(0, (state.activeUntil - System.currentTimeMillis() + 999) / 1000)));
             return true;
         }
