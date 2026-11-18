@@ -35,3 +35,7 @@ SlayerModule.telefono-inventario: "§cLibera al menos una ranura de inventario a
 SlayerModule.telefono-pago-fallo: "§cVault no confirmó el pago. No se ha entregado el objeto."
 SlayerModule.telefono-comprado: "§aHas comprado el Teléfono Rojo por {precio} ↾."
 SlayerModule.telefono-entrega-fallo: "§cError de entrega. Avisa a un administrador; no intentes pagar de nuevo."
+# Reintento seguro de los contratos que completaron su cuota sin jefe activo.
+SlayerModule.reintento-uso: "<red>Uso: /spectrecore slayer invocar [categoria]"
+SlayerModule.reintento-en-curso: "<yellow>Ya tienes un jefe activo. No se permite otra invocación."
+SlayerModule.reintento-sin-pendientes: "<gray>No tienes un jefe de Monarquía pendiente de invocación."
