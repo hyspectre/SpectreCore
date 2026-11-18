@@ -36,6 +36,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
@@ -364,7 +365,12 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
 
     private void clear(UUID id) { for (SkillModule module : modules) module.clear(id); }
     @EventHandler public void onQuit(PlayerQuitEvent event) {
-        UUID id = event.getPlayer().getUniqueId(); if (toastService != null) toastService.forget(id); if (displayModels != null) displayModels.clear(id); if (mago != null) mago.forget(event.getPlayer()); clear(id); if (passive != null) passive.clear(event.getPlayer()); demo.remove(id);
+        UUID id = event.getPlayer().getUniqueId(); if (toastService != null) toastService.clear(event.getPlayer()); if (displayModels != null) displayModels.clear(id); if (mago != null) mago.forget(event.getPlayer()); clear(id); if (passive != null) passive.clear(event.getPlayer()); demo.remove(id);
+    }
+    @EventHandler public void onJoin(PlayerJoinEvent event) {
+        if (toastService != null) Bukkit.getScheduler().runTaskLater(this, () -> {
+            if (event.getPlayer().isOnline() && toastService != null) toastService.clear(event.getPlayer());
+        }, 3L);
     }
     @EventHandler public void onDeath(PlayerDeathEvent event) { clear(event.getEntity().getUniqueId()); if (passive != null) passive.clear(event.getEntity()); }
     @EventHandler public void onChangeWorld(PlayerChangedWorldEvent event) { clear(event.getPlayer().getUniqueId()); if (passive != null) passive.clear(event.getPlayer()); }
