@@ -50,6 +50,15 @@ La nueva clave es opcional para instalaciones existentes: el código tiene valor
 
 **Observación de seguridad:** la limpieza explícita ocurre con el ciclo de SpectreCore. El identificador del modificador es no persistente y tiene un vencimiento de respaldo, pero los reinicios/crashes del servidor no sustituyen una prueba real de limpieza y persistencia.
 
+## Herencia Dracónica (prototipo de opt-in; no se activa por defecto)
+
+`skills.sangre-primer-dragon.auraskills.enabled: false` conserva por defecto el daño original.
+El código ya permite sumar +9 Strength de forma pasiva y +18 adicionales durante la bendición; si el puente no aplica alguno, conserva el porcentaje anterior correspondiente. Las magnitudes **no están calibradas en el servidor**.
+
+Cuando se haya instalado esta versión en staging, se podrá cambiar `enabled: true` y ejecutar `/spectrecore reload` **sin otro reinicio** para comprobar el nuevo modelo. Hay que medir con el mismo conjunto/arma el daño normal pasivo y activo. Los objetivos de diseño originales son +3 % pasivo y +6 % adicional (total +9 %); las reducciones de daño siguen bajo el motor legado hasta calibrar Toughness. Velocidad se mantiene vía atributo Paper, sin duplicar Speed de AuraSkills. La cura de 4 HP, el arma DRAGON y los temporizadores permanecen sin cambiar.
+
+Probar pérdida de conjunto, muerte, desconexión, CD y expiración: los IDs son `spectrecore_dragon_passive_strength` y `spectrecore_dragon_active_strength`.
+
 ## Pendiente
 
 - Medición ingame y compatibilidad de AuraSkills en el servidor real.
