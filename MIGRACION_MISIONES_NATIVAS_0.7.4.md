@@ -34,20 +34,19 @@ Se conservan los formatos legacy `&a`, `&l` y `&#RRGGBB`. El código usa `Custom
 
 Los clics se procesan desde `InventoryClickEvent` y todos los movimientos y arrastres que interfieran con la UI se cancelan. No se otorgan permisos OP al jugador y no se llaman comandos de zMenu para ninguna acción.
 
-**Se mantienen los precios:** Revenant 200/500/950 ↾, abandono 200 ↾, Teléfono Rojo 500 ↾.
-**Se mantienen los objetivos:** 20/50/90 zombis y los requisitos del lore 7/10/14 de combate (la validación real de acceso se hace por los permisos `slayer.revenant.tier1/2/3` como en el sistema existente).
+**Valores por defecto:** Revenant 200/500/950 ↾, abandono 200 ↾, Teléfono Rojo 500 ↾ y objetivos 20/50/90 zombis. **El lore ahora lee los precios y objetivos desde `modules/slayer/config.yml` al abrir el inventario**; no replica esas cifras a mano. Los requisitos de combate 7/10/14 siguen siendo información del diseño original y la autorización efectiva se basa en los permisos `slayer.revenant.tier1/2/3`.
 
-## Puertas de activación (staging)
+## Activación predeterminada en la rama 0.7.4 (sin despliegue en Hydev)
 
 En `plugins/SpectreCore/modules/slayer/config.yml`:
 ```yaml
 contratos:
-  habilitados: false
+  habilitados: true
 acceso-remoto:
-  habilitado: false
+  habilitado: true
 ```
 
-Los menús pueden abrirse **aunque los contratos estén desactivados**, pero ningún botón cobra ni contrata hasta que un administrador habilite esas opciones tras la instalación. Los flags admiten `/spectrecore reload`.
+Por decisión del administrador, la rama instala ambos módulos **habilitados por defecto en instalaciones nuevas**. Esto no cambia el servidor activo y **no sobreescribe automáticamente los valores `false` de una configuración ya existente**. En esa situación, cambiarlos manualmente y ejecutar `/spectrecore reload`. Los botones siguen validando permisos, misión, saldo y entrega; no se deshabilitaron esas comprobaciones.
 
 **No despliegues los menús zMenu antiguos simultáneamente con compras activas**: podrían seguir ejecutando su propio `withdraw` o `player-command-as-op` si alguien los abre por un enlace antiguo. No es necesario eliminar zMenu del servidor si se usa para otras interfaces, pero los accesos de NPC y el objeto `TELEFONO1` deben migrarse a `/spectrecore misiones` cuando se confirme su configuración.
 
@@ -57,9 +56,9 @@ Los menús pueden abrirse **aunque los contratos estén desactivados**, pero nin
 2. Con el JAR nuevo y el flag de menú habilitado, ejecutar `/spectrecore misiones`. Verificar título, cabezas, colores HEX, 54 slots, textos y botones bloqueados de otras categorías.
 3. Clic en Monarquía; comprobar volver/cerrar e información detallada de los 3 rangos.
 4. Verificar que inventario del jugador no admita movimientos/clics shift que extraigan decoraciones de la UI.
-5. Con `contratos.habilitados: false` y `acceso-remoto.habilitado: false`, comprobar que cada botón rechaza acciones **sin cobrar**.
-6. Desactivar/migrar enlaces viejos de zMenu desde NPCs y `TELEFONO1` antes de activar cobros nuevos. Comprobar comportamiento del teléfono real (la configuración de ese objeto no fue entregada).
-7. En staging con Vault confirmado, activar `contratos.habilitados: true`, recargar y comprobar permisos, saldo insuficiente, misión ya activa, contrato correcto, cancelación y ausencia de doble cobro.
+5. Antes de permitir que jugadores utilicen los botones, comprobar que Vault y MMOItems están activos, los permisos son correctos y los accesos antiguos de zMenu ya no están disponibles. Probar temporalmente los flags en `false` y confirmar que las acciones se rechazan sin cobrar.
+6. Desactivar/migrar los enlaces viejos de zMenu desde NPCs y `TELEFONO1` **en la misma ventana de mantenimiento, antes de abrir el acceso público a los menús nuevos**. Comprobar comportamiento del teléfono real (no se ha recibido su definición).
+7. En staging con Vault confirmado, comprobar permisos, saldo insuficiente, misión ya activa, contrato correcto, cancelación y ausencia de doble cobro. Probar también `/spectrecore reload` tras cambiar precios y objetivos: los nuevos valores deben mostrarse en el lore.
 8. Probar compra del teléfono con inventario lleno, MMOItems desactivado y saldo insuficiente; no debe cobrar si falla la validación.
 9. Cambiar un título de `ui/misiones.yml`, recargar y comprobar que afecta solo presentación. Probar un YAML con slots duplicados: debe conservar la versión válida anterior.
 10. Validar persistencia de `slayer-data.yml` tras el reinicio de mantenimiento; verificar que los jefes invocados siguen siendo `ReyZombie{tier}`.
@@ -69,4 +68,4 @@ Los menús pueden abrirse **aunque los contratos estén desactivados**, pero nin
 - Compilación, YAML y pruebas de rutas son automáticas; la apariencia y compatibilidad de inventario deben verificarse **ingame**.
 - El motor económico actual intenta revertir fallos de almacenamiento, pero no ofrece garantía ACID completa ante apagones entre cobro y guardado. No afirmar atomicidad de Vault+YAML.
 - Las categorías Nigromante y Araña siguen siendo «próximamente», tal como los originales. No se inventaron sus precios ni objetivos visuales.
-- Los textos y estadísticas de boss (vida, daño, loot y XP) siguen siendo información configurada en el menú, no una lectura dinámica de MythicMobs; revisar si el balance real cambia.
+- Vida, daño, loot, XP y los niveles 7/10/14 provienen de las referencias visuales; **no** son lecturas dinámicas de MythicMobs ni AuraSkills. Precios y bajas sí son datos dinámicos de Slayer. Revisar esas otras cifras si cambia el balance.
