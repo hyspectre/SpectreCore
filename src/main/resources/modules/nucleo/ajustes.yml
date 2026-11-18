@@ -14,14 +14,14 @@ toasts:
     trabajo-granjero: true
     trabajo-cazador: true
   presets:
-    furia: {icon: 'minecraft:netherite_axe', titulo: 'Furia completa', descripcion: 'Doble Shift para despertar'}
-    resonancia: {icon: 'minecraft:amethyst_shard', titulo: 'Resonancia completa', descripcion: 'Agachate y extrae una gema'}
-    gema-basica: {icon: 'minecraft:emerald', titulo: 'Gema obtenida', descripcion: 'Calidad basica'}
-    gema-intermedia: {icon: 'minecraft:diamond', titulo: 'Gema obtenida', descripcion: 'Calidad intermedia'}
-    gema-superior: {icon: 'minecraft:nether_star', titulo: 'Gema obtenida', descripcion: 'Calidad superior'}
-    trabajo-minero: {icon: 'minecraft:iron_pickaxe', titulo: 'Trabajo completado', descripcion: 'Pago de mineria'}
-    trabajo-granjero: {icon: 'minecraft:wheat', titulo: 'Trabajo completado', descripcion: 'Pago de agricultura'}
-    trabajo-cazador: {icon: 'minecraft:iron_sword', titulo: 'Trabajo completado', descripcion: 'Pago de caceria'}
+    furia: {icon: "minecraft:netherite_axe", titulo: "Furia completa", descripcion: "Doble Shift para despertar"}
+    resonancia: {icon: "minecraft:amethyst_shard", titulo: "Resonancia completa", descripcion: "Agachate y extrae una gema"}
+    gema-basica: {icon: "minecraft:emerald", titulo: "Gema obtenida", descripcion: "Calidad basica"}
+    gema-intermedia: {icon: "minecraft:diamond", titulo: "Gema obtenida", descripcion: "Calidad intermedia"}
+    gema-superior: {icon: "minecraft:nether_star", titulo: "Gema obtenida", descripcion: "Calidad superior"}
+    trabajo-minero: {icon: "minecraft:iron_pickaxe", titulo: "Trabajo completado", descripcion: "Pago de mineria"}
+    trabajo-granjero: {icon: "minecraft:wheat", titulo: "Trabajo completado", descripcion: "Pago de agricultura"}
+    trabajo-cazador: {icon: "minecraft:iron_sword", titulo: "Trabajo completado", descripcion: "Pago de caceria"}
 
 SpectreCorePlugin:
   color-001: GREEN

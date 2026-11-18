@@ -1,12 +1,12 @@
 # Edítalo sin recompilar. Solo destinos de página, no comandos arbitrarios.
 # /mago usa los Dialogs nativos de Minecraft 1.21.10.
-invalid-page: '<red>El Mago no conoce esa sección.</red>'
-close: '<gray>Cerrar</gray>'
-console-message: '<gray>Abre /mago dentro de Minecraft.</gray>'
+invalid-page: "<red>El Mago no conoce esa sección.</red>"
+close: "<gray>Cerrar</gray>"
+console-message: "<gray>Abre /mago dentro de Minecraft.</gray>"
 pages:
   inicio:
-    title: '<gold><bold>✦ El Mago</bold></gold>'
-    body: '<gray>He reunido los conocimientos de Hydev. ¿Qué buscas, aventurero?</gray>'
+    title: "<gold><bold>✦ El Mago</bold></gold>"
+    body: "<gray>He reunido los conocimientos de Hydev. ¿Qué buscas, aventurero?</gray>"
     buttons:
       - label: '<aqua>⚔ RPG</aqua>'
         page: rpg
@@ -15,8 +15,8 @@ pages:
       - label: '<green>Guías del servidor</green>'
         page: guias
   rpg:
-    title: '<aqua>RPG y combate</aqua>'
-    body: '<gray>Conjuntos de armaduras, habilidades, accesorios, mascotas y encantamientos.</gray>'
+    title: "<aqua>RPG y combate</aqua>"
+    body: "<gray>Conjuntos de armaduras, habilidades, accesorios, mascotas y encantamientos.</gray>"
     buttons:
       - label: '<yellow>Armaduras</yellow>'
         page: armaduras
@@ -31,38 +31,38 @@ pages:
       - label: '<gray>Regresar</gray>'
         page: inicio
   armaduras_info:
-    title: '<yellow>Armaduras y conjuntos</yellow>'
-    body: '<gray>Abre /mago armaduras para consultar los cinco conjuntos y sus bonos actuales.</gray>'
+    title: "<yellow>Armaduras y conjuntos</yellow>"
+    body: "<gray>Abre /mago armaduras para consultar los cinco conjuntos y sus bonos actuales.</gray>"
     buttons:
       - label: '<gray>RPG</gray>'
         page: rpg
   habilidades:
-    title: '<yellow>Habilidades</yellow>'
-    body: '<gray>Las habilidades de conjuntos se explican en /mago armaduras. Se ampliará esta sección con otras habilidades.</gray>'
+    title: "<yellow>Habilidades</yellow>"
+    body: "<gray>Las habilidades de conjuntos se explican en /mago armaduras. Se ampliará esta sección con otras habilidades.</gray>"
     buttons:
       - label: '<gray>RPG</gray>'
         page: rpg
   mascotas:
-    title: '<aqua>Mascotas</aqua>'
-    body: '<gray>Esta categoría estará disponible cuando implementemos mascotas.</gray>'
+    title: "<aqua>Mascotas</aqua>"
+    body: "<gray>Esta categoría estará disponible cuando implementemos mascotas.</gray>"
     buttons:
       - label: '<gray>RPG</gray>'
         page: rpg
   encantamientos:
-    title: '<aqua>Encantamientos</aqua>'
-    body: '<gray>Conoce los encantamientos personalizados cuando estén implementados.</gray>'
+    title: "<aqua>Encantamientos</aqua>"
+    body: "<gray>Conoce los encantamientos personalizados cuando estén implementados.</gray>"
     buttons:
       - label: '<gray>RPG</gray>'
         page: rpg
   accesorios:
-    title: '<aqua>Accesorios</aqua>'
-    body: '<gray>Esta sección mostrará los accesorios del servidor.</gray>'
+    title: "<aqua>Accesorios</aqua>"
+    body: "<gray>Esta sección mostrará los accesorios del servidor.</gray>"
     buttons:
       - label: '<gray>RPG</gray>'
         page: rpg
   profesiones:
-    title: '<gold>Profesiones</gold>'
-    body: '<gray>Conoce los oficios y sus estaciones. Los sistemas de juego siguen funcionando con sus comandos actuales.</gray>'
+    title: "<gold>Profesiones</gold>"
+    body: "<gray>Conoce los oficios y sus estaciones. Los sistemas de juego siguen funcionando con sus comandos actuales.</gray>"
     buttons:
       - label: '<gold>Cocina</gold>'
         page: cocina
@@ -73,16 +73,16 @@ pages:
       - label: '<gray>Inicio</gray>'
         page: inicio
   cocina:
-    title: '<gold>Cocina arcana</gold>'
-    body: '<gray>Activa cocinas con un mechero, prepara ingredientes y sirve platos. Pulsa Recetario para consultar las recetas disponibles.</gray>'
+    title: "<gold>Cocina arcana</gold>"
+    body: "<gray>Activa cocinas con un mechero, prepara ingredientes y sirve platos. Pulsa Recetario para consultar las recetas disponibles.</gray>"
     buttons:
       - label: '<yellow>Recetario</yellow>'
         page: recetas
       - label: '<gray>Profesiones</gray>'
         page: profesiones
   guias:
-    title: '<green>Guías de Hydev</green>'
-    body: '<gray>Consulta los sistemas del servidor sin salir de Minecraft.</gray>'
+    title: "<green>Guías de Hydev</green>"
+    body: "<gray>Consulta los sistemas del servidor sin salir de Minecraft.</gray>"
     buttons:
       - label: '<red>Misiones Slayer</red>'
         page: slayer
@@ -97,44 +97,44 @@ pages:
       - label: '<gray>Inicio</gray>'
         page: inicio
   trabajos:
-    title: '<gold>Trabajos</gold>'
-    body: '<gray>Los oficios de Hydev ofrecen objetivos y progresión. Consulta /spectrecore trabajo para ver tus opciones actuales. Las recompensas están definidas en YAML.</gray>'
+    title: "<gold>Trabajos</gold>"
+    body: "<gray>Los oficios de Hydev ofrecen objetivos y progresión. Consulta /spectrecore trabajo para ver tus opciones actuales. Las recompensas están definidas en YAML.</gray>"
     buttons:
       - label: '<gray>Profesiones</gray>'
         page: profesiones
   agricultura:
-    title: '<green>Agricultura y tesoros</green>'
-    body: '<gray>Las tareas de cosecha pueden generar tesoros según las probabilidades y requisitos del servidor. Consulta los permisos y categorías disponibles.</gray>'
+    title: "<green>Agricultura y tesoros</green>"
+    body: "<gray>Las tareas de cosecha pueden generar tesoros según las probabilidades y requisitos del servidor. Consulta los permisos y categorías disponibles.</gray>"
     buttons:
       - label: '<gray>Profesiones</gray>'
         page: profesiones
   slayer:
-    title: '<red>Misiones Slayer</red>'
-    body: '<gray>Acepta misiones, elimina los objetivos de tu categoría y progresa por tiers. Los objetivos y recompensas se configuran en módulos de Slayer.</gray>'
+    title: "<red>Misiones Slayer</red>"
+    body: "<gray>Acepta misiones, elimina los objetivos de tu categoría y progresa por tiers. Los objetivos y recompensas se configuran en módulos de Slayer.</gray>"
     buttons:
       - label: '<gray>Guías</gray>'
         page: guias
   tesoros:
-    title: '<gold>Tesoros</gold>'
-    body: '<gray>Obtén tesoros mediante minería, combate y agricultura. Cada fuente tiene requisitos, probabilidades y cooldowns configurables.</gray>'
+    title: "<gold>Tesoros</gold>"
+    body: "<gray>Obtén tesoros mediante minería, combate y agricultura. Cada fuente tiene requisitos, probabilidades y cooldowns configurables.</gray>"
     buttons:
       - label: '<gray>Guías</gray>'
         page: guias
   resonancia:
-    title: '<light_purple>Resonancia</light_purple>'
-    body: '<gray>Acumula carga minera para activar bonificaciones. La duración de la ventana y la carga máxima dependen de la configuración.</gray>'
+    title: "<light_purple>Resonancia</light_purple>"
+    body: "<gray>Acumula carga minera para activar bonificaciones. La duración de la ventana y la carga máxima dependen de la configuración.</gray>"
     buttons:
       - label: '<gray>Guías</gray>'
         page: guias
   portales:
-    title: '<aqua>Portales cooperativos</aqua>'
-    body: '<gray>Reúne al grupo junto al portal para participar. La proximidad, el tiempo de espera y la salida dependen de la configuración del servidor.</gray>'
+    title: "<aqua>Portales cooperativos</aqua>"
+    body: "<gray>Reúne al grupo junto al portal para participar. La proximidad, el tiempo de espera y la salida dependen de la configuración del servidor.</gray>"
     buttons:
       - label: '<gray>Guías</gray>'
         page: guias
   actividades:
-    title: '<yellow>Actividades</yellow>'
-    body: '<gray>Consulta encuentros, recompensas, desbloqueos y actividades especiales. Algunas dependen de MythicMobs, zMenu, LuckPerms o la economía.</gray>'
+    title: "<yellow>Actividades</yellow>"
+    body: "<gray>Consulta encuentros, recompensas, desbloqueos y actividades especiales. Algunas dependen de MythicMobs, zMenu, LuckPerms o la economía.</gray>"
     buttons:
       - label: '<gray>Guías</gray>'
         page: guias

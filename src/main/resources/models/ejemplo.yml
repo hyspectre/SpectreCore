@@ -18,6 +18,6 @@ parts:
       amplitude: 0.10
       period-ticks: 40
   - type: TEXT_DISPLAY
-    text: '<gold>✦ Ejemplo de Display Entities</gold>'
+    text: "<gold>✦ Ejemplo de Display Entities</gold>"
     offset: [0.0, 1.0, 0.0]
     scale: [0.5, 0.5, 0.5]

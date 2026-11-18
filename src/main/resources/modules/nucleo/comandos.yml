@@ -1,258 +1,258 @@
 trabajo:
-  descripcion: Sistema Hydev trabajo
-  uso: /spectrecore trabajos
+  descripcion: "Sistema Hydev trabajo"
+  uso: "/spectrecore trabajos"
 activarslayer:
-  descripcion: Sistema Hydev activarslayer
-  uso: /spectrecore slayer activar
+  descripcion: "Sistema Hydev activarslayer"
+  uso: "/spectrecore slayer activar"
 cancelarslayer:
-  descripcion: Sistema Hydev cancelarslayer
-  uso: /spectrecore slayer cancelar
+  descripcion: "Sistema Hydev cancelarslayer"
+  uso: "/spectrecore slayer cancelar"
 resetslayer:
-  descripcion: Sistema Hydev resetslayer
-  uso: /spectrecore slayer reiniciar
+  descripcion: "Sistema Hydev resetslayer"
+  uso: "/spectrecore slayer reiniciar"
 slayerstats:
-  descripcion: Sistema Hydev slayerstats
-  uso: /spectrecore slayer estado
+  descripcion: "Sistema Hydev slayerstats"
+  uso: "/spectrecore slayer estado"
 slayerinvocar:
-  descripcion: Sistema Hydev slayerinvocar
-  uso: /spectrecore slayer invocar
+  descripcion: "Sistema Hydev slayerinvocar"
+  uso: "/spectrecore slayer invocar"
 hydevportaljoin:
-  descripcion: Sistema Hydev hydevportaljoin
-  uso: /spectrecore portal registrar
+  descripcion: "Sistema Hydev hydevportaljoin"
+  uso: "/spectrecore portal registrar"
 hydevportalleave:
-  descripcion: Sistema Hydev hydevportalleave
-  uso: /spectrecore portal salir
+  descripcion: "Sistema Hydev hydevportalleave"
+  uso: "/spectrecore portal salir"
 hydevportalcleanup:
-  descripcion: Sistema Hydev hydevportalcleanup
-  uso: /spectrecore portal limpiar
+  descripcion: "Sistema Hydev hydevportalcleanup"
+  uso: "/spectrecore portal limpiar"
 hydevportalstatus:
-  descripcion: Sistema Hydev hydevportalstatus
-  uso: /spectrecore portal estado
+  descripcion: "Sistema Hydev hydevportalstatus"
+  uso: "/spectrecore portal estado"
 hydevportaldemo:
-  descripcion: Sistema Hydev hydevportaldemo
-  uso: /spectrecore portal demo
+  descripcion: "Sistema Hydev hydevportaldemo"
+  uso: "/spectrecore portal demo"
 rompemuelas:
-  descripcion: Actividad administrativa Hydev
-  uso: /spectrecore cygnus rompemuelas
+  descripcion: "Actividad administrativa Hydev"
+  uso: "/spectrecore cygnus rompemuelas"
 taladroroto:
-  descripcion: Actividad administrativa Hydev
-  uso: /spectrecore cygnus taladroroto
+  descripcion: "Actividad administrativa Hydev"
+  uso: "/spectrecore cygnus taladroroto"
 furiaestelar:
-  descripcion: Actividad administrativa Hydev
-  uso: /spectrecore cygnus furiaestelar
+  descripcion: "Actividad administrativa Hydev"
+  uso: "/spectrecore cygnus furiaestelar"
 capuchaencogedora:
-  descripcion: Actividad administrativa Hydev
-  uso: /spectrecore cygnus capuchaencogedora
+  descripcion: "Actividad administrativa Hydev"
+  uso: "/spectrecore cygnus capuchaencogedora"
 slimehechizado:
-  descripcion: Actividad administrativa Hydev
-  uso: /spectrecore cygnus slimehechizado
+  descripcion: "Actividad administrativa Hydev"
+  uso: "/spectrecore cygnus slimehechizado"
 compactador:
-  descripcion: Actividad administrativa Hydev
-  uso: /spectrecore cygnus compactador
+  descripcion: "Actividad administrativa Hydev"
+  uso: "/spectrecore cygnus compactador"
 golemcobre:
-  descripcion: Actividad administrativa Hydev
-  uso: /spectrecore cygnus golemcobre
+  descripcion: "Actividad administrativa Hydev"
+  uso: "/spectrecore cygnus golemcobre"
 opentreasure:
-  descripcion: Actividad administrativa Hydev
-  uso: /spectrecore tesoros abrir
+  descripcion: "Actividad administrativa Hydev"
+  uso: "/spectrecore tesoros abrir"
 polvodiamante:
-  descripcion: Actividad administrativa Hydev
-  uso: /spectrecore polvos diamante
+  descripcion: "Actividad administrativa Hydev"
+  uso: "/spectrecore polvos diamante"
 polvohierro:
-  descripcion: Actividad administrativa Hydev
-  uso: /spectrecore polvos hierro
+  descripcion: "Actividad administrativa Hydev"
+  uso: "/spectrecore polvos hierro"
 polvooro:
-  descripcion: Actividad administrativa Hydev
-  uso: /spectrecore polvos oro
+  descripcion: "Actividad administrativa Hydev"
+  uso: "/spectrecore polvos oro"
 polvocobre:
-  descripcion: Actividad administrativa Hydev
-  uso: /spectrecore polvos cobre
+  descripcion: "Actividad administrativa Hydev"
+  uso: "/spectrecore polvos cobre"
 polvolapis:
-  descripcion: Actividad administrativa Hydev
-  uso: /spectrecore polvos lapis
+  descripcion: "Actividad administrativa Hydev"
+  uso: "/spectrecore polvos lapis"
 polvoredstone:
-  descripcion: Actividad administrativa Hydev
-  uso: /spectrecore polvos redstone
+  descripcion: "Actividad administrativa Hydev"
+  uso: "/spectrecore polvos redstone"
 almas1:
-  descripcion: Actividad administrativa Hydev
-  uso: /spectrecore desbloquear almas
+  descripcion: "Actividad administrativa Hydev"
+  uso: "/spectrecore desbloquear almas"
 mineria1:
-  descripcion: Actividad administrativa Hydev
-  uso: /spectrecore desbloquear mineria
+  descripcion: "Actividad administrativa Hydev"
+  uso: "/spectrecore desbloquear mineria"
 telefono1:
-  descripcion: Actividad administrativa Hydev
-  uso: /spectrecore telefono
+  descripcion: "Actividad administrativa Hydev"
+  uso: "/spectrecore telefono"
 slayerzombie1:
-  descripcion: Actividad administrativa Hydev
-  uso: /spectrecore desbloquear slayerzombie 1
+  descripcion: "Actividad administrativa Hydev"
+  uso: "/spectrecore desbloquear slayerzombie 1"
 slayerzombie2:
-  descripcion: Actividad administrativa Hydev
-  uso: /spectrecore desbloquear slayerzombie 2
+  descripcion: "Actividad administrativa Hydev"
+  uso: "/spectrecore desbloquear slayerzombie 2"
 slayerzombie3:
-  descripcion: Actividad administrativa Hydev
-  uso: /spectrecore desbloquear slayerzombie 3
+  descripcion: "Actividad administrativa Hydev"
+  uso: "/spectrecore desbloquear slayerzombie 3"
 resonancia:
-  descripcion: Carga y tiempo restante del Pico Perdido
-  uso: /spectrecore resonancia
+  descripcion: "Carga y tiempo restante del Pico Perdido"
+  uso: "/spectrecore resonancia"
 debugresonancia:
-  descripcion: Diagnostico administrativo de mineria
-  uso: /spectrecore resonancia debug
+  descripcion: "Diagnostico administrativo de mineria"
+  uso: "/spectrecore resonancia debug"
 nombreitem:
-  descripcion: Inspeccionar y copiar el nombre del objeto en mano
-  uso: /spectrecore item nombre
+  descripcion: "Inspeccionar y copiar el nombre del objeto en mano"
+  uso: "/spectrecore item nombre"
 armaduras:
-  descripcion: Guía de conjuntos, habilidades y bonos de armadura
-  uso: /spectrecore armaduras
+  descripcion: "Guía de conjuntos, habilidades y bonos de armadura"
+  uso: "/spectrecore armaduras"
 spectrecore:
-  descripcion: Sistemas RPG y administración de Hydev
-  uso: /spectrecore ayuda
+  descripcion: "Sistemas RPG y administración de Hydev"
+  uso: "/spectrecore ayuda"
 cocina:
-  descripcion: Sistema de cocina arcana
-  uso: /spectrecore cocina <ayuda|libro|recetas|estado|reparar|recargar>
+  descripcion: "Sistema de cocina arcana"
+  uso: "/spectrecore cocina <ayuda|libro|recetas|estado|reparar|recargar>"
 rutas:
   status:
-    uso: /spectrecore status
-    descripcion: Estado de habilidades
+    uso: "/spectrecore status"
+    descripcion: "Estado de habilidades"
   modulos:
-    uso: /spectrecore modulos
-    descripcion: Estado de módulos
+    uso: "/spectrecore modulos"
+    descripcion: "Estado de módulos"
   reload:
-    uso: /spectrecore reload
-    descripcion: Recargar configuración
+    uso: "/spectrecore reload"
+    descripcion: "Recargar configuración"
   reset:
-    uso: /spectrecore reset
-    descripcion: Reiniciar tus habilidades y recargas
+    uso: "/spectrecore reset"
+    descripcion: "Reiniciar tus habilidades y recargas"
   demo:
-    uso: /spectrecore demo <habilidad>
-    descripcion: Alternar una habilidad de prueba
+    uso: "/spectrecore demo <habilidad>"
+    descripcion: "Alternar una habilidad de prueba"
   blink:
-    uso: /spectrecore blink <jugador>
-    descripcion: Notificar un Blink confirmado
+    uso: "/spectrecore blink <jugador>"
+    descripcion: "Notificar un Blink confirmado"
   armaduras:
-    uso: /spectrecore armaduras
-    descripcion: Guía de armaduras mediante Dialogs
+    uso: "/spectrecore armaduras"
+    descripcion: "Guía de armaduras mediante Dialogs"
   cocina:
-    uso: /spectrecore cocina <ayuda|libro|recetas|estado|reparar|recargar>
-    descripcion: Cocina y recetario
+    uso: "/spectrecore cocina <ayuda|libro|recetas|estado|reparar|recargar>"
+    descripcion: "Cocina y recetario"
   trabajos:
-    uso: /spectrecore trabajos
-    descripcion: Niveles de trabajos
+    uso: "/spectrecore trabajos"
+    descripcion: "Niveles de trabajos"
   resonancia:
-    uso: /spectrecore resonancia
-    descripcion: Carga del Pico Perdido
+    uso: "/spectrecore resonancia"
+    descripcion: "Carga del Pico Perdido"
     debug:
-      uso: /spectrecore resonancia debug
-      descripcion: Diagnóstico de resonancia
+      uso: "/spectrecore resonancia debug"
+      descripcion: "Diagnóstico de resonancia"
   item:
     nombre:
-      uso: /spectrecore item nombre
-      descripcion: Inspeccionar y copiar el nombre del objeto
+      uso: "/spectrecore item nombre"
+      descripcion: "Inspeccionar y copiar el nombre del objeto"
   slayer:
     estado:
-      uso: /spectrecore slayer estado
-      descripcion: Progreso de misiones Slayer
+      uso: "/spectrecore slayer estado"
+      descripcion: "Progreso de misiones Slayer"
     activar:
-      uso: /spectrecore slayer activar <categoria> <1|2|3>
-      descripcion: Iniciar una misión Slayer
+      uso: "/spectrecore slayer activar <categoria> <1|2|3>"
+      descripcion: "Iniciar una misión Slayer"
     cancelar:
-      uso: /spectrecore slayer cancelar <categoria>
-      descripcion: Cancelar una misión Slayer
+      uso: "/spectrecore slayer cancelar <categoria>"
+      descripcion: "Cancelar una misión Slayer"
     reiniciar:
-      uso: /spectrecore slayer reiniciar <categoria>
-      descripcion: Reiniciar una misión Slayer
+      uso: "/spectrecore slayer reiniciar <categoria>"
+      descripcion: "Reiniciar una misión Slayer"
     invocar:
-      uso: /spectrecore slayer invocar <categoria>
-      descripcion: Reintentar la invocación de un objetivo completado
+      uso: "/spectrecore slayer invocar <categoria>"
+      descripcion: "Reintentar la invocación de un objetivo completado"
   portal:
     registrar:
-      uso: /spectrecore portal registrar <jugador> <sesion>
-      descripcion: Registrar participante y sesión
+      uso: "/spectrecore portal registrar <jugador> <sesion>"
+      descripcion: "Registrar participante y sesión"
     salir:
-      uso: /spectrecore portal salir <jugador>
-      descripcion: Retirar el registro de un participante
+      uso: "/spectrecore portal salir <jugador>"
+      descripcion: "Retirar el registro de un participante"
     estado:
-      uso: /spectrecore portal estado [jugador]
-      descripcion: Diagnóstico del portal
+      uso: "/spectrecore portal estado [jugador]"
+      descripcion: "Diagnóstico del portal"
     demo:
-      uso: /spectrecore portal demo [jugador]
-      descripcion: Previsualizar el portal
+      uso: "/spectrecore portal demo [jugador]"
+      descripcion: "Previsualizar el portal"
     limpiar:
-      uso: /spectrecore portal limpiar
-      descripcion: Retirar los portales activos
+      uso: "/spectrecore portal limpiar"
+      descripcion: "Retirar los portales activos"
   tesoros:
     abrir:
-      uso: /spectrecore tesoros abrir
-      descripcion: Abrir un cofre con premio
+      uso: "/spectrecore tesoros abrir"
+      descripcion: "Abrir un cofre con premio"
     mineria:
-      uso: /spectrecore tesoros mineria <1|2|3>
-      descripcion: Previsualizar un tesoro minero
+      uso: "/spectrecore tesoros mineria <1|2|3>"
+      descripcion: "Previsualizar un tesoro minero"
     gema:
-      uso: /spectrecore tesoros gema <basica|intermedia|superior>
-      descripcion: Previsualizar una gema
+      uso: "/spectrecore tesoros gema <basica|intermedia|superior>"
+      descripcion: "Previsualizar una gema"
     combate:
-      uso: /spectrecore tesoros combate <1|2|3>
-      descripcion: Previsualizar un alma
+      uso: "/spectrecore tesoros combate <1|2|3>"
+      descripcion: "Previsualizar un alma"
     agricultura:
-      uso: /spectrecore tesoros agricultura <1|2|3>
-      descripcion: Previsualizar un hallazgo agrícola
+      uso: "/spectrecore tesoros agricultura <1|2|3>"
+      descripcion: "Previsualizar un hallazgo agrícola"
   cygnus:
     rompemuelas:
-      uso: /spectrecore cygnus rompemuelas
-      descripcion: 'Oferta de Cygnus: rompemuelas'
+      uso: "/spectrecore cygnus rompemuelas"
+      descripcion: "Oferta de Cygnus: rompemuelas"
     taladroroto:
-      uso: /spectrecore cygnus taladroroto
-      descripcion: 'Oferta de Cygnus: taladroroto'
+      uso: "/spectrecore cygnus taladroroto"
+      descripcion: "Oferta de Cygnus: taladroroto"
     furiaestelar:
-      uso: /spectrecore cygnus furiaestelar
-      descripcion: 'Oferta de Cygnus: furiaestelar'
+      uso: "/spectrecore cygnus furiaestelar"
+      descripcion: "Oferta de Cygnus: furiaestelar"
     capuchaencogedora:
-      uso: /spectrecore cygnus capuchaencogedora
-      descripcion: 'Oferta de Cygnus: capuchaencogedora'
+      uso: "/spectrecore cygnus capuchaencogedora"
+      descripcion: "Oferta de Cygnus: capuchaencogedora"
     slimehechizado:
-      uso: /spectrecore cygnus slimehechizado
-      descripcion: 'Oferta de Cygnus: slimehechizado'
+      uso: "/spectrecore cygnus slimehechizado"
+      descripcion: "Oferta de Cygnus: slimehechizado"
     compactador:
-      uso: /spectrecore cygnus compactador
-      descripcion: 'Oferta de Cygnus: compactador'
+      uso: "/spectrecore cygnus compactador"
+      descripcion: "Oferta de Cygnus: compactador"
     golemcobre:
-      uso: /spectrecore cygnus golemcobre
-      descripcion: 'Oferta de Cygnus: golemcobre'
+      uso: "/spectrecore cygnus golemcobre"
+      descripcion: "Oferta de Cygnus: golemcobre"
   polvos:
     diamante:
-      uso: /spectrecore polvos diamante
-      descripcion: 'Pago de polvo: diamante'
+      uso: "/spectrecore polvos diamante"
+      descripcion: "Pago de polvo: diamante"
     hierro:
-      uso: /spectrecore polvos hierro
-      descripcion: 'Pago de polvo: hierro'
+      uso: "/spectrecore polvos hierro"
+      descripcion: "Pago de polvo: hierro"
     oro:
-      uso: /spectrecore polvos oro
-      descripcion: 'Pago de polvo: oro'
+      uso: "/spectrecore polvos oro"
+      descripcion: "Pago de polvo: oro"
     cobre:
-      uso: /spectrecore polvos cobre
-      descripcion: 'Pago de polvo: cobre'
+      uso: "/spectrecore polvos cobre"
+      descripcion: "Pago de polvo: cobre"
     lapis:
-      uso: /spectrecore polvos lapis
-      descripcion: 'Pago de polvo: lapis'
+      uso: "/spectrecore polvos lapis"
+      descripcion: "Pago de polvo: lapis"
     redstone:
-      uso: /spectrecore polvos redstone
-      descripcion: 'Pago de polvo: redstone'
+      uso: "/spectrecore polvos redstone"
+      descripcion: "Pago de polvo: redstone"
   desbloquear:
     almas:
-      uso: /spectrecore desbloquear almas
-      descripcion: Desbloquear almas de tier 1
+      uso: "/spectrecore desbloquear almas"
+      descripcion: "Desbloquear almas de tier 1"
     mineria:
-      uso: /spectrecore desbloquear mineria
-      descripcion: Desbloquear minería de tier 1
+      uso: "/spectrecore desbloquear mineria"
+      descripcion: "Desbloquear minería de tier 1"
     slayerzombie:
       '1':
-        uso: /spectrecore desbloquear slayerzombie 1
-        descripcion: Desbloquear Revenant de tier 1
+        uso: "/spectrecore desbloquear slayerzombie 1"
+        descripcion: "Desbloquear Revenant de tier 1"
       '2':
-        uso: /spectrecore desbloquear slayerzombie 2
-        descripcion: Desbloquear Revenant de tier 2
+        uso: "/spectrecore desbloquear slayerzombie 2"
+        descripcion: "Desbloquear Revenant de tier 2"
       '3':
-        uso: /spectrecore desbloquear slayerzombie 3
-        descripcion: Desbloquear Revenant de tier 3
+        uso: "/spectrecore desbloquear slayerzombie 3"
+        descripcion: "Desbloquear Revenant de tier 3"
   telefono:
-    uso: /spectrecore telefono
-    descripcion: Abrir el menú de Slayers
+    uso: "/spectrecore telefono"
+    descripcion: "Abrir el menú de Slayers"
