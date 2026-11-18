@@ -13,6 +13,9 @@ import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 public final class TextService {
     private static final MiniMessage MINI = MiniMessage.miniMessage();
     private static final Pattern PARAM = Pattern.compile("\\{([a-zA-Z0-9_-]{1,64})}");
+    private static final Pattern LEGACY_HEX = Pattern.compile("(?i)[&§]x((?:[&§][0-9a-f]){6})");
+    private static final Pattern HASH_HEX = Pattern.compile("(?i)&#([0-9a-f]{6})");
+    private static final Pattern LEGACY_STYLE = Pattern.compile("(?i)[&§]([0-9a-fk-or])");
     private TextService() { }
 
     /** MiniMessage is the only renderer. Legacy colour codes are migrated in memory. */
@@ -24,7 +27,8 @@ public final class TextService {
     /** Converts old section/ampersand styles without touching user placeholders or IDs. */
     public static String legacyToMini(String source) {
         if (source == null || source.isEmpty()) return "";
-        Matcher hex = Pattern.compile("(?i)[&§]x((?:[&§][0-9a-f]){6})").matcher(source);
+        if (source.indexOf('&') < 0 && source.indexOf('§') < 0) return source;
+        Matcher hex = LEGACY_HEX.matcher(source);
         StringBuffer converted = new StringBuffer();
         while (hex.find()) {
             String digits = hex.group(1).replace("&", "").replace("§", "");
@@ -32,11 +36,11 @@ public final class TextService {
         }
         hex.appendTail(converted);
         source = converted.toString();
-        Matcher rgb = Pattern.compile("(?i)&#([0-9a-f]{6})").matcher(source);
+        Matcher rgb = HASH_HEX.matcher(source);
         converted = new StringBuffer();
         while (rgb.find()) rgb.appendReplacement(converted, Matcher.quoteReplacement("<reset><#" + rgb.group(1) + ">"));
         rgb.appendTail(converted);
-        Matcher codes = Pattern.compile("(?i)[&§]([0-9a-fk-or])").matcher(converted.toString());
+        Matcher codes = LEGACY_STYLE.matcher(converted.toString());
         converted = new StringBuffer();
         String[] colors = {"black","dark_blue","dark_green","dark_aqua","dark_red","dark_purple",
                 "gold","gray","dark_gray","blue","green","aqua","red","light_purple","yellow","white"};
