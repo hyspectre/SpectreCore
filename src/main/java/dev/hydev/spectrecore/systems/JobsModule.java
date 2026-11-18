@@ -186,12 +186,8 @@ public final class JobsModule implements Listener {
         if (minimum.doubleValue()!=min || maximum.doubleValue()!=max || min < 0 || max < min || max > Integer.MAX_VALUE || !Double.isFinite(cooldown) || cooldown < 0) { missing(job, level); return; }
         String key = job + "." + p.getUniqueId(); long now = System.currentTimeMillis();
         long remaining = ProgressRules.remaining(last.getOrDefault(key, -1L), now, (long) (cooldown * 1000));
-        if (remaining > 0) {
-            if (now - messages.getOrDefault(key, 0L) >= Math.max(0,config.getLong("avisos.intervalo-cooldown-milisegundos",5000))) {
-                p.sendActionBar(Settings.component(Settings.text("trabajos", "JobsModule.mensaje-005", "§cDebes esperar §e{remaining-999-1000}s §cantes de recibir más recompensas.", "remaining-999-1000", ((remaining + 999) / 1000), "job", job), Settings.color("trabajos", "JobsModule.color-001", NamedTextColor.RED))); messages.put(key, now);
-            }
-            return;
-        }
+        // Cooldown remains enforced; it is shown in the Jobs GUI, not the actionbar.
+        if (remaining > 0) return;
         long amount = ThreadLocalRandom.current().nextLong(min, max + 1);
         var result = economy.deposit(p, amount, config.getBoolean("economia.permitir-comando-eco", true));
         if (result == EconomyBridge.Result.FAILED) { if (warned.add("economy")) plugin.getLogger().warning(Settings.text("trabajos", "JobsModule.mensaje-006", "Trabajos: no se pudo pagar; revisa Vault/economía o eco. No se consume cooldown.")); return; }
