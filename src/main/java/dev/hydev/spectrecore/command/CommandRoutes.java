@@ -32,6 +32,7 @@ public final class CommandRoutes {
         routes.add(route("resonancia debug","debugresonancia","resonancia",Access.HYDEV_ADMIN,"","Diagnóstico de resonancia"));
         routes.add(route("item nombre","nombreitem","",Access.HYDEV_ADMIN,"","Inspeccionar y copiar el nombre del objeto"));
         routes.add(route("slayer estado","slayerstats","slayer",Access.PUBLIC,"","Progreso de misiones Slayer"));
+        routes.add(route("slayer comprar telefono","comprartelefono","slayer",Access.PUBLIC,"","Comprar acceso remoto a misiones mediante Vault y MMOItems"));
         routes.add(route("slayer contratar","contratarslayer","slayer",Access.PUBLIC,"<categoria> <1|2|3>","Contratar una misión Slayer con Vault"));
         routes.add(route("slayer abandonar","abandonarslayer","slayer",Access.PUBLIC,"<categoria>","Abandonar un contrato Slayer con Vault"));
         routes.add(route("slayer activar","activarslayer","slayer",Access.HYDEV_ADMIN,"<categoria> <1|2|3>","Iniciar una misión Slayer"));
