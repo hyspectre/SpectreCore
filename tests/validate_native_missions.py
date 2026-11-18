@@ -70,7 +70,7 @@ assert "Bukkit.getScheduler().runTask(plugin" in java
 assert "getTopInventory().getHolder() == expected" in java
 assert "CustomHeads.fromBase64(encoded)" in java
 assert "Bukkit.createInventory(holder, 54" in java
-assert 'case "1" -> open(player, "revenant")' in java
+assert 'case "1" -> nextTick(player, holder, () -> open(player, "revenant"))' in java
 assert "slayer.contractFromMenu(player" in java and "slayer.cancelFromMenu(player)" in java
 assert "slayer.buyPhoneFromMenu(player)" in java
 assert "Bukkit.dispatchCommand(" not in java and "dispatchCommand(" not in java
