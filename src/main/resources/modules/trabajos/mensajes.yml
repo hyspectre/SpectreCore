@@ -11,3 +11,8 @@ JobsModule:
   mensaje-007: '{valor1}+{amount} ↾ · {job}'
   texto-004: 'Pago solicitado: '
   mensaje-008: 'Trabajos: faltan o son inválidos dinero/cooldown de {job}.{level}. Esa categoría no paga hasta configurarse.'
+  contrato-rechazado: '§cNo puedes firmar este contrato: {motivo}'
+  contrato-sin-luckperms: '§cLuckPerms no está disponible; no se ha cobrado.'
+  contrato-sin-saldo: '§cNo se pudo confirmar el pago mediante Vault.'
+  contrato-fallo: '§cNo se pudo guardar el contrato. Se intentó devolver el pago.'
+  contrato-exito: '§aContrato firmado: {trabajo} {rango}. Precio: {precio} ↾.'
