@@ -10,6 +10,7 @@ import dev.hydev.spectrecore.core.SkillModule;
 import dev.hydev.spectrecore.core.Targeting;
 import dev.hydev.spectrecore.core.Visuals;
 import dev.hydev.spectrecore.integration.AuraSkillsBridge;
+import dev.hydev.spectrecore.integration.ToastService;
 import dev.hydev.spectrecore.skills.AsterionSkill;
 import dev.hydev.spectrecore.skills.BotaniaSkill;
 import dev.hydev.spectrecore.skills.CoronaSkill;
@@ -93,8 +94,10 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
     private dev.hydev.spectrecore.guide.MagoMenu mago;
     private dev.hydev.spectrecore.integration.IntegrationRegistry integrations;
     private AuraSkillsBridge auraSkillsBridge;
+    private ToastService toastService;
     public dev.hydev.spectrecore.integration.IntegrationRegistry integrations() { return integrations; }
     public AuraSkillsBridge auraSkillsBridge() { return auraSkillsBridge; }
+    public ToastService toasts() { return toastService; }
     private boolean applyingSkillDamage;
     private dev.hydev.spectrecore.command.CommandRouter commandRouter;
     public dev.hydev.spectrecore.command.CommandRouter commands() { return commandRouter; }
@@ -139,6 +142,8 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
         try { reloadConfig(); }
         catch (Exception error) { getLogger().severe(error.getMessage()); getServer().getPluginManager().disablePlugin(this); return; }
         reloadDiagnostics();
+        toastService = new ToastService(this);
+        toastService.enable();
         for (String name : commandRouter.names()) if (!name.equals("spectrecore") && commandRouter.get(name) != null) {
             commandRouter.get(name).setExecutor((sender, command, label, args) -> { sender.sendMessage(Settings.text("nucleo", "SpectreCorePlugin.mensaje-001", "Ese módulo está desactivado en SpectreCore.")); return true; });
             commandRouter.get(name).setTabCompleter((sender, command, label, args) -> List.of());
@@ -277,6 +282,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
             if (passive != null) passive.clear(player);
         }
         if (auraSkillsBridge != null) { auraSkillsBridge.clearAll(); auraSkillsBridge = null; }
+        if (toastService != null) { toastService.disable(); toastService = null; }
         if (visuals != null) visuals.removeOrphans();
         if (displayModels != null) { displayModels.stop(); displayModels = null; }
         if (mago != null) { mago.close(); mago = null; }
@@ -358,7 +364,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
 
     private void clear(UUID id) { for (SkillModule module : modules) module.clear(id); }
     @EventHandler public void onQuit(PlayerQuitEvent event) {
-        UUID id = event.getPlayer().getUniqueId(); if (displayModels != null) displayModels.clear(id); if (mago != null) mago.forget(event.getPlayer()); clear(id); if (passive != null) passive.clear(event.getPlayer()); demo.remove(id);
+        UUID id = event.getPlayer().getUniqueId(); if (toastService != null) toastService.forget(id); if (displayModels != null) displayModels.clear(id); if (mago != null) mago.forget(event.getPlayer()); clear(id); if (passive != null) passive.clear(event.getPlayer()); demo.remove(id);
     }
     @EventHandler public void onDeath(PlayerDeathEvent event) { clear(event.getEntity().getUniqueId()); if (passive != null) passive.clear(event.getEntity()); }
     @EventHandler public void onChangeWorld(PlayerChangedWorldEvent event) { clear(event.getPlayer().getUniqueId()); if (passive != null) passive.clear(event.getPlayer()); }
@@ -443,6 +449,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
                     "error", badMenu.getMessage().replace('<',' ').replace('>',' '))));
             }
             reloadDiagnostics();
+            if (toastService != null) toastService.reload();
             if (displayModels != null && !displayModels.reloadOptions()) sender.sendMessage(Settings.component(Settings.text("nucleo", "Modelos.settings-invalido", "<red>models/settings.yml inválido; se conservan límites anteriores.</red>")));
             if (cooking != null) cooking.reload();
             if (mining != null) mining.reload();
