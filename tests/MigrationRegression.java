@@ -1,4 +1,5 @@
 import dev.hydev.spectrecore.migration.MigrationRules;
+import dev.hydev.spectrecore.core.CombatRules;
 import dev.hydev.spectrecore.treasure.CombatTreasureRules;
 import dev.hydev.spectrecore.treasure.TreasureLedger;
 import dev.hydev.spectrecore.activities.ActivityRules;
@@ -28,6 +29,10 @@ public final class MigrationRegression {
             check(MigrationRules.guardedHealth(100, max, floor) == 100, "Stale lock never heals boss");
             check(!MigrationRules.crosses(max * floor, 0, max, floor), "Zero damage never advances phase");
         }
+        check(Math.abs(CombatRules.oathMultiplier(false,.15,0) - 1.15) < 1e-12,"Legacy Voto bonus without AuraSkills");
+        check(Math.abs(CombatRules.oathMultiplier(true,.15,0) - 1.0) < 1e-12,"AuraSkills Strength suppresses duplicate legacy bonus");
+        check(Math.abs(CombatRules.oathMultiplier(true,.15,.10) - 1.10) < 1e-12,"Blink bonus remains when AuraSkills is active");
+        check(Math.abs(CombatRules.oathMultiplier(false,.15,.10) - 1.25) < 1e-12,"Legacy bonus and Blink combine without AuraSkills");
         check(!MigrationRules.breaksChannel(100), "Skript hearts must not become 100 Java HP");
         check(!MigrationRules.breaksChannel(199.99), "Below 200 HP does not break channel");
         check(MigrationRules.breaksChannel(200), "Exactly 200 HP breaks channel");
