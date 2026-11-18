@@ -1,141 +1,141 @@
 CookingModule:
-  mensaje-026: 'La sección stations no tiene un formato válido. Cocina desactivada.'
-  mensaje-025: 'La ruta de stations.yml existe pero no es un archivo regular.'
-  mensaje-023: 'Cocina desactivada: stations.yml no es legible. Recupera el archivo antes de reiniciar.'
-  mensaje-024: 'No se pudo leer stations.yml: {error}'
-  etiqueta-122: 'Cocina en mantenimiento: error de persistencia. Avisa a administración.'
-  etiqueta-023: Cocina Arcana
-  mensaje-001: No se pudo crear carpeta cooking.
-  mensaje-002: 'SpectreCore cocina: {stations-size} estaciones, {recipes-size} recetas.'
-  etiqueta-024: 'Cocina migrada: '
-  mensaje-003: 'No se pudo copiar {filename}: {ex-getmessage}'
-  mensaje-004: recipes.yml no contiene 'recetas'.
-  etiqueta-025: 'Ingrediente desconocido: '
-  etiqueta-026: Ventanas de coccion invalidas
-  mensaje-005: 'Receta ''{id}'' ignorada: {ex-getmessage}'
-  etiqueta-027: Su aroma todavía es un misterio.
-  etiqueta-028: Falta UUID del mundo
-  mensaje-006: 'Estacion pendiente, mundo no cargado (se conservara el registro): {id}'
-  mensaje-007: 'Estacion corrupta conservada {id}: {ex-getmessage}'
-  mensaje-008: 'No se pudo guardar stations.yml: {ex-getmessage}'
-  etiqueta-029: Retira primero la cocina con una esponja (clic derecho).
-  etiqueta-030: Este caldero ya esta cocinando.
-  etiqueta-031: Esta estacion necesita un caldero con agua.
-  etiqueta-032: Este ingrediente tiene datos personalizados y no se consumira.
-  etiqueta-033: Este ingrediente no inicia ninguna receta.
-  etiqueta-034: Ingrediente incorrecto. No se ha consumido.
-  etiqueta-035: §6♨ §e
-  etiqueta-036: ' §7| Calentando '
-  etiqueta-037: '¡Preparacion de '
-  etiqueta-038: ' raciones iniciada! Vigila el caldero.'
-  etiqueta-039: §e
-  etiqueta-040: ' §7| §f'
-  etiqueta-041: Limpiaste el guiso quemado con la esponja. La cocina sigue instalada.
-  etiqueta-042: ' platos por servir. '
-  etiqueta-043: Para descartar el lote y retirar la cocina, usa Shift + esponja.
-  etiqueta-044: 'Arroja los tres ingredientes en orden. '
-  etiqueta-045: Usa un mechero para crear una cocina y una esponja para retirarla.
-  etiqueta-046: §a✦ Revolvimiento perfecto
-  etiqueta-047: §e♨ Mezcla revuelta
-  etiqueta-048: ¡Revolvimiento perfecto! Vas por un plato exquisito.
-  etiqueta-049: Has revuelto, pero la mezcla no quedo perfecta.
-  etiqueta-050: No es el momento de revolver, o ya lo hiciste.
-  etiqueta-051: 'Usa una pala de madera para revolver, un cuenco para servir '
-  etiqueta-052: o una esponja para limpiar/retirar.
-  etiqueta-053: Preparacion quemada. Limpia el caldero con una esponja.
-  etiqueta-054: Todavia esta crudo.
-  etiqueta-055: El MMOItem CONSUMABLE/
-  etiqueta-056: ' no esta disponible. No se consumio el cuenco ni se reinicio la receta.'
-  mensaje-009: 'Falta recompensa MMOItems: {rewardid}'
-  etiqueta-057: 'Comida obtenida: '
-  etiqueta-058: Coloca el caldero CON AGUA justo encima de una fogata.
-  etiqueta-059: Enciende primero la fogata debajo del caldero.
-  etiqueta-060: 'Debe haber al menos '
-  etiqueta-061: ' bloques entre cocinas.'
-  etiqueta-062: Cocina registrada con el mechero. Arroja ingredientes al caldero.
-  etiqueta-063: Cocina retirada con la esponja. Los bloques siguen intactos.
-  mensaje-010: 'API de MMOItems incompatible: {valor1}: {ex-getmessage}'
-  etiqueta-064: §6✦ Cocina Arcana §7| §f
-  etiqueta-065: §e
-  etiqueta-066: ' §7| §f'
-  etiqueta-067: '§a✦ '
-  etiqueta-068: ' platos §7| §f'
-  etiqueta-069: ' §7| Usa cuencos'
-  etiqueta-070: §4✖ Quemado §7| Usa una esponja
-  texto-001: §7✖ Fogata apagada §8| Coccion pausada
-  etiqueta-071: '§6⚠ Sobrecocido: sirve ya'
-  etiqueta-072: §a✦ ¡LISTO PARA SERVIR!
-  etiqueta-073: §a✦ ¡MOMENTO PERFECTO PARA REVOLVER!
-  etiqueta-074: §6⚠ §eRevuelve la mezcla
-  etiqueta-075: §a✦ Mezcla precisa §7| Esperando...
-  etiqueta-076: §e♨ Mezcla revuelta §7| Esperando...
-  etiqueta-077: §6⚠ Se paso el momento de revolver
-  etiqueta-078: §6♨ §e
-  etiqueta-079: ' §7| Calentando...'
-  etiqueta-080: '§eCaldero vacío §7| §fAgua: '
-  etiqueta-081: /3 §7| Arroja ingredientes
-  etiqueta-082: §e
-  etiqueta-083: ' §7| §f'
-  etiqueta-084: ' §7| Siguiente: §f'
-  etiqueta-085: §a
-  etiqueta-086: ' §7| §e'
-  etiqueta-087: ' raciones disponibles §7| Calidad: §f'
-  etiqueta-088: §4✖ Preparación quemada §7| Limpia con una esponja
-  etiqueta-089: '§7Fogata apagada §8| §fCocción pausada, '
-  etiqueta-090: §aSirve con un cuenco
-  etiqueta-091: §eRevuelve con pala
-  etiqueta-092: §7Calentando
-  etiqueta-093: §6
-  etiqueta-094: ' §7| §f'
-  etiqueta-095: '% §8('
-  etiqueta-096: ' s) §7| '
-  mensaje-011: §6✦ EXQUISITO ✦
-  texto-002: §e
-  mensaje-012: 'UUID de cocinero invalido: {id}'
-  mensaje-013: 'No se pudieron guardar recetas descubiertas: {ex-getmessage}'
-  etiqueta-097: '§d✦ Nueva receta descubierta: §e'
-  etiqueta-098: ' §7| Abre §f/mago recetas§7 para consultarla.'
-  etiqueta-099: §5✦ Recetario Arcano
-  etiqueta-100: §e
-  etiqueta-101: '§7Ingredientes por ración:'
-  etiqueta-102: '§f1× '
-  etiqueta-103: '§f1× '
-  etiqueta-104: '§f1× '
-  etiqueta-105: '§8Revolver: '
-  etiqueta-106: '§8Servir: '
-  etiqueta-107: '§8Caldero: 1-3 raciones según el agua'
-  etiqueta-108: §8??? · Receta desconocida
-  etiqueta-109: '§7Pista: §f'
-  etiqueta-110: §8Descúbrela preparando y sirviendo el plato.
-  etiqueta-111: §d✦ Descubrimientos
-  etiqueta-112: §f
-  etiqueta-113: ' recetas conocidas'
-  etiqueta-114: §7Las recetas se registran al servir un plato.
-  etiqueta-115: §7Se guardan por jugador.
-  etiqueta-116: §e
-  etiqueta-117: ' §7| '
-  etiqueta-118: ' §7| '
-  etiqueta-119: ' s para servir.'
-  mensaje-014: '{prefix}§eMechero: crear §7| §ePala de madera: revolver §7| §eEsponja: limpiar/retirar §7| §eCuenco: servir'
-  mensaje-015: '{prefix}§e/mago recetas §7| §e/spectrecore cocina estado §7| admin: reparar, recargar'
-  mensaje-016: '{prefix}§e{r-name} §7» {r-ingredients}'
-  mensaje-017: '{prefix}§cNo tienes permiso.'
-  mensaje-018: '{prefix}§aConfiguracion y recetas recargadas.'
-  mensaje-019: '{prefix}§c{error-getmessage}'
-  mensaje-020: '{prefix}Este comando requiere un jugador.'
-  mensaje-021: '{prefix}§cNo tienes permiso.'
-  etiqueta-120: Mira directamente a una cocina registrada.
-  etiqueta-121: Modelo de cocina reconstruido.
-  mensaje-022: '{prefix}§e/spectrecore cocina ayuda | libro | estado | reparar | recargar'
+  mensaje-026: "La sección stations no tiene un formato válido. Cocina desactivada."
+  mensaje-025: "La ruta de stations.yml existe pero no es un archivo regular."
+  mensaje-023: "Cocina desactivada: stations.yml no es legible. Recupera el archivo antes de reiniciar."
+  mensaje-024: "No se pudo leer stations.yml: {error}"
+  etiqueta-122: "Cocina en mantenimiento: error de persistencia. Avisa a administración."
+  etiqueta-023: "Cocina Arcana"
+  mensaje-001: "No se pudo crear carpeta cooking."
+  mensaje-002: "SpectreCore cocina: {stations-size} estaciones, {recipes-size} recetas."
+  etiqueta-024: "Cocina migrada: "
+  mensaje-003: "No se pudo copiar {filename}: {ex-getmessage}"
+  mensaje-004: "recipes.yml no contiene 'recetas'."
+  etiqueta-025: "Ingrediente desconocido: "
+  etiqueta-026: "Ventanas de coccion invalidas"
+  mensaje-005: "Receta '{id}' ignorada: {ex-getmessage}"
+  etiqueta-027: "Su aroma todavía es un misterio."
+  etiqueta-028: "Falta UUID del mundo"
+  mensaje-006: "Estacion pendiente, mundo no cargado (se conservara el registro): {id}"
+  mensaje-007: "Estacion corrupta conservada {id}: {ex-getmessage}"
+  mensaje-008: "No se pudo guardar stations.yml: {ex-getmessage}"
+  etiqueta-029: "Retira primero la cocina con una esponja (clic derecho)."
+  etiqueta-030: "Este caldero ya esta cocinando."
+  etiqueta-031: "Esta estacion necesita un caldero con agua."
+  etiqueta-032: "Este ingrediente tiene datos personalizados y no se consumira."
+  etiqueta-033: "Este ingrediente no inicia ninguna receta."
+  etiqueta-034: "Ingrediente incorrecto. No se ha consumido."
+  etiqueta-035: "<reset><gold>♨ <reset><yellow>"
+  etiqueta-036: " <reset><gray>| Calentando "
+  etiqueta-037: "¡Preparacion de "
+  etiqueta-038: " raciones iniciada! Vigila el caldero."
+  etiqueta-039: "<reset><yellow>"
+  etiqueta-040: " <reset><gray>| <reset><white>"
+  etiqueta-041: "Limpiaste el guiso quemado con la esponja. La cocina sigue instalada."
+  etiqueta-042: " platos por servir. "
+  etiqueta-043: "Para descartar el lote y retirar la cocina, usa Shift + esponja."
+  etiqueta-044: "Arroja los tres ingredientes en orden. "
+  etiqueta-045: "Usa un mechero para crear una cocina y una esponja para retirarla."
+  etiqueta-046: "<reset><green>✦ Revolvimiento perfecto"
+  etiqueta-047: "<reset><yellow>♨ Mezcla revuelta"
+  etiqueta-048: "¡Revolvimiento perfecto! Vas por un plato exquisito."
+  etiqueta-049: "Has revuelto, pero la mezcla no quedo perfecta."
+  etiqueta-050: "No es el momento de revolver, o ya lo hiciste."
+  etiqueta-051: "Usa una pala de madera para revolver, un cuenco para servir "
+  etiqueta-052: "o una esponja para limpiar/retirar."
+  etiqueta-053: "Preparacion quemada. Limpia el caldero con una esponja."
+  etiqueta-054: "Todavia esta crudo."
+  etiqueta-055: "El MMOItem CONSUMABLE/"
+  etiqueta-056: " no esta disponible. No se consumio el cuenco ni se reinicio la receta."
+  mensaje-009: "Falta recompensa MMOItems: {rewardid}"
+  etiqueta-057: "Comida obtenida: "
+  etiqueta-058: "Coloca el caldero CON AGUA justo encima de una fogata."
+  etiqueta-059: "Enciende primero la fogata debajo del caldero."
+  etiqueta-060: "Debe haber al menos "
+  etiqueta-061: " bloques entre cocinas."
+  etiqueta-062: "Cocina registrada con el mechero. Arroja ingredientes al caldero."
+  etiqueta-063: "Cocina retirada con la esponja. Los bloques siguen intactos."
+  mensaje-010: "API de MMOItems incompatible: {valor1}: {ex-getmessage}"
+  etiqueta-064: "<reset><gold>✦ Cocina Arcana <reset><gray>| <reset><white>"
+  etiqueta-065: "<reset><yellow>"
+  etiqueta-066: " <reset><gray>| <reset><white>"
+  etiqueta-067: "<reset><green>✦ "
+  etiqueta-068: " platos <reset><gray>| <reset><white>"
+  etiqueta-069: " <reset><gray>| Usa cuencos"
+  etiqueta-070: "<reset><dark_red>✖ Quemado <reset><gray>| Usa una esponja"
+  texto-001: "<reset><gray>✖ Fogata apagada <reset><dark_gray>| Coccion pausada"
+  etiqueta-071: "<reset><gold>⚠ Sobrecocido: sirve ya"
+  etiqueta-072: "<reset><green>✦ ¡LISTO PARA SERVIR!"
+  etiqueta-073: "<reset><green>✦ ¡MOMENTO PERFECTO PARA REVOLVER!"
+  etiqueta-074: "<reset><gold>⚠ <reset><yellow>Revuelve la mezcla"
+  etiqueta-075: "<reset><green>✦ Mezcla precisa <reset><gray>| Esperando..."
+  etiqueta-076: "<reset><yellow>♨ Mezcla revuelta <reset><gray>| Esperando..."
+  etiqueta-077: "<reset><gold>⚠ Se paso el momento de revolver"
+  etiqueta-078: "<reset><gold>♨ <reset><yellow>"
+  etiqueta-079: " <reset><gray>| Calentando..."
+  etiqueta-080: "<reset><yellow>Caldero vacío <reset><gray>| <reset><white>Agua: "
+  etiqueta-081: "/3 <reset><gray>| Arroja ingredientes"
+  etiqueta-082: "<reset><yellow>"
+  etiqueta-083: " <reset><gray>| <reset><white>"
+  etiqueta-084: " <reset><gray>| Siguiente: <reset><white>"
+  etiqueta-085: "<reset><green>"
+  etiqueta-086: " <reset><gray>| <reset><yellow>"
+  etiqueta-087: " raciones disponibles <reset><gray>| Calidad: <reset><white>"
+  etiqueta-088: "<reset><dark_red>✖ Preparación quemada <reset><gray>| Limpia con una esponja"
+  etiqueta-089: "<reset><gray>Fogata apagada <reset><dark_gray>| <reset><white>Cocción pausada, "
+  etiqueta-090: "<reset><green>Sirve con un cuenco"
+  etiqueta-091: "<reset><yellow>Revuelve con pala"
+  etiqueta-092: "<reset><gray>Calentando"
+  etiqueta-093: "<reset><gold>"
+  etiqueta-094: " <reset><gray>| <reset><white>"
+  etiqueta-095: "% <reset><dark_gray>("
+  etiqueta-096: " s) <reset><gray>| "
+  mensaje-011: "<reset><gold>✦ EXQUISITO ✦"
+  texto-002: "<reset><yellow>"
+  mensaje-012: "UUID de cocinero invalido: {id}"
+  mensaje-013: "No se pudieron guardar recetas descubiertas: {ex-getmessage}"
+  etiqueta-097: "<reset><light_purple>✦ Nueva receta descubierta: <reset><yellow>"
+  etiqueta-098: " <reset><gray>| Abre <reset><white>/mago recetas<reset><gray> para consultarla."
+  etiqueta-099: "<reset><dark_purple>✦ Recetario Arcano"
+  etiqueta-100: "<reset><yellow>"
+  etiqueta-101: "<reset><gray>Ingredientes por ración:"
+  etiqueta-102: "<reset><white>1× "
+  etiqueta-103: "<reset><white>1× "
+  etiqueta-104: "<reset><white>1× "
+  etiqueta-105: "<reset><dark_gray>Revolver: "
+  etiqueta-106: "<reset><dark_gray>Servir: "
+  etiqueta-107: "<reset><dark_gray>Caldero: 1-3 raciones según el agua"
+  etiqueta-108: "<reset><dark_gray>??? · Receta desconocida"
+  etiqueta-109: "<reset><gray>Pista: <reset><white>"
+  etiqueta-110: "<reset><dark_gray>Descúbrela preparando y sirviendo el plato."
+  etiqueta-111: "<reset><light_purple>✦ Descubrimientos"
+  etiqueta-112: "<reset><white>"
+  etiqueta-113: " recetas conocidas"
+  etiqueta-114: "<reset><gray>Las recetas se registran al servir un plato."
+  etiqueta-115: "<reset><gray>Se guardan por jugador."
+  etiqueta-116: "<reset><yellow>"
+  etiqueta-117: " <reset><gray>| "
+  etiqueta-118: " <reset><gray>| "
+  etiqueta-119: " s para servir."
+  mensaje-014: "{prefix}<reset><yellow>Mechero: crear <reset><gray>| <reset><yellow>Pala de madera: revolver <reset><gray>| <reset><yellow>Esponja: limpiar/retirar <reset><gray>| <reset><yellow>Cuenco: servir"
+  mensaje-015: "{prefix}<reset><yellow>/mago recetas <reset><gray>| <reset><yellow>/spectrecore cocina estado <reset><gray>| admin: reparar, recargar"
+  mensaje-016: "{prefix}<reset><yellow>{r-name} <reset><gray>» {r-ingredients}"
+  mensaje-017: "{prefix}<reset><red>No tienes permiso."
+  mensaje-018: "{prefix}<reset><green>Configuracion y recetas recargadas."
+  mensaje-019: "{prefix}<reset><red>{error-getmessage}"
+  mensaje-020: "{prefix}Este comando requiere un jugador."
+  mensaje-021: "{prefix}<reset><red>No tienes permiso."
+  etiqueta-120: "Mira directamente a una cocina registrada."
+  etiqueta-121: "Modelo de cocina reconstruido."
+  mensaje-022: "{prefix}<reset><yellow>/spectrecore cocina ayuda | libro | estado | reparar | recargar"
 
 # Migración m3: cuarentena y reconciliación de operaciones con objetos
-  mensaje-030: '§cCocina bloqueada: transacción pendiente o error de almacenamiento.'
-  mensaje-031: '§cEsta estación requiere revisión administrativa antes de usarla.'
-  mensaje-032: '§cNo tienes permiso.'
-  mensaje-033: '§cRegistro de transacciones ilegible; restaura claims.yml.'
-  mensaje-034: '§6Transacciones pendientes: {count}'
-  mensaje-035: '§cLa reconciliación exige un operador dentro del juego.'
-  mensaje-036: '§cUsa /spectrecore cocina resolver <UUID> confirmado tras auditar.'
-  mensaje-037: '§eResultado de reconciliación: {estado}'
-  mensaje-038: '§cUUID inválido.'
+  mensaje-030: "<reset><red>Cocina bloqueada: transacción pendiente o error de almacenamiento."
+  mensaje-031: "<reset><red>Esta estación requiere revisión administrativa antes de usarla."
+  mensaje-032: "<reset><red>No tienes permiso."
+  mensaje-033: "<reset><red>Registro de transacciones ilegible; restaura claims.yml."
+  mensaje-034: "<reset><gold>Transacciones pendientes: {count}"
+  mensaje-035: "<reset><red>La reconciliación exige un operador dentro del juego."
+  mensaje-036: "<reset><red>Usa /spectrecore cocina resolver <UUID> confirmado tras auditar."
+  mensaje-037: "<reset><yellow>Resultado de reconciliación: {estado}"
+  mensaje-038: "<reset><red>UUID inválido."
   mensaje-039: "WorldGuard: no puedes colocar ni retirar estaciones en esta región."

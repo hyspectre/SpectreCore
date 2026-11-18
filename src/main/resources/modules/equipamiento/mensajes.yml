@@ -1,153 +1,153 @@
 SetDetector:
-  mensaje-001: 'MMOItems ausente: habilidades de set desactivadas; solo funciona demo.'
-  mensaje-002: 'MMOItems detectado: identificación por tipo e ID habilitada.'
-  etiqueta-003: La API de MMOItems difiere; el modo de sets queda desactivado.
+  mensaje-001: "MMOItems ausente: habilidades de set desactivadas; solo funciona demo."
+  mensaje-002: "MMOItems detectado: identificación por tipo e ID habilitada."
+  etiqueta-003: "La API de MMOItems difiere; el modo de sets queda desactivado."
 Visuals:
-  mensaje-001: 'Displays huérfanos eliminados: {removed}'
+  mensaje-001: "Displays huérfanos eliminados: {removed}"
 ArmorGuide:
-  etiqueta-058: Raigambre Ancestral
-  etiqueta-059: Raigambre
-  etiqueta-060: botania
-  etiqueta-061: HYDEV_RAIGAMBRE
-  etiqueta-062: Botania
-  etiqueta-063: Armadura Necrótica
-  etiqueta-064: Necrótica
-  etiqueta-065: necrotica
-  etiqueta-066: NECROTICO
-  etiqueta-067: Trinidad Profana
-  etiqueta-068: Sangre del Laberinto
-  etiqueta-069: Laberinto
-  etiqueta-070: asterion
-  etiqueta-071: HYDEV_LABERINTO
-  etiqueta-072: Asterión
-  etiqueta-073: Voto del Deshonrado
-  etiqueta-074: Deshonrado
-  etiqueta-075: ultimo-juramento
-  etiqueta-076: HYDEV_VOTO
-  etiqueta-077: Último Juramento
-  etiqueta-078: Herencia Dracónica
-  etiqueta-079: Dracónica
-  etiqueta-080: sangre-primer-dragon
-  etiqueta-081: HYDEV_IGNEA
-  etiqueta-082: Sangre del Primer Dragón
-  etiqueta-083: Vida máxima
-  etiqueta-084: Maná máximo
-  etiqueta-085: Daño mágico (%)
-  etiqueta-086: Reducción daño (%)
-  etiqueta-087: Daño de arma (%)
-  etiqueta-088: Prob. crítica (%)
-  etiqueta-089: Poder crítico (%)
-  etiqueta-090: Resist. fuego (%)
-  etiqueta-091: Regeneración (nivel)
-  etiqueta-092: Resist. fuego (nivel)
-  etiqueta-093: Velocidad (nivel)
-  etiqueta-094: Velocidad
-  mensaje-001: 'ARMADURAS
+  etiqueta-058: "Raigambre Ancestral"
+  etiqueta-059: "Raigambre"
+  etiqueta-060: "botania"
+  etiqueta-061: "HYDEV_RAIGAMBRE"
+  etiqueta-062: "Botania"
+  etiqueta-063: "Armadura Necrótica"
+  etiqueta-064: "Necrótica"
+  etiqueta-065: "necrotica"
+  etiqueta-066: "NECROTICO"
+  etiqueta-067: "Trinidad Profana"
+  etiqueta-068: "Sangre del Laberinto"
+  etiqueta-069: "Laberinto"
+  etiqueta-070: "asterion"
+  etiqueta-071: "HYDEV_LABERINTO"
+  etiqueta-072: "Asterión"
+  etiqueta-073: "Voto del Deshonrado"
+  etiqueta-074: "Deshonrado"
+  etiqueta-075: "ultimo-juramento"
+  etiqueta-076: "HYDEV_VOTO"
+  etiqueta-077: "Último Juramento"
+  etiqueta-078: "Herencia Dracónica"
+  etiqueta-079: "Dracónica"
+  etiqueta-080: "sangre-primer-dragon"
+  etiqueta-081: "HYDEV_IGNEA"
+  etiqueta-082: "Sangre del Primer Dragón"
+  etiqueta-083: "Vida máxima"
+  etiqueta-084: "Maná máximo"
+  etiqueta-085: "Daño mágico (%)"
+  etiqueta-086: "Reducción daño (%)"
+  etiqueta-087: "Daño de arma (%)"
+  etiqueta-088: "Prob. crítica (%)"
+  etiqueta-089: "Poder crítico (%)"
+  etiqueta-090: "Resist. fuego (%)"
+  etiqueta-091: "Regeneración (nivel)"
+  etiqueta-092: "Resist. fuego (nivel)"
+  etiqueta-093: "Velocidad (nivel)"
+  etiqueta-094: "Velocidad"
+  mensaje-001: "'ARMADURAS"
 
 
     '
-  mensaje-002: '{e-shortname}
+  mensaje-002: "'{e-shortname}"
 
 
     '
-  texto-001: CONJUNTO
-  texto-002: HABILIDAD
-  mensaje-003: Pulsa un nombre.
-  mensaje-004: Armaduras de Hydev
-  mensaje-005: Hydev
-  mensaje-006: ''
-  mensaje-007: 'Efectos del núcleo:'
-  mensaje-008: DESACTIVADOS
-  mensaje-009: ({piezas}) +{vida} HP.
-  mensaje-010: (4) Resistencia al empuje +{valor1}.
-  mensaje-011: ({piezas}) +{velocidad}% velocidad.
-  mensaje-012: ({piezas}) +{vida} HP y +{velocidad}% velocidad.
-  mensaje-013: (4) +{valor1} daño cuerpo a cuerpo; {valor2} menos daño recibido.
-  mensaje-014: Sin bonos parciales del núcleo.
-  mensaje-015: (4) {e-ability}.
-  mensaje-016: 'Con Juramento Profanado: Blink confirmado crea un eco; próximo golpe +{valor1} durante {valor2}. Requiere
+  texto-001: "CONJUNTO"
+  texto-002: "HABILIDAD"
+  mensaje-003: "Pulsa un nombre."
+  mensaje-004: "Armaduras de Hydev"
+  mensaje-005: "Hydev"
+  mensaje-006: ""
+  mensaje-007: "Efectos del núcleo:"
+  mensaje-008: "DESACTIVADOS"
+  mensaje-009: "({piezas}) +{vida} HP."
+  mensaje-010: "(4) Resistencia al empuje +{valor1}."
+  mensaje-011: "({piezas}) +{velocidad}% velocidad."
+  mensaje-012: "({piezas}) +{vida} HP y +{velocidad}% velocidad."
+  mensaje-013: "(4) +{valor1} daño cuerpo a cuerpo; {valor2} menos daño recibido."
+  mensaje-014: "Sin bonos parciales del núcleo."
+  mensaje-015: "(4) {e-ability}."
+  mensaje-016: "'Con Juramento Profanado: Blink confirmado crea un eco; próximo golpe +{valor1} durante {valor2}. Requiere"
     habilidad activa.'
-  mensaje-017: 'Con Dracoreliquia: +{valor1} s de bendición mientras la empuñas.'
-  mensaje-018: ''
-  mensaje-019: 'Bonos MMOItems:'
-  mensaje-020: No se encontró el conjunto. Revisar su configuración.
-  mensaje-021: Sin bonos extra.
-  mensaje-022: ({count} piezas)
-  mensaje-023: 'Habilidad extra de MMOItems: {valor1}.'
-  mensaje-024: '{valor1}: {level-get-key}'
-  mensaje-025: ''
-  mensaje-026: El arma no es necesaria para activar la habilidad de 4 piezas. Los bonos de MMOItems se leen del servidor al
+  mensaje-017: "Con Dracoreliquia: +{valor1} s de bendición mientras la empuñas."
+  mensaje-018: ""
+  mensaje-019: "Bonos MMOItems:"
+  mensaje-020: "No se encontró el conjunto. Revisar su configuración."
+  mensaje-021: "Sin bonos extra."
+  mensaje-022: "({count} piezas)"
+  mensaje-023: "Habilidad extra de MMOItems: {valor1}."
+  mensaje-024: "{valor1}: {level-get-key}"
+  mensaje-025: ""
+  mensaje-026: "El arma no es necesaria para activar la habilidad de 4 piezas. Los bonos de MMOItems se leen del servidor al"
     abrir esta guía.
-  mensaje-027: ''
-  mensaje-028: Equipa las cuatro piezas del mismo conjunto en sus ranuras.
-  mensaje-029: Acierta {v-e-hits-required-4} golpes cuerpo a cuerpo a enemigos. Máximo {valor2} entre golpes.
-  mensaje-030: Dos capullos florecen. Lanza {valor1} latigazos de {v-e-lash-damage-3} HP y Lentitud I por {valor3}.
-  mensaje-031: 'Alcance: {v-e-lash-range-7} bloques. Busca otro enemigo cercano si pierde su objetivo.'
-  mensaje-032: 'Primer latigazo: {valor1}; intervalo {valor2}.'
-  mensaje-033: Al recibir daño hostil, invoca {valor1} calaveras orbitales.
-  mensaje-034: Cada una dispara hasta {v-e-shots-per-skull-3} veces; {v-e-damage-per-shot-5} HP de daño directo por impacto.
-  mensaje-035: 'Alcance: {v-e-range-8} bloques. Un disparo global cada {valor2}.'
-  mensaje-036: Atacan enemigos cercanos. No atacan jugadores ni mascotas.
-  mensaje-037: Gana {v-e-fury-on-hit-12} de furia al golpear y {v-e-fury-on-damage-6} al recibir daño hostil.
-  mensaje-038: Con {furia} de furia, pulsa Shift dos veces en {valor1}.
-  mensaje-039: 'Golpes seguidos al mismo enemigo: +{valor1} de daño por combo, hasta {valor2}%.'
-  mensaje-040: Cambiar de enemigo o pasar {valor1} entre golpes rompe el combo.
-  mensaje-041: La furia empieza a decaer tras {valor1} sin combate.
-  mensaje-042: Pulsa Shift dos veces en {valor1}.
-  mensaje-043: +{valor1} daño cuerpo a cuerpo y +{pct-e-speed-bonus-20} velocidad; recibes {valor3} más de daño.
-  mensaje-044: Cada golpe añade {valor1}, hasta {valor2} s desde la activación.
-  mensaje-045: Recibe daño hostil o acierta {valor1} golpes cuerpo a cuerpo, con máximo {valor2} entre ambos.
-  mensaje-046: 'Bendición: +{valor1} daño cuerpo a cuerpo, {valor2} menos daño recibido y +{pct-e-speed-bonus-06} velocidad.'
-  mensaje-047: Cura {v-e-heal-on-activation-4} HP sin superar tu máximo.
-  mensaje-048: Daño y reducción se suman a los pasivos de 4 piezas. Aparece un dragón dorado.
-  mensaje-049: ''
-  mensaje-050: 'Duración: {valor1} s.'
-  mensaje-051: 'Recarga: {valor1} s desde activación.'
-  mensaje-052: 1 HP = medio corazón. Daño base antes de defensas.
-  mensaje-053: Quitar una pieza cancela el efecto. La recarga continúa mientras el servidor siga encendido.
-  mensaje-054: ''
-  mensaje-055: '{heading}
+  mensaje-027: ""
+  mensaje-028: "Equipa las cuatro piezas del mismo conjunto en sus ranuras."
+  mensaje-029: "Acierta {v-e-hits-required-4} golpes cuerpo a cuerpo a enemigos. Máximo {valor2} entre golpes."
+  mensaje-030: "Dos capullos florecen. Lanza {valor1} latigazos de {v-e-lash-damage-3} HP y Lentitud I por {valor3}."
+  mensaje-031: "Alcance: {v-e-lash-range-7} bloques. Busca otro enemigo cercano si pierde su objetivo."
+  mensaje-032: "Primer latigazo: {valor1}; intervalo {valor2}."
+  mensaje-033: "Al recibir daño hostil, invoca {valor1} calaveras orbitales."
+  mensaje-034: "Cada una dispara hasta {v-e-shots-per-skull-3} veces; {v-e-damage-per-shot-5} HP de daño directo por impacto."
+  mensaje-035: "Alcance: {v-e-range-8} bloques. Un disparo global cada {valor2}."
+  mensaje-036: "Atacan enemigos cercanos. No atacan jugadores ni mascotas."
+  mensaje-037: "Gana {v-e-fury-on-hit-12} de furia al golpear y {v-e-fury-on-damage-6} al recibir daño hostil."
+  mensaje-038: "Con {furia} de furia, pulsa Shift dos veces en {valor1}."
+  mensaje-039: "Golpes seguidos al mismo enemigo: +{valor1} de daño por combo, hasta {valor2}%."
+  mensaje-040: "Cambiar de enemigo o pasar {valor1} entre golpes rompe el combo."
+  mensaje-041: "La furia empieza a decaer tras {valor1} sin combate."
+  mensaje-042: "Pulsa Shift dos veces en {valor1}."
+  mensaje-043: "+{valor1} daño cuerpo a cuerpo y +{pct-e-speed-bonus-20} velocidad; recibes {valor3} más de daño."
+  mensaje-044: "Cada golpe añade {valor1}, hasta {valor2} s desde la activación."
+  mensaje-045: "Recibe daño hostil o acierta {valor1} golpes cuerpo a cuerpo, con máximo {valor2} entre ambos."
+  mensaje-046: "Bendición: +{valor1} daño cuerpo a cuerpo, {valor2} menos daño recibido y +{pct-e-speed-bonus-06} velocidad."
+  mensaje-047: "Cura {v-e-heal-on-activation-4} HP sin superar tu máximo."
+  mensaje-048: "Daño y reducción se suman a los pasivos de 4 piezas. Aparece un dragón dorado."
+  mensaje-049: ""
+  mensaje-050: "Duración: {valor1} s."
+  mensaje-051: "Recarga: {valor1} s desde activación."
+  mensaje-052: "1 HP = medio corazón. Daño base antes de defensas."
+  mensaje-053: "Quitar una pieza cancela el efecto. La recarga continúa mientras el servidor siga encendido."
+  mensaje-054: ""
+  mensaje-055: "'{heading}"
 
     '
-  mensaje-056: '{body}
+  mensaje-056: "'{body}"
 
     '
-  mensaje-057: ← Índice
+  mensaje-057: "← Índice"
 AsterionSkill:
-  mensaje-001: §6✦ §cAsterión §7— La bestia despierta.
-  barra-activa: ✦ ASTERIÓN | {segundos}s | Ímpetu {combo}/{maximo}
-  barra-furia: ✦ FURIA | {furia}/{maximo}{aviso}
-  furia-lista: ' | DOBLE SHIFT'
-  etiqueta-005: '§6♜ Asterión §7| set: §f'
-  etiqueta-006: ' §7| furia: §f'
-  etiqueta-007: '/{maximo} §7| activo: §f'
-  etiqueta-008: ' §7| CD: §f'
+  mensaje-001: "<reset><gold>✦ <reset><red>Asterión <reset><gray>— La bestia despierta."
+  barra-activa: "✦ ASTERIÓN | {segundos}s | Ímpetu {combo}/{maximo}"
+  barra-furia: "✦ FURIA | {furia}/{maximo}{aviso}"
+  furia-lista: " | DOBLE SHIFT"
+  etiqueta-005: "<reset><gold>♜ Asterión <reset><gray>| set: <reset><white>"
+  etiqueta-006: " <reset><gray>| furia: <reset><white>"
+  etiqueta-007: "/{maximo} <reset><gray>| activo: <reset><white>"
+  etiqueta-008: " <reset><gray>| CD: <reset><white>"
 BotaniaSkill:
-  mensaje-001: §d✿ §aBotania §7— Las Rosas Gemelas despiertan.
-  etiqueta-002: Parte de rosa inválida
-  etiqueta-003: '§d✿ Botania §7| set: §f'
-  etiqueta-004: '§7 | golpes: §f'
-  etiqueta-005: '§7 | CD: §f'
+  mensaje-001: "<reset><light_purple>✿ <reset><green>Botania <reset><gray>— Las Rosas Gemelas despiertan."
+  etiqueta-002: "Parte de rosa inválida"
+  etiqueta-003: "<reset><light_purple>✿ Botania <reset><gray>| set: <reset><white>"
+  etiqueta-004: "<reset><gray> | golpes: <reset><white>"
+  etiqueta-005: "<reset><gray> | CD: <reset><white>"
 CoronaSkill:
-  mensaje-001: §3☠ §bCorona de Ánimas §7— Tres almas responden a tu dolor.
-  etiqueta-002: '§3☠ Corona de Ánimas §7| set: §f'
-  etiqueta-003: '§7 | disparos: §f'
-  etiqueta-004: '/9 §7| CD: §f'
+  mensaje-001: "<reset><dark_aqua>☠ <reset><aqua>Corona de Ánimas <reset><gray>— Tres almas responden a tu dolor."
+  etiqueta-002: "<reset><dark_aqua>☠ Corona de Ánimas <reset><gray>| set: <reset><white>"
+  etiqueta-003: "<reset><gray> | disparos: <reset><white>"
+  etiqueta-004: "/9 <reset><gray>| CD: <reset><white>"
 PrimerDragonSkill:
-  mensaje-001: §6✦ §eSangre del Primer Dragón §7— La herencia despierta.
-  etiqueta-002: '§6✦ Sangre del Primer Dragón §7| set: §f'
-  etiqueta-003: ' §7| bendición: §f'
-  etiqueta-004: ' §7| CD: §f'
+  mensaje-001: "<reset><gold>✦ <reset><yellow>Sangre del Primer Dragón <reset><gray>— La herencia despierta."
+  etiqueta-002: "<reset><gold>✦ Sangre del Primer Dragón <reset><gray>| set: <reset><white>"
+  etiqueta-003: " <reset><gray>| bendición: <reset><white>"
+  etiqueta-004: " <reset><gray>| CD: <reset><white>"
 UltimoJuramentoSkill:
-  mensaje-001: §5✦ §dÚltimo Juramento §7— El acero deja de protegerte.
-  etiqueta-002: '§5✦ Último Juramento §7| set: §f'
-  etiqueta-003: ' §7| activo: §f'
-  etiqueta-004: ' §7| restante: §f'
-  etiqueta-005: 's §7| CD: §f'
+  mensaje-001: "<reset><dark_purple>✦ <reset><light_purple>Último Juramento <reset><gray>— El acero deja de protegerte."
+  etiqueta-002: "<reset><dark_purple>✦ Último Juramento <reset><gray>| set: <reset><white>"
+  etiqueta-003: " <reset><gray>| activo: <reset><white>"
+  etiqueta-004: " <reset><gray>| restante: <reset><white>"
+  etiqueta-005: "s <reset><gray>| CD: <reset><white>"
 
 # MiniMessage para Dialogs nativos (libros descontinuados).
-ArmorGuide.mago-titulo: '<gold>Armaduras de Hydev</gold>'
-ArmorGuide.mago-intro: '<gray>Selecciona un conjunto para ver sus estadísticas.</gray>'
-ArmorGuide.mago-volver: '<gray>Volver a RPG</gray>'
-ArmorGuide.mago-cambiar: '<yellow>Bonos / Habilidad</yellow>'
-ArmorGuide.mago-atras: '<gray>Volver a armaduras</gray>'
+ArmorGuide.mago-titulo: "<gold>Armaduras de Hydev</gold>"
+ArmorGuide.mago-intro: "<gray>Selecciona un conjunto para ver sus estadísticas.</gray>"
+ArmorGuide.mago-volver: "<gray>Volver a RPG</gray>"
+ArmorGuide.mago-cambiar: "<yellow>Bonos / Habilidad</yellow>"
+ArmorGuide.mago-atras: "<gray>Volver a armaduras</gray>"

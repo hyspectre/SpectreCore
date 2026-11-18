@@ -1,37 +1,37 @@
 LegacyActivities:
-  mensaje-029: 'La ruta de activity-pending.yml no es un archivo regular. Cofres desactivados.'
-  mensaje-030: 'La sección claims de activity-pending.yml está dañada.'
-  mensaje-027: '§cEl sistema de cofres está temporalmente desactivado por un error de almacenamiento.'
-  mensaje-028: '§eTu cofre anterior está pendiente de revisión por administración.'
-  mensaje-001: §cNo tienes permiso para usar este comando.
-  mensaje-002: 'Este comando conserva el uso del Skript: debe ejecutarlo un jugador.'
-  mensaje-003: Esta actividad está desactivada.
-  mensaje-004: Rango de pago inválido.
-  mensaje-005: §fRecibiste §a${amount} §fpor pulverizar este mineral.
-  mensaje-006: §cNo se pudo ejecutar el pago. Revisa el plugin de economía.
-  mensaje-007: Permiso configurado inválido.
-  mensaje-008: '{valor1}'
-  texto-001: §8Sientes un escalofrío...
-  texto-002: §8Sientes una energía revitalizándote...
-  texto-003: §8Los no-muertos reclaman tu nombre...
-  mensaje-009: §cNo se pudo ejecutar el desbloqueo. Revisa LuckPerms.
-  mensaje-010: §8Ring... ring... ring...
-  mensaje-011: §cNo se pudo abrir el menú. Revisa zMenu.
-  mensaje-012: §cNo se pudo mover a Cygnus; revisa su plugin y configuración.
-  mensaje-013: §f
-  mensaje-014: §eCygnus fue más astuto y salió volando con tu dinero...
-  mensaje-015: §f
-  mensaje-016: §cNo está disponible {offer-type}:{offer-id}. Avisa a administración.
-  mensaje-017: §f
-  mensaje-018: §eCygnus confía en tu valor y te entregó el objeto...
-  mensaje-019: 'Falta comando externo para actividad: {root}'
-  mensaje-020: 'Falló comando de actividad: {error-getmessage}'
-  mensaje-021: §7Tu cofre ya se está abriendo.
-  etiqueta-028: Faltan premios
-  texto-004: Peso no entero
-  texto-005: Material inválido
-  mensaje-022: '§cCofre mal configurado: {error-getmessage}'
-  mensaje-023: §cNo se pudo guardar el cofre; inténtalo más tarde.
-  mensaje-024: Abriendo...
-  mensaje-025: 'Cofre pendiente inválido: {id}'
-  mensaje-026: 'No se pudo guardar cofre pendiente: {error-getmessage}'
+  mensaje-029: "La ruta de activity-pending.yml no es un archivo regular. Cofres desactivados."
+  mensaje-030: "La sección claims de activity-pending.yml está dañada."
+  mensaje-027: "<reset><red>El sistema de cofres está temporalmente desactivado por un error de almacenamiento."
+  mensaje-028: "<reset><yellow>Tu cofre anterior está pendiente de revisión por administración."
+  mensaje-001: "<reset><red>No tienes permiso para usar este comando."
+  mensaje-002: "Este comando conserva el uso del Skript: debe ejecutarlo un jugador."
+  mensaje-003: "Esta actividad está desactivada."
+  mensaje-004: "Rango de pago inválido."
+  mensaje-005: "<reset><white>Recibiste <reset><green>${amount} <reset><white>por pulverizar este mineral."
+  mensaje-006: "<reset><red>No se pudo ejecutar el pago. Revisa el plugin de economía."
+  mensaje-007: "Permiso configurado inválido."
+  mensaje-008: "{valor1}"
+  texto-001: "<reset><dark_gray>Sientes un escalofrío..."
+  texto-002: "<reset><dark_gray>Sientes una energía revitalizándote..."
+  texto-003: "<reset><dark_gray>Los no-muertos reclaman tu nombre..."
+  mensaje-009: "<reset><red>No se pudo ejecutar el desbloqueo. Revisa LuckPerms."
+  mensaje-010: "<reset><dark_gray>Ring... ring... ring..."
+  mensaje-011: "<reset><red>No se pudo abrir el menú. Revisa zMenu."
+  mensaje-012: "<reset><red>No se pudo mover a Cygnus; revisa su plugin y configuración."
+  mensaje-013: "<reset><white>"
+  mensaje-014: "<reset><yellow>Cygnus fue más astuto y salió volando con tu dinero..."
+  mensaje-015: "<reset><white>"
+  mensaje-016: "<reset><red>No está disponible {offer-type}:{offer-id}. Avisa a administración."
+  mensaje-017: "<reset><white>"
+  mensaje-018: "<reset><yellow>Cygnus confía en tu valor y te entregó el objeto..."
+  mensaje-019: "Falta comando externo para actividad: {root}"
+  mensaje-020: "Falló comando de actividad: {error-getmessage}"
+  mensaje-021: "<reset><gray>Tu cofre ya se está abriendo."
+  etiqueta-028: "Faltan premios"
+  texto-004: "Peso no entero"
+  texto-005: "Material inválido"
+  mensaje-022: "<reset><red>Cofre mal configurado: {error-getmessage}"
+  mensaje-023: "<reset><red>No se pudo guardar el cofre; inténtalo más tarde."
+  mensaje-024: "Abriendo..."
+  mensaje-025: "Cofre pendiente inválido: {id}"
+  mensaje-026: "No se pudo guardar cofre pendiente: {error-getmessage}"
