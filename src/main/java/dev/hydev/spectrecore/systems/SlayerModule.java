@@ -101,6 +101,29 @@ public final class SlayerModule implements Listener {
         playerContract(player, "abandonarslayer", new String[]{"revenant"});
     }
     public void buyPhoneFromMenu(Player player) { purchasePhone(player, new String[0]); }
+    /** Read-only values for native GUI. Never use YAML lore as a source of prices. */
+    private String costLabel(String key) {
+        Object raw = config.get(key);
+        if (!(raw instanceof Number number) || !Double.isFinite(number.doubleValue())
+                || number.doubleValue() != Math.rint(number.doubleValue())
+                || number.longValue() < 0 || number.longValue() > 1_000_000_000L)
+            return "Sin configurar";
+        return Long.toString(number.longValue());
+    }
+    public String contractPriceLabel(String category, int tier) {
+        return costLabel("contratos.precios." + category + ".tier" + tier);
+    }
+    public String cancellationPriceLabel(String category) {
+        return costLabel("contratos.cancelacion." + category);
+    }
+    public String phonePriceLabel() {
+        return costLabel("acceso-remoto.precio");
+    }
+    public int objectiveForTier(int tier) {
+        if (tier < 1 || tier > 3) return 0;
+        return Math.max(1, config.getInt("objetivos.tier" + tier, ProgressRules.required(tier)));
+    }
+
     public String progressLine(Player player, String category, int tier) {
         Mission state = mission(player.getUniqueId(), category);
         if (state.active && state.tier == tier)
