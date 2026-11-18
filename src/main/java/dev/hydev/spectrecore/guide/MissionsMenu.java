@@ -3,6 +3,7 @@ package dev.hydev.spectrecore.guide;
 import dev.hydev.spectrecore.model.CustomHeads;
 import dev.hydev.spectrecore.systems.SlayerModule;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -195,7 +196,9 @@ public final class MissionsMenu implements Listener {
         }
         matcher.appendTail(legacy);
         return LegacyComponentSerializer.legacySection()
-                .deserialize(ChatColor.translateAlternateColorCodes('&', legacy.toString()));
+                .deserialize(ChatColor.translateAlternateColorCodes('&', legacy.toString()))
+                // Minecraft item lore/name defaults to italic unless explicitly disabled.
+                .decoration(TextDecoration.ITALIC, false);
     }
 
     @EventHandler public void click(InventoryClickEvent event) {
