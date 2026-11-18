@@ -28,6 +28,7 @@ public final class JobsModule implements Listener {
     private LuckPermsContractBridge permissions;
     private JobsMenu menu;
     private final Set<UUID> purchasesInProgress = new HashSet<>();
+    private final Map<UUID, Set<String>> confirmedRanks = new HashMap<>();
     private final Map<BlockBreakEvent, Boolean> provenance = new WeakHashMap<>();
     public JobsModule(JavaPlugin plugin) {
         this.plugin = plugin; placed = new PlacedOres(plugin, "jobs_placed_v1", m -> dev.hydev.spectrecore.config.Gameplay.tier("trabajos-mineria", m.name()) > 0 || dev.hydev.spectrecore.config.Gameplay.tier("agricultura", m.name()) > 0);
@@ -91,6 +92,11 @@ public final class JobsModule implements Listener {
         var result = JobsContractRules.validate(job, level, enabled,
                 JobsContractRules.JOBS.contains(job) ? rank(player, job) : 0,
                 price, isPending(player));
+        // Guard against an LP save that has completed but whose Bukkit
+        // permission cache has not reflected the new rank yet.
+        if (result == JobsContractRules.Refusal.NONE
+                && confirmedRanks.getOrDefault(player.getUniqueId(), Set.of()).contains(job + "." + level))
+            result = JobsContractRules.Refusal.ALREADY_OWNED;
         if (result != JobsContractRules.Refusal.NONE) {
             player.sendMessage(Settings.text("trabajos", "JobsModule.contrato-rechazado",
                     "§cNo puedes firmar este contrato: {motivo}", "motivo", result.name()));
@@ -112,7 +118,17 @@ public final class JobsModule implements Listener {
             return;
         }
         // All the permission work is performed via LuckPerms, never an OP console command.
-        permissions.grant(player, job, level).whenComplete((saved, error) -> {
+        final java.util.concurrent.CompletableFuture<Boolean> grant;
+        try { grant = permissions.grant(player, job, level); }
+        catch (RuntimeException | LinkageError failure) {
+            purchasesInProgress.remove(id);
+            if (economy.deposit(player, price, false) != EconomyBridge.Result.CONFIRMED)
+                plugin.getLogger().severe("REEMBOLSO DE TRABAJO FALLIDO: " + id
+                        + " " + job + " " + level + " monto=" + price);
+            plugin.getLogger().severe("LUCKPERMS CONTRACT ERROR AFTER CHARGE " + id + ": " + failure);
+            return;
+        }
+        grant.whenComplete((saved, error) -> {
             if (!plugin.isEnabled()) {
                 plugin.getLogger().severe("TRABAJO PENDIENTE DE RECONCILIACION AL CERRAR: " + id
                         + " " + job + " " + level + " pagado=" + price);
@@ -128,7 +144,10 @@ public final class JobsModule implements Listener {
                             "§cNo se pudo guardar el contrato. Se intentó devolver el pago."));
                     return;
                 }
+                confirmedRanks.computeIfAbsent(id, key -> new HashSet<>()).add(job + "." + level);
+                plugin.getLogger().info("TRABAJO CONTRATADO: " + id + " " + job + "." + level + " monto=" + price);
                 if (player.isOnline()) {
+                    player.recalculatePermissions();
                     player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 0.7f, 1.2f);
                     player.sendMessage(Settings.text("trabajos", "JobsModule.contrato-exito",
                             "§aContrato firmado: {trabajo} {rango}. Precio: {precio} ↾.",
