@@ -198,7 +198,7 @@ public final class JobsModule implements Listener {
         last.put(key, now); dirty = true;
         location.getWorld().spawnParticle(Settings.particle("trabajos", "JobsModule.particle-002", Particle.GLOW), location.clone().add(0,.5,0),Settings.i("trabajos", "JobsModule.spawnparticle-001-arg2", 10),Settings.d("trabajos", "JobsModule.spawnparticle-002-arg3", .3),Settings.d("trabajos", "JobsModule.spawnparticle-003-arg4", .3),Settings.d("trabajos", "JobsModule.spawnparticle-004-arg5", .3),Settings.d("trabajos", "JobsModule.spawnparticle-005-arg6", .05));
         p.playSound(p.getLocation(), Settings.sound("trabajos", "JobsModule.sound-003", Sound.ENTITY_EXPERIENCE_ORB_PICKUP),Settings.f("trabajos", "JobsModule.playsound-006-arg2", .5f),Settings.f("trabajos", "JobsModule.playsound-007-arg3", 1.5f));
-        String paymentMessage = Settings.text("trabajos", "JobsModule.mensaje-007","{valor1}+{amount} ↾ · {job}","valor1", (result == EconomyBridge.Result.COMMAND_SENT ? Settings.text("trabajos", "JobsModule.texto-004", "Pago solicitado: ") : ""),"amount", amount,"job", job);
+        String paymentMessage = Settings.text("trabajos", "JobsModule.mensaje-007","{valor1}+{amount} {prefijo} · {job}","valor1", (result == EconomyBridge.Result.COMMAND_SENT ? Settings.text("trabajos", "JobsModule.texto-004", "Pago solicitado: ") : ""),"amount", amount,"job", job,"prefijo", Settings.text("trabajos", "JobsModule.prefijo-monedas", "§f↾"));
         boolean toasted = result == EconomyBridge.Result.CONFIRMED
                 && ((dev.hydev.spectrecore.SpectreCorePlugin) plugin).toasts() != null
                 && ((dev.hydev.spectrecore.SpectreCorePlugin) plugin).toasts().show(p, "trabajo-" + job);
