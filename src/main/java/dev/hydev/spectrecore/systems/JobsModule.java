@@ -49,16 +49,16 @@ public final class JobsModule implements Listener {
         menu = new JobsMenu(plugin, this);
         menu.enable();
         if (dev.hydev.spectrecore.command.CommandRouter.of(plugin).get("trabajo") != null) dev.hydev.spectrecore.command.CommandRouter.of(plugin).get("trabajo").setExecutor((sender, cmd, label, args) -> {
-            if (!(sender instanceof Player p)) { sender.sendMessage(Settings.text("trabajos", "JobsModule.mensaje-001", "Usa /spectrecore trabajos dentro del juego.")); return true; }
+            if (!(sender instanceof Player p)) { sender.sendMessage(Settings.message("trabajos", "JobsModule.mensaje-001", "Usa /spectrecore trabajos dentro del juego.")); return true; }
             if (args.length == 0 || !args[0].equalsIgnoreCase("estado")) {
                 String page = args.length > 0 && JobsContractRules.JOBS.contains(args[0].toLowerCase(Locale.ROOT))
                         ? args[0].toLowerCase(Locale.ROOT) : "trabajos";
                 if (menu != null) menu.open(p, page);
                 return true;
             }
-            p.sendMessage(Settings.text("trabajos", "JobsModule.mensaje-002", "§6✦ NIVELES DE TRABAJO"));
-            for (String job : List.of("minero", "granjero", "cazador")) { int tier = rank(p, job); p.sendMessage(Settings.text("trabajos", "JobsModule.mensaje-003","§7▪ §f{job}: {valor2}","job", job,"valor2", (!dev.hydev.spectrecore.config.ModuleConfiguration.of(plugin).active("trabajos."+job)?Settings.text("trabajos", "JobsModule.texto-001", "§cDesactivado"):tier == 0 ? Settings.text("trabajos", "JobsModule.texto-002", "§cNo disponible") : Settings.text("trabajos", "JobsModule.texto-003", "§e") + ProgressRules.rank(tier)))); }
-            p.sendMessage(Settings.text("trabajos", "JobsModule.mensaje-004", "§7Mejora tu nivel firmando §6contratos§7.")); return true;
+            p.sendMessage(Settings.message("trabajos", "JobsModule.mensaje-002", "§6✦ NIVELES DE TRABAJO"));
+            for (String job : List.of("minero", "granjero", "cazador")) { int tier = rank(p, job); p.sendMessage(Settings.message("trabajos", "JobsModule.mensaje-003","§7▪ §f{job}: {valor2}","job", job,"valor2", (!dev.hydev.spectrecore.config.ModuleConfiguration.of(plugin).active("trabajos."+job)?Settings.text("trabajos", "JobsModule.texto-001", "§cDesactivado"):tier == 0 ? Settings.text("trabajos", "JobsModule.texto-002", "§cNo disponible") : Settings.text("trabajos", "JobsModule.texto-003", "§e") + ProgressRules.rank(tier)))); }
+            p.sendMessage(Settings.message("trabajos", "JobsModule.mensaje-004", "§7Mejora tu nivel firmando §6contratos§7.")); return true;
         });
         timer = Bukkit.getScheduler().runTaskTimer(plugin, () -> { if (dirty) save(); }, 200, 200);
     }
@@ -98,13 +98,13 @@ public final class JobsModule implements Listener {
                 && confirmedRanks.getOrDefault(player.getUniqueId(), Set.of()).contains(job + "." + level))
             result = JobsContractRules.Refusal.ALREADY_OWNED;
         if (result != JobsContractRules.Refusal.NONE) {
-            player.sendMessage(Settings.text("trabajos", "JobsModule.contrato-rechazado",
+            player.sendMessage(Settings.message("trabajos", "JobsModule.contrato-rechazado",
                     "§cNo puedes firmar este contrato: {motivo}", "motivo", result.name()));
             player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 0.6f, 1f);
             return;
         }
         if (permissions == null || !permissions.ready(player)) {
-            player.sendMessage(Settings.text("trabajos", "JobsModule.contrato-sin-luckperms",
+            player.sendMessage(Settings.message("trabajos", "JobsModule.contrato-sin-luckperms",
                     "§cLuckPerms no está disponible; no se ha cobrado."));
             return;
         }
@@ -112,7 +112,7 @@ public final class JobsModule implements Listener {
         purchasesInProgress.add(id);
         if (economy.withdraw(player, price) != EconomyBridge.Result.CONFIRMED) {
             purchasesInProgress.remove(id);
-            player.sendMessage(Settings.text("trabajos", "JobsModule.contrato-sin-saldo",
+            player.sendMessage(Settings.message("trabajos", "JobsModule.contrato-sin-saldo",
                     "§cNo se pudo confirmar el pago mediante Vault."));
             player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 0.6f, 1f);
             return;
@@ -140,7 +140,7 @@ public final class JobsModule implements Listener {
                     if (economy.deposit(player, price, false) != EconomyBridge.Result.CONFIRMED)
                         plugin.getLogger().severe("REEMBOLSO DE TRABAJO FALLIDO: " + id
                                 + " " + job + " " + level + " monto=" + price);
-                    if (player.isOnline()) player.sendMessage(Settings.text("trabajos", "JobsModule.contrato-fallo",
+                    if (player.isOnline()) player.sendMessage(Settings.message("trabajos", "JobsModule.contrato-fallo",
                             "§cNo se pudo guardar el contrato. Se intentó devolver el pago."));
                     return;
                 }
@@ -149,7 +149,7 @@ public final class JobsModule implements Listener {
                 if (player.isOnline()) {
                     player.recalculatePermissions();
                     player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 0.7f, 1.2f);
-                    player.sendMessage(Settings.text("trabajos", "JobsModule.contrato-exito",
+                    player.sendMessage(Settings.message("trabajos", "JobsModule.contrato-exito",
                             "§aContrato firmado: {trabajo} {rango}. Precio: {precio} ↾.",
                             "trabajo", job, "rango", level, "precio", price));
                 }
@@ -190,7 +190,7 @@ public final class JobsModule implements Listener {
         if (remaining > 0) return;
         long amount = ThreadLocalRandom.current().nextLong(min, max + 1);
         var result = economy.deposit(p, amount, config.getBoolean("economia.permitir-comando-eco", true));
-        if (result == EconomyBridge.Result.FAILED) { if (warned.add("economy")) plugin.getLogger().warning(Settings.text("trabajos", "JobsModule.mensaje-006", "Trabajos: no se pudo pagar; revisa Vault/economía o eco. No se consume cooldown.")); return; }
+        if (result == EconomyBridge.Result.FAILED) { if (warned.add("economy")) plugin.getLogger().warning(Settings.plain("trabajos", "JobsModule.mensaje-006", "Trabajos: no se pudo pagar; revisa Vault/economía o eco. No se consume cooldown.")); return; }
         last.put(key, now); dirty = true;
         location.getWorld().spawnParticle(Settings.particle("trabajos", "JobsModule.particle-002", Particle.GLOW), location.clone().add(0,.5,0),Settings.i("trabajos", "JobsModule.spawnparticle-001-arg2", 10),Settings.d("trabajos", "JobsModule.spawnparticle-002-arg3", .3),Settings.d("trabajos", "JobsModule.spawnparticle-003-arg4", .3),Settings.d("trabajos", "JobsModule.spawnparticle-004-arg5", .3),Settings.d("trabajos", "JobsModule.spawnparticle-005-arg6", .05));
         p.playSound(p.getLocation(), Settings.sound("trabajos", "JobsModule.sound-003", Sound.ENTITY_EXPERIENCE_ORB_PICKUP),Settings.f("trabajos", "JobsModule.playsound-006-arg2", .5f),Settings.f("trabajos", "JobsModule.playsound-007-arg3", 1.5f));
@@ -201,5 +201,5 @@ public final class JobsModule implements Listener {
         if (toasted) p.sendMessage(paymentMessage); // Preserve exact amount without another actionbar.
         else p.sendActionBar(Settings.component(paymentMessage, Settings.color("trabajos", "JobsModule.color-004", NamedTextColor.GOLD)));
     }
-    private void missing(String job, String level) { if (warned.add(job + "." + level)) plugin.getLogger().warning(Settings.text("trabajos", "JobsModule.mensaje-008", "Trabajos: faltan o son inválidos dinero/cooldown de {job}.{level}. Esa categoría no paga hasta configurarse.", "job", job, "level", level)); }
+    private void missing(String job, String level) { if (warned.add(job + "." + level)) plugin.getLogger().warning(Settings.plain("trabajos", "JobsModule.mensaje-008", "Trabajos: faltan o son inválidos dinero/cooldown de {job}.{level}. Esa categoría no paga hasta configurarse.", "job", job, "level", level)); }
 }

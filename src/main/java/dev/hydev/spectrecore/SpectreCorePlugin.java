@@ -148,12 +148,12 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
         toastService = new ToastService(this);
         toastService.enable();
         for (String name : commandRouter.names()) if (!name.equals("spectrecore") && commandRouter.get(name) != null) {
-            commandRouter.get(name).setExecutor((sender, command, label, args) -> { sender.sendMessage(Settings.text("nucleo", "SpectreCorePlugin.mensaje-001", "Ese módulo está desactivado en SpectreCore.")); return true; });
+            commandRouter.get(name).setExecutor((sender, command, label, args) -> { sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-001", "Ese módulo está desactivado en SpectreCore.")); return true; });
             commandRouter.get(name).setTabCompleter((sender, command, label, args) -> List.of());
         }
         for (String obsolete : List.of("SpectreSkills", "SpectreCooking", "HydevBotania")) {
             if (getServer().getPluginManager().getPlugin(obsolete) != null) {
-                getLogger().severe(Settings.text("nucleo", "SpectreCorePlugin.mensaje-002", "No se puede activar SpectreCore junto con {obsolete}. Retira su JAR para evitar habilidades/cocinas duplicadas.", "obsolete", obsolete));
+                getLogger().severe(Settings.plain("nucleo", "SpectreCorePlugin.mensaje-002", "No se puede activar SpectreCore junto con {obsolete}. Retira su JAR para evitar habilidades/cocinas duplicadas.", "obsolete", obsolete));
                 getServer().getPluginManager().disablePlugin(this);
                 return;
             }
@@ -198,7 +198,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
             mining.enable();
         } else for (String name : List.of("resonancia", "debugresonancia", "nombreitem")) {
             if (commandRouter.get(name) != null) commandRouter.get(name).setExecutor((sender, command, label, args) -> {
-                sender.sendMessage(Settings.text("nucleo", "SpectreCorePlugin.mensaje-003", "Minería desactivada en SpectreCore.")); return true;
+                sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-003", "Minería desactivada en SpectreCore.")); return true;
             });
         }
         if (getConfig().getBoolean("modules.combat-treasures.enabled", true)) {
@@ -214,7 +214,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
             activities.enable();
         } else for (String name : dev.hydev.spectrecore.activities.LegacyActivities.commandNames()) {
             if (commandRouter.get(name) != null) commandRouter.get(name).setExecutor((sender, command, label, args) -> {
-                sender.sendMessage(Settings.text("nucleo", "SpectreCorePlugin.mensaje-004", "Actividades desactivadas.")); return true;
+                sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-004", "Actividades desactivadas.")); return true;
             });
         }
         if (getConfig().getBoolean("modules.jobs.enabled", true)) { jobs = new dev.hydev.spectrecore.systems.JobsModule(this); jobs.enable(); }
@@ -224,13 +224,13 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
         systemCommands.put("trabajo", jobs != null);
         for (String name : List.of("activarslayer","cancelarslayer","resetslayer","slayerstats","slayerinvocar","contratarslayer","abandonarslayer","comprartelefono","misiones")) systemCommands.put(name, slayer != null);
         for (String name : List.of("hydevportaljoin","hydevportalleave","hydevportalcleanup","hydevportalstatus","hydevportaldemo")) systemCommands.put(name, portal != null);
-        systemCommands.forEach((name, enabled) -> { if (!enabled && commandRouter.get(name) != null) commandRouter.get(name).setExecutor((sender,command,label,args) -> { sender.sendMessage(Settings.text("nucleo", "SpectreCorePlugin.mensaje-005", "Ese módulo está desactivado.")); return true; }); });
+        systemCommands.forEach((name, enabled) -> { if (!enabled && commandRouter.get(name) != null) commandRouter.get(name).setExecutor((sender,command,label,args) -> { sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-005", "Ese módulo está desactivado.")); return true; }); });
         if (getCommand("spectrecore") != null) getCommand("spectrecore").setTabCompleter(this);
         if (commandRouter.get("armaduras") != null && moduleConfigs.active("equipamiento.libro")) {
             var guide = new dev.hydev.spectrecore.guide.ArmorGuide(this);
             commandRouter.get("armaduras").setExecutor((sender, command, label, args) -> {
                 if (sender instanceof Player player) guide.open(player);
-                else sender.sendMessage(Settings.text("nucleo", "SpectreCorePlugin.mensaje-006", "Esta guía se abre dentro del juego."));
+                else sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-006", "Esta guía se abre dentro del juego."));
                 return true;
             });
             commandRouter.get("armaduras").setTabCompleter((sender, command, label, args) -> List.of());
@@ -249,7 +249,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
             getCommand("mago").setTabCompleter((sender,cmd,label,args) -> mago == null ? List.of() : mago.complete(args));
         }
         registerItemInspector();
-        getLogger().info(Settings.text("nucleo", "SpectreCorePlugin.mensaje-007", "SpectreCore {getpluginmeta-getversion}: habilidades={skillsenabled}, cocina={cookingenabled}.", "getpluginmeta-getversion", getPluginMeta().getVersion(), "skillsenabled", skillsEnabled, "cookingenabled", cookingEnabled));
+        getLogger().info(Settings.plain("nucleo", "SpectreCorePlugin.mensaje-007", "SpectreCore {getpluginmeta-getversion}: habilidades={skillsenabled}, cocina={cookingenabled}.", "getpluginmeta-getversion", getPluginMeta().getVersion(), "skillsenabled", skillsEnabled, "cookingenabled", cookingEnabled));
     }
 
     private void migrateLegacySkillsConfig() {
@@ -263,9 +263,9 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
         try {
             target.save(newConfig);
             reloadConfig();
-            getLogger().info(Settings.text("nucleo", "SpectreCorePlugin.mensaje-008", "Se migraron ajustes de SpectreSkills/config.yml (original intacto)."));
+            getLogger().info(Settings.plain("nucleo", "SpectreCorePlugin.mensaje-008", "Se migraron ajustes de SpectreSkills/config.yml (original intacto)."));
         } catch (IOException ex) {
-            getLogger().severe(Settings.text("nucleo", "SpectreCorePlugin.mensaje-009", "No se pudo migrar configuración antigua: {ex-getmessage}", "ex-getmessage", ex.getMessage()));
+            getLogger().severe(Settings.plain("nucleo", "SpectreCorePlugin.mensaje-009", "No se pudo migrar configuración antigua: {ex-getmessage}", "ex-getmessage", ex.getMessage()));
         }
     }
 
@@ -405,17 +405,17 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
             return true;
         }
         if (sub.equals("toast")) {
-            if (!canAdmin(sender)) { sender.sendMessage(Settings.text("nucleo", "ToastService.permiso", "§cSin permiso.")); return true; }
-            if (!(sender instanceof Player player)) { sender.sendMessage(Settings.text("nucleo", "ToastService.solo-jugador", "§7Prueba el toast desde el juego.")); return true; }
+            if (!canAdmin(sender)) { sender.sendMessage(Settings.message("nucleo", "ToastService.permiso", "§cSin permiso.")); return true; }
+            if (!(sender instanceof Player player)) { sender.sendMessage(Settings.message("nucleo", "ToastService.solo-jugador", "§7Prueba el toast desde el juego.")); return true; }
             if (args.length != 3 || !args[1].equalsIgnoreCase("prueba")
                     || !java.util.Set.of("furia","resonancia","gema-basica","gema-intermedia","gema-superior",
                             "trabajo-minero","trabajo-granjero","trabajo-cazador").contains(args[2])) {
-                sender.sendMessage(Settings.text("nucleo", "ToastService.uso", "§eUso: /spectrecore toast prueba <id>"));
+                sender.sendMessage(Settings.message("nucleo", "ToastService.uso", "§eUso: /spectrecore toast prueba <id>"));
                 return true;
             }
             if (toastService == null || !toastService.show(player, args[2]))
-                sender.sendMessage(Settings.text("nucleo", "ToastService.no-disponible", "§eToast no disponible o desactivado. Verifica la consola y los ajustes."));
-            else sender.sendMessage(Settings.text("nucleo", "ToastService.solicitado", "§7Toast solicitado (puede estar filtrado por antispam)."));
+                sender.sendMessage(Settings.message("nucleo", "ToastService.no-disponible", "§eToast no disponible o desactivado. Verifica la consola y los ajustes."));
+            else sender.sendMessage(Settings.message("nucleo", "ToastService.solicitado", "§7Toast solicitado (puede estar filtrado por antispam)."));
             return true;
         }
         if (sub.equals("diagnostico") || sub.equals("diagnostics")) {
@@ -452,26 +452,26 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
         }
         if (sub.equals("agricultura")) {
             if (agricultureTreasures != null) return agricultureTreasures.preview(sender, args);
-            sender.sendMessage(Settings.text("nucleo", "SpectreCorePlugin.mensaje-010", "Agricultura desactivada.")); return true;
+            sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-010", "Agricultura desactivada.")); return true;
         }
         if (sub.equals("combate")) {
             if (combatTreasures != null) return combatTreasures.preview(sender, args);
-            sender.sendMessage(Settings.text("nucleo", "SpectreCorePlugin.mensaje-011", "Tesoros de combate desactivados.")); return true;
+            sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-011", "Tesoros de combate desactivados.")); return true;
         }
         if (sub.equals("mineria")) {
             if (mining != null) return mining.preview(sender, args);
-            sender.sendMessage(Settings.text("nucleo", "SpectreCorePlugin.mensaje-012", "Minería desactivada.")); return true;
+            sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-012", "Minería desactivada.")); return true;
         }
         if (sub.equals("modulos") || sub.equals("modules")) {
-            moduleConfigs.requested().forEach((name, enabled) -> sender.sendMessage(Settings.text("nucleo", "SpectreCorePlugin.mensaje-013","§6{name}§7: {valor2}{valor3}","name", name,"valor2", (moduleConfigs.active(name) ? Settings.text("nucleo", "SpectreCorePlugin.texto-001", "§aACTIVO") : Settings.text("nucleo", "SpectreCorePlugin.texto-002", "§cINACTIVO")),"valor3", (moduleConfigs.restartPending(name) ? Settings.text("nucleo", "SpectreCorePlugin.texto-003", " §e(cambio pendiente: reiniciar)") : ""))));
+            moduleConfigs.requested().forEach((name, enabled) -> sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-013","§6{name}§7: {valor2}{valor3}","name", name,"valor2", (moduleConfigs.active(name) ? Settings.text("nucleo", "SpectreCorePlugin.texto-001", "§aACTIVO") : Settings.text("nucleo", "SpectreCorePlugin.texto-002", "§cINACTIVO")),"valor3", (moduleConfigs.restartPending(name) ? Settings.text("nucleo", "SpectreCorePlugin.texto-003", " §e(cambio pendiente: reiniciar)") : ""))));
             return true;
         }
-        if (sub.equals("cocina")) { sender.sendMessage(Settings.text("nucleo", "SpectreCorePlugin.mensaje-014", "§7Usa /mago cocina para aprender o /spectrecore cocina recetas para consultar recetas.")); return true; }
+        if (sub.equals("cocina")) { sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-014", "§7Usa /mago cocina para aprender o /spectrecore cocina recetas para consultar recetas.")); return true; }
         if (sub.equals("habilidades") || sub.equals("skills")) sub = "status";
         if (sub.equals("reload")) {
-            if (!canAdmin(sender)) { sender.sendMessage(Settings.text("nucleo", "SpectreCorePlugin.mensaje-015", "§cSin permiso.")); return true; }
+            if (!canAdmin(sender)) { sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-015", "§cSin permiso.")); return true; }
             try { reloadConfig(); }
-            catch (Exception error) { sender.sendMessage(Settings.text("nucleo", "SpectreCorePlugin.mensaje-016", "§c{error-getmessage}. Se conserva la última configuración válida.", "error-getmessage", error.getMessage())); return true; }
+            catch (Exception error) { sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-016", "§c{error-getmessage}. Se conserva la última configuración válida.", "error-getmessage", error.getMessage())); return true; }
             for (Player player : Bukkit.getOnlinePlayers()) { clear(player.getUniqueId()); if (passive != null) passive.clear(player); }
             try {
                 if (mago == null) mago = new dev.hydev.spectrecore.guide.MagoMenu(this);
@@ -494,44 +494,44 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
             if (slayer != null) slayer.reload();
             if (portal != null) portal.reload();
             if (bossDamage != null) bossDamage.reload();
-            sender.sendMessage(Settings.text("nucleo", "SpectreCorePlugin.mensaje-017", "§aSpectreCore: parámetros de habilidades y recetas recargados. Para cambiar módulos activos, reinicia el servidor."));
+            sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-017", "§aSpectreCore: parámetros de habilidades y recetas recargados. Para cambiar módulos activos, reinicia el servidor."));
             return true;
         }
         // Server-console-only bridge for custom/MMOItems versions that do not emit teleport events.
         if (sub.equals("blink")) {
-            if (!(sender instanceof ConsoleCommandSender)) { sender.sendMessage(Settings.text("nucleo", "SpectreCorePlugin.mensaje-018", "§cSolo consola.")); return true; }
-            if (args.length < 2) { sender.sendMessage(Settings.text("nucleo", "SpectreCorePlugin.mensaje-019", "Uso: /spectrecore blink <jugador>")); return true; }
+            if (!(sender instanceof ConsoleCommandSender)) { sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-018", "§cSolo consola.")); return true; }
+            if (args.length < 2) { sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-019", "Uso: /spectrecore blink <jugador>")); return true; }
             Player target = Bukkit.getPlayerExact(args[1]);
             if (target != null && ultimo != null) ultimo.signalBlink(target, target.getLocation(), tick);
-            else sender.sendMessage(Settings.text("nucleo", "SpectreCorePlugin.mensaje-020", "§cJugador no conectado."));
+            else sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-020", "§cJugador no conectado."));
             return true;
         }
-        if (!(sender instanceof Player player)) { sender.sendMessage(Settings.text("nucleo", "SpectreCorePlugin.mensaje-021", "§7Usa este comando desde el juego (salvo reload/blink).")); return true; }
+        if (!(sender instanceof Player player)) { sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-021", "§7Usa este comando desde el juego (salvo reload/blink).")); return true; }
         UUID id = player.getUniqueId();
         if (sub.equals("status")) {
-            player.sendMessage(Settings.text("nucleo", "SpectreCorePlugin.mensaje-022","§d✦ SpectreCore {getpluginmeta-getversion} §7| demo: §f{valor2}","getpluginmeta-getversion", getPluginMeta().getVersion(),"valor2", demo.getOrDefault(id, "ninguno")));
+            player.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-022","§d✦ SpectreCore {getpluginmeta-getversion} §7| demo: §f{valor2}","getpluginmeta-getversion", getPluginMeta().getVersion(),"valor2", demo.getOrDefault(id, "ninguno")));
             for (SkillModule module : modules) player.sendMessage(module.status(player));
             return true;
         }
-        if (!canAdmin(player)) { player.sendMessage(Settings.text("nucleo", "SpectreCorePlugin.mensaje-023", "§cSin permiso.")); return true; }
+        if (!canAdmin(player)) { player.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-023", "§cSin permiso.")); return true; }
         if (sub.equals("demo") && args.length >= 2) {
             String requested = args[1].toLowerCase();
             SkillModule found = modules.stream().filter(m -> m.id().equals(requested)).findFirst().orElse(null);
-            if (found == null) { player.sendMessage(Settings.text("nucleo", "SpectreCorePlugin.mensaje-024", "§cMódulo desconocido. Usa /spectrecore demo <nombre> (Tab).")); return true; }
+            if (found == null) { player.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-024", "§cMódulo desconocido. Usa /spectrecore demo <nombre> (Tab).")); return true; }
             clear(id);
             if (requested.equals(demo.get(id))) {
-                demo.remove(id); player.sendMessage(Settings.text("nucleo", "SpectreCorePlugin.mensaje-025", "§7Demo desactivada."));
+                demo.remove(id); player.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-025", "§7Demo desactivada."));
             } else {
-                demo.put(id, requested); player.sendMessage(Settings.text("nucleo", "SpectreCorePlugin.mensaje-026", "§aDemo de {requested} activa.", "requested", requested));
+                demo.put(id, requested); player.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-026", "§aDemo de {requested} activa.", "requested", requested));
             }
             return true;
         }
         if (sub.equals("reset")) {
             clear(id); cooldowns.resetAll(id);
-            player.sendMessage(Settings.text("nucleo", "SpectreCorePlugin.mensaje-027", "§aHabilidades y cooldowns reiniciados."));
+            player.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-027", "§aHabilidades y cooldowns reiniciados."));
             return true;
         }
-        player.sendMessage(Settings.text("nucleo", "SpectreCorePlugin.mensaje-028", "§7/spectrecore ayuda"));
+        player.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-028", "§7/spectrecore ayuda"));
         return true;
     }
 
@@ -542,15 +542,15 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
     private void registerItemInspector() {
         if (commandRouter.get("nombreitem") == null) return;
         commandRouter.get("nombreitem").setExecutor((sender,command,label,args) -> {
-            if (!canAdmin(sender) && !sender.hasPermission("hydev.admin")) { sender.sendMessage(Settings.text("nucleo", "SpectreCorePlugin.mensaje-029", "§cSin permiso.")); return true; }
-            if (!(sender instanceof Player player)) { sender.sendMessage(Settings.text("nucleo", "SpectreCorePlugin.mensaje-030", "Usa este comando dentro del juego.")); return true; }
+            if (!canAdmin(sender) && !sender.hasPermission("hydev.admin")) { sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-029", "§cSin permiso.")); return true; }
+            if (!(sender instanceof Player player)) { sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-030", "Usa este comando dentro del juego.")); return true; }
             var item = player.getInventory().getItemInMainHand();
-            if (!item.hasItemMeta() || !item.getItemMeta().hasDisplayName()) { sender.sendMessage(Settings.text("nucleo", "SpectreCorePlugin.mensaje-031", "§cSostén un objeto con nombre personalizado.")); return true; }
+            if (!item.hasItemMeta() || !item.getItemMeta().hasDisplayName()) { sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-031", "§cSostén un objeto con nombre personalizado.")); return true; }
             var name = item.getItemMeta().displayName();
             String plain = net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer.plainText().serialize(name);
             player.sendMessage(Settings.component(Settings.text("nucleo", "SpectreCorePlugin.mensaje-032", "Nombre: ")).append(name));
             player.sendMessage(Settings.component(Settings.text("nucleo", "SpectreCorePlugin.mensaje-033", "[COPIAR NOMBRE]"), Settings.color("nucleo", "SpectreCorePlugin.color-001", net.kyori.adventure.text.format.NamedTextColor.GREEN)).clickEvent(net.kyori.adventure.text.event.ClickEvent.copyToClipboard(plain)));
-            getLogger().info(Settings.text("nucleo", "SpectreCorePlugin.mensaje-034","Nombre del item: [{valor1}]","valor1", plain.replace('\n',' ').replace('\r',' '))); return true;
+            getLogger().info(Settings.plain("nucleo", "SpectreCorePlugin.mensaje-034","Nombre del item: [{valor1}]","valor1", plain.replace('\n',' ').replace('\r',' '))); return true;
         });
     }
 

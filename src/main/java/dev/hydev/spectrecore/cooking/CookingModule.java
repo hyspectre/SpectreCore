@@ -157,7 +157,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         displayStationKey = new NamespacedKey(plugin, "cooking_visual_station");
         displayRoleKey = new NamespacedKey(plugin, "cooking_visual_role");
         File directory = new File(plugin.getDataFolder(), "cooking");
-        if (!directory.exists() && !directory.mkdirs()) getLogger().warning(Settings.text("cocina", "CookingModule.mensaje-001", "No se pudo crear carpeta cooking."));
+        if (!directory.exists() && !directory.mkdirs()) getLogger().warning(Settings.plain("cocina", "CookingModule.mensaje-001", "No se pudo crear carpeta cooking."));
         recipesFile = plugin.moduleConfigs().file("cocina/recetas.yml");
         stationsFile = new File(directory, "stations.yml");
         discoveriesFile = new File(directory, "discoveries.yml");
@@ -168,7 +168,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         if (!claimJournal.ready()) getLogger().severe("COCINA: almacenamiento de transacciones dañado o ilegible. Operaciones desactivadas.");
         if (claimJournal.count() > 0) getLogger().warning("COCINA: " + claimJournal.count() + " transacciones interrumpidas; usa /spectrecore cocina transacciones.");
         if (!stationStorageReady) {
-            getLogger().severe(Settings.text("cocina", "CookingModule.mensaje-023",
+            getLogger().severe(Settings.plain("cocina", "CookingModule.mensaje-023",
                     "Cocina desactivada: stations.yml no es legible. Recupera el archivo antes de reiniciar."));
             return;
         }
@@ -183,7 +183,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             for (Station station : stations.values()) if (chunkLoaded(station.blockLocation)) repairVisual(station);
         }, 30L);
-        getLogger().info(Settings.text("cocina", "CookingModule.mensaje-002", "SpectreCore cocina: {stations-size} estaciones, {recipes-size} recetas.", "stations-size", stations.size(), "recipes-size", recipes.size()));
+        getLogger().info(Settings.plain("cocina", "CookingModule.mensaje-002", "SpectreCore cocina: {stations-size} estaciones, {recipes-size} recetas.", "stations-size", stations.size(), "recipes-size", recipes.size()));
     }
 
     public void disable() {
@@ -220,9 +220,9 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
             if (previous.isFile() && !destination.exists()) {
                 try {
                     Files.copy(previous.toPath(), destination.toPath());
-                    getLogger().info(Settings.text("cocina", "CookingModule.etiqueta-024", "Cocina migrada: ") + previous + " -> " + destination);
+                    getLogger().info(Settings.plain("cocina", "CookingModule.etiqueta-024", "Cocina migrada: ") + previous + " -> " + destination);
                 } catch (IOException ex) {
-                    getLogger().severe(Settings.text("cocina", "CookingModule.mensaje-003", "No se pudo copiar {filename}: {ex-getmessage}", "filename", filename, "ex-getmessage", ex.getMessage()));
+                    getLogger().severe(Settings.plain("cocina", "CookingModule.mensaje-003", "No se pudo copiar {filename}: {ex-getmessage}", "filename", filename, "ex-getmessage", ex.getMessage()));
                 }
             }
         }
@@ -232,7 +232,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         recipes.clear();
         YamlConfiguration yaml = YamlConfiguration.loadConfiguration(recipesFile);
         ConfigurationSection root = yaml.getConfigurationSection("recetas");
-        if (root == null) { getLogger().severe(Settings.text("cocina", "CookingModule.mensaje-004", "recipes.yml no contiene 'recetas'.")); return; }
+        if (root == null) { getLogger().severe(Settings.plain("cocina", "CookingModule.mensaje-004", "recipes.yml no contiene 'recetas'.")); return; }
         for (String id : root.getKeys(false)) {
             ConfigurationSection sec = root.getConfigurationSection(id);
             if (sec == null) continue;
@@ -257,7 +257,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
                         a, b, c, d, e, sec.getString("pista", defaultHint(id)), normal, exquisite, overcooked);
                 recipes.put(id, recipe);
             } catch (Exception ex) {
-                getLogger().severe(Settings.text("cocina", "CookingModule.mensaje-005", "Receta '{id}' ignorada: {ex-getmessage}", "id", id, "ex-getmessage", ex.getMessage()));
+                getLogger().severe(Settings.plain("cocina", "CookingModule.mensaje-005", "Receta '{id}' ignorada: {ex-getmessage}", "id", id, "ex-getmessage", ex.getMessage()));
             }
         }
     }
@@ -289,21 +289,21 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         unresolvedStations.clear();
         YamlConfiguration yaml = new YamlConfiguration();
         if (stationsFile.exists() && !stationsFile.isFile()) {
-            getLogger().severe(Settings.text("cocina", "CookingModule.mensaje-025",
+            getLogger().severe(Settings.plain("cocina", "CookingModule.mensaje-025",
                     "La ruta de stations.yml existe pero no es un archivo regular."));
             return false;
         }
         if (stationsFile.isFile()) {
             try { yaml.load(stationsFile); }
             catch (IOException | InvalidConfigurationException failure) {
-                getLogger().severe(Settings.text("cocina", "CookingModule.mensaje-024",
+                getLogger().severe(Settings.plain("cocina", "CookingModule.mensaje-024",
                         "No se pudo leer stations.yml: {error}", "error", failure.getMessage()));
                 return false; // NEVER silently replace corrupt existing state with an empty file.
             }
         }
         ConfigurationSection root = yaml.getConfigurationSection("stations");
         if (yaml.contains("stations") && root == null) {
-            getLogger().severe(Settings.text("cocina", "CookingModule.mensaje-026",
+            getLogger().severe(Settings.plain("cocina", "CookingModule.mensaje-026",
                     "La sección stations no tiene un formato válido. Cocina desactivada."));
             return false;
         }
@@ -316,7 +316,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
                 if (worldId == null) throw new IllegalArgumentException(Settings.text("cocina", "CookingModule.etiqueta-028", "Falta UUID del mundo"));
                 World world = Bukkit.getWorld(UUID.fromString(worldId));
                 if (world == null) {
-                    getLogger().warning(Settings.text("cocina", "CookingModule.mensaje-006", "Estacion pendiente, mundo no cargado (se conservara el registro): {id}", "id", id));
+                    getLogger().warning(Settings.plain("cocina", "CookingModule.mensaje-006", "Estacion pendiente, mundo no cargado (se conservara el registro): {id}", "id", id));
                     unresolvedStations.add(new LinkedHashMap<>(s.getValues(false)));
                     continue;
                 }
@@ -339,7 +339,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
                 stations.put(key(l), station);
             } catch (Exception ex) {
                 unresolvedStations.add(new LinkedHashMap<>(s.getValues(false)));
-                getLogger().warning(Settings.text("cocina", "CookingModule.mensaje-007", "Estacion corrupta conservada {id}: {ex-getmessage}", "id", id, "ex-getmessage", ex.getMessage()));
+                getLogger().warning(Settings.plain("cocina", "CookingModule.mensaje-007", "Estacion corrupta conservada {id}: {ex-getmessage}", "id", id, "ex-getmessage", ex.getMessage()));
             }
         }
         return true;
@@ -378,7 +378,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         catch (IOException ex) {
             if (plugin instanceof dev.hydev.spectrecore.SpectreCorePlugin core) core.diagnostics().record("cocina.save", start, false);
             stationStorageReady = false; // Do not allow further item-consuming interactions.
-            getLogger().severe(Settings.text("cocina", "CookingModule.mensaje-008", "No se pudo guardar stations.yml: {ex-getmessage}", "ex-getmessage", ex.getMessage()));
+            getLogger().severe(Settings.plain("cocina", "CookingModule.mensaje-008", "No se pudo guardar stations.yml: {ex-getmessage}", "ex-getmessage", ex.getMessage()));
             return false;
         }
     }
@@ -630,7 +630,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         ItemStack reward = resolveMMOItem(rewardId);
         if (reward == null || reward.getType() == Material.AIR) {
             msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.etiqueta-055", "El MMOItem CONSUMABLE/") + rewardId + Settings.text("cocina", "CookingModule.etiqueta-056", " no esta disponible. No se consumio el cuenco ni se reinicio la receta."));
-            getLogger().warning(Settings.text("cocina", "CookingModule.mensaje-009", "Falta recompensa MMOItems: {rewardid}", "rewardid", rewardId));
+            getLogger().warning(Settings.plain("cocina", "CookingModule.mensaje-009", "Falta recompensa MMOItems: {rewardid}", "rewardid", rewardId));
             return;
         }
         // Durable claim -> station commit -> bowl + reward -> claim clearance.
@@ -743,7 +743,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
             Object value = getItem.invoke(instance, getConfig().getString("cooking.rewards.mmoitems-type", "CONSUMABLE"), id);
             return value instanceof ItemStack stack ? stack.clone() : null;
         } catch (ReflectiveOperationException | LinkageError ex) {
-            getLogger().warning(Settings.text("cocina", "CookingModule.mensaje-010","API de MMOItems incompatible: {valor1}: {ex-getmessage}","valor1", ex.getClass().getSimpleName(),"ex-getmessage", ex.getMessage()));
+            getLogger().warning(Settings.plain("cocina", "CookingModule.mensaje-010","API de MMOItems incompatible: {valor1}: {ex-getmessage}","valor1", ex.getClass().getSimpleName(),"ex-getmessage", ex.getMessage()));
             return null;
         }
     }
@@ -1136,7 +1136,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         if (players == null) return;
         for (String id : players.getKeys(false)) {
             try { discoveries.put(UUID.fromString(id), new HashSet<>(players.getStringList(id))); }
-            catch (IllegalArgumentException ex) { getLogger().warning(Settings.text("cocina", "CookingModule.mensaje-012", "UUID de cocinero invalido: {id}", "id", id)); }
+            catch (IllegalArgumentException ex) { getLogger().warning(Settings.plain("cocina", "CookingModule.mensaje-012", "UUID de cocinero invalido: {id}", "id", id)); }
         }
     }
 
@@ -1146,7 +1146,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         for (Map.Entry<UUID, Set<String>> entry : discoveries.entrySet())
             yaml.set("players." + entry.getKey(), entry.getValue().stream().sorted().toList());
         try { AtomicFileStore.writeUtf8(discoveriesFile.toPath(), yaml.saveToString()); }
-        catch (IOException ex) { discoveriesStorageReady = false; getLogger().severe(Settings.text("cocina", "CookingModule.mensaje-013", "No se pudieron guardar recetas descubiertas: {ex-getmessage}", "ex-getmessage", ex.getMessage())); }
+        catch (IOException ex) { discoveriesStorageReady = false; getLogger().severe(Settings.plain("cocina", "CookingModule.mensaje-013", "No se pudieron guardar recetas descubiertas: {ex-getmessage}", "ex-getmessage", ex.getMessage())); }
     }
 
     private void discoverRecipe(Player player, String recipeId) {
@@ -1238,49 +1238,49 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         if (!command.getName().equalsIgnoreCase("cocina")) return false;
         String action = args.length == 0 ? "ayuda" : args[0].toLowerCase(java.util.Locale.ROOT);
         if (action.equals("transacciones")) {
-            if (!cookingAdmin(sender)) { sender.sendMessage(Settings.text("cocina", "CookingModule.mensaje-032", "§cNo tienes permiso.")); return true; }
-            if (!claimJournal.ready()) { sender.sendMessage(Settings.text("cocina", "CookingModule.mensaje-033", "§cRegistro de transacciones ilegible; restaura claims.yml.")); return true; }
-            sender.sendMessage(Settings.text("cocina", "CookingModule.mensaje-034", "§6Transacciones pendientes: {count}", "count", claimJournal.count()));
+            if (!cookingAdmin(sender)) { sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-032", "§cNo tienes permiso.")); return true; }
+            if (!claimJournal.ready()) { sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-033", "§cRegistro de transacciones ilegible; restaura claims.yml.")); return true; }
+            sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-034", "§6Transacciones pendientes: {count}", "count", claimJournal.count()));
             for (ClaimJournal.Claim c : claimJournal.unresolved())
                 sender.sendMessage(c.id() + " " + c.operation() + " " + c.subject() + " jugador=" + c.player() + " estación=" + c.station());
             return true;
         }
         if (action.equals("resolver") && args.length == 3) {
             if (!cookingAdmin(sender) || !(sender instanceof Player admin) || !admin.isOp()) {
-                sender.sendMessage(Settings.text("cocina", "CookingModule.mensaje-035", "§cLa reconciliación exige un operador dentro del juego.")); return true;
+                sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-035", "§cLa reconciliación exige un operador dentro del juego.")); return true;
             }
             if (!args[2].equalsIgnoreCase("confirmado")) {
-                sender.sendMessage(Settings.text("cocina", "CookingModule.mensaje-036", "§cUsa /spectrecore cocina resolver <UUID> confirmado tras auditar.")); return true;
+                sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-036", "§cUsa /spectrecore cocina resolver <UUID> confirmado tras auditar.")); return true;
             }
             try {
                 UUID id = UUID.fromString(args[1]);
                 boolean ok = claimJournal.resolve(id);
-                sender.sendMessage(Settings.text("cocina", "CookingModule.mensaje-037", "§eResultado de reconciliación: {estado}", "estado", ok ? "cerrada sin mover objetos" : "fallida"));
+                sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-037", "§eResultado de reconciliación: {estado}", "estado", ok ? "cerrada sin mover objetos" : "fallida"));
                 if (ok) getLogger().warning("AUDITORIA_COCINA: operador " + admin.getUniqueId() + " cerró transacción " + id);
-            } catch (IllegalArgumentException ex) { sender.sendMessage(Settings.text("cocina", "CookingModule.mensaje-038", "§cUUID inválido.")); }
+            } catch (IllegalArgumentException ex) { sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-038", "§cUUID inválido.")); }
             return true;
         }
         if (action.equals("ayuda")) {
-            sender.sendMessage(Settings.text("cocina", "CookingModule.mensaje-014", "{prefix}§eMechero: crear §7| §ePala de madera: revolver §7| §eEsponja: limpiar/retirar §7| §eCuenco: servir", "prefix", prefix()));
-            sender.sendMessage(Settings.text("cocina", "CookingModule.mensaje-015", "{prefix}§e/mago recetas §7| §e/spectrecore cocina estado §7| admin: reparar, recargar", "prefix", prefix()));
+            sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-014", "{prefix}§eMechero: crear §7| §ePala de madera: revolver §7| §eEsponja: limpiar/retirar §7| §eCuenco: servir", "prefix", prefix()));
+            sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-015", "{prefix}§e/mago recetas §7| §e/spectrecore cocina estado §7| admin: reparar, recargar", "prefix", prefix()));
             return true;
         }
         if (action.equals("recetas") || action.equals("libro")) {
             if (sender instanceof Player player) openRecipeBook(player);
-            else for (Recipe r : recipes.values()) sender.sendMessage(Settings.text("cocina", "CookingModule.mensaje-016", "{prefix}§e{r-name} §7» {r-ingredients}", "prefix", prefix(), "r-name", r.name(), "r-ingredients", r.ingredients()));
+            else for (Recipe r : recipes.values()) sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-016", "{prefix}§e{r-name} §7» {r-ingredients}", "prefix", prefix(), "r-name", r.name(), "r-ingredients", r.ingredients()));
             return true;
         }
         if (action.equals("recargar")) {
-            if (!cookingAdmin(sender)) { sender.sendMessage(Settings.text("cocina", "CookingModule.mensaje-017", "{prefix}§cNo tienes permiso.", "prefix", prefix())); return true; }
-            try { plugin.reloadConfig(); loadRecipes(); sender.sendMessage(Settings.text("cocina", "CookingModule.mensaje-018", "{prefix}§aConfiguracion y recetas recargadas.", "prefix", prefix())); }
-            catch (Exception error) { sender.sendMessage(Settings.text("cocina", "CookingModule.mensaje-019", "{prefix}§c{error-getmessage}", "prefix", prefix(), "error-getmessage", error.getMessage())); }
+            if (!cookingAdmin(sender)) { sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-017", "{prefix}§cNo tienes permiso.", "prefix", prefix())); return true; }
+            try { plugin.reloadConfig(); loadRecipes(); sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-018", "{prefix}§aConfiguracion y recetas recargadas.", "prefix", prefix())); }
+            catch (Exception error) { sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-019", "{prefix}§c{error-getmessage}", "prefix", prefix(), "error-getmessage", error.getMessage())); }
             return true;
         }
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(Settings.text("cocina", "CookingModule.mensaje-020", "{prefix}Este comando requiere un jugador.", "prefix", prefix())); return true;
+            sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-020", "{prefix}Este comando requiere un jugador.", "prefix", prefix())); return true;
         }
         if (action.equals("reparar") && !cookingAdmin(sender)) {
-            sender.sendMessage(Settings.text("cocina", "CookingModule.mensaje-021", "{prefix}§cNo tienes permiso.", "prefix", prefix())); return true;
+            sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-021", "{prefix}§cNo tienes permiso.", "prefix", prefix())); return true;
         }
         Block looked = player.getTargetBlockExact(6);
         if (looked == null || !isCookingStation(looked)) {
@@ -1293,7 +1293,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
                 msg(player, ChatColor.GREEN + Settings.text("cocina", "CookingModule.etiqueta-121", "Modelo de cocina reconstruido."));
             }
             case "estado" -> { accrue(station, System.currentTimeMillis()); inspectStation(player, station, true); }
-            default -> sender.sendMessage(Settings.text("cocina", "CookingModule.mensaje-022", "{prefix}§e/spectrecore cocina ayuda | libro | estado | reparar | recargar", "prefix", prefix()));
+            default -> sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-022", "{prefix}§e/spectrecore cocina ayuda | libro | estado | reparar | recargar", "prefix", prefix()));
         }
         return true;
     }

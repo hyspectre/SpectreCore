@@ -108,7 +108,7 @@ public final class MiningModule implements Listener {
     private boolean expire(Player player, State state) {
         if (MigrationRules.expired(state.activeUntil, System.currentTimeMillis())) {
             state.activeUntil = 0; state.charge = 0; dirty = true;
-            player.sendMessage(Settings.text("resonancia", "MiningModule.mensaje-002", "{prefix}§7La resonancia se ha disipado.", "prefix", prefix())); return true;
+            player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-002", "{prefix}§7La resonancia se ha disipado.", "prefix", prefix())); return true;
         }
         return false;
     }
@@ -131,7 +131,7 @@ public final class MiningModule implements Listener {
                     && ((dev.hydev.spectrecore.SpectreCorePlugin) plugin).toasts().show(player, "gema-" + quality);
             if (!nativeToast) player.showTitle(Title.title(Settings.component(Settings.text("resonancia", "MiningModule.mensaje-004", "✦ GEMA EXTRAÍDA"), Settings.color("resonancia", "MiningModule.color-006", NamedTextColor.LIGHT_PURPLE)), Settings.component(Settings.text("resonancia", "MiningModule.mensaje-005", "Calidad: {label}", "label", label), color), Title.Times.times(Duration.ofMillis(Settings.i("resonancia", "MiningModule.ofmillis-001-arg0", 150)), Duration.ofSeconds(Settings.i("resonancia", "MiningModule.ofseconds-002-arg0", 2)), Duration.ofMillis(Settings.i("resonancia", "MiningModule.ofmillis-003-arg0", 350)))));
             player.playSound(player.getLocation(), Settings.sound("resonancia", "MiningModule.sound-007", Sound.BLOCK_AMETHYST_BLOCK_CHIME),Settings.f("resonancia", "MiningModule.playsound-004-arg2", 1),Settings.f("resonancia", "MiningModule.playsound-005-arg3", 1.2f));
-            player.sendMessage(Settings.text("resonancia", "MiningModule.mensaje-006", "{prefix}§fHas extraído una gema de calidad {label}.", "prefix", prefix(), "label", label));
+            player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-006", "{prefix}§fHas extraído una gema de calidad {label}.", "prefix", prefix(), "label", label));
             if (config.getBoolean("visuales-resonancia.activados",true)) visuals.gem(block.getLocation().add(.5, .5, .5), reward, quality);
             return;
         }
@@ -141,9 +141,9 @@ public final class MiningModule implements Listener {
             if (((dev.hydev.spectrecore.SpectreCorePlugin) plugin).toasts() != null)
                 ((dev.hydev.spectrecore.SpectreCorePlugin) plugin).toasts().show(player, "resonancia");
             player.playSound(player.getLocation(), Settings.sound("resonancia", "MiningModule.sound-008", Sound.BLOCK_AMETHYST_BLOCK_RESONATE),Settings.f("resonancia", "MiningModule.playsound-006-arg2", 1),Settings.f("resonancia", "MiningModule.playsound-007-arg3", 1.4f));
-            player.sendMessage(Settings.text("resonancia", "MiningModule.mensaje-007", "{prefix}§d§lRESONANCIA COMPLETA", "prefix", prefix()));
-            player.sendMessage(Settings.text("resonancia", "MiningModule.mensaje-008", "§7Agáchate y rompe un mineral en los próximos {window} segundos.", "window", window()));
-            player.sendMessage(Settings.text("resonancia", "MiningModule.mensaje-009", "§7La calidad depende del mineral que elijas.")); if(config.getBoolean("visuales-resonancia.activados",true)) visuals.charged(player);
+            player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-007", "{prefix}§d§lRESONANCIA COMPLETA", "prefix", prefix()));
+            player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-008", "§7Agáchate y rompe un mineral en los próximos {window} segundos.", "window", window()));
+            player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-009", "§7La calidad depende del mineral que elijas.")); if(config.getBoolean("visuales-resonancia.activados",true)) visuals.charged(player);
         } else {
             int filled = (int) Math.floor(12.0 * state.charge / maximum());
             player.sendActionBar(Settings.component(Settings.text("resonancia", "MiningModule.mensaje-010", "✦ "), Settings.color("resonancia", "MiningModule.color-009", NamedTextColor.LIGHT_PURPLE))
@@ -167,11 +167,11 @@ public final class MiningModule implements Listener {
         if(config.getBoolean("visuales-tesoros.activados",true)) visuals.treasure(block.getLocation().add(.5, .5, .5), block.getType(), tier);
         player.playSound(player.getLocation(), Settings.sound("tesoros", "MiningModule.sound-013", Sound.ENTITY_EXPERIENCE_ORB_PICKUP),Settings.f("tesoros", "MiningModule.playsound-008-arg2", 1),Settings.f("tesoros", "MiningModule.playsound-009-arg3", 1.5f));
         player.showTitle(Title.title(Settings.component(Settings.text("tesoros", "MiningModule.mensaje-014", "¡TESORO ENCONTRADO!"), Settings.color("tesoros", "MiningModule.color-014", NamedTextColor.GOLD)), Settings.component(Settings.text("tesoros", "MiningModule.mensaje-015", "✦ {reward-getamount} minerales raros", "reward-getamount", reward.getAmount()), Settings.color("tesoros", "MiningModule.color-015", NamedTextColor.YELLOW)), Title.Times.times(Duration.ofMillis(Settings.i("tesoros", "MiningModule.ofmillis-010-arg0", 150)), Duration.ofSeconds(Settings.i("tesoros", "MiningModule.ofseconds-011-arg0", 2)), Duration.ofMillis(Settings.i("tesoros", "MiningModule.ofmillis-012-arg0", 350)))));
-        player.sendMessage(Settings.text("tesoros", "MiningModule.mensaje-016", "§f↹ §e¡Obtuviste un mineral raro!"));
+        player.sendMessage(Settings.message("tesoros", "MiningModule.mensaje-016", "§f↹ §e¡Obtuviste un mineral raro!"));
     }
     private void missing(Player player, String type, String id) {
-        player.sendMessage(Settings.text("resonancia", "MiningModule.mensaje-017", "{prefix}§cLa recompensa no está disponible. Avisa a administración.", "prefix", prefix()));
-        if (reported.add(type + ":" + id)) plugin.getLogger().warning(Settings.text("resonancia", "MiningModule.mensaje-018", "Minería: no se pudo generar {type}:{id}. Revisa el ID, MMOItems y su API.", "type", type, "id", id));
+        player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-017", "{prefix}§cLa recompensa no está disponible. Avisa a administración.", "prefix", prefix()));
+        if (reported.add(type + ":" + id)) plugin.getLogger().warning(Settings.plain("resonancia", "MiningModule.mensaje-018", "Minería: no se pudo generar {type}:{id}. Revisa el ID, MMOItems y su API.", "type", type, "id", id));
     }
     private void deliver(Player player, ItemStack reward) {
         player.getInventory().addItem(reward.clone()).values().forEach(left -> player.getWorld().dropItem(player.getLocation(), left, drop -> {
@@ -180,51 +180,51 @@ public final class MiningModule implements Listener {
     }
     private boolean admin(CommandSender sender) { return sender.hasPermission("spectrecore.admin") || sender.hasPermission("hydev.admin"); }
     public boolean preview(CommandSender sender, String[] args) {
-        if (!admin(sender)) { sender.sendMessage(Settings.text("resonancia", "MiningModule.mensaje-019", "§cNo tienes permiso.")); return true; }
-        if (!(sender instanceof Player player)) { sender.sendMessage(Settings.text("resonancia", "MiningModule.mensaje-020", "Usa la demostración dentro del juego.")); return true; }
-        if (args.length < 3) { sender.sendMessage(Settings.text("resonancia", "MiningModule.mensaje-021", "/spectrecore tesoros mineria <1|2|3> o /spectrecore tesoros gema <basica|intermedia|superior>")); return true; }
+        if (!admin(sender)) { sender.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-019", "§cNo tienes permiso.")); return true; }
+        if (!(sender instanceof Player player)) { sender.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-020", "Usa la demostración dentro del juego.")); return true; }
+        if (args.length < 3) { sender.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-021", "/spectrecore tesoros mineria <1|2|3> o /spectrecore tesoros gema <basica|intermedia|superior>")); return true; }
         var block = player.getTargetBlockExact(6);
         Location at = block == null ? player.getLocation().add(player.getLocation().getDirection().multiply(2)) : block.getLocation().add(.5, .5, .5);
         if (args[1].equalsIgnoreCase("tesoro")) {
-            if(!config.getBoolean("tesoros.activados",true)){sender.sendMessage(Settings.text("resonancia", "MiningModule.mensaje-022", "Tesoros mineros desactivados."));return true;}
+            if(!config.getBoolean("tesoros.activados",true)){sender.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-022", "Tesoros mineros desactivados."));return true;}
             int tier;
             try { tier = Integer.parseInt(args[2]); } catch (NumberFormatException error) { tier = 0; }
-            if (tier < 1 || tier > 3) { player.sendMessage(Settings.text("resonancia", "MiningModule.mensaje-023", "§cTier válido: 1, 2 o 3.")); return true; }
+            if (tier < 1 || tier > 3) { player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-023", "§cTier válido: 1, 2 o 3.")); return true; }
             visuals.treasure(at, tier == 1 ? Material.IRON_ORE : tier == 2 ? Material.REDSTONE_ORE : Material.DIAMOND_ORE, tier);
         } else if (args[1].equalsIgnoreCase("gema")) {
-            if(!config.getBoolean("gemas.activadas",true)){sender.sendMessage(Settings.text("resonancia", "MiningModule.mensaje-024", "Resonancia desactivada."));return true;}
+            if(!config.getBoolean("gemas.activadas",true)){sender.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-024", "Resonancia desactivada."));return true;}
             String quality = args[2].toLowerCase(Locale.ROOT);
-            if (!Set.of("basica", "intermedia", "superior").contains(quality)) { player.sendMessage(Settings.text("resonancia", "MiningModule.mensaje-025", "§cCalidad válida: basica, intermedia o superior.")); return true; }
+            if (!Set.of("basica", "intermedia", "superior").contains(quality)) { player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-025", "§cCalidad válida: basica, intermedia o superior.")); return true; }
             ItemStack gem = mmo.build("GEM_STONE", config.getString("gemas.ids." + quality, ""), 1);
             visuals.gem(at, gem == null ? new ItemStack(Material.AMETHYST_SHARD) : gem, quality);
-        } else { player.sendMessage(Settings.text("resonancia", "MiningModule.mensaje-026", "§cUsa tesoro o gema.")); return true; }
-        player.sendMessage(Settings.text("resonancia", "MiningModule.mensaje-027", "§7Vista previa visual: no entrega objetos ni cambia la resonancia."));
+        } else { player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-026", "§cUsa tesoro o gema.")); return true; }
+        player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-027", "§7Vista previa visual: no entrega objetos ni cambia la resonancia."));
         return true;
     }
     private boolean command(CommandSender sender, String name) {
-        if (!(sender instanceof Player player)) { sender.sendMessage(Settings.text("resonancia", "MiningModule.mensaje-028", "Usa este comando dentro del juego.")); return true; }
-        if (!name.equals("resonancia") && !admin(sender)) { sender.sendMessage(Settings.text("resonancia", "MiningModule.mensaje-029", "§cNo tienes permiso.")); return true; }
+        if (!(sender instanceof Player player)) { sender.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-028", "Usa este comando dentro del juego.")); return true; }
+        if (!name.equals("resonancia") && !admin(sender)) { sender.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-029", "§cNo tienes permiso.")); return true; }
         State state = state(player); expire(player, state);
         if (name.equals("resonancia")) {
-            if(!config.getBoolean("gemas.activadas",true)){sender.sendMessage(Settings.text("resonancia", "MiningModule.mensaje-030", "Resonancia desactivada."));return true;}
-            player.sendMessage(Settings.text("resonancia", "MiningModule.mensaje-031", "{prefix}§fPico Perdido: §d{state-charge}§7/§d{maximum}", "prefix", prefix(), "state-charge", state.charge, "maximum", maximum()));
-            if (state.activeUntil > 0) player.sendMessage(Settings.text("resonancia", "MiningModule.mensaje-032","§7Lista para extraer: {valor1} s.","valor1", Math.max(0, (state.activeUntil - System.currentTimeMillis() + 999) / 1000)));
+            if(!config.getBoolean("gemas.activadas",true)){sender.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-030", "Resonancia desactivada."));return true;}
+            player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-031", "{prefix}§fPico Perdido: §d{state-charge}§7/§d{maximum}", "prefix", prefix(), "state-charge", state.charge, "maximum", maximum()));
+            if (state.activeUntil > 0) player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-032","§7Lista para extraer: {valor1} s.","valor1", Math.max(0, (state.activeUntil - System.currentTimeMillis() + 999) / 1000)));
             return true;
         }
         ItemStack held = player.getInventory().getItemInMainHand(); String plain = clean(held);
         if (name.equals("nombreitem")) {
-            if (plain.isEmpty()) { player.sendMessage(Settings.text("resonancia", "MiningModule.mensaje-033", "§cDebes sostener un objeto con nombre personalizado.")); return true; }
+            if (plain.isEmpty()) { player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-033", "§cDebes sostener un objeto con nombre personalizado.")); return true; }
             player.sendMessage(Settings.component(Settings.text("resonancia", "MiningModule.mensaje-034", "Nombre original: "), Settings.color("resonancia", "MiningModule.color-016", NamedTextColor.GRAY)).append(held.getItemMeta().displayName()));
             player.sendMessage(Settings.component(Settings.text("resonancia", "MiningModule.mensaje-035", "Nombre sin colores: [{plain}]", "plain", plain), Settings.color("resonancia", "MiningModule.color-017", NamedTextColor.WHITE)));
             player.sendMessage(Settings.component(Settings.text("resonancia", "MiningModule.mensaje-036", "[COPIAR NOMBRE]"), Settings.color("resonancia", "MiningModule.color-018", NamedTextColor.GREEN)).clickEvent(ClickEvent.copyToClipboard(plain)));
-            plugin.getLogger().info(Settings.text("resonancia", "MiningModule.mensaje-037","Nombre del item: [{valor1}]","valor1", plain.replace('\n', ' ').replace('\r', ' ')));
+            plugin.getLogger().info(Settings.plain("resonancia", "MiningModule.mensaje-037","Nombre del item: [{valor1}]","valor1", plain.replace('\n', ' ').replace('\r', ' ')));
         } else {
-            player.sendMessage(Settings.text("resonancia", "MiningModule.mensaje-038", "§dHYDEV · DIAGNÓSTICO MINERO"));
-            player.sendMessage(Settings.text("resonancia", "MiningModule.mensaje-039", "§7Herramienta: §f{held-gettype} §7| Nombre: §f{plain}", "held-gettype", held.getType(), "plain", plain));
-            player.sendMessage(Settings.text("resonancia", "MiningModule.mensaje-040", "§7MMOItems: §f{mmo-type-held}:{mmo-id-held}", "mmo-type-held", mmo.type(held), "mmo-id-held", mmo.id(held)));
-            player.sendMessage(Settings.text("resonancia", "MiningModule.mensaje-041","§7Modo: §f{valor1} §7| Pico configurado: §f{valor2}","valor1", config.getString("gemas.identificar-por", "nombre"),"valor2", config.getString("gemas.pico", "sin ID")));
-            player.sendMessage(Settings.text("resonancia", "MiningModule.mensaje-042", "§7Herramienta válida: §f{tool-held} §7| Carga: §f{state-charge}/{maximum}", "tool-held", tool(held), "state-charge", state.charge, "maximum", maximum()));
-            player.sendMessage(Settings.text("resonancia", "MiningModule.mensaje-043","§7Probabilidades T1/T2/T3: §f{valor1}/{valor2}/{valor3}","valor1", config.getDouble("probabilidades.mineria.tier1", 0),"valor2", config.getDouble("probabilidades.mineria.tier2", 0),"valor3", config.getDouble("probabilidades.mineria.tier3", 0)));
+            player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-038", "§dHYDEV · DIAGNÓSTICO MINERO"));
+            player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-039", "§7Herramienta: §f{held-gettype} §7| Nombre: §f{plain}", "held-gettype", held.getType(), "plain", plain));
+            player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-040", "§7MMOItems: §f{mmo-type-held}:{mmo-id-held}", "mmo-type-held", mmo.type(held), "mmo-id-held", mmo.id(held)));
+            player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-041","§7Modo: §f{valor1} §7| Pico configurado: §f{valor2}","valor1", config.getString("gemas.identificar-por", "nombre"),"valor2", config.getString("gemas.pico", "sin ID")));
+            player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-042", "§7Herramienta válida: §f{tool-held} §7| Carga: §f{state-charge}/{maximum}", "tool-held", tool(held), "state-charge", state.charge, "maximum", maximum()));
+            player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-043","§7Probabilidades T1/T2/T3: §f{valor1}/{valor2}/{valor3}","valor1", config.getDouble("probabilidades.mineria.tier1", 0),"valor2", config.getDouble("probabilidades.mineria.tier2", 0),"valor3", config.getDouble("probabilidades.mineria.tier3", 0)));
         }
         return true;
     }
@@ -239,7 +239,7 @@ public final class MiningModule implements Listener {
             state.activeUntil = section.getLong(key + ".active-until");
             if (state.activeUntil > 0 && state.activeUntil <= System.currentTimeMillis()) { state.charge = 0; state.activeUntil = 0; }
             states.put(id, state);
-        } catch (IllegalArgumentException invalid) { plugin.getLogger().warning(Settings.text("resonancia", "MiningModule.mensaje-044", "UUID inválido en mining-data.yml: {key}", "key", key)); }
+        } catch (IllegalArgumentException invalid) { plugin.getLogger().warning(Settings.plain("resonancia", "MiningModule.mensaje-044", "UUID inválido en mining-data.yml: {key}", "key", key)); }
     }
     private void saveData() {
         var data = new YamlConfiguration();
@@ -256,6 +256,6 @@ public final class MiningModule implements Listener {
             catch (java.nio.file.AtomicMoveNotSupportedException unsupported) { java.nio.file.Files.move(temporary, target, java.nio.file.StandardCopyOption.REPLACE_EXISTING); }
             dirty = false;
         }
-        catch (IOException error) { plugin.getLogger().severe(Settings.text("resonancia", "MiningModule.mensaje-045", "No se pudo guardar la minería: {error-getmessage}", "error-getmessage", error.getMessage())); }
+        catch (IOException error) { plugin.getLogger().severe(Settings.plain("resonancia", "MiningModule.mensaje-045", "No se pudo guardar la minería: {error-getmessage}", "error-getmessage", error.getMessage())); }
     }
 }

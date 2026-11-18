@@ -111,7 +111,7 @@ public final class SlayerModule implements Listener {
         return slayerLevel(player) >= rewardLevel ? "§aDESBLOQUEADO" : "§8BLOQUEADO";
     }
     private boolean command(CommandSender sender, String command, String[] args) {
-        if (!(sender instanceof Player p)) { sender.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-001", "Conserva el uso del Skript: ejecuta estos comandos como jugador.")); return true; }
+        if (!(sender instanceof Player p)) { sender.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-001", "Conserva el uso del Skript: ejecuta estos comandos como jugador.")); return true; }
         UUID id = p.getUniqueId();
         if (command.equals("misiones")) {
             if (missionsMenu != null) {
@@ -123,10 +123,10 @@ public final class SlayerModule implements Listener {
         }
         if (command.equals("comprartelefono")) return purchasePhone(p, args);
         if (command.equals("slayerstats")) {
-            p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-002", "§6✦ ESTADÍSTICAS DE MISIONES"));
+            p.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-002", "§6✦ ESTADÍSTICAS DE MISIONES"));
             p.sendMessage("§6Monarquía Renacida §fNivel " + slayerLevel(p) + " §7· §e"
                     + slayerXp(p) + "§7/§e" + slayerNextXp(p) + " XP §7· Victorias: §f" + slayerVictories(p));
-            for (String c : CATEGORIES) { Mission m = mission(id, c); p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-003","§e{name-c}§7: §f{m-kills}/{m-required} §7| Tier {m-tier} | {valor5}","name-c", name(c),"m-kills", m.kills,"m-required", m.required,"m-tier", m.tier,"valor5", (m.active ? Settings.text("slayer", "SlayerModule.texto-001", "§aActiva") : Settings.text("slayer", "SlayerModule.texto-002", "§7Inactiva")))); }
+            for (String c : CATEGORIES) { Mission m = mission(id, c); p.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-003","§e{name-c}§7: §f{m-kills}/{m-required} §7| Tier {m-tier} | {valor5}","name-c", name(c),"m-kills", m.kills,"m-required", m.required,"m-tier", m.tier,"valor5", (m.active ? Settings.text("slayer", "SlayerModule.texto-001", "§aActiva") : Settings.text("slayer", "SlayerModule.texto-002", "§7Inactiva")))); }
             return true;
         }
         if (command.equals("contratarslayer") || command.equals("abandonarslayer"))
@@ -141,7 +141,7 @@ public final class SlayerModule implements Listener {
             String category = args[0].toLowerCase(Locale.ROOT);
             Mission pending = mission(id, category);
             if (!pending.active || !pending.ready()) {
-                p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-010",
+                p.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-010",
                         "§cTodavía no has completado ese objetivo."));
             } else if (pending.bossId != null) {
                 p.sendMessage(Settings.component(Settings.text("slayer", "SlayerModule.reintento-en-curso",
@@ -149,22 +149,22 @@ public final class SlayerModule implements Listener {
             } else summon(p, category, pending);
             return true;
         }
-        if (!admin(sender)) { sender.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-004", "§cNo tienes permiso.")); return true; }
-        if (args.length < 1 || !CATEGORIES.contains(args[0].toLowerCase(Locale.ROOT))) { p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-005", "§cCategoría: revenant, necromancer o spider.")); return true; }
+        if (!admin(sender)) { sender.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-004", "§cNo tienes permiso.")); return true; }
+        if (args.length < 1 || !CATEGORIES.contains(args[0].toLowerCase(Locale.ROOT))) { p.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-005", "§cCategoría: revenant, necromancer o spider.")); return true; }
         String category = args[0].toLowerCase(Locale.ROOT); Mission m = mission(id, category);
         if (command.equals("activarslayer")) {
             int tier; try { tier = args.length > 1 ? Integer.parseInt(args[1]) : 0; } catch (NumberFormatException e) { tier = 0; }
-            if (tier < 1 || tier > 3) { p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-006", "§cTier inválido. Usa 1, 2 o 3.")); return true; }
-            if (CATEGORIES.stream().anyMatch(c -> mission(id, c).active)) { p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-007", "§cYa tienes una misión activa. Complétala o cancélala.")); return true; }
-            if (!accessible(p, category, tier)) { p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-008", "§cNo tienes permiso para ese tier.")); return true; }
+            if (tier < 1 || tier > 3) { p.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-006", "§cTier inválido. Usa 1, 2 o 3.")); return true; }
+            if (CATEGORIES.stream().anyMatch(c -> mission(id, c).active)) { p.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-007", "§cYa tienes una misión activa. Complétala o cancélala.")); return true; }
+            if (!accessible(p, category, tier)) { p.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-008", "§cNo tienes permiso para ese tier.")); return true; }
             m.tier = tier; m.kills = 0; m.required = Math.max(1, config.getInt("objetivos.tier" + tier, ProgressRules.required(tier))); m.active = true;
-            dirty = true; save(); refreshBar(p); p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-009", "§6MISIONES §e{name-category} · Tier {tier} · Objetivo: {m-required}", "name-category", name(category), "tier", tier, "m-required", m.required));
+            dirty = true; save(); refreshBar(p); p.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-009", "§6MISIONES §e{name-category} · Tier {tier} · Objetivo: {m-required}", "name-category", name(category), "tier", tier, "m-required", m.required));
             p.playSound(p.getLocation(), Settings.sound("slayer", "SlayerModule.sound-001", Sound.ENTITY_PLAYER_LEVELUP),Settings.f("slayer", "SlayerModule.playsound-001-arg2", 1),Settings.f("slayer", "SlayerModule.playsound-002-arg3", 1)); return true;
         }
-        if (command.equals("cancelarslayer") && !m.active) { p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-011", "§cNo tienes esa misión activa.")); return true; }
+        if (command.equals("cancelarslayer") && !m.active) { p.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-011", "§cNo tienes esa misión activa.")); return true; }
         m.active = false; if (command.equals("resetslayer")) m.kills = 0;
         dismissBoss(m);
-        dirty = true; save(); refreshBar(p); p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-012","§7Misión {name-category}{valor2}","name-category", name(category),"valor2", (command.equals("resetslayer") ? " reiniciada." : " cancelada."))); return true;
+        dirty = true; save(); refreshBar(p); p.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-012","§7Misión {name-category}{valor2}","name-category", name(category),"valor2", (command.equals("resetslayer") ? " reiniciada." : " cancelada."))); return true;
     }
     /** Native menu actions use the same validated contract code as the public command. */
     public void contractFromMenu(Player player, int tier) {
@@ -235,7 +235,7 @@ public final class SlayerModule implements Listener {
 
     private boolean purchasePhone(Player player, String[] args) {
         if (args.length != 0 || !config.getBoolean("acceso-remoto.habilitado", false)) {
-            player.sendMessage(Settings.text("slayer", "SlayerModule.telefono-no-disponible",
+            player.sendMessage(Settings.message("slayer", "SlayerModule.telefono-no-disponible",
                     "§cEl acceso remoto no está disponible por ahora."));
             return true;
         }
@@ -249,23 +249,23 @@ public final class SlayerModule implements Listener {
         if (price < 0 || price > 1_000_000_000L
                 || !"MATERIAL".equals(type) || !"TELEFONO1".equals(itemId)) {
             plugin.getLogger().warning("Slayer: invalid remote phone item/price configuration");
-            player.sendMessage(Settings.text("slayer", "SlayerModule.telefono-no-disponible",
+            player.sendMessage(Settings.message("slayer", "SlayerModule.telefono-no-disponible",
                     "§cEl acceso remoto no está disponible por ahora."));
             return true;
         }
         ItemStack item = contractItems.build(type, itemId, 1);
         if (item == null || item.getType().isAir()) {
-            player.sendMessage(Settings.text("slayer", "SlayerModule.telefono-item-fallo",
+            player.sendMessage(Settings.message("slayer", "SlayerModule.telefono-item-fallo",
                     "§cNo se pudo generar el Teléfono Rojo de MMOItems. No se ha cobrado."));
             return true;
         }
         if (player.getInventory().firstEmpty() == -1) {
-            player.sendMessage(Settings.text("slayer", "SlayerModule.telefono-inventario",
+            player.sendMessage(Settings.message("slayer", "SlayerModule.telefono-inventario",
                     "§cLibera al menos una ranura de inventario antes de comprar."));
             return true;
         }
         if (contractsEconomy.withdraw(player, price) != EconomyBridge.Result.CONFIRMED) {
-            player.sendMessage(Settings.text("slayer", "SlayerModule.telefono-pago-fallo",
+            player.sendMessage(Settings.message("slayer", "SlayerModule.telefono-pago-fallo",
                     "§cVault no confirmó el pago. No se ha entregado el objeto."));
             return true;
         }
@@ -281,14 +281,14 @@ public final class SlayerModule implements Listener {
                             drop.setPickupDelay(0);
                         }));
             }
-            player.sendMessage(Settings.text("slayer", "SlayerModule.telefono-comprado",
+            player.sendMessage(Settings.message("slayer", "SlayerModule.telefono-comprado",
                     "§aHas comprado el Teléfono Rojo por {precio} ↾.", "precio", price));
         } catch (RuntimeException error) {
             // Log for manual reconciliation: a failure after insertion might have already
             // delivered an item. Never blindly refund and risk generating free duplicates.
             plugin.getLogger().severe("SLAYER PHONE DELIVERY RECONCILIATION REQUIRED player="
                     + player.getUniqueId() + " price=" + price + " cause=" + error);
-            player.sendMessage(Settings.text("slayer", "SlayerModule.telefono-entrega-fallo",
+            player.sendMessage(Settings.message("slayer", "SlayerModule.telefono-entrega-fallo",
                     "§cError de entrega. Avisa a un administrador; no intentes pagar de nuevo."));
         }
         return true;
@@ -297,7 +297,7 @@ public final class SlayerModule implements Listener {
     /** Player contracts are opt-in until zMenu stops doing its own payments/OP dispatch. */
     private boolean playerContract(Player p, String command, String[] args) {
         if (args.length < 1 || !CATEGORIES.contains(args[0].toLowerCase(Locale.ROOT))) {
-            p.sendMessage(Settings.text("slayer", "SlayerModule.contrato-categoria", "§cCategoría inválida.")); return true;
+            p.sendMessage(Settings.message("slayer", "SlayerModule.contrato-categoria", "§cCategoría inválida.")); return true;
         }
         boolean enabled = config.getBoolean("contratos.habilitados", false);
         String category = args[0].toLowerCase(Locale.ROOT);
@@ -317,12 +317,12 @@ public final class SlayerModule implements Listener {
                     accessible(p, category, tier), cost)
                 : SlayerContractRules.validateCancel(enabled, m.active, cost);
         if (refusal != SlayerContractRules.Refusal.NONE) {
-            p.sendMessage(Settings.text("slayer", "SlayerModule.contrato-rechazado",
+            p.sendMessage(Settings.message("slayer", "SlayerModule.contrato-rechazado",
                     "§cContrato rechazado: {motivo}", "motivo", refusal.name()));
             return true;
         }
         if (contractsEconomy.withdraw(p, cost) != EconomyBridge.Result.CONFIRMED) {
-            p.sendMessage(Settings.text("slayer", "SlayerModule.contrato-pago-fallo",
+            p.sendMessage(Settings.message("slayer", "SlayerModule.contrato-pago-fallo",
                     "§cNo se confirmó el cobro mediante Vault; el contrato no cambió."));
             return true;
         }
@@ -341,7 +341,7 @@ public final class SlayerModule implements Listener {
             // Failed writes are exceptional. Refund immediately without unconfirmed command fallback.
             if (cost > 0 && contractsEconomy.deposit(p, cost, false) != EconomyBridge.Result.CONFIRMED)
                 plugin.getLogger().severe("SLAYER REFUND FAILURE: " + p.getUniqueId() + " amount=" + cost + " category=" + category);
-            p.sendMessage(Settings.text("slayer", "SlayerModule.contrato-storage-fallo",
+            p.sendMessage(Settings.message("slayer", "SlayerModule.contrato-storage-fallo",
                     "§cNo se pudo guardar el contrato; solicita revisión administrativa del saldo."));
             return true;
         }
@@ -351,7 +351,7 @@ public final class SlayerModule implements Listener {
             if (former != null) former.remove();
         }
         refreshBar(p);
-        p.sendMessage(Settings.text("slayer", "SlayerModule.contrato-aplicado",
+        p.sendMessage(Settings.message("slayer", "SlayerModule.contrato-aplicado",
                 "§6Contrato {accion}: {categoria} · Costo {costo} ↾",
                 "accion", start ? "iniciado" : "abandonado", "categoria", name(category), "costo", cost));
         return true;
@@ -375,7 +375,7 @@ public final class SlayerModule implements Listener {
             if (!m.active || m.bossId != null || !e.getEntityType().name().equals(config.getString("categorias." + category + ".entidad"))) continue;
             m.recordKill(); dirty = true; refreshBar(p);
             if (m.kills % Math.max(1,config.getInt("avisos.cada-bajas",10)) == 0 && m.kills < m.required)
-                p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-013",
+                p.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-013",
                         "§6MISIONES §e{name-category} §f{m-kills}/{m-required}",
                         "name-category", name(category), "m-kills", m.kills, "m-required", m.required));
             if (m.ready()) summon(p, category, m);
@@ -453,12 +453,12 @@ public final class SlayerModule implements Listener {
                 if (result instanceof Entity entity && entity.isValid()) spawned = entity;
             }
         } catch (ReflectiveOperationException | LinkageError | RuntimeException error) {
-            plugin.getLogger().warning(Settings.text("slayer", "SlayerModule.mensaje-014",
+            plugin.getLogger().warning(Settings.plain("slayer", "SlayerModule.mensaje-014",
                     "Slayer: no se pudo invocar {mob}: {error-getmessage}",
                     "mob", mob, "error-getmessage", error.getMessage()));
         }
         if (spawned == null) {
-            p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-015",
+            p.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-015",
                     "§cNo se pudo invocar {mob}. Tu objetivo se conserva. Reintenta con /spectrecore slayer invocar {category}",
                     "mob", mob, "category", category));
             return;
@@ -552,7 +552,7 @@ public final class SlayerModule implements Listener {
                 progress.victories = Math.max(0, experience.getInt("victorias", 0));
             }
         } catch (IllegalArgumentException invalid) {
-            plugin.getLogger().warning(Settings.text("slayer", "SlayerModule.mensaje-019",
+            plugin.getLogger().warning(Settings.plain("slayer", "SlayerModule.mensaje-019",
                     "UUID inválido en slayer-data.yml: {id}", "id", id));
         }
     }

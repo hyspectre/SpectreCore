@@ -35,7 +35,7 @@ public final class CommandRouter {
     private boolean enabled(CommandRoutes.Route route){return route.module().isEmpty()||plugin.moduleConfigs().active(route.module());}
     private String usage(CommandRoutes.Route route){return Settings.module("nucleo/comandos.yml").getString("rutas."+route.key()+".uso",route.usage());}
     private String description(CommandRoutes.Route route){return Settings.module("nucleo/comandos.yml").getString("rutas."+route.key()+".descripcion",route.description());}
-    private void say(CommandSender sender,String key,String fallback,Object... bindings){sender.sendMessage(Settings.text("nucleo","CommandRouter."+key,fallback,bindings));}
+    private void say(CommandSender sender,String key,String fallback,Object... bindings){sender.sendMessage(Settings.message("nucleo","CommandRouter."+key,fallback,bindings));}
     public boolean dispatch(CommandSender sender,String[] args) {
         if(args.length==0||args[0].equalsIgnoreCase("ayuda")||args[0].equalsIgnoreCase("help")){help(sender,args.length>1?args[1]:"");return true;}
         var match=CommandRoutes.resolve(args);

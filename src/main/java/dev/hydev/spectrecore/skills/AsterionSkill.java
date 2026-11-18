@@ -104,7 +104,7 @@ public final class AsterionSkill implements SkillModule {
         s.activeUntil = tick + Math.max(1, i("duration-seconds", 10)) * 20L;
         p.getWorld().playSound(p.getLocation(), Settings.string("equipamiento", "AsterionSkill.sonido-002", "minecraft:entity.ravager.roar"),Settings.f("equipamiento", "AsterionSkill.playsound-001-arg2", 0.85f),Settings.f("equipamiento", "AsterionSkill.playsound-002-arg3", 0.65f));
         p.getWorld().spawnParticle(Settings.particle("equipamiento", "AsterionSkill.particle-001", Particle.LARGE_SMOKE), p.getLocation().add(0, Settings.d("equipamiento", "AsterionSkill.geometria-002", .8), 0),Settings.i("equipamiento", "AsterionSkill.spawnparticle-003-arg2", 26),Settings.d("equipamiento", "AsterionSkill.spawnparticle-004-arg3", .65),Settings.d("equipamiento", "AsterionSkill.spawnparticle-005-arg4", .45),Settings.d("equipamiento", "AsterionSkill.spawnparticle-006-arg5", .65),Settings.d("equipamiento", "AsterionSkill.spawnparticle-007-arg6", .01));
-        p.sendMessage(Settings.text("equipamiento", "AsterionSkill.mensaje-001", "§6✦ §cAsterión §7— La bestia despierta."));
+        p.sendMessage(Settings.message("equipamiento", "AsterionSkill.mensaje-001", "§6✦ §cAsterión §7— La bestia despierta."));
     }
 
     @Override public void tick(long tick) {

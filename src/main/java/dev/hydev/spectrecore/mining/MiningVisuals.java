@@ -91,7 +91,7 @@ public final class MiningVisuals implements Listener {
                 shows.add(this); runTaskTimer(plugin, 0, 2);
                 origin.getWorld().playSound(origin, Settings.sound("nucleo", "MiningVisuals.sound-003", Sound.BLOCK_AMETHYST_BLOCK_RESONATE),Settings.f("nucleo", "MiningVisuals.playsound-052-arg2", .55f),Settings.f("nucleo", "MiningVisuals.playsound-053-arg3", .85f));
                 if (chest) origin.getWorld().playSound(origin, Settings.sound("nucleo", "MiningVisuals.sound-004", Sound.BLOCK_CHEST_OPEN),Settings.f("nucleo", "MiningVisuals.playsound-054-arg2", .8f),Settings.f("nucleo", "MiningVisuals.playsound-055-arg3", .7f));
-            } catch (RuntimeException error) { close(); plugin.getLogger().warning(Settings.text("nucleo", "MiningVisuals.mensaje-001", "No se pudo mostrar la animación minera: {error-getmessage}", "error-getmessage", error.getMessage())); }
+            } catch (RuntimeException error) { close(); plugin.getLogger().warning(Settings.plain("nucleo", "MiningVisuals.mensaje-001", "No se pudo mostrar la animación minera: {error-getmessage}", "error-getmessage", error.getMessage())); }
         }
         @Override public void run() {
             try {
