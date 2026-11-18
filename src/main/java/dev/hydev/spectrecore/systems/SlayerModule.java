@@ -2,6 +2,7 @@ package dev.hydev.spectrecore.systems;
 
 import dev.hydev.spectrecore.config.Settings;
 import dev.hydev.spectrecore.migration.MmoBridge;
+import dev.hydev.spectrecore.guide.MissionsMenu;
 import org.bukkit.inventory.ItemStack;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
@@ -28,13 +29,16 @@ public final class SlayerModule implements Listener {
     private final JavaPlugin plugin; private YamlConfiguration config;
     private final EconomyBridge contractsEconomy = new EconomyBridge();
     private final MmoBridge contractItems = new MmoBridge();
+    private MissionsMenu missionsMenu;
     private final Map<UUID, Map<String, Mission>> missions = new HashMap<>();
     private final Map<UUID, BossBar> bars = new HashMap<>(); private final Map<UUID, Long> attempts = new HashMap<>();
     private BukkitTask timer; private boolean dirty;
     public SlayerModule(JavaPlugin plugin) { this.plugin = plugin; }
     public void enable() {
         reload(); load(); Bukkit.getPluginManager().registerEvents(this, plugin);
-        for (String name : List.of("activarslayer", "cancelarslayer", "resetslayer", "slayerstats", "slayerinvocar", "contratarslayer", "abandonarslayer", "comprartelefono")) if (dev.hydev.spectrecore.command.CommandRouter.of(plugin).get(name) != null) {
+        missionsMenu = new MissionsMenu(plugin, this);
+        missionsMenu.enable();
+        for (String name : List.of("activarslayer", "cancelarslayer", "resetslayer", "slayerstats", "slayerinvocar", "contratarslayer", "abandonarslayer", "comprartelefono", "misiones")) if (dev.hydev.spectrecore.command.CommandRouter.of(plugin).get(name) != null) {
             dev.hydev.spectrecore.command.CommandRouter.of(plugin).get(name).setExecutor((sender, cmd, label, args) -> command(sender, cmd.getName(), args));
             dev.hydev.spectrecore.command.CommandRouter.of(plugin).get(name).setTabCompleter((sender, cmd, label, args) -> args.length == 1 && !cmd.getName().equals("slayerstats") ? CATEGORIES : List.of());
         }
@@ -43,9 +47,12 @@ public final class SlayerModule implements Listener {
     }
     public void reload() {
         config = dev.hydev.spectrecore.config.ModuleConfiguration.module(plugin, "slayer/config.yml");
+        if (missionsMenu != null) missionsMenu.reload();
     }
     public void disable() {
-        if (timer != null) timer.cancel(); HandlerList.unregisterAll(this); Bukkit.getOnlinePlayers().forEach(this::hideBar); save();
+        if (timer != null) timer.cancel();
+        if (missionsMenu != null) { missionsMenu.disable(); missionsMenu = null; }
+        HandlerList.unregisterAll(this); Bukkit.getOnlinePlayers().forEach(this::hideBar); save();
     }
     private Mission mission(UUID id, String category) { return missions.computeIfAbsent(id, unused -> new HashMap<>()).computeIfAbsent(category, unused -> new Mission()); }
     private String name(String category) { return config.getString("categorias." + category + ".nombre", category); }
@@ -53,6 +60,10 @@ public final class SlayerModule implements Listener {
     private boolean command(CommandSender sender, String command, String[] args) {
         if (!(sender instanceof Player p)) { sender.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-001", "Conserva el uso del Skript: ejecuta estos comandos como jugador.")); return true; }
         UUID id = p.getUniqueId();
+        if (command.equals("misiones")) {
+            if (missionsMenu != null) missionsMenu.open(p, args.length > 0 && args[0].equalsIgnoreCase("revenant") ? "revenant" : "misiones");
+            return true;
+        }
         if (command.equals("comprartelefono")) return purchasePhone(p, args);
         if (command.equals("slayerstats")) {
             p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-002", "§6✦ ESTADÍSTICAS DE MISIONES"));
@@ -82,6 +93,23 @@ public final class SlayerModule implements Listener {
         m.active = false; if (command.equals("resetslayer")) m.kills = 0;
         dirty = true; save(); refreshBar(p); p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-012","§7Misión {name-category}{valor2}","name-category", name(category),"valor2", (command.equals("resetslayer") ? " reiniciada." : " cancelada."))); return true;
     }
+    /** Native menu actions use the same validated contract code as the public command. */
+    public void contractFromMenu(Player player, int tier) {
+        playerContract(player, "contratarslayer", new String[]{"revenant", Integer.toString(tier)});
+    }
+    public void cancelFromMenu(Player player) {
+        playerContract(player, "abandonarslayer", new String[]{"revenant"});
+    }
+    public void buyPhoneFromMenu(Player player) { purchasePhone(player, new String[0]); }
+    public String progressLine(Player player, String category, int tier) {
+        Mission state = mission(player.getUniqueId(), category);
+        if (state.active && state.tier == tier)
+            return "§a✦ Activa: §f" + state.kills + "§7/§f" + state.required + " bajas";
+        if (state.active) return "§cTienes otra misión activa";
+        if (!player.hasPermission("slayer." + category + ".tier" + tier)) return "§cNo tienes acceso a este rango";
+        return "§e✦ Disponible para contratar";
+    }
+
     /**
      * Secure purchase of the remote quest phone; never elevate the player to OP.
      * Item and capacity are checked before confirmed Vault withdrawal.
