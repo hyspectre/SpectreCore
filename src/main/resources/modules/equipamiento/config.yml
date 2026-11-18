@@ -111,6 +111,10 @@ skills:
     melee-hit-window-ticks: 60
     heal-on-activation: 4.0
     passive-damage-bonus: 0.03
+    auraskills:
+      enabled: false # Opt-in tras calibración en staging; no se cambia el daño actual por defecto.
+      passive-strength: 9.0
+      active-extra-strength: 18.0
     passive-damage-reduction: 0.03
     active-damage-bonus: 0.06
     active-damage-reduction: 0.06
