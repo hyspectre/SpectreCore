@@ -95,9 +95,11 @@ Documentación: `MIGRACION_MISIONES_NATIVAS_0.7.4.md`. Los dos YAML de `integrac
 
 ## Hito G — Menús nativos de Trabajos (próximos archivos)
 
-- [ ] Recibir y estudiar los menús de Trabajos del usuario como referencias visuales, sin depender de zMenu para ejecutarlos.
-- [ ] Crear inventarios de Paper con familia visual compartida con Misiones, configurable desde YAML de SpectreCore.
-- [ ] Mostrar nivel personal, requisitos, ingresos mínimos/máximos, tiempos de cooldown y estado a partir de `modules/trabajos/config.yml` y permisos vigentes; **nunca copiar cifras como constantes en el lore**.
-- [ ] Si el archivo de configuración no define dinero o cooldown para un rango, mostrar «Sin configurar» o «No disponible», no estimar valores.
-- [ ] Preservar los controles de economía y antiexploit existentes y automatizar pruebas Java/CI.
-- [ ] QA ingame en la misma ventana única de mantenimiento.
+- [x] Recibir y estudiar los tres menús de Trabajos (Minería, Agricultura, Caza) como referencias visuales, sin ejecución zMenu.
+- [x] Crear 4 inventarios de Paper (índice + 3 profesiones), con cabezas originales, familia visual Misiones y YAML editable `ui/trabajos.yml`.
+- [x] Mostrar nivel personal, requisitos, ingresos mínimos/máximos, cooldown y estado dinámicos; además, actividad según clasificación real de `tesoros/config.yml`.
+- [x] Incorporar los 9 salarios y 9 cooldowns provistos por el usuario y rechazar valores faltantes/incorrectos en la validación de configuración.
+- [x] Compras por Vault + LuckPerms API sin OP/consola; impedir duplicados, saltos de rango y doble clic; CI y regresiones de contratos creadas. La persistencia económica ante crashes sigue sin garantías ACID.
+- [ ] QA ingame en la misma ventana de mantenimiento, migrando accesos de NPC/zMenu antes de permitir compra con dinero real.
+
+Detalles y procedimientos: `MIGRACION_TRABAJOS_NATIVOS_0.7.4.md`.
