@@ -76,3 +76,13 @@ Contrato actual:
 - [ ] Fusionar y publicar solo cuando las mecánicas críticas estén aceptadas.
 
 **No incluye:** mecánicas nuevas fuera de este roadmap; no modificar la economía ni las probabilidades actuales sin solicitud expresa.
+
+## Hito G — Migración de zMenu «Misiones» / «Monarquía Renacida»
+
+- [x] Dos menús de 54 slots rediseñados con misma familia visual (Índice de Misiones / Monarquía Renacida). Conservan las cabezas Base64, precios 200/500/950 y objetivos 20/50/90.
+- [x] Los tres contratos y cancelación invocan exclusivamente comandos de jugador `/spectrecore slayer contratar|abandonar`. No usar withdrawals ni `player-command-as-op` en zMenu.
+- [x] Preparar compra nativa del `MATERIAL:TELEFONO1` por 500 ↾, validando disponibilidad de MMOItems, inventario y confirmación Vault, sin elevar privilegios.
+- [ ] Integrar menús al despliegue sincronizado (los archivos deben reemplazar los inventarios activos de zMenu solo tras instalar el JAR nuevo).
+- [ ] Activar explícitamente `contratos.habilitados` y `acceso-remoto.habilitado` en staging, mediante reload si fuera necesario, tras backup.
+- [ ] Pruebas de compra de teléfono, no duplicación de objetos, inventario lleno, y errores Vault/MMOItems.
+- [ ] Comprobar identificadores de archivos zMenu `misiones` y `slayer_zombie`; ambos deben coincidir con los registrados en el servidor.
