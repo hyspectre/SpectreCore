@@ -44,13 +44,27 @@ public final class AuraSkillsBridge {
      * safetySeconds must exceed the skill's maximal active duration; normal removal is driven by SpectreCore.
      */
     public boolean applyStrength(Player player, String key, double amount, long safetySeconds) {
+        return applyStat(player, key, Stats.STRENGTH, amount, safetySeconds);
+    }
+
+    /** Available for calibrated defensive bonuses; never assume points equal percent reduction. */
+    public boolean applyToughness(Player player, String key, double amount, long safetySeconds) {
+        return applyStat(player, key, Stats.TOUGHNESS, amount, safetySeconds);
+    }
+
+    /** Available for movement; do not combine with a separate Paper movement-speed boost. */
+    public boolean applySpeed(Player player, String key, double amount, long safetySeconds) {
+        return applyStat(player, key, Stats.SPEED, amount, safetySeconds);
+    }
+
+    private boolean applyStat(Player player, String key, Stats stat, double amount, long safetySeconds) {
         if (player == null || key == null || !key.startsWith("spectrecore_")
                 || !Double.isFinite(amount) || amount <= 0 || amount > 5000 || safetySeconds < 1) return false;
         try {
             SkillsUser user = user(player);
             if (user == null) return false;
             if (user.getStatModifier(key) != null) user.removeStatModifier(key);
-            StatModifier modifier = new StatModifier(key, Stats.STRENGTH, amount, AuraSkillsModifier.Operation.ADD);
+            StatModifier modifier = new StatModifier(key, stat, amount, AuraSkillsModifier.Operation.ADD);
             modifier.setNonPersistent();
             modifier.makeTemporary(System.currentTimeMillis() + Math.min(safetySeconds, 3600L) * 1000L, false);
             user.addStatModifier(modifier);
