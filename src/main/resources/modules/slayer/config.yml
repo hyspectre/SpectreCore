@@ -5,17 +5,17 @@ objetivos:
   tier3: 90
 categorias:
   revenant:
-    nombre: Monarquía Renacida
-    entidad: ZOMBIE
-    mob: ReyZombie{tier}
+    nombre: "Monarquía Renacida"
+    entidad: "ZOMBIE"
+    mob: "ReyZombie{tier}"
   necromancer:
-    nombre: Nigromante
-    entidad: SKELETON
-    mob: Nigromante{tier}
+    nombre: "Nigromante"
+    entidad: "SKELETON"
+    mob: "Nigromante{tier}"
   spider:
-    nombre: Madre Araña
-    entidad: SPIDER
-    mob: MadreArana{tier}
+    nombre: "Madre Araña"
+    entidad: "SPIDER"
+    mob: "MadreArana{tier}"
 
 avisos:
   cada-bajas: 10
@@ -31,8 +31,8 @@ invocacion:
 acceso-remoto:
   habilitado: true
   precio: 500
-  tipo: MATERIAL
-  id: TELEFONO1
+  tipo: "MATERIAL"
+  id: "TELEFONO1"
 
 contratos:
   habilitados: true
