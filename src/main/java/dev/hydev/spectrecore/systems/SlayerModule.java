@@ -135,7 +135,7 @@ public final class SlayerModule implements Listener {
         if (command.equals("slayerinvocar")) {
             if (args.length != 1 || !CATEGORIES.contains(args[0].toLowerCase(Locale.ROOT))) {
                 p.sendMessage(Settings.component(Settings.text("slayer", "SlayerModule.reintento-uso",
-                        "<red>Uso: /spectrecore slayer invocar [categoria]"));
+                        "<red>Uso: /spectrecore slayer invocar [categoria]")));
                 return true;
             }
             String category = args[0].toLowerCase(Locale.ROOT);
@@ -145,7 +145,7 @@ public final class SlayerModule implements Listener {
                         "§cTodavía no has completado ese objetivo."));
             } else if (pending.bossId != null) {
                 p.sendMessage(Settings.component(Settings.text("slayer", "SlayerModule.reintento-en-curso",
-                        "<yellow>Ya tienes un jefe activo. No se permite otra invocación."));
+                        "<yellow>Ya tienes un jefe activo. No se permite otra invocación.")));
             } else summon(p, category, pending);
             return true;
         }
@@ -207,7 +207,7 @@ public final class SlayerModule implements Listener {
             return;
         }
         player.sendMessage(Settings.component(Settings.text("slayer", "SlayerModule.reintento-sin-pendientes",
-                "<gray>No tienes un jefe de Monarquía pendiente de invocación."));
+                "<gray>No tienes un jefe de Monarquía pendiente de invocación.")));
     }
     public String progressLine(Player player, String category, int tier) {
         Mission state = mission(player.getUniqueId(), category);
