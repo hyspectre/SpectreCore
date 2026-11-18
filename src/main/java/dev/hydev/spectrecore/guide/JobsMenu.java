@@ -1,0 +1,283 @@
+package dev.hydev.spectrecore.guide;
+
+import dev.hydev.spectrecore.config.ModuleConfiguration;
+import dev.hydev.spectrecore.model.CustomHeads;
+import dev.hydev.spectrecore.systems.JobsContractRules;
+import dev.hydev.spectrecore.systems.JobsModule;
+import dev.hydev.spectrecore.systems.ProgressRules;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.HandlerList;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * Four native Paper inventories: a Jobs index, and Miner, Farmer, Hunter contracts.
+ * The YAML may change visual content only. Click actions and payment are Java only.
+ */
+public final class JobsMenu implements Listener {
+    private static final Pattern HEX = Pattern.compile("&#([a-fA-F0-9]{6})");
+    private static final Set<String> PAGES = Set.of("trabajos", "minero", "granjero", "cazador");
+    private static final List<String> RANKS = JobsContractRules.LEVELS;
+    private static final String NO_VALUE = "Sin configurar";
+
+    private final JavaPlugin plugin;
+    private final JobsModule jobs;
+    private final Map<UUID, Long> clickTimes = new HashMap<>();
+    private YamlConfiguration layout;
+    private boolean listening;
+
+    private static final class Holder implements InventoryHolder {
+        final String page;
+        final Map<Integer, String> slots = new HashMap<>();
+        Inventory inventory;
+        Holder(String page) { this.page = page; }
+        @Override public Inventory getInventory() { return inventory; }
+    }
+
+    public JobsMenu(JavaPlugin plugin, JobsModule jobs) {
+        this.plugin = plugin;
+        this.jobs = jobs;
+    }
+
+    public void enable() {
+        reload();
+        Bukkit.getPluginManager().registerEvents(this, plugin);
+        listening = true;
+    }
+
+    public void reload() {
+        File file = new File(plugin.getDataFolder(), "ui/trabajos.yml");
+        try {
+            if (!file.exists()) plugin.saveResource("ui/trabajos.yml", false);
+            if (!file.isFile() || file.length() > 64 * 1024)
+                throw new IOException("ui/trabajos.yml ausente o demasiado grande");
+            var candidate = new YamlConfiguration();
+            candidate.load(file);
+            for (String page : PAGES) {
+                String path = "pages." + page;
+                var items = candidate.getConfigurationSection(path + ".items");
+                if (items == null || !candidate.isString(path + ".title")
+                        || candidate.getInt(path + ".size") != 54 || items.getKeys(false).size() > 40)
+                    throw new IOException(path + " incompleto");
+                Set<Integer> slots = new HashSet<>();
+                for (String item : items.getKeys(false)) {
+                    String base = path + ".items." + item;
+                    if (!candidate.isInt(base + ".slot") || !candidate.isString(base + ".name")
+                            || !candidate.isString(base + ".texture") || !candidate.isList(base + ".lore"))
+                        throw new IOException(base + " incompleto");
+                    int slot = candidate.getInt(base + ".slot");
+                    if (slot < 0 || slot >= 54 || !slots.add(slot)
+                            || candidate.getString(base + ".texture", "").length() > 1024
+                            || candidate.getString(base + ".name", "").length() > 256
+                            || candidate.getStringList(base + ".lore").size() > 28)
+                        throw new IOException(base + " fuera de límites");
+                }
+                for (String required : page.equals("trabajos")
+                        ? List.of("minero", "granjero", "cazador", "cerrar")
+                        : List.of("novato", "experimentado", "profesional", "cerrar"))
+                    if (!items.contains(required)) throw new IOException(path + " no contiene " + required);
+            }
+            layout = candidate;
+        } catch (Exception error) {
+            plugin.getLogger().warning("Trabajos GUI: YAML rechazado; se mantiene el último válido: "
+                    + error.getMessage());
+        }
+    }
+
+    public boolean open(Player player, String page) {
+        if (!PAGES.contains(page)) page = "trabajos";
+        if (layout == null || !layout.getBoolean("enabled", true)) {
+            player.sendMessage("§cEl catálogo de trabajos está temporalmente desactivado.");
+            return false;
+        }
+        String base = "pages." + page;
+        ConfigurationSection items = layout.getConfigurationSection(base + ".items");
+        if (items == null) return false;
+        Holder holder = new Holder(page);
+        Inventory inventory = Bukkit.createInventory(holder, 54, styled(layout.getString(base + ".title")));
+        holder.inventory = inventory;
+        for (String id : items.getKeys(false)) {
+            String path = base + ".items." + id;
+            String texture = layout.getString(path + ".texture", "");
+            ItemStack item;
+            try { item = texture.isBlank() ? new ItemStack(Material.BOOK) : CustomHeads.fromBase64(texture); }
+            catch (IllegalArgumentException | IllegalStateException error) {
+                item = new ItemStack(Material.BOOK);
+                plugin.getLogger().warning("Trabajos: textura inválida en " + path);
+            }
+            ItemMeta meta = item.getItemMeta();
+            if (meta == null) continue;
+            meta.displayName(styled(layout.getString(path + ".name", "Trabajos")));
+            List<Component> lore = new ArrayList<>();
+            for (String line : layout.getStringList(path + ".lore")) {
+                if (line.equals("{actividades}") && RANKS.contains(id) && !page.equals("trabajos"))
+                    for (String activity : activities(page, RANKS.indexOf(id) + 1)) lore.add(styled(activity));
+                else lore.add(styled(resolve(player, page, id, line)));
+            }
+            meta.lore(lore);
+            item.setItemMeta(meta);
+            int slot = layout.getInt(path + ".slot");
+            inventory.setItem(slot, item);
+            holder.slots.put(slot, id);
+        }
+        player.openInventory(inventory);
+        return true;
+    }
+
+    private List<String> activities(String job, int tier) {
+        String domain = job.equals("minero") ? "trabajos-mineria" : job.equals("granjero") ? "agricultura" : "combate";
+        List<String> entries = ModuleConfiguration.module(plugin, "tesoros/config.yml")
+                .getStringList("clasificacion." + domain + ".tier" + tier);
+        LinkedHashSet<String> names = new LinkedHashSet<>();
+        for (String material : entries) {
+            String translation = layout.getString("material-names." + material,
+                    material.replace('_', ' ').toLowerCase(Locale.ROOT));
+            names.add(translation);
+        }
+        if (names.isEmpty()) return List.of("  &7• &8Sin actividades configuradas");
+        List<String> lines = new ArrayList<>();
+        StringBuilder current = new StringBuilder("  &7• &b");
+        for (String name : names) {
+            if (current.length() > 12 && current.length() + name.length() + 2 > 46) {
+                lines.add(current.toString()); current = new StringBuilder("    &b");
+            }
+            if (!current.toString().endsWith("&b")) current.append("&7, &b");
+            current.append(name);
+        }
+        lines.add(current.toString());
+        return lines;
+    }
+
+    private String resolve(Player player, String page, String id, String line) {
+        if (line == null || !line.contains("{")) return line;
+        String job = page.equals("trabajos") ? id : page;
+        if (!JobsContractRules.JOBS.contains(job)) return line;
+        int current = jobs.rank(player, job);
+        boolean active = ModuleConfiguration.of(plugin).active("trabajos." + job);
+        String currentRank = current == 0 ? "Sin contrato" : ProgressRules.rank(current);
+        String state = active ? "Disponible" : "Desactivado";
+        if (page.equals("trabajos") || !RANKS.contains(id)) {
+            return line.replace("{rango}", currentRank).replace("{estado}", state);
+        }
+        int tier = RANKS.indexOf(id) + 1;
+        String level = RANKS.get(tier - 1);
+        var config = ModuleConfiguration.module(plugin, "trabajos/config.yml");
+        String root = job + "." + level + ".dinero";
+        String min = readableNumber(config.get(root + ".minimo"));
+        String max = readableNumber(config.get(root + ".maximo"));
+        String cooldown = readableNumber(config.get("cooldowns." + job + "." + level));
+        String price = readableNumber(config.get("contratos.precios." + level));
+        if (!active) state = "Desactivado";
+        else if (current >= tier) state = "Ya contratado";
+        else if (jobs.isPending(player)) state = "Procesando";
+        else state = current == tier - 1 ? "Disponible" : "Requiere rango anterior";
+        return line.replace("{rango}", currentRank).replace("{minimo}", min)
+                .replace("{maximo}", max).replace("{cooldown}", cooldown)
+                .replace("{precio}", price).replace("{estado}", state);
+    }
+
+    private static String readableNumber(Object data) {
+        if (!(data instanceof Number number) || !Double.isFinite(number.doubleValue())
+                || number.doubleValue() < 0) return NO_VALUE;
+        double value = number.doubleValue();
+        return value == Math.rint(value) ? Long.toString(number.longValue()) : Double.toString(value);
+    }
+
+    private static Component styled(String text) {
+        if (text == null || text.isEmpty()) return Component.empty();
+        Matcher matcher = HEX.matcher(text);
+        StringBuffer converted = new StringBuffer();
+        while (matcher.find()) {
+            StringBuilder color = new StringBuilder("&x");
+            for (char digit : matcher.group(1).toCharArray()) color.append('&').append(digit);
+            matcher.appendReplacement(converted, Matcher.quoteReplacement(color.toString()));
+        }
+        matcher.appendTail(converted);
+        return LegacyComponentSerializer.legacySection()
+                .deserialize(ChatColor.translateAlternateColorCodes('&', converted.toString()));
+    }
+
+    @EventHandler public void onClick(InventoryClickEvent event) {
+        if (!(event.getView().getTopInventory().getHolder() instanceof Holder holder)) return;
+        event.setCancelled(true);
+        if (!(event.getWhoClicked() instanceof Player player)) return;
+        int slot = event.getRawSlot();
+        if (slot < 0 || slot >= 54) return;
+        String clicked = holder.slots.get(slot);
+        if (clicked == null) return;
+        long now = System.currentTimeMillis(), previous = clickTimes.getOrDefault(player.getUniqueId(), 0L);
+        if (now - previous < 400) return;
+        clickTimes.put(player.getUniqueId(), now);
+        if (holder.page.equals("trabajos")) {
+            if (JobsContractRules.JOBS.contains(clicked)) defer(player, holder, () -> open(player, clicked));
+            else if (clicked.equals("cerrar")) defer(player, holder, player::closeInventory);
+            return;
+        }
+        if (RANKS.contains(clicked)) {
+            final String job = holder.page, rank = clicked;
+            defer(player, holder, () -> {
+                player.closeInventory();
+                jobs.purchase(player, job, rank);
+            });
+        } else if (clicked.equals("cerrar")) defer(player, holder, () -> open(player, "trabajos"));
+        else if (clicked.equals("cerrar_menu")) defer(player, holder, player::closeInventory);
+    }
+
+    private void defer(Player player, Holder holder, Runnable next) {
+        Bukkit.getScheduler().runTask(plugin, () -> {
+            if (plugin.isEnabled() && player.isOnline()
+                    && player.getOpenInventory().getTopInventory().getHolder() == holder) next.run();
+        });
+    }
+
+    @EventHandler public void onDrag(InventoryDragEvent event) {
+        if (event.getView().getTopInventory().getHolder() instanceof Holder)
+            for (int slot : event.getRawSlots()) if (slot < 54) {
+                event.setCancelled(true);
+                break;
+            }
+    }
+
+    @EventHandler public void onQuit(PlayerQuitEvent event) {
+        clickTimes.remove(event.getPlayer().getUniqueId());
+    }
+
+    public void disable() {
+        if (listening) HandlerList.unregisterAll(this);
+        listening = false;
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (player.getOpenInventory().getTopInventory().getHolder() instanceof Holder)
+                player.closeInventory();
+        }
+        clickTimes.clear();
+    }
+}
