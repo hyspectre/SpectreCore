@@ -26,6 +26,12 @@ invocacion:
 # Contratos de jugador. DESACTIVADOS hasta migrar zMenu y probar Vault en staging.
 # Los precios de Revenant replican el menú Hordas; otros rangos quedan sin precio,
 # así que se rechazan hasta configurarse explícitamente.
+acceso-remoto:
+  habilitado: false # Activar solo despues de desplegar juntos el JAR y misiones.yml
+  precio: 500
+  tipo: MATERIAL
+  id: TELEFONO1
+
 contratos:
   habilitados: false
   precios:
