@@ -1,6 +1,7 @@
 package dev.hydev.spectrecore.guide;
 
 import dev.hydev.spectrecore.config.ModuleConfiguration;
+import dev.hydev.spectrecore.config.Settings;
 import dev.hydev.spectrecore.model.CustomHeads;
 import dev.hydev.spectrecore.systems.JobsContractRules;
 import dev.hydev.spectrecore.systems.JobsModule;
@@ -116,7 +117,7 @@ public final class JobsMenu implements Listener {
     public boolean open(Player player, String page) {
         if (!PAGES.contains(page)) page = "trabajos";
         if (layout == null || !layout.getBoolean("enabled", true)) {
-            player.sendMessage("§cEl catálogo de trabajos está temporalmente desactivado.");
+            player.sendMessage(Settings.text("trabajos", "JobsMenu.desactivado", "§cEl catálogo de trabajos está temporalmente desactivado."));
             return false;
         }
         String base = "pages." + page;
