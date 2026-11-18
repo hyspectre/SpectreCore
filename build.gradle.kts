@@ -1,6 +1,6 @@
 plugins { java }
 group = "dev.hydev"
-version = "0.7.3-m3-alpha"
+version = "0.7.4-aura-alpha"
 
 repositories {
     maven("https://repo.papermc.io/repository/maven-public/")
@@ -9,6 +9,7 @@ repositories {
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.10-R0.1-SNAPSHOT")
+    compileOnly("dev.aurelium:auraskills-api-bukkit:2.3.12")
 }
 
 java { toolchain.languageVersion.set(JavaLanguageVersion.of(21)) }
