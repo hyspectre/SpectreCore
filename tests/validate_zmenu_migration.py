@@ -1,5 +1,5 @@
-"""Static zMenu migration contract: no OP buttons or separate payments.
-This checks YAML and references, not live zMenu/Paper compatibility.
+"""ARCHIVED reference export from old zMenu menus. The deployed implementation is native Java.
+For deployed GUI validation use validate_native_missions.py instead.
 """
 from pathlib import Path
 import yaml
@@ -42,10 +42,10 @@ assert zombie["cancelar"]["actions"] == [
 ]
 assert "200" in " ".join(zombie["cancelar"]["item"]["lore"])
 config = yaml.safe_load((root/"src/main/resources/modules/slayer/config.yml").read_text(encoding="utf-8"))
-assert config["contratos"]["habilitados"] is False
-assert config["acceso-remoto"]["habilitado"] is False
+assert config["contratos"]["habilitados"] is True
+assert config["acceso-remoto"]["habilitado"] is True
 assert config["acceso-remoto"]["precio"] == 500
 assert config["acceso-remoto"]["id"] == "TELEFONO1"
 assert config["contratos"]["precios"]["revenant"] == {"tier1":200,"tier2":500,"tier3":950}
 assert config["contratos"]["cancelacion"]["revenant"] == 200
-print("PASS zMenu: 2 coherent 54-slot menus, safe commands, valid prices, disabled staging gates")
+print("PASS archived zMenu reference: visually consistent menus and fees; do NOT deploy these YAML files")
