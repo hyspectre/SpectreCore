@@ -21,7 +21,7 @@ assert jobs["contratos"]["habilitados"] is True
 assert jobs["contratos"]["precios"] == {"novato": 50, "experimentado": 1500, "profesional": 3500}
 assert len(gui["material-names"]) >= 30
 for page, payload in gui["pages"].items():
-    assert payload["size"] == 54 and payload["title"].startswith("&8⧇ &6Trabajos")
+    assert payload["size"] == 54 and payload["title"].startswith("<dark_gray>⧇ <gold>Trabajos")
     items = payload["items"]
     assert len(items) == 5 if page == "trabajos" else len(items) == 6
     slots = [entry["slot"] for entry in items.values()]
@@ -57,6 +57,7 @@ routes = (resources.parent / "java/dev/hydev/spectrecore/command/CommandRoutes.j
 assert "InventoryClickEvent" in java and "InventoryDragEvent" in java
 assert "event.setCancelled(true)" in java and "Bukkit.getScheduler().runTask(plugin" in java
 assert "CustomHeads.fromBase64" in java
+assert "TextService.component(source)" in java and ".decoration(TextDecoration.ITALIC, false)" in java
 assert "ModuleConfiguration.module(plugin, \"trabajos/config.yml\")" in java
 assert "ModuleConfiguration.module(plugin, \"tesoros/config.yml\")" in java
 assert "jobs.purchase(player, job, rank)" in java
