@@ -1,37 +1,37 @@
 SlayerModule:
-  mensaje-001: 'Conserva el uso del Skript: ejecuta estos comandos como jugador.'
+  mensaje-001: "Conserva el uso del Skript: ejecuta estos comandos como jugador."
   mensaje-002: "§6✦ ESTADÍSTICAS DE MISIONES"
-  mensaje-003: '§e{name-c}§7: §f{m-kills}/{m-required} §7| Tier {m-tier} | {valor5}'
+  mensaje-003: "§e{name-c}§7: §f{m-kills}/{m-required} §7| Tier {m-tier} | {valor5}"
   texto-001: "§aActiva"
   texto-002: "§7Inactiva"
   mensaje-004: "§cNo tienes permiso."
-  mensaje-005: '§cCategoría: revenant, necromancer o spider.'
+  mensaje-005: "§cCategoría: revenant, necromancer o spider."
   mensaje-006: "§cTier inválido. Usa 1, 2 o 3."
   mensaje-007: "§cYa tienes una misión activa. Complétala o cancélala."
   mensaje-008: "§cNo tienes permiso para ese tier."
-  mensaje-009: '§6MISIONES §e{name-category} · Tier {tier} · Objetivo: {m-required}'
+  mensaje-009: "§6MISIONES §e{name-category} · Tier {tier} · Objetivo: {m-required}"
   mensaje-010: "§cTodavía no has completado ese objetivo."
   mensaje-011: "§cNo tienes esa misión activa."
   mensaje-012: "§7Misión {name-category}{valor2}"
   mensaje-013: "§6MISIONES §e{name-category} §f{m-kills}/{m-required}"
-  mensaje-014: 'Slayer: no se pudo invocar {mob}: {error-getmessage}'
+  mensaje-014: "Slayer: no se pudo invocar {mob}: {error-getmessage}"
   mensaje-015: "§cNo se pudo invocar {mob}. Tu objetivo se conserva. Reintenta con /spectrecore slayer invocar {category}"
   mensaje-016: "¡JEFE INVOCADO!"
-  mensaje-017: '{name-category} ha aparecido. ¡Derrota al jefe!'
-  mensaje-018: '{name-c} · {m-kills}/{m-required}'
-  mensaje-019: 'UUID inválido en slayer-data.yml: {id}'
+  mensaje-017: "{name-category} ha aparecido. ¡Derrota al jefe!"
+  mensaje-018: "{name-c} · {m-kills}/{m-required}"
+  mensaje-019: "UUID inválido en slayer-data.yml: {id}"
 
 # Contratos Slayer de jugador (Vault; activación opt-in)
-SlayerModule.contrato-categoria: '§cCategoría inválida.'
-SlayerModule.contrato-rechazado: '§cContrato rechazado: {motivo}'
-SlayerModule.contrato-pago-fallo: '§cNo se confirmó el cobro mediante Vault; el contrato no cambió.'
-SlayerModule.contrato-storage-fallo: '§cNo se pudo guardar el contrato; solicita revisión administrativa del saldo.'
-SlayerModule.contrato-aplicado: '§6Contrato {accion}: {categoria} · Costo {costo} ↾'
+SlayerModule.contrato-categoria: "§cCategoría inválida."
+SlayerModule.contrato-rechazado: "§cContrato rechazado: {motivo}"
+SlayerModule.contrato-pago-fallo: "§cNo se confirmó el cobro mediante Vault; el contrato no cambió."
+SlayerModule.contrato-storage-fallo: "§cNo se pudo guardar el contrato; solicita revisión administrativa del saldo."
+SlayerModule.contrato-aplicado: "§6Contrato {accion}: {categoria} · Costo {costo} ↾"
 
 # Acceso remoto: compra del Teléfono Rojo con Vault y MMOItems
-SlayerModule.telefono-no-disponible: '§cEl acceso remoto no está disponible por ahora.'
-SlayerModule.telefono-item-fallo: '§cNo se pudo generar el Teléfono Rojo de MMOItems. No se ha cobrado.'
-SlayerModule.telefono-inventario: '§cLibera al menos una ranura de inventario antes de comprar.'
-SlayerModule.telefono-pago-fallo: '§cVault no confirmó el pago. No se ha entregado el objeto.'
-SlayerModule.telefono-comprado: '§aHas comprado el Teléfono Rojo por {precio} ↾.'
-SlayerModule.telefono-entrega-fallo: '§cError de entrega. Avisa a un administrador; no intentes pagar de nuevo.'
+SlayerModule.telefono-no-disponible: "§cEl acceso remoto no está disponible por ahora."
+SlayerModule.telefono-item-fallo: "§cNo se pudo generar el Teléfono Rojo de MMOItems. No se ha cobrado."
+SlayerModule.telefono-inventario: "§cLibera al menos una ranura de inventario antes de comprar."
+SlayerModule.telefono-pago-fallo: "§cVault no confirmó el pago. No se ha entregado el objeto."
+SlayerModule.telefono-comprado: "§aHas comprado el Teléfono Rojo por {precio} ↾."
+SlayerModule.telefono-entrega-fallo: "§cError de entrega. Avisa a un administrador; no intentes pagar de nuevo."
