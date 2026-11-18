@@ -85,6 +85,9 @@ skills:
     extension-per-hit-ticks: 12
     cooldown-seconds: 40
     melee-damage-bonus: 0.15
+    auraskills:
+      enabled: true
+      strength-bonus: 45.0
     speed-bonus: 0.2
     damage-taken-increase: 0.2
     blink-next-hit-bonus: 0.1
