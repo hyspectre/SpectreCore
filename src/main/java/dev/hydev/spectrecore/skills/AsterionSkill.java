@@ -49,7 +49,10 @@ public final class AsterionSkill implements SkillModule {
         State s = state(player);
         s.lastCombat = tick;
         if (!active(s, tick)) {
+            int before = s.fury;
             s.fury = Math.min(furyCap(),Math.max(0,s.fury+Math.max(0,i("fury-on-hit",12))));
+            if (before < furyCap() && s.fury >= furyCap() && plugin.toasts() != null)
+                plugin.toasts().show(player, "furia");
             return;
         }
         if (s.prey != null && s.prey.equals(target.getUniqueId()) && tick - s.lastHit <= i("combo-gap-ticks", 50)) {
@@ -68,7 +71,12 @@ public final class AsterionSkill implements SkillModule {
         if (!access(player)) return;
         State s = state(player);
         s.lastCombat = tick;
-        if (!active(s, tick)) s.fury = Math.min(furyCap(),Math.max(0,s.fury+Math.max(0,i("fury-on-damage",6))));
+        if (!active(s, tick)) {
+            int before = s.fury;
+            s.fury = Math.min(furyCap(),Math.max(0,s.fury+Math.max(0,i("fury-on-damage",6))));
+            if (before < furyCap() && s.fury >= furyCap() && plugin.toasts() != null)
+                plugin.toasts().show(player, "furia");
+        }
     }
 
     @Override public double outgoingMultiplier(Player p, LivingEntity target, long tick) {
