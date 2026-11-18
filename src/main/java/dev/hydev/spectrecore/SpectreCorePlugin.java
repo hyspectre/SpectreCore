@@ -411,16 +411,17 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
             return true;
         }
         if (sub.equals("toast")) {
-            if (!canAdmin(sender)) { sender.sendMessage("§cSin permiso."); return true; }
-            if (!(sender instanceof Player player)) { sender.sendMessage("§7Prueba el toast desde el juego."); return true; }
+            if (!canAdmin(sender)) { sender.sendMessage(Settings.text("nucleo", "ToastService.permiso", "§cSin permiso.")); return true; }
+            if (!(sender instanceof Player player)) { sender.sendMessage(Settings.text("nucleo", "ToastService.solo-jugador", "§7Prueba el toast desde el juego.")); return true; }
             if (args.length != 3 || !args[1].equalsIgnoreCase("prueba")
                     || !java.util.Set.of("furia","resonancia","gema-basica","gema-intermedia","gema-superior",
                             "trabajo-minero","trabajo-granjero","trabajo-cazador").contains(args[2])) {
-                sender.sendMessage("§eUso: /spectrecore toast prueba <furia|resonancia|gema-basica|gema-intermedia|gema-superior|trabajo-minero|trabajo-granjero|trabajo-cazador>");
+                sender.sendMessage(Settings.text("nucleo", "ToastService.uso", "§eUso: /spectrecore toast prueba <id>"));
                 return true;
             }
             if (toastService == null || !toastService.show(player, args[2]))
-                sender.sendMessage("§eToast no disponible o desactivado. Verifica la consola y los ajustes.");
+                sender.sendMessage(Settings.text("nucleo", "ToastService.no-disponible", "§eToast no disponible o desactivado. Verifica la consola y los ajustes."));
+            else sender.sendMessage(Settings.text("nucleo", "ToastService.solicitado", "§7Toast solicitado (puede estar filtrado por antispam)."));
             return true;
         }
         if (sub.equals("diagnostico") || sub.equals("diagnostics")) {
