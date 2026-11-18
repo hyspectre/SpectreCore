@@ -9,6 +9,7 @@ import dev.hydev.spectrecore.core.PassiveBonuses;
 import dev.hydev.spectrecore.core.SkillModule;
 import dev.hydev.spectrecore.core.Targeting;
 import dev.hydev.spectrecore.core.Visuals;
+import dev.hydev.spectrecore.integration.AuraSkillsBridge;
 import dev.hydev.spectrecore.skills.AsterionSkill;
 import dev.hydev.spectrecore.skills.BotaniaSkill;
 import dev.hydev.spectrecore.skills.CoronaSkill;
@@ -37,6 +38,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
+import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -90,7 +92,9 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
     }
     private dev.hydev.spectrecore.guide.MagoMenu mago;
     private dev.hydev.spectrecore.integration.IntegrationRegistry integrations;
+    private AuraSkillsBridge auraSkillsBridge;
     public dev.hydev.spectrecore.integration.IntegrationRegistry integrations() { return integrations; }
+    public AuraSkillsBridge auraSkillsBridge() { return auraSkillsBridge; }
     private boolean applyingSkillDamage;
     private dev.hydev.spectrecore.command.CommandRouter commandRouter;
     public dev.hydev.spectrecore.command.CommandRouter commands() { return commandRouter; }
@@ -123,6 +127,12 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
     @Override public void onEnable() {
         commandRouter=new dev.hydev.spectrecore.command.CommandRouter(this,(sender,args)->handleCore(sender,getCommand("spectrecore"),"spectrecore",args));
         integrations = new dev.hydev.spectrecore.integration.IntegrationRegistry(getServer().getPluginManager());
+        if (integrations.available("AuraSkills")) {
+            try { auraSkillsBridge = new AuraSkillsBridge(this); }
+            catch (RuntimeException | LinkageError error) {
+                getLogger().warning("AuraSkillsBridge incompatible: se conserva el modificador de daño anterior. " + error.getMessage());
+            }
+        }
         migrateLegacySkillsConfig();
         saveDefaultConfig();
         moduleConfigs = new dev.hydev.spectrecore.config.ModuleConfiguration(getDataFolder(), getClass().getClassLoader());
@@ -266,6 +276,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
             clear(player.getUniqueId());
             if (passive != null) passive.clear(player);
         }
+        if (auraSkillsBridge != null) { auraSkillsBridge.clearAll(); auraSkillsBridge = null; }
         if (visuals != null) visuals.removeOrphans();
         if (displayModels != null) { displayModels.stop(); displayModels = null; }
         if (mago != null) { mago.close(); mago = null; }
@@ -351,6 +362,10 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
     }
     @EventHandler public void onDeath(PlayerDeathEvent event) { clear(event.getEntity().getUniqueId()); if (passive != null) passive.clear(event.getEntity()); }
     @EventHandler public void onChangeWorld(PlayerChangedWorldEvent event) { clear(event.getPlayer().getUniqueId()); if (passive != null) passive.clear(event.getPlayer()); }
+    @EventHandler public void onPluginDisable(PluginDisableEvent event) {
+        if (auraSkillsBridge != null && event.getPlugin().getName().equalsIgnoreCase("AuraSkills"))
+            auraSkillsBridge.clearAll();
+    }
 
     @Override public boolean onCommand(CommandSender sender, Command command, String alias, String[] args) { return commandRouter.dispatch(sender,args); }
 
