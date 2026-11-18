@@ -27,7 +27,11 @@ public final class CommandRoutes {
         routes.add(route("toast prueba","$core","",Access.ADMIN,"<id>","Previsualizar toast de Minecraft","toast","prueba"));
         routes.add(route("armaduras","armaduras","equipamiento.libro",Access.PUBLIC,"","Libro de armaduras"));
         routes.add(route("cocina","cocina","cocina",Access.PUBLIC,"<ayuda|libro|recetas|estado|reparar|recargar>","Cocina y recetario"));
-        routes.add(route("trabajos","trabajo","trabajos",Access.PUBLIC,"","Niveles de trabajos"));
+        routes.add(route("trabajos","trabajo","trabajos",Access.PUBLIC,"","Abrir catálogo de contratos y oficios"));
+        routes.add(route("trabajos mineria","trabajo","trabajos",Access.PUBLIC,"","Abrir contratos de minería","minero"));
+        routes.add(route("trabajos agricultura","trabajo","trabajos",Access.PUBLIC,"","Abrir contratos de agricultura","granjero"));
+        routes.add(route("trabajos caza","trabajo","trabajos",Access.PUBLIC,"","Abrir contratos de caza","cazador"));
+        routes.add(route("trabajos estado","trabajo","trabajos",Access.PUBLIC,"","Consultar niveles de trabajo en chat","estado"));
         routes.add(route("resonancia","resonancia","resonancia",Access.PUBLIC,"","Carga del Pico Perdido"));
         routes.add(route("resonancia debug","debugresonancia","resonancia",Access.HYDEV_ADMIN,"","Diagnóstico de resonancia"));
         routes.add(route("item nombre","nombreitem","",Access.HYDEV_ADMIN,"","Inspeccionar y copiar el nombre del objeto"));
