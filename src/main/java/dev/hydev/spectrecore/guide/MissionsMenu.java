@@ -177,12 +177,12 @@ public final class MissionsMenu implements Listener {
         // Defer every transition to the next server tick and re-check player state.
         if (holder.page.equals("misiones")) {
             switch (id) {
-                case "1" -> nextTick(player, () -> open(player, "revenant"));
-                case "telefono" -> nextTick(player, () -> {
+                case "1" -> nextTick(player, holder, () -> open(player, "revenant"));
+                case "telefono" -> nextTick(player, holder, () -> {
                     player.closeInventory();
                     slayer.buyPhoneFromMenu(player);
                 });
-                case "cerrar" -> nextTick(player, player::closeInventory);
+                case "cerrar" -> nextTick(player, holder, player::closeInventory);
                 default -> { /* locked / informative entries deliberately have no actions */ }
             }
             return;
@@ -190,24 +190,25 @@ public final class MissionsMenu implements Listener {
         switch (id) {
             case "1", "2", "3" -> {
                 int tier = Integer.parseInt(id);
-                nextTick(player, () -> {
+                nextTick(player, holder, () -> {
                     player.closeInventory();
                     slayer.contractFromMenu(player, tier);
                 });
             }
-            case "cancelar" -> nextTick(player, () -> {
+            case "cancelar" -> nextTick(player, holder, () -> {
                 player.closeInventory();
                 slayer.cancelFromMenu(player);
             });
-            case "cerrar" -> nextTick(player, () -> open(player, "misiones"));
-            case "cerrar_menu" -> nextTick(player, player::closeInventory);
+            case "cerrar" -> nextTick(player, holder, () -> open(player, "misiones"));
+            case "cerrar_menu" -> nextTick(player, holder, player::closeInventory);
             default -> { }
         }
     }
 
-    private void nextTick(Player player, Runnable action) {
+    private void nextTick(Player player, MenuHolder expected, Runnable action) {
         Bukkit.getScheduler().runTask(plugin, () -> {
-            if (player.isOnline() && plugin.isEnabled()) action.run();
+            if (player.isOnline() && plugin.isEnabled()
+                    && player.getOpenInventory().getTopInventory().getHolder() == expected) action.run();
         });
     }
 
