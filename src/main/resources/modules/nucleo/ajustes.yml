@@ -1,3 +1,28 @@
+# Notificaciones nativas de Minecraft. Modificables por YAML.
+# enabled, intervalo y eventos admiten /spectrecore reload.
+# Iconos/textos de advancement se registran al arrancar: requieren reinicio posterior.
+toasts:
+  enabled: true
+  intervalo-global-segundos: 3
+  eventos:
+    furia: true
+    resonancia: true
+    gema-basica: true
+    gema-intermedia: true
+    gema-superior: true
+    trabajo-minero: true
+    trabajo-granjero: true
+    trabajo-cazador: true
+  presets:
+    furia: {icon: 'minecraft:netherite_axe', titulo: 'Furia completa', descripcion: 'Doble Shift para despertar'}
+    resonancia: {icon: 'minecraft:amethyst_shard', titulo: 'Resonancia completa', descripcion: 'Agachate y extrae una gema'}
+    gema-basica: {icon: 'minecraft:emerald', titulo: 'Gema obtenida', descripcion: 'Calidad basica'}
+    gema-intermedia: {icon: 'minecraft:diamond', titulo: 'Gema obtenida', descripcion: 'Calidad intermedia'}
+    gema-superior: {icon: 'minecraft:nether_star', titulo: 'Gema obtenida', descripcion: 'Calidad superior'}
+    trabajo-minero: {icon: 'minecraft:iron_pickaxe', titulo: 'Trabajo completado', descripcion: 'Pago de mineria'}
+    trabajo-granjero: {icon: 'minecraft:wheat', titulo: 'Trabajo completado', descripcion: 'Pago de agricultura'}
+    trabajo-cazador: {icon: 'minecraft:iron_sword', titulo: 'Trabajo completado', descripcion: 'Pago de caceria'}
+
 SpectreCorePlugin:
   color-001: GREEN
 MiningVisuals:
