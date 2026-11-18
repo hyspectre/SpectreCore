@@ -37,6 +37,7 @@ public final class CommandRoutes {
         routes.add(route("item nombre","nombreitem","",Access.HYDEV_ADMIN,"","Inspeccionar y copiar el nombre del objeto"));
         routes.add(route("misiones","misiones","slayer",Access.PUBLIC,"","Abrir la central nativa de misiones"));
         routes.add(route("misiones monarquia","misiones","slayer",Access.PUBLIC,"","Abrir los contratos de Monarquía Renacida","revenant"));
+        routes.add(route("misiones progresion","misiones","slayer",Access.PUBLIC,"","Ver niveles, XP y desbloqueos de Slayer","progresion"));
         routes.add(route("slayer estado","slayerstats","slayer",Access.PUBLIC,"","Progreso de misiones Slayer"));
         routes.add(route("slayer comprar telefono","comprartelefono","slayer",Access.PUBLIC,"","Comprar acceso remoto a misiones mediante Vault y MMOItems"));
         routes.add(route("slayer contratar","contratarslayer","slayer",Access.PUBLIC,"<categoria> <1|2|3>","Contratar una misión Slayer con Vault"));
