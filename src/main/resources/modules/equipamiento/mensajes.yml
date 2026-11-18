@@ -42,14 +42,8 @@ ArmorGuide:
   etiqueta-092: "Resist. fuego (nivel)"
   etiqueta-093: "Velocidad (nivel)"
   etiqueta-094: "Velocidad"
-  mensaje-001: "'ARMADURAS"
-
-
-    '
-  mensaje-002: "'{e-shortname}"
-
-
-    '
+  mensaje-001: "ARMADURAS\n\n"
+  mensaje-002: "{e-shortname}\n\n"
   texto-001: "CONJUNTO"
   texto-002: "HABILIDAD"
   mensaje-003: "Pulsa un nombre."
@@ -65,8 +59,7 @@ ArmorGuide:
   mensaje-013: "(4) +{valor1} daño cuerpo a cuerpo; {valor2} menos daño recibido."
   mensaje-014: "Sin bonos parciales del núcleo."
   mensaje-015: "(4) {e-ability}."
-  mensaje-016: "'Con Juramento Profanado: Blink confirmado crea un eco; próximo golpe +{valor1} durante {valor2}. Requiere"
-    habilidad activa.'
+  mensaje-016: "Con Juramento Profanado: Blink confirmado crea un eco; próximo golpe +{valor1} durante {valor2}. Requiere habilidad activa."
   mensaje-017: "Con Dracoreliquia: +{valor1} s de bendición mientras la empuñas."
   mensaje-018: ""
   mensaje-019: "Bonos MMOItems:"
@@ -106,12 +99,8 @@ ArmorGuide:
   mensaje-052: "1 HP = medio corazón. Daño base antes de defensas."
   mensaje-053: "Quitar una pieza cancela el efecto. La recarga continúa mientras el servidor siga encendido."
   mensaje-054: ""
-  mensaje-055: "'{heading}"
-
-    '
-  mensaje-056: "'{body}"
-
-    '
+  mensaje-055: "{heading}\n"
+  mensaje-056: "{body}\n"
   mensaje-057: "← Índice"
 AsterionSkill:
   mensaje-001: "<reset><gold>✦ <reset><red>Asterión <reset><gray>— La bestia despierta."

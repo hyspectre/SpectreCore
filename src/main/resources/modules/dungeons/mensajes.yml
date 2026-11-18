@@ -24,6 +24,4 @@ PortalModule:
   mensaje-021: "Falló salida de portal: {e-getmessage}"
   mensaje-022: "{valor1}{valor2} segundos"
   texto-003: "Portal · Vista previa"
-  texto-004: "'Salida de la Cripta"
-
-    Permanece '
+  texto-004: "Salida de la Cripta\nPermanece "
