@@ -173,31 +173,42 @@ public final class MissionsMenu implements Listener {
         if (now - previous < 350L) return;
         clickGate.put(player.getUniqueId(), now);
 
+        // InventoryClickEvent is not safe for openInventory/closeInventory.
+        // Defer every transition to the next server tick and re-check player state.
         if (holder.page.equals("misiones")) {
             switch (id) {
-                case "1" -> open(player, "revenant");
-                case "telefono" -> {
+                case "1" -> nextTick(player, () -> open(player, "revenant"));
+                case "telefono" -> nextTick(player, () -> {
                     player.closeInventory();
                     slayer.buyPhoneFromMenu(player);
-                }
-                case "cerrar" -> player.closeInventory();
+                });
+                case "cerrar" -> nextTick(player, player::closeInventory);
                 default -> { /* locked / informative entries deliberately have no actions */ }
             }
             return;
         }
         switch (id) {
             case "1", "2", "3" -> {
-                player.closeInventory();
-                slayer.contractFromMenu(player, Integer.parseInt(id));
+                int tier = Integer.parseInt(id);
+                nextTick(player, () -> {
+                    player.closeInventory();
+                    slayer.contractFromMenu(player, tier);
+                });
             }
-            case "cancelar" -> {
+            case "cancelar" -> nextTick(player, () -> {
                 player.closeInventory();
                 slayer.cancelFromMenu(player);
-            }
-            case "cerrar" -> open(player, "misiones");
-            case "cerrar_menu" -> player.closeInventory();
+            });
+            case "cerrar" -> nextTick(player, () -> open(player, "misiones"));
+            case "cerrar_menu" -> nextTick(player, player::closeInventory);
             default -> { }
         }
+    }
+
+    private void nextTick(Player player, Runnable action) {
+        Bukkit.getScheduler().runTask(plugin, () -> {
+            if (player.isOnline() && plugin.isEnabled()) action.run();
+        });
     }
 
     @EventHandler public void drag(InventoryDragEvent event) {
