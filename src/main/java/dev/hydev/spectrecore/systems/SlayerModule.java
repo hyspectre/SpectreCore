@@ -82,6 +82,71 @@ public final class SlayerModule implements Listener {
         m.active = false; if (command.equals("resetslayer")) m.kills = 0;
         dirty = true; save(); refreshBar(p); p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-012","§7Misión {name-category}{valor2}","name-category", name(category),"valor2", (command.equals("resetslayer") ? " reiniciada." : " cancelada."))); return true;
     }
+    /**
+     * Secure purchase of the remote quest phone; never elevate the player to OP.
+     * Item and capacity are checked before confirmed Vault withdrawal.
+     */
+    private boolean purchasePhone(Player player, String[] args) {
+        if (args.length != 0 || !config.getBoolean("acceso-remoto.habilitado", false)) {
+            player.sendMessage(Settings.text("slayer", "SlayerModule.telefono-no-disponible",
+                    "§cEl acceso remoto no está disponible por ahora."));
+            return true;
+        }
+        String type = config.getString("acceso-remoto.tipo", "MATERIAL");
+        String itemId = config.getString("acceso-remoto.id", "TELEFONO1");
+        Object configuredPrice = config.get("acceso-remoto.precio");
+        long price = configuredPrice instanceof Number number
+                && Double.isFinite(number.doubleValue())
+                && number.doubleValue() == Math.rint(number.doubleValue())
+                ? number.longValue() : -1;
+        if (price < 0 || price > 1_000_000_000L
+                || !"MATERIAL".equals(type) || !"TELEFONO1".equals(itemId)) {
+            plugin.getLogger().warning("Slayer: invalid remote phone item/price configuration");
+            player.sendMessage(Settings.text("slayer", "SlayerModule.telefono-no-disponible",
+                    "§cEl acceso remoto no está disponible por ahora."));
+            return true;
+        }
+        ItemStack item = contractItems.build(type, itemId, 1);
+        if (item == null || item.getType().isAir()) {
+            player.sendMessage(Settings.text("slayer", "SlayerModule.telefono-item-fallo",
+                    "§cNo se pudo generar el Teléfono Rojo de MMOItems. No se ha cobrado."));
+            return true;
+        }
+        if (player.getInventory().firstEmpty() == -1) {
+            player.sendMessage(Settings.text("slayer", "SlayerModule.telefono-inventario",
+                    "§cLibera al menos una ranura de inventario antes de comprar."));
+            return true;
+        }
+        if (contractsEconomy.withdraw(player, price) != EconomyBridge.Result.CONFIRMED) {
+            player.sendMessage(Settings.text("slayer", "SlayerModule.telefono-pago-fallo",
+                    "§cVault no confirmó el pago. No se ha entregado el objeto."));
+            return true;
+        }
+        try {
+            var leftover = player.getInventory().addItem(item);
+            if (!leftover.isEmpty()) {
+                // Should be unreachable after firstEmpty() on the main thread. Preserve the
+                // paid item even if an external plugin changed capacity during insertion.
+                leftover.values().forEach(remaining -> player.getWorld().dropItem(
+                        player.getLocation(), remaining.clone(), drop -> {
+                            drop.setOwner(player.getUniqueId());
+                            drop.setThrower(player.getUniqueId());
+                            drop.setPickupDelay(0);
+                        }));
+            }
+            player.sendMessage(Settings.text("slayer", "SlayerModule.telefono-comprado",
+                    "§aHas comprado el Teléfono Rojo por {precio} ↾.", "precio", price));
+        } catch (RuntimeException error) {
+            // Log for manual reconciliation: a failure after insertion might have already
+            // delivered an item. Never blindly refund and risk generating free duplicates.
+            plugin.getLogger().severe("SLAYER PHONE DELIVERY RECONCILIATION REQUIRED player="
+                    + player.getUniqueId() + " price=" + price + " cause=" + error);
+            player.sendMessage(Settings.text("slayer", "SlayerModule.telefono-entrega-fallo",
+                    "§cError de entrega. Avisa a un administrador; no intentes pagar de nuevo."));
+        }
+        return true;
+    }
+
     /** Player contracts are opt-in until zMenu stops doing its own payments/OP dispatch. */
     private boolean playerContract(Player p, String command, String[] args) {
         if (args.length < 1 || !CATEGORIES.contains(args[0].toLowerCase(Locale.ROOT))) {
