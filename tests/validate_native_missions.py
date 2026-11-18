@@ -66,6 +66,8 @@ slayer = (root / "src/main/java/dev/hydev/spectrecore/systems/SlayerModule.java"
 routes = (root / "src/main/java/dev/hydev/spectrecore/command/CommandRoutes.java").read_text(encoding="utf-8")
 assert "InventoryClickEvent" in java and "InventoryDragEvent" in java
 assert "event.setCancelled(true)" in java
+assert "Bukkit.getScheduler().runTask(plugin" in java
+assert "getTopInventory().getHolder() == expected" in java
 assert "CustomHeads.fromBase64(encoded)" in java
 assert "Bukkit.createInventory(holder, 54" in java
 assert 'case "1" -> open(player, "revenant")' in java
