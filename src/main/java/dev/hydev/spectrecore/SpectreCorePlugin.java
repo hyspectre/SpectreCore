@@ -243,7 +243,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
         }
         if (getCommand("mago") != null) {
             getCommand("mago").setExecutor((sender,cmd,label,args) -> {
-                if (mago == null) { sender.sendMessage(Settings.component(Settings.text("nucleo", "MagoMenu.no-disponible", "<red>El Mago está temporalmente desactivado.</red>"))); return true; }
+                if (mago == null) { sender.sendMessage(Settings.component(Settings.text("nucleo", "MagoMenu.no-disponible", "<red>El Mago está temporalmente desactivado.</red>")); return true; }
                 return mago.command(sender,args);
             });
             getCommand("mago").setTabCompleter((sender,cmd,label,args) -> mago == null ? List.of() : mago.complete(args));
@@ -397,7 +397,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
     private boolean handleCore(CommandSender sender, Command command, String alias, String[] args) {
         String sub = args.length == 0 ? "status" : args[0].toLowerCase(java.util.Locale.ROOT);
         if (sub.equals("integraciones")) {
-            if (!canAdmin(sender)) { sender.sendMessage(Settings.component(Settings.text("nucleo", "Modelos.sin-permiso", "<red>Sin permiso.</red>"))); return true; }
+            if (!canAdmin(sender)) { sender.sendMessage(Settings.component(Settings.text("nucleo", "Modelos.sin-permiso", "<red>Sin permiso.</red>")); return true; }
             integrations.status().forEach((name,ok) -> sender.sendMessage(Settings.component(Settings.text("nucleo", "Integraciones.estado",
                 "{nombre}: {estado}", "nombre", name,
                 "estado", ok ? Settings.text("nucleo", "Integraciones.activo", "<green>detectado</green>")
@@ -419,7 +419,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
             return true;
         }
         if (sub.equals("diagnostico") || sub.equals("diagnostics")) {
-            if (!canAdmin(sender)) { sender.sendMessage(Settings.component(Settings.text("nucleo", "Modelos.sin-permiso", "<red>Sin permiso.</red>"))); return true; }
+            if (!canAdmin(sender)) { sender.sendMessage(Settings.component(Settings.text("nucleo", "Modelos.sin-permiso", "<red>Sin permiso.</red>")); return true; }
             sender.sendMessage(Settings.component(Settings.text("nucleo", "Diagnostico.estado",
                     "<gold>SpectreCore — telemetría: {estado}</gold>", "estado", diagnostics.enabled() ? "ON" : "OFF")));
             sender.sendMessage(Settings.component(Settings.text("nucleo", "Diagnostico.cocina", "<gray>Cocina: {estado}</gray>", "estado",
@@ -434,20 +434,20 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
             return true;
         }
         if (sub.equals("modelo")) {
-            if (!canAdmin(sender)) { sender.sendMessage(Settings.component(Settings.text("nucleo", "Modelos.sin-permiso", "<red>Sin permiso.</red>"))); return true; }
-            if (!(sender instanceof Player player)) { sender.sendMessage(Settings.component(Settings.text("nucleo", "Modelos.solo-jugador", "<red>Solo jugador.</red>"))); return true; }
+            if (!canAdmin(sender)) { sender.sendMessage(Settings.component(Settings.text("nucleo", "Modelos.sin-permiso", "<red>Sin permiso.</red>")); return true; }
+            if (!(sender instanceof Player player)) { sender.sendMessage(Settings.component(Settings.text("nucleo", "Modelos.solo-jugador", "<red>Solo jugador.</red>")); return true; }
             if (displayModels == null) return true;
             if (args.length == 2 && args[1].equalsIgnoreCase("lista")) return displayModels.list(player);
             if (args.length != 3) {
                 sender.sendMessage(Settings.component(Settings.text("nucleo", "Modelos.uso",
-                    "<gray>Uso: /spectrecore modelo vista|colocar &lt;id&gt; / quitar &lt;UUID&gt; / lista</gray>"))); return true;
+                    "<gray>Uso: /spectrecore modelo vista|colocar &lt;id&gt; / quitar &lt;UUID&gt; / lista</gray>")); return true;
             }
             return switch (args[1].toLowerCase(java.util.Locale.ROOT)) {
                 case "vista" -> displayModels.preview(player, args[2]);
                 case "colocar" -> displayModels.place(player, args[2]);
                 case "quitar" -> displayModels.remove(player, args[2]);
                 default -> { sender.sendMessage(Settings.component(Settings.text("nucleo", "Modelos.uso",
-                    "<gray>Uso: /spectrecore modelo vista|colocar &lt;id&gt; / quitar &lt;UUID&gt; / lista</gray>"))); yield true; }
+                    "<gray>Uso: /spectrecore modelo vista|colocar &lt;id&gt; / quitar &lt;UUID&gt; / lista</gray>")); yield true; }
             };
         }
         if (sub.equals("agricultura")) {
@@ -463,7 +463,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
             sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-012", "Minería desactivada.")); return true;
         }
         if (sub.equals("modulos") || sub.equals("modules")) {
-            moduleConfigs.requested().forEach((name, enabled) -> sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-013","§6{name}§7: {valor2}{valor3}","name", name,"valor2", (moduleConfigs.active(name) ? Settings.component(Settings.text("nucleo", "SpectreCorePlugin.texto-001", "§aACTIVO"))) : Settings.component(Settings.text("nucleo", "SpectreCorePlugin.texto-002", "§cINACTIVO")))),"valor3", (moduleConfigs.restartPending(name) ? Settings.component(Settings.text("nucleo", "SpectreCorePlugin.texto-003", " §e(cambio pendiente: reiniciar)"))) : ""))));
+            moduleConfigs.requested().forEach((name, enabled) -> sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-013","§6{name}§7: {valor2}{valor3}","name", name,"valor2", (moduleConfigs.active(name) ? Settings.component(Settings.text("nucleo", "SpectreCorePlugin.texto-001", "§aACTIVO")) : Settings.component(Settings.text("nucleo", "SpectreCorePlugin.texto-002", "§cINACTIVO"))),"valor3", (moduleConfigs.restartPending(name) ? Settings.component(Settings.text("nucleo", "SpectreCorePlugin.texto-003", " §e(cambio pendiente: reiniciar)")) : ""))));
             return true;
         }
         if (sub.equals("cocina")) { sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-014", "§7Usa /mago cocina para aprender o /spectrecore cocina recetas para consultar recetas.")); return true; }
@@ -483,7 +483,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
             }
             reloadDiagnostics();
             if (toastService != null) toastService.reload();
-            if (displayModels != null && !displayModels.reloadOptions()) sender.sendMessage(Settings.component(Settings.text("nucleo", "Modelos.settings-invalido", "<red>models/settings.yml inválido; se conservan límites anteriores.</red>")));
+            if (displayModels != null && !displayModels.reloadOptions()) sender.sendMessage(Settings.component(Settings.text("nucleo", "Modelos.settings-invalido", "<red>models/settings.yml inválido; se conservan límites anteriores.</red>"));
             if (cooking != null) cooking.reload();
             if (mining != null) mining.reload();
             if (combatTreasures != null) combatTreasures.reload();
