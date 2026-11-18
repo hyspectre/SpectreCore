@@ -27,3 +27,11 @@ SlayerModule.contrato-rechazado: '§cContrato rechazado: {motivo}'
 SlayerModule.contrato-pago-fallo: '§cNo se confirmó el cobro mediante Vault; el contrato no cambió.'
 SlayerModule.contrato-storage-fallo: '§cNo se pudo guardar el contrato; solicita revisión administrativa del saldo.'
 SlayerModule.contrato-aplicado: '§6Contrato {accion}: {categoria} · Costo {costo} ↾'
+
+# Acceso remoto: compra del Teléfono Rojo con Vault y MMOItems
+SlayerModule.telefono-no-disponible: '§cEl acceso remoto no está disponible por ahora.'
+SlayerModule.telefono-item-fallo: '§cNo se pudo generar el Teléfono Rojo de MMOItems. No se ha cobrado.'
+SlayerModule.telefono-inventario: '§cLibera al menos una ranura de inventario antes de comprar.'
+SlayerModule.telefono-pago-fallo: '§cVault no confirmó el pago. No se ha entregado el objeto.'
+SlayerModule.telefono-comprado: '§aHas comprado el Teléfono Rojo por {precio} ↾.'
+SlayerModule.telefono-entrega-fallo: '§cError de entrega. Avisa a un administrador; no intentes pagar de nuevo.'
