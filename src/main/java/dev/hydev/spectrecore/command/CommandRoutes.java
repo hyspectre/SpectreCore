@@ -45,7 +45,7 @@ public final class CommandRoutes {
         routes.add(route("slayer activar","activarslayer","slayer",Access.HYDEV_ADMIN,"<categoria> <1|2|3>","Iniciar una misión Slayer"));
         routes.add(route("slayer cancelar","cancelarslayer","slayer",Access.HYDEV_ADMIN,"<categoria>","Cancelar una misión Slayer"));
         routes.add(route("slayer reiniciar","resetslayer","slayer",Access.HYDEV_ADMIN,"<categoria>","Reiniciar una misión Slayer"));
-        routes.add(route("slayer invocar","slayerinvocar","slayer",Access.HYDEV_ADMIN,"<categoria>","Reintentar la invocación de un objetivo completado"));
+        routes.add(route("slayer invocar","slayerinvocar","slayer",Access.PUBLIC,"<categoria>","Reintentar tu propia invocación pendiente"));
         routes.add(route("portal registrar","hydevportaljoin","dungeons.portal",Access.CONSOLE,"<jugador> <sesion>","Registrar participante y sesión"));
         routes.add(route("portal salir","hydevportalleave","dungeons.portal",Access.CONSOLE,"<jugador>","Retirar el registro de un participante"));
         routes.add(route("portal estado","hydevportalstatus","dungeons.portal",Access.HYDEV_ADMIN,"[jugador]","Diagnóstico del portal"));
