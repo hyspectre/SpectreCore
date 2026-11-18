@@ -83,3 +83,21 @@ Configuración: `plugins/SpectreCore/modules/nucleo/ajustes.yml`, sección `toas
 ## Asterión — combo controlado
 
 Se ha aislado el algoritmo en `AsterionComboRules`: primer golpe fija la presa; siguientes 4 golpes rápidos alcanzan un máximo +12 %; cambio de objetivo o demora mayor que 50 ticks restablecen a cero. Las pruebas deterministas se ejecutan en `tests/AsterionComboSmoke.java`. El **daño final en combate contra MythicLib/MMOItems** todavía debe verificarse ingame: estos tests no prueban otros listeners de plugins.
+
+## Contratos Slayer seguros (opt-in experimental)
+
+Nueva ruta para jugadores con permisos de tier: `/spectrecore slayer contratar revenant 1` (o tiers 2/3).
+Nueva cancelación: `/spectrecore slayer abandonar revenant`.
+
+Configuración: `modules/slayer/config.yml`, `contratos.habilitados: false` por defecto. Precios de Revenant preconfigurados según Hordas: T1=200, T2=500, T3=950 y cancelación=200. Necromancer/Spider sin precio: no se pueden contratar por esta ruta hasta configurarlos.
+
+El flujo valida primero: sistema habilitado, categoría/tier, ausencia de otra misión activa, permiso `slayer.<categoria>.tier<tier>`, precio numérico finito entero (0..1.000.000.000). Luego cobra con **Vault confirmado**, no con `eco take` ni `player-command-as-op`. Si falta Vault o el cobro no se confirma, no cambia misión. Si falla guardar, restaura el estado en memoria y solicita reembolso a Vault; registra error crítico en consola si el reembolso falla. **Esto no es una transacción ACID ante cortes eléctricos**: no habilitar en producción sin probar interrupciones y diseñar reconciliación si se requiere garantía estricta de dinero.
+
+**IMPORTANTE — migración de zMenu en la misma ventana**:
+- Eliminar acciones del menú que debitan dinero por separado (`eco take`, etc.).
+- Reemplazar comandos anteriores `spectrecore slayer activar revenant 1` por `spectrecore slayer contratar revenant 1` ejecutados como jugador normal.
+- Usar `spectrecore slayer abandonar revenant` para cancelación, sin otra resta de saldo.
+- Evitar `player-command-as-op`. Comprobar que el menú respeta permisos y que el módulo cobra solo una vez.
+- **No migrar zMenu mientras el servidor usa 0.7.3**: las nuevas rutas aún no existen allí.
+
+Pruebas obligatorias: sin saldo (sin misión ni deducción), sin permiso, misión ya activa, tier inválido, tier válido, cooldowns, dos pulsaciones rápidas, dos jugadores simultáneos y reinicio. Verificar que la misión y saldo se mantienen coherentes; guardar backup de `slayer-data.yml`. Si hay cobros pendientes o dudas, mantener `contratos.habilitados: false`.
