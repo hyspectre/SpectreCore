@@ -45,16 +45,16 @@ assert revenant["cerrar_menu"]["slot"] == 50
 assert revenant["cancelar"]["slot"] == 53
 
 config = yaml.safe_load((root / "src/main/resources/modules/slayer/config.yml").read_text(encoding="utf-8"))
-assert config["contratos"]["habilitados"] is False  # fails closed until staged deployment
-assert config["acceso-remoto"]["habilitado"] is False
+assert config["contratos"]["habilitados"] is True  # new installs: native contracts enabled by default
+assert config["acceso-remoto"]["habilitado"] is True
 assert config["acceso-remoto"]["precio"] == 500
 assert config["acceso-remoto"]["id"] == "TELEFONO1"
 assert config["contratos"]["cancelacion"]["revenant"] == 200
 for tier, slot, price, required in ((1, 21, 200, 20), (2, 23, 500, 50), (3, 25, 950, 90)):
     item = revenant[str(tier)]
     assert item["slot"] == slot
-    assert str(price) in " ".join(item["lore"])
-    assert str(required) in " ".join(item["lore"])
+    assert "{precio}" in " ".join(item["lore"])
+    assert "{objetivo}" in " ".join(item["lore"])
     assert config["contratos"]["precios"]["revenant"][f"tier{tier}"] == price
     assert config["objetivos"][f"tier{tier}"] == required
 
@@ -75,6 +75,9 @@ assert "slayer.contractFromMenu(player" in java and "slayer.cancelFromMenu(playe
 assert "slayer.buyPhoneFromMenu(player)" in java
 assert "Bukkit.dispatchCommand(" not in java and "dispatchCommand(" not in java
 assert "contractsEconomy.withdraw" in slayer and "validateStart" in slayer
+assert "contractPriceLabel" in slayer and "objectiveForTier" in slayer
+assert "cancellationPriceLabel" in slayer and "phonePriceLabel" in slayer
+assert "resolveLore(page, id, line)" in java
 assert 'route("misiones","misiones","slayer",Access.PUBLIC' in routes
 assert 'route("misiones monarquia","misiones","slayer",Access.PUBLIC' in routes
 print("PASS Native Misiones: 2 Paper GUIs, 22 slots, genuine textures, server-validated actions and unchanged fees")
