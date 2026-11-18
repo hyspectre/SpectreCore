@@ -4,6 +4,9 @@ engine:
     hostile-scoreboard-tags:
     - HYDEV_HOSTILE
     require-line-of-sight: true
+    # Diagnostico de staging: registra original, esperado, evento y daño final.
+    debug-multipliers: false
+    debug-rate-millis: 1000
   visuals:
     view-range: 0.75
 skills:
