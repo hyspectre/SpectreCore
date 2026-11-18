@@ -17,7 +17,7 @@ jobs:
           gradle-version: '8.14.3'
       - run: python3 -m pip install pyyaml
       - run: python3 tests/validate_release.py
-      - run: python3 tests/validate_zmenu_migration.py
+      - run: python3 tests/validate_native_missions.py
       - run: python3 tests/validate_presentation.py
       - run: python3 tests/validate_mago_models.py
       - run: python3 tests/validate_m3_security.py
