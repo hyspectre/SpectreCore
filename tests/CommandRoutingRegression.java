@@ -29,6 +29,11 @@ public final class CommandRoutingRegression {
         check(CommandRoutes.resolve(new String[]{"tesoros","mineria","3"}).arguments().equals(List.of("mineria","tesoro","3")),"Preview adapter keeps expected argument positions");
         check(CommandRoutes.resolve(new String[]{"portal","registrar","Alex","My session","abc"}).arguments().equals(List.of("Alex","My session","abc")),"Session arguments unchanged, no split/re-dispatch");
         check(CommandRoutes.resolve(new String[]{"slayer","activar","spider","2"}).arguments().equals(List.of("spider","2")),"Slayer category/tier forwarded");
+        check(CommandRoutes.resolve(new String[]{"trabajos"}).route().target().equals("trabajo"),"Native Jobs index");
+        check(CommandRoutes.resolve(new String[]{"trabajos","mineria"}).arguments().equals(List.of("minero")),"Native Mining contracts");
+        check(CommandRoutes.resolve(new String[]{"trabajos","agricultura"}).arguments().equals(List.of("granjero")),"Native Farming contracts");
+        check(CommandRoutes.resolve(new String[]{"trabajos","caza"}).arguments().equals(List.of("cazador")),"Native Hunter contracts");
+        check(CommandRoutes.resolve(new String[]{"trabajos","estado"}).arguments().equals(List.of("estado")),"Jobs chat status preserved");
         check(CommandRoutes.resolve(new String[]{"misiones"}).route().target().equals("misiones"),"Native Misiones route");
         check(CommandRoutes.resolve(new String[]{"misiones","monarquia"}).arguments().equals(List.of("revenant")),"Native Revenant deep link");
         check(CommandRoutes.resolve(new String[]{"unknown"})==null,"Unknown path");
