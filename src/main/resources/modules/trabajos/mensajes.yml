@@ -6,9 +6,10 @@ JobsModule:
   texto-002: §cNo disponible
   texto-003: §e
   mensaje-004: §7Mejora tu nivel firmando §6contratos§7.
-  mensaje-005: Espera {remaining-999-1000} s para otra recompensa de {job}
+  mensaje-005: '§cDebes esperar §e{remaining-999-1000}s §cantes de recibir más recompensas.'
+  prefijo-monedas: '§f↾'
   mensaje-006: 'Trabajos: no se pudo pagar; revisa Vault/economía o eco. No se consume cooldown.'
-  mensaje-007: '{valor1}+{amount} ↾ · {job}'
+  mensaje-007: '{valor1}+{amount} {prefijo} · {job}'
   texto-004: 'Pago solicitado: '
   mensaje-008: 'Trabajos: faltan o son inválidos dinero/cooldown de {job}.{level}. Esa categoría no paga hasta configurarse.'
   contrato-rechazado: '§cNo puedes firmar este contrato: {motivo}'
