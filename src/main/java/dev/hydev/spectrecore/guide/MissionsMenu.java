@@ -173,7 +173,10 @@ public final class MissionsMenu implements Listener {
         if (Set.of("1", "2", "3").contains(item)) {
             int tier = Integer.parseInt(item);
             return source.replace("{precio}", slayer.contractPriceLabel("revenant", tier))
-                    .replace("{objetivo}", Integer.toString(slayer.objectiveForTier(tier)));
+                    .replace("{objetivo}", Integer.toString(slayer.objectiveForTier(tier)))
+                    .replace("{vida}", slayer.bossHealthLabel(tier))
+                    .replace("{dano}", slayer.bossDamageLabel(tier))
+                    .replace("{xp-slayer}", slayer.slayerBossXpLabel(tier));
         }
         if (item.equals("cancelar")) return source.replace("{precio}", slayer.cancellationPriceLabel("revenant"));
         if (item.equals("descripcion"))
@@ -228,6 +231,10 @@ public final class MissionsMenu implements Listener {
                     slayer.contractFromMenu(player, tier);
                 });
             }
+            case "reintentar" -> nextTick(player, holder, () -> {
+                player.closeInventory();
+                slayer.retrySpawnFromMenu(player);
+            });
             case "cancelar" -> nextTick(player, holder, () -> {
                 player.closeInventory();
                 slayer.cancelFromMenu(player);
