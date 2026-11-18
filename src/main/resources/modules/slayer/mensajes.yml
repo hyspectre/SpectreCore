@@ -20,3 +20,10 @@ SlayerModule:
   mensaje-017: '{name-category} ha sido invocado'
   mensaje-018: '{name-c} · {m-kills}/{m-required}'
   mensaje-019: 'UUID inválido en slayer-data.yml: {id}'
+
+# Contratos Slayer de jugador (Vault; activación opt-in)
+SlayerModule.contrato-categoria: '§cCategoría inválida.'
+SlayerModule.contrato-rechazado: '§cContrato rechazado: {motivo}'
+SlayerModule.contrato-pago-fallo: '§cNo se confirmó el cobro mediante Vault; el contrato no cambió.'
+SlayerModule.contrato-storage-fallo: '§cNo se pudo guardar el contrato; solicita revisión administrativa del saldo.'
+SlayerModule.contrato-aplicado: '§6Contrato {accion}: {categoria} · Costo {costo} ↾'
