@@ -36,7 +36,7 @@ for name, page in menu["pages"].items():
 
 main = menu["pages"]["misiones"]["items"]
 revenant = menu["pages"]["revenant"]["items"]
-assert len(main) == 13 and len(revenant) == 10
+assert len(main) == 13 and len(revenant) == 11
 assert len(menu["pages"]["progresion"]["items"]) == 14
 assert main["progresion"]["slot"] == 31
 assert main["1"]["slot"] == 13
@@ -45,6 +45,13 @@ assert main["cerrar"]["slot"] == 48
 assert revenant["cerrar"]["slot"] == 48
 assert revenant["cerrar_menu"]["slot"] == 50
 assert revenant["cancelar"]["slot"] == 53
+assert revenant["reintentar"]["slot"] == 51
+for tier in ("1", "2", "3"):
+    lore = " ".join(revenant[tier]["lore"])
+    for key in ("{vida}", "{dano}", "{xp-slayer}"):
+        assert key in lore, (tier, key)
+assert "Cubo Podrido x1 <dark_gray>(50%)" in " ".join(revenant["2"]["lore"])
+assert "Cubo Podrido x1 <dark_gray>(40%)" in " ".join(revenant["3"]["lore"])
 
 config = yaml.safe_load((root / "src/main/resources/modules/slayer/config.yml").read_text(encoding="utf-8"))
 assert config["contratos"]["habilitados"] is True  # new installs: native contracts enabled by default
@@ -75,6 +82,7 @@ assert "Bukkit.createInventory(holder, 54" in java
 assert 'case "1" -> nextTick(player, holder, () -> open(player, "revenant"))' in java
 assert "slayer.contractFromMenu(player" in java and "slayer.cancelFromMenu(player)" in java
 assert "slayer.buyPhoneFromMenu(player)" in java
+assert "slayer.retrySpawnFromMenu(player)" in java
 assert "Bukkit.dispatchCommand(" not in java and "dispatchCommand(" not in java
 assert "contractsEconomy.withdraw" in slayer and "validateStart" in slayer
 assert "contractPriceLabel" in slayer and "objectiveForTier" in slayer
@@ -84,4 +92,4 @@ assert ".decoration(TextDecoration.ITALIC, false)" in java
 assert "TextService.component(source)" in java
 assert 'route("misiones","misiones","slayer",Access.PUBLIC' in routes
 assert 'route("misiones monarquia","misiones","slayer",Access.PUBLIC' in routes
-print("PASS Native Misiones: 3 Paper GUIs, 37 slots, valid textures, progression, no italic and unchanged fees")
+print("PASS Native Misiones: 3 Paper GUIs, 38 slots, valid textures, progression, no italic and unchanged fees")
