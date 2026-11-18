@@ -134,7 +134,8 @@ public final class SlayerModule implements Listener {
         // Reintento seguro sin permisos administrativos: solo sobre una cacería pagada y completada.
         if (command.equals("slayerinvocar")) {
             if (args.length != 1 || !CATEGORIES.contains(args[0].toLowerCase(Locale.ROOT))) {
-                p.sendMessage("§cUso: /spectrecore slayer invocar <categoria>");
+                p.sendMessage(Settings.component(Settings.text("slayer", "SlayerModule.reintento-uso",
+                        "<red>Uso: /spectrecore slayer invocar [categoria]")));
                 return true;
             }
             String category = args[0].toLowerCase(Locale.ROOT);
@@ -143,7 +144,8 @@ public final class SlayerModule implements Listener {
                 p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-010",
                         "§cTodavía no has completado ese objetivo."));
             } else if (pending.bossId != null) {
-                p.sendMessage("§eYa tienes un jefe registrado. No puedes invocar otro.");
+                p.sendMessage(Settings.component(Settings.text("slayer", "SlayerModule.reintento-en-curso",
+                        "<yellow>Ya tienes un jefe activo. No se permite otra invocación.")));
             } else summon(p, category, pending);
             return true;
         }
@@ -196,20 +198,16 @@ public final class SlayerModule implements Listener {
     }
 
     public boolean canRetrySpawn(Player player) {
-        return CATEGORIES.stream().anyMatch(category -> {
-            Mission current = mission(player.getUniqueId(), category);
-            return current.ready() && current.bossId == null;
-        });
+        Mission current = mission(player.getUniqueId(), "revenant");
+        return current.ready() && current.bossId == null;
     }
     public void retrySpawnFromMenu(Player player) {
-        for (String category : CATEGORIES) {
-            Mission current = mission(player.getUniqueId(), category);
-            if (current.ready() && current.bossId == null) {
-                summon(player, category, current);
-                return;
-            }
+        if (canRetrySpawn(player)) {
+            summon(player, "revenant", mission(player.getUniqueId(), "revenant"));
+            return;
         }
-        player.sendMessage("§7No tienes un jefe pendiente de invocación.");
+        player.sendMessage(Settings.component(Settings.text("slayer", "SlayerModule.reintento-sin-pendientes",
+                "<gray>No tienes un jefe de Monarquía pendiente de invocación.")));
     }
     public String progressLine(Player player, String category, int tier) {
         Mission state = mission(player.getUniqueId(), category);
