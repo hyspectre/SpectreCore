@@ -24,13 +24,14 @@ public final class SlayerModule implements Listener {
     private static final List<String> CATEGORIES = List.of("revenant", "necromancer", "spider");
     private static final class Mission extends ProgressRules.SlayerProgress { }
     private final JavaPlugin plugin; private YamlConfiguration config;
+    private final EconomyBridge contractsEconomy = new EconomyBridge();
     private final Map<UUID, Map<String, Mission>> missions = new HashMap<>();
     private final Map<UUID, BossBar> bars = new HashMap<>(); private final Map<UUID, Long> attempts = new HashMap<>();
     private BukkitTask timer; private boolean dirty;
     public SlayerModule(JavaPlugin plugin) { this.plugin = plugin; }
     public void enable() {
         reload(); load(); Bukkit.getPluginManager().registerEvents(this, plugin);
-        for (String name : List.of("activarslayer", "cancelarslayer", "resetslayer", "slayerstats", "slayerinvocar")) if (dev.hydev.spectrecore.command.CommandRouter.of(plugin).get(name) != null) {
+        for (String name : List.of("activarslayer", "cancelarslayer", "resetslayer", "slayerstats", "slayerinvocar", "contratarslayer", "abandonarslayer")) if (dev.hydev.spectrecore.command.CommandRouter.of(plugin).get(name) != null) {
             dev.hydev.spectrecore.command.CommandRouter.of(plugin).get(name).setExecutor((sender, cmd, label, args) -> command(sender, cmd.getName(), args));
             dev.hydev.spectrecore.command.CommandRouter.of(plugin).get(name).setTabCompleter((sender, cmd, label, args) -> args.length == 1 && !cmd.getName().equals("slayerstats") ? CATEGORIES : List.of());
         }
@@ -54,6 +55,8 @@ public final class SlayerModule implements Listener {
             for (String c : CATEGORIES) { Mission m = mission(id, c); p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-003","§e{name-c}§7: §f{m-kills}/{m-required} §7| Tier {m-tier} | {valor5}","name-c", name(c),"m-kills", m.kills,"m-required", m.required,"m-tier", m.tier,"valor5", (m.active ? Settings.text("slayer", "SlayerModule.texto-001", "§aActiva") : Settings.text("slayer", "SlayerModule.texto-002", "§7Inactiva")))); }
             return true;
         }
+        if (command.equals("contratarslayer") || command.equals("abandonarslayer"))
+            return playerContract(p, command, args);
         if (!admin(sender)) { sender.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-004", "§cNo tienes permiso.")); return true; }
         if (args.length < 1 || !CATEGORIES.contains(args[0].toLowerCase(Locale.ROOT))) { p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-005", "§cCategoría: revenant, necromancer o spider.")); return true; }
         String category = args[0].toLowerCase(Locale.ROOT); Mission m = mission(id, category);
@@ -75,6 +78,63 @@ public final class SlayerModule implements Listener {
         m.active = false; if (command.equals("resetslayer")) m.kills = 0;
         dirty = true; save(); refreshBar(p); p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-012","§7Misión {name-category}{valor2}","name-category", name(category),"valor2", (command.equals("resetslayer") ? " reiniciada." : " cancelada."))); return true;
     }
+    /** Player contracts are opt-in until zMenu stops doing its own payments/OP dispatch. */
+    private boolean playerContract(Player p, String command, String[] args) {
+        if (args.length < 1 || !CATEGORIES.contains(args[0].toLowerCase(Locale.ROOT))) {
+            p.sendMessage(Settings.text("slayer", "SlayerModule.contrato-categoria", "§cCategoría inválida.")); return true;
+        }
+        boolean enabled = config.getBoolean("contratos.habilitados", false);
+        String category = args[0].toLowerCase(Locale.ROOT);
+        UUID id = p.getUniqueId(); Mission m = mission(id, category);
+        boolean start = command.equals("contratarslayer");
+        int tier = 0;
+        if (start && args.length > 1) try { tier = Integer.parseInt(args[1]); }
+        catch (NumberFormatException ignored) { tier = 0; }
+        String key = start ? "contratos.precios." + category + ".tier" + tier
+                           : "contratos.cancelacion." + category;
+        Object priceValue = config.get(key);
+        long cost = priceValue instanceof Number n && Double.isFinite(n.doubleValue())
+                && n.doubleValue() == Math.rint(n.doubleValue()) ? n.longValue() : -1;
+        SlayerContractRules.Refusal refusal = start
+                ? SlayerContractRules.validateStart(enabled, tier,
+                    CATEGORIES.stream().anyMatch(c -> mission(id, c).active),
+                    p.hasPermission("slayer." + category + ".tier" + tier), cost)
+                : SlayerContractRules.validateCancel(enabled, m.active, cost);
+        if (refusal != SlayerContractRules.Refusal.NONE) {
+            p.sendMessage(Settings.text("slayer", "SlayerModule.contrato-rechazado",
+                    "§cContrato rechazado: {motivo}", "motivo", refusal.name()));
+            return true;
+        }
+        if (contractsEconomy.withdraw(p, cost) != EconomyBridge.Result.CONFIRMED) {
+            p.sendMessage(Settings.text("slayer", "SlayerModule.contrato-pago-fallo",
+                    "§cNo se confirmó el cobro mediante Vault; el contrato no cambió."));
+            return true;
+        }
+        int oldTier = m.tier, oldKills = m.kills, oldRequired = m.required;
+        boolean oldActive = m.active;
+        if (start) {
+            m.tier = tier; m.kills = 0;
+            m.required = Math.max(1, config.getInt("objetivos.tier" + tier, ProgressRules.required(tier)));
+            m.active = true;
+        } else m.active = false;
+        dirty = true;
+        if (!save()) {
+            m.tier = oldTier; m.kills = oldKills; m.required = oldRequired; m.active = oldActive;
+            dirty = true;
+            // Failed writes are exceptional. Refund immediately without unconfirmed command fallback.
+            if (cost > 0 && contractsEconomy.deposit(p, cost, false) != EconomyBridge.Result.CONFIRMED)
+                plugin.getLogger().severe("SLAYER REFUND FAILURE: " + p.getUniqueId() + " amount=" + cost + " category=" + category);
+            p.sendMessage(Settings.text("slayer", "SlayerModule.contrato-storage-fallo",
+                    "§cNo se pudo guardar el contrato; solicita revisión administrativa del saldo."));
+            return true;
+        }
+        refreshBar(p);
+        p.sendMessage(Settings.text("slayer", "SlayerModule.contrato-aplicado",
+                "§6Contrato {accion}: {categoria} · Costo {costo} ↾",
+                "accion", start ? "iniciado" : "abandonado", "categoria", name(category), "costo", cost));
+        return true;
+    }
+
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void death(EntityDeathEvent e) {
         Player p = e.getEntity().getKiller(); if (p == null || !p.isOnline()) return;
@@ -128,9 +188,10 @@ public final class SlayerModule implements Listener {
             }
         } catch (IllegalArgumentException e) { plugin.getLogger().warning(Settings.text("slayer", "SlayerModule.mensaje-019", "UUID inválido en slayer-data.yml: {id}", "id", id)); }
     }
-    private void save() {
+    private boolean save() {
         var data = new YamlConfiguration(); missions.forEach((id, values) -> values.forEach((c,m) -> {
             String root = id + "." + c; data.set(root + ".tier",m.tier); data.set(root + ".kills",m.kills); data.set(root + ".required",m.required); data.set(root + ".active",m.active);
-        })); if (YamlStore.save(plugin,"slayer-data.yml",data)) dirty = false;
+        })); if (YamlStore.save(plugin,"slayer-data.yml",data)) { dirty = false; return true; }
+        return false;
     }
 }
