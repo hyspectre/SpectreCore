@@ -18,7 +18,7 @@ assert set(menu["pages"]) == {"misiones", "revenant", "progresion"}
 
 for name, page in menu["pages"].items():
     assert page["size"] == 54, name
-    assert page["title"].startswith("&8⧇ &6Misiones"), name
+    assert page["title"].startswith("<dark_gray>⧇ <gold>Misiones"), name
     items = page["items"]
     slots = [item["slot"] for item in items.values()]
     assert len(slots) == len(set(slots)), f"Duplicate slots {name}"
@@ -81,6 +81,7 @@ assert "contractPriceLabel" in slayer and "objectiveForTier" in slayer
 assert "cancellationPriceLabel" in slayer and "phonePriceLabel" in slayer
 assert "resolveLore(player, page, id, line)" in java
 assert ".decoration(TextDecoration.ITALIC, false)" in java
+assert "TextService.component(source)" in java
 assert 'route("misiones","misiones","slayer",Access.PUBLIC' in routes
 assert 'route("misiones monarquia","misiones","slayer",Access.PUBLIC' in routes
 print("PASS Native Misiones: 3 Paper GUIs, 37 slots, valid textures, progression, no italic and unchanged fees")
