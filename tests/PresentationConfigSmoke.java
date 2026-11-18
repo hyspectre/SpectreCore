@@ -27,6 +27,19 @@ public final class PresentationConfigSmoke {
         var messages=read("trabajos/mensajes.yml");messages.set("JobsModule.mensaje-001","&aMensaje propio {jugador}");save("trabajos/mensajes.yml",messages);manager.reload();
         check(Settings.text("trabajos","JobsModule.mensaje-001","fallback","jugador","Alex").equals("§aMensaje propio Alex"),"Live text, color and placeholder edits applied");
         check(Settings.format("{uno}/{dos}","uno","{dos}","dos","$x\\name").equals("{dos}/$x\\name"),"One-pass literal placeholder replacement");
+        // MiniMessage migration: preserve legacy colors and never parse user-controlled markup.
+        var plainText = net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer.plainText();
+        var decorated = dev.hydev.spectrecore.text.TextService.component("§6§lMonarquía §cRenacida");
+        check(plainText.serialize(decorated).equals("Monarquía Renacida"), "Legacy colors render via MiniMessage");
+        var untrusted = dev.hydev.spectrecore.text.TextService.render(
+                "<gold>Jugador: <white>{nombre}", java.util.Map.of("nombre","<red>INYECCIÓN</red>"));
+        check(plainText.serialize(untrusted).equals("Jugador: <red>INYECCIÓN</red>"),
+                "Untrusted name remains literal, not MiniMessage markup");
+        var trusted = dev.hydev.spectrecore.text.TextService.render("<gray>Estado: {estado}",
+                java.util.Map.of("estado", dev.hydev.spectrecore.text.TextService.component("<green>ACTIVO")));
+        check(plainText.serialize(trusted).equals("Estado: ACTIVO"),
+                "Trusted nested component retains Adventure styling");
+
         var effects=read("trabajos/ajustes.yml");String volume=effects.getKeys(true).stream().filter(k->k.contains("playsound")&&k.endsWith("arg2")).findFirst().orElseThrow();
         effects.set(volume,1.35);save("trabajos/ajustes.yml",effects);manager.reload();
         check(Math.abs(Settings.f("trabajos",volume,0)-1.35)<.00001,"Fractional volume edit applied despite integral original API literal");
