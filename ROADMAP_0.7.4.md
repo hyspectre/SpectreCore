@@ -69,7 +69,9 @@ Contrato actual:
 - [x] Cancelación de clics/arrastres y transiciones de inventario programadas en el siguiente tick.
 - [x] Validador estático de menús originales y nuevos, texturas reales y tarifas existentes.
 - [ ] QA visual y económico ingame, actualización de NPC/Teléfono Rojo y retirada de accesos antiguos de zMenu (sin reinicios ahora).
-- [ ] Tras la única ventana de mantenimiento, decidir cuándo habilitar `contratos.habilitados` y `acceso-remoto.habilitado` para permitir pagos.
+- [x] Activar `contratos.habilitados: true` y `acceso-remoto.habilitado: true` por defecto **en la rama de desarrollo**, a petición del administrador. No afecta Hydev ni sobreescribe un `false` persistido en producción.
+- [x] Rehacer presentación de ambas páginas con una jerarquía visual uniforme y lore de precios/objetivos leídos de configuración Slayer.
+- [ ] Antes de abrir acceso público tras instalar, eliminar enlaces activos de zMenu y comprobar permisos, Vault y compras.
 
 Documentación: `MIGRACION_MISIONES_NATIVAS_0.7.4.md`. Los dos YAML de `integracion-zmenu` que existían previamente ya no son el destino de despliegue de esta funcionalidad.
 
@@ -91,12 +93,11 @@ Documentación: `MIGRACION_MISIONES_NATIVAS_0.7.4.md`. Los dos YAML de `integrac
 
 **No incluye:** mecánicas nuevas fuera de este roadmap; no modificar la economía ni las probabilidades actuales sin solicitud expresa.
 
-## Hito G — Migración de zMenu «Misiones» / «Monarquía Renacida»
+## Hito G — Menús nativos de Trabajos (próximos archivos)
 
-- [x] Dos menús de 54 slots rediseñados con misma familia visual (Índice de Misiones / Monarquía Renacida). Conservan las cabezas Base64, precios 200/500/950 y objetivos 20/50/90.
-- [x] Los tres contratos y cancelación invocan exclusivamente comandos de jugador `/spectrecore slayer contratar|abandonar`. No usar withdrawals ni `player-command-as-op` en zMenu.
-- [x] Preparar compra nativa del `MATERIAL:TELEFONO1` por 500 ↾, validando disponibilidad de MMOItems, inventario y confirmación Vault, sin elevar privilegios.
-- [ ] Integrar menús al despliegue sincronizado (los archivos deben reemplazar los inventarios activos de zMenu solo tras instalar el JAR nuevo).
-- [ ] Activar explícitamente `contratos.habilitados` y `acceso-remoto.habilitado` en staging, mediante reload si fuera necesario, tras backup.
-- [ ] Pruebas de compra de teléfono, no duplicación de objetos, inventario lleno, y errores Vault/MMOItems.
-- [ ] Comprobar identificadores de archivos zMenu `misiones` y `slayer_zombie`; ambos deben coincidir con los registrados en el servidor.
+- [ ] Recibir y estudiar los menús de Trabajos del usuario como referencias visuales, sin depender de zMenu para ejecutarlos.
+- [ ] Crear inventarios de Paper con familia visual compartida con Misiones, configurable desde YAML de SpectreCore.
+- [ ] Mostrar nivel personal, requisitos, ingresos mínimos/máximos, tiempos de cooldown y estado a partir de `modules/trabajos/config.yml` y permisos vigentes; **nunca copiar cifras como constantes en el lore**.
+- [ ] Si el archivo de configuración no define dinero o cooldown para un rango, mostrar «Sin configurar» o «No disponible», no estimar valores.
+- [ ] Preservar los controles de economía y antiexploit existentes y automatizar pruebas Java/CI.
+- [ ] QA ingame en la misma ventana única de mantenimiento.
