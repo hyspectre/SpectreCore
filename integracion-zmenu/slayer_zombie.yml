@@ -55,7 +55,7 @@ items:
         - '&e&l ᴍɪsɪóɴ: &r&fDerrota &a20 &fZombis.'
         - '#5F5851 ■ &fᴘʀᴇᴄɪᴏ: &6200 &f↾'
         - ''
-        - '&#FFCC55  ► ᴄʟɪᴄ ᴘᴀʀᴀ ᴄᴏɴᴛʀᴀᴛᴀʀ
+        - '&#FFCC55  ► ᴄʟɪᴄ ᴘᴀʀᴀ ᴄᴏɴᴛʀᴀᴛᴀʀ'
   2:
     slot: 23
     actions:
@@ -90,7 +90,7 @@ items:
         - '&e&l ᴍɪsɪóɴ: &r&fDerrota &a50 &fZombis.'
         - '#5F5851 ■ &fᴘʀᴇᴄɪᴏ: &6500 &f↾'
         - ''
-        - '&#FFCC55  ► ᴄʟɪᴄ ᴘᴀʀᴀ ᴄᴏɴᴛʀᴀᴛᴀʀ
+        - '&#FFCC55  ► ᴄʟɪᴄ ᴘᴀʀᴀ ᴄᴏɴᴛʀᴀᴛᴀʀ'
   3:
     slot: 25
     actions:
@@ -126,7 +126,7 @@ items:
         - '&e&l ᴍɪsɪóɴ: &r&fDerrota &a90 &fZombis.'
         - '#5F5851 ■ &fᴘʀᴇᴄɪᴏ: &6950 &f↾'
         - ''
-        - '&#FFCC55  ► ᴄʟɪᴄ ᴘᴀʀᴀ ᴄᴏɴᴛʀᴀᴛᴀʀ
+        - '&#FFCC55  ► ᴄʟɪᴄ ᴘᴀʀᴀ ᴄᴏɴᴛʀᴀᴛᴀʀ'
   ComoCrear:
     slot: 10
     sound: entity.villager.yes
