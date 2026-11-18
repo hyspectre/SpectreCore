@@ -188,7 +188,7 @@ public final class JobsModule implements Listener {
         long remaining = ProgressRules.remaining(last.getOrDefault(key, -1L), now, (long) (cooldown * 1000));
         if (remaining > 0) {
             if (now - messages.getOrDefault(key, 0L) >= Math.max(0,config.getLong("avisos.intervalo-cooldown-milisegundos",5000))) {
-                p.sendActionBar(Settings.component(Settings.text("trabajos", "JobsModule.mensaje-005", "Espera {remaining-999-1000} s para otra recompensa de {job}", "remaining-999-1000", ((remaining + 999) / 1000), "job", job), Settings.color("trabajos", "JobsModule.color-001", NamedTextColor.RED))); messages.put(key, now);
+                p.sendActionBar(Settings.component(Settings.text("trabajos", "JobsModule.mensaje-005", "§cDebes esperar §e{remaining-999-1000}s §cantes de recibir más recompensas.", "remaining-999-1000", ((remaining + 999) / 1000), "job", job), Settings.color("trabajos", "JobsModule.color-001", NamedTextColor.RED))); messages.put(key, now);
             }
             return;
         }
