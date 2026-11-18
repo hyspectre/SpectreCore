@@ -35,8 +35,8 @@ Contrato actual del código:
 - CD 45 s, velocidad activa +6 %.
 
 Desarrollo:
-- [ ] Extender AuraSkillsBridge a otras estadísticas de forma configurable y testeable.
-- [ ] Aplicar Strength pasivo y activo, evitando doble daño del sistema legado. Calibración inicial orientativa: +9 Strength para 3 %, +18 adicional para 6 %, sujeto a prueba en Hydev.
+- [x] Extender AuraSkillsBridge para estadísticas Strength, Toughness y Speed (API). Toughness/Speed quedan sin integrar en armaduras hasta calibrarlos.
+- [x] Preparar Strength pasivo y activo con fallback sin doble daño, **opt-in desactivado por defecto** hasta calibrar. Referencia provisional: +9 Strength para 3 %, +18 adicional para 6 %; requiere comprobación ingame.
 - [ ] Evaluar Toughness con configuración real de `stats.yml`, **sin inventar** equivalencia de puntos a reducción porcentual; mantener protección de daño legado hasta calibrar y verificar.
 - [ ] Mantener velocidad con atributos Paper hasta determinar equivalencia sin duplicados.
 - [ ] Tests de curación, espada DRAGON y cancelación.
