@@ -22,3 +22,16 @@ avisos:
 invocacion:
   reintento-milisegundos: 5000
   nivel-mob: 1
+
+# Contratos de jugador. DESACTIVADOS hasta migrar zMenu y probar Vault en staging.
+# Los precios de Revenant replican el menú Hordas; otros rangos quedan sin precio,
+# así que se rechazan hasta configurarse explícitamente.
+contratos:
+  habilitados: false
+  precios:
+    revenant:
+      tier1: 200
+      tier2: 500
+      tier3: 950
+  cancelacion:
+    revenant: 200
