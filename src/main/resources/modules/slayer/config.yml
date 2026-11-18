@@ -23,17 +23,19 @@ invocacion:
   reintento-milisegundos: 5000
   nivel-mob: 1
 
-# Contratos de jugador. DESACTIVADOS hasta migrar zMenu y probar Vault en staging.
+# Contratos desde la interfaz nativa de SpectreCore.
+# Activados por defecto en NUEVAS instalaciones de 0.7.4; requieren el nuevo JAR.
+# Antes de desplegar, retirar accesos/cobros antiguos de zMenu y respaldar el servidor.
 # Los precios de Revenant replican el menú Hordas; otros rangos quedan sin precio,
 # así que se rechazan hasta configurarse explícitamente.
 acceso-remoto:
-  habilitado: false # Activar solo despues de desplegar juntos el JAR y misiones.yml
+  habilitado: true
   precio: 500
   tipo: MATERIAL
   id: TELEFONO1
 
 contratos:
-  habilitados: false
+  habilitados: true
   precios:
     revenant:
       tier1: 200
