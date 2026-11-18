@@ -57,7 +57,7 @@ public final class JobsModule implements Listener {
                 return true;
             }
             p.sendMessage(Settings.message("trabajos", "JobsModule.mensaje-002", "§6✦ NIVELES DE TRABAJO"));
-            for (String job : List.of("minero", "granjero", "cazador")) { int tier = rank(p, job); p.sendMessage(Settings.message("trabajos", "JobsModule.mensaje-003","§7▪ §f{job}: {valor2}","job", job,"valor2", (!dev.hydev.spectrecore.config.ModuleConfiguration.of(plugin).active("trabajos."+job)?Settings.component(Settings.text("trabajos", "JobsModule.texto-001", "§cDesactivado"))):tier == 0 ? Settings.component(Settings.text("trabajos", "JobsModule.texto-002", "§cNo disponible"))) : Settings.component(Settings.text("trabajos", "JobsModule.texto-003", "§e") + ProgressRules.rank(tier))))); }
+            for (String job : List.of("minero", "granjero", "cazador")) { int tier = rank(p, job); p.sendMessage(Settings.message("trabajos", "JobsModule.mensaje-003","§7▪ §f{job}: {valor2}","job", job,"valor2", (!dev.hydev.spectrecore.config.ModuleConfiguration.of(plugin).active("trabajos."+job)?Settings.component(Settings.text("trabajos", "JobsModule.texto-001", "§cDesactivado")):tier == 0 ? Settings.component(Settings.text("trabajos", "JobsModule.texto-002", "§cNo disponible")) : Settings.component(Settings.text("trabajos", "JobsModule.texto-003", "§e") + ProgressRules.rank(tier))))); }
             p.sendMessage(Settings.message("trabajos", "JobsModule.mensaje-004", "§7Mejora tu nivel firmando §6contratos§7.")); return true;
         });
         timer = Bukkit.getScheduler().runTaskTimer(plugin, () -> { if (dirty) save(); }, 200, 200);
