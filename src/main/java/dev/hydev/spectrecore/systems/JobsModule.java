@@ -3,6 +3,8 @@ package dev.hydev.spectrecore.systems;
 import dev.hydev.spectrecore.config.Settings;
 import dev.hydev.spectrecore.activities.ActivityRules;
 import dev.hydev.spectrecore.mining.PlacedOres;
+import dev.hydev.spectrecore.guide.JobsMenu;
+import dev.hydev.spectrecore.integration.LuckPermsContractBridge;
 import dev.hydev.spectrecore.treasure.CombatTreasureRules;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -23,6 +25,9 @@ public final class JobsModule implements Listener {
     private YamlConfiguration config; private final Map<String, Long> last = new HashMap<>(), messages = new HashMap<>();
     private final Set<String> warned = new HashSet<>(); private BukkitTask timer; private boolean dirty;
     private final PlacedOres previousMining, previousCrops;
+    private LuckPermsContractBridge permissions;
+    private JobsMenu menu;
+    private final Set<UUID> purchasesInProgress = new HashSet<>();
     private final Map<BlockBreakEvent, Boolean> provenance = new WeakHashMap<>();
     public JobsModule(JavaPlugin plugin) {
         this.plugin = plugin; placed = new PlacedOres(plugin, "jobs_placed_v1", m -> dev.hydev.spectrecore.config.Gameplay.tier("trabajos-mineria", m.name()) > 0 || dev.hydev.spectrecore.config.Gameplay.tier("agricultura", m.name()) > 0);
@@ -36,8 +41,20 @@ public final class JobsModule implements Listener {
             if (section != null) for (String id : section.getKeys(false)) last.put(job + "." + id, section.getLong(id));
         }
         Bukkit.getPluginManager().registerEvents(this, plugin); Bukkit.getPluginManager().registerEvents(placed, plugin);
+        if (Bukkit.getPluginManager().isPluginEnabled("LuckPerms")) {
+            try { permissions = new LuckPermsContractBridge(plugin); }
+            catch (LinkageError error) { plugin.getLogger().warning("LuckPerms API no disponible: compras de trabajo deshabilitadas."); }
+        }
+        menu = new JobsMenu(plugin, this);
+        menu.enable();
         if (dev.hydev.spectrecore.command.CommandRouter.of(plugin).get("trabajo") != null) dev.hydev.spectrecore.command.CommandRouter.of(plugin).get("trabajo").setExecutor((sender, cmd, label, args) -> {
             if (!(sender instanceof Player p)) { sender.sendMessage(Settings.text("trabajos", "JobsModule.mensaje-001", "Usa /spectrecore trabajos dentro del juego.")); return true; }
+            if (args.length == 0 || !args[0].equalsIgnoreCase("estado")) {
+                String page = args.length > 0 && JobsContractRules.JOBS.contains(args[0].toLowerCase(Locale.ROOT))
+                        ? args[0].toLowerCase(Locale.ROOT) : "trabajos";
+                if (menu != null) menu.open(p, page);
+                return true;
+            }
             p.sendMessage(Settings.text("trabajos", "JobsModule.mensaje-002", "§6✦ NIVELES DE TRABAJO"));
             for (String job : List.of("minero", "granjero", "cazador")) { int tier = rank(p, job); p.sendMessage(Settings.text("trabajos", "JobsModule.mensaje-003","§7▪ §f{job}: {valor2}","job", job,"valor2", (!dev.hydev.spectrecore.config.ModuleConfiguration.of(plugin).active("trabajos."+job)?Settings.text("trabajos", "JobsModule.texto-001", "§cDesactivado"):tier == 0 ? Settings.text("trabajos", "JobsModule.texto-002", "§cNo disponible") : Settings.text("trabajos", "JobsModule.texto-003", "§e") + ProgressRules.rank(tier)))); }
             p.sendMessage(Settings.text("trabajos", "JobsModule.mensaje-004", "§7Mejora tu nivel firmando §6contratos§7.")); return true;
@@ -47,13 +64,80 @@ public final class JobsModule implements Listener {
     public void reload() {
         config = dev.hydev.spectrecore.config.ModuleConfiguration.module(plugin, "trabajos/config.yml");
         warned.clear();
+        if (menu != null) menu.reload();
     }
-    public void disable() { if (timer != null) timer.cancel(); HandlerList.unregisterAll(this); HandlerList.unregisterAll(placed); save(); }
+    public void disable() {
+        if (timer != null) timer.cancel();
+        if (menu != null) { menu.disable(); menu = null; }
+        HandlerList.unregisterAll(this); HandlerList.unregisterAll(placed); save();
+        if (!purchasesInProgress.isEmpty())
+            plugin.getLogger().warning("TRABAJOS: Hay " + purchasesInProgress.size() + " compra(s) LuckPerms pendiente(s) al apagar; revisar saldos si hubo errores.");
+    }
     private void save() { var yaml = new YamlConfiguration(); last.forEach(yaml::set); if (YamlStore.save(plugin, "jobs-data.yml", yaml)) dirty = false; }
-    private int rank(Player p, String job) {
+    public int rank(Player p, String job) {
         for (int tier = 3; tier >= 1; tier--) if (p.hasPermission("trabajo." + job + "." + ProgressRules.rank(tier))) return tier;
         return 0;
     }
+    public boolean isPending(Player p) { return purchasesInProgress.contains(p.getUniqueId()); }
+
+    /** Main-thread purchase entry point, shared by native UI and command routes. */
+    public void purchase(Player player, String job, String level) {
+        String priceKey = "contratos.precios." + level;
+        Object raw = config.get(priceKey);
+        long price = raw instanceof Number n && Double.isFinite(n.doubleValue())
+                && n.doubleValue() == Math.rint(n.doubleValue()) ? n.longValue() : -1;
+        boolean enabled = config.getBoolean("contratos.habilitados", false)
+                && dev.hydev.spectrecore.config.ModuleConfiguration.of(plugin).active("trabajos." + job);
+        var result = JobsContractRules.validate(job, level, enabled,
+                JobsContractRules.JOBS.contains(job) ? rank(player, job) : 0,
+                price, isPending(player));
+        if (result != JobsContractRules.Refusal.NONE) {
+            player.sendMessage(Settings.text("trabajos", "JobsModule.contrato-rechazado",
+                    "§cNo puedes firmar este contrato: {motivo}", "motivo", result.name()));
+            player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 0.6f, 1f);
+            return;
+        }
+        if (permissions == null || !permissions.ready(player)) {
+            player.sendMessage(Settings.text("trabajos", "JobsModule.contrato-sin-luckperms",
+                    "§cLuckPerms no está disponible; no se ha cobrado."));
+            return;
+        }
+        UUID id = player.getUniqueId();
+        purchasesInProgress.add(id);
+        if (economy.withdraw(player, price) != EconomyBridge.Result.CONFIRMED) {
+            purchasesInProgress.remove(id);
+            player.sendMessage(Settings.text("trabajos", "JobsModule.contrato-sin-saldo",
+                    "§cNo se pudo confirmar el pago mediante Vault."));
+            player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 0.6f, 1f);
+            return;
+        }
+        // All the permission work is performed via LuckPerms, never an OP console command.
+        permissions.grant(player, job, level).whenComplete((saved, error) -> {
+            if (!plugin.isEnabled()) {
+                plugin.getLogger().severe("TRABAJO PENDIENTE DE RECONCILIACION AL CERRAR: " + id
+                        + " " + job + " " + level + " pagado=" + price);
+                return;
+            }
+            Bukkit.getScheduler().runTask(plugin, () -> {
+                purchasesInProgress.remove(id);
+                if (error != null || !Boolean.TRUE.equals(saved)) {
+                    if (economy.deposit(player, price, false) != EconomyBridge.Result.CONFIRMED)
+                        plugin.getLogger().severe("REEMBOLSO DE TRABAJO FALLIDO: " + id
+                                + " " + job + " " + level + " monto=" + price);
+                    if (player.isOnline()) player.sendMessage(Settings.text("trabajos", "JobsModule.contrato-fallo",
+                            "§cNo se pudo guardar el contrato. Se intentó devolver el pago."));
+                    return;
+                }
+                if (player.isOnline()) {
+                    player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 0.7f, 1.2f);
+                    player.sendMessage(Settings.text("trabajos", "JobsModule.contrato-exito",
+                            "§aContrato firmado: {trabajo} {rango}. Precio: {precio} ↾.",
+                            "trabajo", job, "rango", level, "precio", price));
+                }
+            });
+        });
+    }
+
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void broken(BlockBreakEvent e) {
         boolean wasPlaced = placed.consume(e.getBlock());
