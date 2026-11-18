@@ -87,7 +87,7 @@ public final class CommandRouter {
                         for(String skill:List.of("botania","necrotica","asterion","ultimo-juramento","sangre-primer-dragon"))if(plugin.moduleConfigs().active("equipamiento."+skill))result.add(skill);
                     } else if(route.path().startsWith("slayer ")&&!route.target().equals("slayerstats")) {
                         if(remaining==1)result.addAll(List.of("revenant","necromancer","spider"));
-                        else if(remaining==2&&route.target().equals("activarslayer"))result.addAll(List.of("1","2","3"));
+                        else if(remaining==2&&(route.target().equals("activarslayer")||route.target().equals("contratarslayer")))result.addAll(List.of("1","2","3"));
                     } else if(route.path().equals("tesoros gema")&&remaining==1)result.addAll(List.of("basica","intermedia","superior"));
                     else if(route.path().startsWith("tesoros ")&&!route.path().equals("tesoros abrir")&&remaining==1)result.addAll(List.of("1","2","3"));
                     else if((route.path().startsWith("portal ")&&!route.path().equals("portal limpiar")||route.path().equals("blink"))&&remaining==1)plugin.getServer().getOnlinePlayers().forEach(p->result.add(p.getName()));
