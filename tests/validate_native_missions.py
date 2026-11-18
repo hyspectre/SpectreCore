@@ -14,7 +14,7 @@ resource = root / "src/main/resources/ui/misiones.yml"
 raw = resource.read_text(encoding="utf-8")
 menu = yaml.safe_load(raw)
 assert menu["enabled"] is True
-assert set(menu["pages"]) == {"misiones", "revenant"}
+assert set(menu["pages"]) == {"misiones", "revenant", "progresion"}
 
 for name, page in menu["pages"].items():
     assert page["size"] == 54, name
@@ -36,7 +36,9 @@ for name, page in menu["pages"].items():
 
 main = menu["pages"]["misiones"]["items"]
 revenant = menu["pages"]["revenant"]["items"]
-assert len(main) == 12 and len(revenant) == 10
+assert len(main) == 13 and len(revenant) == 10
+assert len(menu["pages"]["progresion"]["items"]) == 14
+assert main["progresion"]["slot"] == 31
 assert main["1"]["slot"] == 13
 assert main["telefono"]["slot"] == 50
 assert main["cerrar"]["slot"] == 48
@@ -77,7 +79,8 @@ assert "Bukkit.dispatchCommand(" not in java and "dispatchCommand(" not in java
 assert "contractsEconomy.withdraw" in slayer and "validateStart" in slayer
 assert "contractPriceLabel" in slayer and "objectiveForTier" in slayer
 assert "cancellationPriceLabel" in slayer and "phonePriceLabel" in slayer
-assert "resolveLore(page, id, line)" in java
+assert "resolveLore(player, page, id, line)" in java
+assert ".decoration(TextDecoration.ITALIC, false)" in java
 assert 'route("misiones","misiones","slayer",Access.PUBLIC' in routes
 assert 'route("misiones monarquia","misiones","slayer",Access.PUBLIC' in routes
-print("PASS Native Misiones: 2 Paper GUIs, 22 slots, genuine textures, server-validated actions and unchanged fees")
+print("PASS Native Misiones: 3 Paper GUIs, 37 slots, valid textures, progression, no italic and unchanged fees")
