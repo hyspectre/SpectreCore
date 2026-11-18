@@ -425,7 +425,10 @@ public final class SlayerModule implements Listener {
         p.showTitle(Title.title(
                 Settings.component("¡JEFE INVOCADO!", Settings.color("slayer", "SlayerModule.color-002", NamedTextColor.GOLD)),
                 Settings.component(name(category) + " §7· derrota al monarca", Settings.color("slayer", "SlayerModule.color-003", NamedTextColor.YELLOW)),
-                Title.Times.times(Duration.ofMillis(150), Duration.ofSeconds(3), Duration.ofMillis(400))));
+                Title.Times.times(
+                        Duration.ofMillis(Settings.i("slayer", "SlayerModule.ofmillis-003-arg0", 150)),
+                        Duration.ofSeconds(Settings.i("slayer", "SlayerModule.ofseconds-004-arg0", 3)),
+                        Duration.ofMillis(Settings.i("slayer", "SlayerModule.ofmillis-005-arg0", 400)))));
         p.playSound(p.getLocation(), Settings.sound("slayer", "SlayerModule.sound-004", Sound.ENTITY_WITHER_SPAWN),
                 Settings.f("slayer", "SlayerModule.playsound-006-arg2", 1),
                 Settings.f("slayer", "SlayerModule.playsound-007-arg3", .8f));
@@ -434,7 +437,11 @@ public final class SlayerModule implements Listener {
             double angle = i * Math.PI / 16;
             center.getWorld().spawnParticle(Settings.particle("slayer", "SlayerModule.particle-005", Particle.SOUL_FIRE_FLAME),
                     center.clone().add(Math.cos(angle) * 1.4, 0, Math.sin(angle) * 1.4),
-                    1, 0, 0, 0, .02);
+                    Settings.i("slayer", "SlayerModule.spawnparticle-008-arg2", 1),
+                    Settings.d("slayer", "SlayerModule.spawnparticle-009-arg3", 0),
+                    Settings.d("slayer", "SlayerModule.spawnparticle-010-arg4", 0),
+                    Settings.d("slayer", "SlayerModule.spawnparticle-011-arg5", 0),
+                    Settings.d("slayer", "SlayerModule.spawnparticle-012-arg6", .02));
         }
     }
 
