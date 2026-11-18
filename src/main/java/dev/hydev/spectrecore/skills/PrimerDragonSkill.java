@@ -25,6 +25,8 @@ import java.util.UUID;
 /** Sangre del Primer Dragón: automatically triggered universal blessing and temporary spirit. */
 public final class PrimerDragonSkill implements SkillModule {
     private static final String SPEED_KEY = "primer_dragon_speed";
+    private static final String PASSIVE_STRENGTH_KEY = "spectrecore_dragon_passive_strength";
+    private static final String ACTIVE_STRENGTH_KEY = "spectrecore_dragon_active_strength";
     private static final class State {
         long start, baseEnd, extendedEnd, lastHit = -100000;
         int meleeHits;
@@ -48,6 +50,23 @@ public final class PrimerDragonSkill implements SkillModule {
     private boolean active(Player p, State s, long tick) {
         return s != null && s.baseEnd > 0 && (tick < CombatRules.blessingEnd(s.baseEnd, s.extendedEnd, withSword(p)));
     }
+    /** Optional early-access mode; default false until Hydev calibrates its actual AuraSkills stats.yml. */
+    private void syncAuraStrength(Player p, State s, long tick) {
+        var aura = plugin.auraSkillsBridge();
+        if (aura == null) return;
+        if (!plugin.getConfig().getBoolean("skills.sangre-primer-dragon.auraskills.enabled", false)) {
+            aura.remove(p, PASSIVE_STRENGTH_KEY);
+            aura.remove(p, ACTIVE_STRENGTH_KEY);
+            return;
+        }
+        if (!aura.isApplied(p, PASSIVE_STRENGTH_KEY))
+            aura.applyStrength(p, PASSIVE_STRENGTH_KEY, d("auraskills.passive-strength", 9.0), 60);
+        if (active(p, s, tick)) {
+            if (!aura.isApplied(p, ACTIVE_STRENGTH_KEY))
+                aura.applyStrength(p, ACTIVE_STRENGTH_KEY, d("auraskills.active-extra-strength", 18.0),
+                        Math.max(3, i("duration-seconds", 10) + i("weapon-duration-bonus-seconds", 2) + 3));
+        } else aura.remove(p, ACTIVE_STRENGTH_KEY);
+    }
     @Override public void onMelee(Player p, LivingEntity enemy, long tick) {
         if (!access(p)) return;
         State s = state(p);
@@ -68,6 +87,7 @@ public final class PrimerDragonSkill implements SkillModule {
         s.extendedEnd = s.baseEnd + Math.max(0, i("weapon-duration-bonus-seconds", 2)) * 20L;
         s.activation = UUID.randomUUID();
         s.meleeHits = 0;
+        syncAuraStrength(p, s, tick);
         plugin.effects().setAttribute(p, Attribute.MOVEMENT_SPEED, SPEED_KEY, d("speed-bonus", .06),
                 AttributeModifier.Operation.ADD_SCALAR);
         s.speedApplied = true;
@@ -89,9 +109,12 @@ public final class PrimerDragonSkill implements SkillModule {
     }
     @Override public double outgoingMultiplier(Player p, LivingEntity target, long tick) {
         if (!access(p)) return 1;
-        double bonus = d("passive-damage-bonus", .03);
-        if (active(p, states.get(p.getUniqueId()), tick)) bonus += d("active-damage-bonus", .06);
-        return 1 + bonus;
+        var aura = plugin.auraSkillsBridge();
+        boolean passiveApplied = aura != null && aura.isApplied(p, PASSIVE_STRENGTH_KEY);
+        boolean activeApplied = aura != null && aura.isApplied(p, ACTIVE_STRENGTH_KEY);
+        return CombatRules.dragonMultiplier(passiveApplied, activeApplied,
+                active(p, states.get(p.getUniqueId()), tick),
+                d("passive-damage-bonus", .03), d("active-damage-bonus", .06));
     }
     @Override public double incomingMultiplier(Player p, long tick) {
         if (!access(p)) return 1;
@@ -146,9 +169,9 @@ public final class PrimerDragonSkill implements SkillModule {
     @Override public void tick(long tick) {
         for (Player p : Bukkit.getOnlinePlayers()) {
             UUID id = p.getUniqueId();
-            State s = states.get(id);
-            if (s == null) continue;
             if (!p.isValid() || p.isDead() || !access(p)) { clear(id); continue; }
+            State s = state(p);
+            syncAuraStrength(p, s, tick);
             if (!active(p, s, tick)) {
                 if (s.speedApplied) {
                     plugin.effects().clearAttribute(p, Attribute.MOVEMENT_SPEED, SPEED_KEY);
@@ -164,9 +187,13 @@ public final class PrimerDragonSkill implements SkillModule {
     }
     @Override public void clear(UUID id) {
         State s = states.remove(id);
+        Player p = Bukkit.getPlayer(id);
+        if (p != null && plugin.auraSkillsBridge() != null) {
+            plugin.auraSkillsBridge().remove(p, PASSIVE_STRENGTH_KEY);
+            plugin.auraSkillsBridge().remove(p, ACTIVE_STRENGTH_KEY);
+        }
         if (s == null) return;
         removeDragon(s);
-        Player p = Bukkit.getPlayer(id);
         if (p != null && s.speedApplied) plugin.effects().clearAttribute(p, Attribute.MOVEMENT_SPEED, SPEED_KEY);
     }
     @Override public String status(Player p) {
