@@ -51,6 +51,28 @@ for path in (root/'src/main/java').rglob('*.java'):
             used.setdefault(config,set()).add(key);count+=1
             catalog.append({'archivo':config,'clave':key,'predeterminado':expected,'origen':'CommandRouter.java'})
 assert 'Settings.install(moduleConfigs);' in (root/'src/main/java/dev/hydev/spectrecore/SpectreCorePlugin.java').read_text(encoding='utf8'), 'Missing live settings binding'
+# ToastService uses dynamically named presets, not literal Settings calls.
+# Keep key completeness strict: only its documented fields may be present.
+presets = {'furia', 'resonancia', 'gema-basica', 'gema-intermedia', 'gema-superior',
+           'trabajo-minero', 'trabajo-granjero', 'trabajo-cazador'}
+toast = configs['nucleo/ajustes.yml']
+assert toast['toasts.enabled'] in (True, False)
+assert type(toast['toasts.intervalo-global-segundos']) is int and 0 <= toast['toasts.intervalo-global-segundos'] <= 600
+toast_keys = {'toasts.enabled', 'toasts.intervalo-global-segundos'}
+for event in presets:
+    flag = 'toasts.eventos.' + event
+    toast_keys.add(flag)
+    assert type(toast[flag]) is bool, flag
+    for field in ('titulo','descripcion','icon'):
+        key = 'toasts.presets.' + event + '.' + field
+        toast_keys.add(key)
+        assert type(toast[key]) is str and 0 < len(toast[key]) <= 120, key
+        if field == 'icon':
+            assert re.fullmatch(r'(minecraft:)?[a-z0-9_]+',toast[key]), key
+used.setdefault('nucleo/ajustes.yml',set()).update(toast_keys)
+for key in sorted(toast_keys):
+    catalog.append({'archivo':'nucleo/ajustes.yml','clave':key,'predeterminado':toast[key],
+                    'origen':'ToastService.java (dynamic)'})
 for path,values in configs.items():
     if path.endswith(('/mensajes.yml','/ajustes.yml')):
         # Historical book palette keys remain readable for migration compatibility.
