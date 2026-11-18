@@ -69,8 +69,7 @@ ArmorGuide:
   mensaje-023: "Habilidad extra de MMOItems: {valor1}."
   mensaje-024: "{valor1}: {level-get-key}"
   mensaje-025: ""
-  mensaje-026: "El arma no es necesaria para activar la habilidad de 4 piezas. Los bonos de MMOItems se leen del servidor al"
-    abrir esta guía.
+  mensaje-026: "El arma no es necesaria para activar la habilidad de 4 piezas. Los bonos de MMOItems se leen del servidor al abrir esta guía."
   mensaje-027: ""
   mensaje-028: "Equipa las cuatro piezas del mismo conjunto en sus ranuras."
   mensaje-029: "Acierta {v-e-hits-required-4} golpes cuerpo a cuerpo a enemigos. Máximo {valor2} entre golpes."
