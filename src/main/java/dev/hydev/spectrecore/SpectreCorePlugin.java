@@ -222,7 +222,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
         if (getConfig().getBoolean("modules.exit-portal.enabled", true)) { portal = new dev.hydev.spectrecore.systems.PortalModule(this); portal.enable(); }
         java.util.Map<String, Boolean> systemCommands = new java.util.HashMap<>();
         systemCommands.put("trabajo", jobs != null);
-        for (String name : List.of("activarslayer","cancelarslayer","resetslayer","slayerstats","slayerinvocar")) systemCommands.put(name, slayer != null);
+        for (String name : List.of("activarslayer","cancelarslayer","resetslayer","slayerstats","slayerinvocar","contratarslayer","abandonarslayer")) systemCommands.put(name, slayer != null);
         for (String name : List.of("hydevportaljoin","hydevportalleave","hydevportalcleanup","hydevportalstatus","hydevportaldemo")) systemCommands.put(name, portal != null);
         systemCommands.forEach((name, enabled) -> { if (!enabled && commandRouter.get(name) != null) commandRouter.get(name).setExecutor((sender,command,label,args) -> { sender.sendMessage(Settings.text("nucleo", "SpectreCorePlugin.mensaje-005", "Ese módulo está desactivado.")); return true; }); });
         if (getCommand("spectrecore") != null) getCommand("spectrecore").setTabCompleter(this);
