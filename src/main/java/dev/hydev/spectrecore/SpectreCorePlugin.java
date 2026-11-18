@@ -100,6 +100,9 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
     public AuraSkillsBridge auraSkillsBridge() { return auraSkillsBridge; }
     public ToastService toasts() { return toastService; }
     private boolean applyingSkillDamage;
+    private record CombatTrace(String attacker, String enemy, double original, double requested, double factor) { }
+    private final java.util.Map<EntityDamageByEntityEvent, CombatTrace> combatTraces = new java.util.WeakHashMap<>();
+    private final java.util.Map<UUID, Long> combatLogLast = new HashMap<>();
     private dev.hydev.spectrecore.command.CommandRouter commandRouter;
     public dev.hydev.spectrecore.command.CommandRouter commands() { return commandRouter; }
     private dev.hydev.spectrecore.config.ModuleConfiguration moduleConfigs;
@@ -287,7 +290,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
         if (visuals != null) visuals.removeOrphans();
         if (displayModels != null) { displayModels.stop(); displayModels = null; }
         if (mago != null) { mago.close(); mago = null; }
-        modules.clear(); demo.clear(); cooldowns.clearAll();
+        modules.clear(); demo.clear(); cooldowns.clearAll(); combatTraces.clear(); combatLogLast.clear();
     }
 
     /** Incoming damage: applies to any source, including magic, environmental damage and mobs. */
@@ -307,12 +310,28 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
                 || !(event.getEntity() instanceof LivingEntity target) || !targeting.isHostile(target)) return;
         double factor = 1.0;
         for (SkillModule module : modules) factor *= module.outgoingMultiplier(attacker, target, tick);
-        if (factor != 1.0) event.setDamage(Math.max(0, event.getDamage() * factor));
+        double original = event.getDamage();
+        if (factor != 1.0) event.setDamage(Math.max(0, original * factor));
+        if (getConfig().getBoolean("engine.combat.debug-multipliers", false))
+            combatTraces.put(event, new CombatTrace(attacker.getName(), target.getType().name(),
+                    original, event.getDamage(), factor));
     }
 
     /** Post-validation: never count a cancelled or zero-damage hit toward combos or activations. */
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onCombat(EntityDamageByEntityEvent event) {
+        CombatTrace trace = combatTraces.remove(event);
+        if (trace != null && event.getDamager() instanceof Player observer
+                && getConfig().getBoolean("engine.combat.debug-multipliers", false)) {
+            long now = System.currentTimeMillis(), min = Math.max(250, getConfig().getLong("engine.combat.debug-rate-millis", 1000));
+            if (now - combatLogLast.getOrDefault(observer.getUniqueId(), 0L) >= min) {
+                combatLogLast.put(observer.getUniqueId(), now);
+                getLogger().info(String.format(java.util.Locale.ROOT,
+                        "[Combate QA] %s -> %s original=%.2f esperado=%.2f evento=%.2f final=%.2f factor=%.3f",
+                        trace.attacker(), trace.enemy(), trace.original(), trace.requested(),
+                        event.getDamage(), event.getFinalDamage(), trace.factor()));
+            }
+        }
         if (applyingSkillDamage || event.getFinalDamage() <= 0) return;
         if (event.getDamager() instanceof Player attacker && event.getEntity() instanceof LivingEntity target
                 && event.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK && targeting.isHostile(target)) {
