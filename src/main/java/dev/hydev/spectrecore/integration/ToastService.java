@@ -7,6 +7,11 @@ import org.bukkit.advancement.Advancement;
 import org.bukkit.advancement.AdvancementProgress;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.HandlerList;
+import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
@@ -26,7 +31,7 @@ import java.util.logging.Level;
  * If registration fails, callers keep their previous actionbar/message fallback.
  */
 @SuppressWarnings("deprecation")
-public final class ToastService {
+public final class ToastService implements Listener {
     private record Preset(String icon, String title, String description) { }
     private static final Map<String, Preset> DEFAULTS = Map.of(
             "furia", new Preset("minecraft:netherite_axe", "Furia completa", "Doble Shift para despertar"),
@@ -49,6 +54,7 @@ public final class ToastService {
 
     public void enable() {
         reload();
+        Bukkit.getPluginManager().registerEvents(this, plugin);
         for (Map.Entry<String, Preset> entry : DEFAULTS.entrySet()) {
             String id = entry.getKey();
             Preset fallback = entry.getValue();
@@ -122,6 +128,13 @@ public final class ToastService {
         }
     }
 
+    @EventHandler public void quit(PlayerQuitEvent event) { clear(event.getPlayer()); }
+    @EventHandler public void join(PlayerJoinEvent event) {
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            if (event.getPlayer().isOnline()) clear(event.getPlayer());
+        }, 3L);
+    }
+
     /** Explicitly clear progress at quit/join so a quick disconnect never saves a completed toast. */
     public void clear(Player player) {
         if (player == null) return;
@@ -135,6 +148,7 @@ public final class ToastService {
     }
 
     public void disable() {
+        HandlerList.unregisterAll(this);
         // Do not delete registered advancements: Paper requires reloadData() to fully
         // remove them. Advancement progress is revoked and no player progress is saved.
         for (Player p : Bukkit.getOnlinePlayers()) clear(p);
