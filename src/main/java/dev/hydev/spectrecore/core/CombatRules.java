@@ -9,6 +9,10 @@ public final class CombatRules {
     public static double comboMultiplier(int stacks, int cap, double bonusPerStack) {
         return 1.0 + Math.max(0, Math.min(cap, stacks)) * Math.max(0, bonusPerStack);
     }
+    /** When AuraSkills already supplies Strength, the legacy base bonus must not be applied again. */
+    public static double oathMultiplier(boolean auraStrengthApplied, double baseBonus, double blinkBonus) {
+        return 1.0 + (auraStrengthApplied ? 0.0 : baseBonus) + blinkBonus;
+    }
     public static long extend(long currentEnd, long maximumEnd, long bonusTicks) {
         return Math.min(maximumEnd, currentEnd + Math.max(0, bonusTicks));
     }
