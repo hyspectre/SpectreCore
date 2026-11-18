@@ -21,7 +21,7 @@ pages:
           - "&e&l ɴᴏᴛᴀ: &r&fDerrota la cantidad requerida de caminantes"
           - "&f para provocar la aparición de sus antiguos reyes."
           - ""
-          - "&#ffdd00  ► ᴄʟɪᴄ ᴘᴀʀᴀ ᴇxᴘʟᴏʀᴀʀ ᴍɪɴɪᴊᴇғᴇs"
+          - "&#FFCC55  ► ᴄʟɪᴄ ᴘᴀʀᴀ ᴇxᴘʟᴏʀᴀʀ ᴍɪɴɪᴊᴇғᴇs"
       "2":
         slot: 14
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjM3YjZmNTAxNTRkMTkyZDhjM2E3MmQxM2ZhNDRjOTUzYjQxMTM4NThjOWQyZWRmMjE4ZjUxNzk5OGQ3MzM2YyJ9fX0="
@@ -104,7 +104,7 @@ pages:
       "ComoCrear":
         slot: 10
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWE2MmI3YzBhYzhhNjI2NDNkNzkzZmEwZWYwN2ZmMWY4ZDJiMWQzOTQ2YjU1YmM3N2VmOGQ3YTQ2ODcxYzEwIn19fQ=="
-        name: "&f⧇ &a¿Qué son las misiones?"
+        name: "&f⧇ &eGuía · Las misiones"
         lore:
           - ""
           - "&f Los &#FF3B00&lM&#FF4900&lI&#FF5700&lN&#FF6500&lI&#FF7300&lJ&#FF8100&lE&#FF8F00&lF&#FF9D00&lE&#FFAB00&lS &r&fson entidades"
@@ -116,11 +116,11 @@ pages:
           - "&f a un campeón de su raza. Vencerlo te"
           - "&f otorgará recompensas y botines únicos."
           - ""
-          - "&#ffdd00  ► ɪɴғᴏʀᴍᴀᴄɪᴏɴ ɢᴇɴᴇʀᴀʟ ᴅᴇʟ sɪsᴛᴇᴍᴀ"
+          - "&#FFCC55  ► ɪɴғᴏʀᴍᴀᴄɪᴏɴ ɢᴇɴᴇʀᴀʟ ᴅᴇʟ sɪsᴛᴇᴍᴀ"
       "kamisitooo":
         slot: 19
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTk2Yzg3OWJkOWE3YzExMWZlYmQ0NTM4NGU3MjdhZjdjZDE2MGZjOGQ5YTZkMjlhNTFhYjU3NTRiNzlmMzJkZiJ9fX0="
-        name: "&f⧇ &a¿Donde encontrarlos?"
+        name: "&f⧇ &eGuía · Apariciones"
         lore:
           - ""
           - "&f Los &#FF3B00&lM&#FF4900&lI&#FF5700&lN&#FF6500&lI&#FF7300&lJ&#FF8100&lE&#FF8F00&lF&#FF9D00&lE&#FFAB00&lS &r&fhabitan libremente"
@@ -131,11 +131,11 @@ pages:
           - "&f requerida en cualquier bioma para que"
           - "&f el enemigo emerja frente a ti al instante."
           - ""
-          - "&#ffdd00  ► ɪɴғᴏʀᴍᴀᴄɪᴏɴ ᴅᴇ ᴀᴘᴀʀɪᴄɪᴏɴ ʏ ᴜʙɪᴄᴀᴄɪᴏɴ"
+          - "&#FFCC55  ► ɪɴғᴏʀᴍᴀᴄɪᴏɴ ᴅᴇ ᴀᴘᴀʀɪᴄɪᴏɴ ʏ ᴜʙɪᴄᴀᴄɪᴏɴ"
       "hydevspectre":
         slot: 28
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzhmYzE3ZGQwYTdmNGI5ZjZjODg3NDhlZjllZDExYmQyY2M0ODliODk2NzhmM2JiY2FmY2MxNDVhZjBkMTZjZSJ9fX0="
-        name: "&f⧇ &aRecompensas"
+        name: "&f⧇ &eGuía · Recompensas"
         lore:
           - ""
           - "&f Al reclamar la victoria sobre un &#FF3B00&lM&#FF4900&lI&#FF5700&lN&#FF6500&lI&#FF7300&lJ&#FF8100&lE&#FF8F00&lF&#FF9D00&lE&r&f,"
@@ -147,7 +147,7 @@ pages:
           - "&f &#FF9F00ᴇɴᴄᴀɴᴛᴀᴍɪᴇɴᴛᴏs ᴜɴɪᴄᴏs&r&f, elixires"
           - "&f potentes y equipamiento místico."
           - ""
-          - "&#ffdd00  ► ʙᴏᴛɪɴᴇs, ᴄʀᴀғᴛᴇᴏs ʏ ʀᴇᴄᴏᴍᴘᴇɴsᴀs"
+          - "&#FFCC55  ► ʙᴏᴛɪɴᴇs, ᴄʀᴀғᴛᴇᴏs ʏ ʀᴇᴄᴏᴍᴘᴇɴsᴀs"
       "descripcion":
         slot: 49
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGUxNTU5NDhjYTg1YjA1MTM3ZDJkM2E1YjA4MmY1N2U3NmM2ODFiZmNkZjRmMGRjZjg2ZWFmZjY4MWI5MzY3OCJ9fX0="
@@ -163,7 +163,7 @@ pages:
           - "&f recompensas disponibles y descubrir las"
           - "&f distintas criaturas que acechan en el mundo."
           - ""
-          - "&#ffdd00  ► ᴄᴇɴᴛʀᴀʟ ᴅᴇ ᴄᴀᴄᴇʀɪᴀ ʏ ᴄᴏɴsᴜʟᴛᴀ"
+          - "&#FFCC55  ► ᴄᴇɴᴛʀᴀʟ ᴅᴇ ᴄᴀᴄᴇʀɪᴀ ʏ ᴄᴏɴsᴜʟᴛᴀ"
       "telefono":
         slot: 50
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDFkYmI1MTE5NWVjYTZjZjlhMjhlMWVlNzE5NjYyZmQ3YTY0OTZkMzAxZjNiNTVkYmQxNGY5MGY0Y2Q3NCJ9fX0="
@@ -177,7 +177,7 @@ pages:
           - ""
           - "#5F5851 ■ &fᴘʀᴇᴄɪᴏ: &6500 &f↾"
           - ""
-          - "&#ffdd00  ► ᴄʟɪᴄ ᴘᴀʀᴀ ᴄᴏᴍᴘʀᴀʀ"
+          - "&#FFCC55  ► ᴄʟɪᴄ ᴘᴀʀᴀ ᴄᴏᴍᴘʀᴀʀ"
           - "&7Compra segura mediante Vault y MMOItems."
       "cerrar":
         slot: 48
@@ -188,7 +188,7 @@ pages:
           - "&f ¿Quieres salir de aquí? Utiliza esta"
           - "&f opción para cerrar este menú."
           - ""
-          - "&#ffdd00  ► ᴄʟɪᴄ ᴘᴀʀᴀ ɪɴᴛᴇʀᴀᴄᴛᴜᴀʀ"
+          - "&#FFCC55  ► ᴄʟɪᴄ ᴘᴀʀᴀ ɪɴᴛᴇʀᴀᴄᴛᴜᴀʀ"
   revenant:
     title: "&8⧇ &6Misiones &8• &cMonarquía Renacida"
     size: 54
@@ -219,7 +219,7 @@ pages:
           - "&e&l ᴍɪsɪóɴ: &r&fDerrota &a20 &fZombis."
           - "#5F5851 ■ &fᴘʀᴇᴄɪᴏ: &6200 &f↾"
           - ""
-          - "&#ffdd00  ► ᴄʟɪᴄ ᴘᴀʀᴀ ᴇᴍᴘᴇᴢᴀʀ ᴍɪsɪóɴ"
+          - "&#FFCC55  ► ᴄʟɪᴄ ᴘᴀʀᴀ ᴇᴍᴘᴇᴢᴀʀ ᴍɪsɪóɴ"
           - ""
           - "&8Este contrato se gestiona dentro de SpectreCore."
       "2":
@@ -249,7 +249,7 @@ pages:
           - "&e&l ᴍɪsɪóɴ: &r&fDerrota &a50 &fZombis."
           - "#5F5851 ■ &fᴘʀᴇᴄɪᴏ: &6500 &f↾"
           - ""
-          - "&#ffdd00  ► ᴄʟɪᴄ ᴘᴀʀᴀ ᴇᴍᴘᴇᴢᴀʀ ᴍɪsɪóɴ"
+          - "&#FFCC55  ► ᴄʟɪᴄ ᴘᴀʀᴀ ᴇᴍᴘᴇᴢᴀʀ ᴍɪsɪóɴ"
           - ""
           - "&8Este contrato se gestiona dentro de SpectreCore."
       "3":
@@ -280,7 +280,7 @@ pages:
           - "&e&l ᴍɪsɪóɴ: &r&fDerrota &a90 &fZombis."
           - "#5F5851 ■ &fᴘʀᴇᴄɪᴏ: &6950 &f↾"
           - ""
-          - "&#ffdd00  ► ᴄʟɪᴄ ᴘᴀʀᴀ ᴇᴍᴘᴇᴢᴀʀ ᴍɪsɪóɴ"
+          - "&#FFCC55  ► ᴄʟɪᴄ ᴘᴀʀᴀ ᴇᴍᴘᴇᴢᴀʀ ᴍɪsɪóɴ"
           - ""
           - "&8Este contrato se gestiona dentro de SpectreCore."
       "cancelar":
@@ -297,66 +297,63 @@ pages:
       "ComoCrear":
         slot: 10
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWE2MmI3YzBhYzhhNjI2NDNkNzkzZmEwZWYwN2ZmMWY4ZDJiMWQzOTQ2YjU1YmM3N2VmOGQ3YTQ2ODcxYzEwIn19fQ=="
-        name: "&f⧇ &a¿Qué son las hordas?"
+        name: "&f⧇ &eGuía · Monarquía Renacida"
         lore:
           - ""
-          - "&f Los &#FF3B00&lM&#FF4900&lI&#FF5700&lN&#FF6500&lI&#FF7300&lJ&#FF8100&lE&#FF8F00&lF&#FF9D00&lE&#FFAB00&lS &r&fson entidades"
-          - "&f antiguas y poderosas que despiertan"
-          - "&f ante las matanzas masivas."
+          - "&7Tres antiguos gobernantes despiertan"
+          - "&7cuando su pueblo cae en combate."
           - ""
-          - "&f Al diezmar a cierta especie de monstruos,"
-          - "&f acumulas su esencia arcana hasta invocar"
-          - "&f a un campeón de su raza. Vencerlo te"
-          - "&f otorgará recompensas y botines únicos."
+          - "&7Acepta un contrato y derrota zombis"
+          - "&7para atraer al monarca correspondiente."
           - ""
-          - "&#ffdd00  ► ɪɴғᴏʀᴍᴀᴄɪᴏɴ ɢᴇɴᴇʀᴀʟ ᴅᴇʟ sɪsᴛᴇᴍᴀ"
+          - "&7Solo puedes mantener una misión activa."
+          - ""
+          - "&#FFCC55  ► ᴄᴏɴᴛʀᴀᴛᴏs ᴅᴇ ʟᴀ ᴍᴏɴᴀʀǫᴜíᴀ"
+
       "kamisitooo":
         slot: 19
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTk2Yzg3OWJkOWE3YzExMWZlYmQ0NTM4NGU3MjdhZjdjZDE2MGZjOGQ5YTZkMjlhNTFhYjU3NTRiNzlmMzJkZiJ9fX0="
-        name: "&f⧇ &a¿Donde encontrarlos?"
+        name: "&f⧇ &eGuía · Apariciones"
         lore:
           - ""
-          - "&f Los &#FF3B00&lM&#FF4900&lI&#FF5700&lN&#FF6500&lI&#FF7300&lJ&#FF8100&lE&#FF8F00&lF&#FF9D00&lE&#FFAB00&lS &r&fhabitan libremente"
-          - "&f a lo largo y ancho del &#FF8A00&lO&#FF9100&lV&#FF9800&lE&#FF9F00&lR&#FFA600&lW&#FFAD00&lO&#FFB400&lR&#FFBB00&lL&#FFC200&lD&r&f."
+          - "&7No requieren altares ni coordenadas fijas."
+          - "&7Al alcanzar las bajas necesarias, el"
+          - "&7monarca aparece cerca de ti."
           - ""
-          - "&f No requieren de altares ni rituales:"
-          - "&f bastará con alcanzar la cuota de bajas"
-          - "&f requerida en cualquier bioma para que"
-          - "&f el enemigo emerja frente a ti al instante."
+          - "&7Si una invocación falla, puedes reintentarlo"
+          - "&7sin perder el objetivo completado."
           - ""
-          - "&#ffdd00  ► ɪɴғᴏʀᴍᴀᴄɪᴏɴ ᴅᴇ ᴀᴘᴀʀɪᴄɪᴏɴ ʏ ᴜʙɪᴄᴀᴄɪᴏɴ"
+          - "&#FFCC55  ► ᴄᴀᴢᴀ ᴅᴇ ᴢᴏᴍʙɪs"
+
       "hydevspectre":
         slot: 28
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzhmYzE3ZGQwYTdmNGI5ZjZjODg3NDhlZjllZDExYmQyY2M0ODliODk2NzhmM2JiY2FmY2MxNDVhZjBkMTZjZSJ9fX0="
-        name: "&f⧇ &aRecompensas"
+        name: "&f⧇ &eGuía · Recompensas"
         lore:
           - ""
-          - "&f Al reclamar la victoria sobre un &#FF3B00&lM&#FF4900&lI&#FF5700&lN&#FF6500&lI&#FF7300&lJ&#FF8100&lE&#FF8F00&lF&#FF9D00&lE&r&f,"
-          - "&f obtendrás &#FF8A00&lF&#FF9100&lR&#FF9800&lA&#FF9F00&lG&#FFA600&lM&#FFAD00&lE&#FFB400&lN&#FFBB00&lT&#FFC200&lO&#FFC900&lS &r&fexclusivos"
-          - "&f esenciales para el comercio y la forja."
+          - "&7Los monarcas dejan Carne Rara y experiencia."
+          - "&7Los rangos más altos también pueden soltar"
+          - "&7Corazón Podrido, con probabilidades distintas."
           - ""
-          - "&f Junta estos materiales para craftear"
-          - "&f &#FF9F00ᴀʀᴍᴀs ᴘᴇʀsᴏɴᴀʟɪᴢᴀᴅᴀs&r&f, tomos con"
-          - "&f &#FF9F00ᴇɴᴄᴀɴᴛᴀᴍɪᴇɴᴛᴏs ᴜɴɪᴄᴏs&r&f, elixires"
-          - "&f potentes y equipamiento místico."
+          - "&7Consulta el botín de cada contrato."
           - ""
-          - "&#ffdd00  ► ʙᴏᴛɪɴᴇs, ᴄʀᴀғᴛᴇᴏs ʏ ʀᴇᴄᴏᴍᴘᴇɴsᴀs"
+          - "&#FFCC55  ► ʙᴏᴛíɴ ᴘᴏʀ ʀᴀɴɢᴏ"
+
       "descripcion":
         slot: 49
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGUxNTU5NDhjYTg1YjA1MTM3ZDJkM2E1YjA4MmY1N2U3NmM2ODFiZmNkZjRmMGRjZjg2ZWFmZjY4MWI5MzY3OCJ9fX0="
         name: "&f⧇ &cMonarquía Renacida"
         lore:
           - ""
-          - "&f En este &#FF3B00&lM&#FF4900&lE&#FF5700&lN&#FF6500&lU &#FF7A00&lG&#FF8800&lE&#FF9600&lN&#FFA400&lE&#FFB200&lR&#FFC000&lA&#FFCE00&lL &r&fpodrás consultar"
-          - "&f toda la información de los minijefes y"
-          - "&f aprender el funcionamiento de las hordas."
+          - "&7Escoge tu desafío:"
+          - "&7I · Príncipe Renacido · &6200 ↾"
+          - "&7II · Rey Renacido · &6500 ↾"
+          - "&7III · Emperador Renacido · &6950 ↾"
           - ""
-          - "&f Además, desde esta interfaz podrás"
-          - "&f revisar tu progreso de bajas, ver las"
-          - "&f recompensas disponibles y descubrir las"
-          - "&f distintas criaturas que acechan en el mundo."
+          - "&7Progreso actual en el estado de Slayer."
           - ""
-          - "&#ffdd00  ► ᴄᴇɴᴛʀᴀʟ ᴅᴇ ᴄᴀᴄᴇʀɪᴀ ʏ ᴄᴏɴsᴜʟᴛᴀ"
+          - "&#FFCC55  ► ᴄᴇɴᴛʀᴀʟ ᴅᴇ ʟᴀ ᴍᴏɴᴀʀǫᴜíᴀ"
+
       "cerrar":
         slot: 48
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGExZDU1YjNmOTg5NDEwYTM0NzUyNjUwZTI0OGM5YjZjMTc4M2E3ZWMyYWEzZmQ3Nzg3YmRjNGQwZTYzN2QzOSJ9fX0="
