@@ -24,6 +24,7 @@ public final class CommandRoutes {
         routes.add(route("reset","$core","equipamiento",Access.ADMIN,"","Reiniciar tus habilidades y recargas","reset"));
         routes.add(route("demo","$core","equipamiento",Access.ADMIN,"<habilidad>","Alternar una habilidad de prueba","demo"));
         routes.add(route("blink","$core","equipamiento.ultimo-juramento",Access.CONSOLE,"<jugador>","Notificar un Blink confirmado","blink"));
+        routes.add(route("toast prueba","$core","",Access.ADMIN,"<id>","Previsualizar toast de Minecraft","toast","prueba"));
         routes.add(route("armaduras","armaduras","equipamiento.libro",Access.PUBLIC,"","Libro de armaduras"));
         routes.add(route("cocina","cocina","cocina",Access.PUBLIC,"<ayuda|libro|recetas|estado|reparar|recargar>","Cocina y recetario"));
         routes.add(route("trabajos","trabajo","trabajos",Access.PUBLIC,"","Niveles de trabajos"));
