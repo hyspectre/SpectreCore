@@ -463,7 +463,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
             sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-012", "Minería desactivada.")); return true;
         }
         if (sub.equals("modulos") || sub.equals("modules")) {
-            moduleConfigs.requested().forEach((name, enabled) -> sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-013","§6{name}§7: {valor2}{valor3}","name", name,"valor2", (moduleConfigs.active(name) ? Settings.text("nucleo", "SpectreCorePlugin.texto-001", "§aACTIVO") : Settings.text("nucleo", "SpectreCorePlugin.texto-002", "§cINACTIVO")),"valor3", (moduleConfigs.restartPending(name) ? Settings.text("nucleo", "SpectreCorePlugin.texto-003", " §e(cambio pendiente: reiniciar)") : ""))));
+            moduleConfigs.requested().forEach((name, enabled) -> sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-013","§6{name}§7: {valor2}{valor3}","name", name,"valor2", (moduleConfigs.active(name) ? Settings.component(Settings.text("nucleo", "SpectreCorePlugin.texto-001", "§aACTIVO"))) : Settings.component(Settings.text("nucleo", "SpectreCorePlugin.texto-002", "§cINACTIVO")))),"valor3", (moduleConfigs.restartPending(name) ? Settings.component(Settings.text("nucleo", "SpectreCorePlugin.texto-003", " §e(cambio pendiente: reiniciar)"))) : ""))));
             return true;
         }
         if (sub.equals("cocina")) { sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-014", "§7Usa /mago cocina para aprender o /spectrecore cocina recetas para consultar recetas.")); return true; }
