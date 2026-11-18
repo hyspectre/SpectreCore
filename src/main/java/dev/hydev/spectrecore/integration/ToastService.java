@@ -81,7 +81,8 @@ public final class ToastService {
     }
 
     /**
-     * Grant then revoke an impossible criterion. Returns true only when the toast was issued.
+     * Grant then revoke an impossible criterion. Returns true when the notification was
+     * handled, including anti-flood suppression; false means the caller must use its fallback.
      * Caller must retain its prior fallback if false.
      */
     public boolean show(Player player, String id) {
@@ -91,7 +92,8 @@ public final class ToastService {
         if (advancement == null) return false;
         long now = System.currentTimeMillis();
         long interval = Math.max(0, Math.min(600, settings.getLong("toasts.intervalo-global-segundos", 4))) * 1000L;
-        if (now - lastToast.getOrDefault(player.getUniqueId(), Long.MIN_VALUE / 2) < interval) return false;
+        // A suppressed duplicate is handled, not an unavailable toast: avoid actionbar spam.
+        if (now - lastToast.getOrDefault(player.getUniqueId(), Long.MIN_VALUE / 2) < interval) return true;
         try {
             AdvancementProgress progress = player.getAdvancementProgress(advancement);
             if (progress.isDone()) for (String criterion : progress.getAwardedCriteria()) progress.revokeCriteria(criterion);
