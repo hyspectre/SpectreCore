@@ -85,6 +85,25 @@ public final class ModuleConfiguration {
                 }
                 if(changed){File backup=new File(folder,"backups/commands-v1/modules/"+path);if(!backup.exists()){Files.createDirectories(backup.toPath().getParent());Files.copy(destination.toPath(),backup.toPath());}save(destination,yaml);}
             }
+            // One-time in-place migration for installed message catalogs. Preserve overrides
+            // and write a byte-for-byte backup before converting legacy colours to MiniMessage.
+            // Machine-readable IDs, recipes and command metadata are intentionally excluded.
+            if (path.endsWith("/mensajes.yml")) {
+                boolean converted = false;
+                for (String key : yaml.getKeys(true)) {
+                    if (!(yaml.get(key) instanceof String text)) continue;
+                    String mini = dev.hydev.spectrecore.text.TextService.legacyToMini(text);
+                    if (!mini.equals(text)) { yaml.set(key, mini); converted = true; }
+                }
+                if (converted) {
+                    File backup = new File(folder, "backups/minimessage-v1/modules/" + path);
+                    if (!backup.isFile()) {
+                        Files.createDirectories(backup.toPath().getParent());
+                        Files.copy(destination.toPath(), backup.toPath());
+                    }
+                    save(destination, yaml);
+                }
+            }
             next.put(path,yaml);
         }
         var index=legacy?resource("config.yml"):old;
