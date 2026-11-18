@@ -16,8 +16,8 @@ SlayerModule:
   mensaje-013: §6MISIONES §e{name-category} §f{m-kills}/{m-required}
   mensaje-014: 'Slayer: no se pudo invocar {mob}: {error-getmessage}'
   mensaje-015: §cNo se pudo invocar {mob}. Tu objetivo se conserva. Reintenta con /spectrecore slayer invocar {category}
-  mensaje-016: ¡MISIÓN COMPLETADA!
-  mensaje-017: '{name-category} ha sido invocado'
+  mensaje-016: ¡JEFE INVOCADO!
+  mensaje-017: '{name-category} ha aparecido. ¡Derrota al jefe!'
   mensaje-018: '{name-c} · {m-kills}/{m-required}'
   mensaje-019: 'UUID inválido en slayer-data.yml: {id}'
 
