@@ -1,6 +1,8 @@
 package dev.hydev.spectrecore.systems;
 
 import dev.hydev.spectrecore.config.Settings;
+import dev.hydev.spectrecore.migration.MmoBridge;
+import org.bukkit.inventory.ItemStack;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -25,13 +27,14 @@ public final class SlayerModule implements Listener {
     private static final class Mission extends ProgressRules.SlayerProgress { }
     private final JavaPlugin plugin; private YamlConfiguration config;
     private final EconomyBridge contractsEconomy = new EconomyBridge();
+    private final MmoBridge contractItems = new MmoBridge();
     private final Map<UUID, Map<String, Mission>> missions = new HashMap<>();
     private final Map<UUID, BossBar> bars = new HashMap<>(); private final Map<UUID, Long> attempts = new HashMap<>();
     private BukkitTask timer; private boolean dirty;
     public SlayerModule(JavaPlugin plugin) { this.plugin = plugin; }
     public void enable() {
         reload(); load(); Bukkit.getPluginManager().registerEvents(this, plugin);
-        for (String name : List.of("activarslayer", "cancelarslayer", "resetslayer", "slayerstats", "slayerinvocar", "contratarslayer", "abandonarslayer")) if (dev.hydev.spectrecore.command.CommandRouter.of(plugin).get(name) != null) {
+        for (String name : List.of("activarslayer", "cancelarslayer", "resetslayer", "slayerstats", "slayerinvocar", "contratarslayer", "abandonarslayer", "comprartelefono")) if (dev.hydev.spectrecore.command.CommandRouter.of(plugin).get(name) != null) {
             dev.hydev.spectrecore.command.CommandRouter.of(plugin).get(name).setExecutor((sender, cmd, label, args) -> command(sender, cmd.getName(), args));
             dev.hydev.spectrecore.command.CommandRouter.of(plugin).get(name).setTabCompleter((sender, cmd, label, args) -> args.length == 1 && !cmd.getName().equals("slayerstats") ? CATEGORIES : List.of());
         }
@@ -50,6 +53,7 @@ public final class SlayerModule implements Listener {
     private boolean command(CommandSender sender, String command, String[] args) {
         if (!(sender instanceof Player p)) { sender.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-001", "Conserva el uso del Skript: ejecuta estos comandos como jugador.")); return true; }
         UUID id = p.getUniqueId();
+        if (command.equals("comprartelefono")) return purchasePhone(p, args);
         if (command.equals("slayerstats")) {
             p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-002", "§6✦ ESTADÍSTICAS DE MISIONES"));
             for (String c : CATEGORIES) { Mission m = mission(id, c); p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-003","§e{name-c}§7: §f{m-kills}/{m-required} §7| Tier {m-tier} | {valor5}","name-c", name(c),"m-kills", m.kills,"m-required", m.required,"m-tier", m.tier,"valor5", (m.active ? Settings.text("slayer", "SlayerModule.texto-001", "§aActiva") : Settings.text("slayer", "SlayerModule.texto-002", "§7Inactiva")))); }
