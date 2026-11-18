@@ -59,6 +59,20 @@ Contrato actual:
 - [ ] Validar identificador de instancia único para sesiones concurrentes de Dungeons+; `CRIPTA_PENDIENTE` es compartido.
 - [ ] Revalidar toda la ruta del portal: registrar → detectar Minotauro → generar → temporizador → `dungeons end ...` → confirmar salida → limpiar. El cambio de comando Join resolvió un fallo de registro, pero eso no demuestra automáticamente cada paso.
 
+## Hito D.1 — Interfaz nativa de Misiones (zMenu deja de ser necesario aquí)
+
+- [x] Usar los dos menús originales del usuario exclusivamente como referencias de contenido y texturas.
+- [x] Inventarios Paper 54 slots en `MissionsMenu`, sin comandos arbitrarios en la configuración visual.
+- [x] YAML `ui/misiones.yml` de SpectreCore: páginas Misiones y Monarquía Renacida, con título, nombre, lore, slot y cabezas Base64 configurables.
+- [x] Navegación nativa `/spectrecore misiones`, `/spectrecore misiones monarquia`, volver y cerrar.
+- [x] Clics de contratos/abandono y teléfono conectados a validación Java del Slayer, sin OP ni retiro desde el menú.
+- [x] Cancelación de clics/arrastres y transiciones de inventario programadas en el siguiente tick.
+- [x] Validador estático de menús originales y nuevos, texturas reales y tarifas existentes.
+- [ ] QA visual y económico ingame, actualización de NPC/Teléfono Rojo y retirada de accesos antiguos de zMenu (sin reinicios ahora).
+- [ ] Tras la única ventana de mantenimiento, decidir cuándo habilitar `contratos.habilitados` y `acceso-remoto.habilitado` para permitir pagos.
+
+Documentación: `MIGRACION_MISIONES_NATIVAS_0.7.4.md`. Los dos YAML de `integracion-zmenu` que existían previamente ya no son el destino de despliegue de esta funcionalidad.
+
 ## Hito E — UX
 
 - [x] Implementación experimental de issue #1 (8 presets) con advancement temporal; requiere prueba visual ingame para declararla completa.
