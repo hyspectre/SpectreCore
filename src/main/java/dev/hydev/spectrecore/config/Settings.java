@@ -86,6 +86,8 @@ public final class Settings {
                     double v=n.doubleValue();
                     if((number instanceof Integer||number instanceof Long)&&v!=Math.rint(v))throw new IOException(at+": debe ser un entero");
                     if(limits.get(path+"|"+key) instanceof List<?> range && (v<((Number)range.get(0)).doubleValue()||v>((Number)range.get(1)).doubleValue()))throw new IOException(at+": fuera del rango "+range);
+                } else if(expected instanceof Boolean) {
+                    if(!(value instanceof Boolean))throw new IOException(at+": debe ser true/false");
                 } else if(!(value instanceof String))throw new IOException(at+": debe ser texto entre comillas");
                 if(!(value instanceof String string)||path.endsWith("/mensajes.yml"))continue;
                 String leaf=key.substring(key.lastIndexOf('.')+1);
