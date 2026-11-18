@@ -1261,26 +1261,26 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
             return true;
         }
         if (action.equals("ayuda")) {
-            sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-014", "{prefix}§eMechero: crear §7| §ePala de madera: revolver §7| §eEsponja: limpiar/retirar §7| §eCuenco: servir", "prefix", prefix()));
-            sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-015", "{prefix}§e/mago recetas §7| §e/spectrecore cocina estado §7| admin: reparar, recargar", "prefix", prefix()));
+            sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-014", "{prefix}§eMechero: crear §7| §ePala de madera: revolver §7| §eEsponja: limpiar/retirar §7| §eCuenco: servir", "prefix", Settings.component(prefix())));
+            sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-015", "{prefix}§e/mago recetas §7| §e/spectrecore cocina estado §7| admin: reparar, recargar", "prefix", Settings.component(prefix())));
             return true;
         }
         if (action.equals("recetas") || action.equals("libro")) {
             if (sender instanceof Player player) openRecipeBook(player);
-            else for (Recipe r : recipes.values()) sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-016", "{prefix}§e{r-name} §7» {r-ingredients}", "prefix", prefix(), "r-name", r.name(), "r-ingredients", r.ingredients()));
+            else for (Recipe r : recipes.values()) sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-016", "{prefix}§e{r-name} §7» {r-ingredients}", "prefix", Settings.component(prefix()), "r-name", r.name(), "r-ingredients", r.ingredients()));
             return true;
         }
         if (action.equals("recargar")) {
-            if (!cookingAdmin(sender)) { sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-017", "{prefix}§cNo tienes permiso.", "prefix", prefix())); return true; }
-            try { plugin.reloadConfig(); loadRecipes(); sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-018", "{prefix}§aConfiguracion y recetas recargadas.", "prefix", prefix())); }
-            catch (Exception error) { sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-019", "{prefix}§c{error-getmessage}", "prefix", prefix(), "error-getmessage", error.getMessage())); }
+            if (!cookingAdmin(sender)) { sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-017", "{prefix}§cNo tienes permiso.", "prefix", Settings.component(prefix()))); return true; }
+            try { plugin.reloadConfig(); loadRecipes(); sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-018", "{prefix}§aConfiguracion y recetas recargadas.", "prefix", Settings.component(prefix()))); }
+            catch (Exception error) { sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-019", "{prefix}§c{error-getmessage}", "prefix", Settings.component(prefix()), "error-getmessage", error.getMessage())); }
             return true;
         }
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-020", "{prefix}Este comando requiere un jugador.", "prefix", prefix())); return true;
+            sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-020", "{prefix}Este comando requiere un jugador.", "prefix", Settings.component(prefix()))); return true;
         }
         if (action.equals("reparar") && !cookingAdmin(sender)) {
-            sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-021", "{prefix}§cNo tienes permiso.", "prefix", prefix())); return true;
+            sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-021", "{prefix}§cNo tienes permiso.", "prefix", Settings.component(prefix()))); return true;
         }
         Block looked = player.getTargetBlockExact(6);
         if (looked == null || !isCookingStation(looked)) {
@@ -1293,7 +1293,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
                 msg(player, ChatColor.GREEN + Settings.text("cocina", "CookingModule.etiqueta-121", "Modelo de cocina reconstruido."));
             }
             case "estado" -> { accrue(station, System.currentTimeMillis()); inspectStation(player, station, true); }
-            default -> sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-022", "{prefix}§e/spectrecore cocina ayuda | libro | estado | reparar | recargar", "prefix", prefix()));
+            default -> sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-022", "{prefix}§e/spectrecore cocina ayuda | libro | estado | reparar | recargar", "prefix", Settings.component(prefix())));
         }
         return true;
     }
@@ -1308,7 +1308,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         return sender.hasPermission("hydev.cocina.admin") || sender.hasPermission("spectrecore.cooking.admin")
                 || sender.hasPermission("spectrecore.admin");
     }
-    private void msg(Player player, String message) { player.sendMessage(prefix() + message); }
+    private void msg(Player player, String message) { player.sendMessage(Settings.component(prefix() + message)); }
     private void sound(Station station, Sound sound, float pitch) {
         station.blockLocation.getWorld().playSound(station.blockLocation.clone().add(Settings.d("cocina", "CookingModule.geometria-168", .5), Settings.d("cocina", "CookingModule.geometria-169", .5), Settings.d("cocina", "CookingModule.geometria-170", .5)), sound,Settings.f("cocina", "CookingModule.playsound-083-arg2", 1f), pitch);
     }
