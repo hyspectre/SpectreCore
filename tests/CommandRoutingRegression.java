@@ -24,7 +24,7 @@ public final class CommandRoutingRegression {
             check(route.usage().startsWith("/spectrecore "),"Canonical usage "+route.path());
             if(!route.target().equals("$core"))targets.add(route.target());
         }
-        check(targets.size()==36,"All 36 former standalone handlers covered");
+        check(targets.size()==38,"36 former standalone handlers plus two secure Slayer contract handlers");
         check(CommandRoutes.resolve(new String[]{"resonancia","debug"}).route().target().equals("debugresonancia"),"Longest prefix wins over public resonance query");
         check(CommandRoutes.resolve(new String[]{"tesoros","mineria","3"}).arguments().equals(List.of("mineria","tesoro","3")),"Preview adapter keeps expected argument positions");
         check(CommandRoutes.resolve(new String[]{"portal","registrar","Alex","My session","abc"}).arguments().equals(List.of("Alex","My session","abc")),"Session arguments unchanged, no split/re-dispatch");
@@ -34,7 +34,7 @@ public final class CommandRoutingRegression {
         var publicRoots=CommandRoutes.children(new String[]{""},r->r.access()==CommandRoutes.Access.PUBLIC);
         check(publicRoots.containsAll(List.of("cocina","armaduras","trabajos","resonancia","slayer","status","modulos")),"Public discovery");
         check(!publicRoots.contains("cygnus")&&!publicRoots.contains("portal")&&!publicRoots.contains("reload"),"Hide privileged families");
-        check(CommandRoutes.children(new String[]{"slayer","a"},r->true).equals(List.of("activar")),"Prefix completion");
+        check(CommandRoutes.children(new String[]{"slayer","a"},r->true).equals(List.of("abandonar","activar")),"Prefix completion includes player cancellation");
         check(CommandRoutes.children(new String[]{"portal",""},r->r.access()!=CommandRoutes.Access.CONSOLE).equals(List.of("demo","estado","limpiar")),"Hide console callbacks from player suggestions");
         for(var route:CommandRoutes.ALL)if(route.target().startsWith("hydevportal")&&(route.target().endsWith("join")||route.target().endsWith("leave")))check(route.access()==CommandRoutes.Access.CONSOLE,"Console-only callback preserved");
         String old="Usa /activarslayer revenant 2; /cocina libro; /hydevportaljoin Alex run42. /mi give y /trabajootro no cambian.";
