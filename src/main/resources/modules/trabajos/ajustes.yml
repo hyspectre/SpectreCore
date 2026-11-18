@@ -1,5 +1,4 @@
 JobsModule:
-  color-001: RED
   particle-002: GLOW
   spawnparticle-001-arg2: 10
   spawnparticle-002-arg3: 0.3
