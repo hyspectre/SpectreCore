@@ -2,6 +2,7 @@ package dev.hydev.spectrecore.systems;
 
 import dev.hydev.spectrecore.config.Settings;
 import dev.hydev.spectrecore.migration.MmoBridge;
+import dev.hydev.spectrecore.integration.SlayerUnlockBridge;
 import dev.hydev.spectrecore.guide.MissionsMenu;
 import org.bukkit.inventory.ItemStack;
 import net.kyori.adventure.bossbar.BossBar;
@@ -25,15 +26,21 @@ import java.util.*;
 
 public final class SlayerModule implements Listener {
     private static final List<String> CATEGORIES = List.of("revenant", "necromancer", "spider");
-    private static final class Mission extends ProgressRules.SlayerProgress { }
+    private static final class Mission extends ProgressRules.SlayerProgress { UUID bossId; }
+    private static final class SlayerRecord { long totalXp; int victories; }
+    private record BossClaim(UUID owner, String category, int tier) { }
     private final JavaPlugin plugin; private YamlConfiguration config;
     private final EconomyBridge contractsEconomy = new EconomyBridge();
     private final MmoBridge contractItems = new MmoBridge();
+    private final SlayerUnlockBridge unlocks;
     private MissionsMenu missionsMenu;
     private final Map<UUID, Map<String, Mission>> missions = new HashMap<>();
+    private final Map<UUID, SlayerRecord> revenantRecords = new HashMap<>();
+    private final Map<UUID, BossClaim> activeBosses = new HashMap<>();
+    private long[] xpThresholds = SlayerProgressionRules.defaultThresholds();
     private final Map<UUID, BossBar> bars = new HashMap<>(); private final Map<UUID, Long> attempts = new HashMap<>();
     private BukkitTask timer; private boolean dirty;
-    public SlayerModule(JavaPlugin plugin) { this.plugin = plugin; }
+    public SlayerModule(JavaPlugin plugin) { this.plugin = plugin; this.unlocks = new SlayerUnlockBridge(plugin); }
     public void enable() {
         reload(); load(); Bukkit.getPluginManager().registerEvents(this, plugin);
         missionsMenu = new MissionsMenu(plugin, this);
@@ -43,10 +50,21 @@ public final class SlayerModule implements Listener {
             dev.hydev.spectrecore.command.CommandRouter.of(plugin).get(name).setTabCompleter((sender, cmd, label, args) -> args.length == 1 && !cmd.getName().equals("slayerstats") ? CATEGORIES : List.of());
         }
         timer = Bukkit.getScheduler().runTaskTimer(plugin, () -> { if (dirty) save(); }, 200, 200);
-        Bukkit.getOnlinePlayers().forEach(this::refreshBar);
+        Bukkit.getOnlinePlayers().forEach(player -> {
+            refreshBar(player);
+            unlocks.synchronize(player.getUniqueId(), level(player.getUniqueId()));
+        });
     }
     public void reload() {
         config = dev.hydev.spectrecore.config.ModuleConfiguration.module(plugin, "slayer/config.yml");
+        long[] candidate = SlayerProgressionRules.defaultThresholds();
+        for (int i = 1; i <= SlayerProgressionRules.MAX_LEVEL; i++)
+            candidate[i] = config.getLong("progresion.revenant.niveles." + i, candidate[i]);
+        if (SlayerProgressionRules.validThresholds(candidate)) xpThresholds = candidate;
+        else {
+            xpThresholds = SlayerProgressionRules.defaultThresholds();
+            plugin.getLogger().warning("Slayer: curva XP inválida. Se utilizan los umbrales seguros por defecto.");
+        }
         if (missionsMenu != null) missionsMenu.reload();
     }
     public void disable() {
@@ -57,16 +75,46 @@ public final class SlayerModule implements Listener {
     private Mission mission(UUID id, String category) { return missions.computeIfAbsent(id, unused -> new HashMap<>()).computeIfAbsent(category, unused -> new Mission()); }
     private String name(String category) { return config.getString("categorias." + category + ".nombre", category); }
     private boolean admin(CommandSender s) { return s.hasPermission("spectrecore.admin") || s.hasPermission("hydev.admin"); }
+    private SlayerRecord revenant(UUID player) {
+        return revenantRecords.computeIfAbsent(player, unused -> new SlayerRecord());
+    }
+    private int level(UUID player) {
+        return SlayerProgressionRules.level(revenant(player).totalXp, xpThresholds);
+    }
+    private boolean accessible(Player player, String category, int tier) {
+        return admin(player) || SlayerProgressionRules.accessible(
+                category, tier, level(player.getUniqueId()), player.hasPermission("slayer." + category + ".tier" + tier));
+    }
+    private int xpFromBoss(int tier) {
+        int fallback = switch (tier) { case 1 -> 25; case 2 -> 100; case 3 -> 250; default -> 0; };
+        return Math.max(0, Math.min(100_000, config.getInt("progresion.revenant.xp-jefes.tier" + tier, fallback)));
+    }
+    public int slayerLevel(Player player) { return level(player.getUniqueId()); }
+    public long slayerXp(Player player) { return revenant(player.getUniqueId()).totalXp; }
+    public int slayerVictories(Player player) { return revenant(player.getUniqueId()).victories; }
+    public String slayerNextXp(Player player) {
+        long next = SlayerProgressionRules.xpForNext(slayerLevel(player), xpThresholds);
+        return next < 0 ? "MAX" : Long.toString(next);
+    }
+    public String slayerRewardState(Player player, int rewardLevel) {
+        return slayerLevel(player) >= rewardLevel ? "§aDESBLOQUEADO" : "§8BLOQUEADO";
+    }
     private boolean command(CommandSender sender, String command, String[] args) {
         if (!(sender instanceof Player p)) { sender.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-001", "Conserva el uso del Skript: ejecuta estos comandos como jugador.")); return true; }
         UUID id = p.getUniqueId();
         if (command.equals("misiones")) {
-            if (missionsMenu != null) missionsMenu.open(p, args.length > 0 && args[0].equalsIgnoreCase("revenant") ? "revenant" : "misiones");
+            if (missionsMenu != null) {
+                String page = args.length > 0 && args[0].equalsIgnoreCase("revenant") ? "revenant"
+                        : args.length > 0 && args[0].equalsIgnoreCase("progresion") ? "progresion" : "misiones";
+                missionsMenu.open(p, page);
+            }
             return true;
         }
         if (command.equals("comprartelefono")) return purchasePhone(p, args);
         if (command.equals("slayerstats")) {
             p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-002", "§6✦ ESTADÍSTICAS DE MISIONES"));
+            p.sendMessage("§6Monarquía Renacida §fNivel " + slayerLevel(p) + " §7· §e"
+                    + slayerXp(p) + "§7/§e" + slayerNextXp(p) + " XP §7· Victorias: §f" + slayerVictories(p));
             for (String c : CATEGORIES) { Mission m = mission(id, c); p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-003","§e{name-c}§7: §f{m-kills}/{m-required} §7| Tier {m-tier} | {valor5}","name-c", name(c),"m-kills", m.kills,"m-required", m.required,"m-tier", m.tier,"valor5", (m.active ? Settings.text("slayer", "SlayerModule.texto-001", "§aActiva") : Settings.text("slayer", "SlayerModule.texto-002", "§7Inactiva")))); }
             return true;
         }
@@ -79,18 +127,20 @@ public final class SlayerModule implements Listener {
             int tier; try { tier = args.length > 1 ? Integer.parseInt(args[1]) : 0; } catch (NumberFormatException e) { tier = 0; }
             if (tier < 1 || tier > 3) { p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-006", "§cTier inválido. Usa 1, 2 o 3.")); return true; }
             if (CATEGORIES.stream().anyMatch(c -> mission(id, c).active)) { p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-007", "§cYa tienes una misión activa. Complétala o cancélala.")); return true; }
-            if (!p.hasPermission("slayer." + category + ".tier" + tier)) { p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-008", "§cNo tienes permiso para ese tier.")); return true; }
+            if (!accessible(p, category, tier)) { p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-008", "§cNo tienes permiso para ese tier.")); return true; }
             m.tier = tier; m.kills = 0; m.required = Math.max(1, config.getInt("objetivos.tier" + tier, ProgressRules.required(tier))); m.active = true;
             dirty = true; save(); refreshBar(p); p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-009", "§6MISIONES §e{name-category} · Tier {tier} · Objetivo: {m-required}", "name-category", name(category), "tier", tier, "m-required", m.required));
             p.playSound(p.getLocation(), Settings.sound("slayer", "SlayerModule.sound-001", Sound.ENTITY_PLAYER_LEVELUP),Settings.f("slayer", "SlayerModule.playsound-001-arg2", 1),Settings.f("slayer", "SlayerModule.playsound-002-arg3", 1)); return true;
         }
         if (command.equals("slayerinvocar")) {
             if (!m.active || m.kills < m.required) p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-010", "§cTodavía no has completado ese objetivo."));
+            else if (m.bossId != null) p.sendMessage("§eYa tienes un jefe activo. No se puede invocar otro.");
             else summon(p, category, m);
             return true;
         }
         if (command.equals("cancelarslayer") && !m.active) { p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-011", "§cNo tienes esa misión activa.")); return true; }
         m.active = false; if (command.equals("resetslayer")) m.kills = 0;
+        dismissBoss(m);
         dirty = true; save(); refreshBar(p); p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-012","§7Misión {name-category}{valor2}","name-category", name(category),"valor2", (command.equals("resetslayer") ? " reiniciada." : " cancelada."))); return true;
     }
     /** Native menu actions use the same validated contract code as the public command. */
@@ -126,10 +176,12 @@ public final class SlayerModule implements Listener {
 
     public String progressLine(Player player, String category, int tier) {
         Mission state = mission(player.getUniqueId(), category);
-        if (state.active && state.tier == tier)
+        if (state.active && state.tier == tier) {
+            if (state.bossId != null) return "§6✦ Jefe activo: §fderrota al monarca";
             return "§a✦ Activa: §f" + state.kills + "§7/§f" + state.required + " bajas";
+        }
         if (state.active) return "§cTienes otra misión activa";
-        if (!player.hasPermission("slayer." + category + ".tier" + tier)) return "§cNo tienes acceso a este rango";
+        if (!accessible(player, category, tier)) return "§cNo tienes acceso a este rango";
         return "§e✦ Disponible para contratar";
     }
 
@@ -137,6 +189,15 @@ public final class SlayerModule implements Listener {
      * Secure purchase of the remote quest phone; never elevate the player to OP.
      * Item and capacity are checked before confirmed Vault withdrawal.
      */
+    private void dismissBoss(Mission mission) {
+        if (mission.bossId == null) return;
+        UUID bossId = mission.bossId;
+        mission.bossId = null;
+        activeBosses.remove(bossId);
+        Entity boss = Bukkit.getEntity(bossId);
+        if (boss != null) boss.remove();
+    }
+
     private boolean purchasePhone(Player player, String[] args) {
         if (args.length != 0 || !config.getBoolean("acceso-remoto.habilitado", false)) {
             player.sendMessage(Settings.text("slayer", "SlayerModule.telefono-no-disponible",
@@ -218,7 +279,7 @@ public final class SlayerModule implements Listener {
         SlayerContractRules.Refusal refusal = start
                 ? SlayerContractRules.validateStart(enabled, tier,
                     CATEGORIES.stream().anyMatch(c -> mission(id, c).active),
-                    p.hasPermission("slayer." + category + ".tier" + tier), cost)
+                    accessible(p, category, tier), cost)
                 : SlayerContractRules.validateCancel(enabled, m.active, cost);
         if (refusal != SlayerContractRules.Refusal.NONE) {
             p.sendMessage(Settings.text("slayer", "SlayerModule.contrato-rechazado",
@@ -232,14 +293,15 @@ public final class SlayerModule implements Listener {
         }
         int oldTier = m.tier, oldKills = m.kills, oldRequired = m.required;
         boolean oldActive = m.active;
+        UUID oldBossId = m.bossId;
         if (start) {
             m.tier = tier; m.kills = 0;
             m.required = Math.max(1, config.getInt("objetivos.tier" + tier, ProgressRules.required(tier)));
-            m.active = true;
-        } else m.active = false;
+            m.active = true; m.bossId = null;
+        } else { m.active = false; m.bossId = null; }
         dirty = true;
         if (!save()) {
-            m.tier = oldTier; m.kills = oldKills; m.required = oldRequired; m.active = oldActive;
+            m.tier = oldTier; m.kills = oldKills; m.required = oldRequired; m.active = oldActive; m.bossId = oldBossId;
             dirty = true;
             // Failed writes are exceptional. Refund immediately without unconfirmed command fallback.
             if (cost > 0 && contractsEconomy.deposit(p, cost, false) != EconomyBridge.Result.CONFIRMED)
@@ -247,6 +309,11 @@ public final class SlayerModule implements Listener {
             p.sendMessage(Settings.text("slayer", "SlayerModule.contrato-storage-fallo",
                     "§cNo se pudo guardar el contrato; solicita revisión administrativa del saldo."));
             return true;
+        }
+        if (!start && oldBossId != null) {
+            activeBosses.remove(oldBossId);
+            Entity former = Bukkit.getEntity(oldBossId);
+            if (former != null) former.remove();
         }
         refreshBar(p);
         p.sendMessage(Settings.text("slayer", "SlayerModule.contrato-aplicado",
@@ -257,61 +324,191 @@ public final class SlayerModule implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void death(EntityDeathEvent e) {
-        Player p = e.getEntity().getKiller(); if (p == null || !p.isOnline()) return;
+        UUID victim = e.getEntity().getUniqueId();
+        BossClaim claim = activeBosses.remove(victim);
+        if (claim != null) {
+            finishBoss(e, claim);
+            return;
+        }
+        // Do not count Slayer bosses, named MythicMobs or helper summons as ordinary targets.
+        if (e.getEntity().hasMetadata("MythicMob") || e.getEntity().getCustomName() != null
+                || e.getEntity().getScoreboardTags().contains("SLAYER_NO_PROGRESS")) return;
+        Player p = e.getEntity().getKiller();
+        if (p == null || !p.isOnline()) return;
         for (String category : CATEGORIES) {
             Mission m = mission(p.getUniqueId(), category);
-            if (!m.active || !e.getEntityType().name().equals(config.getString("categorias." + category + ".entidad"))) continue;
+            if (!m.active || m.bossId != null || !e.getEntityType().name().equals(config.getString("categorias." + category + ".entidad"))) continue;
             m.recordKill(); dirty = true; refreshBar(p);
-            if (m.kills % Math.max(1,config.getInt("avisos.cada-bajas",10)) == 0 && m.kills < m.required) p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-013", "§6MISIONES §e{name-category} §f{m-kills}/{m-required}", "name-category", name(category), "m-kills", m.kills, "m-required", m.required));
+            if (m.kills % Math.max(1,config.getInt("avisos.cada-bajas",10)) == 0 && m.kills < m.required)
+                p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-013",
+                        "§6MISIONES §e{name-category} §f{m-kills}/{m-required}",
+                        "name-category", name(category), "m-kills", m.kills, "m-required", m.required));
             if (m.ready()) summon(p, category, m);
         }
     }
+
+    private void finishBoss(EntityDeathEvent event, BossClaim claim) {
+        Mission mission = mission(claim.owner(), claim.category());
+        if (!mission.active || !event.getEntity().getUniqueId().equals(mission.bossId)) return;
+        Player killer = event.getEntity().getKiller();
+        boolean victory = killer != null && claim.owner().equals(killer.getUniqueId());
+        mission.active = false;
+        mission.bossId = null;
+        mission.kills = 0;
+
+        int gained = 0, previousLevel = 0, newLevel = 0;
+        if (victory && "revenant".equals(claim.category())) {
+            SlayerRecord progress = revenant(claim.owner());
+            previousLevel = level(claim.owner());
+            gained = xpFromBoss(claim.tier());
+            progress.totalXp = Math.min(1_000_000_000L, progress.totalXp + gained);
+            progress.victories = Math.min(Integer.MAX_VALUE, progress.victories + 1);
+            newLevel = level(claim.owner());
+        }
+
+        dirty = true;
+        boolean persisted = save(); // No permission grants before XP and finished state are durable.
+        Player owner = Bukkit.getPlayer(claim.owner());
+        if (owner != null) {
+            refreshBar(owner);
+            if (!persisted) owner.sendMessage("§cSlayer: error de guardado; contacta a un administrador.");
+            else if (victory) owner.sendMessage("§a¡Jefe derrotado! §6+" + gained
+                    + " XP Slayer §7· Nivel " + newLevel);
+            else owner.sendMessage("§cNo recibiste XP Slayer: debes dar el golpe final a tu propio jefe.");
+        }
+        if (persisted && victory && newLevel > previousLevel)
+            unlocks.synchronize(claim.owner(), newLevel);
+    }
+
     private void summon(Player p, String category, Mission m) {
-        long now = System.currentTimeMillis(); if (now - attempts.getOrDefault(p.getUniqueId(), 0L) < Math.max(0,config.getLong("invocacion.reintento-milisegundos",5000))) return;
+        if (m.bossId != null || !m.ready()) return; // Exactly one registered boss per contract.
+        long now = System.currentTimeMillis();
+        if (now - attempts.getOrDefault(p.getUniqueId(), 0L)
+                < Math.max(0, config.getLong("invocacion.reintento-milisegundos", 5000))) return;
         attempts.put(p.getUniqueId(), now);
-        String mob = config.getString("categorias." + category + ".mob", "").replace("{tier}", Integer.toString(m.tier));
+        String mob = config.getString("categorias." + category + ".mob", "")
+                .replace("{tier}", Integer.toString(m.tier));
         Entity spawned = null;
         try {
             var mythic = Bukkit.getPluginManager().getPlugin("MythicMobs");
             if (mythic != null && mythic.isEnabled()) {
                 Class<?> api = Class.forName("io.lumine.mythic.bukkit.MythicBukkit", true, mythic.getClass().getClassLoader());
-                Object instance = api.getMethod("inst").invoke(null), helper = api.getMethod("getAPIHelper").invoke(instance);
-                Object result = helper.getClass().getMethod("spawnMythicMob", String.class, Location.class, int.class).invoke(helper, mob, p.getLocation(), config.getInt("invocacion.nivel-mob",1));
+                Object instance = api.getMethod("inst").invoke(null);
+                Object helper = api.getMethod("getAPIHelper").invoke(instance);
+                Object result = helper.getClass().getMethod("spawnMythicMob", String.class, Location.class, int.class)
+                        .invoke(helper, mob, p.getLocation(), config.getInt("invocacion.nivel-mob",1));
                 if (result instanceof Entity entity && entity.isValid()) spawned = entity;
             }
-        } catch (ReflectiveOperationException | LinkageError | RuntimeException error) { plugin.getLogger().warning(Settings.text("slayer", "SlayerModule.mensaje-014", "Slayer: no se pudo invocar {mob}: {error-getmessage}", "mob", mob, "error-getmessage", error.getMessage())); }
+        } catch (ReflectiveOperationException | LinkageError | RuntimeException error) {
+            plugin.getLogger().warning(Settings.text("slayer", "SlayerModule.mensaje-014",
+                    "Slayer: no se pudo invocar {mob}: {error-getmessage}",
+                    "mob", mob, "error-getmessage", error.getMessage()));
+        }
         if (spawned == null) {
-            p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-015", "§cNo se pudo invocar {mob}. Tu objetivo se conserva. Reintenta con /spectrecore slayer invocar {category}", "mob", mob, "category", category));
+            p.sendMessage(Settings.text("slayer", "SlayerModule.mensaje-015",
+                    "§cNo se pudo invocar {mob}. Tu objetivo se conserva. Reintenta con /spectrecore slayer invocar {category}",
+                    "mob", mob, "category", category));
             return;
         }
-        m.confirmSpawn(); dirty = true; save(); refreshBar(p);
-        p.showTitle(Title.title(Settings.component(Settings.text("slayer", "SlayerModule.mensaje-016", "¡MISIÓN COMPLETADA!"), Settings.color("slayer", "SlayerModule.color-002", NamedTextColor.GOLD)), Settings.component(Settings.text("slayer", "SlayerModule.mensaje-017", "{name-category} ha sido invocado", "name-category", name(category)), Settings.color("slayer", "SlayerModule.color-003", NamedTextColor.YELLOW)), Title.Times.times(Duration.ofMillis(Settings.i("slayer", "SlayerModule.ofmillis-003-arg0", 150)), Duration.ofSeconds(Settings.i("slayer", "SlayerModule.ofseconds-004-arg0", 3)), Duration.ofMillis(Settings.i("slayer", "SlayerModule.ofmillis-005-arg0", 400)))));
-        p.playSound(p.getLocation(), Settings.sound("slayer", "SlayerModule.sound-004", Sound.ENTITY_WITHER_SPAWN),Settings.f("slayer", "SlayerModule.playsound-006-arg2", 1),Settings.f("slayer", "SlayerModule.playsound-007-arg3", .8f));
-        Location center = spawned.getLocation().add(0,.15,0);
-        for (int i = 0; i < 32; i++) { double a = i * Math.PI / 16; center.getWorld().spawnParticle(Settings.particle("slayer", "SlayerModule.particle-005", Particle.SOUL_FIRE_FLAME), center.clone().add(Math.cos(a) * 1.4, 0, Math.sin(a) * 1.4),Settings.i("slayer", "SlayerModule.spawnparticle-008-arg2", 1),Settings.d("slayer", "SlayerModule.spawnparticle-009-arg3", 0),Settings.d("slayer", "SlayerModule.spawnparticle-010-arg4", 0),Settings.d("slayer", "SlayerModule.spawnparticle-011-arg5", 0),Settings.d("slayer", "SlayerModule.spawnparticle-012-arg6", .02)); }
+        UUID bossId = spawned.getUniqueId();
+        m.bossId = bossId;
+        activeBosses.put(bossId, new BossClaim(p.getUniqueId(), category, m.tier));
+        dirty = true;
+        if (!save()) {
+            activeBosses.remove(bossId);
+            m.bossId = null;
+            spawned.remove();
+            p.sendMessage("§cNo se pudo guardar el jefe. La invocación fue cancelada; el progreso se conserva.");
+            return;
+        }
+        refreshBar(p);
+        p.showTitle(Title.title(
+                Settings.component("¡JEFE INVOCADO!", Settings.color("slayer", "SlayerModule.color-002", NamedTextColor.GOLD)),
+                Settings.component(name(category) + " §7· derrota al monarca", Settings.color("slayer", "SlayerModule.color-003", NamedTextColor.YELLOW)),
+                Title.Times.times(Duration.ofMillis(150), Duration.ofSeconds(3), Duration.ofMillis(400))));
+        p.playSound(p.getLocation(), Settings.sound("slayer", "SlayerModule.sound-004", Sound.ENTITY_WITHER_SPAWN),
+                Settings.f("slayer", "SlayerModule.playsound-006-arg2", 1),
+                Settings.f("slayer", "SlayerModule.playsound-007-arg3", .8f));
+        Location center = spawned.getLocation().add(0, .15, 0);
+        for (int i = 0; i < 32; i++) {
+            double angle = i * Math.PI / 16;
+            center.getWorld().spawnParticle(Settings.particle("slayer", "SlayerModule.particle-005", Particle.SOUL_FIRE_FLAME),
+                    center.clone().add(Math.cos(angle) * 1.4, 0, Math.sin(angle) * 1.4),
+                    1, 0, 0, 0, .02);
+        }
     }
+
     private void refreshBar(Player p) {
         hideBar(p);
         for (String c : CATEGORIES) { Mission m = mission(p.getUniqueId(), c); if (!m.active) continue;
-            BossBar bar = BossBar.bossBar(Settings.component(Settings.text("slayer", "SlayerModule.mensaje-018", "{name-c} · {m-kills}/{m-required}", "name-c", name(c), "m-kills", m.kills, "m-required", m.required)), Math.min(1f, (float)m.kills / Math.max(1,m.required)), c.equals("revenant") ? BossBar.Color.RED : c.equals("spider") ? BossBar.Color.GREEN : BossBar.Color.PURPLE, BossBar.Overlay.PROGRESS);
+            String title = m.bossId == null
+                    ? Settings.text("slayer", "SlayerModule.mensaje-018", "{name-c} · {m-kills}/{m-required}",
+                            "name-c", name(c), "m-kills", m.kills, "m-required", m.required)
+                    : "§c" + name(c) + " §7· Jefe activo";
+            float percent = m.bossId == null ? Math.min(1f, (float)m.kills / Math.max(1,m.required)) : 1f;
+            BossBar bar = BossBar.bossBar(Settings.component(title), percent,
+                    c.equals("revenant") ? BossBar.Color.RED : c.equals("spider") ? BossBar.Color.GREEN : BossBar.Color.PURPLE,
+                    BossBar.Overlay.PROGRESS);
             bars.put(p.getUniqueId(), bar); p.showBossBar(bar); break;
         }
     }
     private void hideBar(Player p) { BossBar bar = bars.remove(p.getUniqueId()); if (bar != null) p.hideBossBar(bar); }
     @EventHandler public void quit(PlayerQuitEvent e) { hideBar(e.getPlayer()); if (dirty) save(); }
-    @EventHandler public void join(PlayerJoinEvent e) { Bukkit.getScheduler().runTaskLater(plugin, () -> { if (e.getPlayer().isOnline()) refreshBar(e.getPlayer()); }, 1); }
+    @EventHandler public void join(PlayerJoinEvent e) {
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            if (e.getPlayer().isOnline()) {
+                refreshBar(e.getPlayer());
+                unlocks.synchronize(e.getPlayer().getUniqueId(), level(e.getPlayer().getUniqueId()));
+            }
+        }, 1);
+    }
     private void load() {
         var data = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "slayer-data.yml"));
-        for (String id : data.getKeys(false)) try { UUID uuid = UUID.fromString(id);
-            for (String c : CATEGORIES) { var s = data.getConfigurationSection(id + "." + c); if (s == null) continue;
-                Mission m = mission(uuid,c); m.tier = Math.max(0,Math.min(3,s.getInt("tier",0))); m.required = m.tier == 0 ? 0 : Math.max(1,s.getInt("required",ProgressRules.required(m.tier))); m.kills = Math.max(0,Math.min(m.required,s.getInt("kills"))); m.active = m.tier > 0 && s.getBoolean("active");
+        for (String id : data.getKeys(false)) try {
+            UUID uuid = UUID.fromString(id);
+            for (String category : CATEGORIES) {
+                var section = data.getConfigurationSection(id + "." + category);
+                if (section == null) continue;
+                Mission m = mission(uuid, category);
+                m.tier = Math.max(0, Math.min(3, section.getInt("tier",0)));
+                m.required = m.tier == 0 ? 0 : Math.max(1, section.getInt("required", ProgressRules.required(m.tier)));
+                m.kills = Math.max(0, Math.min(m.required, section.getInt("kills")));
+                m.active = m.tier > 0 && section.getBoolean("active");
+                String storedId = section.getString("boss-id");
+                if (m.active && storedId != null) try {
+                    m.bossId = UUID.fromString(storedId);
+                    activeBosses.put(m.bossId, new BossClaim(uuid, category, m.tier));
+                } catch (IllegalArgumentException invalid) {
+                    plugin.getLogger().warning("Slayer: UUID de jefe inválido para " + uuid);
+                }
             }
-        } catch (IllegalArgumentException e) { plugin.getLogger().warning(Settings.text("slayer", "SlayerModule.mensaje-019", "UUID inválido en slayer-data.yml: {id}", "id", id)); }
+            var experience = data.getConfigurationSection(id + ".revenant-progression");
+            if (experience != null) {
+                SlayerRecord progress = revenant(uuid);
+                progress.totalXp = Math.max(0L, Math.min(1_000_000_000L, experience.getLong("xp", 0)));
+                progress.victories = Math.max(0, experience.getInt("victorias", 0));
+            }
+        } catch (IllegalArgumentException invalid) {
+            plugin.getLogger().warning(Settings.text("slayer", "SlayerModule.mensaje-019",
+                    "UUID inválido en slayer-data.yml: {id}", "id", id));
+        }
     }
+
     private boolean save() {
-        var data = new YamlConfiguration(); missions.forEach((id, values) -> values.forEach((c,m) -> {
-            String root = id + "." + c; data.set(root + ".tier",m.tier); data.set(root + ".kills",m.kills); data.set(root + ".required",m.required); data.set(root + ".active",m.active);
-        })); if (YamlStore.save(plugin,"slayer-data.yml",data)) { dirty = false; return true; }
+        var data = new YamlConfiguration();
+        missions.forEach((id, values) -> values.forEach((category, mission) -> {
+            String root = id + "." + category;
+            data.set(root + ".tier", mission.tier);
+            data.set(root + ".kills", mission.kills);
+            data.set(root + ".required", mission.required);
+            data.set(root + ".active", mission.active);
+            data.set(root + ".boss-id", mission.bossId == null ? null : mission.bossId.toString());
+        }));
+        revenantRecords.forEach((id, progress) -> {
+            data.set(id + ".revenant-progression.xp", progress.totalXp);
+            data.set(id + ".revenant-progression.victorias", progress.victories);
+        });
+        if (YamlStore.save(plugin, "slayer-data.yml", data)) { dirty = false; return true; }
         return false;
     }
 }
