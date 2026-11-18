@@ -198,7 +198,7 @@ public final class JobsModule implements Listener {
         boolean toasted = result == EconomyBridge.Result.CONFIRMED
                 && ((dev.hydev.spectrecore.SpectreCorePlugin) plugin).toasts() != null
                 && ((dev.hydev.spectrecore.SpectreCorePlugin) plugin).toasts().show(p, "trabajo-" + job);
-        if (toasted) p.sendMessage(paymentMessage); // Preserve exact amount without another actionbar.
+        if (toasted) p.sendMessage(Settings.component(paymentMessage)); // Preserve exact amount without another actionbar.
         else p.sendActionBar(Settings.component(paymentMessage, Settings.color("trabajos", "JobsModule.color-004", NamedTextColor.GOLD)));
     }
     private void missing(String job, String level) { if (warned.add(job + "." + level)) plugin.getLogger().warning(Settings.plain("trabajos", "JobsModule.mensaje-008", "Trabajos: faltan o son inválidos dinero/cooldown de {job}.{level}. Esa categoría no paga hasta configurarse.", "job", job, "level", level)); }
