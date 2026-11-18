@@ -1,6 +1,8 @@
 package dev.hydev.spectrecore.integration;
 
 import dev.hydev.spectrecore.config.ModuleConfiguration;
+import dev.hydev.spectrecore.text.TextService;
+import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.advancement.Advancement;
@@ -156,10 +158,13 @@ public final class ToastService implements Listener {
         lastToast.clear();
     }
 
+    /** Advancement components use Adventure JSON, not literal MiniMessage tags. */
     private static String json(String icon, String title, String description) {
+        String titleJson = GsonComponentSerializer.gson().serialize(TextService.component(title));
+        String descriptionJson = GsonComponentSerializer.gson().serialize(TextService.component(description));
         return "{\"display\":{\"icon\":{\"id\":\"" + escape(icon) + "\"},"
-                + "\"title\":{\"text\":\"" + escape(title) + "\"},"
-                + "\"description\":{\"text\":\"" + escape(description) + "\"},"
+                + "\"title\":" + titleJson + ","
+                + "\"description\":" + descriptionJson + ","
                 + "\"frame\":\"task\",\"show_toast\":true,\"announce_to_chat\":false,\"hidden\":true},"
                 + "\"criteria\":{\"notify\":{\"trigger\":\"minecraft:impossible\"}},"
                 + "\"requirements\":[[\"notify\"]]}";
