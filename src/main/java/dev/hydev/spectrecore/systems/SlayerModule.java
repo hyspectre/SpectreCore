@@ -126,7 +126,7 @@ public final class SlayerModule implements Listener {
             p.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-002", "§6✦ ESTADÍSTICAS DE MISIONES"));
             p.sendMessage("§6Monarquía Renacida §fNivel " + slayerLevel(p) + " §7· §e"
                     + slayerXp(p) + "§7/§e" + slayerNextXp(p) + " XP §7· Victorias: §f" + slayerVictories(p));
-            for (String c : CATEGORIES) { Mission m = mission(id, c); p.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-003","§e{name-c}§7: §f{m-kills}/{m-required} §7| Tier {m-tier} | {valor5}","name-c", name(c),"m-kills", m.kills,"m-required", m.required,"m-tier", m.tier,"valor5", (m.active ? Settings.component(Settings.text("slayer", "SlayerModule.texto-001", "§aActiva"))) : Settings.component(Settings.text("slayer", "SlayerModule.texto-002", "§7Inactiva")))))); }
+            for (String c : CATEGORIES) { Mission m = mission(id, c); p.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-003","§e{name-c}§7: §f{m-kills}/{m-required} §7| Tier {m-tier} | {valor5}","name-c", name(c),"m-kills", m.kills,"m-required", m.required,"m-tier", m.tier,"valor5", (m.active ? Settings.component(Settings.text("slayer", "SlayerModule.texto-001", "§aActiva")) : Settings.component(Settings.text("slayer", "SlayerModule.texto-002", "§7Inactiva"))))); }
             return true;
         }
         if (command.equals("contratarslayer") || command.equals("abandonarslayer"))
@@ -135,7 +135,7 @@ public final class SlayerModule implements Listener {
         if (command.equals("slayerinvocar")) {
             if (args.length != 1 || !CATEGORIES.contains(args[0].toLowerCase(Locale.ROOT))) {
                 p.sendMessage(Settings.component(Settings.text("slayer", "SlayerModule.reintento-uso",
-                        "<red>Uso: /spectrecore slayer invocar [categoria]")));
+                        "<red>Uso: /spectrecore slayer invocar [categoria]"));
                 return true;
             }
             String category = args[0].toLowerCase(Locale.ROOT);
@@ -145,7 +145,7 @@ public final class SlayerModule implements Listener {
                         "§cTodavía no has completado ese objetivo."));
             } else if (pending.bossId != null) {
                 p.sendMessage(Settings.component(Settings.text("slayer", "SlayerModule.reintento-en-curso",
-                        "<yellow>Ya tienes un jefe activo. No se permite otra invocación.")));
+                        "<yellow>Ya tienes un jefe activo. No se permite otra invocación."));
             } else summon(p, category, pending);
             return true;
         }
@@ -207,7 +207,7 @@ public final class SlayerModule implements Listener {
             return;
         }
         player.sendMessage(Settings.component(Settings.text("slayer", "SlayerModule.reintento-sin-pendientes",
-                "<gray>No tienes un jefe de Monarquía pendiente de invocación.")));
+                "<gray>No tienes un jefe de Monarquía pendiente de invocación."));
     }
     public String progressLine(Player player, String category, int tier) {
         Mission state = mission(player.getUniqueId(), category);
