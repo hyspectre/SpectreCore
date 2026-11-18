@@ -24,7 +24,7 @@ public final class CommandRoutingRegression {
             check(route.usage().startsWith("/spectrecore "),"Canonical usage "+route.path());
             if(!route.target().equals("$core"))targets.add(route.target());
         }
-        check(targets.size()==38,"36 former standalone handlers plus two secure Slayer contract handlers");
+        check(targets.size()==39,"36 former handlers plus contract, cancel and remote-phone purchase handlers");
         check(CommandRoutes.resolve(new String[]{"resonancia","debug"}).route().target().equals("debugresonancia"),"Longest prefix wins over public resonance query");
         check(CommandRoutes.resolve(new String[]{"tesoros","mineria","3"}).arguments().equals(List.of("mineria","tesoro","3")),"Preview adapter keeps expected argument positions");
         check(CommandRoutes.resolve(new String[]{"portal","registrar","Alex","My session","abc"}).arguments().equals(List.of("Alex","My session","abc")),"Session arguments unchanged, no split/re-dispatch");
