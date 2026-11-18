@@ -47,10 +47,10 @@ Contrato actual:
 - Furia por golpear/recibir daño, activación por doble Shift a 100/100.
 - Combo sobre un **mismo** objetivo hostil, con ventana 50 ticks y máximo 4 acumulaciones; cada una +3 % (hasta +12 %).
 - Reiniciar al cambiar de presa, exceder ventana, perder el set o acabar transformación.
-- [ ] Aislar y testear el ciclo objetivo/combo sin depender de efectos visuales.
-- [ ] Validar los eventos de daño de MythicLib/MMOItems; medir daño real aplicado, no solo daño solicitado.
-- [ ] Elegir adaptador por objetivo que mantenga PvP y ataques a otras entidades fuera del bono. **No** aplicar Strength global para el combo.
-- [ ] Testear secuencia de 1–6 golpes, cambio de objetivo y caducidad.
+- [x] Aislar y testear el ciclo objetivo/combo sin depender de efectos visuales (`AsterionComboRules`, `AsterionComboSmoke`).
+- [ ] Verificar daño ingame frente a MythicLib/MMOItems. Instrumentación opcional ya creada: `engine.combat.debug-multipliers: true`; registra original, esperado, evento y final, limitado a un log por segundo/jugador.
+- [x] Mantener el multiplicador focalizado por UUID de presa (sin Strength global), con limpieza en vencimiento y cambio de objetivo. **Daño final ingame sigue pendiente.**
+- [x] Testear secuencia de 1–6 golpes, cambio de objetivo y caducidad en pruebas puras Java.
 
 ## Hito D — Slayer y portales
 
@@ -61,13 +61,13 @@ Contrato actual:
 
 ## Hito E — UX
 
-- [ ] Implementar issue #1: toasts nativos de Minecraft para carga lista y extracción de Resonancia, Furia de Asterión y pagos de Trabajos.
-- [ ] Antiflood, toggles modulares, compatibilidad con clientes; fallback si el canal nativo no puede usarse.
-- [ ] Conservar actionbar para estados continuos y prioritarios.
+- [x] Implementación experimental de issue #1 (8 presets) con advancement temporal; requiere prueba visual ingame para declararla completa.
+- [x] Antiflood y toggles YAML con fallback funcional preparados; **compatibilidad y eventos de avances aún sin validar ingame**.
+- [x] Conservar actionbar de estados continuos y utilizar toast para hitos; el pago Vault confirmado usa toast + monto en chat.
 
 ## Hito F — Release candidate única
 
-- [ ] Java 21: compilación, validadores YAML, smoke tests, regresiones y artefacto GitHub Actions.
+- [x] Build Java 21, validadores YAML, smoke tests y artefacto verificados en ejecución intermedia; repetir sobre SHA final antes de RC.
 - [ ] Probar el control pendiente de comandos inválidos de la Prueba 19.
 - [ ] Plan de rollback, backups de JAR/YAML/datos, changelog y protocolo de upgrade.
 - [ ] **Única ventana de mantenimiento**: detener normalmente, instalar JAR, iniciar una vez y realizar QA ingame.
