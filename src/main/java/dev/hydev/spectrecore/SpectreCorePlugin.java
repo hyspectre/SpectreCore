@@ -385,6 +385,19 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
                             : Settings.text("nucleo", "Integraciones.inactivo", "<gray>no activo</gray>")))));
             return true;
         }
+        if (sub.equals("toast")) {
+            if (!canAdmin(sender)) { sender.sendMessage("§cSin permiso."); return true; }
+            if (!(sender instanceof Player player)) { sender.sendMessage("§7Prueba el toast desde el juego."); return true; }
+            if (args.length != 3 || !args[1].equalsIgnoreCase("prueba")
+                    || !java.util.Set.of("furia","resonancia","gema-basica","gema-intermedia","gema-superior",
+                            "trabajo-minero","trabajo-granjero","trabajo-cazador").contains(args[2])) {
+                sender.sendMessage("§eUso: /spectrecore toast prueba <furia|resonancia|gema-basica|gema-intermedia|gema-superior|trabajo-minero|trabajo-granjero|trabajo-cazador>");
+                return true;
+            }
+            if (toastService == null || !toastService.show(player, args[2]))
+                sender.sendMessage("§eToast no disponible o desactivado. Verifica la consola y los ajustes.");
+            return true;
+        }
         if (sub.equals("diagnostico") || sub.equals("diagnostics")) {
             if (!canAdmin(sender)) { sender.sendMessage(Settings.component(Settings.text("nucleo", "Modelos.sin-permiso", "<red>Sin permiso.</red>"))); return true; }
             sender.sendMessage(Settings.component(Settings.text("nucleo", "Diagnostico.estado",
