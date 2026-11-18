@@ -25,7 +25,9 @@ public final class PresentationConfigSmoke {
         check(Gameplay.tier("mineria","DIAMOND_ORE")==3,"Configured mining classification");
         check(Gameplay.tier("trabajos-mineria","NETHER_QUARTZ_ORE")==3&&Gameplay.tier("mineria","NETHER_QUARTZ_ORE")==0,"Preserve original jobs distinction");
         var messages=read("trabajos/mensajes.yml");messages.set("JobsModule.mensaje-001","&aMensaje propio {jugador}");save("trabajos/mensajes.yml",messages);manager.reload();
-        check(Settings.text("trabajos","JobsModule.mensaje-001","fallback","jugador","Alex").equals("§aMensaje propio Alex"),"Live text, color and placeholder edits applied");
+        check(Settings.text("trabajos","JobsModule.mensaje-001","fallback","jugador","Alex").equals("<reset><green>Mensaje propio Alex"),"Legacy custom message migrated to MiniMessage");
+        check(Files.isRegularFile(root.resolve("backups/minimessage-v1/modules/trabajos/mensajes.yml")),
+                "Legacy message backup created before migration");
         check(Settings.format("{uno}/{dos}","uno","{dos}","dos","$x\\name").equals("{dos}/$x\\name"),"One-pass literal placeholder replacement");
         // MiniMessage migration: preserve legacy colors and never parse user-controlled markup.
         var plainText = net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer.plainText();
