@@ -76,7 +76,9 @@ public final class MissionsMenu implements Listener {
                 throw new IOException("ui/misiones.yml ausente o demasiado grande");
             YamlConfiguration candidate = new YamlConfiguration();
             candidate.load(file);
-            for (String page : List.of("misiones", "revenant")) {
+            for (String page : List.of("misiones", "revenant", "progresion")) {
+                // Older server installations keep their two-page YAML until migrated.
+                if (page.equals("progresion") && candidate.getConfigurationSection("pages.progresion") == null) continue;
                 String root = "pages." + page;
                 ConfigurationSection items = candidate.getConfigurationSection(root + ".items");
                 if (items == null || !candidate.isString(root + ".title")
@@ -97,7 +99,7 @@ public final class MissionsMenu implements Listener {
                         throw new IOException(key + " supera los límites");
                 }
             }
-            layout = candidate; // Publish atomically after validating BOTH pages.
+            layout = candidate; // Publish atomically after validating the available pages.
         } catch (Exception exception) {
             plugin.getLogger().warning("Misiones: configuración rechazada; se conserva la última válida: "
                     + exception.getMessage());
@@ -109,7 +111,9 @@ public final class MissionsMenu implements Listener {
             player.sendMessage("§cEl menú de misiones está temporalmente desactivado.");
             return false;
         }
-        if (!Set.of("misiones", "revenant").contains(page)) page = "misiones";
+        if (!Set.of("misiones", "revenant", "progresion").contains(page)
+                || (page.equals("progresion") && layout.getConfigurationSection("pages.progresion") == null))
+            page = "misiones";
         String root = "pages." + page;
         ConfigurationSection buttons = layout.getConfigurationSection(root + ".items");
         if (buttons == null) return false;
@@ -132,7 +136,7 @@ public final class MissionsMenu implements Listener {
             meta.displayName(styled(layout.getString(path + ".name", "Misiones")));
             List<Component> lore = new ArrayList<>();
             for (String line : layout.getStringList(path + ".lore"))
-                lore.add(styled(resolveLore(page, id, line)));
+                lore.add(styled(resolveLore(player, page, id, line)));
             if (page.equals("revenant") && Set.of("1", "2", "3").contains(id)) {
                 int tier = Integer.parseInt(id);
                 lore.add(styled(""));
@@ -148,8 +152,21 @@ public final class MissionsMenu implements Listener {
     }
 
     /** Known placeholders only, sourced from the authoritative Slayer module, never player commands. */
-    private String resolveLore(String page, String item, String source) {
+    private String resolveLore(Player player, String page, String item, String source) {
         if (source == null || !source.contains("{")) return source;
+        if (page.equals("progresion")) {
+            String message = source.replace("{nivel}", Integer.toString(slayer.slayerLevel(player)))
+                    .replace("{xp}", Long.toString(slayer.slayerXp(player)))
+                    .replace("{siguiente}", slayer.slayerNextXp(player))
+                    .replace("{victorias}", Integer.toString(slayer.slayerVictories(player)));
+            if (item.startsWith("nivel")) {
+                try {
+                    int unlockLevel = Integer.parseInt(item.substring("nivel".length()));
+                    message = message.replace("{estado}", slayer.slayerRewardState(player, unlockLevel));
+                } catch (NumberFormatException ignored) { }
+            }
+            return message;
+        }
         if (page.equals("misiones") && item.equals("telefono"))
             return source.replace("{precio}", slayer.phonePriceLabel());
         if (!page.equals("revenant")) return source;
@@ -198,6 +215,7 @@ public final class MissionsMenu implements Listener {
         if (holder.page.equals("misiones")) {
             switch (id) {
                 case "1" -> nextTick(player, holder, () -> open(player, "revenant"));
+                case "progresion" -> nextTick(player, holder, () -> open(player, "progresion"));
                 case "telefono" -> nextTick(player, holder, () -> {
                     player.closeInventory();
                     slayer.buyPhoneFromMenu(player);
@@ -205,6 +223,11 @@ public final class MissionsMenu implements Listener {
                 case "cerrar" -> nextTick(player, holder, player::closeInventory);
                 default -> { /* locked / informative entries deliberately have no actions */ }
             }
+            return;
+        }
+        if (holder.page.equals("progresion")) {
+            if (id.equals("volver")) nextTick(player, holder, () -> open(player, "misiones"));
+            else if (id.equals("cerrar")) nextTick(player, holder, player::closeInventory);
             return;
         }
         switch (id) {
