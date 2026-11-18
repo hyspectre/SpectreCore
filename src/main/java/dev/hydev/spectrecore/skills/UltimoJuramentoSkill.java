@@ -63,7 +63,7 @@ public final class UltimoJuramentoSkill implements SkillModule {
         s.speedApplied = true;
         p.getWorld().playSound(p.getLocation(), Settings.string("equipamiento", "UltimoJuramentoSkill.sonido-005", "minecraft:block.anvil.break"),Settings.f("equipamiento", "UltimoJuramentoSkill.playsound-001-arg2", .65f),Settings.f("equipamiento", "UltimoJuramentoSkill.playsound-002-arg3", .72f));
         p.getWorld().spawnParticle(Settings.particle("equipamiento", "UltimoJuramentoSkill.particle-001", Particle.REVERSE_PORTAL), p.getLocation().add(0, 1.0, 0),Settings.i("equipamiento", "UltimoJuramentoSkill.spawnparticle-003-arg2", 26),Settings.d("equipamiento", "UltimoJuramentoSkill.spawnparticle-004-arg3", .5),Settings.d("equipamiento", "UltimoJuramentoSkill.spawnparticle-005-arg4", .7),Settings.d("equipamiento", "UltimoJuramentoSkill.spawnparticle-006-arg5", .5),Settings.d("equipamiento", "UltimoJuramentoSkill.spawnparticle-007-arg6", .02));
-        p.sendMessage(Settings.text("equipamiento", "UltimoJuramentoSkill.mensaje-001", "§5✦ §dÚltimo Juramento §7— El acero deja de protegerte."));
+        p.sendMessage(Settings.message("equipamiento", "UltimoJuramentoSkill.mensaje-001", "§5✦ §dÚltimo Juramento §7— El acero deja de protegerte."));
     }
 
     @Override public double outgoingMultiplier(Player p, LivingEntity target, long tick) {

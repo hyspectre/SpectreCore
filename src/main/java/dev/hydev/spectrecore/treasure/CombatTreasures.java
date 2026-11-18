@@ -44,8 +44,8 @@ public final class CombatTreasures implements Listener {
         String type = config.getString("botin.tipo", "MATERIAL"), id = config.getString("botin.id", "ALMA_1");
         var reward = mmo.build(type, id, config.getInt("cantidad",1));
         if (reward == null) {
-            if (!reported) { plugin.getLogger().warning(Settings.text("tesoros", "CombatTreasures.mensaje-001", "Almas: no se pudo generar {type}:{id}. Revisa MMOItems y el ID.", "type", type, "id", id)); reported = true; }
-            player.sendMessage(Settings.text("tesoros", "CombatTreasures.mensaje-002", "§f⧇ §9§lALMAS §cLa recompensa no está disponible; avisa a administración.")); return;
+            if (!reported) { plugin.getLogger().warning(Settings.plain("tesoros", "CombatTreasures.mensaje-001", "Almas: no se pudo generar {type}:{id}. Revisa MMOItems y el ID.", "type", type, "id", id)); reported = true; }
+            player.sendMessage(Settings.message("tesoros", "CombatTreasures.mensaje-002", "§f⧇ §9§lALMAS §cLa recompensa no está disponible; avisa a administración.")); return;
         }
         player.getInventory().addItem(reward.clone()).values().forEach(left -> player.getWorld().dropItem(player.getLocation(), left, drop -> {
             drop.setOwner(player.getUniqueId()); drop.setThrower(player.getUniqueId()); drop.setPickupDelay(0);
@@ -56,14 +56,14 @@ public final class CombatTreasures implements Listener {
         player.showTitle(Title.title(Settings.component(Settings.text("tesoros", "CombatTreasures.mensaje-003", "¡ALMA RECOLECTADA!"), Settings.color("tesoros", "CombatTreasures.color-002", NamedTextColor.BLUE)), Settings.component(Settings.text("tesoros", "CombatTreasures.mensaje-004", "⧇"), Settings.color("tesoros", "CombatTreasures.color-003", NamedTextColor.WHITE)), Title.Times.times(Duration.ofMillis(Settings.i("tesoros", "CombatTreasures.ofmillis-003-arg0", 150)), Duration.ofSeconds(Settings.i("tesoros", "CombatTreasures.ofseconds-004-arg0", 2)), Duration.ofMillis(Settings.i("tesoros", "CombatTreasures.ofmillis-005-arg0", 350)))));
     }
     public boolean preview(CommandSender sender, String[] args) {
-        if (!sender.hasPermission("spectrecore.admin") && !sender.hasPermission("hydev.admin")) { sender.sendMessage(Settings.text("tesoros", "CombatTreasures.mensaje-005", "§cNo tienes permiso.")); return true; }
-        if (!(sender instanceof Player player)) { sender.sendMessage(Settings.text("tesoros", "CombatTreasures.mensaje-006", "Usa la demostración dentro del juego.")); return true; }
+        if (!sender.hasPermission("spectrecore.admin") && !sender.hasPermission("hydev.admin")) { sender.sendMessage(Settings.message("tesoros", "CombatTreasures.mensaje-005", "§cNo tienes permiso.")); return true; }
+        if (!(sender instanceof Player player)) { sender.sendMessage(Settings.message("tesoros", "CombatTreasures.mensaje-006", "Usa la demostración dentro del juego.")); return true; }
         int tier = 0;
         if (args.length >= 3 && args[1].equalsIgnoreCase("alma")) try { tier = Integer.parseInt(args[2]); } catch (NumberFormatException ignored) { }
-        if (tier < 1 || tier > 3) { sender.sendMessage(Settings.text("tesoros", "CombatTreasures.mensaje-007", "/spectrecore tesoros combate <1|2|3>")); return true; }
+        if (tier < 1 || tier > 3) { sender.sendMessage(Settings.message("tesoros", "CombatTreasures.mensaje-007", "/spectrecore tesoros combate <1|2|3>")); return true; }
         var block = player.getTargetBlockExact(6);
         Location at = block == null ? player.getLocation().add(player.getLocation().getDirection().multiply(2)) : block.getLocation().add(.5, .5, .5);
         visuals.soul(at, tier);
-        sender.sendMessage(Settings.text("tesoros", "CombatTreasures.mensaje-008", "§7Vista previa de alma: no entrega objetos ni consume cooldown.")); return true;
+        sender.sendMessage(Settings.message("tesoros", "CombatTreasures.mensaje-008", "§7Vista previa de alma: no entrega objetos ni consume cooldown.")); return true;
     }
 }

@@ -81,7 +81,7 @@ public final class BotaniaSkill implements SkillModule {
         UUID token = UUID.randomUUID();
         s.activationId = token;
         player.getWorld().playSound(player.getLocation(), Settings.string("equipamiento", "BotaniaSkill.sonido-005", "minecraft:block.amethyst_block.chime"),Settings.f("equipamiento", "BotaniaSkill.playsound-001-arg2", 0.75f),Settings.f("equipamiento", "BotaniaSkill.playsound-002-arg3", 1.5f));
-        player.sendMessage(Settings.text("equipamiento", "BotaniaSkill.mensaje-001", "§d✿ §aBotania §7— Las Rosas Gemelas despiertan."));
+        player.sendMessage(Settings.message("equipamiento", "BotaniaSkill.mensaje-001", "§d✿ §aBotania §7— Las Rosas Gemelas despiertan."));
         int count = Math.min(8, Math.max(1, getInt("lash-count", 4)));
         long first = Math.max(1, getInt("lash-first-delay-ticks", 20));
         int interval = Math.max(1, getInt("lash-interval-ticks", 24));

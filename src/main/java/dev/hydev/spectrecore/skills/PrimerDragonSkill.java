@@ -93,7 +93,7 @@ public final class PrimerDragonSkill implements SkillModule {
         s.speedApplied = true;
         p.getWorld().playSound(p.getLocation(), Settings.string("equipamiento", "PrimerDragonSkill.sonido-003", "minecraft:entity.ender_dragon.flap"),Settings.f("equipamiento", "PrimerDragonSkill.playsound-001-arg2", .75f),Settings.f("equipamiento", "PrimerDragonSkill.playsound-002-arg3", 1.35f));
         p.getWorld().spawnParticle(Settings.particle("equipamiento", "PrimerDragonSkill.particle-001", Particle.END_ROD), p.getLocation().add(0, Settings.d("equipamiento", "PrimerDragonSkill.geometria-001", .6), 0),Settings.i("equipamiento", "PrimerDragonSkill.spawnparticle-003-arg2", 24),Settings.d("equipamiento", "PrimerDragonSkill.spawnparticle-004-arg3", .5),Settings.d("equipamiento", "PrimerDragonSkill.spawnparticle-005-arg4", .5),Settings.d("equipamiento", "PrimerDragonSkill.spawnparticle-006-arg5", .5),Settings.d("equipamiento", "PrimerDragonSkill.spawnparticle-007-arg6", .015));
-        p.sendMessage(Settings.text("equipamiento", "PrimerDragonSkill.mensaje-001", "§6✦ §eSangre del Primer Dragón §7— La herencia despierta."));
+        p.sendMessage(Settings.message("equipamiento", "PrimerDragonSkill.mensaje-001", "§6✦ §eSangre del Primer Dragón §7— La herencia despierta."));
         // The event invoking this may be before Minecraft has deducted the incoming hit.
         // Heal the *missing* HP on the following tick; never heal past max health.
         UUID owner = p.getUniqueId(), token = s.activation;
