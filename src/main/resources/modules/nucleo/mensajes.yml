@@ -86,3 +86,10 @@ Diagnostico.cocina: '<gray>Cocina: {estado}</gray>'
 Diagnostico.cofres: '<gray>Cofres: {estado}</gray>'
 Diagnostico.modelos: '<gray>Modelos: {estado}</gray>'
 Diagnostico.metrica: '<gray>{metrica}: eventos={eventos}, fallos={fallos}, promedio={promedio}ms</gray>'
+
+# Control administrativo de toasts nativos
+ToastService.permiso: '§cSin permiso.'
+ToastService.solo-jugador: '§7Prueba el toast desde el juego.'
+ToastService.uso: '§eUso: /spectrecore toast prueba <id>'
+ToastService.no-disponible: '§eToast no disponible o desactivado. Verifica la consola y los ajustes.'
+ToastService.solicitado: '§7Toast solicitado (puede estar filtrado por antispam).'
