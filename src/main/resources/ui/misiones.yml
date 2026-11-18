@@ -3,445 +3,445 @@
 enabled: true
 pages:
   misiones:
-    title: "&8⧇ &6Misiones &8│ &fCatálogo"
+    title: "<dark_gray>⧇ <gold>Misiones <dark_gray>│ <white>Catálogo"
     size: 54
     items:
       "1":
         slot: 13
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjE1ZjM1MTdmMjg3NDA0NzBlOGY1MWI0ZDc1NWJlMTU5ZWU2NTg2MWMwNWUyZjc0NGZiNjFiZmRjY2Q1YzBlMSJ9fX0="
-        name: "&f⧇ &a&lMonarquía Renacida"
+        name: "<white>⧇ <green><bold>Monarquía Renacida"
         lore:
           - ""
-          - "&7Los monarcas del viejo mundo han despertado"
-          - "&7para reclamar las tierras de Hydev."
+          - "<gray>Los monarcas del viejo mundo han despertado"
+          - "<gray>para reclamar las tierras de Hydev."
           - ""
-          - "&8Origen: &aZombis"
-          - "&8Estado: &aDisponible"
+          - "<dark_gray>Origen: <green>Zombis"
+          - "<dark_gray>Estado: <green>Disponible"
           - ""
-          - "&#FFCC55  ► Clic para explorar contratos"
+          - "<#FFCC55>  ► Clic para explorar contratos"
 
       progresion:
         slot: 31
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjE1ZjM1MTdmMjg3NDA0NzBlOGY1MWI0ZDc1NWJlMTU5ZWU2NTg2MWMwNWUyZjc0NGZiNjFiZmRjY2Q1YzBlMSJ9fX0="
-        name: "&f⧇ &6&lProgresión Slayer"
+        name: "<white>⧇ <gold><bold>Progresión Slayer"
         lore:
           - ""
-          - "&7Tu experiencia de Monarquía Renacida."
-          - "&7Recompensas, victorias y próximos niveles."
+          - "<gray>Tu experiencia de Monarquía Renacida."
+          - "<gray>Recompensas, victorias y próximos niveles."
           - ""
-          - "&#FFCC55  ► Clic para consultar los niveles"
+          - "<#FFCC55>  ► Clic para consultar los niveles"
 
       "2":
         slot: 14
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjM3YjZmNTAxNTRkMTkyZDhjM2E3MmQxM2ZhNDRjOTUzYjQxMTM4NThjOWQyZWRmMjE4ZjUxNzk5OGQ3MzM2YyJ9fX0="
-        name: "&f⧇ &7&lCementerio Maldito"
+        name: "<white>⧇ <gray><bold>Cementerio Maldito"
         lore:
           - ""
-          - "&7Antiguos nigromantes gobiernan un cementerio"
-          - "&7de veteranos tras el impacto de una estrella."
+          - "<gray>Antiguos nigromantes gobiernan un cementerio"
+          - "<gray>de veteranos tras el impacto de una estrella."
           - ""
-          - "&8Origen: &bEsqueletos"
-          - "&8Estado: &7Próximamente"
+          - "<dark_gray>Origen: <aqua>Esqueletos"
+          - "<dark_gray>Estado: <gray>Próximamente"
 
       "3":
         slot: 15
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjQwYTRiMjJkZGRkODA2YWU3NGRjYjRkNzljYjllMzFhZmY3ZTk3NGUzODUyZGMwMDM3MzMzMGMzNzdmYTEwMyJ9fX0="
-        name: "&f⧇ &2&lEnjambre Venenoso"
+        name: "<white>⧇ <dark_green><bold>Enjambre Venenoso"
         lore:
           - ""
-          - "&7Las arañas expulsadas de sus cavernas"
-          - "&7se preparan para reclamar su hogar."
+          - "<gray>Las arañas expulsadas de sus cavernas"
+          - "<gray>se preparan para reclamar su hogar."
           - ""
-          - "&8Origen: &2Arañas"
-          - "&8Estado: &7Próximamente"
+          - "<dark_gray>Origen: <dark_green>Arañas"
+          - "<dark_gray>Estado: <gray>Próximamente"
 
       "7":
         slot: 16
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2VkMWFiYTczZjYzOWY0YmM0MmJkNDgxOTZjNzE1MTk3YmUyNzEyYzNiOTYyYzk3ZWJmOWU5ZWQ4ZWZhMDI1In19fQ=="
-        name: "&f⧇ &8&lAmenaza desconocida"
+        name: "<white>⧇ <dark_gray><bold>Amenaza desconocida"
         lore:
           - ""
-          - "&7Una presencia se alimenta del odio"
-          - "&7de las criaturas caídas."
+          - "<gray>Una presencia se alimenta del odio"
+          - "<gray>de las criaturas caídas."
           - ""
-          - "&8Origen: &c???"
-          - "&8Estado: &7Desconocido"
+          - "<dark_gray>Origen: <red>???"
+          - "<dark_gray>Estado: <gray>Desconocido"
 
       "9":
         slot: 32
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2VkMWFiYTczZjYzOWY0YmM0MmJkNDgxOTZjNzE1MTk3YmUyNzEyYzNiOTYyYzk3ZWJmOWU5ZWQ4ZWZhMDI1In19fQ=="
-        name: "&f⧇ &8&lArchivo sellado"
+        name: "<white>⧇ <dark_gray><bold>Archivo sellado"
         lore:
           - ""
-          - "&7Una amenaza todavía sin identificar."
+          - "<gray>Una amenaza todavía sin identificar."
           - ""
-          - "&8Origen: &c???"
-          - "&8Estado: &7Desconocido"
+          - "<dark_gray>Origen: <red>???"
+          - "<dark_gray>Estado: <gray>Desconocido"
 
       "10":
         slot: 33
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2VkMWFiYTczZjYzOWY0YmM0MmJkNDgxOTZjNzE1MTk3YmUyNzEyYzNiOTYyYzk3ZWJmOWU5ZWQ4ZWZhMDI1In19fQ=="
-        name: "&f⧇ &8&lArchivo sellado"
+        name: "<white>⧇ <dark_gray><bold>Archivo sellado"
         lore:
           - ""
-          - "&7Una amenaza todavía sin identificar."
+          - "<gray>Una amenaza todavía sin identificar."
           - ""
-          - "&8Origen: &c???"
-          - "&8Estado: &7Desconocido"
+          - "<dark_gray>Origen: <red>???"
+          - "<dark_gray>Estado: <gray>Desconocido"
 
       "ComoCrear":
         slot: 10
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWE2MmI3YzBhYzhhNjI2NDNkNzkzZmEwZWYwN2ZmMWY4ZDJiMWQzOTQ2YjU1YmM3N2VmOGQ3YTQ2ODcxYzEwIn19fQ=="
-        name: "&f⧇ &6Guía &8│ &fContratos"
+        name: "<white>⧇ <gold>Guía <dark_gray>│ <white>Contratos"
         lore:
           - ""
-          - "&7Acepta un contrato de cacería y"
-          - "&7derrota las criaturas indicadas."
+          - "<gray>Acepta un contrato de cacería y"
+          - "<gray>derrota las criaturas indicadas."
           - ""
-          - "&7Solo puedes mantener una misión activa."
+          - "<gray>Solo puedes mantener una misión activa."
           - ""
-          - "&#FFCC55  ► Funcionamiento de las misiones"
+          - "<#FFCC55>  ► Funcionamiento de las misiones"
 
       "kamisitooo":
         slot: 19
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTk2Yzg3OWJkOWE3YzExMWZlYmQ0NTM4NGU3MjdhZjdjZDE2MGZjOGQ5YTZkMjlhNTFhYjU3NTRiNzlmMzJkZiJ9fX0="
-        name: "&f⧇ &6Guía &8│ &fApariciones"
+        name: "<white>⧇ <gold>Guía <dark_gray>│ <white>Apariciones"
         lore:
           - ""
-          - "&7No necesitas altares ni coordenadas."
-          - "&7El jefe aparece cuando cumples la cuota"
-          - "&7de criaturas derrotadas."
+          - "<gray>No necesitas altares ni coordenadas."
+          - "<gray>El jefe aparece cuando cumples la cuota"
+          - "<gray>de criaturas derrotadas."
           - ""
-          - "&#FFCC55  ► Cómo aparecen los jefes"
+          - "<#FFCC55>  ► Cómo aparecen los jefes"
 
       "hydevspectre":
         slot: 28
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzhmYzE3ZGQwYTdmNGI5ZjZjODg3NDhlZjllZDExYmQyY2M0ODliODk2NzhmM2JiY2FmY2MxNDVhZjBkMTZjZSJ9fX0="
-        name: "&f⧇ &6Guía &8│ &fRecompensas"
+        name: "<white>⧇ <gold>Guía <dark_gray>│ <white>Recompensas"
         lore:
           - ""
-          - "&7Los monarcas derrotados entregan materiales"
-          - "&7y experiencia para progresar en Hydev."
+          - "<gray>Los monarcas derrotados entregan materiales"
+          - "<gray>y experiencia para progresar en Hydev."
           - ""
-          - "&7Consulta el botín de cada contrato."
+          - "<gray>Consulta el botín de cada contrato."
           - ""
-          - "&#FFCC55  ► Botín y progresión"
+          - "<#FFCC55>  ► Botín y progresión"
 
       "descripcion":
         slot: 49
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGUxNTU5NDhjYTg1YjA1MTM3ZDJkM2E1YjA4MmY1N2U3NmM2ODFiZmNkZjRmMGRjZjg2ZWFmZjY4MWI5MzY3OCJ9fX0="
-        name: "&f⧇ &6Misiones &8│ &fÍndice"
+        name: "<white>⧇ <gold>Misiones <dark_gray>│ <white>Índice"
         lore:
           - ""
-          - "&7Central de cacería y consulta."
-          - "&7Explora desafíos, estudia sus recompensas"
-          - "&7y consulta tu progreso."
+          - "<gray>Central de cacería y consulta."
+          - "<gray>Explora desafíos, estudia sus recompensas"
+          - "<gray>y consulta tu progreso."
           - ""
-          - "&7Progreso: &f/spectrecore slayer estado"
+          - "<gray>Progreso: <white>/spectrecore slayer estado"
 
       "telefono":
         slot: 50
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDFkYmI1MTE5NWVjYTZjZjlhMjhlMWVlNzE5NjYyZmQ3YTY0OTZkMzAxZjNiNTVkYmQxNGY5MGY0Y2Q3NCJ9fX0="
-        name: "&f⧇ &6Teléfono Rojo"
+        name: "<white>⧇ <gold>Teléfono Rojo"
         lore:
           - ""
-          - "&7Accede al catálogo de misiones desde lejos."
-          - "&7Objeto de MMOItems entregado por SpectreCore."
+          - "<gray>Accede al catálogo de misiones desde lejos."
+          - "<gray>Objeto de MMOItems entregado por SpectreCore."
           - ""
-          - "&8Costo: &e{precio} ↾"
+          - "<dark_gray>Costo: <yellow>{precio} ↾"
           - ""
-          - "&#FFCC55  ► Clic para comprar"
+          - "<#FFCC55>  ► Clic para comprar"
 
       "cerrar":
         slot: 48
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGExZDU1YjNmOTg5NDEwYTM0NzUyNjUwZTI0OGM5YjZjMTc4M2E3ZWMyYWEzZmQ3Nzg3YmRjNGQwZTYzN2QzOSJ9fX0="
-        name: "&f⇜ &7Cerrar menú"
+        name: "<white>⇜ <gray>Cerrar menú"
         lore:
           - ""
-          - "&7Salir del catálogo de misiones."
+          - "<gray>Salir del catálogo de misiones."
           - ""
-          - "&#FFCC55  ► Clic para cerrar"
+          - "<#FFCC55>  ► Clic para cerrar"
   revenant:
-    title: "&8⧇ &6Misiones &8│ &cMonarquía Renacida"
+    title: "<dark_gray>⧇ <gold>Misiones <dark_gray>│ <red>Monarquía Renacida"
     size: 54
     items:
       "1":
         slot: 21
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjE1ZjM1MTdmMjg3NDA0NzBlOGY1MWI0ZDc1NWJlMTU5ZWU2NTg2MWMwNWUyZjc0NGZiNjFiZmRjY2Q1YzBlMSJ9fX0="
-        name: "&f⧇ &cI &8│ &fPríncipe Renacido"
+        name: "<white>⧇ <red>I <dark_gray>│ <white>Príncipe Renacido"
         lore:
           - ""
-          - "&7El príncipe regresa para recuperar su trono."
+          - "<gray>El príncipe regresa para recuperar su trono."
           - ""
-          - "&6Requisitos"
-          - "&7• Combate nivel &e7"
-          - "&7• Derrota &f{objetivo} &7zombis"
+          - "<gold>Requisitos"
+          - "<gray>• Combate nivel <yellow>7"
+          - "<gray>• Derrota <white>{objetivo} <gray>zombis"
           - ""
-          - "&6Combate"
-          - "&7• Vida: &a150 &8│ &7Daño: &c8"
-          - "&7• Decadencia Real: daño de área"
-          - "&7• Llamada Real: guerreros zombis"
+          - "<gold>Combate"
+          - "<gray>• Vida: <green>150 <dark_gray>│ <gray>Daño: <red>8"
+          - "<gray>• Decadencia Real: daño de área"
+          - "<gray>• Llamada Real: guerreros zombis"
           - ""
-          - "&6Recompensas"
-          - "&7• Carne Rara x2–10 &8(100%)"
-          - "&7• 500 XP de Combate &8(100%)"
+          - "<gold>Recompensas"
+          - "<gray>• Carne Rara x2–10 <dark_gray>(100%)"
+          - "<gray>• 500 XP de Combate <dark_gray>(100%)"
           - ""
-          - "&8Contrato: &e{precio} ↾"
-          - "&#FFCC55  ► Clic para contratar"
+          - "<dark_gray>Contrato: <yellow>{precio} ↾"
+          - "<#FFCC55>  ► Clic para contratar"
 
       "2":
         slot: 23
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjE1ZjM1MTdmMjg3NDA0NzBlOGY1MWI0ZDc1NWJlMTU5ZWU2NTg2MWMwNWUyZjc0NGZiNjFiZmRjY2Q1YzBlMSJ9fX0="
-        name: "&f⧇ &cII &8│ &fRey Renacido"
+        name: "<white>⧇ <red>II <dark_gray>│ <white>Rey Renacido"
         lore:
           - ""
-          - "&7El rey regresa para recuperar su trono."
+          - "<gray>El rey regresa para recuperar su trono."
           - ""
-          - "&6Requisitos"
-          - "&7• Combate nivel &e10"
-          - "&7• Derrota &f{objetivo} &7zombis"
+          - "<gold>Requisitos"
+          - "<gray>• Combate nivel <yellow>10"
+          - "<gray>• Derrota <white>{objetivo} <gray>zombis"
           - ""
-          - "&6Combate"
-          - "&7• Vida: &a300 &8│ &7Daño: &c20"
-          - "&7• Decadencia Real: daño de área"
-          - "&7• Llamada Real II: guerreros y verdugos"
+          - "<gold>Combate"
+          - "<gray>• Vida: <green>300 <dark_gray>│ <gray>Daño: <red>20"
+          - "<gray>• Decadencia Real: daño de área"
+          - "<gray>• Llamada Real II: guerreros y verdugos"
           - ""
-          - "&6Recompensas"
-          - "&7• Carne Rara x10–20 &8(100%)"
-          - "&7• 700 XP de Combate &8(100%)"
-          - "&7• Corazón Podrido x1 &8(40%)"
+          - "<gold>Recompensas"
+          - "<gray>• Carne Rara x10–20 <dark_gray>(100%)"
+          - "<gray>• 700 XP de Combate <dark_gray>(100%)"
+          - "<gray>• Corazón Podrido x1 <dark_gray>(40%)"
           - ""
-          - "&8Contrato: &e{precio} ↾"
-          - "&#FFCC55  ► Clic para contratar"
+          - "<dark_gray>Contrato: <yellow>{precio} ↾"
+          - "<#FFCC55>  ► Clic para contratar"
 
       "3":
         slot: 25
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjE1ZjM1MTdmMjg3NDA0NzBlOGY1MWI0ZDc1NWJlMTU5ZWU2NTg2MWMwNWUyZjc0NGZiNjFiZmRjY2Q1YzBlMSJ9fX0="
-        name: "&f⧇ &cIII &8│ &fEmperador Renacido"
+        name: "<white>⧇ <red>III <dark_gray>│ <white>Emperador Renacido"
         lore:
           - ""
-          - "&7El emperador regresa para recuperar su trono."
+          - "<gray>El emperador regresa para recuperar su trono."
           - ""
-          - "&6Requisitos"
-          - "&7• Combate nivel &e14"
-          - "&7• Derrota &f{objetivo} &7zombis"
+          - "<gold>Requisitos"
+          - "<gray>• Combate nivel <yellow>14"
+          - "<gray>• Derrota <white>{objetivo} <gray>zombis"
           - ""
-          - "&6Combate"
-          - "&7• Vida: &a600 &8│ &7Daño: &c50"
-          - "&7• Decadencia Real: daño de área"
-          - "&7• Llamada Real III: soldados y abominación"
+          - "<gold>Combate"
+          - "<gray>• Vida: <green>600 <dark_gray>│ <gray>Daño: <red>50"
+          - "<gray>• Decadencia Real: daño de área"
+          - "<gray>• Llamada Real III: soldados y abominación"
           - ""
-          - "&6Recompensas"
-          - "&7• Carne Rara x20–40 &8(100%)"
-          - "&7• 1000 XP de Combate &8(100%)"
-          - "&7• Corazón Podrido x1 &8(50%)"
+          - "<gold>Recompensas"
+          - "<gray>• Carne Rara x20–40 <dark_gray>(100%)"
+          - "<gray>• 1000 XP de Combate <dark_gray>(100%)"
+          - "<gray>• Corazón Podrido x1 <dark_gray>(50%)"
           - ""
-          - "&8Contrato: &e{precio} ↾"
-          - "&#FFCC55  ► Clic para contratar"
+          - "<dark_gray>Contrato: <yellow>{precio} ↾"
+          - "<#FFCC55>  ► Clic para contratar"
 
       "cancelar":
         slot: 53
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzFlMDhkNTQ3Zjk5Mjk0OWYwMTNhMWUyYzdlM2NkMjI2YWI0ODVlM2JjOGMwYzBjMzljMTVkNWI3YzllODIwIn19fQ=="
-        name: "&f⧇ &cAbandonar contrato"
+        name: "<white>⧇ <red>Abandonar contrato"
         lore:
           - ""
-          - "&7Cancela tu misión activa de la Monarquía."
-          - "&7SpectreCore valida la misión antes de cobrar."
+          - "<gray>Cancela tu misión activa de la Monarquía."
+          - "<gray>SpectreCore valida la misión antes de cobrar."
           - ""
-          - "&8Tarifa: &e{precio} ↾"
+          - "<dark_gray>Tarifa: <yellow>{precio} ↾"
           - ""
-          - "&#FFCC55  ► Clic para abandonar"
+          - "<#FFCC55>  ► Clic para abandonar"
 
       "ComoCrear":
         slot: 10
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWE2MmI3YzBhYzhhNjI2NDNkNzkzZmEwZWYwN2ZmMWY4ZDJiMWQzOTQ2YjU1YmM3N2VmOGQ3YTQ2ODcxYzEwIn19fQ=="
-        name: "&f⧇ &6Guía &8│ &fMonarquía"
+        name: "<white>⧇ <gold>Guía <dark_gray>│ <white>Monarquía"
         lore:
           - ""
-          - "&7Tres antiguos gobernantes despiertan"
-          - "&7cuando su pueblo cae en combate."
+          - "<gray>Tres antiguos gobernantes despiertan"
+          - "<gray>cuando su pueblo cae en combate."
           - ""
-          - "&7Solo puedes mantener una misión activa."
+          - "<gray>Solo puedes mantener una misión activa."
 
       "kamisitooo":
         slot: 19
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTk2Yzg3OWJkOWE3YzExMWZlYmQ0NTM4NGU3MjdhZjdjZDE2MGZjOGQ5YTZkMjlhNTFhYjU3NTRiNzlmMzJkZiJ9fX0="
-        name: "&f⧇ &6Guía &8│ &fAparición"
+        name: "<white>⧇ <gold>Guía <dark_gray>│ <white>Aparición"
         lore:
           - ""
-          - "&7Caza zombis para despertar a su monarca."
-          - "&7Si la invocación falla, conserva el progreso."
+          - "<gray>Caza zombis para despertar a su monarca."
+          - "<gray>Si la invocación falla, conserva el progreso."
           - ""
-          - "&#FFCC55  ► Cumple el contrato"
+          - "<#FFCC55>  ► Cumple el contrato"
 
       "hydevspectre":
         slot: 28
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzhmYzE3ZGQwYTdmNGI5ZjZjODg3NDhlZjllZDExYmQyY2M0ODliODk2NzhmM2JiY2FmY2MxNDVhZjBkMTZjZSJ9fX0="
-        name: "&f⧇ &6Guía &8│ &fBotín"
+        name: "<white>⧇ <gold>Guía <dark_gray>│ <white>Botín"
         lore:
           - ""
-          - "&7Carne Rara y XP en los tres rangos."
-          - "&7Los rangos superiores pueden entregar"
-          - "&7Corazón Podrido."
+          - "<gray>Carne Rara y XP en los tres rangos."
+          - "<gray>Los rangos superiores pueden entregar"
+          - "<gray>Corazón Podrido."
           - ""
-          - "&#FFCC55  ► Recompensas por rango"
+          - "<#FFCC55>  ► Recompensas por rango"
 
       "descripcion":
         slot: 49
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGUxNTU5NDhjYTg1YjA1MTM3ZDJkM2E1YjA4MmY1N2U3NmM2ODFiZmNkZjRmMGRjZjg2ZWFmZjY4MWI5MzY3OCJ9fX0="
-        name: "&f⧇ &cMonarquía Renacida &8│ &fResumen"
+        name: "<white>⧇ <red>Monarquía Renacida <dark_gray>│ <white>Resumen"
         lore:
           - ""
-          - "&7Tres contratos disponibles:"
-          - "&7I · Príncipe &8│ &e{precio1} ↾"
-          - "&7II · Rey &8│ &e{precio2} ↾"
-          - "&7III · Emperador &8│ &e{precio3} ↾"
+          - "<gray>Tres contratos disponibles:"
+          - "<gray>I · Príncipe <dark_gray>│ <yellow>{precio1} ↾"
+          - "<gray>II · Rey <dark_gray>│ <yellow>{precio2} ↾"
+          - "<gray>III · Emperador <dark_gray>│ <yellow>{precio3} ↾"
           - ""
-          - "&7Progreso: &f/spectrecore slayer estado"
+          - "<gray>Progreso: <white>/spectrecore slayer estado"
 
       "cerrar":
         slot: 48
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGExZDU1YjNmOTg5NDEwYTM0NzUyNjUwZTI0OGM5YjZjMTc4M2E3ZWMyYWEzZmQ3Nzg3YmRjNGQwZTYzN2QzOSJ9fX0="
-        name: "&f⇜ &6Volver a Misiones"
+        name: "<white>⇜ <gold>Volver a Misiones"
         lore:
           - ""
-          - "&7Regresar al catálogo principal."
+          - "<gray>Regresar al catálogo principal."
           - ""
-          - "&#FFCC55  ► Clic para volver"
+          - "<#FFCC55>  ► Clic para volver"
 
       cerrar_menu:
         slot: 50
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGExZDU1YjNmOTg5NDEwYTM0NzUyNjUwZTI0OGM5YjZjMTc4M2E3ZWMyYWEzZmQ3Nzg3YmRjNGQwZTYzN2QzOSJ9fX0="
-        name: "&f⇜ &7Cerrar menú"
+        name: "<white>⇜ <gray>Cerrar menú"
         lore:
           - ""
-          - "&7Salir de la central de misiones."
+          - "<gray>Salir de la central de misiones."
           - ""
-          - "&#FFCC55  ► Clic para cerrar"
+          - "<#FFCC55>  ► Clic para cerrar"
 
   progresion:
-    title: "&8⧇ &6Misiones &8│ &cProgresión Slayer"
+    title: "<dark_gray>⧇ <gold>Misiones <dark_gray>│ <red>Progresión Slayer"
     size: 54
     items:
       resumen:
         slot: 4
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjE1ZjM1MTdmMjg3NDA0NzBlOGY1MWI0ZDc1NWJlMTU5ZWU2NTg2MWMwNWUyZjc0NGZiNjFiZmRjY2Q1YzBlMSJ9fX0="
-        name: "&f⧇ &6&lMonarquía Renacida"
+        name: "<white>⧇ <gold><bold>Monarquía Renacida"
         lore:
           - ""
-          - "&7Nivel: &e{nivel} &8/ &f11"
-          - "&7Experiencia: &e{xp} &8/ &e{siguiente}"
-          - "&7Victorias: &e{victorias}"
+          - "<gray>Nivel: <yellow>{nivel} <dark_gray>/ <white>11"
+          - "<gray>Experiencia: <yellow>{xp} <dark_gray>/ <yellow>{siguiente}"
+          - "<gray>Victorias: <yellow>{victorias}"
           - ""
-          - "&7Experiencia por derrotar jefes de tu contrato."
+          - "<gray>Experiencia por derrotar jefes de tu contrato."
       nivel1:
         slot: 10
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjE1ZjM1MTdmMjg3NDA0NzBlOGY1MWI0ZDc1NWJlMTU5ZWU2NTg2MWMwNWUyZjc0NGZiNjFiZmRjY2Q1YzBlMSJ9fX0="
-        name: "&f⧇ &6Nivel 1"
+        name: "<white>⧇ <gold>Nivel 1"
         lore:
           - ""
-          - "&7Desbloquea: &fEspada FILOPODRIDO"
+          - "<gray>Desbloquea: <white>Espada FILOPODRIDO"
           - ""
-          - "&7Estado: {estado}"
+          - "<gray>Estado: {estado}"
       nivel2:
         slot: 11
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjE1ZjM1MTdmMjg3NDA0NzBlOGY1MWI0ZDc1NWJlMTU5ZWU2NTg2MWMwNWUyZjc0NGZiNjFiZmRjY2Q1YzBlMSJ9fX0="
-        name: "&f⧇ &6Nivel 2"
+        name: "<white>⧇ <gold>Nivel 2"
         lore:
           - ""
-          - "&7Desbloquea: &fZOMBIEARMOR_1 y ZOMBIEARMOR_2"
+          - "<gray>Desbloquea: <white>ZOMBIEARMOR_1 y ZOMBIEARMOR_2"
           - ""
-          - "&7Estado: {estado}"
+          - "<gray>Estado: {estado}"
       nivel3:
         slot: 12
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjE1ZjM1MTdmMjg3NDA0NzBlOGY1MWI0ZDc1NWJlMTU5ZWU2NTg2MWMwNWUyZjc0NGZiNjFiZmRjY2Q1YzBlMSJ9fX0="
-        name: "&f⧇ &6Nivel 3"
+        name: "<white>⧇ <gold>Nivel 3"
         lore:
           - ""
-          - "&7Desbloquea: &fZOMBIEARMOR_3/4 y Nigromante Tier I"
+          - "<gray>Desbloquea: <white>ZOMBIEARMOR_3/4 y Nigromante Tier I"
           - ""
-          - "&7Estado: {estado}"
+          - "<gray>Estado: {estado}"
       nivel4:
         slot: 13
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjE1ZjM1MTdmMjg3NDA0NzBlOGY1MWI0ZDc1NWJlMTU5ZWU2NTg2MWMwNWUyZjc0NGZiNjFiZmRjY2Q1YzBlMSJ9fX0="
-        name: "&f⧇ &6Nivel 4"
+        name: "<white>⧇ <gold>Nivel 4"
         lore:
           - ""
-          - "&7Desbloquea: &fSin recompensa definida"
+          - "<gray>Desbloquea: <white>Sin recompensa definida"
           - ""
-          - "&7Estado: {estado}"
+          - "<gray>Estado: {estado}"
       nivel5:
         slot: 14
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjE1ZjM1MTdmMjg3NDA0NzBlOGY1MWI0ZDc1NWJlMTU5ZWU2NTg2MWMwNWUyZjc0NGZiNjFiZmRjY2Q1YzBlMSJ9fX0="
-        name: "&f⧇ &6Nivel 5"
+        name: "<white>⧇ <gold>Nivel 5"
         lore:
           - ""
-          - "&7Desbloquea: &fCOLMILLO_PUTREFACTO y Revenant Tier II"
+          - "<gray>Desbloquea: <white>COLMILLO_PUTREFACTO y Revenant Tier II"
           - ""
-          - "&7Estado: {estado}"
+          - "<gray>Estado: {estado}"
       nivel6:
         slot: 15
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjE1ZjM1MTdmMjg3NDA0NzBlOGY1MWI0ZDc1NWJlMTU5ZWU2NTg2MWMwNWUyZjc0NGZiNjFiZmRjY2Q1YzBlMSJ9fX0="
-        name: "&f⧇ &6Nivel 6"
+        name: "<white>⧇ <gold>Nivel 6"
         lore:
           - ""
-          - "&7Desbloquea: &fRENACIDO_1 y RENACIDO_2"
+          - "<gray>Desbloquea: <white>RENACIDO_1 y RENACIDO_2"
           - ""
-          - "&7Estado: {estado}"
+          - "<gray>Estado: {estado}"
       nivel7:
         slot: 16
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjE1ZjM1MTdmMjg3NDA0NzBlOGY1MWI0ZDc1NWJlMTU5ZWU2NTg2MWMwNWUyZjc0NGZiNjFiZmRjY2Q1YzBlMSJ9fX0="
-        name: "&f⧇ &6Nivel 7"
+        name: "<white>⧇ <gold>Nivel 7"
         lore:
           - ""
-          - "&7Desbloquea: &fRENACIDO_3 y RENACIDO_4"
+          - "<gray>Desbloquea: <white>RENACIDO_3 y RENACIDO_4"
           - ""
-          - "&7Estado: {estado}"
+          - "<gray>Estado: {estado}"
       nivel8:
         slot: 19
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjE1ZjM1MTdmMjg3NDA0NzBlOGY1MWI0ZDc1NWJlMTU5ZWU2NTg2MWMwNWUyZjc0NGZiNjFiZmRjY2Q1YzBlMSJ9fX0="
-        name: "&f⧇ &6Nivel 8"
+        name: "<white>⧇ <gold>Nivel 8"
         lore:
           - ""
-          - "&7Desbloquea: &fEspada SABLE_NECROTICO"
+          - "<gray>Desbloquea: <white>Espada SABLE_NECROTICO"
           - ""
-          - "&7Estado: {estado}"
+          - "<gray>Estado: {estado}"
       nivel9:
         slot: 20
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjE1ZjM1MTdmMjg3NDA0NzBlOGY1MWI0ZDc1NWJlMTU5ZWU2NTg2MWMwNWUyZjc0NGZiNjFiZmRjY2Q1YzBlMSJ9fX0="
-        name: "&f⧇ &6Nivel 9"
+        name: "<white>⧇ <gold>Nivel 9"
         lore:
           - ""
-          - "&7Desbloquea: &fNECROTICO_1 y NECROTICO_2"
+          - "<gray>Desbloquea: <white>NECROTICO_1 y NECROTICO_2"
           - ""
-          - "&7Estado: {estado}"
+          - "<gray>Estado: {estado}"
       nivel10:
         slot: 21
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjE1ZjM1MTdmMjg3NDA0NzBlOGY1MWI0ZDc1NWJlMTU5ZWU2NTg2MWMwNWUyZjc0NGZiNjFiZmRjY2Q1YzBlMSJ9fX0="
-        name: "&f⧇ &6Nivel 10"
+        name: "<white>⧇ <gold>Nivel 10"
         lore:
           - ""
-          - "&7Desbloquea: &fNECROTICO_3/4 y Revenant Tier III"
+          - "<gray>Desbloquea: <white>NECROTICO_3/4 y Revenant Tier III"
           - ""
-          - "&7Estado: {estado}"
+          - "<gray>Estado: {estado}"
       nivel11:
         slot: 22
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjE1ZjM1MTdmMjg3NDA0NzBlOGY1MWI0ZDc1NWJlMTU5ZWU2NTg2MWMwNWUyZjc0NGZiNjFiZmRjY2Q1YzBlMSJ9fX0="
-        name: "&f⧇ &6Nivel 11"
+        name: "<white>⧇ <gold>Nivel 11"
         lore:
           - ""
-          - "&7Desbloquea: &fEspada NECROESPADA"
+          - "<gray>Desbloquea: <white>Espada NECROESPADA"
           - ""
-          - "&7Estado: {estado}"
+          - "<gray>Estado: {estado}"
       volver:
         slot: 48
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjE1ZjM1MTdmMjg3NDA0NzBlOGY1MWI0ZDc1NWJlMTU5ZWU2NTg2MWMwNWUyZjc0NGZiNjFiZmRjY2Q1YzBlMSJ9fX0="
-        name: "&f⇜ &6Volver a Misiones"
+        name: "<white>⇜ <gold>Volver a Misiones"
         lore:
-          - "&7Regresar al catálogo principal"
+          - "<gray>Regresar al catálogo principal"
       cerrar:
         slot: 50
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjE1ZjM1MTdmMjg3NDA0NzBlOGY1MWI0ZDc1NWJlMTU5ZWU2NTg2MWMwNWUyZjc0NGZiNjFiZmRjY2Q1YzBlMSJ9fX0="
-        name: "&f⇜ &7Cerrar menú"
+        name: "<white>⇜ <gray>Cerrar menú"
         lore:
-          - "&7Salir de las misiones"
+          - "<gray>Salir de las misiones"
