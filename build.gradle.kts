@@ -79,7 +79,7 @@ tasks.check { dependsOn(presentationConfigTest) }
 val slayerTestDirectory = layout.buildDirectory.dir("slayer-progression-tests")
 val compileSlayerProgressionSmoke = tasks.register<JavaCompile>("compileSlayerProgressionSmoke") {
     dependsOn(tasks.classes)
-    source("tests/SlayerContractSmoke.java", "tests/SlayerProgressionSmoke.java")
+    source("tests/SlayerContractSmoke.java", "tests/SlayerProgressionSmoke.java", "tests/SlayerCombatSmoke.java")
     classpath = sourceSets.main.get().output + configurations.compileClasspath.get()
     destinationDirectory.set(slayerTestDirectory)
     options.encoding = "UTF-8"
@@ -93,3 +93,11 @@ val slayerProgressionSmoke = tasks.register<JavaExec>("slayerProgressionSmoke") 
     javaLauncher.set(javaToolchains.launcherFor { languageVersion.set(JavaLanguageVersion.of(21)) })
 }
 tasks.check { dependsOn(slayerProgressionSmoke) }
+
+val slayerCombatSmoke = tasks.register<JavaExec>("slayerCombatSmoke") {
+    dependsOn(compileSlayerProgressionSmoke)
+    classpath = files(slayerTestDirectory, sourceSets.main.get().output, configurations.compileClasspath)
+    mainClass.set("SlayerCombatSmoke")
+    javaLauncher.set(javaToolchains.launcherFor { languageVersion.set(JavaLanguageVersion.of(21)) })
+}
+tasks.check { dependsOn(slayerCombatSmoke) }
