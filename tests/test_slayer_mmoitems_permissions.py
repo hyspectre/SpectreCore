@@ -85,6 +85,20 @@ class SlayerMmoItemsPermissions(unittest.TestCase):
                     "existing.example.permission", node(kind, item_id)
                 ])
 
+    def test_indented_permission_list_keeps_original_format(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            originals = fixtures(root, existing=True)
+            sword = root / "item" / "SWORD.yml"
+            sword.write_text(originals["SWORD"].replace(
+                '    - "existing.example.permission"',
+                '      - "existing.example.permission"'))
+            apply(root, preview(root))
+            doc = yaml.safe_load(sword.read_text())
+            self.assertEqual(doc["FILOPODRIDO"]["base"]["permission"], [
+                "existing.example.permission", node("SWORD", "FILOPODRIDO")
+            ])
+
     def test_missing_id_aborts_before_writing_any_file(self):
         with tempfile.TemporaryDirectory() as d:
             root = Path(d)
