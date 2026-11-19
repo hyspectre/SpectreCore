@@ -83,22 +83,27 @@ def patch_type(source: str, kind: str, expected: tuple[tuple[str, str, int], ...
             j = perm[0]
             k = j + 1
             entries = []
+            bullet_prefix = None
             while k < base_end:
                 text = lines[k].rstrip("\r\n")
                 if not text.strip() or text.lstrip().startswith("#"):
                     k += 1
                     continue
-                bullet = re.match(r"^ {4,6}-\s+(.*?)\s*(?:#.*)?$", text)
+                bullet = re.match(r"^( {4,6})-\s+(.*?)\s*(?:#.*)?$", text)
                 if not bullet:
                     break
-                entries.append(bullet.group(1).strip().strip("'\""))
+                if bullet_prefix is None:
+                    bullet_prefix = bullet.group(1)
+                elif bullet_prefix != bullet.group(1):
+                    raise PreflightError(f"{kind}/{item_id}: inconsistent permission list indentation")
+                entries.append(bullet.group(2).strip().strip("'\""))
                 k += 1
             if target in entries:
                 continue
             if k == j + 1 or not entries:
                 raise PreflightError(f"{kind}/{item_id}: existing permission value is not a YAML list")
-            # Add a new requirement without removing existing requirements.
-            lines.insert(k, f'    - "{target}"{newline}')
+            # Keep the original sequence indentation instead of reformatting the item.
+            lines.insert(k, f'{bullet_prefix}- "{target}"{newline}')
         else:
             lines[base + 1:base + 1] = [
                 f"    permission:{newline}", f'    - "{target}"{newline}'
