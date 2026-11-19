@@ -23,6 +23,12 @@ invocacion:
   reintento-milisegundos: 5000
   nivel-mob: 1
 
+# Crédito cooperativo: el último golpe puede darlo otro jugador.
+# El contratante debe haber causado daño real y permanecer cerca al morir el jefe.
+participacion:
+  minimo-porcentaje-vida: 10
+  radio-bloques: 48
+
 # Contratos desde la interfaz nativa de SpectreCore.
 # Activados por defecto en NUEVAS instalaciones de 0.7.4; requieren el nuevo JAR.
 # Antes de desplegar, retirar accesos/cobros antiguos de zMenu y respaldar el servidor.
