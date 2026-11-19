@@ -39,3 +39,10 @@ SlayerModule.telefono-entrega-fallo: "<reset><red>Error de entrega. Avisa a un a
 SlayerModule.reintento-uso: "<red>Uso: /spectrecore slayer invocar [categoria]"
 SlayerModule.reintento-en-curso: "<yellow>Ya tienes un jefe activo. No se permite otra invocación."
 SlayerModule.reintento-sin-pendientes: "<gray>No tienes un jefe de Monarquía pendiente de invocación."
+# Encuentros persistentes y crédito cooperativo
+SlayerModule.jefe-desaparecido: "<yellow>Tu jefe desapareció. Conservaste el contrato; usa /spectrecore slayer invocar {category} para reintentarlo."
+SlayerModule.guardado-pendiente: "<red>El estado de Slayer no pudo guardarse. Avisa a administración antes de reiniciar."
+SlayerModule.victoria-cooperativa: "<green>¡Jefe derrotado! <gold>+{xp} XP Slayer <gray>· Nivel {nivel}"
+SlayerModule.victoria-no-acreditada: "<red>No recibiste XP Slayer: necesitas infligir al menos {porcentaje}% de la vida del jefe y estar a {radio} bloques al morir."
+SlayerModule.jefe-descargado: "<yellow>Tu jefe sigue registrado, pero no está cargado. Regresa a la zona del combate; no invoques otro."
+SlayerModule.jefe-ultima-posicion: "<gray>Última ubicación conocida: <white>{world} {x} {y} {z}"
