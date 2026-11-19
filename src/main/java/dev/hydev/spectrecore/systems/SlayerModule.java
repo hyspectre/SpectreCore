@@ -259,7 +259,9 @@ public final class SlayerModule implements Listener {
     public String progressLine(Player player, String category, int tier) {
         Mission state = mission(player.getUniqueId(), category);
         if (state.active && state.tier == tier) {
-            if (state.bossId != null) return "§6✦ Jefe activo: §fderrota al monarca";
+            if (state.bossId != null) return Bukkit.getEntity(state.bossId) != null
+                    ? "<gold>✦ Jefe activo: <white>derrota al monarca"
+                    : "<yellow>✦ Jefe descargado: <gray>regresa a la zona";
             return "§a✦ Activa: §f" + state.kills + "§7/§f" + state.required + " bajas";
         }
         if (state.active) return "§cTienes otra misión activa";
@@ -377,14 +379,19 @@ public final class SlayerModule implements Listener {
         int oldTier = m.tier, oldKills = m.kills, oldRequired = m.required;
         boolean oldActive = m.active;
         UUID oldBossId = m.bossId;
+        double oldBossMaxHealth = m.bossMaxHealth, oldOwnerDamage = m.ownerDamage;
+        String oldBossWorld = m.bossWorld;
+        int oldBossX = m.bossX, oldBossY = m.bossY, oldBossZ = m.bossZ;
         if (start) {
             m.tier = tier; m.kills = 0;
             m.required = Math.max(1, config.getInt("objetivos.tier" + tier, ProgressRules.required(tier)));
-            m.active = true; m.bossId = null;
-        } else { m.active = false; m.bossId = null; }
+            m.active = true; clearBoss(m);
+        } else { m.active = false; clearBoss(m); }
         dirty = true;
         if (!save()) {
-            m.tier = oldTier; m.kills = oldKills; m.required = oldRequired; m.active = oldActive; m.bossId = oldBossId;
+            m.tier = oldTier; m.kills = oldKills; m.required = oldRequired; m.active = oldActive;
+            m.bossId = oldBossId; m.bossMaxHealth = oldBossMaxHealth; m.ownerDamage = oldOwnerDamage;
+            m.bossWorld = oldBossWorld; m.bossX = oldBossX; m.bossY = oldBossY; m.bossZ = oldBossZ;
             dirty = true;
             // Failed writes are exceptional. Refund immediately without unconfirmed command fallback.
             if (cost > 0 && contractsEconomy.deposit(p, cost, false) != EconomyBridge.Result.CONFIRMED)
@@ -596,12 +603,18 @@ public final class SlayerModule implements Listener {
             return;
         }
         UUID bossId = spawned.getUniqueId();
+        spawned.getPersistentDataContainer().set(bossMarker, PersistentDataType.STRING,
+                p.getUniqueId() + ":" + category);
         m.bossId = bossId;
+        m.ownerDamage = 0;
+        m.bossMaxHealth = spawned instanceof LivingEntity living
+                ? Math.max(living.getMaxHealth(), living.getHealth()) : 0;
+        rememberPosition(m, spawned);
         activeBosses.put(bossId, new BossClaim(p.getUniqueId(), category, m.tier));
         dirty = true;
         if (!save()) {
             activeBosses.remove(bossId);
-            m.bossId = null;
+            clearBoss(m);
             spawned.remove();
             p.sendMessage("§cNo se pudo guardar el jefe. La invocación fue cancelada; el progreso se conserva.");
             return;
@@ -653,6 +666,21 @@ public final class SlayerModule implements Listener {
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             if (e.getPlayer().isOnline()) {
                 refreshBar(e.getPlayer());
+                for (String category : CATEGORIES) {
+                    Mission active = mission(e.getPlayer().getUniqueId(), category);
+                    if (!active.active || active.bossId == null
+                            || Bukkit.getEntity(active.bossId) != null) continue;
+                    e.getPlayer().sendMessage(Settings.message("slayer", "SlayerModule.jefe-descargado",
+                            "<yellow>Tu jefe sigue registrado, pero no está cargado. Regresa a la zona del combate; no invoques otro."));
+                    if (active.bossWorld != null) try {
+                        World world = Bukkit.getWorld(UUID.fromString(active.bossWorld));
+                        if (world != null) e.getPlayer().sendMessage(Settings.message("slayer", "SlayerModule.jefe-ultima-posicion",
+                                "<gray>Última ubicación conocida: <white>{world} {x} {y} {z}",
+                                "world", world.getName(), "x", active.bossX, "y", active.bossY, "z", active.bossZ));
+                    } catch (IllegalArgumentException invalid) {
+                        plugin.getLogger().warning("Slayer: invalid boss-world UUID for " + e.getPlayer().getUniqueId());
+                    }
+                }
                 unlocks.synchronize(e.getPlayer().getUniqueId(), level(e.getPlayer().getUniqueId()));
             }
         }, 1);
@@ -672,6 +700,14 @@ public final class SlayerModule implements Listener {
                 String storedId = section.getString("boss-id");
                 if (m.active && storedId != null) try {
                     m.bossId = UUID.fromString(storedId);
+                    double max = section.getDouble("boss-max-health", 0);
+                    double damage = section.getDouble("boss-owner-damage", 0);
+                    m.bossMaxHealth = Double.isFinite(max) && max > 0 ? max : 0;
+                    m.ownerDamage = Double.isFinite(damage) && damage >= 0 ? damage : 0;
+                    m.bossWorld = section.getString("boss-world");
+                    m.bossX = section.getInt("boss-x");
+                    m.bossY = section.getInt("boss-y");
+                    m.bossZ = section.getInt("boss-z");
                     activeBosses.put(m.bossId, new BossClaim(uuid, category, m.tier));
                 } catch (IllegalArgumentException invalid) {
                     plugin.getLogger().warning("Slayer: UUID de jefe inválido para " + uuid);
@@ -698,6 +734,12 @@ public final class SlayerModule implements Listener {
             data.set(root + ".required", mission.required);
             data.set(root + ".active", mission.active);
             data.set(root + ".boss-id", mission.bossId == null ? null : mission.bossId.toString());
+            data.set(root + ".boss-max-health", mission.bossId == null ? null : mission.bossMaxHealth);
+            data.set(root + ".boss-owner-damage", mission.bossId == null ? null : mission.ownerDamage);
+            data.set(root + ".boss-world", mission.bossId == null ? null : mission.bossWorld);
+            data.set(root + ".boss-x", mission.bossId == null ? null : mission.bossX);
+            data.set(root + ".boss-y", mission.bossId == null ? null : mission.bossY);
+            data.set(root + ".boss-z", mission.bossId == null ? null : mission.bossZ);
         }));
         revenantRecords.forEach((id, progress) -> {
             data.set(id + ".revenant-progression.xp", progress.totalXp);
