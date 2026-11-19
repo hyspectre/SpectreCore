@@ -406,6 +406,79 @@ public final class SlayerModule implements Listener {
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void bossDamage(EntityDamageByEntityEvent event) {
+        BossClaim claim = activeBosses.get(event.getEntity().getUniqueId());
+        if (claim == null || !(event.getEntity() instanceof LivingEntity boss)) return;
+        Player attacker = null;
+        if (event.getDamager() instanceof Player player) attacker = player;
+        else if (event.getDamager() instanceof Projectile projectile
+                && projectile.getShooter() instanceof Player shooter) attacker = shooter;
+        // Pets, magic helpers, turrets and other participants cannot earn credit for the owner.
+        if (attacker == null || !attacker.getUniqueId().equals(claim.owner())) return;
+        Mission current = mission(claim.owner(), claim.category());
+        if (!current.active || !event.getEntity().getUniqueId().equals(current.bossId)) return;
+        if (current.bossMaxHealth <= 0) current.bossMaxHealth = Math.max(boss.getMaxHealth(), boss.getHealth());
+        double next = SlayerCombatRules.accumulate(current.ownerDamage, event.getFinalDamage(), boss.getHealth());
+        if (next > current.ownerDamage) {
+            current.ownerDamage = next;
+            dirty = true; // Periodic flush, plus join/quit and final boss death.
+        }
+    }
+
+    /** Identity survives chunk unloads; a loaded old contract boss is removed as stale. */
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void entitiesLoaded(EntitiesLoadEvent event) {
+        for (Entity entity : event.getEntities()) {
+            String marker = entity.getPersistentDataContainer().get(bossMarker, PersistentDataType.STRING);
+            BossClaim claim = activeBosses.get(entity.getUniqueId());
+            if (marker == null && claim == null) continue;
+            if (claim == null) { entity.remove(); continue; }
+            Mission current = mission(claim.owner(), claim.category());
+            if (!current.active || !entity.getUniqueId().equals(current.bossId)
+                    || (marker != null && !marker.equals(claim.owner() + ":" + claim.category()))) {
+                entity.remove();
+                continue;
+            }
+            // Older v0.7.4 active bosses lacked the persistent marker: attach on first load.
+            if (marker == null)
+                entity.getPersistentDataContainer().set(bossMarker, PersistentDataType.STRING,
+                        claim.owner() + ":" + claim.category());
+            if (entity instanceof LivingEntity living && current.bossMaxHealth <= 0) {
+                current.bossMaxHealth = Math.max(living.getMaxHealth(), living.getHealth());
+                dirty = true;
+            }
+            rememberPosition(current, entity);
+        }
+    }
+
+    /**
+     * Paper distinguishes entity unload from permanent removal. A despawn restores
+     * the paid contract's ready-to-summon state; never interpret chunk unload as death.
+     */
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void bossRemoved(EntityRemoveEvent event) {
+        UUID entityId = event.getEntity().getUniqueId();
+        BossClaim claim = activeBosses.get(entityId);
+        if (claim == null || !SlayerCombatRules.restoresPendingOnRemoval(event.getCause().name())) return;
+        Mission current = mission(claim.owner(), claim.category());
+        activeBosses.remove(entityId);
+        if (!current.active || !entityId.equals(current.bossId)) return;
+        clearBoss(current);
+        current.kills = current.required; // Paid progress preserved, never award XP on removal.
+        dirty = true;
+        boolean saved = save();
+        Player owner = Bukkit.getPlayer(claim.owner());
+        if (owner != null && owner.isOnline()) {
+            refreshBar(owner);
+            owner.sendMessage(Settings.message("slayer", "SlayerModule.jefe-desaparecido",
+                    "<yellow>Tu jefe desapareció. Conservaste el contrato; usa /spectrecore slayer invocar {category} para reintentarlo.",
+                    "category", claim.category()));
+            if (!saved) owner.sendMessage(Settings.message("slayer", "SlayerModule.guardado-pendiente",
+                    "<red>El estado de Slayer no pudo guardarse. Avisa a administración antes de reiniciar."));
+        }
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void death(EntityDeathEvent e) {
         UUID victim = e.getEntity().getUniqueId();
         BossClaim claim = activeBosses.remove(victim);
@@ -449,13 +522,21 @@ public final class SlayerModule implements Listener {
         }
     }
     private void finishBoss(EntityDeathEvent event, BossClaim claim) {
-        Mission mission = mission(claim.owner(), claim.category());
-        if (!mission.active || !event.getEntity().getUniqueId().equals(mission.bossId)) return;
-        Player killer = event.getEntity().getKiller();
-        boolean victory = killer != null && claim.owner().equals(killer.getUniqueId());
-        mission.active = false;
-        mission.bossId = null;
-        mission.kills = 0;
+        Mission current = mission(claim.owner(), claim.category());
+        if (!current.active || !event.getEntity().getUniqueId().equals(current.bossId)) return;
+        Player owner = Bukkit.getPlayer(claim.owner());
+        int radius = Math.max(1, Math.min(256, config.getInt("participacion.radio-bloques", 48)));
+        double threshold = Math.max(0, Math.min(100, config.getDouble("participacion.minimo-porcentaje-vida", 10)));
+        boolean present = owner != null && owner.isOnline()
+                && owner.getWorld().equals(event.getEntity().getWorld())
+                && owner.getLocation().distanceSquared(event.getEntity().getLocation()) <= radius * radius;
+        double bossHealth = current.bossMaxHealth > 0 ? current.bossMaxHealth
+                : event.getEntity().getMaxHealth();
+        boolean victory = SlayerCombatRules.enoughParticipation(
+                current.ownerDamage, bossHealth, threshold, present);
+        current.active = false;
+        clearBoss(current);
+        current.kills = 0;
 
         int gained = 0, previousLevel = 0, newLevel = 0;
         if (victory && "revenant".equals(claim.category())) {
@@ -468,14 +549,17 @@ public final class SlayerModule implements Listener {
         }
 
         dirty = true;
-        boolean persisted = save(); // No permission grants before XP and finished state are durable.
-        Player owner = Bukkit.getPlayer(claim.owner());
+        boolean persisted = save(); // Do not grant permissions before state becomes durable.
         if (owner != null) {
             refreshBar(owner);
-            if (!persisted) owner.sendMessage("§cSlayer: error de guardado; contacta a un administrador.");
-            else if (victory) owner.sendMessage("§a¡Jefe derrotado! §6+" + gained
-                    + " XP Slayer §7· Nivel " + newLevel);
-            else owner.sendMessage("§cNo recibiste XP Slayer: debes dar el golpe final a tu propio jefe.");
+            if (!persisted) owner.sendMessage(Settings.message("slayer", "SlayerModule.guardado-pendiente",
+                    "<red>El estado de Slayer no pudo guardarse. Avisa a administración antes de reiniciar."));
+            else if (victory) owner.sendMessage(Settings.message("slayer", "SlayerModule.victoria-cooperativa",
+                    "<green>¡Jefe derrotado! <gold>+{xp} XP Slayer <gray>· Nivel {nivel}",
+                    "xp", gained, "nivel", newLevel));
+            else owner.sendMessage(Settings.message("slayer", "SlayerModule.victoria-no-acreditada",
+                    "<red>No recibiste XP Slayer: necesitas infligir al menos {porcentaje}% de la vida del jefe y estar a {radio} bloques al morir.",
+                    "porcentaje", threshold, "radio", radius));
         }
         if (persisted && victory && newLevel > previousLevel)
             unlocks.synchronize(claim.owner(), newLevel);
