@@ -16,6 +16,12 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.*;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityRemoveEvent;
+import org.bukkit.event.world.EntitiesLoadEvent;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Projectile;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -26,13 +32,19 @@ import java.util.*;
 
 public final class SlayerModule implements Listener {
     private static final List<String> CATEGORIES = List.of("revenant", "necromancer", "spider");
-    private static final class Mission extends ProgressRules.SlayerProgress { UUID bossId; }
+    private static final class Mission extends ProgressRules.SlayerProgress {
+        UUID bossId;
+        double bossMaxHealth, ownerDamage;
+        String bossWorld;
+        int bossX, bossY, bossZ;
+    }
     private static final class SlayerRecord { long totalXp; int victories; }
     private record BossClaim(UUID owner, String category, int tier) { }
     private final JavaPlugin plugin; private YamlConfiguration config;
     private final EconomyBridge contractsEconomy = new EconomyBridge();
     private final MmoBridge contractItems = new MmoBridge();
     private final SlayerUnlockBridge unlocks;
+    private final NamespacedKey bossMarker;
     private MissionsMenu missionsMenu;
     private final Map<UUID, Map<String, Mission>> missions = new HashMap<>();
     private final Map<UUID, SlayerRecord> revenantRecords = new HashMap<>();
@@ -41,7 +53,11 @@ public final class SlayerModule implements Listener {
     private final Map<UUID, BossBar> bars = new HashMap<>(); private final Map<UUID, Long> attempts = new HashMap<>();
     private BukkitTask timer; private boolean dirty;
     private boolean mythicDetectionWarned;
-    public SlayerModule(JavaPlugin plugin) { this.plugin = plugin; this.unlocks = new SlayerUnlockBridge(plugin); }
+    public SlayerModule(JavaPlugin plugin) {
+        this.plugin = plugin;
+        this.unlocks = new SlayerUnlockBridge(plugin);
+        this.bossMarker = new NamespacedKey(plugin, "slayer_contract");
+    }
     public void enable() {
         reload(); load(); Bukkit.getPluginManager().registerEvents(this, plugin);
         missionsMenu = new MissionsMenu(plugin, this);
@@ -50,7 +66,10 @@ public final class SlayerModule implements Listener {
             dev.hydev.spectrecore.command.CommandRouter.of(plugin).get(name).setExecutor((sender, cmd, label, args) -> command(sender, cmd.getName(), args));
             dev.hydev.spectrecore.command.CommandRouter.of(plugin).get(name).setTabCompleter((sender, cmd, label, args) -> args.length == 1 && !cmd.getName().equals("slayerstats") ? CATEGORIES : List.of());
         }
-        timer = Bukkit.getScheduler().runTaskTimer(plugin, () -> { if (dirty) save(); }, 200, 200);
+        timer = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
+            snapshotActiveBossLocations();
+            if (dirty) save();
+        }, 200, 200);
         Bukkit.getOnlinePlayers().forEach(player -> {
             refreshBar(player);
             unlocks.synchronize(player.getUniqueId(), level(player.getUniqueId()));
@@ -197,6 +216,34 @@ public final class SlayerModule implements Listener {
         return Math.max(1, config.getInt("objetivos.tier" + tier, ProgressRules.required(tier)));
     }
 
+    private static void clearBoss(Mission mission) {
+        mission.bossId = null;
+        mission.bossMaxHealth = 0;
+        mission.ownerDamage = 0;
+        mission.bossWorld = null;
+        mission.bossX = mission.bossY = mission.bossZ = 0;
+    }
+
+    private void rememberPosition(Mission mission, Entity boss) {
+        Location at = boss.getLocation();
+        if (!at.getWorld().getUID().toString().equals(mission.bossWorld)
+                || at.getBlockX() != mission.bossX || at.getBlockY() != mission.bossY
+                || at.getBlockZ() != mission.bossZ) {
+            mission.bossWorld = at.getWorld().getUID().toString();
+            mission.bossX = at.getBlockX();
+            mission.bossY = at.getBlockY();
+            mission.bossZ = at.getBlockZ();
+            dirty = true;
+        }
+    }
+    private void snapshotActiveBossLocations() {
+        for (Map.Entry<UUID,BossClaim> entry : activeBosses.entrySet()) {
+            Entity boss = Bukkit.getEntity(entry.getKey());
+            if (boss == null || !boss.isValid()) continue; // Unloaded != dead.
+            Mission current = mission(entry.getValue().owner(), entry.getValue().category());
+            if (entry.getKey().equals(current.bossId)) rememberPosition(current, boss);
+        }
+    }
     public boolean canRetrySpawn(Player player) {
         Mission current = mission(player.getUniqueId(), "revenant");
         return current.ready() && current.bossId == null;
@@ -227,10 +274,11 @@ public final class SlayerModule implements Listener {
     private void dismissBoss(Mission mission) {
         if (mission.bossId == null) return;
         UUID bossId = mission.bossId;
-        mission.bossId = null;
+        clearBoss(mission);
         activeBosses.remove(bossId);
         Entity boss = Bukkit.getEntity(bossId);
         if (boss != null) boss.remove();
+        // A tagged boss in an unloaded chunk is removed when its entities load again.
     }
 
     private boolean purchasePhone(Player player, String[] args) {
