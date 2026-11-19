@@ -73,9 +73,11 @@ def patch_type(source: str, kind: str, expected: tuple[tuple[str, str, int], ...
         base_end = next((j for j in range(base + 1, end)
                          if re.match(r"^  [^\s#-][^\r\n]*:", lines[j])), end)
         perm = [j for j in range(base + 1, base_end)
-                if re.fullmatch(r"    permission:\s*(?:#.*)?", lines[j].rstrip("\r\n"))]
+                if re.match(r"^    permission\s*:", lines[j])]
         if len(perm) > 1:
             raise PreflightError(f"{kind}/{item_id}: duplicate permission keys")
+        if perm and not re.fullmatch(r"    permission:\s*(?:#.*)?", lines[perm[0]].rstrip("\r\n")):
+            raise PreflightError(f"{kind}/{item_id}: permission must be a YAML list; refusing scalar or inline replacement")
         target = node(kind, item_id)
         if perm:
             j = perm[0]
