@@ -16,6 +16,7 @@ jobs:
         with:
           gradle-version: '8.14.3'
       - run: python3 -m pip install pyyaml
+      - run: python3 tests/test_slayer_mmoitems_permissions.py
       - run: python3 tests/validate_release.py
       - run: python3 tests/validate_native_missions.py
       - run: python3 tests/validate_native_jobs.py
