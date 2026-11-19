@@ -92,6 +92,15 @@ de LuckPerms existen pero no hay una restricción nativa en MMOItems.
   pero los archivos completos de espadas en producción **no han sido leídos**.
   Por eso la integración exige comprobar los 16 IDs en el servidor de pruebas.
 
+## Auditoría automática
+
+Al iniciar el módulo Slayer, `SlayerEquipmentAudit` revisa en modo **solo lectura**
+los dos archivos actuales de MMOItems y `permissions.items`. Informa en
+consola `MMOItems: 16/16 requisitos nativos de permiso verificados` si
+todos están presentes; de lo contrario, indica qué objetos faltan.
+Esta auditoría no sustituye las pruebas de uso ingame ni toca las
+configuraciones de MMOItems.
+
 ## QA
 
 Prueba con dos jugadores sin OP ni bypass: uno nivel 0 y otro con los niveles
