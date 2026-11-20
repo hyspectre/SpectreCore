@@ -1,3 +1,14 @@
+labels:
+  sin-actividades: "  <gray>• <dark_gray>No hay actividades disponibles"
+  sin-valor: "Sin configurar"
+  estados:
+    sin-contrato: "Sin contrato"
+    disponible: "Disponible"
+    desactivado: "Desactivado"
+    ya-contratado: "Ya contratado"
+    procesando: "Procesando"
+    rango-anterior: "Requiere rango anterior"
+
 # Interfaz Java nativa; números leídos de modules/trabajos/config.yml
 enabled: true
 material-names:
@@ -176,7 +187,7 @@ pages:
           - "<gray>Cada rango requiere obtener el anterior."
           - ""
           - "<gray>Ganancias, actividades y tiempos vienen"
-          - "<gray>de la configuración activa de SpectreCore."
+          - "<gray>de las condiciones vigentes de tu oficio."
           - ""
           - "<gray>Tu rango actual: <yellow>{rango}"
       cerrar:
@@ -264,7 +275,7 @@ pages:
           - "<gray>Cada rango requiere obtener el anterior."
           - ""
           - "<gray>Ganancias, actividades y tiempos vienen"
-          - "<gray>de la configuración activa de SpectreCore."
+          - "<gray>de las condiciones vigentes de tu oficio."
           - ""
           - "<gray>Tu rango actual: <yellow>{rango}"
       cerrar:
@@ -352,7 +363,7 @@ pages:
           - "<gray>Cada rango requiere obtener el anterior."
           - ""
           - "<gray>Ganancias, actividades y tiempos vienen"
-          - "<gray>de la configuración activa de SpectreCore."
+          - "<gray>de las condiciones vigentes de tu oficio."
           - ""
           - "<gray>Tu rango actual: <yellow>{rango}"
       cerrar:
