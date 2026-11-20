@@ -31,7 +31,9 @@ def visible_strings(value, key=""):
 def check(text: str, where: str, no_commands: bool):
     assert not implementation_names.search(text), f"Implementation brand in {where}: {text}"
     if no_commands:
-        assert not command.search(text), f"Command leaked into menu text in {where}: {text}"
+        # MiniMessage closing tags (e.g. </gold>) are not slash-commands.
+        visible = re.sub(r"</?[a-zA-Z_#][^>]*>", "", text)
+        assert not command.search(visible), f"Command leaked into menu text in {where}: {text}"
 
 
 for path in sorted((resources / "ui").glob("*.yml")):
