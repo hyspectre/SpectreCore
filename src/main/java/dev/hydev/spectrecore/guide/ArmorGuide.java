@@ -232,7 +232,7 @@ public void open(Player player) { openPage(player, "armaduras"); }
         List<String> lines = new ArrayList<>();
         lines.add(e.name);
         lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-006", ""));
-        lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-007", "Efectos del núcleo:"));
+        lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-007", "Bonificaciones del conjunto:"));
         boolean enabled = plugin.getConfig().getBoolean("modules.skills.enabled", true)
             && plugin.getConfig().getBoolean("skills." + e.skill + ".enabled", false);
         if (!enabled) lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-008", "DESACTIVADOS"));
@@ -246,13 +246,13 @@ public void open(Player player) { openPage(player, "armaduras"); }
                 lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-012", "({piezas}) +{vida} HP y +{velocidad}% velocidad.","piezas",Settings.module("equipamiento/config.yml").getInt("pasivos.piezas",2),"vida",value(Settings.module("equipamiento/config.yml").getDouble("pasivos.dragon-vida",4)),"velocidad",value(Settings.module("equipamiento/config.yml").getDouble("pasivos.dragon-velocidad",.02)*100)));
                 lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-013","(4) +{valor1} daño cuerpo a cuerpo; {valor2} menos daño recibido.","valor1", pct(e, "passive-damage-bonus", .03),"valor2", pct(e, "passive-damage-reduction", .03)));
             }
-            default -> lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-014", "Sin bonos parciales del núcleo."));
+            default -> lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-014", "Sin bonificaciones parciales del conjunto."));
         }
         lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-015", "(4) {e-ability}.", "e-ability", e.ability));
         if (e.skill.equals("ultimo-juramento")) lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-016","Con Juramento Profanado: Blink confirmado crea un eco; próximo golpe +{valor1} durante {valor2}. Requiere habilidad activa.","valor1", pct(e, "blink-next-hit-bonus", .10),"valor2", seconds(e, "blink-next-hit-window-ticks", 50)));
         if (e.skill.equals("sangre-primer-dragon")) lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-017","Con Dracoreliquia: +{valor1} s de bendición mientras la empuñas.","valor1", v(e, "weapon-duration-bonus-seconds", 2)));
         lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-018", ""));
-        lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-019", "Bonos MMOItems:"));
+        lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-019", "Bonificaciones adicionales:"));
         ConfigurationSection bonuses = sets == null ? null : sets.getConfigurationSection(e.set + ".bonuses");
         if (bonuses == null) lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-020", "No se encontró el conjunto. Revisar su configuración."));
         else if (bonuses.getKeys(false).isEmpty()) lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-021", "Sin bonos extra."));
@@ -262,14 +262,14 @@ public void open(Player player) { openPage(player, "armaduras"); }
             lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-022", "({count} piezas)", "count", count));
             for (String key : level.getKeys(false)) {
                 if (level.isConfigurationSection(key)) {
-                    lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-023","Habilidad extra de MMOItems: {valor1}.","valor1", level.getString(key + ".type", "adicional").replace('_', ' ')));
+                    lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-023","Habilidad adicional: {valor1}.","valor1", level.getString(key + ".type", "adicional").replace('_', ' ')));
                     continue;
                 }
                 lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-024","{valor1}: {level-get-key}","valor1", bonusNames().getOrDefault(key, key.replace('-', ' ')),"level-get-key", level.get(key)));
             }
         }
         lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-025", ""));
-        lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-026", "El arma no es necesaria para activar la habilidad de 4 piezas. Los bonos de MMOItems se leen del servidor al abrir esta guía."));
+        lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-026", "No necesitas empuñar un arma para activar la habilidad de las cuatro piezas. Consulta aquí las bonificaciones actuales."));
         return lines;
     }
 
