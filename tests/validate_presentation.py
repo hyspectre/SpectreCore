@@ -94,12 +94,19 @@ for event in presets:
     flag = 'toasts.eventos.' + event
     toast_keys.add(flag)
     assert type(toast[flag]) is bool, flag
-    for field in ('titulo','descripcion','icon'):
+    for field in ('titulo','descripcion','icon','sonido'):
         key = 'toasts.presets.' + event + '.' + field
         toast_keys.add(key)
         assert type(toast[key]) is str and 0 < len(toast[key]) <= 120, key
         if field == 'icon':
             assert re.fullmatch(r'(minecraft:)?[a-z0-9_]+',toast[key]), key
+        if field == 'sonido':
+            assert re.fullmatch(r'[A-Z][A-Z0-9_]*',toast[key]), key
+    for field,minimum,maximum in (('volumen',0,4),('tono',0.5,2),('intervalo-segundos',0,3600)):
+        key = 'toasts.presets.' + event + '.' + field
+        toast_keys.add(key)
+        assert type(toast[key]) in (int,float) and math.isfinite(toast[key]), key
+        assert minimum <= toast[key] <= maximum, key
 used.setdefault('nucleo/ajustes.yml',set()).update(toast_keys)
 for key in sorted(toast_keys):
     catalog.append({'archivo':'nucleo/ajustes.yml','clave':key,'predeterminado':toast[key],
