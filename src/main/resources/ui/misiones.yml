@@ -137,7 +137,7 @@ pages:
           - "<gray>Explora desafíos, estudia sus recompensas"
           - "<gray>y consulta tu progreso."
           - ""
-          - "<gray>Progreso: <white>/spectrecore slayer estado"
+          - "<gray>Consulta tu progreso en el apartado de niveles."
 
       "telefono":
         slot: 50
@@ -146,7 +146,7 @@ pages:
         lore:
           - ""
           - "<gray>Accede al catálogo de misiones desde lejos."
-          - "<gray>Objeto de MMOItems entregado por SpectreCore."
+          - "<gray>Consulta tus misiones desde cualquier lugar."
           - ""
           - "<dark_gray>Costo: <yellow>{precio} ↾"
           - ""
@@ -261,7 +261,7 @@ pages:
         lore:
           - ""
           - "<gray>Cancela tu misión activa de la Monarquía."
-          - "<gray>SpectreCore valida la misión antes de cobrar."
+          - "<gray>El contrato será validado antes de cobrar."
           - ""
           - "<dark_gray>Tarifa: <yellow>{precio} ↾"
           - ""
@@ -312,7 +312,7 @@ pages:
           - "<gray>II · Rey <dark_gray>│ <yellow>{precio2} ↾"
           - "<gray>III · Emperador <dark_gray>│ <yellow>{precio3} ↾"
           - ""
-          - "<gray>Progreso: <white>/spectrecore slayer estado"
+          - "<gray>Consulta tu progreso en el apartado de niveles."
 
       "cerrar":
         slot: 48
@@ -355,7 +355,7 @@ pages:
         name: "<white>⧇ <gold>Nivel 1"
         lore:
           - ""
-          - "<gray>Desbloquea: <white>Espada FILOPODRIDO"
+          - "<gray>Desbloquea receta: <white>Filo Podrido"
           - ""
           - "<gray>Estado: {estado}"
       nivel2:
@@ -364,7 +364,7 @@ pages:
         name: "<white>⧇ <gold>Nivel 2"
         lore:
           - ""
-          - "<gray>Desbloquea: <white>ZOMBIEARMOR_1 y ZOMBIEARMOR_2"
+          - "<gray>Desbloquea recetas: <white>Armadura Zombi I–II"
           - ""
           - "<gray>Estado: {estado}"
       nivel3:
@@ -373,7 +373,7 @@ pages:
         name: "<white>⧇ <gold>Nivel 3"
         lore:
           - ""
-          - "<gray>Desbloquea: <white>ZOMBIEARMOR_3/4 y Nigromante Tier I"
+          - "<gray>Recetas: <white>Armadura Zombi III–IV <dark_gray>· <gray>Acceso al Liche I"
           - ""
           - "<gray>Estado: {estado}"
       nivel4:
@@ -391,7 +391,7 @@ pages:
         name: "<white>⧇ <gold>Nivel 5"
         lore:
           - ""
-          - "<gray>Desbloquea: <white>COLMILLO_PUTREFACTO y Revenant Tier II"
+          - "<gray>Receta: <white>Colmillo Putrefacto <dark_gray>· <gray>Monarquía II"
           - ""
           - "<gray>Estado: {estado}"
       nivel6:
@@ -400,7 +400,7 @@ pages:
         name: "<white>⧇ <gold>Nivel 6"
         lore:
           - ""
-          - "<gray>Desbloquea: <white>RENACIDO_1 y RENACIDO_2"
+          - "<gray>Desbloquea recetas: <white>Renacido I–II"
           - ""
           - "<gray>Estado: {estado}"
       nivel7:
@@ -409,7 +409,7 @@ pages:
         name: "<white>⧇ <gold>Nivel 7"
         lore:
           - ""
-          - "<gray>Desbloquea: <white>RENACIDO_3 y RENACIDO_4"
+          - "<gray>Desbloquea recetas: <white>Renacido III–IV"
           - ""
           - "<gray>Estado: {estado}"
       nivel8:
@@ -418,7 +418,7 @@ pages:
         name: "<white>⧇ <gold>Nivel 8"
         lore:
           - ""
-          - "<gray>Desbloquea: <white>Espada SABLE_NECROTICO"
+          - "<gray>Desbloquea receta: <white>Sable Necrótico"
           - ""
           - "<gray>Estado: {estado}"
       nivel9:
@@ -427,7 +427,7 @@ pages:
         name: "<white>⧇ <gold>Nivel 9"
         lore:
           - ""
-          - "<gray>Desbloquea: <white>NECROTICO_1 y NECROTICO_2"
+          - "<gray>Desbloquea recetas: <white>Necrótico I–II"
           - ""
           - "<gray>Estado: {estado}"
       nivel10:
@@ -436,7 +436,7 @@ pages:
         name: "<white>⧇ <gold>Nivel 10"
         lore:
           - ""
-          - "<gray>Desbloquea: <white>NECROTICO_3/4 y Revenant Tier III"
+          - "<gray>Recetas: <white>Necrótico III–IV <dark_gray>· <gray>Monarquía III"
           - ""
           - "<gray>Estado: {estado}"
       nivel11:
@@ -445,7 +445,7 @@ pages:
         name: "<white>⧇ <gold>Nivel 11"
         lore:
           - ""
-          - "<gray>Desbloquea: <white>Espada NECROESPADA"
+          - "<gray>Desbloquea receta: <white>Necroespada"
           - ""
           - "<gray>Estado: {estado}"
       volver:
