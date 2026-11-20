@@ -24,6 +24,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import dev.hydev.spectrecore.storage.AtomicFileStore;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -76,9 +82,10 @@ public final class MissionsMenu implements Listener {
                 throw new IOException("ui/misiones.yml ausente o demasiado grande");
             YamlConfiguration candidate = new YamlConfiguration();
             candidate.load(file);
+            // Existing servers keep their custom YAML. Merge ONLY missing progression
+            // UI, never overwrite edited prices, text or other menu entries.
+            migrateProgression(file, candidate);
             for (String page : List.of("misiones", "revenant", "progresion")) {
-                // Older server installations keep their two-page YAML until migrated.
-                if (page.equals("progresion") && candidate.getConfigurationSection("pages.progresion") == null) continue;
                 String root = "pages." + page;
                 ConfigurationSection items = candidate.getConfigurationSection(root + ".items");
                 if (items == null || !candidate.isString(root + ".title")
@@ -106,13 +113,55 @@ public final class MissionsMenu implements Listener {
         }
     }
 
+    private void migrateProgression(File installed, YamlConfiguration candidate) throws Exception {
+        boolean missingPage = !candidate.isConfigurationSection("pages.progresion");
+        boolean missingEntry = !candidate.isConfigurationSection("pages.misiones.items.progresion");
+        if (!missingPage && !missingEntry) return;
+        YamlConfiguration defaults = new YamlConfiguration();
+        try (InputStream stream = plugin.getResource("ui/misiones.yml")) {
+            if (stream == null) throw new IOException("No existe el catálogo predeterminado de progresión");
+            defaults.load(new InputStreamReader(stream, StandardCharsets.UTF_8));
+        }
+        if (!candidate.isConfigurationSection("pages.misiones.items"))
+            throw new IOException("El catálogo principal no es válido; no se migró");
+        if (missingPage) {
+            candidate.set("pages.progresion", defaults.getConfigurationSection("pages.progresion"));
+        }
+        if (missingEntry) {
+            var template = defaults.getConfigurationSection("pages.misiones.items.progresion");
+            if (template == null) throw new IOException("Falta el acceso de progresión en recursos");
+            int slot = template.getInt("slot", 31);
+            var existing = candidate.getConfigurationSection("pages.misiones.items");
+            Set<Integer> used = new HashSet<>();
+            for (String item : existing.getKeys(false))
+                if (existing.isInt(item + ".slot")) used.add(existing.getInt(item + ".slot"));
+            if (used.contains(slot)) {
+                slot = -1;
+                // Prefer the lower central panel; never replace a customized item.
+                for (int fallback : List.of(31, 32, 30, 40, 39, 41, 22, 23, 21))
+                    if (!used.contains(fallback)) { slot = fallback; break; }
+                if (slot < 0) for (int i = 0; i < 54; i++)
+                    if (!used.contains(i)) { slot = i; break; }
+                if (slot < 0) throw new IOException("No quedan espacios para acceder a progresión");
+            }
+            candidate.set("pages.misiones.items.progresion", template);
+            candidate.set("pages.misiones.items.progresion.slot", slot);
+        }
+        File backup = new File(plugin.getDataFolder(), "backups/progresion-v1/ui/misiones.yml");
+        if (!backup.exists()) {
+            Files.createDirectories(backup.toPath().getParent());
+            Files.copy(installed.toPath(), backup.toPath());
+        }
+        AtomicFileStore.writeUtf8(installed.toPath(), candidate.saveToString());
+        plugin.getLogger().info("Misiones: progresión instalada, conservando la configuración anterior en " + backup);
+    }
+
     public boolean open(Player player, String page) {
         if (layout == null || !layout.getBoolean("enabled", true)) {
             player.sendMessage("§cEl menú de misiones está temporalmente desactivado.");
             return false;
         }
-        if (!Set.of("misiones", "revenant", "progresion").contains(page)
-                || (page.equals("progresion") && layout.getConfigurationSection("pages.progresion") == null))
+        if (!Set.of("misiones", "revenant", "progresion").contains(page))
             page = "misiones";
         String root = "pages." + page;
         ConfigurationSection buttons = layout.getConfigurationSection(root + ".items");
@@ -137,6 +186,16 @@ public final class MissionsMenu implements Listener {
             List<Component> lore = new ArrayList<>();
             for (String line : layout.getStringList(path + ".lore"))
                 lore.add(styled(resolveLore(player, page, id, line)));
+            if (page.equals("misiones") && id.equals("progresion")) {
+                lore.add(styled(""));
+                lore.add(styled("<gold>Tu nivel: <white>" + slayer.slayerLevel(player) + " <dark_gray>/ <white>11"));
+                lore.add(styled("<gray>XP: <yellow>" + slayer.slayerXp(player)
+                        + " <dark_gray>/ <yellow>" + slayer.slayerNextXp(player)));
+            }
+            if (page.equals("progresion") && id.equals("resumen")) {
+                lore.add(styled(""));
+                lore.add(styled("<gold>Progreso actual: <yellow>" + slayer.slayerLevel(player) + "<gray>/11"));
+            }
             if (page.equals("revenant") && Set.of("1", "2", "3").contains(id)) {
                 int tier = Integer.parseInt(id);
                 lore.add(styled(""));
