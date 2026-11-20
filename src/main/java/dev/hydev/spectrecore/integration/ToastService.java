@@ -45,7 +45,8 @@ public final class ToastService implements Listener {
             "gema-superior", new Preset("minecraft:nether_star", "Gema obtenida", "Calidad superior", "ENTITY_PLAYER_LEVELUP"),
             "trabajo-minero", new Preset("minecraft:iron_pickaxe", "Trabajo completado", "Pago de minería", "ENTITY_EXPERIENCE_ORB_PICKUP"),
             "trabajo-granjero", new Preset("minecraft:wheat", "Trabajo completado", "Pago de agricultura", "ENTITY_EXPERIENCE_ORB_PICKUP"),
-            "trabajo-cazador", new Preset("minecraft:iron_sword", "Trabajo completado", "Pago de cacería", "ENTITY_EXPERIENCE_ORB_PICKUP")
+            "trabajo-cazador", new Preset("minecraft:iron_sword", "Trabajo completado", "Pago de cacería", "ENTITY_EXPERIENCE_ORB_PICKUP"),
+            "slayer-nivel", new Preset("minecraft:experience_bottle", "Nuevo nivel de Slayer", "Nuevas recetas y desafíos", "ENTITY_PLAYER_LEVELUP")
     );
 
     private final JavaPlugin plugin;
