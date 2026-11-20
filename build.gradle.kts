@@ -1,6 +1,6 @@
 plugins { java }
 group = "dev.hydev"
-version = "0.7.5-aura-alpha"
+version = "0.7.6-aura-alpha"
 
 repositories {
     maven("https://repo.papermc.io/repository/maven-public/")
