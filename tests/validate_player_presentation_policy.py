@@ -14,10 +14,11 @@ implementation_names = re.compile(
 command = re.compile(r"/[a-z][a-z0-9_-]*(?:\s+[a-z0-9_-]+)?", re.IGNORECASE)
 
 
+# Spanish labels introduced by El Mago are also user-visible.
 def visible_strings(value, key=""):
     if isinstance(value, dict):
         for k, item in value.items():
-            if k in ("name", "title", "body", "lore", "label", "description", "intro"):
+            if k in ("name", "title", "body", "lore", "label", "description", "descripcion", "resumen", "puntos", "intro"):
                 yield from visible_strings(item, k)
             else:
                 yield from visible_strings(item, key)
