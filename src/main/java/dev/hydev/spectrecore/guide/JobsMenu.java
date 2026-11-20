@@ -48,7 +48,6 @@ public final class JobsMenu implements Listener {
     private static final Pattern HEX = Pattern.compile("&#([a-fA-F0-9]{6})");
     private static final Set<String> PAGES = Set.of("trabajos", "minero", "granjero", "cazador");
     private static final List<String> RANKS = JobsContractRules.LEVELS;
-    private static final String NO_VALUE = "Sin configurar";
 
     private final JavaPlugin plugin;
     private final JobsModule jobs;
@@ -213,9 +212,9 @@ public final class JobsMenu implements Listener {
     private String label(String key, String fallback) {
         return layout.getString("labels.estados." + key, fallback);
     }
-    private static String readableNumber(Object data) {
+    private String readableNumber(Object data) {
         if (!(data instanceof Number number) || !Double.isFinite(number.doubleValue())
-                || number.doubleValue() < 0) return NO_VALUE;
+                || number.doubleValue() < 0) return layout.getString("labels.sin-valor", "Sin configurar");
         double value = number.doubleValue();
         return value == Math.rint(value) ? Long.toString(number.longValue()) : Double.toString(value);
     }
