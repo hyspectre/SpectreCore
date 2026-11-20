@@ -1,6 +1,7 @@
 package dev.hydev.spectrecore.guide;
 
 import dev.hydev.spectrecore.model.CustomHeads;
+import dev.hydev.spectrecore.config.Settings;
 import dev.hydev.spectrecore.systems.SlayerModule;
 import net.kyori.adventure.text.Component;
 import dev.hydev.spectrecore.text.TextService;
@@ -192,13 +193,19 @@ public final class MissionsMenu implements Listener {
                 lore.add(styled(resolveLore(player, page, id, line)));
             if (page.equals("misiones") && id.equals("progresion")) {
                 lore.add(styled(""));
-                lore.add(styled("<gold>Tu nivel: <white>" + slayer.slayerLevel(player) + " <dark_gray>/ <white>11"));
-                lore.add(styled("<gray>XP: <yellow>" + slayer.slayerXp(player)
-                        + " <dark_gray>/ <yellow>" + slayer.slayerNextXp(player)));
+                lore.add(Settings.message("slayer", "SlayerModule.gui-nivel",
+                        "<gold>Tu nivel: <white>{nivel} <dark_gray>/ <white>11",
+                        "nivel", slayer.slayerLevel(player)).decoration(TextDecoration.ITALIC, false));
+                lore.add(Settings.message("slayer", "SlayerModule.gui-xp",
+                        "<gray>XP: <yellow>{xp} <dark_gray>/ <yellow>{siguiente}",
+                        "xp", slayer.slayerXp(player),
+                        "siguiente", slayer.slayerNextXp(player)).decoration(TextDecoration.ITALIC, false));
             }
             if (page.equals("progresion") && id.equals("resumen")) {
                 lore.add(styled(""));
-                lore.add(styled("<gold>Progreso actual: <yellow>" + slayer.slayerLevel(player) + "<gray>/11"));
+                lore.add(Settings.message("slayer", "SlayerModule.gui-progreso",
+                        "<gold>Progreso actual: <yellow>{nivel}<gray>/11",
+                        "nivel", slayer.slayerLevel(player)).decoration(TextDecoration.ITALIC, false));
             }
             if (page.equals("revenant") && Set.of("1", "2", "3").contains(id)) {
                 int tier = Integer.parseInt(id);
