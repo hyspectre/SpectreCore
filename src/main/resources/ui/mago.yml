@@ -2,7 +2,7 @@
 # /mago usa los Dialogs nativos de Minecraft 1.21.10.
 invalid-page: "<red>El Mago no conoce esa sección.</red>"
 close: "<gray>Cerrar</gray>"
-console-message: "<gray>Abre /mago dentro de Minecraft.</gray>"
+console-message: "<gray>Consulta al Mago dentro del juego.</gray>"
 pages:
   inicio:
     title: "<gold><bold>✦ El Mago</bold></gold>"
@@ -32,13 +32,13 @@ pages:
         page: inicio
   armaduras_info:
     title: "<yellow>Armaduras y conjuntos</yellow>"
-    body: "<gray>Abre /mago armaduras para consultar los cinco conjuntos y sus bonos actuales.</gray>"
+    body: "<gray>Consulta los cinco conjuntos y sus bonificaciones en Armaduras.</gray>"
     buttons:
       - label: '<gray>RPG</gray>'
         page: rpg
   habilidades:
     title: "<yellow>Habilidades</yellow>"
-    body: "<gray>Las habilidades de conjuntos se explican en /mago armaduras. Se ampliará esta sección con otras habilidades.</gray>"
+    body: "<gray>Las habilidades de los conjuntos se explican en Armaduras. Se ampliará esta sección con otras habilidades.</gray>"
     buttons:
       - label: '<gray>RPG</gray>'
         page: rpg
@@ -62,7 +62,7 @@ pages:
         page: rpg
   profesiones:
     title: "<gold>Profesiones</gold>"
-    body: "<gray>Conoce los oficios y sus estaciones. Los sistemas de juego siguen funcionando con sus comandos actuales.</gray>"
+    body: "<gray>Conoce los oficios y sus estaciones. Cada profesión tiene sus propias actividades y recompensas.</gray>"
     buttons:
       - label: '<gold>Cocina</gold>'
         page: cocina
@@ -98,43 +98,43 @@ pages:
         page: inicio
   trabajos:
     title: "<gold>Trabajos</gold>"
-    body: "<gray>Los oficios de Hydev ofrecen objetivos y progresión. Consulta /spectrecore trabajo para ver tus opciones actuales. Las recompensas están definidas en YAML.</gray>"
+    body: "<gray>Los oficios de Hydev ofrecen objetivos y progresión. Explora los contratos de Minería, Agricultura y Caza.</gray>"
     buttons:
       - label: '<gray>Profesiones</gray>'
         page: profesiones
   agricultura:
     title: "<green>Agricultura y tesoros</green>"
-    body: "<gray>Las tareas de cosecha pueden generar tesoros según las probabilidades y requisitos del servidor. Consulta los permisos y categorías disponibles.</gray>"
+    body: "<gray>La cosecha puede revelar tesoros especiales. Descubre qué cultivos son más valiosos.</gray>"
     buttons:
       - label: '<gray>Profesiones</gray>'
         page: profesiones
   slayer:
     title: "<red>Misiones Slayer</red>"
-    body: "<gray>Acepta misiones, elimina los objetivos de tu categoría y progresa por tiers. Los objetivos y recompensas se configuran en módulos de Slayer.</gray>"
+    body: "<gray>Acepta misiones, elimina los objetivos de tu categoría y progresa por tiers. Cada cacería tiene objetivos, dificultades y recompensas distintas.</gray>"
     buttons:
       - label: '<gray>Guías</gray>'
         page: guias
   tesoros:
     title: "<gold>Tesoros</gold>"
-    body: "<gray>Obtén tesoros mediante minería, combate y agricultura. Cada fuente tiene requisitos, probabilidades y cooldowns configurables.</gray>"
+    body: "<gray>Obtén tesoros mediante minería, combate y agricultura. Cada fuente tiene sus propios hallazgos y tiempos de espera.</gray>"
     buttons:
       - label: '<gray>Guías</gray>'
         page: guias
   resonancia:
     title: "<light_purple>Resonancia</light_purple>"
-    body: "<gray>Acumula carga minera para activar bonificaciones. La duración de la ventana y la carga máxima dependen de la configuración.</gray>"
+    body: "<gray>Acumula carga minera para activar bonificaciones. Presta atención a tu carga para aprovechar su máxima energía.</gray>"
     buttons:
       - label: '<gray>Guías</gray>'
         page: guias
   portales:
     title: "<aqua>Portales cooperativos</aqua>"
-    body: "<gray>Reúne al grupo junto al portal para participar. La proximidad, el tiempo de espera y la salida dependen de la configuración del servidor.</gray>"
+    body: "<gray>Reúne al grupo junto al portal para participar. Mantente cerca de tus compañeros para entrar a la expedición.</gray>"
     buttons:
       - label: '<gray>Guías</gray>'
         page: guias
   actividades:
     title: "<yellow>Actividades</yellow>"
-    body: "<gray>Consulta encuentros, recompensas, desbloqueos y actividades especiales. Algunas dependen de MythicMobs, zMenu, LuckPerms o la economía.</gray>"
+    body: "<gray>Consulta encuentros, recompensas, desbloqueos y actividades especiales. Explora los acontecimientos y oportunidades que ofrece Hydev.</gray>"
     buttons:
       - label: '<gray>Guías</gray>'
         page: guias
