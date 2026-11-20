@@ -1,6 +1,7 @@
 # Notificaciones nativas de Minecraft. Modificables por YAML.
-# enabled, intervalo y eventos admiten /spectrecore reload.
-# Iconos/textos de advancement se registran al arrancar: requieren reinicio posterior.
+# Sonidos, volumen, tono, intervalos y eventos admiten recarga.
+# Los iconos y textos se registran al arrancar: requieren reinicio para cambiarse.
+# El tiempo visible de un toast nativo lo controla el cliente de Minecraft.
 toasts:
   enabled: true
   intervalo-global-segundos: 3
@@ -14,14 +15,70 @@ toasts:
     trabajo-granjero: true
     trabajo-cazador: true
   presets:
-    furia: {icon: "minecraft:netherite_axe", titulo: "Furia completa", descripcion: "Doble Shift para despertar"}
-    resonancia: {icon: "minecraft:amethyst_shard", titulo: "Resonancia completa", descripcion: "Agachate y extrae una gema"}
-    gema-basica: {icon: "minecraft:emerald", titulo: "Gema obtenida", descripcion: "Calidad basica"}
-    gema-intermedia: {icon: "minecraft:diamond", titulo: "Gema obtenida", descripcion: "Calidad intermedia"}
-    gema-superior: {icon: "minecraft:nether_star", titulo: "Gema obtenida", descripcion: "Calidad superior"}
-    trabajo-minero: {icon: "minecraft:iron_pickaxe", titulo: "Trabajo completado", descripcion: "Pago de mineria"}
-    trabajo-granjero: {icon: "minecraft:wheat", titulo: "Trabajo completado", descripcion: "Pago de agricultura"}
-    trabajo-cazador: {icon: "minecraft:iron_sword", titulo: "Trabajo completado", descripcion: "Pago de caceria"}
+    furia:
+      icon: "minecraft:netherite_axe"
+      titulo: "Furia completa"
+      descripcion: "Doble Shift para despertar"
+      sonido: "ENTITY_PLAYER_LEVELUP"
+      volumen: 0.8
+      tono: 1.0
+      intervalo-segundos: 0
+    resonancia:
+      icon: "minecraft:amethyst_shard"
+      titulo: "Resonancia completa"
+      descripcion: "Agáchate y extrae una gema"
+      sonido: "BLOCK_AMETHYST_BLOCK_CHIME"
+      volumen: 0.8
+      tono: 1.0
+      intervalo-segundos: 0
+    gema-basica:
+      icon: "minecraft:emerald"
+      titulo: "Gema obtenida"
+      descripcion: "Calidad básica"
+      sonido: "ENTITY_EXPERIENCE_ORB_PICKUP"
+      volumen: 0.8
+      tono: 1.0
+      intervalo-segundos: 0
+    gema-intermedia:
+      icon: "minecraft:diamond"
+      titulo: "Gema obtenida"
+      descripcion: "Calidad intermedia"
+      sonido: "ENTITY_EXPERIENCE_ORB_PICKUP"
+      volumen: 0.8
+      tono: 1.0
+      intervalo-segundos: 0
+    gema-superior:
+      icon: "minecraft:nether_star"
+      titulo: "Gema obtenida"
+      descripcion: "Calidad superior"
+      sonido: "ENTITY_PLAYER_LEVELUP"
+      volumen: 0.8
+      tono: 1.0
+      intervalo-segundos: 0
+    trabajo-minero:
+      icon: "minecraft:iron_pickaxe"
+      titulo: "Trabajo completado"
+      descripcion: "Pago de minería"
+      sonido: "ENTITY_EXPERIENCE_ORB_PICKUP"
+      volumen: 0.8
+      tono: 1.0
+      intervalo-segundos: 0
+    trabajo-granjero:
+      icon: "minecraft:wheat"
+      titulo: "Trabajo completado"
+      descripcion: "Pago de agricultura"
+      sonido: "ENTITY_EXPERIENCE_ORB_PICKUP"
+      volumen: 0.8
+      tono: 1.0
+      intervalo-segundos: 0
+    trabajo-cazador:
+      icon: "minecraft:iron_sword"
+      titulo: "Trabajo completado"
+      descripcion: "Pago de cacería"
+      sonido: "ENTITY_EXPERIENCE_ORB_PICKUP"
+      volumen: 0.8
+      tono: 1.0
+      intervalo-segundos: 0
 
 SpectreCorePlugin:
   color-001: GREEN
