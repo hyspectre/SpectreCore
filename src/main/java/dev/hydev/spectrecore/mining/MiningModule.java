@@ -130,7 +130,7 @@ public final class MiningModule implements Listener {
             boolean nativeToast = ((dev.hydev.spectrecore.SpectreCorePlugin) plugin).toasts() != null
                     && ((dev.hydev.spectrecore.SpectreCorePlugin) plugin).toasts().show(player, "gema-" + quality);
             if (!nativeToast) player.showTitle(Title.title(Settings.component(Settings.text("resonancia", "MiningModule.mensaje-004", "✦ GEMA EXTRAÍDA"), Settings.color("resonancia", "MiningModule.color-006", NamedTextColor.LIGHT_PURPLE)), Settings.component(Settings.text("resonancia", "MiningModule.mensaje-005", "Calidad: {label}", "label", label), color), Title.Times.times(Duration.ofMillis(Settings.i("resonancia", "MiningModule.ofmillis-001-arg0", 150)), Duration.ofSeconds(Settings.i("resonancia", "MiningModule.ofseconds-002-arg0", 2)), Duration.ofMillis(Settings.i("resonancia", "MiningModule.ofmillis-003-arg0", 350)))));
-            player.playSound(player.getLocation(), Settings.sound("resonancia", "MiningModule.sound-007", Sound.BLOCK_AMETHYST_BLOCK_CHIME),Settings.f("resonancia", "MiningModule.playsound-004-arg2", 1),Settings.f("resonancia", "MiningModule.playsound-005-arg3", 1.2f));
+            if (!nativeToast) player.playSound(player.getLocation(), Settings.sound("resonancia", "MiningModule.sound-007", Sound.BLOCK_AMETHYST_BLOCK_CHIME),Settings.f("resonancia", "MiningModule.playsound-004-arg2", 1),Settings.f("resonancia", "MiningModule.playsound-005-arg3", 1.2f));
             player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-006", "{prefix}§fHas extraído una gema de calidad {label}.", "prefix", Settings.component(prefix()), "label", label));
             if (config.getBoolean("visuales-resonancia.activados",true)) visuals.gem(block.getLocation().add(.5, .5, .5), reward, quality);
             return;
@@ -138,9 +138,9 @@ public final class MiningModule implements Listener {
         state.charge = Math.min(maximum(), state.charge + Settings.module("resonancia/config.yml").getInt("reglas.carga-por-tier.tier"+tier)); dirty = true;
         if (state.charge >= maximum()) {
             state.activeUntil = System.currentTimeMillis() + window() * 1000L;
-            if (((dev.hydev.spectrecore.SpectreCorePlugin) plugin).toasts() != null)
-                ((dev.hydev.spectrecore.SpectreCorePlugin) plugin).toasts().show(player, "resonancia");
-            player.playSound(player.getLocation(), Settings.sound("resonancia", "MiningModule.sound-008", Sound.BLOCK_AMETHYST_BLOCK_RESONATE),Settings.f("resonancia", "MiningModule.playsound-006-arg2", 1),Settings.f("resonancia", "MiningModule.playsound-007-arg3", 1.4f));
+            boolean nativeToast = ((dev.hydev.spectrecore.SpectreCorePlugin) plugin).toasts() != null
+                    && ((dev.hydev.spectrecore.SpectreCorePlugin) plugin).toasts().show(player, "resonancia");
+            if (!nativeToast) player.playSound(player.getLocation(), Settings.sound("resonancia", "MiningModule.sound-008", Sound.BLOCK_AMETHYST_BLOCK_RESONATE),Settings.f("resonancia", "MiningModule.playsound-006-arg2", 1),Settings.f("resonancia", "MiningModule.playsound-007-arg3", 1.4f));
             player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-007", "{prefix}§d§lRESONANCIA COMPLETA", "prefix", Settings.component(prefix())));
             player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-008", "§7Agáchate y rompe un mineral en los próximos {window} segundos.", "window", window()));
             player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-009", "§7La calidad depende del mineral que elijas.")); if(config.getBoolean("visuales-resonancia.activados",true)) visuals.charged(player);
