@@ -57,7 +57,7 @@ public final class JobsModule implements Listener {
                 return true;
             }
             p.sendMessage(Settings.message("trabajos", "JobsModule.mensaje-002", "§6✦ NIVELES DE TRABAJO"));
-            for (String job : List.of("minero", "granjero", "cazador")) { int tier = rank(p, job); p.sendMessage(Settings.message("trabajos", "JobsModule.mensaje-003","§7▪ §f{job}: {valor2}","job", job,"valor2", (!dev.hydev.spectrecore.config.ModuleConfiguration.of(plugin).active("trabajos."+job)?Settings.component(Settings.text("trabajos", "JobsModule.texto-001", "§cDesactivado")):tier == 0 ? Settings.component(Settings.text("trabajos", "JobsModule.texto-002", "§cNo disponible")) : Settings.component(Settings.text("trabajos", "JobsModule.texto-003", "§e") + ProgressRules.rank(tier))))); }
+            for (String job : List.of("minero", "granjero", "cazador")) { int tier = rank(p, job); p.sendMessage(Settings.message("trabajos", "JobsModule.mensaje-003","§7▪ §f{job}: {valor2}","job", displayJob(job),"valor2", (!dev.hydev.spectrecore.config.ModuleConfiguration.of(plugin).active("trabajos."+job)?Settings.component(Settings.text("trabajos", "JobsModule.texto-001", "§cDesactivado")):tier == 0 ? Settings.component(Settings.text("trabajos", "JobsModule.texto-002", "§cNo disponible")) : Settings.component(Settings.text("trabajos", "JobsModule.texto-003", "§e") + displayRank(ProgressRules.rank(tier)))))); }
             p.sendMessage(Settings.message("trabajos", "JobsModule.mensaje-004", "§7Mejora tu nivel firmando §6contratos§7.")); return true;
         });
         timer = Bukkit.getScheduler().runTaskTimer(plugin, () -> { if (dirty) save(); }, 200, 200);
@@ -73,6 +73,24 @@ public final class JobsModule implements Listener {
         HandlerList.unregisterAll(this); HandlerList.unregisterAll(placed); save();
         if (!purchasesInProgress.isEmpty())
             plugin.getLogger().warning("TRABAJOS: Hay " + purchasesInProgress.size() + " compra(s) LuckPerms pendiente(s) al apagar; revisar saldos si hubo errores.");
+    }
+    public String displayJob(String id) {
+        String fallback = switch (id) {
+            case "minero" -> "Minería";
+            case "granjero" -> "Agricultura";
+            case "cazador" -> "Caza";
+            default -> id;
+        };
+        return config.getString("presentacion.trabajos." + id, fallback);
+    }
+    public String displayRank(String id) {
+        String fallback = switch (id) {
+            case "novato" -> "Novato";
+            case "experimentado" -> "Experimentado";
+            case "profesional" -> "Profesional";
+            default -> id;
+        };
+        return config.getString("presentacion.rangos." + id, fallback);
     }
     private void save() { var yaml = new YamlConfiguration(); last.forEach(yaml::set); if (YamlStore.save(plugin, "jobs-data.yml", yaml)) dirty = false; }
     public int rank(Player p, String job) {
@@ -151,7 +169,7 @@ public final class JobsModule implements Listener {
                     player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 0.7f, 1.2f);
                     player.sendMessage(Settings.message("trabajos", "JobsModule.contrato-exito",
                             "§aContrato firmado: {trabajo} {rango}. Precio: {precio} ↾.",
-                            "trabajo", job, "rango", level, "precio", price));
+                            "trabajo", displayJob(job), "rango", displayRank(level), "precio", price));
                 }
             });
         });
@@ -194,7 +212,7 @@ public final class JobsModule implements Listener {
         last.put(key, now); dirty = true;
         location.getWorld().spawnParticle(Settings.particle("trabajos", "JobsModule.particle-002", Particle.GLOW), location.clone().add(0,.5,0),Settings.i("trabajos", "JobsModule.spawnparticle-001-arg2", 10),Settings.d("trabajos", "JobsModule.spawnparticle-002-arg3", .3),Settings.d("trabajos", "JobsModule.spawnparticle-003-arg4", .3),Settings.d("trabajos", "JobsModule.spawnparticle-004-arg5", .3),Settings.d("trabajos", "JobsModule.spawnparticle-005-arg6", .05));
         p.playSound(p.getLocation(), Settings.sound("trabajos", "JobsModule.sound-003", Sound.ENTITY_EXPERIENCE_ORB_PICKUP),Settings.f("trabajos", "JobsModule.playsound-006-arg2", .5f),Settings.f("trabajos", "JobsModule.playsound-007-arg3", 1.5f));
-        String paymentMessage = Settings.text("trabajos", "JobsModule.mensaje-007","{valor1}+{amount} {prefijo} · {job}","valor1", (result == EconomyBridge.Result.COMMAND_SENT ? Settings.text("trabajos", "JobsModule.texto-004", "Pago solicitado: ") : ""),"amount", amount,"job", job,"prefijo", Settings.text("trabajos", "JobsModule.prefijo-monedas", "§f↾"));
+        String paymentMessage = Settings.text("trabajos", "JobsModule.mensaje-007","{valor1}+{amount} {prefijo} · {job}","valor1", (result == EconomyBridge.Result.COMMAND_SENT ? Settings.text("trabajos", "JobsModule.texto-004", "Pago solicitado: ") : ""),"amount", amount,"job", displayJob(job),"prefijo", Settings.text("trabajos", "JobsModule.prefijo-monedas", "§f↾"));
         boolean toasted = result == EconomyBridge.Result.CONFIRMED
                 && ((dev.hydev.spectrecore.SpectreCorePlugin) plugin).toasts() != null
                 && ((dev.hydev.spectrecore.SpectreCorePlugin) plugin).toasts().show(p, "trabajo-" + job);
