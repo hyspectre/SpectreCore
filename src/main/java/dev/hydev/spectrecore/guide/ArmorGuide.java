@@ -171,13 +171,15 @@ public void open(Player player) { openPage(player, "armaduras"); }
             meta.displayName(styled(title));
             List<Component> lore = new ArrayList<>();
             for (String line : layout.getStringList(at + ".lore")) {
-                if (selected != null && line.equals("{bonos}"))
-                    for (String entry : bonuses(selected, sets))
-                        if (lore.size() < 32) lore.add(styled(entry));
-                else if (selected != null && line.equals("{habilidad}"))
-                    for (String entry : ability(selected))
-                        if (lore.size() < 32) lore.add(styled(entry));
-                else if (lore.size() < 32) lore.add(styled(line));
+                if (selected != null && line.equals("{bonos}")) {
+                    for (String bonusLine : bonuses(selected, sets))
+                        if (lore.size() < 32) lore.add(styled(bonusLine));
+                } else if (selected != null && line.equals("{habilidad}")) {
+                    for (String abilityLine : ability(selected))
+                        if (lore.size() < 32) lore.add(styled(abilityLine));
+                } else if (lore.size() < 32) {
+                    lore.add(styled(line));
+                }
             }
             meta.lore(lore);
             item.setItemMeta(meta);
