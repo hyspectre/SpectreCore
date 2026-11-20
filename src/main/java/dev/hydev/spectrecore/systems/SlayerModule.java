@@ -132,7 +132,7 @@ public final class SlayerModule implements Listener {
             return Settings.text("slayer", "SlayerModule.nivel-maximo", "<gold>Nivel máximo alcanzado");
         List<String> rewards = rewardsForLevel(next);
         return rewards.isEmpty()
-                ? Settings.text("slayer", "SlayerModule.sin-recetas-nuevas", "<gray>Sin recetas nuevas")
+                ? Settings.text("slayer", "SlayerModule.sin-recetas-nuevas", "Sin recetas nuevas")
                 : String.join(" · ", rewards);
     }
     private List<String> rewardsForLevel(int level) {
