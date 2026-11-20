@@ -55,7 +55,10 @@ public final class ModuleConfiguration {
         if(migrating){for(String name:LEGACY){File source=new File(folder,name),backup=new File(folder,"backups/configuration-v1/"+name);if(source.isFile()&&!backup.exists()){Files.createDirectories(backup.toPath().getParent());Files.copy(source.toPath(),backup.toPath());}}}
         Map<String,YamlConfiguration> next=new LinkedHashMap<>();
         for(String path:FILES){File destination=file(path);YamlConfiguration yaml;
-            if(destination.isFile()){yaml=strict(destination);var defaults=resource("modules/"+path);boolean changed=importCommandMetadata(path,yaml,defaults);for(String key:defaults.getKeys(true))if(!defaults.isConfigurationSection(key)&&!yaml.contains(key)){yaml.set(key,defaults.get(key));changed=true;}if(changed){File backup=new File(folder,"backups/configuration-v2/modules/"+path);if(!backup.exists()){Files.createDirectories(backup.toPath().getParent());Files.copy(destination.toPath(),backup.toPath());}save(destination,yaml);}}
+            if(destination.isFile()){
+                if(path.endsWith("/mensajes.yml"))
+                    PresentationMigrations.migrate(folder, destination, "modules/" + path);
+                yaml=strict(destination);var defaults=resource("modules/"+path);boolean changed=importCommandMetadata(path,yaml,defaults);for(String key:defaults.getKeys(true))if(!defaults.isConfigurationSection(key)&&!yaml.contains(key)){yaml.set(key,defaults.get(key));changed=true;}if(changed){File backup=new File(folder,"backups/configuration-v2/modules/"+path);if(!backup.exists()){Files.createDirectories(backup.toPath().getParent());Files.copy(destination.toPath(),backup.toPath());}save(destination,yaml);}}
             else{
                 yaml=resource("modules/"+path);
                 switch(path){
