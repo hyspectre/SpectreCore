@@ -1,5 +1,5 @@
 AgricultureTreasures:
-  mensaje-001: "Agricultura: falta CONSUMABLE:{id} o MMOItems no pudo generarlo."
+  mensaje-001: "No se pudo generar el hallazgo agrícola ({id})."
   mensaje-002: "<reset><gold><bold>[Tesoro Agricultura] <reset><red>Recompensa no disponible; avisa a administración."
   mensaje-003: "¡TESORO ENCONTRADO!"
   mensaje-004: "[Tesoro Agricultura] ¡Obtuviste "
@@ -13,7 +13,7 @@ MiningModule:
   mensaje-015: "✦ {reward-getamount} minerales raros"
   mensaje-016: "<reset><white>↹ <reset><yellow>¡Obtuviste un mineral raro!"
 CombatTreasures:
-  mensaje-001: "Almas: no se pudo generar {type}:{id}. Revisa MMOItems y el ID."
+  mensaje-001: "No se pudo generar el hallazgo de combate ({type}:{id})."
   mensaje-002: "<reset><white>⧇ <reset><blue><bold>ALMAS <reset><red>La recompensa no está disponible; avisa a administración."
   mensaje-003: "¡ALMA RECOLECTADA!"
   mensaje-004: "⧇"

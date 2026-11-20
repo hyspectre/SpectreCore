@@ -1,5 +1,5 @@
 SlayerModule:
-  mensaje-001: "Conserva el uso del Skript: ejecuta estos comandos como jugador."
+  mensaje-001: "Esta acción solo puede realizarse dentro del juego."
   mensaje-002: "<reset><gold>✦ ESTADÍSTICAS DE MISIONES"
   mensaje-003: "<reset><yellow>{name-c}<reset><gray>: <reset><white>{m-kills}/{m-required} <reset><gray>| Tier {m-tier} | {valor5}"
   texto-001: "<reset><green>Activa"
@@ -24,15 +24,15 @@ SlayerModule:
 # Contratos Slayer de jugador (Vault; activación opt-in)
 SlayerModule.contrato-categoria: "<reset><red>Categoría inválida."
 SlayerModule.contrato-rechazado: "<reset><red>Contrato rechazado: {motivo}"
-SlayerModule.contrato-pago-fallo: "<reset><red>No se confirmó el cobro mediante Vault; el contrato no cambió."
+SlayerModule.contrato-pago-fallo: "<reset><red>No se pudo confirmar el cobro; tu contrato sigue intacto."
 SlayerModule.contrato-storage-fallo: "<reset><red>No se pudo guardar el contrato; solicita revisión administrativa del saldo."
 SlayerModule.contrato-aplicado: "<reset><gold>Contrato {accion}: {categoria} · Costo {costo} ↾"
 
 # Acceso remoto: compra del Teléfono Rojo con Vault y MMOItems
 SlayerModule.telefono-no-disponible: "<reset><red>El acceso remoto no está disponible por ahora."
-SlayerModule.telefono-item-fallo: "<reset><red>No se pudo generar el Teléfono Rojo de MMOItems. No se ha cobrado."
+SlayerModule.telefono-item-fallo: "<reset><red>No se pudo preparar el Teléfono Rojo. No se ha cobrado."
 SlayerModule.telefono-inventario: "<reset><red>Libera al menos una ranura de inventario antes de comprar."
-SlayerModule.telefono-pago-fallo: "<reset><red>Vault no confirmó el pago. No se ha entregado el objeto."
+SlayerModule.telefono-pago-fallo: "<reset><red>No se confirmó el pago. No se ha entregado el objeto."
 SlayerModule.telefono-comprado: "<reset><green>Has comprado el Teléfono Rojo por {precio} ↾."
 SlayerModule.telefono-entrega-fallo: "<reset><red>Error de entrega. Avisa a un administrador; no intentes pagar de nuevo."
 # Reintento seguro de los contratos que completaron su cuota sin jefe activo.
