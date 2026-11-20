@@ -34,7 +34,7 @@ public final class MagoMenu {
     private final Map<Player, Long> nextAccess = Collections.synchronizedMap(new WeakHashMap<>());
 
     public MagoMenu(SpectreCorePlugin plugin) throws IOException, InvalidConfigurationException {
-        this.plugin = plugin; this.armors = new ArmorGuide(plugin);
+        this.plugin = plugin; this.armors = plugin.armors();
         reload();
     }
     public void reload() throws IOException, InvalidConfigurationException {
@@ -74,10 +74,16 @@ public final class MagoMenu {
         if (gate != null && now - gate < 160_000_000L) return true;
         nextAccess.put(player, now);
         String section = args.length == 0 ? "inicio" : args[0].toLowerCase(Locale.ROOT);
-        if (section.equals("armaduras")) { armors.open(player); return true; }
+        if (section.equals("armaduras")) {
+            if (armors != null) armors.open(player);
+            else player.sendMessage(TextService.component("<red>El catálogo de armaduras está desactivado."));
+            return true;
+        }
         if (section.equals("recetas")) { return plugin.getServer().dispatchCommand(player, "spectrecore cocina recetas"); }
         if (section.equals("armadura") && args.length == 3) {
-            armors.openDetail(player, args[1], args[2]); return true;
+            if (armors != null) armors.openDetail(player, args[1], args[2]);
+            else player.sendMessage(TextService.component("<red>El catálogo de armaduras está desactivado."));
+            return true;
         }
         if (!ID.matcher(section).matches() || !pages.isConfigurationSection("pages." + section)) {
             player.sendMessage(TextService.component(pages.getString("invalid-page", "<red>No encuentro ese conocimiento.</red>")));
