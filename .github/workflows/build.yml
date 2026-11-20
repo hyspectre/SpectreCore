@@ -21,6 +21,7 @@ jobs:
       - run: python3 tests/validate_native_armors.py
       - run: python3 tests/validate_native_jobs.py
       - run: python3 tests/validate_presentation.py
+      - run: python3 tests/validate_player_presentation_policy.py
       - run: python3 tests/validate_mago_models.py
       - run: python3 tests/validate_m3_security.py
       - run: bash tests/run_pure_java_tests.sh
