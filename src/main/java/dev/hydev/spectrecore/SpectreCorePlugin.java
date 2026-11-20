@@ -92,6 +92,8 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
         }
     }
     private dev.hydev.spectrecore.guide.MagoMenu mago;
+    private dev.hydev.spectrecore.guide.ArmorGuide armorGuide;
+    public dev.hydev.spectrecore.guide.ArmorGuide armors() { return armorGuide; }
     private dev.hydev.spectrecore.integration.IntegrationRegistry integrations;
     private AuraSkillsBridge auraSkillsBridge;
     private ToastService toastService;
@@ -227,9 +229,10 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
         systemCommands.forEach((name, enabled) -> { if (!enabled && commandRouter.get(name) != null) commandRouter.get(name).setExecutor((sender,command,label,args) -> { sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-005", "Ese módulo está desactivado.")); return true; }); });
         if (getCommand("spectrecore") != null) getCommand("spectrecore").setTabCompleter(this);
         if (commandRouter.get("armaduras") != null && moduleConfigs.active("equipamiento.libro")) {
-            var guide = new dev.hydev.spectrecore.guide.ArmorGuide(this);
+            armorGuide = new dev.hydev.spectrecore.guide.ArmorGuide(this);
+            armorGuide.enable();
             commandRouter.get("armaduras").setExecutor((sender, command, label, args) -> {
-                if (sender instanceof Player player) guide.open(player);
+                if (sender instanceof Player player) armorGuide.open(player);
                 else sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-006", "Esta guía se abre dentro del juego."));
                 return true;
             });
@@ -289,6 +292,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
         if (visuals != null) visuals.removeOrphans();
         if (displayModels != null) { displayModels.stop(); displayModels = null; }
         if (mago != null) { mago.close(); mago = null; }
+        if (armorGuide != null) { armorGuide.disable(); armorGuide = null; }
         modules.clear(); demo.clear(); cooldowns.clearAll(); combatTraces.clear(); combatLogLast.clear();
     }
 
@@ -491,6 +495,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
             if (agricultureTreasures != null) agricultureTreasures.reload();
             if (activities != null) activities.reload();
             if (jobs != null) jobs.reload();
+            if (armorGuide != null) armorGuide.reload();
             if (slayer != null) slayer.reload();
             if (portal != null) portal.reload();
             if (bossDamage != null) bossDamage.reload();
