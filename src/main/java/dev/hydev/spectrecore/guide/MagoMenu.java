@@ -138,6 +138,15 @@ public final class MagoMenu implements Listener {
             if (!candidate.contains(path)) { candidate.set(path, visual.get(key)); changed = true; }
         }
         ConfigurationSection originals = defaults.getConfigurationSection("pages");
+        if (originals != null && !candidate.isConfigurationSection("pages.recetario_info")) {
+            ConfigurationSection extra = originals.getConfigurationSection("recetario_info");
+            if (extra != null) {
+                for (String key : extra.getKeys(true))
+                    if (!extra.isConfigurationSection(key))
+                        candidate.set("pages.recetario_info." + key, extra.get(key));
+                changed = true;
+            }
+        }
         if (originals != null) for (String id : originals.getKeys(false)) {
             if (!candidate.isConfigurationSection("pages." + id)) continue;
             ConfigurationSection original = originals.getConfigurationSection(id);
@@ -158,6 +167,13 @@ public final class MagoMenu implements Listener {
             for (Map<?, ?> button : installedButtons) {
                 Map<String,Object> copy = new java.util.LinkedHashMap<>();
                 button.forEach((key,value) -> copy.put(String.valueOf(key),value));
+                // Keep the knowledge guide independent from all other category GUIs.
+                if (id.equals("rpg") && "armaduras".equals(copy.get("page"))) {
+                    copy.put("page", "armaduras_info"); buttonChanged = true;
+                }
+                if (id.equals("cocina") && "recetas".equals(copy.get("page"))) {
+                    copy.put("page", "recetario_info"); buttonChanged = true;
+                }
                 if (!copy.containsKey("descripcion")) for (Map<?, ?> source : targets)
                     if (source.get("page") != null && source.get("page").equals(copy.get("page"))
                             && source.get("descripcion") instanceof String description) {
