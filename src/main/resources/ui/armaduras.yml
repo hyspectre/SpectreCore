@@ -1,3 +1,11 @@
+# Indicador de equipo: IDs verificados directamente, nunca por nombres o lore.
+indicador:
+  piezas: "<gray>Piezas equipadas: <yellow>{equipadas}<gray>/4"
+  completo: "<green>Habilidad del conjunto disponible"
+  parcial: "<yellow>Bonificación parcial activa"
+  incompleto: "<gray>Bonificaciones aún incompletas"
+  desactivado: "<red>Conjunto desactivado"
+
 # Catálogo de armaduras: 54 espacios, MiniMessage y cabezas Base64.
 # Todos los textos de iconos son editables. Nunca se muestran comandos.
 enabled: true
