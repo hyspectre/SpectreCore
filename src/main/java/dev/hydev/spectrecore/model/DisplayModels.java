@@ -156,7 +156,7 @@ public final class DisplayModels implements Listener {
             parseParts(definition(modelId)); // Validate before writing anything.
             Location point = admin.getEyeLocation().add(admin.getEyeLocation().getDirection().normalize().multiply(2.5));
             if (!worldGuard.canBuild(admin, point)) {
-                message(admin, "Modelos.worldguard", "<red>WorldGuard: esta región no permite colocar o retirar modelos.</red>");
+                message(admin, "Modelos.worldguard", "<red>Esta región no permite colocar ni retirar modelos.</red>");
                 return true;
             }
             UUID id = UUID.randomUUID();
@@ -184,7 +184,7 @@ public final class DisplayModels implements Listener {
             World anchorWorld = Bukkit.getWorld(anchor.world());
             if (anchorWorld == null || !worldGuard.canBuild(admin, anchor.location(anchorWorld))) {
                 anchors.put(id, anchor);
-                message(admin, "Modelos.worldguard", "<red>WorldGuard: esta región no permite colocar o retirar modelos.</red>"); return true;
+                message(admin, "Modelos.worldguard", "<red>Esta región no permite colocar ni retirar modelos.</red>"); return true;
             }
             if (!savePlacements()) { anchors.put(id, anchor); storageReady = false; message(admin, "Modelos.storage", "<red>Almacenamiento de modelos bloqueado. Recupera placements.yml.</red>"); return true; }
             despawn(id);

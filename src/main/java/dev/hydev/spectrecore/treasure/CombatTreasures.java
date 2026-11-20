@@ -44,7 +44,7 @@ public final class CombatTreasures implements Listener {
         String type = config.getString("botin.tipo", "MATERIAL"), id = config.getString("botin.id", "ALMA_1");
         var reward = mmo.build(type, id, config.getInt("cantidad",1));
         if (reward == null) {
-            if (!reported) { plugin.getLogger().warning(Settings.plain("tesoros", "CombatTreasures.mensaje-001", "Almas: no se pudo generar {type}:{id}. Revisa MMOItems y el ID.", "type", type, "id", id)); reported = true; }
+            if (!reported) { plugin.getLogger().warning(Settings.plain("tesoros", "CombatTreasures.mensaje-001", "No se pudo generar el hallazgo de combate ({type}:{id}).", "type", type, "id", id)); reported = true; }
             player.sendMessage(Settings.message("tesoros", "CombatTreasures.mensaje-002", "§f⧇ §9§lALMAS §cLa recompensa no está disponible; avisa a administración.")); return;
         }
         player.getInventory().addItem(reward.clone()).values().forEach(left -> player.getWorld().dropItem(player.getLocation(), left, drop -> {

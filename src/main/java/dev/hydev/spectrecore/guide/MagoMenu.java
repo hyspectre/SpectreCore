@@ -67,7 +67,7 @@ public final class MagoMenu {
     }
     public boolean command(CommandSender sender, String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(TextService.component(pages.getString("console-message", "<gray>Abre /mago dentro de Minecraft.</gray>"))); return true;
+            sender.sendMessage(TextService.component(pages.getString("console-message", "<gray>Consulta al Mago dentro del juego.</gray>"))); return true;
         }
         long now = System.nanoTime();
         Long gate = nextAccess.get(player);

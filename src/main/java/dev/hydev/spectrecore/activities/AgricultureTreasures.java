@@ -64,7 +64,7 @@ public final class AgricultureTreasures implements Listener {
         String id = config.getString("botin.tier" + tier, "AGRICULTURA_T" + tier);
         var reward = mmo.build(config.getString("tipo","CONSUMABLE"), id, config.getInt("cantidad",1));
         if (reward == null) {
-            if (reported.add(id)) plugin.getLogger().warning(Settings.plain("tesoros", "AgricultureTreasures.mensaje-001", "Agricultura: falta CONSUMABLE:{id} o MMOItems no pudo generarlo.", "id", id));
+            if (reported.add(id)) plugin.getLogger().warning(Settings.plain("tesoros", "AgricultureTreasures.mensaje-001", "No se pudo generar el hallazgo agrícola ({id}).", "id", id));
             player.sendMessage(Settings.message("tesoros", "AgricultureTreasures.mensaje-002", "§6§l[Tesoro Agricultura] §cRecompensa no disponible; avisa a administración.")); return;
         }
         player.getInventory().addItem(reward.clone()).values().forEach(item -> player.getWorld().dropItem(player.getLocation(), item, drop -> { drop.setOwner(player.getUniqueId()); drop.setPickupDelay(0); }));
