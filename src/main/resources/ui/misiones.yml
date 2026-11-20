@@ -335,7 +335,7 @@ pages:
           - "<#FFCC55>  ► Clic para cerrar"
 
   progresion:
-    title: "<dark_gray>⧇ <gold>Misiones <dark_gray>│ <red>Progresión Slayer"
+    title: "<dark_gray>⧇ <gold>Misiones <dark_gray>│ <red>Slayer nivel {nivel}"
     size: 54
     items:
       resumen:
