@@ -80,6 +80,8 @@ public final class MissionsMenu implements Listener {
             if (!file.exists()) plugin.saveResource("ui/misiones.yml", false);
             if (!file.isFile() || file.length() > 64 * 1024)
                 throw new IOException("ui/misiones.yml ausente o demasiado grande");
+            dev.hydev.spectrecore.config.PresentationMigrations.migrate(
+                    plugin.getDataFolder(), file, "ui/misiones.yml");
             YamlConfiguration candidate = new YamlConfiguration();
             candidate.load(file);
             // Existing servers keep their custom YAML. Merge ONLY missing progression
