@@ -593,8 +593,29 @@ public final class SlayerModule implements Listener {
                     "<red>No recibiste XP Slayer: necesitas infligir al menos {porcentaje}% de la vida del jefe y estar a {radio} bloques al morir.",
                     "porcentaje", threshold, "radio", radius));
         }
-        if (persisted && victory && newLevel > previousLevel)
-            unlocks.synchronize(claim.owner(), newLevel);
+        if (persisted && victory && "revenant".equals(claim.category())
+                && newLevel > previousLevel) {
+            final int first = previousLevel + 1, achieved = newLevel;
+            unlocks.synchronize(claim.owner(), achieved, synced -> {
+                Player online = Bukkit.getPlayer(claim.owner());
+                if (online == null || !online.isOnline()) return;
+                if (!synced) {
+                    online.sendMessage(Settings.message("slayer", "SlayerModule.desbloqueos-pendientes",
+                            "<yellow>Subiste de nivel, pero tus nuevas recetas todavía están pendientes. Avisa a administración."));
+                    return;
+                }
+                List<String> rewards = new ArrayList<>();
+                for (int lvl = first; lvl <= achieved; lvl++) rewards.addAll(rewardsForLevel(lvl));
+                String rewardText = rewards.isEmpty()
+                        ? Settings.text("slayer", "SlayerModule.sin-recetas-nuevas", "Sin recetas nuevas")
+                        : String.join(" · ", rewards);
+                online.sendMessage(Settings.message("slayer", "SlayerModule.subida-nivel",
+                        "<gold>✦ ¡Nivel Slayer {nivel}! <white>{recompensas}",
+                        "nivel", achieved, "recompensas", rewardText));
+                var service = ((dev.hydev.spectrecore.SpectreCorePlugin) plugin).toasts();
+                if (service != null) service.show(online, "slayer-nivel");
+            });
+        }
     }
 
     private void summon(Player p, String category, Mission m) {
