@@ -79,6 +79,7 @@ public final class ArmorGuide implements Listener {
                 throw new IOException("ui/armaduras.yml ausente o demasiado grande");
             YamlConfiguration next = new YamlConfiguration();
             next.load(file);
+            mergeEquipmentLabels(file, next);
             if (!next.getBoolean("enabled", true)) { layout = next; return; }
             for (String page : Set.of("armaduras", "botania", "necrotica", "asterion",
                     "ultimo-juramento", "sangre-primer-dragon")) {
@@ -110,6 +111,45 @@ public final class ArmorGuide implements Listener {
             plugin.getLogger().warning("Armaduras: se conserva la última configuración válida: " + ex.getMessage());
         }
     }
+    private void mergeEquipmentLabels(File installed, YamlConfiguration candidate) throws Exception {
+        if (candidate.isConfigurationSection("indicador")) return;
+        YamlConfiguration defaults = new YamlConfiguration();
+        try (var stream = plugin.getResource("ui/armaduras.yml")) {
+            if (stream == null) throw new IOException("No existe la plantilla de etiquetas de armaduras");
+            defaults.load(new java.io.InputStreamReader(stream, java.nio.charset.StandardCharsets.UTF_8));
+        }
+        ConfigurationSection section = defaults.getConfigurationSection("indicador");
+        if (section == null) return;
+        File backup = new File(plugin.getDataFolder(), "backups/armaduras-indicador-v1/ui/armaduras.yml");
+        if (!backup.exists()) {
+            java.nio.file.Files.createDirectories(backup.toPath().getParent());
+            java.nio.file.Files.copy(installed.toPath(), backup.toPath());
+        }
+        for (String key : section.getKeys(true))
+            if (!section.isConfigurationSection(key))
+                candidate.set("indicador." + key, section.get(key));
+        dev.hydev.spectrecore.storage.AtomicFileStore.writeUtf8(
+                installed.toPath(), candidate.saveToString());
+    }
+
+    private List<Component> equippedLore(Player player, Entry entry) {
+        var config = Settings.module("equipamiento/config.yml");
+        int count = plugin.sets() == null ? 0
+                : plugin.sets().countArmor(player, config.getConfigurationSection("skills." + entry.skill + ".armor"));
+        int pieces = Math.max(1, Math.min(4, config.getInt("pasivos.piezas", 2)));
+        boolean enabled = config.getBoolean("skills." + entry.skill + ".enabled", false);
+        boolean partial = Set.of("asterion", "ultimo-juramento", "sangre-primer-dragon").contains(entry.skill);
+        String status;
+        if (!enabled) status = layout.getString("indicador.desactivado", "<red>Conjunto desactivado");
+        else if (count == 4) status = layout.getString("indicador.completo", "<green>Habilidad del conjunto disponible");
+        else if (partial && count >= pieces) status = layout.getString("indicador.parcial", "<yellow>Bonificación parcial activa");
+        else status = layout.getString("indicador.incompleto", "<gray>Bonificaciones aún incompletas");
+        String summary = layout.getString("indicador.piezas",
+                "<gray>Piezas equipadas: <yellow>{equipadas}<gray>/4")
+                .replace("{equipadas}", Integer.toString(count));
+        return List.of(styled(summary), styled(status));
+    }
+
     public void disable() {
         if (listening) HandlerList.unregisterAll(this);
         listening = false;
@@ -119,7 +159,8 @@ public final class ArmorGuide implements Listener {
         clickGate.clear();
     }
     private double n(Entry e, String key, double fallback) {
-        return plugin.getConfig().getDouble("skills." + e.skill + "." + key, fallback);
+        return Settings.module("equipamiento/config.yml")
+                .getDouble("skills." + e.skill + "." + key, fallback);
     }
     private String value(double number) { return String.format(Locale.ROOT, "%.2f", number).replaceAll("0+$", "").replaceAll("\\.$", ""); }
     private String v(Entry e, String key, double fallback) { return value(n(e, key, fallback)); }
@@ -182,6 +223,11 @@ public void open(Player player) { openPage(player, "armaduras"); }
                     lore.add(styled(line));
                 }
             }
+            if (named != null && (selected != null && id.equals("informacion")
+                    || selected == null && named.skill.equals(id))) {
+                lore.add(styled(""));
+                lore.addAll(equippedLore(player, named));
+            }
             meta.lore(lore);
             item.setItemMeta(meta);
             int slot = layout.getInt(at + ".slot");
@@ -236,8 +282,8 @@ public void open(Player player) { openPage(player, "armaduras"); }
         lines.add(e.name);
         lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-006", ""));
         lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-007", "Bonificaciones del conjunto:"));
-        boolean enabled = plugin.getConfig().getBoolean("modules.skills.enabled", true)
-            && plugin.getConfig().getBoolean("skills." + e.skill + ".enabled", false);
+        boolean enabled = Settings.module("equipamiento/config.yml")
+                .getBoolean("skills." + e.skill + ".enabled", false);
         if (!enabled) lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-008", "DESACTIVADOS"));
         switch (e.skill) {
             case "asterion" -> {
