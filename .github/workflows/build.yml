@@ -23,12 +23,13 @@ jobs:
       - run: python3 tests/validate_presentation.py
       - run: python3 tests/validate_player_presentation_policy.py
       - run: python3 tests/validate_mago_models.py
+      - run: python3 tests/validate_native_mago.py
       - run: python3 tests/validate_m3_security.py
       - run: bash tests/run_pure_java_tests.sh
       - run: bash tests/check_java_syntax.sh
       - run: gradle clean build --no-daemon
       - uses: actions/upload-artifact@v4
         with:
-          name: SpectreCore-0.7.5-aura-alpha
-          path: build/libs/SpectreCore-0.7.5-aura-alpha.jar
+          name: SpectreCore-0.7.6-aura-alpha
+          path: build/libs/SpectreCore-0.7.6-aura-alpha.jar
           if-no-files-found: error
