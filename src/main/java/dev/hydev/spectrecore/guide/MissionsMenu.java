@@ -128,7 +128,9 @@ public final class MissionsMenu implements Listener {
         if (!candidate.isConfigurationSection("pages.misiones.items"))
             throw new IOException("El catálogo principal no es válido; no se migró");
         if (missingPage) {
-            candidate.set("pages.progresion", defaults.getConfigurationSection("pages.progresion"));
+            var page = defaults.getConfigurationSection("pages.progresion");
+            if (page == null) throw new IOException("Falta la página de progresión predeterminada");
+            copySectionLeaves(candidate, page, "pages.progresion");
         }
         if (missingEntry) {
             var template = defaults.getConfigurationSection("pages.misiones.items.progresion");
@@ -147,7 +149,7 @@ public final class MissionsMenu implements Listener {
                     if (!used.contains(i)) { slot = i; break; }
                 if (slot < 0) throw new IOException("No quedan espacios para acceder a progresión");
             }
-            candidate.set("pages.misiones.items.progresion", template);
+            copySectionLeaves(candidate, template, "pages.misiones.items.progresion");
             candidate.set("pages.misiones.items.progresion.slot", slot);
         }
         File backup = new File(plugin.getDataFolder(), "backups/progresion-v1/ui/misiones.yml");
@@ -157,6 +159,15 @@ public final class MissionsMenu implements Listener {
         }
         AtomicFileStore.writeUtf8(installed.toPath(), candidate.saveToString());
         plugin.getLogger().info("Misiones: progresión instalada, conservando la configuración anterior en " + backup);
+    }
+
+    private static void copySectionLeaves(YamlConfiguration target,
+                                          ConfigurationSection section, String path) {
+        // Copy scalar and list leaves, not Bukkit ConfigurationSection objects
+        // from a different YAML document.
+        for (String name : section.getKeys(true))
+            if (!section.isConfigurationSection(name))
+                target.set(path + "." + name, section.get(name));
     }
 
     public boolean open(Player player, String page) {
