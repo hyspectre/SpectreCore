@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.UUID;
+import java.util.function.Consumer;
 
 /**
  * Idempotently reconciles earned Slayer nodes with LuckPerms.
@@ -19,14 +20,21 @@ public final class SlayerUnlockBridge {
     public SlayerUnlockBridge(JavaPlugin plugin) { this.plugin = plugin; }
 
     public void synchronize(UUID playerId, int level) {
+        synchronize(playerId, level, ignored -> { });
+    }
+
+    /** Notify the progression layer only after permissions are durably saved. */
+    public void synchronize(UUID playerId, int level, Consumer<Boolean> onComplete) {
         if (!Bukkit.getPluginManager().isPluginEnabled("LuckPerms")) {
             plugin.getLogger().warning("Slayer: LuckPerms absent; unlocks pending for " + playerId);
+            onComplete.accept(false);
             return;
         }
         final LuckPerms api;
         try { api = LuckPermsProvider.get(); }
         catch (IllegalStateException | LinkageError error) {
             plugin.getLogger().warning("Slayer: LuckPerms API absent; unlocks pending for " + playerId);
+            onComplete.accept(false);
             return;
         }
         api.getUserManager().loadUser(playerId).thenCompose(user -> {
@@ -34,14 +42,15 @@ public final class SlayerUnlockBridge {
                 user.data().add(Node.builder(permission).value(true).build());
             return api.getUserManager().saveUser(user);
         }).whenComplete((ignored, failure) -> {
-            if (failure != null) {
+            if (failure != null)
                 plugin.getLogger().severe("SLAYER UNLOCK RECONCILIATION NEEDED player="
                         + playerId + " level=" + level + " cause=" + failure);
-                return;
-            }
             if (plugin.isEnabled()) Bukkit.getScheduler().runTask(plugin, () -> {
-                Player player = Bukkit.getPlayer(playerId);
-                if (player != null) player.recalculatePermissions();
+                if (failure == null) {
+                    Player player = Bukkit.getPlayer(playerId);
+                    if (player != null) player.recalculatePermissions();
+                }
+                onComplete.accept(failure == null);
             });
         });
     }
