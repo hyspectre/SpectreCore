@@ -31,6 +31,22 @@ public final class SlayerProgressionRules {
         return level >= MAX_LEVEL ? -1 : thresholds[Math.max(0, level) + 1];
     }
 
+    /** Filled progress segments inside the CURRENT level, not accumulated overall. */
+    public static int progressSegments(long totalXp, long[] thresholds, int segments) {
+        if (!validThresholds(thresholds) || segments < 1 || segments > 54)
+            throw new IllegalArgumentException("Invalid progress bar settings");
+        int level = level(totalXp, thresholds);
+        if (level == MAX_LEVEL) return segments;
+        long start = thresholds[level], end = thresholds[level + 1];
+        long progress = Math.max(0, Math.min(end - start, totalXp - start));
+        return (int) (progress * segments / (end - start));
+    }
+
+    public static long remainingXp(long totalXp, long[] thresholds) {
+        int current = level(totalXp, thresholds);
+        return current == MAX_LEVEL ? 0 : Math.max(0, thresholds[current + 1] - totalXp);
+    }
+
     /** All nodes are fixed in source: XP/YAML may never grant arbitrary permissions. */
     public static Set<String> earnedNodes(int level) {
         Set<String> nodes = new LinkedHashSet<>();
