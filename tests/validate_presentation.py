@@ -85,7 +85,7 @@ assert 'Settings.install(moduleConfigs);' in (root/'src/main/java/dev/hydev/spec
 # ToastService uses dynamically named presets, not literal Settings calls.
 # Keep key completeness strict: only its documented fields may be present.
 presets = {'furia', 'resonancia', 'gema-basica', 'gema-intermedia', 'gema-superior',
-           'trabajo-minero', 'trabajo-granjero', 'trabajo-cazador'}
+           'trabajo-minero', 'trabajo-granjero', 'trabajo-cazador', 'slayer-nivel'}
 toast = configs['nucleo/ajustes.yml']
 assert toast['toasts.enabled'] in (True, False)
 assert type(toast['toasts.intervalo-global-segundos']) is int and 0 <= toast['toasts.intervalo-global-segundos'] <= 600
