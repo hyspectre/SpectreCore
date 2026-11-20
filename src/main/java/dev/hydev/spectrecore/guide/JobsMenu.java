@@ -80,6 +80,8 @@ public final class JobsMenu implements Listener {
             if (!file.exists()) plugin.saveResource("ui/trabajos.yml", false);
             if (!file.isFile() || file.length() > 64 * 1024)
                 throw new IOException("ui/trabajos.yml ausente o demasiado grande");
+            dev.hydev.spectrecore.config.PresentationMigrations.migrate(
+                    plugin.getDataFolder(), file, "ui/trabajos.yml");
             var candidate = new YamlConfiguration();
             candidate.load(file);
             for (String page : PAGES) {
