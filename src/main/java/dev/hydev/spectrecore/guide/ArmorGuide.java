@@ -3,9 +3,20 @@ package dev.hydev.spectrecore.guide;
 import dev.hydev.spectrecore.config.Settings;
 import dev.hydev.spectrecore.SpectreCorePlugin;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.event.ClickEvent;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.format.TextDecoration;
+import dev.hydev.spectrecore.model.CustomHeads;
+import dev.hydev.spectrecore.text.TextService;
+import org.bukkit.Material;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.HandlerList;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -13,13 +24,18 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-/** Read-only native Paper Dialogs: no inventory items, set changes, or combat effects. */
-public final class ArmorGuide {
+/** Read-only native 54-slot GUI. No equipment mutations or command dispatch from items. */
+public final class ArmorGuide implements Listener {
     private record Entry(String name, String shortName, String skill, String set, String ability, int color) { }
     private List<Entry> entries() { return List.of(
         new Entry(Settings.text("equipamiento", "ArmorGuide.etiqueta-058", "Raigambre Ancestral"), Settings.text("equipamiento", "ArmorGuide.etiqueta-059", "Raigambre"), Settings.text("equipamiento", "ArmorGuide.etiqueta-060", "botania"), Settings.text("equipamiento", "ArmorGuide.etiqueta-061", "HYDEV_RAIGAMBRE"), Settings.text("equipamiento", "ArmorGuide.etiqueta-062", "Botania"), Settings.module("equipamiento/config.yml").getInt("libro.colores.botania",0x537D3B)),
@@ -39,7 +55,69 @@ public final class ArmorGuide {
         Map.entry("potion-speed", Settings.text("equipamiento", "ArmorGuide.etiqueta-093", "Velocidad (nivel)")), Map.entry("movement-speed", Settings.text("equipamiento", "ArmorGuide.etiqueta-094", "Velocidad"))
     ); }
     private final SpectreCorePlugin plugin;
+    private YamlConfiguration layout;
+    private boolean listening;
+    private final Map<UUID, Long> clickGate = new HashMap<>();
     public ArmorGuide(SpectreCorePlugin plugin) { this.plugin = plugin; }
+    private static final class Holder implements InventoryHolder {
+        final String page;
+        final Map<Integer, String> choices = new HashMap<>();
+        Inventory inventory;
+        Holder(String page) { this.page = page; }
+        @Override public Inventory getInventory() { return inventory; }
+    }
+    public void enable() {
+        reload();
+        Bukkit.getPluginManager().registerEvents(this, plugin);
+        listening = true;
+    }
+    public void reload() {
+        File file = new File(plugin.getDataFolder(), "ui/armaduras.yml");
+        try {
+            if (!file.exists()) plugin.saveResource("ui/armaduras.yml", false);
+            if (!file.isFile() || file.length() > 96 * 1024)
+                throw new IOException("ui/armaduras.yml ausente o demasiado grande");
+            YamlConfiguration next = new YamlConfiguration();
+            next.load(file);
+            if (!next.getBoolean("enabled", true)) { layout = next; return; }
+            for (String page : Set.of("armaduras", "botania", "necrotica", "asterion",
+                    "ultimo-juramento", "sangre-primer-dragon")) {
+                String root = "pages." + page;
+                ConfigurationSection items = next.getConfigurationSection(root + ".items");
+                if (items == null || next.getInt(root + ".size") != 54
+                        || !next.isString(root + ".title") || items.getKeys(false).size() > 40)
+                    throw new IOException("Página incompleta: " + page);
+                Set<Integer> occupied = new HashSet<>();
+                for (String id : items.getKeys(false)) {
+                    String base = root + ".items." + id;
+                    int slot = next.getInt(base + ".slot", -1);
+                    if (slot < 0 || slot >= 54 || !occupied.add(slot)
+                            || !next.isString(base + ".texture")
+                            || !next.isString(base + ".name") || !next.isList(base + ".lore")
+                            || next.getString(base + ".texture", "").length() > 1024
+                            || next.getString(base + ".name", "").length() > 256
+                            || next.getStringList(base + ".lore").size() > 30)
+                        throw new IOException("Icono inválido: " + base);
+                }
+                for (String required : page.equals("armaduras")
+                        ? List.of("botania", "necrotica", "asterion",
+                                "ultimo-juramento", "sangre-primer-dragon", "cerrar")
+                        : List.of("bonos", "habilidad", "volver", "cerrar"))
+                    if (!items.contains(required)) throw new IOException("Icono ausente: " + required);
+            }
+            layout = next;
+        } catch (Exception ex) {
+            plugin.getLogger().warning("Armaduras: se conserva la última configuración válida: " + ex.getMessage());
+        }
+    }
+    public void disable() {
+        if (listening) HandlerList.unregisterAll(this);
+        listening = false;
+        for (Player player : Bukkit.getOnlinePlayers())
+            if (player.getOpenInventory().getTopInventory().getHolder() instanceof Holder)
+                player.closeInventory();
+        clickGate.clear();
+    }
     private double n(Entry e, String key, double fallback) {
         return plugin.getConfig().getDouble("skills." + e.skill + "." + key, fallback);
     }
@@ -49,50 +127,106 @@ public final class ArmorGuide {
     private String seconds(Entry e, String key, double fallback) { return value(n(e, key, fallback) / 20) + " s"; }
 
 
-public void open(Player player) {
-    List<io.papermc.paper.registry.data.dialog.ActionButton> buttons = new ArrayList<>();
-    for (Entry entry : entries()) {
-        buttons.add(io.papermc.paper.registry.data.dialog.ActionButton.builder(Settings.component(entry.name))
-            .action(io.papermc.paper.registry.data.dialog.action.DialogAction.staticAction(
-                ClickEvent.runCommand("/mago armadura " + entry.skill + " bonos"))).build());
-    }
-    buttons.add(io.papermc.paper.registry.data.dialog.ActionButton.builder(Settings.component(
-            Settings.text("equipamiento", "ArmorGuide.mago-volver", "<gray>Volver a RPG</gray>")))
-            .action(io.papermc.paper.registry.data.dialog.action.DialogAction.staticAction(ClickEvent.runCommand("/mago rpg"))).build());
-    player.showDialog(io.papermc.paper.dialog.Dialog.create(builder -> builder.empty()
-            .base(io.papermc.paper.registry.data.dialog.DialogBase.builder(Settings.component(
-                    Settings.text("equipamiento", "ArmorGuide.mago-titulo", "<gold>Armaduras de Hydev</gold>")))
-                .body(List.of(io.papermc.paper.registry.data.dialog.body.DialogBody.plainMessage(Settings.component(
-                    Settings.text("equipamiento", "ArmorGuide.mago-intro", "<gray>Selecciona un conjunto para ver sus estadísticas.</gray>")))))
-                .build())
-            .type(io.papermc.paper.registry.data.dialog.type.DialogType.multiAction(buttons).build())));
-}
+public void open(Player player) { openPage(player, "armaduras"); }
 
-public void openDetail(Player player, String skill, String view) {
-    Entry selected = entries().stream().filter(e -> e.skill.equals(skill)).findFirst().orElse(null);
-    if (selected == null || (!view.equals("bonos") && !view.equals("habilidad"))) {
-        open(player); return;
+    public void openDetail(Player player, String skill, String view) {
+        if (entries().stream().anyMatch(e -> e.skill.equals(skill))) openPage(player, skill);
+        else open(player);
     }
-    Plugin mmo = Bukkit.getPluginManager().getPlugin("MMOItems");
-    File file = mmo == null ? null : new File(mmo.getDataFolder(), "item-sets.yml");
-    YamlConfiguration sets = file != null && file.isFile() ? YamlConfiguration.loadConfiguration(file) : null;
-    List<String> lines = view.equals("bonos") ? bonuses(selected, sets) : ability(selected);
-    String body = String.join("\n", lines);
-    if (body.length() > 4500) body = body.substring(0, 4497) + "...";
-    var change = io.papermc.paper.registry.data.dialog.ActionButton.builder(Settings.component(
-            Settings.text("equipamiento", "ArmorGuide.mago-cambiar", "<yellow>Bonos / Habilidad</yellow>")))
-        .action(io.papermc.paper.registry.data.dialog.action.DialogAction.staticAction(ClickEvent.runCommand(
-            "/mago armadura " + selected.skill + (view.equals("bonos") ? " habilidad" : " bonos")))).build();
-    var back = io.papermc.paper.registry.data.dialog.ActionButton.builder(Settings.component(
-            Settings.text("equipamiento", "ArmorGuide.mago-atras", "<gray>Volver a armaduras</gray>")))
-        .action(io.papermc.paper.registry.data.dialog.action.DialogAction.staticAction(ClickEvent.runCommand("/mago armaduras"))).build();
-    final String description = body;
-    player.showDialog(io.papermc.paper.dialog.Dialog.create(builder -> builder.empty()
-        .base(io.papermc.paper.registry.data.dialog.DialogBase.builder(Settings.component(selected.name))
-            .body(List.of(io.papermc.paper.registry.data.dialog.body.DialogBody.plainMessage(Settings.component(description))))
-            .build())
-        .type(io.papermc.paper.registry.data.dialog.type.DialogType.multiAction(List.of(change, back)).build())));
-}
+
+    public boolean openPage(Player player, String page) {
+        if (layout == null || !layout.getBoolean("enabled", true)) {
+            player.sendMessage(Settings.message("equipamiento", "ArmorGuide.gui-no-disponible",
+                    "<red>El catálogo de armaduras no está disponible por ahora."));
+            return false;
+        }
+        if (!layout.isConfigurationSection("pages." + page)) page = "armaduras";
+        Entry selected = entries().stream().filter(e -> e.skill.equals(page)).findFirst().orElse(null);
+        String root = "pages." + page;
+        ConfigurationSection items = layout.getConfigurationSection(root + ".items");
+        if (items == null) return false;
+        Holder holder = new Holder(page);
+        Inventory inventory = Bukkit.createInventory(holder, 54, styled(layout.getString(root + ".title", "Armaduras")));
+        holder.inventory = inventory;
+        YamlConfiguration sets = null;
+        if (selected != null) {
+            Plugin mmo = Bukkit.getPluginManager().getPlugin("MMOItems");
+            File file = mmo == null ? null : new File(mmo.getDataFolder(), "item-sets.yml");
+            sets = file != null && file.isFile() ? YamlConfiguration.loadConfiguration(file) : null;
+        }
+        for (String id : items.getKeys(false)) {
+            String at = root + ".items." + id;
+            String encoded = layout.getString(at + ".texture", "");
+            ItemStack item;
+            try { item = encoded.isBlank() ? new ItemStack(Material.BOOK) : CustomHeads.fromBase64(encoded); }
+            catch (IllegalArgumentException | IllegalStateException error) {
+                item = new ItemStack(Material.BOOK);
+                plugin.getLogger().warning("Armaduras: textura inválida en " + at);
+            }
+            ItemMeta meta = item.getItemMeta();
+            if (meta == null) continue;
+            Entry named = selected == null ? entries().stream().filter(e -> e.skill.equals(id)).findFirst().orElse(null) : selected;
+            String title = layout.getString(at + ".name", "Armaduras");
+            if (named != null) title = title.replace("{nombre}", named.name);
+            meta.displayName(styled(title));
+            List<Component> lore = new ArrayList<>();
+            for (String line : layout.getStringList(at + ".lore")) {
+                if (selected != null && line.equals("{bonos}"))
+                    for (String entry : bonuses(selected, sets))
+                        if (lore.size() < 32) lore.add(styled(entry));
+                else if (selected != null && line.equals("{habilidad}"))
+                    for (String entry : ability(selected))
+                        if (lore.size() < 32) lore.add(styled(entry));
+                else if (lore.size() < 32) lore.add(styled(line));
+            }
+            meta.lore(lore);
+            item.setItemMeta(meta);
+            int slot = layout.getInt(at + ".slot");
+            inventory.setItem(slot, item);
+            holder.choices.put(slot, id);
+        }
+        player.openInventory(inventory);
+        return true;
+    }
+
+    private static Component styled(String value) {
+        return TextService.component(value).decoration(TextDecoration.ITALIC, false);
+    }
+
+    @EventHandler public void click(InventoryClickEvent event) {
+        if (!(event.getView().getTopInventory().getHolder() instanceof Holder holder)) return;
+        event.setCancelled(true);
+        if (!(event.getWhoClicked() instanceof Player player)) return;
+        int slot = event.getRawSlot();
+        if (slot < 0 || slot >= 54) return;
+        String id = holder.choices.get(slot);
+        if (id == null) return;
+        long now = System.currentTimeMillis();
+        if (now - clickGate.getOrDefault(player.getUniqueId(), 0L) < 350L) return;
+        clickGate.put(player.getUniqueId(), now);
+        if (id.equals("cerrar")) { defer(player, holder, player::closeInventory); return; }
+        if (id.equals("volver")) { defer(player, holder, () -> open(player)); return; }
+        if (holder.page.equals("armaduras") && entries().stream().anyMatch(e -> e.skill.equals(id)))
+            defer(player, holder, () -> openPage(player, id));
+    }
+
+    private void defer(Player player, Holder holder, Runnable action) {
+        Bukkit.getScheduler().runTask(plugin, () -> {
+            if (plugin.isEnabled() && player.isOnline()
+                    && player.getOpenInventory().getTopInventory().getHolder() == holder)
+                action.run();
+        });
+    }
+
+    @EventHandler public void drag(InventoryDragEvent event) {
+        if (event.getView().getTopInventory().getHolder() instanceof Holder)
+            for (int slot : event.getRawSlots())
+                if (slot < 54) { event.setCancelled(true); break; }
+    }
+
+    @EventHandler public void quit(PlayerQuitEvent event) {
+        clickGate.remove(event.getPlayer().getUniqueId());
+    }
 
     private List<String> bonuses(Entry e, YamlConfiguration sets) {
         List<String> lines = new ArrayList<>();
