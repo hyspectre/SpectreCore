@@ -12,6 +12,14 @@ public final class SlayerProgressionSmoke {
         check(SlayerProgressionRules.level(1000, xp) == 5, "level five");
         check(SlayerProgressionRules.level(3800, xp) == 10, "level ten");
         check(SlayerProgressionRules.level(5000, xp) == 11, "max level");
+        check(SlayerProgressionRules.progressSegments(0, xp, 10) == 0, "empty progress");
+        check(SlayerProgressionRules.progressSegments(50, xp, 10) == 5, "half progress");
+        check(SlayerProgressionRules.progressSegments(100, xp, 10) == 0, "reset at level boundary");
+        check(SlayerProgressionRules.progressSegments(175, xp, 10) == 5, "level 1 bar uses local span");
+        check(SlayerProgressionRules.progressSegments(5000, xp, 10) == 10, "max progress filled");
+        check(SlayerProgressionRules.remainingXp(99, xp) == 1, "one xp needed");
+        check(SlayerProgressionRules.remainingXp(175, xp) == 75, "next level distance");
+        check(SlayerProgressionRules.remainingXp(5000, xp) == 0, "max no remaining xp");
         check(SlayerProgressionRules.xpForNext(11, xp) == -1, "max has no next");
         check(SlayerProgressionRules.earnedNodes(0).contains("slayer.revenant.tier1"), "start tier");
         check(!SlayerProgressionRules.earnedNodes(4).contains("slayer.revenant.tier2"), "tier 2 locked");
