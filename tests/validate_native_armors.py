@@ -33,6 +33,9 @@ for page, payload in menu["pages"].items():
         assert "{bonos}" in ids["bonos"]["lore"], page
         assert "{habilidad}" in ids["habilidad"]["lore"], page
 
+indicator = menu["indicador"]
+assert "{equipadas}" in indicator["piezas"]
+assert {"completo","parcial","incompleto","desactivado"} <= set(indicator)
 java = (root / "src/main/java/dev/hydev/spectrecore/guide/ArmorGuide.java").read_text()
 plugin = (root / "src/main/java/dev/hydev/spectrecore/SpectreCorePlugin.java").read_text()
 mago = (root / "src/main/java/dev/hydev/spectrecore/guide/MagoMenu.java").read_text()
@@ -41,6 +44,8 @@ assert "event.setCancelled(true)" in java and "CustomHeads.fromBase64(encoded)" 
 assert "Bukkit.createInventory(holder, 54" in java
 assert "Bukkit.getScheduler().runTask(plugin" in java
 assert "bonuses(selected, sets)" in java and "ability(selected)" in java
+assert "plugin.sets().countArmor(player" in java
+assert "Settings.module(\"equipamiento/config.yml\")" in java
 assert "dispatchCommand(" not in java and "showDialog(" not in java
 assert "armorGuide.enable();" in plugin and "armorGuide.disable();" in plugin
 assert "plugin.armors()" in mago
