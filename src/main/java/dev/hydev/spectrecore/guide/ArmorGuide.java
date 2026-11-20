@@ -141,7 +141,8 @@ public void open(Player player) { openPage(player, "armaduras"); }
             return false;
         }
         if (!layout.isConfigurationSection("pages." + page)) page = "armaduras";
-        Entry selected = entries().stream().filter(e -> e.skill.equals(page)).findFirst().orElse(null);
+        final String selectedPage = page;
+        Entry selected = entries().stream().filter(e -> e.skill.equals(selectedPage)).findFirst().orElse(null);
         String root = "pages." + page;
         ConfigurationSection items = layout.getConfigurationSection(root + ".items");
         if (items == null) return false;
