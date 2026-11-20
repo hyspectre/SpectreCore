@@ -28,6 +28,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import dev.hydev.spectrecore.storage.AtomicFileStore;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -84,6 +89,7 @@ public final class JobsMenu implements Listener {
                     plugin.getDataFolder(), file, "ui/trabajos.yml");
             var candidate = new YamlConfiguration();
             candidate.load(file);
+            mergeMissingLocalization(file, candidate);
             for (String page : PAGES) {
                 String path = "pages." + page;
                 var items = candidate.getConfigurationSection(path + ".items");
@@ -113,6 +119,32 @@ public final class JobsMenu implements Listener {
             plugin.getLogger().warning("Trabajos GUI: YAML rechazado; se mantiene el último válido: "
                     + error.getMessage());
         }
+    }
+
+    private void mergeMissingLocalization(File file, YamlConfiguration candidate) throws Exception {
+        YamlConfiguration defaults = new YamlConfiguration();
+        try (InputStream stream = plugin.getResource("ui/trabajos.yml")) {
+            if (stream == null) throw new IOException("No se encontró la traducción predeterminada de trabajos");
+            defaults.load(new InputStreamReader(stream, StandardCharsets.UTF_8));
+        }
+        ConfigurationSection labels = defaults.getConfigurationSection("labels");
+        if (labels == null) throw new IOException("Falta la sección labels de trabajos");
+        boolean changed = false;
+        for (String key : labels.getKeys(true)) {
+            if (labels.isConfigurationSection(key)) continue;
+            String path = "labels." + key;
+            if (!candidate.contains(path)) {
+                candidate.set(path, labels.get(key));
+                changed = true;
+            }
+        }
+        if (!changed) return;
+        File backup = new File(plugin.getDataFolder(), "backups/trabajos-labels-v1/ui/trabajos.yml");
+        if (!backup.exists()) {
+            Files.createDirectories(backup.toPath().getParent());
+            Files.copy(file.toPath(), backup.toPath());
+        }
+        AtomicFileStore.writeUtf8(file.toPath(), candidate.saveToString());
     }
 
     public boolean open(Player player, String page) {
