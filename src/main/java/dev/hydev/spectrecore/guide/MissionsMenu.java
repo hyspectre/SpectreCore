@@ -170,7 +170,9 @@ public final class MissionsMenu implements Listener {
         if (buttons == null) return false;
         Map<Integer, String> choices = new HashMap<>();
         MenuHolder holder = new MenuHolder(page, choices);
-        Inventory inventory = Bukkit.createInventory(holder, 54, styled(layout.getString(root + ".title", "Misiones")));
+        String title = layout.getString(root + ".title", "Misiones");
+        if (page.equals("progresion")) title = title.replace("{nivel}", Integer.toString(slayer.slayerLevel(player)));
+        Inventory inventory = Bukkit.createInventory(holder, 54, styled(title));
         holder.inventory = inventory;
         for (String id : buttons.getKeys(false)) {
             String path = root + ".items." + id;
