@@ -84,7 +84,7 @@ public final class PortalModule implements Listener {
         UUID id=event.getEntity().getUniqueId();if(gates.containsKey(id)||gates.size()>=limit())return;
         Location death=event.getEntity().getLocation();double radius=Math.max(1,config.getDouble("radio-participantes",64));
         List<Player> nearby=death.getWorld().getPlayers().stream().filter(p->p.getGameMode()!=GameMode.SPECTATOR&&p.getLocation().distanceSquared(death)<=radius*radius&&sessions.containsKey(p.getUniqueId())).sorted(Comparator.comparingDouble(p->p.getLocation().distanceSquared(death))).toList();
-        if(nearby.isEmpty()){plugin.getLogger().warning(Settings.plain("dungeons", "PortalModule.mensaje-014", "Minotauro muerto sin sesiones registradas. Configura callbacks /spectrecore portal registrar y /spectrecore portal salir en Dungeons+."));return;}
+        if(nearby.isEmpty()){plugin.getLogger().warning(Settings.plain("dungeons", "PortalModule.mensaje-014", "El Minotauro fue derrotado sin participantes registrados. Revisa la gestión de la expedición."));return;}
         String session=sessions.get(nearby.getFirst().getUniqueId());
         Location center=new Location(death.getWorld(),death.getBlockX()+Settings.d("dungeons", "PortalModule.geometria-001", .5),death.getBlockY(),death.getBlockZ()+Settings.d("dungeons", "PortalModule.geometria-002", .5));
         Gate gate=new Gate(id,session,center,System.currentTimeMillis()+Math.max(1,config.getLong("duracion-segundos",900))*1000,false);
@@ -109,7 +109,7 @@ public final class PortalModule implements Listener {
                 if(!p.getWorld().equals(gate.center.getWorld())||p.getLocation().distanceSquared(gate.center)>128*128){reset(id);sessions.remove(id);continue;}
                 if(p.getGameMode()==GameMode.SPECTATOR||p.isDead()||!inside(p,gate)){since.remove(id);pending.remove(id);continue;}
                 Long until=pending.get(id);
-                if(until!=null){if(now<until)continue;pending.remove(id);since.remove(id);p.sendMessage(Settings.message("dungeons", "PortalModule.mensaje-017", "§cNo se confirmó tu salida. Puedes reintentar; revisa Dungeons+ con administración."));}
+                if(until!=null){if(now<until)continue;pending.remove(id);since.remove(id);p.sendMessage(Settings.message("dungeons", "PortalModule.mensaje-017", "§cNo se confirmó tu salida. Intenta nuevamente o avisa a administración."));}
                 long started=since.computeIfAbsent(id,unused->now), wait=Math.max(1,config.getInt("tiempo-dentro-segundos",5))*1000L;
                 if(now-started>=wait){request(p,gate);continue;}
                 p.sendActionBar(Settings.component(Settings.text("dungeons", "PortalModule.mensaje-018","Salida en {valor1} s · Permanece en el arco","valor1", ((wait-(now-started)+999)/1000)),Settings.color("dungeons", "PortalModule.color-003", NamedTextColor.GOLD)));
@@ -123,7 +123,7 @@ public final class PortalModule implements Listener {
         String command=template.replace("{player}",p.getName()).replace("{session}",gate.session);
         try{
             boolean accepted=Bukkit.dispatchCommand(Bukkit.getConsoleSender(),command);
-            p.sendActionBar(Settings.component(Settings.text("dungeons", "PortalModule.mensaje-020","{valor1}","valor1", accepted?Settings.text("dungeons", "PortalModule.texto-001", "Finalizando tu expedición..."):Settings.text("dungeons", "PortalModule.texto-002", "Dungeons+ rechazó el comando de salida")),Settings.color("dungeons", "PortalModule.color-004", NamedTextColor.GOLD)));
+            p.sendActionBar(Settings.component(Settings.text("dungeons", "PortalModule.mensaje-020","{valor1}","valor1", accepted?Settings.text("dungeons", "PortalModule.texto-001", "Finalizando tu expedición..."):Settings.text("dungeons", "PortalModule.texto-002", "La expedición rechazó la solicitud de salida")),Settings.color("dungeons", "PortalModule.color-004", NamedTextColor.GOLD)));
         }catch(RuntimeException e){plugin.getLogger().warning(Settings.plain("dungeons", "PortalModule.mensaje-021", "Falló salida de portal: {e-getmessage}", "e-getmessage", e.getMessage()));}
         // Never assume dispatch=true means the dungeon accepted or ended the run.
     }

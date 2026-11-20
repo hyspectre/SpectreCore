@@ -183,7 +183,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             for (Station station : stations.values()) if (chunkLoaded(station.blockLocation)) repairVisual(station);
         }, 30L);
-        getLogger().info(Settings.plain("cocina", "CookingModule.mensaje-002", "SpectreCore cocina: {stations-size} estaciones, {recipes-size} recetas.", "stations-size", stations.size(), "recipes-size", recipes.size()));
+        getLogger().info(Settings.plain("cocina", "CookingModule.mensaje-002", "Cocina: {stations-size} estaciones, {recipes-size} recetas.", "stations-size", stations.size(), "recipes-size", recipes.size()));
     }
 
     public void disable() {
@@ -630,7 +630,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         ItemStack reward = resolveMMOItem(rewardId);
         if (reward == null || reward.getType() == Material.AIR) {
             msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.etiqueta-055", "El MMOItem CONSUMABLE/") + rewardId + Settings.text("cocina", "CookingModule.etiqueta-056", " no esta disponible. No se consumio el cuenco ni se reinicio la receta."));
-            getLogger().warning(Settings.plain("cocina", "CookingModule.mensaje-009", "Falta recompensa MMOItems: {rewardid}", "rewardid", rewardId));
+            getLogger().warning(Settings.plain("cocina", "CookingModule.mensaje-009", "No se pudo generar la recompensa culinaria: {rewardid}", "rewardid", rewardId));
             return;
         }
         // Durable claim -> station commit -> bowl + reward -> claim clearance.
@@ -684,7 +684,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         }
         Location l = cauldron.getLocation();
         if (!worldGuard.canBuild(player, l)) {
-            msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.mensaje-039", "WorldGuard: no puedes colocar ni retirar estaciones en esta región."));
+            msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.mensaje-039", "No puedes colocar ni retirar estaciones en esta región."));
             return;
         }
         double min = getConfig().getDouble("cooking.stations.minimum-separation", 3.0);
@@ -704,7 +704,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
 
     private void unregisterStation(Player player, Block cauldron, Station station) {
         if (!worldGuard.canBuild(player, station.blockLocation)) {
-            msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.mensaje-039", "WorldGuard: no puedes colocar ni retirar estaciones en esta región."));
+            msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.mensaje-039", "No puedes colocar ni retirar estaciones en esta región."));
             return;
         }
         UUID removalClaim = claimJournal.begin(key(station.blockLocation), player.getUniqueId(), "REMOVE", "station", 1);
@@ -743,7 +743,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
             Object value = getItem.invoke(instance, getConfig().getString("cooking.rewards.mmoitems-type", "CONSUMABLE"), id);
             return value instanceof ItemStack stack ? stack.clone() : null;
         } catch (ReflectiveOperationException | LinkageError ex) {
-            getLogger().warning(Settings.plain("cocina", "CookingModule.mensaje-010","API de MMOItems incompatible: {valor1}: {ex-getmessage}","valor1", ex.getClass().getSimpleName(),"ex-getmessage", ex.getMessage()));
+            getLogger().warning(Settings.plain("cocina", "CookingModule.mensaje-010","No se pudo preparar la recompensa: {valor1}: {ex-getmessage}","valor1", ex.getClass().getSimpleName(),"ex-getmessage", ex.getMessage()));
             return null;
         }
     }

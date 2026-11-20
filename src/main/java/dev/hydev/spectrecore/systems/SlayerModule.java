@@ -130,7 +130,7 @@ public final class SlayerModule implements Listener {
         return slayerLevel(player) >= rewardLevel ? "§aDESBLOQUEADO" : "§8BLOQUEADO";
     }
     private boolean command(CommandSender sender, String command, String[] args) {
-        if (!(sender instanceof Player p)) { sender.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-001", "Conserva el uso del Skript: ejecuta estos comandos como jugador.")); return true; }
+        if (!(sender instanceof Player p)) { sender.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-001", "Esta acción solo puede realizarse dentro del juego.")); return true; }
         UUID id = p.getUniqueId();
         if (command.equals("misiones")) {
             if (missionsMenu != null) {
@@ -306,7 +306,7 @@ public final class SlayerModule implements Listener {
         ItemStack item = contractItems.build(type, itemId, 1);
         if (item == null || item.getType().isAir()) {
             player.sendMessage(Settings.message("slayer", "SlayerModule.telefono-item-fallo",
-                    "§cNo se pudo generar el Teléfono Rojo de MMOItems. No se ha cobrado."));
+                    "§cNo se pudo preparar el Teléfono Rojo. No se ha cobrado."));
             return true;
         }
         if (player.getInventory().firstEmpty() == -1) {
@@ -316,7 +316,7 @@ public final class SlayerModule implements Listener {
         }
         if (contractsEconomy.withdraw(player, price) != EconomyBridge.Result.CONFIRMED) {
             player.sendMessage(Settings.message("slayer", "SlayerModule.telefono-pago-fallo",
-                    "§cVault no confirmó el pago. No se ha entregado el objeto."));
+                    "§cNo se confirmó el pago. No se ha entregado el objeto."));
             return true;
         }
         try {
@@ -373,7 +373,7 @@ public final class SlayerModule implements Listener {
         }
         if (contractsEconomy.withdraw(p, cost) != EconomyBridge.Result.CONFIRMED) {
             p.sendMessage(Settings.message("slayer", "SlayerModule.contrato-pago-fallo",
-                    "§cNo se confirmó el cobro mediante Vault; el contrato no cambió."));
+                    "§cNo se pudo confirmar el cobro; tu contrato sigue intacto."));
             return true;
         }
         int oldTier = m.tier, oldKills = m.kills, oldRequired = m.required;

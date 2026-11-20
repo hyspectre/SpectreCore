@@ -123,7 +123,7 @@ public final class JobsModule implements Listener {
         }
         if (permissions == null || !permissions.ready(player)) {
             player.sendMessage(Settings.message("trabajos", "JobsModule.contrato-sin-luckperms",
-                    "§cLuckPerms no está disponible; no se ha cobrado."));
+                    "§cNo se pudo registrar el contrato. No se ha cobrado."));
             return;
         }
         UUID id = player.getUniqueId();
@@ -131,7 +131,7 @@ public final class JobsModule implements Listener {
         if (economy.withdraw(player, price) != EconomyBridge.Result.CONFIRMED) {
             purchasesInProgress.remove(id);
             player.sendMessage(Settings.message("trabajos", "JobsModule.contrato-sin-saldo",
-                    "§cNo se pudo confirmar el pago mediante Vault."));
+                    "§cNo se pudo confirmar el pago."));
             player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 0.6f, 1f);
             return;
         }
@@ -208,7 +208,7 @@ public final class JobsModule implements Listener {
         if (remaining > 0) return;
         long amount = ThreadLocalRandom.current().nextLong(min, max + 1);
         var result = economy.deposit(p, amount, config.getBoolean("economia.permitir-comando-eco", true));
-        if (result == EconomyBridge.Result.FAILED) { if (warned.add("economy")) plugin.getLogger().warning(Settings.plain("trabajos", "JobsModule.mensaje-006", "Trabajos: no se pudo pagar; revisa Vault/economía o eco. No se consume cooldown.")); return; }
+        if (result == EconomyBridge.Result.FAILED) { if (warned.add("economy")) plugin.getLogger().warning(Settings.plain("trabajos", "JobsModule.mensaje-006", "Trabajos: no se pudo confirmar el pago. No se aplicó el tiempo de espera.")); return; }
         last.put(key, now); dirty = true;
         location.getWorld().spawnParticle(Settings.particle("trabajos", "JobsModule.particle-002", Particle.GLOW), location.clone().add(0,.5,0),Settings.i("trabajos", "JobsModule.spawnparticle-001-arg2", 10),Settings.d("trabajos", "JobsModule.spawnparticle-002-arg3", .3),Settings.d("trabajos", "JobsModule.spawnparticle-003-arg4", .3),Settings.d("trabajos", "JobsModule.spawnparticle-004-arg5", .3),Settings.d("trabajos", "JobsModule.spawnparticle-005-arg6", .05));
         p.playSound(p.getLocation(), Settings.sound("trabajos", "JobsModule.sound-003", Sound.ENTITY_EXPERIENCE_ORB_PICKUP),Settings.f("trabajos", "JobsModule.playsound-006-arg2", .5f),Settings.f("trabajos", "JobsModule.playsound-007-arg3", 1.5f));

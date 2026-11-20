@@ -99,7 +99,7 @@ public final class LegacyActivities implements Listener {
     private boolean active(String group) { return dev.hydev.spectrecore.config.ModuleConfiguration.of(plugin).active("actividades."+group); }
     private boolean command(CommandSender sender, String name) {
         if (!admin(sender)) { sender.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-001", "§cNo tienes permiso para usar este comando.")); return true; }
-        if (!(sender instanceof Player player)) { sender.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-002", "Este comando conserva el uso del Skript: debe ejecutarlo un jugador.")); return true; }
+        if (!(sender instanceof Player player)) { sender.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-002", "Esta acción debe realizarse dentro del juego.")); return true; }
         String group=OFFERS.containsKey(name)?"cygnus":MONEY.containsKey(name)?"polvos":UNLOCKS.containsKey(name)?"desbloqueos":name.equals("telefono1")?"telefono":"cofre";
         if(!active(group)){sender.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-003", "Esta actividad está desactivada."));return true;}
         if (OFFERS.containsKey(name)) {
@@ -123,10 +123,10 @@ public final class LegacyActivities implements Listener {
             if (dispatch("lp user " + player.getName() + " permission set " + permission + " true")) {
                 player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-008","{valor1}","valor1", name.equals("almas1") ? Settings.component(Settings.text("actividades", "LegacyActivities.texto-001", "§8Sientes un escalofrío...")) : name.equals("mineria1") ? Settings.component(Settings.text("actividades", "LegacyActivities.texto-002", "§8Sientes una energía revitalizándote...")) : Settings.component(Settings.text("actividades", "LegacyActivities.texto-003", "§8Los no-muertos reclaman tu nombre..."))));
                 player.playSound(player.getLocation(), Settings.sound("actividades", "LegacyActivities.sound-003", Sound.BLOCK_ENCHANTMENT_TABLE_USE),Settings.f("actividades", "LegacyActivities.playsound-005-arg2", .5f),Settings.f("actividades", "LegacyActivities.playsound-006-arg3", 1.1f));
-            } else player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-009", "§cNo se pudo ejecutar el desbloqueo. Revisa LuckPerms."));
+            } else player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-009", "§cNo se pudo activar el desbloqueo. Avisa a administración."));
         } else if (name.equals("telefono1")) {
             if (dispatch(config.getString("telefono.comando","zmenu open zmenu:slayers {player}").replace("{player}",player.getName()))) { player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-010", "§8Ring... ring... ring...")); player.playSound(player.getLocation(), Settings.sound("actividades", "LegacyActivities.sound-004", Sound.BLOCK_NOTE_BLOCK_BELL),Settings.f("actividades", "LegacyActivities.playsound-007-arg2", .7f),Settings.f("actividades", "LegacyActivities.playsound-008-arg3", 1.4f)); }
-            else player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-011", "§cNo se pudo abrir el menú. Revisa zMenu."));
+            else player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-011", "§cEl catálogo no está disponible por ahora."));
         } else if (name.equals("opentreasure")) openChest(player);
         return true;
     }
