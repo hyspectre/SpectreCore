@@ -51,6 +51,9 @@ public final class PresentationConfigSmoke {
         var mining=read("nucleo/ajustes.yml");String dust=mining.getKeys(true).stream().filter(k->k.contains(".particle-")&&"DUST".equals(mining.get(k))).findFirst().orElseThrow();
         reject("nucleo/ajustes.yml",dust,"FLAME");
         String sound=effects.getKeys(true).stream().filter(k->k.contains(".sound-")).findFirst().orElseThrow();reject("trabajos/ajustes.yml",sound,"INVALID_SOUND");
+        reject("nucleo/ajustes.yml","toasts.presets.furia.volumen", 9.5);
+        reject("nucleo/ajustes.yml","toasts.presets.furia.tono", 0.1);
+        reject("nucleo/ajustes.yml","toasts.presets.furia.intervalo-segundos", -1);
         reject("equipamiento/config.yml","furia-maxima",0);
         reject("equipamiento/config.yml","pasivos.piezas",5);
         reject("dungeons/jefes.yml","bloqueos.HYDEV_MINO_LOCK35",.9);
