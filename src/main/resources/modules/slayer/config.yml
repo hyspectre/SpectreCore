@@ -70,6 +70,19 @@ progresion:
       "9": 3000
       "10": 3800
       "11": 5000
+    # Nombres solo de presentación; los permisos permanecen definidos en Java.
+    recompensas:
+      "1": ["Receta: Filo Podrido"]
+      "2": ["Recetas: Armadura Zombi I y II"]
+      "3": ["Recetas: Armadura Zombi III y IV"]
+      "4": []
+      "5": ["Receta: Colmillo Putrefacto","Cacería Monarquía II"]
+      "6": ["Recetas: Renacido I y II"]
+      "7": ["Recetas: Renacido III y IV"]
+      "8": ["Receta: Sable Necrótico"]
+      "9": ["Recetas: Necrótico I y II"]
+      "10": ["Recetas: Necrótico III y IV","Cacería Monarquía III"]
+      "11": ["Receta: Necroespada"]
 
 # Datos mostrados en el menú (no modifican los YAML de MythicMobs).
 # Mantener sincronizados con los mobs de Monarquía Renacida v2.
