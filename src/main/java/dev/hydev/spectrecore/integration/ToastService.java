@@ -5,6 +5,8 @@ import dev.hydev.spectrecore.text.TextService;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Sound;
+import java.util.Locale;
 import org.bukkit.advancement.Advancement;
 import org.bukkit.advancement.AdvancementProgress;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -34,21 +36,22 @@ import java.util.logging.Level;
  */
 @SuppressWarnings("deprecation")
 public final class ToastService implements Listener {
-    private record Preset(String icon, String title, String description) { }
+    private record Preset(String icon, String title, String description, String sound) { }
     private static final Map<String, Preset> DEFAULTS = Map.of(
-            "furia", new Preset("minecraft:netherite_axe", "Furia completa", "Doble Shift para despertar"),
-            "resonancia", new Preset("minecraft:amethyst_shard", "Resonancia completa", "Agachate y extrae una gema"),
-            "gema-basica", new Preset("minecraft:emerald", "Gema obtenida", "Calidad basica"),
-            "gema-intermedia", new Preset("minecraft:diamond", "Gema obtenida", "Calidad intermedia"),
-            "gema-superior", new Preset("minecraft:nether_star", "Gema obtenida", "Calidad superior"),
-            "trabajo-minero", new Preset("minecraft:iron_pickaxe", "Trabajo completado", "Pago de mineria"),
-            "trabajo-granjero", new Preset("minecraft:wheat", "Trabajo completado", "Pago de agricultura"),
-            "trabajo-cazador", new Preset("minecraft:iron_sword", "Trabajo completado", "Pago de caceria")
+            "furia", new Preset("minecraft:netherite_axe", "Furia completa", "Doble Shift para despertar", "ENTITY_PLAYER_LEVELUP"),
+            "resonancia", new Preset("minecraft:amethyst_shard", "Resonancia completa", "Agáchate y extrae una gema", "BLOCK_AMETHYST_BLOCK_CHIME"),
+            "gema-basica", new Preset("minecraft:emerald", "Gema obtenida", "Calidad básica", "ENTITY_EXPERIENCE_ORB_PICKUP"),
+            "gema-intermedia", new Preset("minecraft:diamond", "Gema obtenida", "Calidad intermedia", "ENTITY_EXPERIENCE_ORB_PICKUP"),
+            "gema-superior", new Preset("minecraft:nether_star", "Gema obtenida", "Calidad superior", "ENTITY_PLAYER_LEVELUP"),
+            "trabajo-minero", new Preset("minecraft:iron_pickaxe", "Trabajo completado", "Pago de minería", "ENTITY_EXPERIENCE_ORB_PICKUP"),
+            "trabajo-granjero", new Preset("minecraft:wheat", "Trabajo completado", "Pago de agricultura", "ENTITY_EXPERIENCE_ORB_PICKUP"),
+            "trabajo-cazador", new Preset("minecraft:iron_sword", "Trabajo completado", "Pago de cacería", "ENTITY_EXPERIENCE_ORB_PICKUP")
     );
 
     private final JavaPlugin plugin;
     private final Map<String, Advancement> advancements = new LinkedHashMap<>();
     private final Map<UUID, Long> lastToast = new HashMap<>();
+    private final Map<UUID, Map<String, Long>> lastByPreset = new HashMap<>();
     private YamlConfiguration settings;
     private boolean warned;
 
@@ -99,9 +102,13 @@ public final class ToastService implements Listener {
         Advancement advancement = advancements.get(id);
         if (advancement == null) return false;
         long now = System.currentTimeMillis();
-        long interval = Math.max(0, Math.min(600, settings.getLong("toasts.intervalo-global-segundos", 4))) * 1000L;
-        // A suppressed duplicate is handled, not an unavailable toast: avoid actionbar spam.
+        long interval = Math.max(0, Math.min(600, settings.getLong("toasts.intervalo-global-segundos", 3))) * 1000L;
+        long ownInterval = Math.max(0, Math.min(3600,
+                settings.getLong("toasts.presets." + id + ".intervalo-segundos", 0))) * 1000L;
+        // Global antispam and per-event cooldown are independent.
         if (now - lastToast.getOrDefault(player.getUniqueId(), Long.MIN_VALUE / 2) < interval) return true;
+        if (now - lastByPreset.getOrDefault(player.getUniqueId(), Map.of())
+                .getOrDefault(id, Long.MIN_VALUE / 2) < ownInterval) return true;
         try {
             AdvancementProgress progress = player.getAdvancementProgress(advancement);
             if (progress.isDone()) for (String criterion : progress.getAwardedCriteria()) progress.revokeCriteria(criterion);
@@ -111,6 +118,8 @@ public final class ToastService implements Listener {
             }
             if (!granted) return false;
             lastToast.put(player.getUniqueId(), now);
+            lastByPreset.computeIfAbsent(player.getUniqueId(), unused -> new HashMap<>()).put(id, now);
+            playConfiguredSound(player, id);
             UUID owner = player.getUniqueId();
             Bukkit.getScheduler().runTaskLater(plugin, () -> {
                 Player online = Bukkit.getPlayer(owner);
@@ -130,6 +139,31 @@ public final class ToastService implements Listener {
         }
     }
 
+    /**
+     * Sounds are independent of advancement display configuration and apply after
+     * /spectrecore reload. Invalid sound names fail silently to preserve the toast.
+     * "NINGUNO" turns off the effect for this preset.
+     */
+    private void playConfiguredSound(Player player, String id) {
+        Preset defaults = DEFAULTS.get(id);
+        if (defaults == null) return;
+        String prefix = "toasts.presets." + id + ".";
+        String name = settings.getString(prefix + "sonido", defaults.sound());
+        if (name == null || name.isBlank() || name.equalsIgnoreCase("NINGUNO")
+                || name.equalsIgnoreCase("NONE")) return;
+        try {
+            Sound sound = Sound.valueOf(name.toUpperCase(Locale.ROOT));
+            double rawVolume = settings.getDouble(prefix + "volumen", 0.8);
+            double rawPitch = settings.getDouble(prefix + "tono", 1.0);
+            if (!Double.isFinite(rawVolume) || !Double.isFinite(rawPitch)) return;
+            float volume = (float) Math.max(0, Math.min(4, rawVolume));
+            float pitch = (float) Math.max(0.5, Math.min(2, rawPitch));
+            if (volume > 0) player.playSound(player.getLocation(), sound, volume, pitch);
+        } catch (IllegalArgumentException ignored) {
+            plugin.getLogger().warning("Toast " + id + ": sonido desconocido " + name);
+        }
+    }
+
     @EventHandler public void quit(PlayerQuitEvent event) { clear(event.getPlayer()); }
     @EventHandler public void join(PlayerJoinEvent event) {
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
@@ -141,6 +175,7 @@ public final class ToastService implements Listener {
     public void clear(Player player) {
         if (player == null) return;
         lastToast.remove(player.getUniqueId());
+        lastByPreset.remove(player.getUniqueId());
         for (Advancement advancement : advancements.values()) {
             try {
                 AdvancementProgress progress = player.getAdvancementProgress(advancement);
@@ -156,6 +191,7 @@ public final class ToastService implements Listener {
         for (Player p : Bukkit.getOnlinePlayers()) clear(p);
         advancements.clear();
         lastToast.clear();
+        lastByPreset.clear();
     }
 
     /** Advancement components use Adventure JSON, not literal MiniMessage tags. */
