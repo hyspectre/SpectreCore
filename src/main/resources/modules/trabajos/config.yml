@@ -1,3 +1,14 @@
+# Nombres mostrados al jugador; los IDs internos no cambian.
+presentacion:
+  trabajos:
+    minero: "Minería"
+    granjero: "Agricultura"
+    cazador: "Caza"
+  rangos:
+    novato: "Novato"
+    experimentado: "Experimentado"
+    profesional: "Profesional"
+
 # Recompensas por actividad para los tres oficios de Hydev.
 # Los contratos adquieren permisos persistentes de LuckPerms. Todos los valores
 # (rangos, monedas y segundos) se usan también en la GUI nativa.
