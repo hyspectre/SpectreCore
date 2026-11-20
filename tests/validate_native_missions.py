@@ -38,6 +38,18 @@ main = menu["pages"]["misiones"]["items"]
 revenant = menu["pages"]["revenant"]["items"]
 assert len(main) == 13 and len(revenant) == 11
 assert len(menu["pages"]["progresion"]["items"]) == 14
+visual = menu["progresion-visual"]
+assert visual["enabled"] is True
+assert visual["segmentos"] == 9
+slots = list(range(visual["inicio-slot"], visual["inicio-slot"] + visual["segmentos"]))
+assert slots == list(range(27,36))
+assert not (set(slots) & {entry["slot"] for entry in menu["pages"]["progresion"]["items"].values()})
+assert all(not any("/spectrecore" in line.lower() for line in entry["lore"])
+           for entry in menu["pages"]["progresion"]["items"].values())
+java = (root / "src/main/java/dev/hydev/spectrecore/guide/MissionsMenu.java").read_text(encoding="utf-8")
+assert "drawProgressBar(player, inventory, choices)" in java
+assert "slayer.slayerProgressSegments(player, segments)" in java
+assert "slayer.slayerNextReward(player)" in java
 assert main["progresion"]["slot"] == 31
 assert main["1"]["slot"] == 13
 assert main["telefono"]["slot"] == 50
