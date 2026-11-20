@@ -1,3 +1,24 @@
+# Barra de progreso: nueve cristales en la fila inferior de niveles.
+# Solo cambia la presentación; la XP procede de Slayer.
+progresion-visual:
+  enabled: true
+  inicio-slot: 27
+  segmentos: 9
+  material-lleno: "AMETHYST_SHARD"
+  material-vacio: "GRAY_DYE"
+  nombre: "<gold>✦ Progreso hacia el nivel {siguiente-nivel}"
+  nombre-maximo: "<gold>✦ Progresión completada"
+  lore:
+    - ""
+    - "<gray>Nivel actual: <yellow>{nivel} <dark_gray>/ <white>11"
+    - "<gray>Experiencia: <yellow>{xp}"
+    - "<gray>Restan <white>{faltante} XP <gray>para el próximo nivel"
+    - ""
+    - "<gray>Próxima recompensa:"
+    - "<white>{proxima-recompensa}"
+    - ""
+    - "<dark_gray>Cristales: {completos}/{total}"
+
 # Menus nativos de SpectreCore; No requiere zMenu.
 # Textos, posiciones, lore y texturas basados en los menús originales de Hydev.
 enabled: true
