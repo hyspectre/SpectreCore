@@ -164,7 +164,8 @@ public final class JobsMenu implements Listener {
                     material.replace('_', ' ').toLowerCase(Locale.ROOT));
             names.add(translation);
         }
-        if (names.isEmpty()) return List.of("  &7• &8Sin actividades configuradas");
+        if (names.isEmpty()) return List.of(layout.getString("labels.sin-actividades",
+                "  <gray>• <dark_gray>No hay actividades disponibles"));
         List<String> lines = new ArrayList<>();
         StringBuilder current = new StringBuilder("  &7• &b");
         for (String name : names) {
@@ -184,8 +185,9 @@ public final class JobsMenu implements Listener {
         if (!JobsContractRules.JOBS.contains(job)) return line;
         int current = jobs.rank(player, job);
         boolean active = ModuleConfiguration.of(plugin).active("trabajos." + job);
-        String currentRank = current == 0 ? "Sin contrato" : ProgressRules.rank(current);
-        String state = active ? "Disponible" : "Desactivado";
+        String currentRank = current == 0 ? label("sin-contrato", "Sin contrato")
+                : jobs.displayRank(ProgressRules.rank(current));
+        String state = active ? label("disponible", "Disponible") : label("desactivado", "Desactivado");
         if (page.equals("trabajos") || !RANKS.contains(id)) {
             return line.replace("{rango}", currentRank).replace("{estado}", state);
         }
@@ -197,15 +199,20 @@ public final class JobsMenu implements Listener {
         String max = readableNumber(config.get(root + ".maximo"));
         String cooldown = readableNumber(config.get("cooldowns." + job + "." + level));
         String price = readableNumber(config.get("contratos.precios." + level));
-        if (!active) state = "Desactivado";
-        else if (current >= tier) state = "Ya contratado";
-        else if (jobs.isPending(player)) state = "Procesando";
-        else state = current == tier - 1 ? "Disponible" : "Requiere rango anterior";
+        if (!active) state = label("desactivado", "Desactivado");
+        else if (current >= tier) state = label("ya-contratado", "Ya contratado");
+        else if (jobs.isPending(player)) state = label("procesando", "Procesando");
+        else state = current == tier - 1
+                ? label("disponible", "Disponible")
+                : label("rango-anterior", "Requiere rango anterior");
         return line.replace("{rango}", currentRank).replace("{minimo}", min)
                 .replace("{maximo}", max).replace("{cooldown}", cooldown)
                 .replace("{precio}", price).replace("{estado}", state);
     }
 
+    private String label(String key, String fallback) {
+        return layout.getString("labels.estados." + key, fallback);
+    }
     private static String readableNumber(Object data) {
         if (!(data instanceof Number number) || !Double.isFinite(number.doubleValue())
                 || number.doubleValue() < 0) return NO_VALUE;
