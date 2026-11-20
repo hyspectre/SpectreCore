@@ -23,12 +23,12 @@ for page, payload in menu["pages"].items():
     for id, item in ids.items():
         assert set(item) == {"slot", "texture", "name", "lore"}, (page,id)
         assert len(item["name"]) <= 256 and len(item["lore"]) <= 30
-        assert not re.search(r"/(?:spectrecore|mago|[a-z]+\\w*)\\b", item["name"]+" ".join(item["lore"]), re.I), (page,id)
+        assert not re.search(r"/(?:spectrecore|mago|[a-z]+\w*)\b", item["name"]+" ".join(item["lore"]), re.I), (page,id)
         assert not re.search(r"(?:MMOItems|SpectreCore|zMenu|MythicMobs|LuckPerms)", item["name"]+" ".join(item["lore"]), re.I), (page,id)
         encoded = item["texture"]
         if encoded:
             skin = json.loads(base64.b64decode(encoded, validate=True))["textures"]["SKIN"]["url"]
-            assert re.fullmatch(r"https?://textures\\.minecraft\\.net/texture/[a-fA-F0-9]{32,128}",skin),skin
+            assert re.fullmatch(r"https?://textures\.minecraft\.net/texture/[a-fA-F0-9]{32,128}",skin),skin
     if page != "armaduras":
         assert "{bonos}" in ids["bonos"]["lore"], page
         assert "{habilidad}" in ids["habilidad"]["lore"], page
