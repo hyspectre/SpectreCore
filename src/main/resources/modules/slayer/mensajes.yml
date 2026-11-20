@@ -52,3 +52,7 @@ SlayerModule.estadisticas-nivel: "<gold>Monarquía Renacida <white>Nivel {nivel}
 SlayerModule.gui-nivel: "<gold>Tu nivel: <white>{nivel} <dark_gray>/ <white>11"
 SlayerModule.gui-xp: "<gray>XP: <yellow>{xp} <dark_gray>/ <yellow>{siguiente}"
 SlayerModule.gui-progreso: "<gold>Progreso actual: <yellow>{nivel}<gray>/11"
+SlayerModule.nivel-maximo: "<gold>Nivel máximo alcanzado"
+SlayerModule.sin-recetas-nuevas: "<gray>Sin recetas nuevas"
+SlayerModule.subida-nivel: "<gold>✦ ¡Nivel Slayer {nivel}! <white>{recompensas}"
+SlayerModule.desbloqueos-pendientes: "<yellow>Subiste de nivel, pero tus nuevas recetas todavía están pendientes. Avisa a administración."
