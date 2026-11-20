@@ -119,7 +119,8 @@ public final class MissionsMenu implements Listener {
     private void migrateProgression(File installed, YamlConfiguration candidate) throws Exception {
         boolean missingPage = !candidate.isConfigurationSection("pages.progresion");
         boolean missingEntry = !candidate.isConfigurationSection("pages.misiones.items.progresion");
-        if (!missingPage && !missingEntry) return;
+        boolean missingBar = !candidate.isConfigurationSection("progresion-visual");
+        if (!missingPage && !missingEntry && !missingBar) return;
         YamlConfiguration defaults = new YamlConfiguration();
         try (InputStream stream = plugin.getResource("ui/misiones.yml")) {
             if (stream == null) throw new IOException("No existe el catálogo predeterminado de progresión");
@@ -127,6 +128,10 @@ public final class MissionsMenu implements Listener {
         }
         if (!candidate.isConfigurationSection("pages.misiones.items"))
             throw new IOException("El catálogo principal no es válido; no se migró");
+        if (missingBar) {
+            var visual = defaults.getConfigurationSection("progresion-visual");
+            if (visual != null) copySectionLeaves(candidate, visual, "progresion-visual");
+        }
         if (missingPage) {
             var page = defaults.getConfigurationSection("pages.progresion");
             if (page == null) throw new IOException("Falta la página de progresión predeterminada");
@@ -228,8 +233,48 @@ public final class MissionsMenu implements Listener {
             inventory.setItem(slot, item);
             choices.put(slot, id);
         }
+        if (page.equals("progresion")) drawProgressBar(player, inventory, choices);
         player.openInventory(inventory);
         return true;
+    }
+
+    /** Nine visual crystals, read-only, never collide with configured menu items. */
+    private void drawProgressBar(Player player, Inventory inventory, Map<Integer,String> choices) {
+        if (!layout.getBoolean("progresion-visual.enabled", true)) return;
+        int start = layout.getInt("progresion-visual.inicio-slot", 27);
+        int segments = layout.getInt("progresion-visual.segmentos", 9);
+        if (segments < 1 || segments > 9 || start < 0 || start + segments > 54) return;
+        for (int slot = start; slot < start + segments; slot++)
+            if (choices.containsKey(slot)) {
+                plugin.getLogger().warning("Misiones: la barra XP se superpone con un icono; no se mostrará.");
+                return;
+            }
+        Material filled = Material.matchMaterial(layout.getString("progresion-visual.material-lleno", "AMETHYST_SHARD"));
+        Material empty = Material.matchMaterial(layout.getString("progresion-visual.material-vacio", "GRAY_DYE"));
+        if (filled == null || !filled.isItem() || empty == null || !empty.isItem()) return;
+        int done = slayer.slayerProgressSegments(player, segments);
+        int level = slayer.slayerLevel(player);
+        String next = Integer.toString(Math.min(11, level + 1));
+        String title = layout.getString(level == 11 ? "progresion-visual.nombre-maximo" : "progresion-visual.nombre",
+                "<gold>✦ Progreso de Slayer");
+        for (int index = 0; index < segments; index++) {
+            ItemStack marker = new ItemStack(index < done ? filled : empty);
+            ItemMeta meta = marker.getItemMeta();
+            if (meta == null) continue;
+            meta.displayName(styled(title.replace("{siguiente-nivel}", next)));
+            List<Component> lore = new ArrayList<>();
+            for (String line : layout.getStringList("progresion-visual.lore"))
+                lore.add(styled(line
+                        .replace("{nivel}", Integer.toString(level))
+                        .replace("{xp}", Long.toString(slayer.slayerXp(player)))
+                        .replace("{faltante}", Long.toString(slayer.slayerXpMissing(player)))
+                        .replace("{proxima-recompensa}", slayer.slayerNextReward(player))
+                        .replace("{completos}", Integer.toString(done))
+                        .replace("{total}", Integer.toString(segments))));
+            meta.lore(lore);
+            marker.setItemMeta(meta);
+            inventory.setItem(start + index, marker);
+        }
     }
 
     /** Known placeholders only, sourced from the authoritative Slayer module, never player commands. */
