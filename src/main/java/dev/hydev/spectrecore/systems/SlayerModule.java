@@ -62,7 +62,6 @@ public final class SlayerModule implements Listener {
         reload(); load(); Bukkit.getPluginManager().registerEvents(this, plugin);
         missionsMenu = new MissionsMenu(plugin, this);
         missionsMenu.enable();
-        SlayerEquipmentAudit.inspect(plugin);
         for (String name : List.of("activarslayer", "cancelarslayer", "resetslayer", "slayerstats", "slayerinvocar", "contratarslayer", "abandonarslayer", "comprartelefono", "misiones")) if (dev.hydev.spectrecore.command.CommandRouter.of(plugin).get(name) != null) {
             dev.hydev.spectrecore.command.CommandRouter.of(plugin).get(name).setExecutor((sender, cmd, label, args) -> command(sender, cmd.getName(), args));
             dev.hydev.spectrecore.command.CommandRouter.of(plugin).get(name).setTabCompleter((sender, cmd, label, args) -> args.length == 1 && !cmd.getName().equals("slayerstats") ? CATEGORIES : List.of());
