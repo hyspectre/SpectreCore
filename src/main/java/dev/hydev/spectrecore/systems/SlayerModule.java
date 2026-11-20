@@ -119,6 +119,27 @@ public final class SlayerModule implements Listener {
         int fallback = switch (tier) { case 1 -> 25; case 2 -> 100; case 3 -> 250; default -> 0; };
         return Math.max(0, Math.min(100_000, config.getInt("progresion.revenant.xp-jefes.tier" + tier, fallback)));
     }
+    /** Dynamic UI data from a single XP source; no duplicated thresholds in lore. */
+    public int slayerProgressSegments(Player player, int segments) {
+        return SlayerProgressionRules.progressSegments(slayerXp(player), xpThresholds, segments);
+    }
+    public long slayerXpMissing(Player player) {
+        return SlayerProgressionRules.remainingXp(slayerXp(player), xpThresholds);
+    }
+    public String slayerNextReward(Player player) {
+        int next = Math.min(SlayerProgressionRules.MAX_LEVEL, slayerLevel(player) + 1);
+        if (slayerLevel(player) == SlayerProgressionRules.MAX_LEVEL)
+            return Settings.text("slayer", "SlayerModule.nivel-maximo", "<gold>Nivel máximo alcanzado");
+        List<String> rewards = rewardsForLevel(next);
+        return rewards.isEmpty()
+                ? Settings.text("slayer", "SlayerModule.sin-recetas-nuevas", "<gray>Sin recetas nuevas")
+                : String.join(" · ", rewards);
+    }
+    private List<String> rewardsForLevel(int level) {
+        return config.getStringList("progresion.revenant.recompensas." + level).stream()
+                .filter(value -> value != null && !value.isBlank())
+                .limit(6).toList();
+    }
     public int slayerLevel(Player player) { return level(player.getUniqueId()); }
     public long slayerXp(Player player) { return revenant(player.getUniqueId()).totalXp; }
     public int slayerVictories(Player player) { return revenant(player.getUniqueId()).victories; }
