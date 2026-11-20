@@ -41,6 +41,8 @@ public final class MagoMenu {
         File file = new File(plugin.getDataFolder(), "ui/mago.yml");
         if (!file.exists()) plugin.saveResource("ui/mago.yml", false);
         if (!file.isFile() || file.length() > 64 * 1024) throw new IOException("ui/mago.yml no es un archivo válido o supera 64 KiB");
+        dev.hydev.spectrecore.config.PresentationMigrations.migrate(
+                plugin.getDataFolder(), file, "ui/mago.yml");
         YamlConfiguration fresh = new YamlConfiguration();
         fresh.load(file);
         ConfigurationSection root = fresh.getConfigurationSection("pages");
