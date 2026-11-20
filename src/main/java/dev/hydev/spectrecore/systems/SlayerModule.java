@@ -127,7 +127,9 @@ public final class SlayerModule implements Listener {
         return next < 0 ? "MAX" : Long.toString(next);
     }
     public String slayerRewardState(Player player, int rewardLevel) {
-        return slayerLevel(player) >= rewardLevel ? "§aDESBLOQUEADO" : "§8BLOQUEADO";
+        return slayerLevel(player) >= rewardLevel
+                ? Settings.text("slayer", "SlayerModule.nivel-desbloqueado", "<green>DESBLOQUEADO")
+                : Settings.text("slayer", "SlayerModule.nivel-bloqueado", "<dark_gray>BLOQUEADO");
     }
     private boolean command(CommandSender sender, String command, String[] args) {
         if (!(sender instanceof Player p)) { sender.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-001", "Esta acción solo puede realizarse dentro del juego.")); return true; }
@@ -143,8 +145,10 @@ public final class SlayerModule implements Listener {
         if (command.equals("comprartelefono")) return purchasePhone(p, args);
         if (command.equals("slayerstats")) {
             p.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-002", "§6✦ ESTADÍSTICAS DE MISIONES"));
-            p.sendMessage("§6Monarquía Renacida §fNivel " + slayerLevel(p) + " §7· §e"
-                    + slayerXp(p) + "§7/§e" + slayerNextXp(p) + " XP §7· Victorias: §f" + slayerVictories(p));
+            p.sendMessage(Settings.message("slayer", "SlayerModule.estadisticas-nivel",
+                    "<gold>Monarquía Renacida <white>Nivel {nivel} <gray>· <yellow>{xp}/{siguiente} XP <gray>· Victorias: <white>{victorias}",
+                    "nivel", slayerLevel(p), "xp", slayerXp(p), "siguiente", slayerNextXp(p),
+                    "victorias", slayerVictories(p)));
             for (String c : CATEGORIES) { Mission m = mission(id, c); p.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-003","§e{name-c}§7: §f{m-kills}/{m-required} §7| Tier {m-tier} | {valor5}","name-c", name(c),"m-kills", m.kills,"m-required", m.required,"m-tier", m.tier,"valor5", (m.active ? Settings.component(Settings.text("slayer", "SlayerModule.texto-001", "§aActiva")) : Settings.component(Settings.text("slayer", "SlayerModule.texto-002", "§7Inactiva"))))); }
             return true;
         }
