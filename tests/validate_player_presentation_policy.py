@@ -57,7 +57,7 @@ for path in sorted((resources / "modules").glob("*/mensajes.yml")):
 
 settings = yaml.safe_load((resources/"modules/nucleo/ajustes.yml").read_text(encoding="utf8"))
 presets = settings["toasts"]["presets"]
-assert len(presets) == 8
+assert len(presets) == 9
 for id, preset in presets.items():
     check(preset["titulo"], f"toast {id} titulo", no_commands=True)
     check(preset["descripcion"], f"toast {id} descripcion", no_commands=True)
