@@ -14,6 +14,7 @@ toasts:
     trabajo-minero: true
     trabajo-granjero: true
     trabajo-cazador: true
+    slayer-nivel: true
   presets:
     furia:
       icon: "minecraft:netherite_axe"
@@ -78,6 +79,14 @@ toasts:
       sonido: "ENTITY_EXPERIENCE_ORB_PICKUP"
       volumen: 0.8
       tono: 1.0
+      intervalo-segundos: 0
+    slayer-nivel:
+      icon: "minecraft:experience_bottle"
+      titulo: "<gold>¡Nuevo nivel Slayer!"
+      descripcion: "<gray>Recetas y desafíos desbloqueados"
+      sonido: "ENTITY_PLAYER_LEVELUP"
+      volumen: 0.85
+      tono: 1.15
       intervalo-segundos: 0
 
 SpectreCorePlugin:
