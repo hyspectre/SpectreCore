@@ -4,6 +4,8 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 TMP="$(mktemp -d)"; trap 'rm -rf "$TMP"' EXIT
 javac -encoding UTF-8 -d "$TMP" \
   "$ROOT/src/main/java/dev/hydev/spectrecore/storage/AtomicFileStore.java" \
+  "$ROOT/src/main/java/dev/hydev/spectrecore/config/PresentationMigrations.java" \
+  "$ROOT/tests/PresentationMigrationsSmoke.java" \
   "$ROOT/src/main/java/dev/hydev/spectrecore/model/TexturePayload.java" \
   "$ROOT/src/main/java/dev/hydev/spectrecore/diagnostics/DiagnosticsService.java" \
   "$ROOT/tests/DiagnosticsSmoke.java" \
@@ -25,4 +27,4 @@ javac -encoding UTF-8 -d "$TMP" \
   "$ROOT/tests/CooldownsSmoke.java" \
   "$ROOT/tests/CookingTimingSmoke.java" \
   "$ROOT/tests/CookingBatchSmoke.java"
-for cls in DiagnosticsSmoke TexturePayloadSmoke AtomicFileStoreSmoke CombatRulesSmoke AsterionComboSmoke SlayerContractSmoke JobsContractSmoke CooldownsSmoke CookingTimingSmoke CookingToolsSmoke CookingBatchSmoke; do java -ea -cp "$TMP" "$cls"; done
+for cls in PresentationMigrationsSmoke DiagnosticsSmoke TexturePayloadSmoke AtomicFileStoreSmoke CombatRulesSmoke AsterionComboSmoke SlayerContractSmoke JobsContractSmoke CooldownsSmoke CookingTimingSmoke CookingToolsSmoke CookingBatchSmoke; do java -ea -cp "$TMP" "$cls"; done
