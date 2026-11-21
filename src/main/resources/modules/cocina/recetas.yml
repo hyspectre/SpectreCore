@@ -275,7 +275,7 @@ recetas:
     icono: "ECHO_SHARD"
     ingredientes:
     - ECHO_SHARD
-    - ENCHANTED_GOLDEN_APPLE
+    - GOLDEN_APPLE
     - GHAST_TEAR
     revolver-desde: 12
     revolver-hasta: 18
