@@ -1282,6 +1282,8 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         }
         List<Integer> slots = ui.getIntegerList("catalogo.posiciones");
         List<Recipe> ordered = new ArrayList<>(recipes.values());
+        ordered.sort(java.util.Comparator.comparingInt(Recipe::ingredientTier)
+                .thenComparing(Recipe::name)); // affordable dishes first, rare rewards last
         int pages = Math.max(1, (ordered.size() + slots.size() - 1) / slots.size());
         page = Math.max(0, Math.min(page, pages - 1));
         RecipeBookHolder holder = new RecipeBookHolder(null, page);
