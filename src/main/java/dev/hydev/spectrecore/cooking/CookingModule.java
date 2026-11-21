@@ -1176,7 +1176,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
     }
 
     private void discoverRecipe(Player player, String recipeId) {
-        if (!discoveriesStorageReady || !getConfig().getBoolean("cooking.book.discovery-enabled", true)) return;
+        if (!discoveriesStorageReady || !Settings.module("cocina/config.yml").getBoolean("cooking.book.discovery-enabled", true)) return;
         if (!discoveries.computeIfAbsent(player.getUniqueId(), ignored -> new HashSet<>()).add(recipeId)) return;
         saveDiscoveries();
         msg(player, Settings.text("cocina", "CookingModule.etiqueta-097", "§d✦ Nueva receta descubierta: §e") + recipes.get(recipeId).name()
