@@ -1,6 +1,10 @@
 # SpectreCore: configura este sistema dentro de su módulo.
 recetas:
   guardian:
+    uso: "Clásicos"
+    nivel-ingredientes: 1
+    efecto-descripcion: "Resistencia I"
+    icono: "MUSHROOM_STEW"
     pista: Una cosecha de tierra y el vigor de una bestia.
     nombre: "Guiso del Guardián"
     ingredientes:
@@ -16,6 +20,10 @@ recetas:
     resultado-exquisito: HC_GUARDIAN_EXQUISITO
     resultado-pasado: HC_GUARDIAN_PASADO
   alba:
+    uso: "Clásicos"
+    nivel-ingredientes: 2
+    efecto-descripcion: "Velocidad I"
+    icono: "RABBIT_STEW"
     pista: El amanecer favorece los ingredientes dorados.
     nombre: "Caldo del Alba"
     ingredientes:
@@ -31,6 +39,10 @@ recetas:
     resultado-exquisito: HC_ALBA_EXQUISITO
     resultado-pasado: HC_ALBA_PASADO
   carmesi:
+    uso: "Clásicos"
+    nivel-ingredientes: 2
+    efecto-descripcion: "Fuerza I"
+    icono: "BEETROOT_SOUP"
     pista: Raíces rojas y un ingrediente del Nether.
     nombre: "Estofado Carmesí"
     ingredientes:
@@ -46,6 +58,10 @@ recetas:
     resultado-exquisito: HC_CARMESI_EXQUISITO
     resultado-pasado: HC_CARMESI_PASADO
   espectral:
+    uso: "Clásicos"
+    nivel-ingredientes: 4
+    efecto-descripcion: "Regeneración I"
+    icono: "MUSHROOM_STEW"
     pista: El bosque, los huesos y una lágrima perdida.
     nombre: "Consomé Espectral"
     ingredientes:
@@ -60,3 +76,212 @@ recetas:
     resultado-normal: HC_ESPECTRAL_NORMAL
     resultado-exquisito: HC_ESPECTRAL_EXQUISITO
     resultado-pasado: HC_ESPECTRAL_PASADO
+  minero:
+    nombre: "Caldo Minero"
+    pista: "El hierro crudo y la patata alimentan al excavador."
+    uso: "Mina"
+    nivel-ingredientes: 2
+    efecto-descripcion: "Prisa minera I"
+    icono: "RABBIT_STEW"
+    ingredientes:
+    - RAW_IRON
+    - BAKED_POTATO
+    - BROWN_MUSHROOM
+    revolver-desde: 8
+    revolver-hasta: 14
+    listo-desde: 18
+    listo-hasta: 24
+    quemado: 32
+    resultado-normal: HC_MINERO_NORMAL
+    resultado-exquisito: HC_MINERO_EXQUISITO
+    resultado-pasado: HC_MINERO_PASADO
+  velocidad:
+    nombre: "Caldo de Velocidad"
+    pista: "Dulce y veloz, con un tubérculo dorado."
+    uso: "Movimiento"
+    nivel-ingredientes: 3
+    efecto-descripcion: "Velocidad II"
+    icono: "RABBIT_STEW"
+    ingredientes:
+    - SUGAR
+    - COOKED_RABBIT
+    - GOLDEN_CARROT
+    revolver-desde: 7
+    revolver-hasta: 13
+    listo-desde: 18
+    listo-hasta: 23
+    quemado: 31
+    resultado-normal: HC_VELOCIDAD_NORMAL
+    resultado-exquisito: HC_VELOCIDAD_EXQUISITO
+    resultado-pasado: HC_VELOCIDAD_PASADO
+  espeleologo:
+    nombre: "Sopa del Espeleólogo"
+    pista: "Unas bayas luminosas revelan el camino."
+    uso: "Exploración"
+    nivel-ingredientes: 1
+    efecto-descripcion: "Visión nocturna I"
+    icono: "MUSHROOM_STEW"
+    ingredientes:
+    - GLOW_BERRIES
+    - COAL
+    - BAKED_POTATO
+    revolver-desde: 6
+    revolver-hasta: 11
+    listo-desde: 15
+    listo-hasta: 21
+    quemado: 28
+    resultado-normal: HC_ESPELEOLOGO_NORMAL
+    resultado-exquisito: HC_ESPELEOLOGO_EXQUISITO
+    resultado-pasado: HC_ESPELEOLOGO_PASADO
+  mareas:
+    nombre: "Caldo de las Mareas"
+    pista: "Un pez, algas y cristales del océano."
+    uso: "Exploración"
+    nivel-ingredientes: 2
+    efecto-descripcion: "Respiración acuática I"
+    icono: "BEETROOT_SOUP"
+    ingredientes:
+    - COD
+    - KELP
+    - PRISMARINE_CRYSTALS
+    revolver-desde: 8
+    revolver-hasta: 13
+    listo-desde: 18
+    listo-hasta: 24
+    quemado: 31
+    resultado-normal: HC_MAREAS_NORMAL
+    resultado-exquisito: HC_MAREAS_EXQUISITO
+    resultado-pasado: HC_MAREAS_PASADO
+  saltador:
+    nombre: "Estofado del Saltador"
+    pista: "Las patas de conejo alivian cada caída."
+    uso: "Movimiento"
+    nivel-ingredientes: 3
+    efecto-descripcion: "Salto II"
+    icono: "RABBIT_STEW"
+    ingredientes:
+    - RABBIT_FOOT
+    - HONEY_BOTTLE
+    - COOKED_RABBIT
+    revolver-desde: 9
+    revolver-hasta: 15
+    listo-desde: 20
+    listo-hasta: 26
+    quemado: 34
+    resultado-normal: HC_SALTADOR_NORMAL
+    resultado-exquisito: HC_SALTADOR_EXQUISITO
+    resultado-pasado: HC_SALTADOR_PASADO
+  escudero:
+    nombre: "Potaje del Escudero"
+    pista: "Una comida robusta para resistir el combate."
+    uso: "Defensa"
+    nivel-ingredientes: 2
+    efecto-descripcion: "Resistencia I"
+    icono: "MUSHROOM_STEW"
+    ingredientes:
+    - IRON_INGOT
+    - COOKED_MUTTON
+    - GOLDEN_CARROT
+    revolver-desde: 9
+    revolver-hasta: 15
+    listo-desde: 20
+    listo-hasta: 26
+    quemado: 34
+    resultado-normal: HC_ESCUDERO_NORMAL
+    resultado-exquisito: HC_ESCUDERO_EXQUISITO
+    resultado-pasado: HC_ESCUDERO_PASADO
+  brasa:
+    nombre: "Caldo de la Brasa"
+    pista: "Polvo ardiente y magma bajo hervor."
+    uso: "Supervivencia"
+    nivel-ingredientes: 3
+    efecto-descripcion: "Resistencia al fuego I"
+    icono: "BEETROOT_SOUP"
+    ingredientes:
+    - BLAZE_POWDER
+    - MAGMA_CREAM
+    - COOKED_BEEF
+    revolver-desde: 10
+    revolver-hasta: 16
+    listo-desde: 22
+    listo-hasta: 28
+    quemado: 35
+    resultado-normal: HC_BRASA_NORMAL
+    resultado-exquisito: HC_BRASA_EXQUISITO
+    resultado-pasado: HC_BRASA_PASADO
+  vigor:
+    nombre: "Consomé de Vitalidad"
+    pista: "Un melón encantado y una lágrima del Nether."
+    uso: "Curación"
+    nivel-ingredientes: 4
+    efecto-descripcion: "Regeneración II"
+    icono: "MUSHROOM_STEW"
+    ingredientes:
+    - GLISTERING_MELON_SLICE
+    - GHAST_TEAR
+    - HONEY_BOTTLE
+    revolver-desde: 10
+    revolver-hasta: 16
+    listo-desde: 22
+    listo-hasta: 27
+    quemado: 35
+    resultado-normal: HC_VIGOR_NORMAL
+    resultado-exquisito: HC_VIGOR_EXQUISITO
+    resultado-pasado: HC_VIGOR_PASADO
+  sombra:
+    nombre: "Sopa de las Sombras"
+    pista: "El ojo fermentado tiñe un brebaje oscuro."
+    uso: "Sigilo"
+    nivel-ingredientes: 3
+    efecto-descripcion: "Invisibilidad I"
+    icono: "BEETROOT_SOUP"
+    ingredientes:
+    - FERMENTED_SPIDER_EYE
+    - GOLDEN_CARROT
+    - INK_SAC
+    revolver-desde: 9
+    revolver-hasta: 15
+    listo-desde: 20
+    listo-hasta: 26
+    quemado: 33
+    resultado-normal: HC_SOMBRA_NORMAL
+    resultado-exquisito: HC_SOMBRA_EXQUISITO
+    resultado-pasado: HC_SOMBRA_PASADO
+  maraton:
+    nombre: "Caldo del Maratón"
+    pista: "Una perla del End despierta las piernas."
+    uso: "Movimiento"
+    nivel-ingredientes: 4
+    efecto-descripcion: "Velocidad II y Salto I"
+    icono: "RABBIT_STEW"
+    ingredientes:
+    - ENDER_PEARL
+    - RABBIT_FOOT
+    - GOLDEN_CARROT
+    revolver-desde: 11
+    revolver-hasta: 17
+    listo-desde: 23
+    listo-hasta: 29
+    quemado: 37
+    resultado-normal: HC_MARATON_NORMAL
+    resultado-exquisito: HC_MARATON_EXQUISITO
+    resultado-pasado: HC_MARATON_PASADO
+  leyenda:
+    nombre: "Banquete del Eco"
+    pista: "Un eco ancestral y una manzana encantada."
+    uso: "Resistencia"
+    nivel-ingredientes: 5
+    efecto-descripcion: "Absorción II y Regeneración II"
+    icono: "MUSHROOM_STEW"
+    ingredientes:
+    - ECHO_SHARD
+    - ENCHANTED_GOLDEN_APPLE
+    - GHAST_TEAR
+    revolver-desde: 12
+    revolver-hasta: 18
+    listo-desde: 25
+    listo-hasta: 31
+    quemado: 39
+    resultado-normal: HC_LEYENDA_NORMAL
+    resultado-exquisito: HC_LEYENDA_EXQUISITO
+    resultado-pasado: HC_LEYENDA_PASADO
