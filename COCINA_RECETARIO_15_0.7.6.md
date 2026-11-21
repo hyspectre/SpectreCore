@@ -17,8 +17,12 @@ no ejecuta comandos desde iconos y no menciona plugins al jugador**.
 Los textos, materiales, iconos Base64 y posiciones son editables en
 `plugins/SpectreCore/ui/recetario.yml`.
 
-Las recetas ocultas muestran solo una pista. Los descubrimientos siguen
-persistiendo por jugador. Las 4 recetas anteriores conservan IDs, ingredientes
+Por defecto, las 15 fichas son consultables desde el primer día y muestran
+ingredientes, cocción y beneficios. La etiqueta distingue **pendiente de
+preparar** de **descubierta**. Los descubrimientos siguen persistiendo por
+jugador. Quien prefiera el misterio puede activar
+`catalogo.ocultar-desconocidas: true` en `ui/recetario.yml`; entonces
+las recetas desconocidas muestran únicamente una pista. Las 4 recetas anteriores conservan IDs, ingredientes
 en orden, ventanas de cocción y resultados originales.
 
 ## 15 recetas y efectos normales
