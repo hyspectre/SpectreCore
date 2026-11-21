@@ -3,7 +3,7 @@ recetas:
   guardian:
     uso: "Clásicos"
     nivel-ingredientes: 1
-    efecto-descripcion: "Resistencia I"
+    efecto-descripcion: "Resistencia I · 120 s"
     icono: "MUSHROOM_STEW"
     pista: Una cosecha de tierra y el vigor de una bestia.
     nombre: "Guiso del Guardián"
@@ -22,7 +22,7 @@ recetas:
   alba:
     uso: "Clásicos"
     nivel-ingredientes: 2
-    efecto-descripcion: "Velocidad I"
+    efecto-descripcion: "Velocidad I · 180 s"
     icono: "RABBIT_STEW"
     pista: El amanecer favorece los ingredientes dorados.
     nombre: "Caldo del Alba"
@@ -41,7 +41,7 @@ recetas:
   carmesi:
     uso: "Clásicos"
     nivel-ingredientes: 2
-    efecto-descripcion: "Fuerza I"
+    efecto-descripcion: "Fuerza I · 90 s"
     icono: "BEETROOT_SOUP"
     pista: Raíces rojas y un ingrediente del Nether.
     nombre: "Estofado Carmesí"
@@ -60,8 +60,8 @@ recetas:
   espectral:
     uso: "Clásicos"
     nivel-ingredientes: 4
-    efecto-descripcion: "Regeneración I"
-    icono: "MUSHROOM_STEW"
+    efecto-descripcion: "Regeneración I · 20 s"
+    icono: "GHAST_TEAR"
     pista: El bosque, los huesos y una lágrima perdida.
     nombre: "Consomé Espectral"
     ingredientes:
@@ -81,8 +81,8 @@ recetas:
     pista: "El hierro crudo y la patata alimentan al excavador."
     uso: "Mina"
     nivel-ingredientes: 2
-    efecto-descripcion: "Prisa minera I"
-    icono: "RABBIT_STEW"
+    efecto-descripcion: "Prisa minera I · 180 s"
+    icono: "IRON_PICKAXE"
     ingredientes:
     - RAW_IRON
     - BAKED_POTATO
@@ -100,8 +100,8 @@ recetas:
     pista: "Dulce y veloz, con un tubérculo dorado."
     uso: "Movimiento"
     nivel-ingredientes: 3
-    efecto-descripcion: "Velocidad II"
-    icono: "RABBIT_STEW"
+    efecto-descripcion: "Velocidad II · 90 s"
+    icono: "SUGAR"
     ingredientes:
     - SUGAR
     - COOKED_RABBIT
@@ -119,8 +119,8 @@ recetas:
     pista: "Unas bayas luminosas revelan el camino."
     uso: "Exploración"
     nivel-ingredientes: 1
-    efecto-descripcion: "Visión nocturna I"
-    icono: "MUSHROOM_STEW"
+    efecto-descripcion: "Visión nocturna I · 180 s"
+    icono: "GLOW_BERRIES"
     ingredientes:
     - GLOW_BERRIES
     - COAL
@@ -138,8 +138,8 @@ recetas:
     pista: "Un pez, algas y cristales del océano."
     uso: "Exploración"
     nivel-ingredientes: 2
-    efecto-descripcion: "Respiración acuática I"
-    icono: "BEETROOT_SOUP"
+    efecto-descripcion: "Respiración acuática I · 240 s"
+    icono: "HEART_OF_THE_SEA"
     ingredientes:
     - COD
     - KELP
@@ -157,8 +157,8 @@ recetas:
     pista: "Las patas de conejo alivian cada caída."
     uso: "Movimiento"
     nivel-ingredientes: 3
-    efecto-descripcion: "Salto II"
-    icono: "RABBIT_STEW"
+    efecto-descripcion: "Salto II · 120 s"
+    icono: "RABBIT_FOOT"
     ingredientes:
     - RABBIT_FOOT
     - HONEY_BOTTLE
@@ -176,8 +176,8 @@ recetas:
     pista: "Una comida robusta para resistir el combate."
     uso: "Defensa"
     nivel-ingredientes: 2
-    efecto-descripcion: "Resistencia I"
-    icono: "MUSHROOM_STEW"
+    efecto-descripcion: "Resistencia I · 180 s"
+    icono: "SHIELD"
     ingredientes:
     - IRON_INGOT
     - COOKED_MUTTON
@@ -195,8 +195,8 @@ recetas:
     pista: "Polvo ardiente y magma bajo hervor."
     uso: "Supervivencia"
     nivel-ingredientes: 3
-    efecto-descripcion: "Resistencia al fuego I"
-    icono: "BEETROOT_SOUP"
+    efecto-descripcion: "Resistencia al fuego I · 240 s"
+    icono: "BLAZE_POWDER"
     ingredientes:
     - BLAZE_POWDER
     - MAGMA_CREAM
@@ -214,8 +214,8 @@ recetas:
     pista: "Un melón encantado y una lágrima del Nether."
     uso: "Curación"
     nivel-ingredientes: 4
-    efecto-descripcion: "Regeneración II"
-    icono: "MUSHROOM_STEW"
+    efecto-descripcion: "Regeneración II · 16 s"
+    icono: "GLISTERING_MELON_SLICE"
     ingredientes:
     - GLISTERING_MELON_SLICE
     - GHAST_TEAR
@@ -233,8 +233,8 @@ recetas:
     pista: "El ojo fermentado tiñe un brebaje oscuro."
     uso: "Sigilo"
     nivel-ingredientes: 3
-    efecto-descripcion: "Invisibilidad I"
-    icono: "BEETROOT_SOUP"
+    efecto-descripcion: "Invisibilidad I · 150 s"
+    icono: "FERMENTED_SPIDER_EYE"
     ingredientes:
     - FERMENTED_SPIDER_EYE
     - GOLDEN_CARROT
@@ -252,8 +252,8 @@ recetas:
     pista: "Una perla del End despierta las piernas."
     uso: "Movimiento"
     nivel-ingredientes: 4
-    efecto-descripcion: "Velocidad II y Salto I"
-    icono: "RABBIT_STEW"
+    efecto-descripcion: "Velocidad II + Salto I · 180 s"
+    icono: "ENDER_PEARL"
     ingredientes:
     - ENDER_PEARL
     - RABBIT_FOOT
@@ -271,8 +271,8 @@ recetas:
     pista: "Un eco ancestral y una manzana encantada."
     uso: "Resistencia"
     nivel-ingredientes: 5
-    efecto-descripcion: "Absorción II y Regeneración II"
-    icono: "MUSHROOM_STEW"
+    efecto-descripcion: "Absorción II 210 s + Regeneración II 25 s"
+    icono: "ECHO_SHARD"
     ingredientes:
     - ECHO_SHARD
     - ENCHANTED_GOLDEN_APPLE
