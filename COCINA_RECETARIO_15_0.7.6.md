@@ -48,7 +48,7 @@ aportan efectos más intensos o combinaciones superiores.
 | Consomé de Vitalidad | Sandía reluciente + lágrima de ghast + miel | Grado 4 | Regeneración II, 16 s |
 | Sopa de las Sombras | Ojo de araña fermentado + zanahoria dorada + tinta | Grado 3 | Invisibilidad I, 150 s |
 | Caldo del Maratón | Perla de ender + pata de conejo + zanahoria dorada | Grado 4 | Velocidad II + Salto I, 180 s |
-| Banquete del Eco | Fragmento de eco + manzana dorada encantada + lágrima de ghast | Grado 5 | Absorción II, 210 s + Regeneración II, 25 s |
+| Banquete del Eco | Fragmento de eco + manzana dorada + lágrima de ghast | Grado 5 | Absorción II, 210 s + Regeneración II, 25 s |
 
 Cada plato incluye **normal, exquisito y sobrecocido**:
 - Exquisito: el efecto dura aproximadamente 25% más.
