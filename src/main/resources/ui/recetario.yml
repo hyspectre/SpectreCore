@@ -3,7 +3,7 @@ enabled: true
 catalogo:
   titulo: "<dark_gray>⧇ <gold>Cocina <dark_gray>│ <white>Recetario"
   espacios: 54
-  posiciones: [10, 11, 12, 13, 14, 19, 20, 21, 22, 23, 28, 29, 30, 31, 32]
+  posiciones: [11, 12, 13, 14, 15, 20, 21, 22, 23, 24, 29, 30, 31, 32, 33]
   resumen-slot: 4
   anterior-slot: 45
   siguiente-slot: 53
