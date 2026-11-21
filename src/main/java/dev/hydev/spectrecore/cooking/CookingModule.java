@@ -653,7 +653,9 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         String rewardId = recipe.output(quality);
         ItemStack reward = resolveMMOItem(rewardId);
         if (reward == null || reward.getType() == Material.AIR) {
-            msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.etiqueta-055", "El MMOItem CONSUMABLE/") + rewardId + Settings.text("cocina", "CookingModule.etiqueta-056", " no esta disponible. No se consumio el cuenco ni se reinicio la receta."));
+            player.sendMessage(Settings.message("cocina", "CookingModule.plato-no-disponible",
+                    "<red>No se pudo servir {nombre}. Tu cuenco y la preparación siguen intactos.",
+                    "nombre", recipe.name()));
             getLogger().warning(Settings.plain("cocina", "CookingModule.mensaje-009", "No se pudo generar la recompensa culinaria: {rewardid}", "rewardid", rewardId));
             return;
         }
