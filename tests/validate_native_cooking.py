@@ -65,6 +65,8 @@ assert "ABSORPTION" in outputs["HC_LEYENDA_NORMAL"]["base"]["effects"]
 
 assert ui["enabled"] is True
 assert ui["catalogo"]["espacios"]==54
+assert ui["catalogo"]["ocultar-desconocidas"] is False
+assert "pendiente" in ui["catalogo"]
 assert ui["detalle"]["espacios"]==54
 slots=ui["catalogo"]["posiciones"]
 assert len(slots)==15 and len(set(slots))==15
@@ -79,7 +81,7 @@ for key,item in ui["iconos"].items():
         skin=json.loads(base64.b64decode(item,validate=True))["textures"]["SKIN"]["url"]
         assert re.fullmatch(r"https?://textures\.minecraft\.net/texture/[a-f0-9]{32,128}",skin),skin
 assert all(x in ui["materiales"] for r in recipes.values() for x in r["ingredientes"])
-for where in ("catalogo.conocido","catalogo.desconocido","catalogo.resumen","detalle.cabecera",
+for where in ("catalogo.conocido","catalogo.pendiente","catalogo.desconocido","catalogo.resumen","detalle.cabecera",
               "detalle.ingrediente","detalle.preparacion","detalle.resultado","detalle.desconocido"):
     obj=ui
     for key in where.split("."):obj=obj[key]
