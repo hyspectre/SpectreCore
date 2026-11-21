@@ -2,6 +2,9 @@ package dev.hydev.spectrecore.cooking;
 
 import dev.hydev.spectrecore.config.Settings;
 import dev.hydev.spectrecore.SpectreCorePlugin;
+import dev.hydev.spectrecore.model.CustomHeads;
+import dev.hydev.spectrecore.text.TextService;
+import net.kyori.adventure.text.format.TextDecoration;
 
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import dev.hydev.spectrecore.api.CookingCompletedEvent;
@@ -80,7 +83,7 @@ import java.util.UUID;
 /**
  * Paper-only cooking minigame. The cooking station is a real water cauldron,
  * not a custom block; displays are decorative. All state mutations run on the
- * primary server thread. The 4 legacy recipes and 12 MMOItems IDs are kept.
+ * primary server thread. Recipes and all three output quality IDs are configured in YAML.
  */
 public final class CookingModule implements Listener, CommandExecutor, TabCompleter {
     private final SpectreCorePlugin plugin;
@@ -96,6 +99,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
     private static final String OUR_TAG = "spectrecore_cooking_visual";
     private static final String PREVIOUS_TAG = "spectrecooking_visual";
     private final Map<String, Recipe> recipes = new LinkedHashMap<>();
+    private YamlConfiguration recipeBookLayout;
     private final Map<String, Station> stations = new LinkedHashMap<>();
     private final Map<String, UUID> textDisplays = new HashMap<>();
     private final Map<String, UUID> liquidDisplays = new HashMap<>();
@@ -117,7 +121,8 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
 
     private record Recipe(String id, String name, List<Material> ingredients,
                           int stirFrom, int stirUntil, int readyFrom, int readyUntil,
-                          int burnAt, String hint, String normal, String exquisite, String overcooked) {
+                          int burnAt, String hint, String normal, String exquisite, String overcooked,
+                          int ingredientTier, String utility, String effect, Material icon) {
         String output(String quality) {
             return switch (quality) {
                 case "exquisito" -> exquisite;
@@ -164,6 +169,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         claimJournal = new ClaimJournal(new File(directory, "claims.yml").toPath());
         migrateLegacyCookingData();
         loadRecipes();
+        loadRecipeBookLayout();
         stationStorageReady = loadStations() && claimJournal.load();
         if (!claimJournal.ready()) getLogger().severe("COCINA: almacenamiento de transacciones dañado o ilegible. Operaciones desactivadas.");
         if (claimJournal.count() > 0) getLogger().warning("COCINA: " + claimJournal.count() + " transacciones interrumpidas; usa /spectrecore cocina transacciones.");
@@ -195,7 +201,10 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         ingredientDisplays.clear();
     }
 
-    public void reload() { loadRecipes(); for (Station station : stations.values()) updateLabel(station); }
+    public void reload() {
+        loadRecipes(); loadRecipeBookLayout();
+        for (Station station : stations.values()) updateLabel(station);
+    }
     public int stationCount() { return stations.size(); }
     public int pendingClaims() { return claimJournal == null ? -1 : claimJournal.count(); }
     public boolean storageReady() { return stationStorageReady && claimJournal != null && claimJournal.ready(); }
@@ -230,6 +239,8 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
 
     private void loadRecipes() {
         recipes.clear();
+        Set<Material> firstIngredients = new HashSet<>();
+        Set<String> outputIds = new HashSet<>();
         YamlConfiguration yaml = YamlConfiguration.loadConfiguration(recipesFile);
         ConfigurationSection root = yaml.getConfigurationSection("recetas");
         if (root == null) { getLogger().severe(Settings.plain("cocina", "CookingModule.mensaje-004", "recipes.yml no contiene 'recetas'.")); return; }
@@ -245,6 +256,9 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
                     ingredients.add(material);
                 }
                 if (ingredients.size() != 3) throw new IllegalArgumentException("Exige 3 ingredientes");
+                if (!firstIngredients.add(ingredients.getFirst()))
+                    throw new IllegalArgumentException("Ingrediente inicial duplicado: " + ingredients.getFirst()
+                            + " (la receta no podría distinguirse)");
                 int a = sec.getInt("revolver-desde", -1), b = sec.getInt("revolver-hasta", -1);
                 int c = sec.getInt("listo-desde", -1), d = sec.getInt("listo-hasta", -1);
                 int e = sec.getInt("quemado", -1);
@@ -253,8 +267,18 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
                 String normal = required(sec, "resultado-normal");
                 String exquisite = required(sec, "resultado-exquisito");
                 String overcooked = required(sec, "resultado-pasado");
+                for (String reward : List.of(normal, exquisite, overcooked))
+                    if (!outputIds.add(reward))
+                        throw new IllegalArgumentException("Resultado compartido: " + reward);
+                int ingredientTier = sec.getInt("nivel-ingredientes", 1);
+                if (ingredientTier < 1 || ingredientTier > 5)
+                    throw new IllegalArgumentException("Grado de ingredientes fuera de rango");
+                Material icon = Material.matchMaterial(sec.getString("icono", "MUSHROOM_STEW"));
+                if (icon == null || !icon.isItem()) throw new IllegalArgumentException("Icono inválido");
                 Recipe recipe = new Recipe(id, sec.getString("nombre", id), List.copyOf(ingredients),
-                        a, b, c, d, e, sec.getString("pista", defaultHint(id)), normal, exquisite, overcooked);
+                        a, b, c, d, e, sec.getString("pista", defaultHint(id)), normal, exquisite, overcooked,
+                        ingredientTier, sec.getString("uso", "Clásicos"),
+                        sec.getString("efecto-descripcion", "Una ayuda en tus aventuras"), icon);
                 recipes.put(id, recipe);
             } catch (Exception ex) {
                 getLogger().severe(Settings.plain("cocina", "CookingModule.mensaje-005", "Receta '{id}' ignorada: {ex-getmessage}", "id", id, "ex-getmessage", ex.getMessage()));
@@ -1154,7 +1178,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         if (!discoveries.computeIfAbsent(player.getUniqueId(), ignored -> new HashSet<>()).add(recipeId)) return;
         saveDiscoveries();
         msg(player, Settings.text("cocina", "CookingModule.etiqueta-097", "§d✦ Nueva receta descubierta: §e") + recipes.get(recipeId).name()
-                + Settings.text("cocina", "CookingModule.etiqueta-098", " §7| Abre §f/mago recetas§7 para consultarla."));
+                + Settings.text("cocina", "CookingModule.etiqueta-098", " §7| Consulta tu recetario para conocerla."));
     }
 
     private static final class RecipeBookHolder implements InventoryHolder {
@@ -1272,7 +1296,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         }
         if (action.equals("recargar")) {
             if (!cookingAdmin(sender)) { sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-017", "{prefix}§cNo tienes permiso.", "prefix", Settings.component(prefix()))); return true; }
-            try { plugin.reloadConfig(); loadRecipes(); sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-018", "{prefix}§aConfiguracion y recetas recargadas.", "prefix", Settings.component(prefix()))); }
+            try { plugin.reloadConfig(); loadRecipes(); loadRecipeBookLayout(); sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-018", "{prefix}§aConfiguracion y recetas recargadas.", "prefix", Settings.component(prefix()))); }
             catch (Exception error) { sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-019", "{prefix}§c{error-getmessage}", "prefix", Settings.component(prefix()), "error-getmessage", error.getMessage())); }
             return true;
         }
