@@ -94,7 +94,7 @@ CookingModule:
   mensaje-012: "UUID de cocinero invalido: {id}"
   mensaje-013: "No se pudieron guardar recetas descubiertas: {ex-getmessage}"
   etiqueta-097: "<reset><light_purple>✦ Nueva receta descubierta: <reset><yellow>"
-  etiqueta-098: " <reset><gray>| Abre <reset><white>/mago recetas<reset><gray> para consultarla."
+  etiqueta-098: " <reset><gray>| Consulta tu recetario para conocerla."
   etiqueta-099: "<reset><dark_purple>✦ Recetario Arcano"
   etiqueta-100: "<reset><yellow>"
   etiqueta-101: "<reset><gray>Ingredientes por ración:"
