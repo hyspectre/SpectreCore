@@ -28,7 +28,8 @@ cooking = load('modules/cocina/config.yml')['cooking']
 assert cooking['visuals']['visible-ingredients'] and cooking['servings']['water-level-portions']
 recipes = load('modules/cocina/recetas.yml')['recetas']
 items = yaml.safe_load((root/'integracion-mmoitems/CONSUMABLE_Cocina.yml').read_text(encoding='utf-8'))
-assert set(recipes) == {'guardian','alba','carmesi','espectral'} and len(items) == 12
+assert len(recipes) == 15 and len(items) == 45
+assert {'guardian','alba','carmesi','espectral','minero','velocidad','espeleologo','mareas','saltador','escudero','brasa','vigor','sombra','maraton','leyenda'} == set(recipes)
 for recipe in recipes.values():
     assert len(recipe['ingredientes']) == 3
     assert recipe['revolver-desde'] < recipe['revolver-hasta'] <= recipe['listo-desde'] < recipe['listo-hasta'] < recipe['quemado']
