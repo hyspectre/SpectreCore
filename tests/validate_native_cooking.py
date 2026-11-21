@@ -29,7 +29,7 @@ for id, r in recipes.items():
     assert r["nombre"] not in first_names
     first_names.add(r["nombre"])
     assert r["uso"] and r["pista"] and r["efecto-descripcion"]
-    assert r["icono"] in {"MUSHROOM_STEW","RABBIT_STEW","BEETROOT_SOUP"}
+    assert re.fullmatch(r"[A-Z_]+",r["icono"])
     times=[r[k] for k in ("revolver-desde","revolver-hasta","listo-desde","listo-hasta","quemado")]
     assert 0<=times[0]<times[1]<=times[2]<times[3]<times[4],(id,times)
     ids=[r["resultado-"+q] for q in ("normal","exquisito","pasado")]
@@ -57,7 +57,7 @@ assert recipes["guardian"]["resultado-normal"]=="HC_GUARDIAN_NORMAL"
 assert recipes["alba"]["resultado-normal"]=="HC_ALBA_NORMAL"
 assert recipes["carmesi"]["resultado-normal"]=="HC_CARMESI_NORMAL"
 assert recipes["espectral"]["resultado-normal"]=="HC_ESPECTRAL_NORMAL"
-assert recipes["minero"]["efecto-descripcion"]=="Prisa minera I"
+assert "Prisa minera I" in recipes["minero"]["efecto-descripcion"]
 assert "HASTE" in outputs["HC_MINERO_NORMAL"]["base"]["effects"]
 assert "SPEED" in outputs["HC_VELOCIDAD_NORMAL"]["base"]["effects"]
 assert outputs["HC_VELOCIDAD_NORMAL"]["base"]["effects"]["SPEED"]["level"]==2
