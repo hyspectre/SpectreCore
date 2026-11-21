@@ -1295,13 +1295,16 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
             if (index >= ordered.size()) break;
             Recipe recipe = ordered.get(index);
             boolean known = knowsRecipe(player, recipe.id());
-            String section = known ? "catalogo.conocido" : "catalogo.desconocido";
+            boolean hidden = !known && ui.getBoolean("catalogo.ocultar-desconocidas", false);
+            String section = hidden ? "catalogo.desconocido"
+                    : known ? "catalogo.conocido" : "catalogo.pendiente";
             String title = bookText(ui.getString(section + ".nombre", "Receta"),recipe,player,page,pages);
             List<String> lore = new ArrayList<>();
             for (String line : ui.getStringList(section + ".lore"))
                 lore.add(bookText(line,recipe,player,page,pages));
-            String head = known ? ui.getString("iconos.recetas." + recipe.id(), "") : bookHead("desconocido");
-            inventory.setItem(slots.get(i), bookCard(known ? recipe.icon() : Material.GRAY_DYE, head, title, lore));
+            String head = hidden ? bookHead("desconocido")
+                    : ui.getString("iconos.recetas." + recipe.id(), "");
+            inventory.setItem(slots.get(i), bookCard(hidden ? Material.GRAY_DYE : recipe.icon(), head, title, lore));
             holder.actions.put(slots.get(i), "receta:" + recipe.id());
         }
         List<String> summary = new ArrayList<>();
@@ -1335,24 +1338,24 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         YamlConfiguration ui = recipeBookLayout;
         Recipe recipe = recipes.get(id);
         if (ui == null || recipe == null) { openRecipeBook(player,page); return; }
-        boolean known = knowsRecipe(player,id);
+        boolean hidden = !knowsRecipe(player,id) && ui.getBoolean("catalogo.ocultar-desconocidas", false);
         String title = ui.getString("detalle.titulo", "<gold>Receta <gray>│ <white>{nombre}");
-        String heading = known ? recipe.name() : ui.getString("catalogo.desconocido.nombre", "Receta desconocida");
+        String heading = !hidden ? recipe.name() : ui.getString("catalogo.desconocido.nombre", "Receta desconocida");
         RecipeBookHolder holder = new RecipeBookHolder(id,page);
         Inventory inventory = Bukkit.createInventory(holder,54,
                 TextService.component(title.replace("{nombre}",heading)));
         holder.inventory = inventory;
-        String headerKey = known ? "detalle.cabecera" : "detalle.desconocido";
+        String headerKey = hidden ? "detalle.desconocido" : "detalle.cabecera";
         List<String> headerLore = new ArrayList<>();
         for (String line : ui.getStringList(headerKey + ".lore"))
-            headerLore.add(bookText(line,known ? recipe : null,player,page,1)
+            headerLore.add(bookText(line,hidden ? null : recipe,player,page,1)
                     .replace("{pista}",recipe.hint()));
         int headerSlot = ui.getInt("detalle.cabecera-slot");
-        inventory.setItem(headerSlot,bookCard(known ? recipe.icon() : Material.GRAY_DYE,
-                known ? ui.getString("iconos.recetas." + id,"") : bookHead("desconocido"),
-                bookText(ui.getString(headerKey + ".nombre","<gold>Receta"),known ? recipe : null,player,page,1),
+        inventory.setItem(headerSlot,bookCard(hidden ? Material.GRAY_DYE : recipe.icon(),
+                hidden ? bookHead("desconocido") : ui.getString("iconos.recetas." + id,""),
+                bookText(ui.getString(headerKey + ".nombre","<gold>Receta"),hidden ? null : recipe,player,page,1),
                 headerLore));
-        if (known) {
+        if (!hidden) {
             List<Integer> ingredientSlots = ui.getIntegerList("detalle.ingrediente-slots");
             for (int i = 0; i < 3; i++) {
                 Material ingredient = recipe.ingredients().get(i);
