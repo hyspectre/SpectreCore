@@ -1181,81 +1181,240 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
                 + Settings.text("cocina", "CookingModule.etiqueta-098", " §7| Consulta tu recetario para conocerla."));
     }
 
+
     private static final class RecipeBookHolder implements InventoryHolder {
-        private Inventory inventory;
+        final String selected;
+        final int page;
+        final Map<Integer, String> actions = new HashMap<>();
+        Inventory inventory;
+        RecipeBookHolder(String selected, int page) {
+            this.selected = selected;
+            this.page = page;
+        }
         @Override public Inventory getInventory() { return inventory; }
     }
 
-    private ItemStack bookCard(Material material, String name, List<String> lore) {
-        ItemStack stack = new ItemStack(material);
-        ItemMeta meta = stack.getItemMeta();
-        meta.displayName(Settings.component(name));
-        meta.lore(lore.stream().map(Settings::component).toList());
-        stack.setItemMeta(meta);
-        return stack;
+    private void loadRecipeBookLayout() {
+        File file = new File(plugin.getDataFolder(), "ui/recetario.yml");
+        try {
+            if (!file.exists()) plugin.saveResource("ui/recetario.yml", false);
+            if (!file.isFile() || file.length() > 96 * 1024)
+                throw new IOException("ui/recetario.yml ausente o demasiado grande");
+            YamlConfiguration next = new YamlConfiguration();
+            next.load(file);
+            if (!next.getBoolean("enabled", true)) { recipeBookLayout = next; return; }
+            for (String section : List.of("catalogo", "detalle")) {
+                if (next.getInt(section + ".espacios") != 54 || !next.isString(section + ".titulo"))
+                    throw new IOException("Página incompleta: " + section);
+            }
+            List<Integer> positions = next.getIntegerList("catalogo.posiciones");
+            if (positions.size() != 15 || new HashSet<>(positions).size() != 15)
+                throw new IOException("El catálogo requiere quince espacios únicos");
+            Set<Integer> catalogue = new HashSet<>(positions);
+            for (String key : List.of("resumen-slot","anterior-slot","siguiente-slot","cerrar-slot")) {
+                int slot = next.getInt("catalogo." + key, -1);
+                if (slot < 0 || slot >= 54 || !catalogue.add(slot))
+                    throw new IOException("Espacio de catálogo reservado: " + key);
+            }
+            Set<Integer> details = new HashSet<>(next.getIntegerList("detalle.ingrediente-slots"));
+            if (details.size() != 3) throw new IOException("Deben existir tres ingredientes");
+            for (String key : List.of("cabecera-slot","preparacion-slot","resultado-slot","volver-slot","cerrar-slot")) {
+                int slot = next.getInt("detalle." + key, -1);
+                if (slot < 0 || slot >= 54 || !details.add(slot))
+                    throw new IOException("Espacio de detalle reservado: " + key);
+            }
+            if (catalogue.stream().anyMatch(slot -> slot < 0 || slot >= 54)
+                    || details.stream().anyMatch(slot -> slot < 0 || slot >= 54)
+                    || !next.isConfigurationSection("iconos") || !next.isConfigurationSection("materiales"))
+                throw new IOException("Configuración visual inválida");
+            recipeBookLayout = next;
+        } catch (Exception error) {
+            getLogger().warning("Recetario: se conserva la última configuración válida: " + error.getMessage());
+        }
     }
 
-    private void openRecipeBook(Player player) {
-        RecipeBookHolder holder = new RecipeBookHolder();
-        Inventory inventory = Bukkit.createInventory(holder, 27, Settings.component(Settings.text("cocina", "CookingModule.etiqueta-099", "§5✦ Recetario Arcano")));
-        holder.inventory = inventory;
-        ItemStack filler = bookCard(Settings.material("cocina", "CookingModule.material-193", Material.BLACK_STAINED_GLASS_PANE), " ", List.of());
-        for (int i = 0; i < inventory.getSize(); i++) inventory.setItem(i, filler);
-        int[] slots = {10, 12, 14, 16};
-        int index = 0;
-        Set<String> known = discoveries.getOrDefault(player.getUniqueId(), Set.of());
-        for (Recipe recipe : recipes.values()) {
-            if (index >= slots.length) break;
-            boolean unlocked = !getConfig().getBoolean("cooking.book.discovery-enabled", true) || known.contains(recipe.id());
-            ItemStack icon;
-            if (unlocked) {
-                icon = bookCard(Settings.material("cocina", "CookingModule.material-194", Material.KNOWLEDGE_BOOK), Settings.text("cocina", "CookingModule.etiqueta-100", "§e") + recipe.name(), List.of(
-                        Settings.text("cocina", "CookingModule.etiqueta-101", "§7Ingredientes por ración:"),
-                        Settings.text("cocina", "CookingModule.etiqueta-102", "§f1× ") + recipe.ingredients().get(0),
-                        Settings.text("cocina", "CookingModule.etiqueta-103", "§f1× ") + recipe.ingredients().get(1),
-                        Settings.text("cocina", "CookingModule.etiqueta-104", "§f1× ") + recipe.ingredients().get(2),
-                        Settings.text("cocina", "CookingModule.etiqueta-105", "§8Revolver: ") + recipe.stirFrom() + "-" + recipe.stirUntil() + "s",
-                        Settings.text("cocina", "CookingModule.etiqueta-106", "§8Servir: ") + recipe.readyFrom() + "-" + recipe.readyUntil() + "s",
-                        Settings.text("cocina", "CookingModule.etiqueta-107", "§8Caldero: 1-3 raciones según el agua")));
-            } else {
-                icon = bookCard(Settings.material("cocina", "CookingModule.material-195", Material.GRAY_DYE), Settings.text("cocina", "CookingModule.etiqueta-108", "§8??? · Receta desconocida"), List.of(
-                        Settings.text("cocina", "CookingModule.etiqueta-109", "§7Pista: §f") + recipe.hint(),
-                        Settings.text("cocina", "CookingModule.etiqueta-110", "§8Descúbrela preparando y sirviendo el plato.")));
-            }
-            inventory.setItem(slots[index++], icon);
+    private boolean knowsRecipe(Player player, String id) {
+        return !Settings.module("cocina/config.yml").getBoolean("cooking.book.discovery-enabled", true)
+                || discoveries.getOrDefault(player.getUniqueId(), Set.of()).contains(id);
+    }
+
+    private String bookText(String input, Recipe recipe, Player player, int page, int totalPages) {
+        if (input == null) return "";
+        long discovered = !Settings.module("cocina/config.yml").getBoolean("cooking.book.discovery-enabled", true)
+                ? recipes.size() : discoveries.getOrDefault(player.getUniqueId(), Set.of()).stream()
+                    .filter(recipes::containsKey).count();
+        String text = input.replace("{descubiertas}", Long.toString(discovered))
+                .replace("{total}", Integer.toString(recipes.size()))
+                .replace("{pagina}", Integer.toString(page + 1))
+                .replace("{paginas}", Integer.toString(totalPages));
+        if (recipe == null) return text;
+        return text.replace("{nombre}", recipe.name()).replace("{pista}", recipe.hint())
+                .replace("{uso}", recipe.utility()).replace("{efecto}", recipe.effect())
+                .replace("{nivel-ingredientes}", Integer.toString(recipe.ingredientTier()))
+                .replace("{revolver}", recipe.stirFrom() + "–" + recipe.stirUntil())
+                .replace("{servir}", recipe.readyFrom() + "–" + recipe.readyUntil());
+    }
+
+    private ItemStack bookCard(Material material, String texture, String name, List<String> lore) {
+        ItemStack item;
+        try { item = texture == null || texture.isBlank()
+                ? new ItemStack(material) : CustomHeads.fromBase64(texture); }
+        catch (IllegalArgumentException | IllegalStateException error) { item = new ItemStack(material); }
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null) return item;
+        meta.displayName(TextService.component(name).decoration(TextDecoration.ITALIC, false));
+        meta.lore(lore.stream().limit(32).map(line ->
+                TextService.component(line).decoration(TextDecoration.ITALIC, false)).toList());
+        item.setItemMeta(meta);
+        return item;
+    }
+    private String bookHead(String key) { return recipeBookLayout.getString("iconos." + key, ""); }
+    private void openRecipeBook(Player player) { openRecipeBook(player, 0); }
+
+    private void openRecipeBook(Player player, int page) {
+        YamlConfiguration ui = recipeBookLayout;
+        if (ui == null || !ui.getBoolean("enabled", true)) {
+            player.sendMessage(Settings.message("cocina", "CookingModule.recetario-no-disponible",
+                    "<red>El recetario está cerrado por ahora."));
+            return;
         }
-        long discovered = !getConfig().getBoolean("cooking.book.discovery-enabled", true)
-                ? recipes.size() : known.stream().filter(recipes::containsKey).count();
-        inventory.setItem(22, bookCard(Settings.material("cocina", "CookingModule.material-196", Material.BOOK), Settings.text("cocina", "CookingModule.etiqueta-111", "§d✦ Descubrimientos"), List.of(
-                Settings.text("cocina", "CookingModule.etiqueta-112", "§f") + discovered + "/" + recipes.size() + Settings.text("cocina", "CookingModule.etiqueta-113", " recetas conocidas"),
-                Settings.text("cocina", "CookingModule.etiqueta-114", "§7Las recetas se registran al servir un plato."),
-                Settings.text("cocina", "CookingModule.etiqueta-115", "§7Se guardan por jugador."))));
+        List<Integer> slots = ui.getIntegerList("catalogo.posiciones");
+        List<Recipe> ordered = new ArrayList<>(recipes.values());
+        int pages = Math.max(1, (ordered.size() + slots.size() - 1) / slots.size());
+        page = Math.max(0, Math.min(page, pages - 1));
+        RecipeBookHolder holder = new RecipeBookHolder(null, page);
+        Inventory inventory = Bukkit.createInventory(holder, 54,
+                TextService.component(ui.getString("catalogo.titulo", "<gold>Recetario")));
+        holder.inventory = inventory;
+        for (int i = 0; i < slots.size(); i++) {
+            int index = page * slots.size() + i;
+            if (index >= ordered.size()) break;
+            Recipe recipe = ordered.get(index);
+            boolean known = knowsRecipe(player, recipe.id());
+            String section = known ? "catalogo.conocido" : "catalogo.desconocido";
+            String title = bookText(ui.getString(section + ".nombre", "Receta"),recipe,player,page,pages);
+            List<String> lore = new ArrayList<>();
+            for (String line : ui.getStringList(section + ".lore"))
+                lore.add(bookText(line,recipe,player,page,pages));
+            String head = known ? ui.getString("iconos.recetas." + recipe.id(), "") : bookHead("desconocido");
+            inventory.setItem(slots.get(i), bookCard(known ? recipe.icon() : Material.GRAY_DYE, head, title, lore));
+            holder.actions.put(slots.get(i), "receta:" + recipe.id());
+        }
+        List<String> summary = new ArrayList<>();
+        for (String line : ui.getStringList("catalogo.resumen.lore"))
+            summary.add(bookText(line,null,player,page,pages));
+        inventory.setItem(ui.getInt("catalogo.resumen-slot"), bookCard(Material.BOOK,bookHead("resumen"),
+                ui.getString("catalogo.resumen.nombre", "<gold>Archivo de recetas"),summary));
+        if (page > 0) {
+            int slot = ui.getInt("catalogo.anterior-slot");
+            inventory.setItem(slot, bookCard(Material.ARROW,bookHead("anterior"),
+                    ui.getString("navegacion.anterior-nombre", "<gold>Anterior"),
+                    ui.getStringList("navegacion.lore")));
+            holder.actions.put(slot,"anterior");
+        }
+        if (page + 1 < pages) {
+            int slot = ui.getInt("catalogo.siguiente-slot");
+            inventory.setItem(slot, bookCard(Material.ARROW,bookHead("siguiente"),
+                    ui.getString("navegacion.siguiente-nombre", "<gold>Siguiente"),
+                    ui.getStringList("navegacion.lore")));
+            holder.actions.put(slot,"siguiente");
+        }
+        int close = ui.getInt("catalogo.cerrar-slot");
+        inventory.setItem(close, bookCard(Material.BARRIER,bookHead("cerrar"),
+                ui.getString("navegacion.cerrar-nombre", "<gray>Cerrar"),
+                ui.getStringList("navegacion.lore")));
+        holder.actions.put(close,"cerrar");
+        player.openInventory(inventory);
+    }
+
+    private void openRecipeDetail(Player player, String id, int page) {
+        YamlConfiguration ui = recipeBookLayout;
+        Recipe recipe = recipes.get(id);
+        if (ui == null || recipe == null) { openRecipeBook(player,page); return; }
+        boolean known = knowsRecipe(player,id);
+        String title = ui.getString("detalle.titulo", "<gold>Receta <gray>│ <white>{nombre}");
+        String heading = known ? recipe.name() : ui.getString("catalogo.desconocido.nombre", "Receta desconocida");
+        RecipeBookHolder holder = new RecipeBookHolder(id,page);
+        Inventory inventory = Bukkit.createInventory(holder,54,
+                TextService.component(title.replace("{nombre}",heading)));
+        holder.inventory = inventory;
+        String headerKey = known ? "detalle.cabecera" : "detalle.desconocido";
+        List<String> headerLore = new ArrayList<>();
+        for (String line : ui.getStringList(headerKey + ".lore"))
+            headerLore.add(bookText(line,known ? recipe : null,player,page,1)
+                    .replace("{pista}",recipe.hint()));
+        int headerSlot = ui.getInt("detalle.cabecera-slot");
+        inventory.setItem(headerSlot,bookCard(known ? recipe.icon() : Material.GRAY_DYE,
+                known ? ui.getString("iconos.recetas." + id,"") : bookHead("desconocido"),
+                bookText(ui.getString(headerKey + ".nombre","<gold>Receta"),known ? recipe : null,player,page,1),
+                headerLore));
+        if (known) {
+            List<Integer> ingredientSlots = ui.getIntegerList("detalle.ingrediente-slots");
+            for (int i = 0; i < 3; i++) {
+                Material ingredient = recipe.ingredients().get(i);
+                String name = ui.getString("materiales." + ingredient.name(),
+                        ingredient.name().toLowerCase(java.util.Locale.ROOT).replace('_',' '));
+                String label = ui.getString("detalle.ingrediente.nombre","<white>{nombre-ingrediente}")
+                        .replace("{nombre-ingrediente}",name);
+                List<String> ingredientLore = new ArrayList<>();
+                for (String line : ui.getStringList("detalle.ingrediente.lore"))
+                    ingredientLore.add(line.replace("{indice}",Integer.toString(i+1)));
+                inventory.setItem(ingredientSlots.get(i),bookCard(ingredient,"",label,ingredientLore));
+            }
+            List<String> prepare = new ArrayList<>();
+            for (String line : ui.getStringList("detalle.preparacion.lore"))
+                prepare.add(bookText(line,recipe,player,page,1));
+            inventory.setItem(ui.getInt("detalle.preparacion-slot"),bookCard(Material.CAMPFIRE,
+                    bookHead("preparacion"),ui.getString("detalle.preparacion.nombre","<gold>Preparación"),prepare));
+            List<String> benefit = new ArrayList<>();
+            for (String line : ui.getStringList("detalle.resultado.lore"))
+                benefit.add(bookText(line,recipe,player,page,1));
+            inventory.setItem(ui.getInt("detalle.resultado-slot"),bookCard(Material.POTION,
+                    bookHead("resultado"),ui.getString("detalle.resultado.nombre","<gold>Beneficio"),benefit));
+        }
+        int back = ui.getInt("detalle.volver-slot");
+        inventory.setItem(back,bookCard(Material.ARROW,bookHead("volver"),
+                ui.getString("navegacion.volver-nombre","<gold>Volver"),
+                ui.getStringList("navegacion.lore")));
+        holder.actions.put(back,"volver");
+        int close = ui.getInt("detalle.cerrar-slot");
+        inventory.setItem(close,bookCard(Material.BARRIER,bookHead("cerrar"),
+                ui.getString("navegacion.cerrar-nombre","<gray>Cerrar"),
+                ui.getStringList("navegacion.lore")));
+        holder.actions.put(close,"cerrar");
         player.openInventory(inventory);
     }
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onBookClick(InventoryClickEvent event) {
-        if (!(event.getView().getTopInventory().getHolder() instanceof RecipeBookHolder)) return;
+        if (!(event.getView().getTopInventory().getHolder() instanceof RecipeBookHolder holder)) return;
         event.setCancelled(true);
-        if (!(event.getWhoClicked() instanceof Player player) || event.getRawSlot() >= 27) return;
-        int[] slots = {10, 12, 14, 16};
-        int i = 0;
-        for (Recipe recipe : recipes.values()) {
-            if (i >= slots.length) break;
-            if (event.getRawSlot() == slots[i]
-                    && (!getConfig().getBoolean("cooking.book.discovery-enabled", true)
-                        || discoveries.getOrDefault(player.getUniqueId(), Set.of()).contains(recipe.id()))) {
-                msg(player, Settings.text("cocina", "CookingModule.etiqueta-116", "§e") + recipe.name() + Settings.text("cocina", "CookingModule.etiqueta-117", " §7| ") + recipe.ingredients() + Settings.text("cocina", "CookingModule.etiqueta-118", " §7| ")
-                        + recipe.readyFrom() + "-" + recipe.readyUntil() + Settings.text("cocina", "CookingModule.etiqueta-119", " s para servir."));
-                break;
+        if (!(event.getWhoClicked() instanceof Player player)) return;
+        int slot = event.getRawSlot();
+        if (slot < 0 || slot >= 54) return;
+        String action = holder.actions.get(slot);
+        if (action == null) return;
+        Bukkit.getScheduler().runTask(plugin, () -> {
+            if (!plugin.isEnabled() || !player.isOnline()
+                    || player.getOpenInventory().getTopInventory().getHolder() != holder) return;
+            switch (action) {
+                case "cerrar" -> player.closeInventory();
+                case "volver" -> openRecipeBook(player,holder.page);
+                case "anterior" -> openRecipeBook(player,holder.page-1);
+                case "siguiente" -> openRecipeBook(player,holder.page+1);
+                default -> {
+                    if (action.startsWith("receta:"))
+                        openRecipeDetail(player,action.substring("receta:".length()),holder.page);
+                }
             }
-            i++;
-        }
+        });
     }
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onBookDrag(InventoryDragEvent event) {
-        if (event.getView().getTopInventory().getHolder() instanceof RecipeBookHolder) event.setCancelled(true);
+        if (event.getView().getTopInventory().getHolder() instanceof RecipeBookHolder)
+            for (int slot : event.getRawSlots())
+                if (slot < 54) { event.setCancelled(true); break; }
     }
 
     @Override public boolean onCommand(CommandSender sender, Command command, String alias, String[] args) {
