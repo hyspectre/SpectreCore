@@ -26,6 +26,7 @@ latin_names={
 subtype=outputs  # Una única fuente de los 45 platos: el tipo COCINA.
 for item_id, value in subtype.items():
     base=value["base"]
+    assert base.get("revision-id") == 1, f"Missing revision bump for {item_id}"
     lore=base["lore"]
     assert not any("Cocina Arcana - Hydev" in line or
                    "Preparado en un caldero artesanal." in line for line in lore), item_id
