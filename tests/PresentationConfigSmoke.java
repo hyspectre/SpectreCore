@@ -68,6 +68,22 @@ public final class PresentationConfigSmoke {
         check(Settings.module("resonancia/config.yml").getInt("reglas.carga-por-tier.tier3")==9,"Custom resonance charge preserved");
         var tools=read("cocina/config.yml");tools.set("herramientas.revolver","STICK");save("cocina/config.yml",tools);manager.reload();
         check(Gameplay.cookingTool("STICK",true,false)==dev.hydev.spectrecore.cooking.CookingToolActions.Use.STIR,"Configured cooking controls actually used");
+        // Old installations may still say CONSUMABLE: the runtime accepts only COCINA.
+        var oldCooking = read("cocina/config.yml");
+        oldCooking.set("cooking.rewards.mmoitems-type", "CONSUMABLE");
+        save("cocina/config.yml", oldCooking);
+        manager.reload();
+        check("COCINA".equals(read("cocina/config.yml")
+                .getString("cooking.rewards.mmoitems-type")),
+                "Legacy cooking output type is migrated to COCINA");
+        check(Files.isRegularFile(root.resolve(
+                "backups/cocina-tipo-v1/modules/cocina/config.yml")),
+                "Legacy output type backed up before migration");
+        check("CONSUMABLE".equals(YamlConfiguration.loadConfiguration(
+                root.resolve("backups/cocina-tipo-v1/modules/cocina/config.yml").toFile())
+                .getString("cooking.rewards.mmoitems-type")),
+                "Backup retains previous CONSUMABLE type");
+
         var old=read("trabajos/mensajes.yml");old.set("JobsModule.mensaje-001","");old.set("JobsModule.mensaje-002",null);old.set("personalizado","Conservar");save("trabajos/mensajes.yml",old);manager.reload();
         check(Settings.text("trabajos","JobsModule.mensaje-001","fallback").isEmpty(),"Empty text preserved");
         check(read("trabajos/mensajes.yml").contains("JobsModule.mensaje-002")&&read("trabajos/mensajes.yml").getString("personalizado").equals("Conservar"),"Missing defaults added without deleting unknown keys");
