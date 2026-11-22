@@ -1,5 +1,3 @@
-# El núcleo del Relicario se encuentra en desarrollo; el módulo no consume objetos todavía.
-enabled: true
 consume-confirmation: true
 storage:
   max-ids-per-player: 256
