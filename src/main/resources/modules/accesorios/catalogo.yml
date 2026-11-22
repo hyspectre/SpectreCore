@@ -1,0 +1,320 @@
+# Hydev Relicario v0.1 — 32 accesorios, 9 familias de mejora.
+# Los bonos son acumulativos entre familias; solo cuenta el mayor rango descubierto en cada familia.
+# Los límites se aplican sobre el resultado de la suma, no sobre cada objeto.
+enabled: false
+# Se mantiene apagado hasta validar las integraciones de estadísticas de la versión jugable.
+mmoitems-type: RELIQUIA
+caps:
+  health: 12
+  mana: 40
+  critical_chance: 5
+  magic_damage: 8
+  melee_damage: 8
+  undead_damage: 8
+  damage_reduction: 6
+  fire_damage: 8
+  mining_speed: 8
+  crop_bonus: 8
+  hostile_damage: 8
+  fire_reduction: 6
+  food_duration: 15
+  cooking_speed: 10
+  movement_speed: 5
+  projectile_reduction: 6
+  contract_coins: 5
+accesorios:
+  BROTE_MARCHITO:
+    nombre: "Brote Marchito"
+    categoria: cripta
+    rareza: RARE
+    material: MANGROVE_ROOTS
+    origen: "Ent Corrupto y raíces pestilentes"
+    familia: raigambre
+    rango: 1
+    bonos:
+      mana: 6
+  NUCLEO_SILVESTRE:
+    nombre: "Núcleo Silvestre"
+    categoria: cripta
+    rareza: EPIC
+    material: HEART_OF_THE_SEA
+    origen: "Núcleo del Ent"
+    familia: raigambre
+    rango: 2
+    bonos:
+      mana: 16
+  MEDALLON_AGRIETADO:
+    nombre: "Medallón Agrietado"
+    categoria: cripta
+    rareza: RARE
+    material: ECHO_SHARD
+    origen: "Vestigios de Alma"
+    familia: nigromancia
+    rango: 1
+    bonos:
+      magic_damage: 1
+  MEDALLON_PROFANO:
+    nombre: "Medallón Profano"
+    categoria: cripta
+    rareza: EPIC
+    material: AMETHYST_SHARD
+    origen: "Esencia del Nigromante"
+    familia: nigromancia
+    rango: 2
+    bonos:
+      magic_damage: 2.5
+  CUERNO_ASTILLADO:
+    nombre: "Cuerno Astillado"
+    categoria: cripta
+    rareza: RARE
+    material: GOAT_HORN
+    origen: "Criaturas del Laberinto"
+    familia: laberinto
+    rango: 1
+    bonos:
+      critical_chance: 0.5
+  MARCA_LABERINTO:
+    nombre: "Marca del Laberinto"
+    categoria: cripta
+    rareza: EPIC
+    material: NETHER_BRICK
+    origen: "Sello del Laberinto"
+    familia: laberinto
+    rango: 2
+    bonos:
+      critical_chance: 1.5
+  GRILLETE_DESHONRADO:
+    nombre: "Grillete del Deshonrado"
+    categoria: cripta
+    rareza: RARE
+    material: CHAIN
+    origen: "Caballero Caído"
+    familia: juramento
+    rango: 1
+    bonos:
+      melee_damage: 1
+  ANILLO_ULTIMO_VOTO:
+    nombre: "Anillo del Último Voto"
+    categoria: cripta
+    rareza: EPIC
+    material: IRON_NUGGET
+    origen: "Mejora del Grillete"
+    familia: juramento
+    rango: 2
+    bonos:
+      melee_damage: 2.5
+  COSTILLA_INSEPULTO:
+    nombre: "Costilla del Insepulto"
+    categoria: cripta
+    rareza: RARE
+    material: BONE
+    origen: "Criaturas no muertas"
+    bonos:
+      undead_damage: 2
+  LAGRIMA_BRONCE:
+    nombre: "Lágrima de Bronce"
+    categoria: cripta
+    rareza: EPIC
+    material: COPPER_INGOT
+    origen: "Minotauro"
+    bonos:
+      damage_reduction: 1
+  CORAZON_CENIZA:
+    nombre: "Corazón de Ceniza"
+    categoria: cripta
+    rareza: EPIC
+    material: MAGMA_CREAM
+    origen: "Dracoescamas"
+    bonos:
+      fire_damage: 2
+  CORAZON_INERTE:
+    nombre: "Corazón Inerte"
+    categoria: superficie
+    rareza: RARE
+    material: FERMENTED_SPIDER_EYE
+    origen: "Monarquía Renacida"
+    bonos:
+      health: 2
+  SELLO_PROSPECTOR:
+    nombre: "Sello del Prospector"
+    categoria: superficie
+    rareza: RARE
+    material: COMPASS
+    origen: "Encargos de Minería"
+    familia: prospector
+    rango: 1
+    bonos:
+      mining_speed: 2
+  OJO_PROSPECTOR:
+    nombre: "Ojo del Prospector"
+    categoria: superficie
+    rareza: EPIC
+    material: ENDER_EYE
+    origen: "Minería avanzada"
+    familia: prospector
+    rango: 2
+    bonos:
+      mining_speed: 4
+  DEDAL_FORTUNA:
+    nombre: "Dedal de la Fortuna"
+    categoria: superficie
+    rareza: RARE
+    material: IRON_NUGGET
+    origen: "Agricultura"
+    familia: cosecha
+    rango: 1
+    bonos:
+      crop_bonus: 1
+  ESPIGA_AMBAR:
+    nombre: "Espiga de Ámbar"
+    categoria: superficie
+    rareza: RARE
+    material: WHEAT
+    origen: "Encargos de Agricultura"
+    familia: cosecha
+    rango: 2
+    bonos:
+      crop_bonus: 2
+  CORNUCOPIA_AMBAR:
+    nombre: "Cornucopia de Ámbar"
+    categoria: superficie
+    rareza: EPIC
+    material: GOLDEN_CARROT
+    origen: "Mejora de la Espiga"
+    familia: cosecha
+    rango: 3
+    bonos:
+      crop_bonus: 3
+  COLMILLO_ACECHADOR:
+    nombre: "Colmillo del Acechador"
+    categoria: superficie
+    rareza: RARE
+    material: BONE
+    origen: "Encargos de Caza"
+    familia: cazador
+    rango: 1
+    bonos:
+      hostile_damage: 1
+  SILBATO_CAZADOR:
+    nombre: "Silbato del Cazador"
+    categoria: superficie
+    rareza: RARE
+    material: GOAT_HORN
+    origen: "Caza avanzada"
+    familia: cazador
+    rango: 2
+    bonos:
+      hostile_damage: 1.5
+  ASCUA_ENCERRADA:
+    nombre: "Ascua Encerrada"
+    categoria: superficie
+    rareza: RARE
+    material: BLAZE_POWDER
+    origen: "Tesoros de la Cripta"
+    bonos:
+      fire_reduction: 1
+  AMULETO_FOGON:
+    nombre: "Amuleto del Fogón"
+    categoria: superficie
+    rareza: RARE
+    material: BOWL
+    origen: "Cocina"
+    bonos:
+      food_duration: 5
+  CUCHARON_ETERNO:
+    nombre: "Cucharón Eterno"
+    categoria: superficie
+    rareza: RARE
+    material: WOODEN_SHOVEL
+    origen: "Cocina avanzada"
+    bonos:
+      cooking_speed: 3
+  BRUJULA_EXTRAVIADA:
+    nombre: "Brújula Extraviada"
+    categoria: exploracion
+    rareza: RARE
+    material: COMPASS
+    origen: "Tesoros ocultos"
+    familia: vientos
+    rango: 1
+    bonos:
+      movement_speed: 1
+  ROSA_VIENTOS:
+    nombre: "Rosa de los Vientos"
+    categoria: exploracion
+    rareza: EPIC
+    material: RECOVERY_COMPASS
+    origen: "Mejora de la Brújula"
+    familia: vientos
+    rango: 2
+    bonos:
+      movement_speed: 2.5
+  ESPEJO_ESCARCHA:
+    nombre: "Espejo de Escarcha"
+    categoria: exploracion
+    rareza: RARE
+    material: ICE
+    origen: "Exploración"
+    familia: reflejos
+    rango: 1
+    bonos:
+      projectile_reduction: 1
+  ESPEJO_VACIO:
+    nombre: "Espejo del Vacío"
+    categoria: exploracion
+    rareza: EPIC
+    material: ECHO_SHARD
+    origen: "Mejora del Espejo"
+    familia: reflejos
+    rango: 2
+    bonos:
+      projectile_reduction: 2.5
+  MONEDA_SIN_ROSTRO:
+    nombre: "Moneda sin Rostro"
+    categoria: exploracion
+    rareza: RARE
+    material: GOLD_NUGGET
+    origen: "Tesoro excepcional"
+    bonos:
+      contract_coins: 1
+  NUDO_DOS_ALMAS:
+    nombre: "Nudo de las Dos Almas"
+    categoria: excepcionales
+    rareza: EPIC
+    material: STRING
+    origen: "Desafío cooperativo"
+    bonos:
+      health: 3
+  CORONA_PEREGRINO:
+    nombre: "Corona del Peregrino"
+    categoria: excepcionales
+    rareza: LEGENDARY
+    material: GOLDEN_HELMET
+    origen: "Exploración extensa"
+    bonos:
+      mana: 10
+  LLAVE_SIN_CERRADURA:
+    nombre: "Llave sin Cerradura"
+    categoria: excepcionales
+    rareza: EPIC
+    material: TRIPWIRE_HOOK
+    origen: "Secreto de dungeon"
+    bonos:
+      critical_chance: 1
+  ULTIMO_LATIDO:
+    nombre: "Último Latido"
+    categoria: excepcionales
+    rareza: LEGENDARY
+    material: HEART_OF_THE_SEA
+    origen: "Desafío sin muertes"
+    bonos:
+      health: 4
+  ECLIPSE_BOLSILLO:
+    nombre: "Eclipse de Bolsillo"
+    categoria: excepcionales
+    rareza: LEGENDARY
+    material: ENDER_PEARL
+    origen: "Colección excepcional"
+    bonos:
+      melee_damage: 1
+      magic_damage: 1
