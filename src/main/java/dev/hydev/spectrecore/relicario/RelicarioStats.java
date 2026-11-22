@@ -139,6 +139,12 @@ public final class RelicarioStats implements Listener {
         totals.remove(player.getUniqueId());
     }
 
+    /** Discard expired fire attributions even for mobs that were killed immediately. */
+    public void prune() {
+        long now = System.currentTimeMillis();
+        fireSources.entrySet().removeIf(e -> e.getValue().expiresAt() < now);
+    }
+
     public void cleanupAll() {
         for (Player player : Bukkit.getOnlinePlayers()) cleanup(player);
         totals.clear();
