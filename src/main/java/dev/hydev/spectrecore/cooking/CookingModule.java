@@ -143,6 +143,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         boolean stirred;
         boolean preciseStir;
         boolean cooking;
+        UUID cookOwner;
         String lastCueStage;
         long elapsedMs;
         long idleMs;
@@ -154,7 +155,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         }
         void reset() {
             recipeId = null; accepted = 0; portions = 1; readyServings = 0; batchQuality = null;
-            stirred = false; preciseStir = false; cooking = false; lastCueStage = null;
+            stirred = false; preciseStir = false; cooking = false; cookOwner = null; lastCueStage = null;
             elapsedMs = 0; idleMs = 0; lastWallMs = System.currentTimeMillis();
         }
     }
@@ -354,6 +355,9 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
                         CookingBatch.requiredIngredients(station.portions), s.getInt("accepted")));
                 station.readyServings = Math.max(0, Math.min(station.portions, s.getInt("ready-servings", 0)));
                 station.batchQuality = station.readyServings > 0 ? s.getString("batch-quality", "normal") : null;
+                String cook = s.getString("cook-owner", "");
+                if (!cook.isEmpty()) try { station.cookOwner = UUID.fromString(cook); }
+                catch (IllegalArgumentException bad) { station.cookOwner = null; }
                 station.stirred = s.getBoolean("stirred", false);
                 station.preciseStir = s.getBoolean("precise-stir", station.stirred);
                 station.cooking = station.recipeId != null && CookingBatch.readyToCook(station.accepted, station.portions)
@@ -386,6 +390,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
             yaml.set(path + ".stirred", station.stirred);
             yaml.set(path + ".precise-stir", station.preciseStir);
             yaml.set(path + ".cooking", station.cooking);
+            yaml.set(path + ".cook-owner", station.cookOwner == null ? "" : station.cookOwner.toString());
             yaml.set(path + ".elapsed-ms", station.elapsedMs);
             yaml.set(path + ".idle-ms", station.idleMs);
         }
@@ -516,7 +521,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         updateLiquid(station);
         sound(station, Settings.sound("cocina", "CookingModule.sound-002", Sound.BLOCK_BREWING_STAND_BREW), Settings.f("cocina", "CookingModule.geometria-012", 1.25f));
         if (CookingBatch.readyToCook(station.accepted, portions)) {
-            station.cooking = true; station.elapsedMs = 0; station.stirred = false; station.preciseStir = false;
+            station.cooking = true; station.cookOwner = player.getUniqueId(); station.elapsedMs = 0; station.stirred = false; station.preciseStir = false;
             label(station, Settings.text("cocina", "CookingModule.etiqueta-035", "§6♨ §e") + recipe.name() + Settings.text("cocina", "CookingModule.etiqueta-036", " §7| Calentando ") + portions + " raciones...");
             msg(player, ChatColor.GOLD + Settings.text("cocina", "CookingModule.etiqueta-037", "¡Preparacion de ") + portions + Settings.text("cocina", "CookingModule.etiqueta-038", " raciones iniciada! Vigila el caldero."));
         } else {
@@ -814,7 +819,15 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         long delta = Math.max(0L, now - station.lastWallMs);
         station.lastWallMs = now;
         if (station.cooking && station.readyServings == 0
-                && (!getConfig().getBoolean("cooking.stations.require-lit-campfire-while-cooking", true) || isHeated(station))) station.elapsedMs += delta;
+                && (!getConfig().getBoolean("cooking.stations.require-lit-campfire-while-cooking", true) || isHeated(station))) {
+            double multiplier = 1.0;
+            if (station.cookOwner != null) {
+                Player chef = Bukkit.getPlayer(station.cookOwner);
+                if (chef != null && chef.isOnline() && plugin.relicario() != null)
+                    multiplier += Math.min(10, plugin.relicario().cookingSpeed(chef)) / 100.0;
+            }
+            station.elapsedMs += Math.round(delta * multiplier);
+        }
         else if (station.recipeId != null) station.idleMs += delta;
     }
     private boolean isHeated(Station station) {
