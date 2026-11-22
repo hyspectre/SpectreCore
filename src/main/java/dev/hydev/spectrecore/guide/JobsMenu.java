@@ -239,7 +239,7 @@ public final class JobsMenu implements Listener {
                 ? label("disponible", "Disponible")
                 : label("rango-anterior", "Requiere rango anterior");
         return line.replace("{rango}", currentRank).replace("{minimo}", min)
-                .replace("{maximo}", max).replace("{cooldown}", cooldown)
+                .replace("{maximo}", max).replace("{espera}", cooldown)
                 .replace("{precio}", price).replace("{estado}", state);
     }
 
