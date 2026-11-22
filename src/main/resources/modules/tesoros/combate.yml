@@ -1,5 +1,4 @@
 # SpectreCore: configura este sistema dentro de su módulo.
-enabled: true
 probabilidades:
   combate: {}
 botin:
