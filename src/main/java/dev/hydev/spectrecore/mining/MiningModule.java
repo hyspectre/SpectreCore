@@ -189,7 +189,7 @@ public final class MiningModule implements Listener {
             if(!config.getBoolean("tesoros.activados",true)){sender.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-022", "Tesoros mineros desactivados."));return true;}
             int tier;
             try { tier = Integer.parseInt(args[2]); } catch (NumberFormatException error) { tier = 0; }
-            if (tier < 1 || tier > 3) { player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-023", "§cTier válido: 1, 2 o 3.")); return true; }
+            if (tier < 1 || tier > 3) { player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-023", "§cNivel válido: 1, 2 o 3.")); return true; }
             visuals.treasure(at, tier == 1 ? Material.IRON_ORE : tier == 2 ? Material.REDSTONE_ORE : Material.DIAMOND_ORE, tier);
         } else if (args[1].equalsIgnoreCase("gema")) {
             if(!config.getBoolean("gemas.activadas",true)){sender.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-024", "Resonancia desactivada."));return true;}
