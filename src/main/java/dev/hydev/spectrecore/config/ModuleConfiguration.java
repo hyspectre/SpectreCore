@@ -10,13 +10,13 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.*;
 
-/** Strict, restart-stable module index. Runtime compatibility keys are never written to disk. */
+/** All gameplay modules are always installed. Legacy enabled switches are stripped on migration. */
 public final class ModuleConfiguration {
     public static final List<String> MODULES=List.of("equipamiento","cocina","tesoros","resonancia","trabajos","slayer","dungeons","actividades","accesorios");
     private static final List<String> FILES=List.of("accesorios/config.yml","accesorios/catalogo.yml","equipamiento/config.yml","cocina/config.yml","cocina/recetas.yml","tesoros/config.yml","tesoros/mineria.yml","tesoros/combate.yml","tesoros/agricultura.yml","resonancia/config.yml","trabajos/config.yml","slayer/config.yml","dungeons/config.yml","dungeons/jefes.yml","dungeons/portal.yml","actividades/config.yml","equipamiento/mensajes.yml","equipamiento/ajustes.yml","cocina/mensajes.yml","cocina/ajustes.yml","tesoros/mensajes.yml","tesoros/ajustes.yml","resonancia/mensajes.yml","resonancia/ajustes.yml","trabajos/mensajes.yml","trabajos/ajustes.yml","slayer/mensajes.yml","slayer/ajustes.yml","dungeons/mensajes.yml","dungeons/ajustes.yml","actividades/mensajes.yml","actividades/ajustes.yml","nucleo/mensajes.yml","nucleo/ajustes.yml","nucleo/comandos.yml");
     private static final List<String> LEGACY=List.of("config.yml","mining.yml","treasures.yml","combat-treasures.yml","agriculture-treasures.yml","jobs.yml","slayer.yml","portal.yml","activities.yml","cooking/recipes.yml");
     private final File folder; private final ClassLoader resources;
-    private Map<String,YamlConfiguration> files=Map.of(); private Map<String,Boolean> requested=Map.of(),startup;
+    private Map<String,YamlConfiguration> files=Map.of(); private Map<String,Boolean> requested=Map.of();
     public ModuleConfiguration(File folder,ClassLoader resources){this.folder=folder;this.resources=resources;}
     public static ModuleConfiguration of(JavaPlugin plugin){return ((SpectreCorePlugin)plugin).moduleConfigs();}
     public static YamlConfiguration module(JavaPlugin plugin,String path){return of(plugin).read(path);}
@@ -42,6 +42,37 @@ public final class ModuleConfiguration {
     }
     private void save(File file,YamlConfiguration yaml)throws Exception{
         dev.hydev.spectrecore.storage.AtomicFileStore.writeUtf8(file.toPath(), yaml.saveToString());
+    }
+    /** No persisted flag can disable a module. Gameplay and integration options remain editable. */
+    private static List<String> retiredSwitches(String path) {
+        return switch(path) {
+            case "accesorios/config.yml","accesorios/catalogo.yml",
+                 "tesoros/mineria.yml","tesoros/combate.yml","tesoros/agricultura.yml" -> List.of("enabled");
+            case "equipamiento/config.yml" -> List.of(
+                "skills.botania.enabled","skills.necrotica.enabled",
+                "skills.asterion.enabled","skills.ultimo-juramento.enabled",
+                "skills.sangre-primer-dragon.enabled","libro.enabled");
+            case "dungeons/config.yml" -> List.of("jefes.enabled","portal.enabled");
+            case "trabajos/config.yml" -> List.of("minero.enabled","granjero.enabled","cazador.enabled");
+            case "actividades/config.yml" -> List.of("cygnus.enabled","entrada.enabled",
+                "cofre.enabled","polvos.enabled","desbloqueos.enabled","telefono.enabled");
+            default -> List.of();
+        };
+    }
+    private static boolean removeModuleSwitches(String path,YamlConfiguration yaml) {
+        boolean changed=false;
+        for (String key:retiredSwitches(path)) if(yaml.contains(key)) {
+            yaml.set(key,null); changed=true;
+        }
+        return changed;
+    }
+    private void backup(File source,String path)throws IOException {
+        if (!source.isFile())return;
+        File target=new File(folder,"backups/always-on-v1/"+path);
+        if(!target.exists()) {
+            Files.createDirectories(target.toPath().getParent());
+            Files.copy(source.toPath(),target.toPath());
+        }
     }
     public void reload()throws Exception{
         File rootFile=new File(folder,"config.yml");YamlConfiguration old=strict(rootFile);
@@ -98,14 +129,14 @@ public final class ModuleConfiguration {
                     case "cocina/config.yml"->branch(yaml,"cooking",old);
                     case "cocina/recetas.yml"->{var recipes=originals.get("cooking/recipes.yml");if(!recipes.contains("recetas"))recipes=strict(new File(folder.getParentFile(),"SpectreCooking/recipes.yml"));merge(yaml,recipes,"");}
                     case "resonancia/config.yml"->{branch(yaml,"gemas",mining);branch(yaml,"visuales",mining);yaml.set("gemas.activadas",null);}
-                    case "tesoros/mineria.yml"->{branch(yaml,"tesoros",mining);branch(yaml,"probabilidades",mining);branch(yaml,"visuales",mining);yaml.set("enabled",old.getBoolean("modules.mining.enabled",true)&&mining.getBoolean("tesoros.activados",true));yaml.set("tesoros.activados",null);}
+                    case "tesoros/mineria.yml"->{branch(yaml,"tesoros",mining);branch(yaml,"probabilidades",mining);branch(yaml,"visuales",mining);yaml.set("tesoros.activados",null);}
                     case "tesoros/config.yml"->{var shared=originals.get("treasures.yml");if(shared.contains("cooldown-compartido-segundos"))yaml.set("cooldown-compartido-segundos",shared.get("cooldown-compartido-segundos"));else if(mining.contains("tesoros.cooldown-segundos"))yaml.set("cooldown-compartido-segundos",mining.get("tesoros.cooldown-segundos"));}
-                    case "tesoros/combate.yml","tesoros/agricultura.yml"->{String name=path.contains("combate")?"combat":"agriculture",type=name.equals("combat")?"combate":"agricultura";File source=new File(folder,name+"-treasures.yml");merge(yaml,originals.get(name+"-treasures.yml"),"");if(!source.isFile()){var s=skript.getConfigurationSection("probabilidades."+type);if(s!=null)merge(yaml,s,"probabilidades."+type+".");}if(old.contains("modules."+name+"-treasures.enabled"))yaml.set("enabled",old.getBoolean("modules."+name+"-treasures.enabled"));}
+                    case "tesoros/combate.yml","tesoros/agricultura.yml"->{String name=path.contains("combate")?"combat":"agriculture",type=name.equals("combat")?"combate":"agricultura";File source=new File(folder,name+"-treasures.yml");merge(yaml,originals.get(name+"-treasures.yml"),"");if(!source.isFile()){var s=skript.getConfigurationSection("probabilidades."+type);if(s!=null)merge(yaml,s,"probabilidades."+type+".");}}
                     case "trabajos/config.yml"->merge(yaml,new File(folder,"jobs.yml").isFile()?originals.get("jobs.yml"):jobsLegacy,"");
                     case "slayer/config.yml"->merge(yaml,originals.get("slayer.yml"),"");
-                    case "dungeons/config.yml"->{if(old.contains("modules.boss-damage.enabled"))yaml.set("jefes.enabled",old.getBoolean("modules.boss-damage.enabled"));if(old.contains("modules.exit-portal.enabled"))yaml.set("portal.enabled",old.getBoolean("modules.exit-portal.enabled"));}
+                    case "dungeons/config.yml"->{ /* The dungeon systems are always present. */ }
                     case "dungeons/portal.yml"->merge(yaml,originals.get("portal.yml"),"");
-                    case "actividades/config.yml"->{merge(yaml,originals.get("activities.yml"),"");if(originals.get("activities.yml").contains("entrada.proteccion"))yaml.set("entrada.enabled",originals.get("activities.yml").getBoolean("entrada.proteccion"));yaml.set("entrada.proteccion",null);}
+                    case "actividades/config.yml"->{merge(yaml,originals.get("activities.yml"),"");yaml.set("entrada.proteccion",null);}
                     default->{}
                 }
                 if (path.equals("cocina/config.yml")) {
@@ -114,6 +145,13 @@ public final class ModuleConfiguration {
                     if (rewards != null && rewards.getKeys(false).isEmpty())
                         yaml.set("cooking.rewards", null);
                 }
+                removeModuleSwitches(path,yaml);
+                save(destination,yaml);
+            }
+            // Existing installed configs may contain retired false flags. Preserve a byte
+            // for byte backup, then strip them so administrators never see inert switches.
+            if (removeModuleSwitches(path,yaml)) {
+                backup(destination,"modules/"+path);
                 save(destination,yaml);
             }
             // Rewrite only explicit references to this plugin's former slash commands.
@@ -148,43 +186,44 @@ public final class ModuleConfiguration {
             next.put(path,yaml);
         }
         var index=legacy?resource("config.yml"):old;
-        if(legacy){
-            Map<String,String> aliases=Map.of("equipamiento","skills","cocina","cooking","trabajos","jobs","slayer","slayer","actividades","activities");
-            aliases.forEach((name,previous)->{if(old.contains("modules."+previous+".enabled"))index.set("modules."+name+".enabled",old.getBoolean("modules."+previous+".enabled"));});
-            // Preserve an explicit Relicario switch during migration from pre-v2 configurations.
-            if(old.contains("modules.accesorios.enabled"))
-                index.set("modules.accesorios.enabled",old.getBoolean("modules.accesorios.enabled"));
-            index.set("modules.resonancia.enabled",old.getBoolean("modules.mining.enabled",true)&&mining.getBoolean("gemas.activadas",true));
-            for(String key:old.getKeys(false))if(!Set.of("config-version","modules","skills","engine","cooking").contains(key)){
-                if(old.isConfigurationSection(key))merge(index,old.getConfigurationSection(key),key+".");else index.set(key,old.get(key));
-            }
+        if(legacy) {
+            for(String key:old.getKeys(false))
+                if(!Set.of("config-version","modules","skills","engine","cooking").contains(key)) {
+                    if(old.isConfigurationSection(key))merge(index,old.getConfigurationSection(key),key+".");
+                    else index.set(key,old.get(key));
+                }
+        }
+        // An older config may have modules.*.enabled=false, including a previously
+        // broken relicario migration. The entire selector tree is obsolete.
+        boolean rootChanged=legacy || index.contains("modules");
+        if(rootChanged) {
+            backup(rootFile,"config.yml");
+            index.set("modules",null);
+            index.set("config-version",2);
             save(rootFile,index);
         }
         Map<String,Boolean> flags=new LinkedHashMap<>();
-        for(String name:MODULES){String key="modules."+name+".enabled";if(index.contains(key)&&!index.isBoolean(key))throw new IOException("Debe ser true/false: config.yml "+key);flags.put(name,index.getBoolean(key,!name.equals("accesorios")));}
-        flags.put("tesoros.mineria",flags.get("tesoros")&&bool(next.get("tesoros/mineria.yml"),"enabled"));
-        flags.put("tesoros.combate",flags.get("tesoros")&&bool(next.get("tesoros/combate.yml"),"enabled"));
-        flags.put("tesoros.agricultura",flags.get("tesoros")&&bool(next.get("tesoros/agricultura.yml"),"enabled"));
-        flags.put("dungeons.jefes",flags.get("dungeons")&&bool(next.get("dungeons/config.yml"),"jefes.enabled"));
-        flags.put("dungeons.portal",flags.get("dungeons")&&bool(next.get("dungeons/config.yml"),"portal.enabled"));
-        flags.put("equipamiento.libro",flags.get("equipamiento")&&bool(next.get("equipamiento/config.yml"),"libro.enabled"));
-        for(String skill:List.of("botania","necrotica","asterion","ultimo-juramento","sangre-primer-dragon"))flags.put("equipamiento."+skill,flags.get("equipamiento")&&bool(next.get("equipamiento/config.yml"),"skills."+skill+".enabled"));
-        for(String job:List.of("minero","granjero","cazador"))flags.put("trabajos."+job,flags.get("trabajos")&&bool(next.get("trabajos/config.yml"),job+".enabled"));
-        for(String name:List.of("cygnus","cofre","polvos","desbloqueos","telefono","entrada"))flags.put("actividades."+name,flags.get("actividades")&&bool(next.get("actividades/config.yml"),name+".enabled"));
+        for(String name:MODULES)flags.put(name,true);
+        for(String name:List.of("mineria","combate","agricultura"))flags.put("tesoros."+name,true);
+        for(String name:List.of("jefes","portal"))flags.put("dungeons."+name,true);
+        flags.put("equipamiento.libro",true);
+        for(String name:List.of("botania","necrotica","asterion","ultimo-juramento","sangre-primer-dragon"))flags.put("equipamiento."+name,true);
+        for(String name:List.of("minero","granjero","cazador"))flags.put("trabajos."+name,true);
+        for(String name:List.of("cygnus","cofre","polvos","desbloqueos","telefono","entrada"))flags.put("actividades."+name,true);
         Settings.validate(next,resources);
         Gameplay.validate(next);
-        files=Collections.unmodifiableMap(next);requested=Collections.unmodifiableMap(flags);if(startup==null)startup=Map.copyOf(flags);
+        files=Collections.unmodifiableMap(next);requested=Collections.unmodifiableMap(flags);
     }
-    private static boolean bool(YamlConfiguration y,String key)throws IOException{if(y.contains(key)&&!y.isBoolean(key))throw new IOException("Debe ser true/false: "+key);return y.getBoolean(key,true);}
-    public boolean active(String name){return startup!=null&&startup.getOrDefault(name,false);}
+    public boolean active(String name){return requested.getOrDefault(name,false);}
     public Map<String,Boolean> requested(){return requested;}
-    public boolean restartPending(String name){return active(name)!=requested.getOrDefault(name,false);}
+    public boolean restartPending(String name){return false;}
     public void install(FileConfiguration runtime){
-        runtime.set("engine",null);runtime.set("skills",null);runtime.set("cooking",null);
+        runtime.set("engine",null);runtime.set("skills",null);runtime.set("cooking",null);runtime.set("modules",null);
         copy(runtime,read("equipamiento/config.yml"),"engine");copy(runtime,read("equipamiento/config.yml"),"skills");copy(runtime,read("cocina/config.yml"),"cooking");
         for(String skill:List.of("botania","necrotica","asterion","ultimo-juramento","sangre-primer-dragon"))runtime.set("skills."+skill+".enabled",active("equipamiento."+skill));
         Map<String,Boolean> aliases=new LinkedHashMap<>();aliases.put("skills",active("equipamiento"));aliases.put("cooking",active("cocina"));aliases.put("mining",active("resonancia")||active("tesoros.mineria"));aliases.put("combat-treasures",active("tesoros.combate"));aliases.put("agriculture-treasures",active("tesoros.agricultura"));aliases.put("boss-damage",active("dungeons.jefes"));aliases.put("exit-portal",active("dungeons.portal"));aliases.put("jobs",active("trabajos"));aliases.put("slayer",active("slayer"));aliases.put("activities",active("actividades"));
-        aliases.forEach((key,value)->runtime.set("modules."+key+".enabled",value));
+        aliases.forEach((key,value)->runtime.set("modules."+key+".enabled",true));
+        for(String name:MODULES)runtime.set("modules."+name+".enabled",true);
     }
     private static void copy(FileConfiguration into,YamlConfiguration from,String branch){var s=from.getConfigurationSection(branch);if(s!=null)for(String key:s.getKeys(true))if(!s.isConfigurationSection(key))into.set(branch+"."+key,s.get(key));}
     public YamlConfiguration mining(){
