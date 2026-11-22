@@ -50,3 +50,39 @@ assert "dispatchCommand(" not in java and "showDialog(" not in java
 assert "armorGuide.enable();" in plugin and "armorGuide.disable();" in plugin
 assert "plugin.armors()" in mago
 print("PASS Native Armaduras: 6 GUI pages, 5 sets, configured lore and safe navigation")
+
+# Integration deliverables: compact 20-piece lore and five complete set definitions.
+integration=root/"integracion-mmoitems"
+armor_items=yaml.safe_load((integration/"ARMOR_HYDEV_20_versalitas_v3.yml").read_text(encoding="utf8"))
+item_sets=yaml.safe_load((integration/"ITEM_SETS_HYDEV_5_v1.yml").read_text(encoding="utf8"))
+assert len(armor_items)==20 and len(item_sets)==5
+expected_families={
+    "VERDANA_ARMOR":"HYDEV_RAIGAMBRE",
+    "NECROTICO":"NECROTICO",
+    "MINOTAURO_ARMOR":"HYDEV_LABERINTO",
+    "CABALLERO_ARMOR":"HYDEV_VOTO",
+    "DRACONIDO_ARMOR":"HYDEV_IGNEA"
+}
+assert set(item_sets)==set(expected_families.values())
+for prefix, set_id in expected_families.items():
+    for index in range(1,5):
+        key=f"{prefix}_{index}"
+        base=armor_items[key]["base"]
+        assert base["set"]==set_id,(key,base["set"])
+        lore=base["lore"]
+        assert 7<=len(lore)<=15,(key,len(lore))
+        assert any("" in line and "ʜᴀʙɪʟɪᴅᴀᴅ" in line for line in lore),key
+        assert any("ᴀʀᴍᴀᴅᴜʀᴀs" in line for line in lore),key
+        assert not any("⊱" in line for line in lore),key
+        assert not any(re.search(r"MMOItems|SpectreCore|MythicMobs|/[a-z]+",line,re.I) for line in lore),key
+        for line in lore:
+            visible=re.sub(r"<[^>]*>","",line)
+            visible=re.sub(r"(?i)[&§][0-9a-fk-or]|&#[0-9a-fA-F]{6}","",visible)
+            assert len(visible)<=30,(key,visible)
+assert item_sets["HYDEV_RAIGAMBRE"]["bonuses"]["5"]=={"potion-regeneration":1}
+assert item_sets["NECROTICO"]["bonuses"]=={"2":{"max-health":4},"4":{"damage-reduction":5}}
+assert item_sets["HYDEV_VOTO"]["bonuses"]=={"2":{"critical-strike-chance":8}}
+assert item_sets["HYDEV_LABERINTO"]["bonuses"]=={"5":{"critical-strike-chance":5}}
+assert item_sets["HYDEV_IGNEA"]["bonuses"]=={}
+assert all(set(v)=={"name","bonuses","lore-tag"} and v["lore-tag"]==[] for v in item_sets.values())
+print("PASS integration: 20 compact armor lores and 5 item sets, no double-counted native passives")
