@@ -178,7 +178,7 @@ public final class LegacyActivities implements Listener {
         }catch(IllegalArgumentException error){
             plugin.getLogger().warning("Cofre de actividad: configuración inválida: " + error.getMessage());
             player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-022",
-                    "<red>Este cofre no está disponible. Avisa a administración."));
+                    "<reset><red>Este cofre no está disponible. Avisa a administración."));
             return;
         }
         if (!savePending()) { pending.remove(id); chestStorageReady = false; player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-023", "§cNo se pudo guardar el cofre; inténtalo más tarde.")); return; }
