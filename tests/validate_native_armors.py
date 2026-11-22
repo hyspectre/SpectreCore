@@ -74,7 +74,7 @@ for prefix, set_id in expected_families.items():
         assert any("" in line and "ʜᴀʙɪʟɪᴅᴀᴅ" in line for line in lore),key
         assert any("ᴀʀᴍᴀᴅᴜʀᴀs" in line for line in lore),key
         assert not any("⊱" in line for line in lore),key
-        assert not any(re.search(r"MMOItems|SpectreCore|MythicMobs|/[a-z]+",line,re.I) for line in lore),key
+        assert not any(re.search(r"MMOItems|SpectreCore|MythicMobs|/[a-z]+",re.sub(r"</?[a-zA-Z_#][^>]*>","",line),re.I) for line in lore),key
         for line in lore:
             visible=re.sub(r"<[^>]*>","",line)
             visible=re.sub(r"(?i)[&§][0-9a-fk-or]|&#[0-9a-fA-F]{6}","",visible)
