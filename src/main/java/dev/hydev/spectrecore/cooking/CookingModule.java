@@ -1478,7 +1478,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
             catch (Exception error) {
                 getLogger().warning("Cocina: recarga rechazada: " + error.getMessage());
                 sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-019",
-                        "{prefix}<red>No se pudieron actualizar las recetas. Avisa a administración.",
+                        "{prefix}<reset><red>No se pudieron actualizar las recetas. Avisa a administración.",
                         "prefix", Settings.component(prefix())));
             }
             return true;
