@@ -30,7 +30,7 @@ visual:
     actividades: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2VkMWFiYTczZjYzOWY0YmM0MmJkNDgxOTZjNzE1MTk3YmUyNzEyYzNiOTYyYzk3ZWJmOWU5ZWQ4ZWZhMDI1In19fQ=="
 
 # Edítalo sin recompilar. Solo destinos de página, no comandos arbitrarios.
-# /mago usa los Dialogs nativos de Minecraft 1.21.10.
+# El Mago usa una biblioteca GUI de 54 espacios, con navegación interna.
 invalid-page: "<red>El Mago no conoce esa sección.</red>"
 close: "<gray>Cerrar</gray>"
 console-message: "<gray>Consulta al Mago dentro del juego.</gray>"
@@ -41,16 +41,16 @@ pages:
     resumen: "<white>Descubre los conocimientos esenciales de Hydev."
     puntos:
       - "<gray>Elige un tema para empezar."
-      - "<gray>Guías breves, sin tecnicismos."
-      - "<dark_gray>Los contratos se gestionan aparte."
+      - "<gray>Consejos prácticos para tu camino."
+      - "<dark_gray>Los contratos se consultan por separado."
     buttons:
-      - label: '<aqua>⚔ RPG</aqua>'
+      - label: '<aqua>⚔ Combate</aqua>'
         page: rpg
         descripcion: "<gray>Conjuntos, habilidades y combate"
       - label: '<gold>✦ Profesiones</gold>'
         page: profesiones
         descripcion: "<gray>Oficios, contratos y cocina"
-      - label: '<green>Guías del servidor</green>'
+      - label: '<green>Exploración y aventuras</green>'
         page: guias
         descripcion: "<gray>Cacerías, tesoros y expediciones"
   rpg:
@@ -89,19 +89,19 @@ pages:
       - "<gray>Con cuatro piezas, habilidad especial."
       - "<gray>Consulta Armaduras para ver tus bonos."
     buttons:
-      - label: '<gray>RPG</gray>'
+      - label: '<gray>Combate</gray>'
         page: rpg
         descripcion: "<gray>Conjuntos, habilidades y combate"
   habilidades:
     title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Habilidades"
-    body: "<gray>Las habilidades de los conjuntos se explican en Armaduras. Se ampliará esta sección con otras habilidades.</gray>"
+    body: "<gray>Cada armadura encierra un poder distinto: aprende cuándo y cómo despertarlo.</gray>"
     resumen: "<white>Aprende cómo activar tus habilidades de conjunto."
     puntos:
       - "<gray>Sus condiciones cambian por armadura."
       - "<gray>Lee señales, alcance y recarga."
       - "<gray>Algunas exigen golpes o daño recibido."
     buttons:
-      - label: '<gray>RPG</gray>'
+      - label: '<gray>Combate</gray>'
         page: rpg
         descripcion: "<gray>Conjuntos, habilidades y combate"
   mascotas:
@@ -112,34 +112,34 @@ pages:
       - "<gray>Contenido en preparación."
       - "<dark_gray>No hay mascotas desbloqueables todavía."
     buttons:
-      - label: '<gray>RPG</gray>'
+      - label: '<gray>Combate</gray>'
         page: rpg
         descripcion: "<gray>Conjuntos, habilidades y combate"
   encantamientos:
     title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Encantamientos"
-    body: "<gray>Conoce los encantamientos personalizados cuando estén implementados.</gray>"
+    body: "<gray>Los nuevos encantamientos permanecen ocultos por ahora.</gray>"
     resumen: "<white>La ampliación de encantamientos está pendiente."
     puntos:
       - "<gray>Contenido en preparación."
       - "<dark_gray>Se anunciará cuando esté disponible."
     buttons:
-      - label: '<gray>RPG</gray>'
+      - label: '<gray>Combate</gray>'
         page: rpg
         descripcion: "<gray>Conjuntos, habilidades y combate"
   accesorios:
     title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Accesorios"
-    body: "<gray>Esta sección mostrará los accesorios del servidor.</gray>"
+    body: "<gray>Los accesorios especiales todavía no están al alcance de los aventureros.</gray>"
     resumen: "<white>Los accesorios especiales están en preparación."
     puntos:
       - "<gray>Contenido en preparación."
       - "<dark_gray>Sin sistema activo por ahora."
     buttons:
-      - label: '<gray>RPG</gray>'
+      - label: '<gray>Combate</gray>'
         page: rpg
         descripcion: "<gray>Conjuntos, habilidades y combate"
   profesiones:
     title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Profesiones"
-    body: "<gray>Conoce los oficios y sus estaciones. Cada profesión tiene sus propias actividades y recompensas.</gray>"
+    body: "<gray>Minería, Agricultura y Caza ofrecen desafíos, rangos y recompensas. También puedes perfeccionar tu cocina.</gray>"
     resumen: "<white>Descubre tareas, contratos y cocina."
     puntos:
       - "<gray>Minería, Agricultura y Caza."
@@ -160,7 +160,7 @@ pages:
         descripcion: "<gray>Regresar a la portada"
   cocina:
     title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Cocina"
-    body: "<gray>Activa cocinas con un mechero, prepara ingredientes y sirve platos. Pulsa Recetario para consultar las recetas disponibles.</gray>"
+    body: "<gray>Enciende la fogata, prepara los ingredientes y sirve tus platos. Descubre qué secretos guarda cada receta.</gray>"
     resumen: "<white>Prepara platos mediante acciones breves."
     puntos:
       - "<gray>Enciende una estación con un mechero."
@@ -175,14 +175,14 @@ pages:
         descripcion: "<gray>Oficios, contratos y cocina"
   guias:
     title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Guías"
-    body: "<gray>Consulta los sistemas del servidor sin salir de Minecraft.</gray>"
+    body: "<gray>Descubre los secretos, desafíos y oportunidades de Hydev.</gray>"
     resumen: "<white>Explora los secretos y actividades de Hydev."
     puntos:
       - "<gray>Cacerías, tesoros y resonancia."
       - "<gray>Portales para aventuras cooperativas."
       - "<gray>Encuentros y actividades especiales."
     buttons:
-      - label: '<red>Misiones Slayer</red>'
+      - label: '<red>Cacerías de la Monarquía</red>'
         page: slayer
         descripcion: "<gray>Contratos, jefes y recetas"
       - label: '<gold>Tesoros</gold>'
@@ -226,7 +226,7 @@ pages:
         descripcion: "<gray>Oficios, contratos y cocina"
   slayer:
     title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Cacerías"
-    body: "<gray>Acepta misiones, elimina los objetivos de tu categoría y progresa por tiers. Cada cacería tiene objetivos, dificultades y recompensas distintas.</gray>"
+    body: "<gray>Acepta contratos, derrota criaturas y avanza en los rangos de cacería. Cada cacería tiene objetivos, dificultades y recompensas distintas.</gray>"
     resumen: "<white>Cumple contratos y derrota jefes poderosos."
     puntos:
       - "<gray>Elimina enemigos para atraer al jefe."
