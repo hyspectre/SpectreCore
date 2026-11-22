@@ -1,6 +1,6 @@
 SpectreCorePlugin:
   etiqueta-035: "Configuración modular inválida: "
-  mensaje-001: "Esta función está desactivada."
+  mensaje-001: "Esta función no está disponible. Revisa la consola del servidor."
   mensaje-002: "Hay sistemas incompatibles activos. Consulta a administración antes de continuar."
   mensaje-003: "La minería especial está desactivada."
   mensaje-004: "Actividades desactivadas."
