@@ -2,6 +2,8 @@ package dev.hydev.spectrecore.relicario;
 
 import dev.hydev.spectrecore.SpectreCorePlugin;
 import dev.hydev.spectrecore.config.ModuleConfiguration;
+import dev.hydev.spectrecore.model.CustomHeads;
+import dev.hydev.spectrecore.model.TexturePayload;
 import dev.hydev.spectrecore.text.TextService;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -29,6 +31,8 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 
 import java.io.File;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -46,7 +50,11 @@ import java.util.UUID;
  */
 public final class RelicarioModule implements Listener {
     private record Entry(String id, String name, String category, String rarity,
-                         String origin, Material material, RelicarioRules.Relic relic) { }
+                         String origin, Material material, String texture, RelicarioRules.Relic relic) {
+        ItemStack icon() {
+            return texture.isEmpty() ? new ItemStack(material) : CustomHeads.fromBase64(texture);
+        }
+    }
     private static final List<String> GROUPS = List.of("cripta", "superficie",
             "exploracion", "excepcionales");
 
@@ -108,6 +116,10 @@ public final class RelicarioModule implements Listener {
     public boolean reload() {
         try {
             YamlConfiguration catalog = plugin.moduleConfigs().read("accesorios/catalogo.yml");
+            YamlConfiguration bundled = new YamlConfiguration();
+            try (var reader = new InputStreamReader(plugin.getResource("modules/accesorios/catalogo.yml"), StandardCharsets.UTF_8)) {
+                bundled.load(reader);
+            }
             File file = new File(plugin.getDataFolder(), "ui/relicario.yml");
             if (!file.exists()) plugin.saveResource("ui/relicario.yml", false);
             if (!file.isFile() || file.length() > 96_000) throw new IllegalArgumentException("UI invalid");
@@ -137,7 +149,10 @@ public final class RelicarioModule implements Listener {
                 String name = line.getString("nombre", id);
                 String rarity = line.getString("rareza", "RARE");
                 String origin = line.getString("origen", "");
-                Material material = Material.matchMaterial(line.getString("material", ""));
+                String texture = line.getString("textura", bundled.getString("accesorios." + id + ".textura", ""));
+                Material material = Material.PLAYER_HEAD;
+                if (texture.isEmpty()) material = Material.matchMaterial(line.getString("material", ""));
+                else texture = TexturePayload.checked(texture);
                 if (material == null || !material.isItem() || name.length() > 80 ||
                         origin.length() > 120 || !Set.of("RARE","EPIC","LEGENDARY").contains(rarity))
                     throw new IllegalArgumentException("Invalid accessory display: " + id);
@@ -149,7 +164,7 @@ public final class RelicarioModule implements Listener {
                     bonuses.put(stat, stats.getDouble(stat));
                 }
                 var relic = new RelicarioRules.Relic(id, family, rank, bonuses);
-                next.put(id, new Entry(id, name, group, rarity, origin, material, relic));
+                next.put(id, new Entry(id, name, group, rarity, origin, material, texture, relic));
             }
             var validated = RelicarioRules.validateCatalog(next.values().stream().map(Entry::relic).toList());
             for (String group : GROUPS) {
@@ -291,7 +306,7 @@ public final class RelicarioModule implements Listener {
                 text(ui.getString("confirmacion.title", "<gold>Absorber reliquia")));
         holder.inventory = inv;
         Entry entry = entries.get(id);
-        put(inv, ui.getInt("confirmacion.item-slot",13), entry.material,
+        put(inv, ui.getInt("confirmacion.item-slot",13), entry.icon(),
                 "<gold>" + entry.name, List.of("<gray>" + entry.origin));
         int yes = ui.getInt("confirmacion.confirmar-slot",11),
             no = ui.getInt("confirmacion.cancelar-slot",15);
@@ -308,8 +323,11 @@ public final class RelicarioModule implements Listener {
             ui.getString("mensajes." + key, fallback); }
     private static Component text(String s) { return TextService.component(s).decoration(TextDecoration.ITALIC, false); }
     private void put(Inventory inv, int slot, Material material, String title, List<String> lore) {
+        put(inv, slot, new ItemStack(material), title, lore);
+    }
+
+    private void put(Inventory inv, int slot, ItemStack item, String title, List<String> lore) {
         if (slot < 0 || slot >= inv.getSize()) return;
-        ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
         if (meta == null) return;
         meta.displayName(text(title));
@@ -388,7 +406,7 @@ public final class RelicarioModule implements Listener {
                 }
                 lore.add("");
                 lore.add(state);
-                put(inv, slots.get(i++), entry.material, "<gold>" + entry.name, lore);
+                put(inv, slots.get(i++), entry.icon(), "<gold>" + entry.name, lore);
             }
             back(inv, holder);
         }

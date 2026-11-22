@@ -35,7 +35,7 @@ menús y bonificaciones. Todos los módulos de SpectreCore se inician automátic
 
 ## Instalación (los módulos están activos por defecto)
 1. Añadir el tipo `RELIQUIA` a `plugins/MMOItems/item-types.yml` (fusionar, no sobrescribir).
-2. Añadir los 32 IDs del archivo `RELIQUIA.yml` a `plugins/MMOItems/item/reliquia.yml`, una vez registrado el tipo; comprobar su creación con `/mi browse`.
+2. Copiar `language/lore-formats/reliquia-compacta.yml` bajo `plugins/MMOItems/` y tener registrados los tooltips `COPPER`, `SILVER` y `GOLD`. Añadir los 32 IDs del archivo `RELIQUIA.yml` a `plugins/MMOItems/item/reliquia.yml`, una vez registrado el tipo; comprobar su creación con `/mi browse`.
 3. Instalar el JAR compilado de SpectreCore y reiniciar el servidor. No hay interruptores de módulos ni `enabled` en `config.yml`. Al iniciar, SpectreCore migra las opciones de activación antiguas y realiza copias de seguridad bajo `plugins/SpectreCore/backups/always-on-v1/`. Si conservas archivos del prototipo, no necesitas editarlos manualmente para activar el Relicario.
 4. Abrir `/spectrecore relicario`, entregar un artículo auténtico `RELIQUIA` mediante las herramientas administrativas de MMOItems, probar primero una reliquia de baja rareza y verificar el archivo `plugins/SpectreCore/data/relicario/<UUID>.yml`.
 5. Hacer copia de seguridad antes de introducir objetos de valor. Si el almacenamiento falla, el consumo se bloquea.

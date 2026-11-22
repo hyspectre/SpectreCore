@@ -1,421 +1,549 @@
-# Añadir estos 32 IDs en plugins/MMOItems/item/RELIQUIA.yml.
-# Los atributos permanentes se resolverán desde el registro del Relicario, nunca desde el ítem.
-# No definir efectos de consumible, estadísticas de mano ni comandos en estos objetos.
+# Hydev / Relicario — 32 reliquias para MMOItems
+# Archivo: plugins/MMOItems/item/reliquia.yml
+# El efecto permanente lo aplica SpectreCore tras la absorción.
+# NO añadir estadísticas nativas al objeto, porque duplicarían las bonificaciones.
 BROTE_MARCHITO:
   base:
-    material: MANGROVE_ROOTS
+    lore-format: reliquia-compacta
+    material: PLAYER_HEAD
+    disable-interaction: true
+    # Minecraft Heads: Dead Seed
+    skull-texture:
+      uuid: c4b33829-66f1-4dac-b7df-5f283aa6283f
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTY1NWRhNTFhOWQ2ZjY1N2RiMmY3MzczYWJmYWE0MDc0MWM4MWU4ZTFiZWJjMWJjNmZmOTYxYmNiZjg5ZDBjOCJ9fX0=
     name: <gradient:#76C1AF:#E7DFD5>Brote Marchito</gradient>
     tier: RARE
+    tooltip: COPPER
     lore:
-    - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f'
     - '&f Maná máximo &a+6'
-    - '&f'
-    - '&8 Ent Corrupto y raíces'
-    - '&8 pestilentes'
+    - '&8 Ent Corrupto y raíces pestilentes'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 NUCLEO_SILVESTRE:
   base:
-    material: HEART_OF_THE_SEA
+    lore-format: reliquia-compacta
+    material: PLAYER_HEAD
+    disable-interaction: true
+    # Minecraft Heads: Heart of the Forest
+    skull-texture:
+      uuid: cbdfa8e6-909d-40d2-98bd-2c233859b0a9
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWVmNTM5YjE2NTEyNWNmYTQ2YjA2ZmZiOTY1OWU3Y2Y4OTA4NGJiZDNlZGUxYjMxNGVkYzhmNDQzMzQzZDYxYyJ9fX0=
     name: <gradient:#BB91DA:#E7DFD5>Núcleo Silvestre</gradient>
     tier: EPIC
+    tooltip: SILVER
     lore:
-    - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f'
     - '&f Maná máximo &a+16'
-    - '&f'
     - '&8 Núcleo del Ent'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 MEDALLON_AGRIETADO:
   base:
-    material: ECHO_SHARD
+    lore-format: reliquia-compacta
+    material: PLAYER_HEAD
+    disable-interaction: true
+    # Minecraft Heads: Amulet Base
+    skull-texture:
+      uuid: 5c263a25-74c9-486a-af32-937ef09e05bf
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjFhOWFlOWRiMzZmNzBkNDY3MzU0MDY5ZmJiZGNjN2QyNzliYWY2NzIxNTYxMzgxZGE2MGQzMzliMjNkODgyOSJ9fX0=
     name: <gradient:#76C1AF:#E7DFD5>Medallón Agrietado</gradient>
     tier: RARE
+    tooltip: COPPER
     lore:
-    - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f'
     - '&f Daño mágico &a+1%'
-    - '&f'
     - '&8 Vestigios de Alma'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 MEDALLON_PROFANO:
   base:
-    material: AMETHYST_SHARD
+    lore-format: reliquia-compacta
+    material: PLAYER_HEAD
+    disable-interaction: true
+    # Minecraft Heads: Onyx Amulet
+    skull-texture:
+      uuid: c105f0e5-5041-4e62-bcb6-8a93c0202939
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzExZTJlOGYyMzYwOTAwMTEwNmMwN2YxNjk3YTVhMDMyNjQ2YTg1ZGU4MjI3MDMzZDMzY2FhYjhjMTJjNWU5MiJ9fX0=
     name: <gradient:#BB91DA:#E7DFD5>Medallón Profano</gradient>
     tier: EPIC
+    tooltip: SILVER
     lore:
-    - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f'
     - '&f Daño mágico &a+2.5%'
-    - '&f'
     - '&8 Esencia del Nigromante'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 CUERNO_ASTILLADO:
   base:
-    material: GOAT_HORN
+    lore-format: reliquia-compacta
+    material: PLAYER_HEAD
+    disable-interaction: true
+    # Minecraft Heads: Goat Horn
+    skull-texture:
+      uuid: 6f3b0238-bc59-4c39-bad3-d72ae572bd6b
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODdiMDUzOWI3MzBmZDc0ZDg0ZGM1OTIyYmZmNzZiOTY5ODY5NGM2N2QzZWZjN2JlYmVhNjgyYTA0MzFjNDk5NyJ9fX0=
     name: <gradient:#76C1AF:#E7DFD5>Cuerno Astillado</gradient>
     tier: RARE
+    tooltip: COPPER
     lore:
-    - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f'
     - '&f Probabilidad crítica &a+0.5%'
-    - '&f'
     - '&8 Criaturas del Laberinto'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 MARCA_LABERINTO:
   base:
-    material: NETHER_BRICK
+    lore-format: reliquia-compacta
+    material: PLAYER_HEAD
+    disable-interaction: true
+    # Minecraft Heads: Maze Block
+    skull-texture:
+      uuid: 3299654f-fd05-4128-9768-09bcb7158119
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjBkYTRhNDQ1NTIyMzJmNGYzOTViNzg5MWVlMGIxMDRlOWJkZGYxNjYyYTRkZTNmNjQ3NzBiODg4NzM0OGY1In19fQ==
     name: <gradient:#BB91DA:#E7DFD5>Marca del Laberinto</gradient>
     tier: EPIC
+    tooltip: SILVER
     lore:
-    - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f'
     - '&f Probabilidad crítica &a+1.5%'
-    - '&f'
     - '&8 Sello del Laberinto'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 GRILLETE_DESHONRADO:
   base:
-    material: CHAIN
+    lore-format: reliquia-compacta
+    material: PLAYER_HEAD
+    disable-interaction: true
+    # Minecraft Heads: Iron Chain
+    skull-texture:
+      uuid: 818c07c8-943a-431f-9634-7cc986803917
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjgwM2Q1NjlhYzQ2ZmJiNWY0ZDZmYzNiNjQ1MzlmZGEwODQ4ZTczNzZmNzI5MTUwZTU5NDljYmJjZWU2Nzg3MCJ9fX0=
     name: <gradient:#76C1AF:#E7DFD5>Grillete del Deshonrado</gradient>
     tier: RARE
+    tooltip: COPPER
     lore:
-    - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f'
     - '&f Daño cuerpo a cuerpo &a+1%'
-    - '&f'
     - '&8 Caballero Caído'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 ANILLO_ULTIMO_VOTO:
   base:
-    material: IRON_NUGGET
+    lore-format: reliquia-compacta
+    material: PLAYER_HEAD
+    disable-interaction: true
+    # Minecraft Heads: Seal Ring
+    skull-texture:
+      uuid: 58ffbbc9-3569-44a6-bc72-e3b6b2515bf4
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzc3ZDE1MzYzNjI2YmJkZjQzYmMzNDVlYTIwYzQyNTI5MDc0MzQyMDI4ZGY1NzI4MDJiNmVhMzg2YmM1NjZhMSJ9fX0=
     name: <gradient:#BB91DA:#E7DFD5>Anillo del Último Voto</gradient>
     tier: EPIC
+    tooltip: SILVER
     lore:
-    - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f'
     - '&f Daño cuerpo a cuerpo &a+2.5%'
-    - '&f'
     - '&8 Mejora del Grillete'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 COSTILLA_INSEPULTO:
   base:
-    material: BONE
+    lore-format: reliquia-compacta
+    material: PLAYER_HEAD
+    disable-interaction: true
+    # Minecraft Heads: Ribcage
+    skull-texture:
+      uuid: 304663f2-5ed4-4960-aa83-153a4f083be6
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzg2NmNkZTVkYzBkOTI4NzdkOWIwYmUyODc3MDAwZTI1ZjU3MTMzZWNmNTkxODdmNmU0NmFmNjc3MDQyOThlNSJ9fX0=
     name: <gradient:#76C1AF:#E7DFD5>Costilla del Insepulto</gradient>
     tier: RARE
+    tooltip: COPPER
     lore:
-    - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f'
     - '&f Daño a no muertos &a+2%'
-    - '&f'
     - '&8 Criaturas no muertas'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 LAGRIMA_BRONCE:
   base:
-    material: COPPER_INGOT
+    lore-format: reliquia-compacta
+    material: PLAYER_HEAD
+    disable-interaction: true
+    # Minecraft Heads: Orb (bronze)
+    skull-texture:
+      uuid: 1b4757a2-6ead-4ff3-975c-371ae16486b4
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzUyNmZiMGFiZjAyYWZiZGYyMWYxZGM4OWE4MzI2NWQ2Y2E5MzM2NTQ4ZDUzMThlMmMxYjZjNGUxNjE0YzE5In19fQ==
     name: <gradient:#BB91DA:#E7DFD5>Lágrima de Bronce</gradient>
     tier: EPIC
+    tooltip: SILVER
     lore:
-    - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f'
     - '&f Reducción de daño &a+1%'
-    - '&f'
     - '&8 Minotauro'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 CORAZON_CENIZA:
   base:
-    material: MAGMA_CREAM
+    lore-format: reliquia-compacta
+    material: PLAYER_HEAD
+    disable-interaction: true
+    # Minecraft Heads: Smoldering Embers
+    skull-texture:
+      uuid: 4b562f16-df48-4708-b207-fd9f3116d60d
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZmEwYjQ1YjM5YTdiYjY2Zjg0YzE3MjM0ZjgzMDUwY2NhNDU2Zjk4NjE2NjIzMGFmMWQyOTI3MDliOGE3N2U1MSJ9fX0=
     name: <gradient:#BB91DA:#E7DFD5>Corazón de Ceniza</gradient>
     tier: EPIC
+    tooltip: SILVER
     lore:
-    - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f'
     - '&f Daño de fuego &a+2%'
-    - '&f'
     - '&8 Dracoescamas'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 CORAZON_INERTE:
   base:
-    material: FERMENTED_SPIDER_EYE
+    lore-format: reliquia-compacta
+    material: PLAYER_HEAD
+    disable-interaction: true
+    # Minecraft Heads: Black Heart
+    skull-texture:
+      uuid: 134032bf-46c4-41c2-bf2e-1c355a05a6ff
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTA3OGNiY2ZlOTI3YzgyNDlkMGQ5MWI2MTYwNTA0ZmFmZDI5NmI5YTkwYmNjYWE3N2NhNTdkMDY0YzI5NTRhYSJ9fX0=
     name: <gradient:#76C1AF:#E7DFD5>Corazón Inerte</gradient>
     tier: RARE
+    tooltip: COPPER
     lore:
-    - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f'
     - '&f Vida máxima &a+2'
-    - '&f'
     - '&8 Monarquía Renacida'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 SELLO_PROSPECTOR:
   base:
-    material: COMPASS
+    lore-format: reliquia-compacta
+    material: PLAYER_HEAD
+    disable-interaction: true
+    # Minecraft Heads: Bronze Chalice with Pickaxe
+    skull-texture:
+      uuid: 2a545cbb-9e93-4843-bb8d-eaa1b48bf1ed
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDdmMjQzYTA3MmZjZmE2ZTZmZTU3OTJkZGU2YTM5NzQwNGU5M2JkZWQyMTExMGQyZGViNDc5NmUyYTA1N2UyNSJ9fX0=
     name: <gradient:#76C1AF:#E7DFD5>Sello del Prospector</gradient>
     tier: RARE
+    tooltip: COPPER
     lore:
-    - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f'
     - '&f Velocidad minera &a+2%'
-    - '&f'
     - '&8 Encargos de Minería'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 OJO_PROSPECTOR:
   base:
-    material: ENDER_EYE
+    lore-format: reliquia-compacta
+    material: PLAYER_HEAD
+    disable-interaction: true
+    # Minecraft Heads: Metallic Eye
+    skull-texture:
+      uuid: 63e4f986-d287-4e09-a27b-9891088fadae
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTU5NWM5ZTI0NTBiZDIwYmVmZjQ2ZTZjNDQ5ZWE1M2ViYzdjZGU1NTA2ODE4Y2JjMTEyM2U1ZWI0Yjk1YTQxOSJ9fX0=
     name: <gradient:#BB91DA:#E7DFD5>Ojo del Prospector</gradient>
     tier: EPIC
+    tooltip: SILVER
     lore:
-    - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f'
     - '&f Velocidad minera &a+4%'
-    - '&f'
     - '&8 Minería avanzada'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 DEDAL_FORTUNA:
   base:
-    material: IRON_NUGGET
+    lore-format: reliquia-compacta
+    material: PLAYER_HEAD
+    disable-interaction: true
+    # Minecraft Heads: Thimble
+    skull-texture:
+      uuid: c6eaf6a4-bff6-4d83-9357-3cb4674c6b89
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOWFhMzQzZWNkMDQ3MzAxNjk2MzY2OGQwM2QxYzgwZmRiNzI2NDBhMzc0M2E0OGY5NWE4ZjNkMDYxZTAyMTdiYSJ9fX0=
     name: <gradient:#76C1AF:#E7DFD5>Dedal de la Fortuna</gradient>
     tier: RARE
+    tooltip: COPPER
     lore:
-    - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f'
     - '&f Cosecha adicional &a+1%'
-    - '&f'
     - '&8 Agricultura'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 ESPIGA_AMBAR:
   base:
-    material: WHEAT
+    lore-format: reliquia-compacta
+    material: PLAYER_HEAD
+    disable-interaction: true
+    # Minecraft Heads: Wheat Crystal
+    skull-texture:
+      uuid: 48710454-289a-4677-a467-09bd4042437a
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTgzMDJmZjIyYTIzMmUxMGQ2Y2Y2MGJkZDRkMjgwNjFjYWFhOTc0Y2FmOTA3YTBkYzNkZjk3ZTA3MWU0MmQzMSJ9fX0=
     name: <gradient:#76C1AF:#E7DFD5>Espiga de Ámbar</gradient>
     tier: RARE
+    tooltip: COPPER
     lore:
-    - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f'
     - '&f Cosecha adicional &a+2%'
-    - '&f'
     - '&8 Encargos de Agricultura'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 CORNUCOPIA_AMBAR:
   base:
-    material: GOLDEN_CARROT
+    lore-format: reliquia-compacta
+    material: PLAYER_HEAD
+    disable-interaction: true
+    # Minecraft Heads: Cornucopia
+    skull-texture:
+      uuid: 47160d9f-f3dc-45d7-8f56-292df26f86b5
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGRiMTM3YjQ2OGQ2NGNkMzhmNjIyMDRiNmUxNTc0ZmJhZTJkMWFjN2Y5NGM1ODNlZTUzZTBmOWNhNzZlNDZjOSJ9fX0=
     name: <gradient:#BB91DA:#E7DFD5>Cornucopia de Ámbar</gradient>
     tier: EPIC
+    tooltip: SILVER
     lore:
-    - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f'
     - '&f Cosecha adicional &a+3%'
-    - '&f'
     - '&8 Mejora de la Espiga'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 COLMILLO_ACECHADOR:
   base:
-    material: BONE
+    lore-format: reliquia-compacta
+    material: PLAYER_HEAD
+    disable-interaction: true
+    # Minecraft Heads: Sharp Shark Tooth Necklace
+    skull-texture:
+      uuid: bfa9896a-5f74-46cf-974f-9a04d0184d85
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjI4ZTNmYjZiZDk4ODdkNjA0MzRjY2QyNzllYzNlNTkyMjc4MjZjOWEyZjhkZDljZTk4OTllYTY2ODNkNGVlOCJ9fX0=
     name: <gradient:#76C1AF:#E7DFD5>Colmillo del Acechador</gradient>
     tier: RARE
+    tooltip: COPPER
     lore:
-    - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f'
     - '&f Daño a monstruos &a+1%'
-    - '&f'
     - '&8 Encargos de Caza'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 SILBATO_CAZADOR:
   base:
-    material: GOAT_HORN
+    lore-format: reliquia-compacta
+    material: PLAYER_HEAD
+    disable-interaction: true
+    # Minecraft Heads: Wolf Whistle Pot
+    skull-texture:
+      uuid: aefb8c3a-7b85-468b-9a9b-07fcdc4a30c7
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWViNjkxY2QxZDc4ZDljOTU1MzQ0NmFhOTg4ZTA4MmRiMWQ0NTI0ZDI3MzYyMzQ5ZWIxYzZhOTZjNGFmZDk1NCJ9fX0=
     name: <gradient:#76C1AF:#E7DFD5>Silbato del Cazador</gradient>
     tier: RARE
+    tooltip: COPPER
     lore:
-    - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f'
     - '&f Daño a monstruos &a+1.5%'
-    - '&f'
     - '&8 Caza avanzada'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 ASCUA_ENCERRADA:
   base:
-    material: BLAZE_POWDER
+    lore-format: reliquia-compacta
+    material: PLAYER_HEAD
+    disable-interaction: true
+    # Minecraft Heads: Fire Orb
+    skull-texture:
+      uuid: 1e2d1708-f4df-4eaa-8e94-e6345456347e
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzM2ODdlMjVjNjMyYmNlOGFhNjFlMGQ2NGMyNGU2OTRjM2VlYTYyOWVhOTQ0ZjRjZjMwZGNmYjRmYmNlMDcxIn19fQ==
     name: <gradient:#76C1AF:#E7DFD5>Ascua Encerrada</gradient>
     tier: RARE
+    tooltip: COPPER
     lore:
-    - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f'
     - '&f Resistencia al fuego &a+1%'
-    - '&f'
     - '&8 Tesoros de la Cripta'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 AMULETO_FOGON:
   base:
-    material: BOWL
+    lore-format: reliquia-compacta
+    material: PLAYER_HEAD
+    disable-interaction: true
+    # Minecraft Heads: Cauldron (soup)
+    skull-texture:
+      uuid: d09a2ca8-c06e-4585-a676-cd4e1fe0b2c0
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZThiMTk1N2E5MzYyMzAxMTM0ZmIxNTIxOGJjY2JhMDlhODQxODczNTMzMDBlNTMzNDg0ZTI2YmY3NWIwODQ0In19fQ==
     name: <gradient:#76C1AF:#E7DFD5>Amuleto del Fogón</gradient>
     tier: RARE
+    tooltip: COPPER
     lore:
-    - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f'
     - '&f Duración de alimentos &a+5%'
-    - '&f'
     - '&8 Cocina'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 CUCHARON_ETERNO:
   base:
-    material: WOODEN_SHOVEL
+    lore-format: reliquia-compacta
+    material: PLAYER_HEAD
+    disable-interaction: true
+    # Minecraft Heads: Spoon
+    skull-texture:
+      uuid: db008428-0607-411f-8db0-d1339dff8b47
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWMzYTRkM2NmMDA1OWMzMzgwMzNmYzIxZmEwM2ZmZGQ0ZjE3YjY4ODkzNDU2OThkZTU4YTE3NGI3YzA4NjkwOSJ9fX0=
     name: <gradient:#76C1AF:#E7DFD5>Cucharón Eterno</gradient>
     tier: RARE
+    tooltip: COPPER
     lore:
-    - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f'
     - '&f Rapidez de cocina &a+3%'
-    - '&f'
     - '&8 Cocina avanzada'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 BRUJULA_EXTRAVIADA:
   base:
-    material: COMPASS
+    lore-format: reliquia-compacta
+    material: PLAYER_HEAD
+    disable-interaction: true
+    # Minecraft Heads: WayWard Compass
+    skull-texture:
+      uuid: 6cf0fc15-0394-4cec-80e2-3acf83902b5e
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmFmZTNhM2UyYTQxZjI1YzFmN2U3ZDk5NmUwYWExYjdkY2Y0YjNlMjRkYzg1ZmU3MzE3YjJhMWYwYWUxM2EwZSJ9fX0=
     name: <gradient:#76C1AF:#E7DFD5>Brújula Extraviada</gradient>
     tier: RARE
+    tooltip: COPPER
     lore:
-    - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f'
     - '&f Velocidad &a+1%'
-    - '&f'
     - '&8 Tesoros ocultos'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 ROSA_VIENTOS:
   base:
-    material: RECOVERY_COMPASS
+    lore-format: reliquia-compacta
+    material: PLAYER_HEAD
+    disable-interaction: true
+    # Minecraft Heads: Royal Compass
+    skull-texture:
+      uuid: 14c70969-4f44-4e6f-887a-dfbb9bad2174
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjEwNjI3N2FkNTQxYWE3NmQ5ZDRhMTllN2FhYzkyNjIxYTNmMDI1MWZmOTQyN2RmZGVhNTM5YjUxZGQ4ZDFlYSJ9fX0=
     name: <gradient:#BB91DA:#E7DFD5>Rosa de los Vientos</gradient>
     tier: EPIC
+    tooltip: SILVER
     lore:
-    - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f'
     - '&f Velocidad &a+2.5%'
-    - '&f'
     - '&8 Mejora de la Brújula'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 ESPEJO_ESCARCHA:
   base:
-    material: ICE
+    lore-format: reliquia-compacta
+    material: PLAYER_HEAD
+    disable-interaction: true
+    # Minecraft Heads: Snowy Mirror
+    skull-texture:
+      uuid: 76773b1e-be23-41b9-b1fa-e5511eb21f95
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2QxMTE5NjQzY2VjZmJlMDA0MTQxYTFlYTQwNjJmODMxNWNhNzhlNTAzOTU4YWM1MDUwNWU4NTkyYzQ0YTYwMSJ9fX0=
     name: <gradient:#76C1AF:#E7DFD5>Espejo de Escarcha</gradient>
     tier: RARE
+    tooltip: COPPER
     lore:
-    - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f'
     - '&f Resist. proyectiles &a+1%'
-    - '&f'
     - '&8 Exploración'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 ESPEJO_VACIO:
   base:
-    material: ECHO_SHARD
+    lore-format: reliquia-compacta
+    material: PLAYER_HEAD
+    disable-interaction: true
+    # Minecraft Heads: Bone Mirror
+    skull-texture:
+      uuid: 0c6f69dc-c793-4b79-8e91-901959c3f6db
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmRlMWIyMzQzNGZjYmQ2MTBiNzhiZmIxZTY4MDlmNzQwZmM2ZGZlMjQwNGQ4OWI1YmJkODU2ODM1NjdjYTU0ZiJ9fX0=
     name: <gradient:#BB91DA:#E7DFD5>Espejo del Vacío</gradient>
     tier: EPIC
+    tooltip: SILVER
     lore:
-    - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f'
     - '&f Resist. proyectiles &a+2.5%'
-    - '&f'
     - '&8 Mejora del Espejo'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 MONEDA_SIN_ROSTRO:
   base:
-    material: GOLD_NUGGET
+    lore-format: reliquia-compacta
+    material: PLAYER_HEAD
+    disable-interaction: true
+    # Minecraft Heads: Blank Coin
+    skull-texture:
+      uuid: c5ef3b1b-92e8-4839-bf40-81c2647d7aa1
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDE3NWZkZTk5ZDJhMmZhY2RiZjIxZThkNzJmOTJiMWU5YmRhNjY1YzM1MTdmNWU3Yzk0NGNlZjZhN2NiZjI3NyJ9fX0=
     name: <gradient:#76C1AF:#E7DFD5>Moneda sin Rostro</gradient>
     tier: RARE
+    tooltip: COPPER
     lore:
-    - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f'
     - '&f Monedas de contratos &a+1%'
-    - '&f'
     - '&8 Tesoro excepcional'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 NUDO_DOS_ALMAS:
   base:
-    material: STRING
+    lore-format: reliquia-compacta
+    material: PLAYER_HEAD
+    disable-interaction: true
+    # Minecraft Heads: Lead Knot
+    skull-texture:
+      uuid: 3b24a610-9659-4076-b969-fe9065256d1d
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjVhMWY3NTY2ZjRiNjgyMjdmOTA2NzgxMDBiM2IwOWUyNTMzNzMxYzJjZTg0ZGMyZmRkMWM4NTEwMzlmN2E3In19fQ==
     name: <gradient:#BB91DA:#E7DFD5>Nudo de las Dos Almas</gradient>
     tier: EPIC
+    tooltip: SILVER
     lore:
-    - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f'
     - '&f Vida máxima &a+3'
-    - '&f'
     - '&8 Desafío cooperativo'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 CORONA_PEREGRINO:
   base:
-    material: GOLDEN_HELMET
+    lore-format: reliquia-compacta
+    material: PLAYER_HEAD
+    disable-interaction: true
+    # Minecraft Heads: Golden Crown
+    skull-texture:
+      uuid: dcca9cee-e592-43bf-8e26-85a0dcef56fb
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTFiMGE1YmJjNjk3YzBjNDJhNmNmMWI5YzRjNDQzNWIwNzMyMmZjZTViYjI3ZDgyYjY5MzA4NDNlNWFiN2EwOSJ9fX0=
     name: <gradient:#EAC37F:#E7DFD5>Corona del Peregrino</gradient>
     tier: LEGENDARY
+    tooltip: GOLD
     lore:
-    - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f'
     - '&f Maná máximo &a+10'
-    - '&f'
     - '&8 Exploración extensa'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 LLAVE_SIN_CERRADURA:
   base:
-    material: TRIPWIRE_HOOK
+    lore-format: reliquia-compacta
+    material: PLAYER_HEAD
+    disable-interaction: true
+    # Minecraft Heads: Golden Key
+    skull-texture:
+      uuid: ae073242-31bc-4abd-9579-b475075c2c84
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWVlZmE0Y2QyYTU1OGU0YTgxMmUyZWE3NTQxZTYyNzUwYjk2YmExZDgyYzFkYTlmZDVmMmUzZmI5MzA4YzYzNSJ9fX0=
     name: <gradient:#BB91DA:#E7DFD5>Llave sin Cerradura</gradient>
     tier: EPIC
+    tooltip: SILVER
     lore:
-    - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f'
     - '&f Probabilidad crítica &a+1%'
-    - '&f'
     - '&8 Secreto de dungeon'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 ULTIMO_LATIDO:
   base:
-    material: HEART_OF_THE_SEA
+    lore-format: reliquia-compacta
+    material: PLAYER_HEAD
+    disable-interaction: true
+    # Minecraft Heads: Heart (red)
+    skull-texture:
+      uuid: 9a4141d7-aac4-4c87-ba31-7ad653ee2fb2
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGE2ZjYyOTNlMjMxZmY0MzMxNGQ4NzUwN2QyZjMxMGE5MDFlYzM0NGIyY2RmM2ZkYWY0NGZiNjkyMTQxMDgyZSJ9fX0=
     name: <gradient:#EAC37F:#E7DFD5>Último Latido</gradient>
     tier: LEGENDARY
+    tooltip: GOLD
     lore:
-    - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f'
     - '&f Vida máxima &a+4'
-    - '&f'
     - '&8 Desafío sin muertes'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 ECLIPSE_BOLSILLO:
   base:
-    material: ENDER_PEARL
+    lore-format: reliquia-compacta
+    material: PLAYER_HEAD
+    disable-interaction: true
+    # Minecraft Heads: Moon Relic
+    skull-texture:
+      uuid: aaacd73f-6340-4ac5-b31c-f2d425b340f0
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzI1YmNiNzY5ZjRkYWIxN2U2ZjVmZTc0MTJjZGM1N2FhMDMyNjY3MTY4NmZmODE4YWFlZDllMDk1N2ExMWUwZiJ9fX0=
     name: <gradient:#EAC37F:#E7DFD5>Eclipse de Bolsillo</gradient>
     tier: LEGENDARY
+    tooltip: GOLD
     lore:
-    - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f'
     - '&f Daño cuerpo a cuerpo &a+1%'
     - '&f Daño mágico &a+1%'
-    - '&f'
     - '&8 Colección excepcional'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'

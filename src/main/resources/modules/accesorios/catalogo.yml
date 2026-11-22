@@ -25,7 +25,8 @@ accesorios:
     nombre: "Brote Marchito"
     categoria: cripta
     rareza: RARE
-    material: MANGROVE_ROOTS
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTY1NWRhNTFhOWQ2ZjY1N2RiMmY3MzczYWJmYWE0MDc0MWM4MWU4ZTFiZWJjMWJjNmZmOTYxYmNiZjg5ZDBjOCJ9fX0=
     origen: "Ent Corrupto y raíces pestilentes"
     familia: raigambre
     rango: 1
@@ -35,7 +36,8 @@ accesorios:
     nombre: "Núcleo Silvestre"
     categoria: cripta
     rareza: EPIC
-    material: HEART_OF_THE_SEA
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWVmNTM5YjE2NTEyNWNmYTQ2YjA2ZmZiOTY1OWU3Y2Y4OTA4NGJiZDNlZGUxYjMxNGVkYzhmNDQzMzQzZDYxYyJ9fX0=
     origen: "Núcleo del Ent"
     familia: raigambre
     rango: 2
@@ -45,7 +47,8 @@ accesorios:
     nombre: "Medallón Agrietado"
     categoria: cripta
     rareza: RARE
-    material: ECHO_SHARD
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjFhOWFlOWRiMzZmNzBkNDY3MzU0MDY5ZmJiZGNjN2QyNzliYWY2NzIxNTYxMzgxZGE2MGQzMzliMjNkODgyOSJ9fX0=
     origen: "Vestigios de Alma"
     familia: nigromancia
     rango: 1
@@ -55,7 +58,8 @@ accesorios:
     nombre: "Medallón Profano"
     categoria: cripta
     rareza: EPIC
-    material: AMETHYST_SHARD
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzExZTJlOGYyMzYwOTAwMTEwNmMwN2YxNjk3YTVhMDMyNjQ2YTg1ZGU4MjI3MDMzZDMzY2FhYjhjMTJjNWU5MiJ9fX0=
     origen: "Esencia del Nigromante"
     familia: nigromancia
     rango: 2
@@ -65,7 +69,8 @@ accesorios:
     nombre: "Cuerno Astillado"
     categoria: cripta
     rareza: RARE
-    material: GOAT_HORN
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODdiMDUzOWI3MzBmZDc0ZDg0ZGM1OTIyYmZmNzZiOTY5ODY5NGM2N2QzZWZjN2JlYmVhNjgyYTA0MzFjNDk5NyJ9fX0=
     origen: "Criaturas del Laberinto"
     familia: laberinto
     rango: 1
@@ -75,7 +80,8 @@ accesorios:
     nombre: "Marca del Laberinto"
     categoria: cripta
     rareza: EPIC
-    material: NETHER_BRICK
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjBkYTRhNDQ1NTIyMzJmNGYzOTViNzg5MWVlMGIxMDRlOWJkZGYxNjYyYTRkZTNmNjQ3NzBiODg4NzM0OGY1In19fQ==
     origen: "Sello del Laberinto"
     familia: laberinto
     rango: 2
@@ -85,7 +91,8 @@ accesorios:
     nombre: "Grillete del Deshonrado"
     categoria: cripta
     rareza: RARE
-    material: CHAIN
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjgwM2Q1NjlhYzQ2ZmJiNWY0ZDZmYzNiNjQ1MzlmZGEwODQ4ZTczNzZmNzI5MTUwZTU5NDljYmJjZWU2Nzg3MCJ9fX0=
     origen: "Caballero Caído"
     familia: juramento
     rango: 1
@@ -95,7 +102,8 @@ accesorios:
     nombre: "Anillo del Último Voto"
     categoria: cripta
     rareza: EPIC
-    material: IRON_NUGGET
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzc3ZDE1MzYzNjI2YmJkZjQzYmMzNDVlYTIwYzQyNTI5MDc0MzQyMDI4ZGY1NzI4MDJiNmVhMzg2YmM1NjZhMSJ9fX0=
     origen: "Mejora del Grillete"
     familia: juramento
     rango: 2
@@ -105,7 +113,8 @@ accesorios:
     nombre: "Costilla del Insepulto"
     categoria: cripta
     rareza: RARE
-    material: BONE
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzg2NmNkZTVkYzBkOTI4NzdkOWIwYmUyODc3MDAwZTI1ZjU3MTMzZWNmNTkxODdmNmU0NmFmNjc3MDQyOThlNSJ9fX0=
     origen: "Criaturas no muertas"
     bonos:
       undead_damage: 2
@@ -113,7 +122,8 @@ accesorios:
     nombre: "Lágrima de Bronce"
     categoria: cripta
     rareza: EPIC
-    material: COPPER_INGOT
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzUyNmZiMGFiZjAyYWZiZGYyMWYxZGM4OWE4MzI2NWQ2Y2E5MzM2NTQ4ZDUzMThlMmMxYjZjNGUxNjE0YzE5In19fQ==
     origen: "Minotauro"
     bonos:
       damage_reduction: 1
@@ -121,7 +131,8 @@ accesorios:
     nombre: "Corazón de Ceniza"
     categoria: cripta
     rareza: EPIC
-    material: MAGMA_CREAM
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZmEwYjQ1YjM5YTdiYjY2Zjg0YzE3MjM0ZjgzMDUwY2NhNDU2Zjk4NjE2NjIzMGFmMWQyOTI3MDliOGE3N2U1MSJ9fX0=
     origen: "Dracoescamas"
     bonos:
       fire_damage: 2
@@ -129,7 +140,8 @@ accesorios:
     nombre: "Corazón Inerte"
     categoria: superficie
     rareza: RARE
-    material: FERMENTED_SPIDER_EYE
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTA3OGNiY2ZlOTI3YzgyNDlkMGQ5MWI2MTYwNTA0ZmFmZDI5NmI5YTkwYmNjYWE3N2NhNTdkMDY0YzI5NTRhYSJ9fX0=
     origen: "Monarquía Renacida"
     bonos:
       health: 2
@@ -137,7 +149,8 @@ accesorios:
     nombre: "Sello del Prospector"
     categoria: superficie
     rareza: RARE
-    material: COMPASS
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDdmMjQzYTA3MmZjZmE2ZTZmZTU3OTJkZGU2YTM5NzQwNGU5M2JkZWQyMTExMGQyZGViNDc5NmUyYTA1N2UyNSJ9fX0=
     origen: "Encargos de Minería"
     familia: prospector
     rango: 1
@@ -147,7 +160,8 @@ accesorios:
     nombre: "Ojo del Prospector"
     categoria: superficie
     rareza: EPIC
-    material: ENDER_EYE
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTU5NWM5ZTI0NTBiZDIwYmVmZjQ2ZTZjNDQ5ZWE1M2ViYzdjZGU1NTA2ODE4Y2JjMTEyM2U1ZWI0Yjk1YTQxOSJ9fX0=
     origen: "Minería avanzada"
     familia: prospector
     rango: 2
@@ -157,7 +171,8 @@ accesorios:
     nombre: "Dedal de la Fortuna"
     categoria: superficie
     rareza: RARE
-    material: IRON_NUGGET
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOWFhMzQzZWNkMDQ3MzAxNjk2MzY2OGQwM2QxYzgwZmRiNzI2NDBhMzc0M2E0OGY5NWE4ZjNkMDYxZTAyMTdiYSJ9fX0=
     origen: "Agricultura"
     familia: cosecha
     rango: 1
@@ -167,7 +182,8 @@ accesorios:
     nombre: "Espiga de Ámbar"
     categoria: superficie
     rareza: RARE
-    material: WHEAT
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTgzMDJmZjIyYTIzMmUxMGQ2Y2Y2MGJkZDRkMjgwNjFjYWFhOTc0Y2FmOTA3YTBkYzNkZjk3ZTA3MWU0MmQzMSJ9fX0=
     origen: "Encargos de Agricultura"
     familia: cosecha
     rango: 2
@@ -177,7 +193,8 @@ accesorios:
     nombre: "Cornucopia de Ámbar"
     categoria: superficie
     rareza: EPIC
-    material: GOLDEN_CARROT
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGRiMTM3YjQ2OGQ2NGNkMzhmNjIyMDRiNmUxNTc0ZmJhZTJkMWFjN2Y5NGM1ODNlZTUzZTBmOWNhNzZlNDZjOSJ9fX0=
     origen: "Mejora de la Espiga"
     familia: cosecha
     rango: 3
@@ -187,7 +204,8 @@ accesorios:
     nombre: "Colmillo del Acechador"
     categoria: superficie
     rareza: RARE
-    material: BONE
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjI4ZTNmYjZiZDk4ODdkNjA0MzRjY2QyNzllYzNlNTkyMjc4MjZjOWEyZjhkZDljZTk4OTllYTY2ODNkNGVlOCJ9fX0=
     origen: "Encargos de Caza"
     familia: cazador
     rango: 1
@@ -197,7 +215,8 @@ accesorios:
     nombre: "Silbato del Cazador"
     categoria: superficie
     rareza: RARE
-    material: GOAT_HORN
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWViNjkxY2QxZDc4ZDljOTU1MzQ0NmFhOTg4ZTA4MmRiMWQ0NTI0ZDI3MzYyMzQ5ZWIxYzZhOTZjNGFmZDk1NCJ9fX0=
     origen: "Caza avanzada"
     familia: cazador
     rango: 2
@@ -207,7 +226,8 @@ accesorios:
     nombre: "Ascua Encerrada"
     categoria: superficie
     rareza: RARE
-    material: BLAZE_POWDER
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzM2ODdlMjVjNjMyYmNlOGFhNjFlMGQ2NGMyNGU2OTRjM2VlYTYyOWVhOTQ0ZjRjZjMwZGNmYjRmYmNlMDcxIn19fQ==
     origen: "Tesoros de la Cripta"
     bonos:
       fire_reduction: 1
@@ -215,7 +235,8 @@ accesorios:
     nombre: "Amuleto del Fogón"
     categoria: superficie
     rareza: RARE
-    material: BOWL
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZThiMTk1N2E5MzYyMzAxMTM0ZmIxNTIxOGJjY2JhMDlhODQxODczNTMzMDBlNTMzNDg0ZTI2YmY3NWIwODQ0In19fQ==
     origen: "Cocina"
     bonos:
       food_duration: 5
@@ -223,7 +244,8 @@ accesorios:
     nombre: "Cucharón Eterno"
     categoria: superficie
     rareza: RARE
-    material: WOODEN_SHOVEL
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWMzYTRkM2NmMDA1OWMzMzgwMzNmYzIxZmEwM2ZmZGQ0ZjE3YjY4ODkzNDU2OThkZTU4YTE3NGI3YzA4NjkwOSJ9fX0=
     origen: "Cocina avanzada"
     bonos:
       cooking_speed: 3
@@ -231,7 +253,8 @@ accesorios:
     nombre: "Brújula Extraviada"
     categoria: exploracion
     rareza: RARE
-    material: COMPASS
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmFmZTNhM2UyYTQxZjI1YzFmN2U3ZDk5NmUwYWExYjdkY2Y0YjNlMjRkYzg1ZmU3MzE3YjJhMWYwYWUxM2EwZSJ9fX0=
     origen: "Tesoros ocultos"
     familia: vientos
     rango: 1
@@ -241,7 +264,8 @@ accesorios:
     nombre: "Rosa de los Vientos"
     categoria: exploracion
     rareza: EPIC
-    material: RECOVERY_COMPASS
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjEwNjI3N2FkNTQxYWE3NmQ5ZDRhMTllN2FhYzkyNjIxYTNmMDI1MWZmOTQyN2RmZGVhNTM5YjUxZGQ4ZDFlYSJ9fX0=
     origen: "Mejora de la Brújula"
     familia: vientos
     rango: 2
@@ -251,7 +275,8 @@ accesorios:
     nombre: "Espejo de Escarcha"
     categoria: exploracion
     rareza: RARE
-    material: ICE
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2QxMTE5NjQzY2VjZmJlMDA0MTQxYTFlYTQwNjJmODMxNWNhNzhlNTAzOTU4YWM1MDUwNWU4NTkyYzQ0YTYwMSJ9fX0=
     origen: "Exploración"
     familia: reflejos
     rango: 1
@@ -261,7 +286,8 @@ accesorios:
     nombre: "Espejo del Vacío"
     categoria: exploracion
     rareza: EPIC
-    material: ECHO_SHARD
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmRlMWIyMzQzNGZjYmQ2MTBiNzhiZmIxZTY4MDlmNzQwZmM2ZGZlMjQwNGQ4OWI1YmJkODU2ODM1NjdjYTU0ZiJ9fX0=
     origen: "Mejora del Espejo"
     familia: reflejos
     rango: 2
@@ -271,7 +297,8 @@ accesorios:
     nombre: "Moneda sin Rostro"
     categoria: exploracion
     rareza: RARE
-    material: GOLD_NUGGET
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDE3NWZkZTk5ZDJhMmZhY2RiZjIxZThkNzJmOTJiMWU5YmRhNjY1YzM1MTdmNWU3Yzk0NGNlZjZhN2NiZjI3NyJ9fX0=
     origen: "Tesoro excepcional"
     bonos:
       contract_coins: 1
@@ -279,7 +306,8 @@ accesorios:
     nombre: "Nudo de las Dos Almas"
     categoria: excepcionales
     rareza: EPIC
-    material: STRING
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjVhMWY3NTY2ZjRiNjgyMjdmOTA2NzgxMDBiM2IwOWUyNTMzNzMxYzJjZTg0ZGMyZmRkMWM4NTEwMzlmN2E3In19fQ==
     origen: "Desafío cooperativo"
     bonos:
       health: 3
@@ -287,7 +315,8 @@ accesorios:
     nombre: "Corona del Peregrino"
     categoria: excepcionales
     rareza: LEGENDARY
-    material: GOLDEN_HELMET
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTFiMGE1YmJjNjk3YzBjNDJhNmNmMWI5YzRjNDQzNWIwNzMyMmZjZTViYjI3ZDgyYjY5MzA4NDNlNWFiN2EwOSJ9fX0=
     origen: "Exploración extensa"
     bonos:
       mana: 10
@@ -295,7 +324,8 @@ accesorios:
     nombre: "Llave sin Cerradura"
     categoria: excepcionales
     rareza: EPIC
-    material: TRIPWIRE_HOOK
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWVlZmE0Y2QyYTU1OGU0YTgxMmUyZWE3NTQxZTYyNzUwYjk2YmExZDgyYzFkYTlmZDVmMmUzZmI5MzA4YzYzNSJ9fX0=
     origen: "Secreto de dungeon"
     bonos:
       critical_chance: 1
@@ -303,7 +333,8 @@ accesorios:
     nombre: "Último Latido"
     categoria: excepcionales
     rareza: LEGENDARY
-    material: HEART_OF_THE_SEA
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGE2ZjYyOTNlMjMxZmY0MzMxNGQ4NzUwN2QyZjMxMGE5MDFlYzM0NGIyY2RmM2ZkYWY0NGZiNjkyMTQxMDgyZSJ9fX0=
     origen: "Desafío sin muertes"
     bonos:
       health: 4
@@ -311,7 +342,8 @@ accesorios:
     nombre: "Eclipse de Bolsillo"
     categoria: excepcionales
     rareza: LEGENDARY
-    material: ENDER_PEARL
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzI1YmNiNzY5ZjRkYWIxN2U2ZjVmZTc0MTJjZGM1N2FhMDMyNjY3MTY4NmZmODE4YWFlZDllMDk1N2ExMWUwZiJ9fX0=
     origen: "Colección excepcional"
     bonos:
       melee_damage: 1

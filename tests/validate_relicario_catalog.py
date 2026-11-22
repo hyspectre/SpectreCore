@@ -37,15 +37,19 @@ for id, record in catalog.items():
     base=items[id]["base"]
     assert base["tier"] == record["rareza"] and base["material"] == record["material"], id
     assert "name" in base and "<gradient:" in base["name"], id
-    assert len(base["lore"]) >= 6, id
+    assert base["material"] == "PLAYER_HEAD" and base["disable-interaction"] is True, id
+    assert base["skull-texture"]["value"] == record["textura"], id
+    assert base["tooltip"] == {"RARE": "COPPER", "EPIC": "SILVER", "LEGENDARY": "GOLD"}[base["tier"]], id
+    assert base["lore-format"] == "reliquia-compacta", id
+    assert len(base["lore"]) == (5 if id == "ECLIPSE_BOLSILLO" else 4), id
     assert any("ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ" in line for line in base["lore"]), id
     assert not any(k in base for k in ("ability","attack-damage","magic-damage",
                  "additional-health","additional-strength","max-mana","max-health",
-                 "commands","unbreakable","disable-interaction")), id
+                 "commands","unbreakable")), id
     for line in base["lore"]:
         visible=re.sub(r"<[^>]*>","",line)
         visible=re.sub(r"(?i)[&§][0-9a-fk-or]|&#[0-9a-f]{6}","",visible)
-        assert len(visible)<=31,(id,visible,len(visible))
+        assert visible.strip() and len(visible)<=40,(id,visible,len(visible))
 assert len(families)==9, families
 assert sorted(len(f) for f in families.values()) == [2]*8 + [3], families
 for family,ranks in families.items():
