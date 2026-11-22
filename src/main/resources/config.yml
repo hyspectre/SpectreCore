@@ -1,21 +1,3 @@
-# SpectreCore: configura este sistema dentro de su módulo.
+# SpectreCore — todos los módulos y submódulos están disponibles permanentemente.
+# Ajusta valores, efectos, recetas y mensajes en modules/, no la activación.
 config-version: 2
-modules:
-  equipamiento:
-    enabled: true
-  cocina:
-    enabled: true
-  tesoros:
-    enabled: true
-  resonancia:
-    enabled: true
-  trabajos:
-    enabled: true
-  slayer:
-    enabled: true
-  dungeons:
-    enabled: true
-  actividades:
-    enabled: true
-  accesorios:
-    enabled: false
