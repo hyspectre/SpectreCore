@@ -77,11 +77,11 @@ public final class LegacyActivities implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void join(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        if (active("cygnus") && config.getBoolean("cygnus.mover-al-entrar", true)) moveCygnus();
+        if (config.getBoolean("cygnus.mover-al-entrar", true)) moveCygnus();
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             if (!player.isOnline()) return;
             if (pending.containsKey(player.getUniqueId())) finishChest(player);
-            if (active("entrada") && config.getBoolean("entrada.proteccion", true)) {
+            if (config.getBoolean("entrada.proteccion", true)) {
                 int seconds = Math.max(1, Math.min(3600, config.getInt("entrada.duracion-segundos", 30)));
                 int level = Math.max(1, Math.min(256, config.getInt("entrada.nivel-resistencia", 100)));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, seconds * 20, level - 1, false, false, true));
@@ -96,12 +96,9 @@ public final class LegacyActivities implements Listener {
         // The recorded pending claim is completed on the next join.
     }
     private boolean admin(CommandSender sender) { return sender.hasPermission("spectrecore.activities.admin") || sender.hasPermission("spectrecore.admin"); }
-    private boolean active(String group) { return dev.hydev.spectrecore.config.ModuleConfiguration.of(plugin).active("actividades."+group); }
     private boolean command(CommandSender sender, String name) {
         if (!admin(sender)) { sender.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-001", "§cNo tienes permiso para usar este comando.")); return true; }
         if (!(sender instanceof Player player)) { sender.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-002", "Esta acción debe realizarse dentro del juego.")); return true; }
-        String group=OFFERS.containsKey(name)?"cygnus":MONEY.containsKey(name)?"polvos":UNLOCKS.containsKey(name)?"desbloqueos":name.equals("telefono1")?"telefono":"cofre";
-        if(!active(group)){sender.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-003", "Esta actividad está desactivada."));return true;}
         if (OFFERS.containsKey(name)) {
             Offer fallback=OFFERS.get(name);
             offer(player,new Offer(config.getString("cygnus.ofertas."+name+".tipo",fallback.type),config.getString("cygnus.ofertas."+name+".id",fallback.id)));
