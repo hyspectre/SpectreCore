@@ -150,7 +150,7 @@ public final class JobsMenu implements Listener {
     public boolean open(Player player, String page) {
         if (!PAGES.contains(page)) page = "trabajos";
         if (layout == null) {
-            player.sendMessage(Settings.text("trabajos", "JobsMenu.desactivado", "§cEl catálogo de trabajos está temporalmente desactivado."));
+            player.sendMessage(Settings.text("trabajos", "JobsMenu.desactivado", "§cEl catálogo de trabajos no está disponible por ahora."));
             return false;
         }
         String base = "pages." + page;
