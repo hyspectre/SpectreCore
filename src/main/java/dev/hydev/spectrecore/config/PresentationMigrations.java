@@ -78,7 +78,20 @@ public final class PresentationMigrations {
         new Rule("Cada fuente tiene requisitos, probabilidades y cooldowns configurables.", "Cada fuente tiene sus propios hallazgos y tiempos de espera."),
         new Rule("La duración de la ventana y la carga máxima dependen de la configuración.", "Presta atención a tu carga para aprovechar su máxima energía."),
         new Rule("La proximidad, el tiempo de espera y la salida dependen de la configuración del servidor.", "Mantente cerca de tus compañeros para entrar a la expedición."),
-        new Rule("Algunas dependen de MythicMobs, zMenu, LuckPerms o la economía.", "Explora los acontecimientos y oportunidades que ofrece Hydev.")
+        new Rule("Algunas dependen de MythicMobs, zMenu, LuckPerms o la economía.", "Explora los acontecimientos y oportunidades que ofrece Hydev."),
+        new Rule("<aqua>⚔ RPG</aqua>", "<aqua>⚔ Combate</aqua>"),
+        new Rule("<gray>RPG</gray>", "<gray>Combate</gray>"),
+        new Rule("<green>Guías del servidor</green>", "<green>Exploración y aventuras</green>"),
+        new Rule("<red>Misiones Slayer</red>", "<red>Cacerías de la Monarquía</red>"),
+        new Rule("<gray>Guías breves, sin tecnicismos.", "<gray>Consejos prácticos para tu camino."),
+        new Rule("<dark_gray>Los contratos se gestionan aparte.", "<dark_gray>Los contratos se consultan por separado."),
+        new Rule("<gray>Consulta los sistemas del servidor sin salir de Minecraft.", "<gray>Descubre los secretos, desafíos y oportunidades de Hydev."),
+        new Rule("<gray>Acepta misiones, elimina los objetivos de tu categoría y progresa por tiers.", "<gray>Acepta contratos, derrota criaturas y avanza en los rangos de cacería."),
+        new Rule("<gray>Conoce los encantamientos personalizados cuando estén implementados.", "<gray>Los nuevos encantamientos permanecen ocultos por ahora."),
+        new Rule("<gray>Esta sección mostrará los accesorios del servidor.", "<gray>Los accesorios especiales todavía no están al alcance de los aventureros."),
+        new Rule("<gray>Las habilidades de los conjuntos se explican en Armaduras. Se ampliará esta sección con otras habilidades.", "<gray>Cada armadura encierra un poder distinto: aprende cuándo y cómo despertarlo."),
+        new Rule("<gray>Activa cocinas con un mechero, prepara ingredientes y sirve platos. Pulsa Recetario para consultar las recetas disponibles.", "<gray>Enciende la fogata, prepara los ingredientes y sirve tus platos. Descubre qué secretos guarda cada receta."),
+        new Rule("<gray>Conoce los oficios y sus estaciones. Cada profesión tiene sus propias actividades y recompensas.", "<gray>Minería, Agricultura y Caza ofrecen desafíos, rangos y recompensas. También puedes perfeccionar tu cocina.")
     );
 
     private PresentationMigrations() { }
