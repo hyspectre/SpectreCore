@@ -1,5 +1,3 @@
 # SpectreCore: configura este sistema dentro de su módulo.
 jefes:
-  enabled: true
 portal:
-  enabled: true
