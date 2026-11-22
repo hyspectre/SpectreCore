@@ -10,3 +10,6 @@ safety:
   reject-duplicate-consumption: true
   retain-discoveries-on-upgrade: true
   reject-unregistered-mmoitems: true
+effects:
+  critical-hit-bonus-percent: 50.0
+  fire-credit-seconds: 15
