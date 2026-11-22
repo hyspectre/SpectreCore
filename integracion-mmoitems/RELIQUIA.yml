@@ -6,7 +6,6 @@ BROTE_MARCHITO:
     material: MANGROVE_ROOTS
     name: <gradient:#76C1AF:#E7DFD5>Brote Marchito</gradient>
     tier: RARE
-    unbreakable: true
     lore:
     - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
@@ -20,7 +19,6 @@ NUCLEO_SILVESTRE:
     material: HEART_OF_THE_SEA
     name: <gradient:#BB91DA:#E7DFD5>Núcleo Silvestre</gradient>
     tier: EPIC
-    unbreakable: true
     lore:
     - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
@@ -34,7 +32,6 @@ MEDALLON_AGRIETADO:
     material: ECHO_SHARD
     name: <gradient:#76C1AF:#E7DFD5>Medallón Agrietado</gradient>
     tier: RARE
-    unbreakable: true
     lore:
     - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
@@ -48,7 +45,6 @@ MEDALLON_PROFANO:
     material: AMETHYST_SHARD
     name: <gradient:#BB91DA:#E7DFD5>Medallón Profano</gradient>
     tier: EPIC
-    unbreakable: true
     lore:
     - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
@@ -62,7 +58,6 @@ CUERNO_ASTILLADO:
     material: GOAT_HORN
     name: <gradient:#76C1AF:#E7DFD5>Cuerno Astillado</gradient>
     tier: RARE
-    unbreakable: true
     lore:
     - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
@@ -76,7 +71,6 @@ MARCA_LABERINTO:
     material: NETHER_BRICK
     name: <gradient:#BB91DA:#E7DFD5>Marca del Laberinto</gradient>
     tier: EPIC
-    unbreakable: true
     lore:
     - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
@@ -90,7 +84,6 @@ GRILLETE_DESHONRADO:
     material: CHAIN
     name: <gradient:#76C1AF:#E7DFD5>Grillete del Deshonrado</gradient>
     tier: RARE
-    unbreakable: true
     lore:
     - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
@@ -104,7 +97,6 @@ ANILLO_ULTIMO_VOTO:
     material: IRON_NUGGET
     name: <gradient:#BB91DA:#E7DFD5>Anillo del Último Voto</gradient>
     tier: EPIC
-    unbreakable: true
     lore:
     - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
@@ -118,7 +110,6 @@ COSTILLA_INSEPULTO:
     material: BONE
     name: <gradient:#76C1AF:#E7DFD5>Costilla del Insepulto</gradient>
     tier: RARE
-    unbreakable: true
     lore:
     - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
@@ -132,7 +123,6 @@ LAGRIMA_BRONCE:
     material: COPPER_INGOT
     name: <gradient:#BB91DA:#E7DFD5>Lágrima de Bronce</gradient>
     tier: EPIC
-    unbreakable: true
     lore:
     - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
@@ -146,7 +136,6 @@ CORAZON_CENIZA:
     material: MAGMA_CREAM
     name: <gradient:#BB91DA:#E7DFD5>Corazón de Ceniza</gradient>
     tier: EPIC
-    unbreakable: true
     lore:
     - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
@@ -160,7 +149,6 @@ CORAZON_INERTE:
     material: FERMENTED_SPIDER_EYE
     name: <gradient:#76C1AF:#E7DFD5>Corazón Inerte</gradient>
     tier: RARE
-    unbreakable: true
     lore:
     - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
@@ -174,7 +162,6 @@ SELLO_PROSPECTOR:
     material: COMPASS
     name: <gradient:#76C1AF:#E7DFD5>Sello del Prospector</gradient>
     tier: RARE
-    unbreakable: true
     lore:
     - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
@@ -188,7 +175,6 @@ OJO_PROSPECTOR:
     material: ENDER_EYE
     name: <gradient:#BB91DA:#E7DFD5>Ojo del Prospector</gradient>
     tier: EPIC
-    unbreakable: true
     lore:
     - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
@@ -202,7 +188,6 @@ DEDAL_FORTUNA:
     material: IRON_NUGGET
     name: <gradient:#76C1AF:#E7DFD5>Dedal de la Fortuna</gradient>
     tier: RARE
-    unbreakable: true
     lore:
     - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
@@ -216,7 +201,6 @@ ESPIGA_AMBAR:
     material: WHEAT
     name: <gradient:#76C1AF:#E7DFD5>Espiga de Ámbar</gradient>
     tier: RARE
-    unbreakable: true
     lore:
     - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
@@ -230,7 +214,6 @@ CORNUCOPIA_AMBAR:
     material: GOLDEN_CARROT
     name: <gradient:#BB91DA:#E7DFD5>Cornucopia de Ámbar</gradient>
     tier: EPIC
-    unbreakable: true
     lore:
     - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
@@ -244,7 +227,6 @@ COLMILLO_ACECHADOR:
     material: BONE
     name: <gradient:#76C1AF:#E7DFD5>Colmillo del Acechador</gradient>
     tier: RARE
-    unbreakable: true
     lore:
     - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
@@ -258,7 +240,6 @@ SILBATO_CAZADOR:
     material: GOAT_HORN
     name: <gradient:#76C1AF:#E7DFD5>Silbato del Cazador</gradient>
     tier: RARE
-    unbreakable: true
     lore:
     - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
@@ -272,7 +253,6 @@ ASCUA_ENCERRADA:
     material: BLAZE_POWDER
     name: <gradient:#76C1AF:#E7DFD5>Ascua Encerrada</gradient>
     tier: RARE
-    unbreakable: true
     lore:
     - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
@@ -286,7 +266,6 @@ AMULETO_FOGON:
     material: BOWL
     name: <gradient:#76C1AF:#E7DFD5>Amuleto del Fogón</gradient>
     tier: RARE
-    unbreakable: true
     lore:
     - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
@@ -300,7 +279,6 @@ CUCHARON_ETERNO:
     material: WOODEN_SHOVEL
     name: <gradient:#76C1AF:#E7DFD5>Cucharón Eterno</gradient>
     tier: RARE
-    unbreakable: true
     lore:
     - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
@@ -314,7 +292,6 @@ BRUJULA_EXTRAVIADA:
     material: COMPASS
     name: <gradient:#76C1AF:#E7DFD5>Brújula Extraviada</gradient>
     tier: RARE
-    unbreakable: true
     lore:
     - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
@@ -328,7 +305,6 @@ ROSA_VIENTOS:
     material: RECOVERY_COMPASS
     name: <gradient:#BB91DA:#E7DFD5>Rosa de los Vientos</gradient>
     tier: EPIC
-    unbreakable: true
     lore:
     - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
@@ -342,7 +318,6 @@ ESPEJO_ESCARCHA:
     material: ICE
     name: <gradient:#76C1AF:#E7DFD5>Espejo de Escarcha</gradient>
     tier: RARE
-    unbreakable: true
     lore:
     - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
@@ -356,7 +331,6 @@ ESPEJO_VACIO:
     material: ECHO_SHARD
     name: <gradient:#BB91DA:#E7DFD5>Espejo del Vacío</gradient>
     tier: EPIC
-    unbreakable: true
     lore:
     - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
@@ -370,7 +344,6 @@ MONEDA_SIN_ROSTRO:
     material: GOLD_NUGGET
     name: <gradient:#76C1AF:#E7DFD5>Moneda sin Rostro</gradient>
     tier: RARE
-    unbreakable: true
     lore:
     - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
@@ -384,7 +357,6 @@ NUDO_DOS_ALMAS:
     material: STRING
     name: <gradient:#BB91DA:#E7DFD5>Nudo de las Dos Almas</gradient>
     tier: EPIC
-    unbreakable: true
     lore:
     - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
@@ -398,7 +370,6 @@ CORONA_PEREGRINO:
     material: GOLDEN_HELMET
     name: <gradient:#EAC37F:#E7DFD5>Corona del Peregrino</gradient>
     tier: LEGENDARY
-    unbreakable: true
     lore:
     - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
@@ -412,7 +383,6 @@ LLAVE_SIN_CERRADURA:
     material: TRIPWIRE_HOOK
     name: <gradient:#BB91DA:#E7DFD5>Llave sin Cerradura</gradient>
     tier: EPIC
-    unbreakable: true
     lore:
     - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
@@ -426,7 +396,6 @@ ULTIMO_LATIDO:
     material: HEART_OF_THE_SEA
     name: <gradient:#EAC37F:#E7DFD5>Último Latido</gradient>
     tier: LEGENDARY
-    unbreakable: true
     lore:
     - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
@@ -440,7 +409,6 @@ ECLIPSE_BOLSILLO:
     material: ENDER_PEARL
     name: <gradient:#EAC37F:#E7DFD5>Eclipse de Bolsillo</gradient>
     tier: LEGENDARY
-    unbreakable: true
     lore:
     - '&f'
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
