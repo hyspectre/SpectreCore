@@ -1,0 +1,452 @@
+# Añadir estos 32 IDs en plugins/MMOItems/item/RELIQUIA.yml.
+# Los atributos permanentes se resolverán desde el registro del Relicario, nunca desde el ítem.
+# No definir efectos de consumible, estadísticas de mano ni comandos en estos objetos.
+BROTE_MARCHITO:
+  base:
+    material: MANGROVE_ROOTS
+    name: <gradient:#76C1AF:#E7DFD5>Brote Marchito</gradient>
+    tier: RARE
+    unbreakable: true
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f'
+    - '&f Maná máximo &a+6'
+    - '&f'
+    - '&8 Ent Corrupto y raíces pestilentes'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+NUCLEO_SILVESTRE:
+  base:
+    material: HEART_OF_THE_SEA
+    name: <gradient:#BB91DA:#E7DFD5>Núcleo Silvestre</gradient>
+    tier: EPIC
+    unbreakable: true
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f'
+    - '&f Maná máximo &a+16'
+    - '&f'
+    - '&8 Núcleo del Ent'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+MEDALLON_AGRIETADO:
+  base:
+    material: ECHO_SHARD
+    name: <gradient:#76C1AF:#E7DFD5>Medallón Agrietado</gradient>
+    tier: RARE
+    unbreakable: true
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f'
+    - '&f Daño mágico &a+1%'
+    - '&f'
+    - '&8 Vestigios de Alma'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+MEDALLON_PROFANO:
+  base:
+    material: AMETHYST_SHARD
+    name: <gradient:#BB91DA:#E7DFD5>Medallón Profano</gradient>
+    tier: EPIC
+    unbreakable: true
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f'
+    - '&f Daño mágico &a+2.5%'
+    - '&f'
+    - '&8 Esencia del Nigromante'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+CUERNO_ASTILLADO:
+  base:
+    material: GOAT_HORN
+    name: <gradient:#76C1AF:#E7DFD5>Cuerno Astillado</gradient>
+    tier: RARE
+    unbreakable: true
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f'
+    - '&f Probabilidad crítica &a+0.5%'
+    - '&f'
+    - '&8 Criaturas del Laberinto'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+MARCA_LABERINTO:
+  base:
+    material: NETHER_BRICK
+    name: <gradient:#BB91DA:#E7DFD5>Marca del Laberinto</gradient>
+    tier: EPIC
+    unbreakable: true
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f'
+    - '&f Probabilidad crítica &a+1.5%'
+    - '&f'
+    - '&8 Sello del Laberinto'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+GRILLETE_DESHONRADO:
+  base:
+    material: CHAIN
+    name: <gradient:#76C1AF:#E7DFD5>Grillete del Deshonrado</gradient>
+    tier: RARE
+    unbreakable: true
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f'
+    - '&f Daño cuerpo a cuerpo &a+1%'
+    - '&f'
+    - '&8 Caballero Caído'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+ANILLO_ULTIMO_VOTO:
+  base:
+    material: IRON_NUGGET
+    name: <gradient:#BB91DA:#E7DFD5>Anillo del Último Voto</gradient>
+    tier: EPIC
+    unbreakable: true
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f'
+    - '&f Daño cuerpo a cuerpo &a+2.5%'
+    - '&f'
+    - '&8 Mejora del Grillete'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+COSTILLA_INSEPULTO:
+  base:
+    material: BONE
+    name: <gradient:#76C1AF:#E7DFD5>Costilla del Insepulto</gradient>
+    tier: RARE
+    unbreakable: true
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f'
+    - '&f Daño a no muertos &a+2%'
+    - '&f'
+    - '&8 Criaturas no muertas'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+LAGRIMA_BRONCE:
+  base:
+    material: COPPER_INGOT
+    name: <gradient:#BB91DA:#E7DFD5>Lágrima de Bronce</gradient>
+    tier: EPIC
+    unbreakable: true
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f'
+    - '&f Reducción de daño &a+1%'
+    - '&f'
+    - '&8 Minotauro'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+CORAZON_CENIZA:
+  base:
+    material: MAGMA_CREAM
+    name: <gradient:#BB91DA:#E7DFD5>Corazón de Ceniza</gradient>
+    tier: EPIC
+    unbreakable: true
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f'
+    - '&f Daño de fuego &a+2%'
+    - '&f'
+    - '&8 Dracoescamas'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+CORAZON_INERTE:
+  base:
+    material: FERMENTED_SPIDER_EYE
+    name: <gradient:#76C1AF:#E7DFD5>Corazón Inerte</gradient>
+    tier: RARE
+    unbreakable: true
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f'
+    - '&f Vida máxima &a+2'
+    - '&f'
+    - '&8 Monarquía Renacida'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+SELLO_PROSPECTOR:
+  base:
+    material: COMPASS
+    name: <gradient:#76C1AF:#E7DFD5>Sello del Prospector</gradient>
+    tier: RARE
+    unbreakable: true
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f'
+    - '&f Velocidad minera &a+2%'
+    - '&f'
+    - '&8 Encargos de Minería'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+OJO_PROSPECTOR:
+  base:
+    material: ENDER_EYE
+    name: <gradient:#BB91DA:#E7DFD5>Ojo del Prospector</gradient>
+    tier: EPIC
+    unbreakable: true
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f'
+    - '&f Velocidad minera &a+4%'
+    - '&f'
+    - '&8 Minería avanzada'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+DEDAL_FORTUNA:
+  base:
+    material: IRON_NUGGET
+    name: <gradient:#76C1AF:#E7DFD5>Dedal de la Fortuna</gradient>
+    tier: RARE
+    unbreakable: true
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f'
+    - '&f Cosecha adicional &a+1%'
+    - '&f'
+    - '&8 Agricultura'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+ESPIGA_AMBAR:
+  base:
+    material: WHEAT
+    name: <gradient:#76C1AF:#E7DFD5>Espiga de Ámbar</gradient>
+    tier: RARE
+    unbreakable: true
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f'
+    - '&f Cosecha adicional &a+2%'
+    - '&f'
+    - '&8 Encargos de Agricultura'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+CORNUCOPIA_AMBAR:
+  base:
+    material: GOLDEN_CARROT
+    name: <gradient:#BB91DA:#E7DFD5>Cornucopia de Ámbar</gradient>
+    tier: EPIC
+    unbreakable: true
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f'
+    - '&f Cosecha adicional &a+3%'
+    - '&f'
+    - '&8 Mejora de la Espiga'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+COLMILLO_ACECHADOR:
+  base:
+    material: BONE
+    name: <gradient:#76C1AF:#E7DFD5>Colmillo del Acechador</gradient>
+    tier: RARE
+    unbreakable: true
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f'
+    - '&f Daño a criaturas hostiles &a+1%'
+    - '&f'
+    - '&8 Encargos de Caza'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+SILBATO_CAZADOR:
+  base:
+    material: GOAT_HORN
+    name: <gradient:#76C1AF:#E7DFD5>Silbato del Cazador</gradient>
+    tier: RARE
+    unbreakable: true
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f'
+    - '&f Daño a criaturas hostiles &a+1.5%'
+    - '&f'
+    - '&8 Caza avanzada'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+ASCUA_ENCERRADA:
+  base:
+    material: BLAZE_POWDER
+    name: <gradient:#76C1AF:#E7DFD5>Ascua Encerrada</gradient>
+    tier: RARE
+    unbreakable: true
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f'
+    - '&f Resistencia al fuego &a+1%'
+    - '&f'
+    - '&8 Tesoros de la Cripta'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+AMULETO_FOGON:
+  base:
+    material: BOWL
+    name: <gradient:#76C1AF:#E7DFD5>Amuleto del Fogón</gradient>
+    tier: RARE
+    unbreakable: true
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f'
+    - '&f Duración de alimentos &a+5%'
+    - '&f'
+    - '&8 Cocina'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+CUCHARON_ETERNO:
+  base:
+    material: WOODEN_SHOVEL
+    name: <gradient:#76C1AF:#E7DFD5>Cucharón Eterno</gradient>
+    tier: RARE
+    unbreakable: true
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f'
+    - '&f Rapidez de cocina &a+3%'
+    - '&f'
+    - '&8 Cocina avanzada'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+BRUJULA_EXTRAVIADA:
+  base:
+    material: COMPASS
+    name: <gradient:#76C1AF:#E7DFD5>Brújula Extraviada</gradient>
+    tier: RARE
+    unbreakable: true
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f'
+    - '&f Velocidad &a+1%'
+    - '&f'
+    - '&8 Tesoros ocultos'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+ROSA_VIENTOS:
+  base:
+    material: RECOVERY_COMPASS
+    name: <gradient:#BB91DA:#E7DFD5>Rosa de los Vientos</gradient>
+    tier: EPIC
+    unbreakable: true
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f'
+    - '&f Velocidad &a+2.5%'
+    - '&f'
+    - '&8 Mejora de la Brújula'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+ESPEJO_ESCARCHA:
+  base:
+    material: ICE
+    name: <gradient:#76C1AF:#E7DFD5>Espejo de Escarcha</gradient>
+    tier: RARE
+    unbreakable: true
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f'
+    - '&f Resistencia a proyectiles &a+1%'
+    - '&f'
+    - '&8 Exploración'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+ESPEJO_VACIO:
+  base:
+    material: ECHO_SHARD
+    name: <gradient:#BB91DA:#E7DFD5>Espejo del Vacío</gradient>
+    tier: EPIC
+    unbreakable: true
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f'
+    - '&f Resistencia a proyectiles &a+2.5%'
+    - '&f'
+    - '&8 Mejora del Espejo'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+MONEDA_SIN_ROSTRO:
+  base:
+    material: GOLD_NUGGET
+    name: <gradient:#76C1AF:#E7DFD5>Moneda sin Rostro</gradient>
+    tier: RARE
+    unbreakable: true
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f'
+    - '&f Monedas de contratos &a+1%'
+    - '&f'
+    - '&8 Tesoro excepcional'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+NUDO_DOS_ALMAS:
+  base:
+    material: STRING
+    name: <gradient:#BB91DA:#E7DFD5>Nudo de las Dos Almas</gradient>
+    tier: EPIC
+    unbreakable: true
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f'
+    - '&f Vida máxima &a+3'
+    - '&f'
+    - '&8 Desafío cooperativo'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+CORONA_PEREGRINO:
+  base:
+    material: GOLDEN_HELMET
+    name: <gradient:#EAC37F:#E7DFD5>Corona del Peregrino</gradient>
+    tier: LEGENDARY
+    unbreakable: true
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f'
+    - '&f Maná máximo &a+10'
+    - '&f'
+    - '&8 Exploración extensa'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+LLAVE_SIN_CERRADURA:
+  base:
+    material: TRIPWIRE_HOOK
+    name: <gradient:#BB91DA:#E7DFD5>Llave sin Cerradura</gradient>
+    tier: EPIC
+    unbreakable: true
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f'
+    - '&f Probabilidad crítica &a+1%'
+    - '&f'
+    - '&8 Secreto de dungeon'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+ULTIMO_LATIDO:
+  base:
+    material: HEART_OF_THE_SEA
+    name: <gradient:#EAC37F:#E7DFD5>Último Latido</gradient>
+    tier: LEGENDARY
+    unbreakable: true
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f'
+    - '&f Vida máxima &a+4'
+    - '&f'
+    - '&8 Desafío sin muertes'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+ECLIPSE_BOLSILLO:
+  base:
+    material: ENDER_PEARL
+    name: <gradient:#EAC37F:#E7DFD5>Eclipse de Bolsillo</gradient>
+    tier: LEGENDARY
+    unbreakable: true
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f'
+    - '&f Daño cuerpo a cuerpo &a+1%'
+    - '&f Daño mágico &a+1%'
+    - '&f'
+    - '&8 Colección excepcional'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
