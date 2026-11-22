@@ -11,6 +11,8 @@ javac -encoding UTF-8 -d "$TMP" \
   "$ROOT/tests/DiagnosticsSmoke.java" \
   "$ROOT/tests/TexturePayloadSmoke.java" \
   "$ROOT/tests/AtomicFileStoreSmoke.java" \
+  "$ROOT/src/main/java/dev/hydev/spectrecore/relicario/RelicarioRules.java" \
+  "$ROOT/tests/RelicarioRulesSmoke.java" \
   "$ROOT/src/main/java/dev/hydev/spectrecore/core/CombatRules.java" \
   "$ROOT/src/main/java/dev/hydev/spectrecore/core/AsterionComboRules.java" \
   "$ROOT/tests/AsterionComboSmoke.java" \
@@ -27,4 +29,4 @@ javac -encoding UTF-8 -d "$TMP" \
   "$ROOT/tests/CooldownsSmoke.java" \
   "$ROOT/tests/CookingTimingSmoke.java" \
   "$ROOT/tests/CookingBatchSmoke.java"
-for cls in PresentationMigrationsSmoke DiagnosticsSmoke TexturePayloadSmoke AtomicFileStoreSmoke CombatRulesSmoke AsterionComboSmoke SlayerContractSmoke JobsContractSmoke CooldownsSmoke CookingTimingSmoke CookingToolsSmoke CookingBatchSmoke; do java -ea -cp "$TMP" "$cls"; done
+for cls in RelicarioRulesSmoke PresentationMigrationsSmoke DiagnosticsSmoke TexturePayloadSmoke AtomicFileStoreSmoke CombatRulesSmoke AsterionComboSmoke SlayerContractSmoke JobsContractSmoke CooldownsSmoke CookingTimingSmoke CookingToolsSmoke CookingBatchSmoke; do java -ea -cp "$TMP" "$cls"; done
