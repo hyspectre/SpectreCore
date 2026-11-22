@@ -1,0 +1,55 @@
+# HYDEV - 5 CONJUNTOS | item-sets.yml (solo estas cinco entradas)
+# Fusionar los cinco IDs con plugins/MMOItems/item-sets.yml, nunca reemplazar
+# todo el archivo si ya existen otros conjuntos. Mantener solo una definición
+# de cada ID (no instalar a la vez ITEM_SETS_TRES_ENTRADAS_v0_2.yml).
+#
+# Las bonificaciones que ya otorga SpectreCore NO se duplican aquí:
+#   HYDEV_LABERINTO -> +6 vida (2), resistencia empuje (4)
+#   HYDEV_VOTO -> +4% velocidad (2), habilidad (4), eco con arma
+#   HYDEV_IGNEA -> +4 vida y +2% velocidad (2); +3% daño/mitigación (4)
+#   Las cinco habilidades (4) son controladas por SpectreCore.
+# lore-tag vacío: el lore reducido ya muestra los bonos y evita duplicación.
+#
+# Requisito para (5): la espada debe tener base.set asignado al mismo ID.
+# El conteo del arma en mano y la activación del escalón (5) requieren
+# prueba en la versión de MMOItems instalada en Hydev.
+
+HYDEV_RAIGAMBRE:
+  name: '&aRaigambre Ancestral'
+  bonuses:
+    '2':
+      max-mana: 20
+    '4':
+      magic-damage: 12
+      damage-reduction: 4
+    '5':
+      potion-regeneration: 1
+  lore-tag: []
+
+NECROTICO:
+  name: '&5Armadura Necrótica'
+  bonuses:
+    '2':
+      max-health: 4
+    '4':
+      damage-reduction: 5
+  lore-tag: []
+
+HYDEV_LABERINTO:
+  name: '&6Sangre del Laberinto'
+  bonuses:
+    '5':
+      critical-strike-chance: 5
+  lore-tag: []
+
+HYDEV_VOTO:
+  name: '&dVoto del Deshonrado'
+  bonuses:
+    '2':
+      critical-strike-chance: 8
+  lore-tag: []
+
+HYDEV_IGNEA:
+  name: '&6Herencia Dracónica'
+  bonuses: {}
+  lore-tag: []
