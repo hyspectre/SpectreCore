@@ -17,7 +17,7 @@ retired = {
     "modules/tesoros/combate.yml": ("enabled",),
     "modules/tesoros/agricultura.yml": ("enabled",),
     "modules/dungeons/config.yml": ("jefes.enabled", "portal.enabled"),
-    "modules/trabajos/config.yml": ("minero.enabled", "granjero.enabled", "cazador.enabled"),
+    "modules/trabajos/config.yml": ("minero.enabled", "granjero.enabled", "cazador.enabled", "contratos.habilitados"),
     "modules/actividades/config.yml": ("cygnus.enabled", "entrada.enabled",
         "cofre.enabled", "polvos.enabled", "desbloqueos.enabled", "telefono.enabled"),
     "modules/equipamiento/config.yml": (
