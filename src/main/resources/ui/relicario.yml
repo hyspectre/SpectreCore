@@ -130,5 +130,5 @@ mensajes:
   back-detail: "<gray>Revisar otras colecciones."
   close: "<gray>Cerrar Relicario"
   guide: "<gold>Relicario <gray>│ Cada reliquia se absorbe una vez. Solo cuenta la mayor versión de cada familia."
-  mana-offline: "<yellow>Necesitas AuraSkills activo para recibir maná."
+  mana-offline: "<yellow>El poder de maná aún no está disponible."
   active-bonus: "<green>✦ Bonificación activa"
