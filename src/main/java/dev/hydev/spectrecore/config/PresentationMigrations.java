@@ -91,7 +91,32 @@ public final class PresentationMigrations {
         new Rule("<gray>Esta sección mostrará los accesorios del servidor.", "<gray>Los accesorios especiales todavía no están al alcance de los aventureros."),
         new Rule("<gray>Las habilidades de los conjuntos se explican en Armaduras. Se ampliará esta sección con otras habilidades.", "<gray>Cada armadura encierra un poder distinto: aprende cuándo y cómo despertarlo."),
         new Rule("<gray>Activa cocinas con un mechero, prepara ingredientes y sirve platos. Pulsa Recetario para consultar las recetas disponibles.", "<gray>Enciende la fogata, prepara los ingredientes y sirve tus platos. Descubre qué secretos guarda cada receta."),
-        new Rule("<gray>Conoce los oficios y sus estaciones. Cada profesión tiene sus propias actividades y recompensas.", "<gray>Minería, Agricultura y Caza ofrecen desafíos, rangos y recompensas. También puedes perfeccionar tu cocina.")
+        new Rule("<gray>Conoce los oficios y sus estaciones. Cada profesión tiene sus propias actividades y recompensas.", "<gray>Minería, Agricultura y Caza ofrecen desafíos, rangos y recompensas. También puedes perfeccionar tu cocina."),
+        new Rule("No se pudo ejecutar el pago. Revisa el plugin de economía.", "No se pudo confirmar el pago. Inténtalo más tarde."),
+        new Rule("No se pudo mover a Cygnus; revisa su plugin y configuración.", "Cygnus no puede desplazarse en este momento."),
+        new Rule("No está disponible {offer-type}:{offer-id}. Avisa a administración.", "Esta recompensa no está disponible. Avisa a administración."),
+        new Rule("Permiso configurado inválido.", "Este desbloqueo no está disponible. Avisa a administración."),
+        new Rule("Cofre mal configurado: {error-getmessage}", "Este cofre no está disponible. Avisa a administración."),
+        new Rule("{prefix}<reset><red>{error-getmessage}", "{prefix}<reset><red>No se pudieron actualizar las recetas. Avisa a administración."),
+        new Rule("Configuracion y recetas recargadas.", "Recetas y preparaciones actualizadas."),
+        new Rule("Tier {m-tier}", "Rango {m-tier}"),
+        new Rule("Categoría: revenant, necromancer o spider.", "Esta cacería no existe."),
+        new Rule("Tier inválido. Usa 1, 2 o 3.", "Elige un rango del 1 al 3."),
+        new Rule("No tienes permiso para ese tier.", "Todavía no puedes acceder a ese rango."),
+        new Rule("Tier {tier} · Objetivo: {m-required}", "Rango {tier} · Objetivo: {m-required}"),
+        new Rule("No se pudo invocar {mob}. Tu objetivo se conserva. Reintenta con /spectrecore slayer invocar {category}", "El jefe no pudo aparecer. Conservas el contrato y podrás reintentar la invocación."),
+        new Rule("Tu jefe desapareció. Conservaste el contrato; usa /spectrecore slayer invocar {category} para reintentarlo.", "El jefe desapareció. Conservas el contrato y podrás volver a invocarlo."),
+        new Rule("Tier válido: 1, 2 o 3.", "Nivel válido: 1, 2 o 3."),
+        new Rule("{mmo-type-held}:{mmo-id-held}", "Herramienta inspeccionada"),
+        new Rule("Modo: <reset><white>{valor1} <reset><gray>| Pico configurado: <reset><white>{valor2}", "Estado de extracción: <reset><white>Verificado"),
+        new Rule("Ese módulo está desactivado.", "Esta función está desactivada."),
+        new Rule("Este módulo está desactivado.", "Esta función está desactivada."),
+        new Rule("{error-getmessage}. Se conserva la última configuración válida.", "No se pudieron actualizar los ajustes. Se conserva la configuración anterior."),
+        new Rule("Menú inválido: {error}; se conserva la última versión válida.", "No se pudo actualizar la guía. Se conserva la versión anterior."),
+        new Rule("Modelo inválido: {error}", "No se pudo preparar ese modelo. Avisa a administración."),
+        new Rule("models/settings.yml inválido; se conservan límites anteriores.", "No se pudieron actualizar los ajustes de modelos."),
+        new Rule("Toast no disponible o desactivado. Verifica la consola y los ajustes.", "Esta notificación no está disponible."),
+        new Rule("Habilidades y cooldowns reiniciados.", "Habilidades y tiempos de espera reiniciados.")
     );
 
     private PresentationMigrations() { }
