@@ -5,6 +5,7 @@ reset	$core	equipamiento	ADMIN	/spectrecore reset	Reiniciar tus habilidades y re
 demo	$core	equipamiento	ADMIN	/spectrecore demo <habilidad>	Alternar una habilidad de prueba
 blink	$core	equipamiento.ultimo-juramento	CONSOLE	/spectrecore blink <jugador>	Notificar un Blink confirmado
 armaduras	armaduras	equipamiento.libro	PUBLIC	/spectrecore armaduras	Libro de armaduras
+relicario	relicario	accesorios	PUBLIC	/spectrecore relicario	Colección de reliquias y estadísticas
 cocina	cocina	cocina	PUBLIC	/spectrecore cocina <ayuda|libro|recetas|estado|reparar|recargar>	Cocina y recetario
 trabajos	trabajo	trabajos	PUBLIC	/spectrecore trabajos	Niveles de trabajos
 resonancia	resonancia	resonancia	PUBLIC	/spectrecore resonancia	Carga del Pico Perdido
