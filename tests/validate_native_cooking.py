@@ -14,6 +14,28 @@ assert len(recipes)==15 and len(outputs)==45
 assert all(isinstance(k,str) for k in recipes)
 assert set(("guardian","alba","carmesi","espectral")).issubset(recipes)
 
+# Minecraft Java 1.21.10, Español (México): assets/minecraft/lang/es_mx.json.
+latin_names={
+    "RESISTANCE":"Resistencia", "SPEED":"Velocidad", "STRENGTH":"Fuerza",
+    "REGENERATION":"Regeneración", "HASTE":"Prisa minera",
+    "NIGHT_VISION":"Visión nocturna", "WATER_BREATHING":"Respiración",
+    "JUMP_BOOST":"Supersalto", "FIRE_RESISTANCE":"Resis. al fuego",
+    "INVISIBILITY":"Invisibilidad", "ABSORPTION":"Absorción"
+}
+subtype=yaml.safe_load((root/"integracion-mmoitems/COCINA.yml").read_text(encoding="utf8"))
+assert subtype==outputs, "The standalone COCINA file must contain the same 45 meals."
+for item_id, value in subtype.items():
+    base=value["base"]
+    lore=base["lore"]
+    assert not any("Cocina Arcana - Hydev" in line or
+                   "Preparado en un caldero artesanal." in line for line in lore), item_id
+    for effect_id, configuration in base["effects"].items():
+        assert effect_id in latin_names, (item_id,effect_id)
+        roman={1:"I",2:"II"}[configuration["level"]]
+        expected=f"&7Efecto: &f{latin_names[effect_id]} {roman} &8({configuration['duration']}s)"
+        assert expected in lore, (item_id,expected)
+    assert sum(line.startswith("&7Efecto: &f") for line in lore)==len(base["effects"]),item_id
+
 first=[]
 all_ids=set()
 first_names=set()
