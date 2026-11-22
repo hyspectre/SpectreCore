@@ -5,7 +5,6 @@ indicador:
   completo: "<green>✦ ʜᴀʙɪʟɪᴅᴀᴅ ᴅɪsᴘᴏɴɪʙʟᴇ"
   parcial: "<yellow>✦ ʙᴏɴᴏ ᴘᴀʀᴄɪᴀʟ ᴀᴄᴛɪᴠᴏ"
   incompleto: "<gray>ᴀúɴ ɴᴏ ᴄᴏᴍᴘʟᴇᴛᴀᴅᴏ"
-  desactivado: "<red>ᴄᴏɴᴊᴜɴᴛᴏ ɪɴᴀᴄᴛɪᴠᴏ"
 
 pages:
   armaduras:
