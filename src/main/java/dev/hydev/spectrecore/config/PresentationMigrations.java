@@ -117,6 +117,23 @@ public final class PresentationMigrations {
         new Rule("models/settings.yml inválido; se conservan límites anteriores.", "No se pudieron actualizar los ajustes de modelos."),
         new Rule("Toast no disponible o desactivado. Verifica la consola y los ajustes.", "Esta notificación no está disponible."),
         new Rule("Habilidades y cooldowns reiniciados.", "Habilidades y tiempos de espera reiniciados.")
+,
+        new Rule("Comprar acceso remoto a misiones mediante Vault y MMOItems", "Obtener el Teléfono Rojo para consultar tus misiones"),
+        new Rule("Contratar una misión Slayer con Vault", "Contratar una cacería"),
+        new Rule("Abandonar un contrato Slayer con Vault", "Abandonar una cacería"),
+        new Rule("Guía de armaduras mediante Dialogs", "Catálogo de armaduras y bonificaciones"),
+        new Rule("Sistemas RPG y administración de Hydev", "Aventuras y herramientas de Hydev"),
+        new Rule("Sistema Hydev trabajo", "Contratos y oficios"),
+        new Rule("Sistema Hydev activarslayer", "Iniciar una cacería"),
+        new Rule("Sistema Hydev cancelarslayer", "Cancelar una cacería"),
+        new Rule("Sistema Hydev resetslayer", "Reiniciar una cacería"),
+        new Rule("Sistema Hydev slayerstats", "Consultar el progreso de cacerías"),
+        new Rule("Sistema Hydev slayerinvocar", "Reintentar una aparición pendiente"),
+        new Rule("Sistema Hydev hydevportaljoin", "Registrar un participante"),
+        new Rule("Sistema Hydev hydevportalleave", "Registrar la salida de un participante"),
+        new Rule("Sistema Hydev hydevportalcleanup", "Retirar portales activos"),
+        new Rule("Sistema Hydev hydevportalstatus", "Consultar el estado del portal"),
+        new Rule("Sistema Hydev hydevportaldemo", "Previsualizar el portal")
     );
 
     private PresentationMigrations() { }
