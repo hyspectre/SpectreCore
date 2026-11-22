@@ -27,8 +27,9 @@ for skill,prefix in expected.items():
 cooking = load('modules/cocina/config.yml')['cooking']
 assert cooking['visuals']['visible-ingredients'] and cooking['servings']['water-level-portions']
 recipes = load('modules/cocina/recetas.yml')['recetas']
-items = yaml.safe_load((root/'integracion-mmoitems/CONSUMABLE_Cocina.yml').read_text(encoding='utf-8'))
+items = yaml.safe_load((root/'integracion-mmoitems/COCINA.yml').read_text(encoding='utf-8'))
 assert len(recipes) == 15 and len(items) == 45
+assert not (root/'integracion-mmoitems/CONSUMABLE_Cocina.yml').exists(), 'No debe existir catálogo culinario de CONSUMABLE'
 assert {'guardian','alba','carmesi','espectral','minero','velocidad','espeleologo','mareas','saltador','escudero','brasa','vigor','sombra','maraton','leyenda'} == set(recipes)
 for recipe in recipes.values():
     assert len(recipe['ingredientes']) == 3
