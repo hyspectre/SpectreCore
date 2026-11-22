@@ -74,9 +74,9 @@ pages:
       - label: '<aqua>Encantamientos (próximamente)</aqua>'
         page: encantamientos
         descripcion: "<dark_gray>Contenido en preparación"
-      - label: '<aqua>Accesorios (próximamente)</aqua>'
+      - label: '<light_purple>Relicario</light_purple>'
         page: accesorios
-        descripcion: "<dark_gray>Contenido en preparación"
+        descripcion: "<gray>Reliquias, absorción y estadísticas"
       - label: '<gray>Regresar</gray>'
         page: inicio
         descripcion: "<gray>Regresar a la portada"
@@ -127,12 +127,14 @@ pages:
         page: rpg
         descripcion: "<gray>Conjuntos, habilidades y combate"
   accesorios:
-    title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Accesorios"
-    body: "<gray>Los accesorios especiales todavía no están al alcance de los aventureros.</gray>"
-    resumen: "<white>Las reliquias especiales siguen siendo un misterio."
+    title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Relicario"
+    body: "<gray>Absorbe reliquias antiguas y conserva su poder para siempre."
+    resumen: "<white>Una colección permanente de reliquias."
     puntos:
-      - "<gray>Este capítulo aún guarda páginas en blanco."
-      - "<dark_gray>Aún no hay accesorios especiales que puedas equipar."
+      - "<gray>Descubre objetos de la Cripta y el mundo."
+      - "<gray>Sus bonificaciones se acumulan."
+      - "<gray>Solo cuenta la reliquia superior de cada familia."
+      - "<gray>El Relicario muestra tu progreso."
     buttons:
       - label: '<gray>Combate</gray>'
         page: rpg
