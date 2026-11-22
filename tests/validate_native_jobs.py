@@ -17,7 +17,7 @@ expected = {
 }
 assert "enabled" not in gui
 assert set(gui["pages"]) == {"trabajos", *expected}
-assert jobs["contratos"]["habilitados"] is True
+assert "habilitados" not in jobs["contratos"]
 assert jobs["contratos"]["precios"] == {"novato": 50, "experimentado": 1500, "profesional": 3500}
 assert len(gui["material-names"]) >= 30
 for page, payload in gui["pages"].items():
