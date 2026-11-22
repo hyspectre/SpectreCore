@@ -57,6 +57,7 @@ CommandRouter:
 # Migración M2 - MiniMessage, El Mago y vistas previas 3D.
 MagoMenu.no-disponible: "<red>El Mago está temporalmente desactivado.</red>"
 MagoMenu.reload-error: "<red>No se pudo actualizar la guía. Se conserva la versión anterior.</red>"
+Integraciones.solo-consola: "<gray>Esta revisión administrativa solo está disponible desde la consola."
 Integraciones.estado: "{nombre}: {estado}"
 Integraciones.activo: "<green>detectado</green>"
 Integraciones.inactivo: "<gray>no activo</gray>"
@@ -70,6 +71,7 @@ Modelos.fallo: "<red>No se pudo visualizar el modelo; no se conservaron entidade
 Modelos.creado: "<green>Vista previa de {id}: {partes} piezas.</green>"
 
 # Migración m3: diagnósticos y modelos persistentes
+Diagnostico.solo-consola: "<gray>El diagnóstico administrativo se consulta desde la consola."
 Diagnostico.estado: "<gold>Hydev — diagnóstico: {estado}</gold>"
 Modelos.settings-invalido: "<red>No se pudieron actualizar los ajustes de modelos.</red>"
 Modelos.storage: "<red>Almacenamiento de modelos bloqueado. Recupera placements.yml.</red>"
