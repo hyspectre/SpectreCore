@@ -217,10 +217,9 @@ public final class JobsMenu implements Listener {
         String job = page.equals("trabajos") ? id : page;
         if (!JobsContractRules.JOBS.contains(job)) return line;
         int current = jobs.rank(player, job);
-        boolean active = ModuleConfiguration.of(plugin).active("trabajos." + job);
         String currentRank = current == 0 ? label("sin-contrato", "Sin contrato")
                 : jobs.displayRank(ProgressRules.rank(current));
-        String state = active ? label("disponible", "Disponible") : label("desactivado", "Desactivado");
+        String state = label("disponible", "Disponible");
         if (page.equals("trabajos") || !RANKS.contains(id)) {
             return line.replace("{rango}", currentRank).replace("{estado}", state);
         }
@@ -232,8 +231,7 @@ public final class JobsMenu implements Listener {
         String max = readableNumber(config.get(root + ".maximo"));
         String cooldown = readableNumber(config.get("cooldowns." + job + "." + level));
         String price = readableNumber(config.get("contratos.precios." + level));
-        if (!active) state = label("desactivado", "Desactivado");
-        else if (current >= tier) state = label("ya-contratado", "Ya contratado");
+        if (current >= tier) state = label("ya-contratado", "Ya contratado");
         else if (jobs.isPending(player)) state = label("procesando", "Procesando");
         else state = current == tier - 1
                 ? label("disponible", "Disponible")
