@@ -116,10 +116,10 @@ public final class LegacyActivities implements Listener {
                     plugin.getLogger().warning("Economía: comando de depósito emitido pero no confirmado para " + player.getUniqueId());
                 player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-005", "§fRecibiste §a${amount} §fpor pulverizar este mineral.", "amount", amount));
                 player.playSound(player.getLocation(), Settings.sound("actividades", "LegacyActivities.sound-002", Sound.BLOCK_AMETHYST_CLUSTER_BREAK),Settings.f("actividades", "LegacyActivities.playsound-003-arg2", .7f),Settings.f("actividades", "LegacyActivities.playsound-004-arg3", 1.3f));
-            } else player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-006", "§cNo se pudo ejecutar el pago. Revisa el plugin de economía."));
+            } else player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-006", "§cNo se pudo confirmar el pago. Inténtalo más tarde."));
         } else if (UNLOCKS.containsKey(name)) {
             String permission=config.getString("desbloqueos.comandos."+name,UNLOCKS.get(name));
-            if(!permission.matches("[A-Za-z0-9._*\\-]+")){player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-007", "Permiso configurado inválido."));return true;}
+            if(!permission.matches("[A-Za-z0-9._*\\-]+")){player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-007", "Este desbloqueo no está disponible. Avisa a administración."));return true;}
             if (dispatch("lp user " + player.getName() + " permission set " + permission + " true")) {
                 player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-008","{valor1}","valor1", name.equals("almas1") ? Settings.component(Settings.text("actividades", "LegacyActivities.texto-001", "§8Sientes un escalofrío...")) : name.equals("mineria1") ? Settings.component(Settings.text("actividades", "LegacyActivities.texto-002", "§8Sientes una energía revitalizándote...")) : Settings.component(Settings.text("actividades", "LegacyActivities.texto-003", "§8Los no-muertos reclaman tu nombre..."))));
                 player.playSound(player.getLocation(), Settings.sound("actividades", "LegacyActivities.sound-003", Sound.BLOCK_ENCHANTMENT_TABLE_USE),Settings.f("actividades", "LegacyActivities.playsound-005-arg2", .5f),Settings.f("actividades", "LegacyActivities.playsound-006-arg3", 1.1f));
@@ -132,13 +132,13 @@ public final class LegacyActivities implements Listener {
     }
     private void offer(Player player, Offer offer) {
         if (ThreadLocalRandom.current().nextInt(1, 101)<=Math.max(0,Math.min(100,config.getInt("cygnus.probabilidad-fuga",30)))) {
-            if (!moveCygnus()) { player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-012", "§cNo se pudo mover a Cygnus; revisa su plugin y configuración.")); return; }
+            if (!moveCygnus()) { player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-012", "§cCygnus no puede desplazarse en este momento.")); return; }
             player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-013", "§f")); player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-014", "§eCygnus fue más astuto y salió volando con tu dinero...")); player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-015", "§f"));
             player.getWorld().spawnParticle(Settings.particle("actividades", "LegacyActivities.particle-005", Particle.PORTAL), player.getLocation().add(0, 1, 0),Settings.i("actividades", "LegacyActivities.spawnparticle-009-arg2", 24),Settings.d("actividades", "LegacyActivities.spawnparticle-010-arg3", .4),Settings.d("actividades", "LegacyActivities.spawnparticle-011-arg4", .5),Settings.d("actividades", "LegacyActivities.spawnparticle-012-arg5", .4),Settings.d("actividades", "LegacyActivities.spawnparticle-013-arg6", .15));
             player.playSound(player.getLocation(), Settings.sound("actividades", "LegacyActivities.sound-006", Sound.ENTITY_BAT_TAKEOFF),Settings.f("actividades", "LegacyActivities.playsound-014-arg2", .7f),Settings.f("actividades", "LegacyActivities.playsound-015-arg3", .8f));
         } else {
             var reward = mmo.build(offer.type, offer.id, 1);
-            if (reward == null) { player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-016", "§cNo está disponible {offer-type}:{offer-id}. Avisa a administración.", "offer-type", offer.type, "offer-id", offer.id)); return; }
+            if (reward == null) { player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-016", "§cEsta recompensa no está disponible. Avisa a administración.", "offer-type", offer.type, "offer-id", offer.id)); return; }
             deliver(player, reward); player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-017", "§f")); player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-018", "§eCygnus confía en tu valor y te entregó el objeto..."));
             player.playSound(player.getLocation(), Settings.sound("actividades", "LegacyActivities.sound-007", Sound.ENTITY_EXPERIENCE_ORB_PICKUP),Settings.f("actividades", "LegacyActivities.playsound-016-arg2", .8f),Settings.f("actividades", "LegacyActivities.playsound-017-arg3", 1.3f));
             visuals.gem(player.getLocation(), reward, "superior");
@@ -175,7 +175,7 @@ public final class LegacyActivities implements Listener {
             if(section==null)throw new IllegalArgumentException(Settings.text("actividades", "LegacyActivities.etiqueta-028", "Faltan premios"));
             for(String material:section.getKeys(false)){if(!section.isInt(material))throw new IllegalArgumentException(Settings.text("actividades", "LegacyActivities.texto-004", "Peso no entero"));Material type=Material.valueOf(material);if(type.isAir()||!type.isItem())throw new IllegalArgumentException(Settings.text("actividades", "LegacyActivities.texto-005", "Material inválido"));weights.put(material,section.getInt(material));}
             pending.put(id, Material.valueOf(ActivityRules.weightedPrize(ThreadLocalRandom.current().nextInt(1,101),weights)));
-        }catch(IllegalArgumentException error){player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-022", "§cCofre mal configurado: {error-getmessage}", "error-getmessage", error.getMessage()));return;}
+        }catch(IllegalArgumentException error){player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-022", "§cEste cofre no está disponible. Avisa a administración.", "error-getmessage", error.getMessage()));return;}
         if (!savePending()) { pending.remove(id); chestStorageReady = false; player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-023", "§cNo se pudo guardar el cofre; inténtalo más tarde.")); return; }
         Location forward = player.getLocation(); double yaw = Math.toRadians(forward.getYaw());
         Location at = forward.clone().add(-Math.sin(yaw) * 2, 1, Math.cos(yaw) * 2);
