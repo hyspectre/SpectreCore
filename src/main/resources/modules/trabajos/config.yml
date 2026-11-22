@@ -50,7 +50,6 @@ cazador:
 
 # Precios extraídos de los tres menús originales de zMenu.
 contratos:
-  habilitados: true
   precios:
     novato: 50
     experimentado: 1500
