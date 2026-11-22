@@ -27,7 +27,6 @@ cooldowns:
     profesional: 5
 
 minero:
-  enabled: true
   novato:
     dinero: {minimo: 1, maximo: 4}
   experimentado:
@@ -35,7 +34,6 @@ minero:
   profesional:
     dinero: {minimo: 8, maximo: 12}
 granjero:
-  enabled: true
   novato:
     dinero: {minimo: 1, maximo: 3}
   experimentado:
@@ -43,7 +41,6 @@ granjero:
   profesional:
     dinero: {minimo: 6, maximo: 10}
 cazador:
-  enabled: true
   novato:
     dinero: {minimo: 2, maximo: 6}
   experimentado:
