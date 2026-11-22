@@ -152,7 +152,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
         toastService = new ToastService(this);
         toastService.enable();
         for (String name : commandRouter.names()) if (!name.equals("spectrecore") && commandRouter.get(name) != null) {
-            commandRouter.get(name).setExecutor((sender, command, label, args) -> { sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-001", "Esta función está desactivada.")); return true; });
+            commandRouter.get(name).setExecutor((sender, command, label, args) -> { sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-001", "Esta función no está disponible. Revisa la consola del servidor.")); return true; });
             commandRouter.get(name).setTabCompleter((sender, command, label, args) -> List.of());
         }
         for (String obsolete : List.of("SpectreSkills", "SpectreCooking", "HydevBotania")) {
