@@ -1,6 +1,3 @@
-# Menú Relicario v0.1. Estructura preparada para el módulo Java.
-# No se habilita hasta implementar la persistencia, el consumo y todos los efectos.
-enabled: true
 general:
   title: "<white>⧇ <gold>Relicario <dark_gray>│ <white>Colecciones"
   size: 54
