@@ -25,7 +25,8 @@ cooking:
     enabled: true
     stir-sweetspot-fraction: 0.6
   rewards:
-    mmoitems-type: CONSUMABLE
+    # Tipo reservado para platos. Se reestablece a COCINA si existe un valor antiguo.
+    mmoitems-type: COCINA
 
 herramientas:
   crear: FLINT_AND_STEEL
