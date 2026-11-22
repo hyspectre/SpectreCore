@@ -1,5 +1,4 @@
 cygnus:
-  enabled: true
   mover-al-entrar: true
   movimientos:
   - npc move_to Cygnus 128.58 122 80.84 hydevspawn
@@ -33,7 +32,6 @@ cygnus:
       tipo: ARMOR
       id: COPPERGOLEM
 entrada:
-  enabled: true
   nivel-resistencia: 100
   duracion-segundos: 30
 visuales:
@@ -50,7 +48,6 @@ cofre:
     LAPIS_ORE: "Lapislázuli"
     DIAMOND_ORE: "¡DIAMANTE!"
     EMERALD_ORE: "¡ESMERALDA!"
-  enabled: true
   apertura-ticks: 60
   premios:
     COAL_ORE: 35
@@ -62,7 +59,6 @@ cofre:
     DIAMOND_ORE: 1
     EMERALD_ORE: 1
 polvos:
-  enabled: true
   comandos:
     polvodiamante:
       minimo: 70
@@ -83,7 +79,6 @@ polvos:
       minimo: 20
       maximo: 50
 desbloqueos:
-  enabled: true
   comandos:
     almas1: tesoros.combate.tier1
     mineria1: tesoros.mineria.tier1
@@ -91,5 +86,4 @@ desbloqueos:
     slayerzombie2: slayer.revenant.tier2
     slayerzombie3: slayer.revenant.tier3
 telefono:
-  enabled: true
   comando: zmenu open zmenu:slayers {player}
