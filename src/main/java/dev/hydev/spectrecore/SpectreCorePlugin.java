@@ -489,7 +489,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
             } catch (Exception badMenu) {
                 getLogger().warning("El Mago: recarga rechazada: " + badMenu.getMessage());
                 sender.sendMessage(Settings.message("nucleo", "MagoMenu.reload-error",
-                    "<red>No se pudo actualizar la guía. Se conserva la versión anterior."));
+                    "<red>No se pudo actualizar la guía. Se conserva la versión anterior.</red>"));
             }
             reloadDiagnostics();
             if (toastService != null) toastService.reload();
