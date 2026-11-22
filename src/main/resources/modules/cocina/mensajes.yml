@@ -3,7 +3,7 @@ CookingModule:
   mensaje-025: "La ruta de stations.yml existe pero no es un archivo regular."
   mensaje-023: "Cocina desactivada: stations.yml no es legible. Recupera el archivo antes de reiniciar."
   mensaje-024: "No se pudo leer stations.yml: {error}"
-  etiqueta-122: "Cocina en mantenimiento: error de persistencia. Avisa a administración."
+  etiqueta-122: "Esta cocina no está disponible por ahora. Avisa a administración."
   etiqueta-023: "Cocina Arcana"
   mensaje-001: "No se pudo crear carpeta cooking."
   mensaje-002: "Cocina: {stations-size} estaciones, {recipes-size} recetas."
@@ -21,7 +21,7 @@ CookingModule:
   etiqueta-029: "Retira primero la cocina con una esponja (clic derecho)."
   etiqueta-030: "Este caldero ya esta cocinando."
   etiqueta-031: "Esta estacion necesita un caldero con agua."
-  etiqueta-032: "Este ingrediente tiene datos personalizados y no se consumira."
+  etiqueta-032: "Este ingrediente no se puede usar para cocinar."
   etiqueta-033: "Este ingrediente no inicia ninguna receta."
   etiqueta-034: "Ingrediente incorrecto. No se ha consumido."
   etiqueta-035: "<reset><gold>♨ <reset><yellow>"
@@ -106,8 +106,8 @@ CookingModule:
   mensaje-022: "{prefix}<reset><yellow>/spectrecore cocina ayuda | libro | estado | reparar | recargar"
 
 # Migración m3: cuarentena y reconciliación de operaciones con objetos
-  mensaje-030: "<reset><red>Cocina bloqueada: transacción pendiente o error de almacenamiento."
-  mensaje-031: "<reset><red>Esta estación requiere revisión administrativa antes de usarla."
+  mensaje-030: "<reset><red>Esta cocina no está disponible por ahora. Avisa a administración."
+  mensaje-031: "<reset><red>Esta cocina está temporalmente cerrada. Avisa a administración."
   mensaje-032: "<reset><red>No tienes permiso."
   mensaje-033: "<reset><red>Registro de transacciones ilegible; restaura claims.yml."
   mensaje-034: "<reset><gold>Transacciones pendientes: {count}"
