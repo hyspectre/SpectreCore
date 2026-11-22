@@ -170,7 +170,7 @@ public final class SlayerModule implements Listener {
                     "<gold>Monarquía Renacida <white>Nivel {nivel} <gray>· <yellow>{xp}/{siguiente} XP <gray>· Victorias: <white>{victorias}",
                     "nivel", slayerLevel(p), "xp", slayerXp(p), "siguiente", slayerNextXp(p),
                     "victorias", slayerVictories(p)));
-            for (String c : CATEGORIES) { Mission m = mission(id, c); p.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-003","§e{name-c}§7: §f{m-kills}/{m-required} §7| Tier {m-tier} | {valor5}","name-c", name(c),"m-kills", m.kills,"m-required", m.required,"m-tier", m.tier,"valor5", (m.active ? Settings.component(Settings.text("slayer", "SlayerModule.texto-001", "§aActiva")) : Settings.component(Settings.text("slayer", "SlayerModule.texto-002", "§7Inactiva"))))); }
+            for (String c : CATEGORIES) { Mission m = mission(id, c); p.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-003","§e{name-c}§7: §f{m-kills}/{m-required} §7| Rango {m-tier} | {valor5}","name-c", name(c),"m-kills", m.kills,"m-required", m.required,"m-tier", m.tier,"valor5", (m.active ? Settings.component(Settings.text("slayer", "SlayerModule.texto-001", "§aActiva")) : Settings.component(Settings.text("slayer", "SlayerModule.texto-002", "§7Inactiva"))))); }
             return true;
         }
         if (command.equals("contratarslayer") || command.equals("abandonarslayer"))
@@ -198,11 +198,11 @@ public final class SlayerModule implements Listener {
         String category = args[0].toLowerCase(Locale.ROOT); Mission m = mission(id, category);
         if (command.equals("activarslayer")) {
             int tier; try { tier = args.length > 1 ? Integer.parseInt(args[1]) : 0; } catch (NumberFormatException e) { tier = 0; }
-            if (tier < 1 || tier > 3) { p.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-006", "§cTier inválido. Usa 1, 2 o 3.")); return true; }
+            if (tier < 1 || tier > 3) { p.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-006", "§cElige un rango del 1 al 3.")); return true; }
             if (CATEGORIES.stream().anyMatch(c -> mission(id, c).active)) { p.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-007", "§cYa tienes una misión activa. Complétala o cancélala.")); return true; }
-            if (!accessible(p, category, tier)) { p.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-008", "§cNo tienes permiso para ese tier.")); return true; }
+            if (!accessible(p, category, tier)) { p.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-008", "§cTodavía no puedes acceder a ese rango.")); return true; }
             m.tier = tier; m.kills = 0; m.required = Math.max(1, config.getInt("objetivos.tier" + tier, ProgressRules.required(tier))); m.active = true;
-            dirty = true; save(); refreshBar(p); p.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-009", "§6MISIONES §e{name-category} · Tier {tier} · Objetivo: {m-required}", "name-category", name(category), "tier", tier, "m-required", m.required));
+            dirty = true; save(); refreshBar(p); p.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-009", "§6MISIONES §e{name-category} · Rango {tier} · Objetivo: {m-required}", "name-category", name(category), "tier", tier, "m-required", m.required));
             p.playSound(p.getLocation(), Settings.sound("slayer", "SlayerModule.sound-001", Sound.ENTITY_PLAYER_LEVELUP),Settings.f("slayer", "SlayerModule.playsound-001-arg2", 1),Settings.f("slayer", "SlayerModule.playsound-002-arg3", 1)); return true;
         }
         if (command.equals("cancelarslayer") && !m.active) { p.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-011", "§cNo tienes esa misión activa.")); return true; }
@@ -503,7 +503,7 @@ public final class SlayerModule implements Listener {
         if (owner != null && owner.isOnline()) {
             refreshBar(owner);
             owner.sendMessage(Settings.message("slayer", "SlayerModule.jefe-desaparecido",
-                    "<yellow>Tu jefe desapareció. Conservaste el contrato; usa /spectrecore slayer invocar {category} para reintentarlo.",
+                    "<yellow>El jefe desapareció. Conservas el contrato y podrás volver a invocarlo.",
                     "category", claim.category()));
             if (!saved) owner.sendMessage(Settings.message("slayer", "SlayerModule.guardado-pendiente",
                     "<red>El estado de Slayer no pudo guardarse. Avisa a administración antes de reiniciar."));
@@ -644,7 +644,7 @@ public final class SlayerModule implements Listener {
         }
         if (spawned == null) {
             p.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-015",
-                    "§cNo se pudo invocar {mob}. Tu objetivo se conserva. Reintenta con /spectrecore slayer invocar {category}",
+                    "§cEl jefe no pudo aparecer. Conservas el contrato y podrás reintentar la invocación.",
                     "mob", mob, "category", category));
             return;
         }
