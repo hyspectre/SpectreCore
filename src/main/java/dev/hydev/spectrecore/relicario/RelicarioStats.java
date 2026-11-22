@@ -173,7 +173,10 @@ public final class RelicarioStats implements Listener {
             bonus += amount(player.getUniqueId(), "melee_damage");
             if (ThreadLocalRandom.current().nextDouble(100.0) <
                     amount(player.getUniqueId(), "critical_chance"))
-                bonus += 50.0; // standalone relic crit: +50% damage on this hit
+                bonus += Math.max(0, Math.min(100, plugin instanceof
+                        dev.hydev.spectrecore.SpectreCorePlugin core
+                        ? core.moduleConfigs().read("accesorios/config.yml").getDouble(
+                                "effects.critical-hit-bonus-percent", 50.0) : 50.0));
         } else if (kind == EntityDamageEvent.DamageCause.MAGIC) {
             bonus += amount(player.getUniqueId(), "magic_damage");
         }
@@ -186,7 +189,10 @@ public final class RelicarioStats implements Listener {
     public void ignited(EntityCombustByEntityEvent event) {
         if (event.getCombuster() instanceof Player player && event.getEntity() instanceof LivingEntity)
             fireSources.put(event.getEntity().getUniqueId(),
-                new Igniter(player.getUniqueId(), System.currentTimeMillis() + 15_000L));
+                new Igniter(player.getUniqueId(), System.currentTimeMillis()
+                    + 1000L * Math.max(1, Math.min(60,
+                        ((dev.hydev.spectrecore.SpectreCorePlugin) plugin).moduleConfigs()
+                            .read("accesorios/config.yml").getInt("effects.fire-credit-seconds", 15)))));
     }
 
     @EventHandler(priority=EventPriority.HIGH, ignoreCancelled=true)
