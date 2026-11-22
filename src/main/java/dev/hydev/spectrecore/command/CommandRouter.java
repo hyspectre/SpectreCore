@@ -56,7 +56,7 @@ public final class CommandRouter {
     }
     private void help(CommandSender sender,String group) {
         say(sender,"cabecera","&6✦ Hydev &7— comandos");
-        if (sender.hasPermission("spectrecore.admin")) sender.sendMessage("§7Herramientas de staging: /spectrecore integraciones | /spectrecore modelo vista|colocar|quitar|lista · /spectrecore diagnostico");
+        if (sender.hasPermission("spectrecore.admin")) sender.sendMessage("§7Controles de administración: /spectrecore integraciones | /spectrecore modelo vista|colocar|quitar|lista · /spectrecore diagnostico");
         if(group.isEmpty()) {
             var groups=new TreeSet<String>();for(var route:CommandRoutes.ALL)if(access(sender,route)&&enabled(route))groups.add(route.words().getFirst());
             say(sender,"categorias","&eCategorías: &f{categorias}","categorias",String.join(", ",groups));
