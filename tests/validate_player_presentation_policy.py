@@ -14,18 +14,29 @@ implementation_names = re.compile(
 command = re.compile(r"/[a-z][a-z0-9_-]*(?:\s+[a-z0-9_-]+)?", re.IGNORECASE)
 
 
-# Spanish labels introduced by El Mago are also user-visible.
-def visible_strings(value, key=""):
+# Audit all visible fields, including the Spanish keys and nested labels
+# used in El Mago, Cocina, Armaduras and Trabajos.
+VISIBLE_FIELDS = {
+    "name", "title", "body", "lore", "label", "description",
+    "descripcion", "resumen", "puntos", "intro", "nombre", "titulo",
+    "labels", "materiales", "accion", "pista", "indicador",
+    "nombre-volver", "nombre-cerrar", "nombre-maximo",
+    "descripcion-volver", "descripcion-cerrar"
+}
+INTERNAL_UI = re.compile(
+    r"\\b(?:API|UUID|YAML|JSON|Skript|Dialogs|staging|callback|"
+    r"plugin|plugins|m[oó]dulo|m[oó]dulos|cooldown|cooldowns|RPG)\\b",
+    re.IGNORECASE,
+)
+
+def visible_strings(value, path=()):
     if isinstance(value, dict):
-        for k, item in value.items():
-            if k in ("name", "title", "body", "lore", "label", "description", "descripcion", "resumen", "puntos", "intro"):
-                yield from visible_strings(item, k)
-            else:
-                yield from visible_strings(item, key)
+        for key, child in value.items():
+            yield from visible_strings(child, path + (key,))
     elif isinstance(value, list):
-        for entry in value:
-            yield from visible_strings(entry, key)
-    elif isinstance(value, str) and key in ("name", "title", "body", "lore", "label", "description", "intro"):
+        for child in value:
+            yield from visible_strings(child, path)
+    elif isinstance(value, str) and any(part in VISIBLE_FIELDS for part in path):
         yield value
 
 
@@ -41,6 +52,7 @@ for path in sorted((resources / "ui").glob("*.yml")):
     data = yaml.safe_load(path.read_text(encoding="utf8"))
     for text in visible_strings(data):
         check(text, str(path), no_commands=True)
+        assert not INTERNAL_UI.search(text), f"Internal jargon in {path}: {text}"
 
 for path in sorted((resources / "modules").glob("*/mensajes.yml")):
     data = yaml.safe_load(path.read_text(encoding="utf8"))
@@ -55,6 +67,20 @@ for path in sorted((resources / "modules").glob("*/mensajes.yml")):
         # The /spectrecore root is a command, not a plugin credit.
         decommanded = re.sub(r"/spectrecore\b", "[comando]", text, flags=re.I)
         check(decommanded, str(path), no_commands=False)
+
+# Help descriptions are visible to players and must not advertise vendors
+# or implementation details. Explicit command syntax in 'uso' is allowed.
+routes = yaml.safe_load((resources/"modules/nucleo/comandos.yml").read_text(encoding="utf8"))
+def descriptions(data):
+    if isinstance(data, dict):
+        for key, value in data.items():
+            if key == "descripcion" and isinstance(value, str):
+                yield value
+            else:
+                yield from descriptions(value)
+for desc in descriptions(routes):
+    check(desc, "command help", no_commands=False)
+    assert not INTERNAL_UI.search(desc), f"Technical command description: {desc}"
 
 settings = yaml.safe_load((resources/"modules/nucleo/ajustes.yml").read_text(encoding="utf8"))
 presets = settings["toasts"]["presets"]
