@@ -207,6 +207,8 @@ public final class JobsModule implements Listener {
         // Cooldown remains enforced; it is shown in the Jobs GUI, not the actionbar.
         if (remaining > 0) return;
         long amount = ThreadLocalRandom.current().nextLong(min, max + 1);
+        var core = (dev.hydev.spectrecore.SpectreCorePlugin) plugin;
+        if (core.relicario() != null) amount = core.relicario().addJobCoins(p, amount);
         var result = economy.deposit(p, amount, config.getBoolean("economia.permitir-comando-eco", true));
         if (result == EconomyBridge.Result.FAILED) { if (warned.add("economy")) plugin.getLogger().warning(Settings.plain("trabajos", "JobsModule.mensaje-006", "Trabajos: no se pudo confirmar el pago. No se aplicó el tiempo de espera.")); return; }
         last.put(key, now); dirty = true;
