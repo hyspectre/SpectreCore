@@ -14,7 +14,7 @@ assert menu["enabled"] is True
 assert set(menu["pages"]) == sets | {"armaduras"}
 for page, payload in menu["pages"].items():
     assert payload["size"] == 54, page
-    assert payload["title"].startswith("<dark_gray>⧇ <gold>Armaduras"), page
+    assert payload["title"].startswith("<white>⇜ <gold>Armaduras"), page
     ids = payload["items"]
     slots = [item["slot"] for item in ids.values()]
     assert len(slots) == len(set(slots)), page
@@ -23,6 +23,9 @@ for page, payload in menu["pages"].items():
     for id, item in ids.items():
         assert set(item) == {"slot", "texture", "name", "lore"}, (page,id)
         assert len(item["name"]) <= 256 and len(item["lore"]) <= 30
+        assert "" in item["name"] or id != "habilidad", (page,id)
+        assert "⇜" in item["name"] or id not in {"volver","cerrar"}, (page,id)
+        assert "⊱" not in item["name"]+" ".join(item["lore"]), (page,id)
         assert not re.search(r"/(?:spectrecore|mago|[a-z]+\w*)\b", item["name"]+" ".join(item["lore"]), re.I), (page,id)
         assert not re.search(r"(?:MMOItems|SpectreCore|zMenu|MythicMobs|LuckPerms)", item["name"]+" ".join(item["lore"]), re.I), (page,id)
         encoded = item["texture"]
@@ -30,8 +33,15 @@ for page, payload in menu["pages"].items():
             skin = json.loads(base64.b64decode(encoded, validate=True))["textures"]["SKIN"]["url"]
             assert re.fullmatch(r"https?://textures\.minecraft\.net/texture/[a-fA-F0-9]{32,128}",skin),skin
     if page != "armaduras":
+        assert {"piezas","arma"} <= set(ids), page
         assert "{bonos}" in ids["bonos"]["lore"], page
         assert "{habilidad}" in ids["habilidad"]["lore"], page
+        assert len(ids["piezas"]["lore"]) == 6, page
+        assert any("ᴄʟɪᴄ ᴘᴀʀᴀ ᴠᴏʟᴠᴇʀ" in x for x in ids["volver"]["lore"]), page
+    else:
+        assert {"guia","rasgos","habilidades","vinculos"} <= set(ids), page
+        assert all(any("ᴄʟɪᴄ ᴘᴀʀᴀ ᴇxᴘʟᴏʀᴀʀ" in x for x in ids[key]["lore"])
+                   for key in sets), page
 
 indicator = menu["indicador"]
 assert "{equipadas}" in indicator["piezas"]
@@ -45,11 +55,27 @@ assert "Bukkit.createInventory(holder, 54" in java
 assert "Bukkit.getScheduler().runTask(plugin" in java
 assert "bonuses(selected, sets)" in java and "ability(selected)" in java
 assert "plugin.sets().countArmor(player" in java
+assert 'replace("{habilidad}", named.ability)' in java
+assert "compactLines" in java and "juramento-fuerza" in java
+assert "bonusNames().get(key)" in java
 assert "Settings.module(\"equipamiento/config.yml\")" in java
 assert "dispatchCommand(" not in java and "showDialog(" not in java
 assert "armorGuide.enable();" in plugin and "armorGuide.disable();" in plugin
 assert "plugin.armors()" in mago
-print("PASS Native Armaduras: 6 GUI pages, 5 sets, configured lore and safe navigation")
+# The menu uses the five actual helmet textures from its integration source.
+import collections
+for family,page in {
+    "VERDANA_ARMOR":"botania","NECROTICO":"necrotica",
+    "MINOTAURO_ARMOR":"asterion","CABALLERO_ARMOR":"ultimo-juramento",
+    "DRACONIDO_ARMOR":"sangre-primer-dragon"
+}.items():
+    helmet=armor_items_source= None
+    armor_items_source = yaml.safe_load((root/"integracion-mmoitems/ARMOR_HYDEV_20_versalitas_v3.yml").read_text(encoding="utf8"))
+    helmet=armor_items_source[f"{family}_1"]["base"]["skull-texture"]["value"]
+    assert menu["pages"]["armaduras"]["items"][page]["texture"] == helmet, page
+    assert menu["pages"][page]["items"]["informacion"]["texture"] == helmet, page
+assert len({menu["pages"]["armaduras"]["items"][key]["texture"] for key in sets}) == 5
+print("PASS Native Armaduras: 6 GUI pages, 5 actual skulls, concise lore, configured skills and safe navigation")
 
 # Integration deliverables: compact 20-piece lore and five complete set definitions.
 integration=root/"integracion-mmoitems"
