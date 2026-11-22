@@ -17,3 +17,5 @@ modules:
     enabled: true
   actividades:
     enabled: true
+  accesorios:
+    enabled: false
