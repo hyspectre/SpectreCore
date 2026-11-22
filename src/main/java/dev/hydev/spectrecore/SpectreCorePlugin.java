@@ -501,7 +501,8 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
         }
         if (sub.equals("modulos") || sub.equals("modules")) {
             if (!canAdmin(sender)) { sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-015", "§cSin permiso.")); return true; }
-            moduleConfigs.requested().forEach((name, enabled) -> sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-013","§6{name}§7: {valor2}{valor3}","name", name,"valor2", (moduleConfigs.active(name) ? Settings.component(Settings.text("nucleo", "SpectreCorePlugin.texto-001", "§aACTIVO")) : Settings.component(Settings.text("nucleo", "SpectreCorePlugin.texto-002", "§cINACTIVO"))),"valor3", (moduleConfigs.restartPending(name) ? Settings.component(Settings.text("nucleo", "SpectreCorePlugin.texto-003", " §e(cambio pendiente: reiniciar)")) : ""))));
+            moduleConfigs.requested().keySet().stream().sorted().forEach(name ->
+                    sender.sendMessage(Settings.component("<gold>" + name + " <dark_gray>│ <green>Siempre activo")));
             return true;
         }
         if (sub.equals("cocina")) { sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-014", "§7Usa /mago cocina para aprender o /spectrecore cocina recetas para consultar recetas.")); return true; }
@@ -539,7 +540,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
             if (slayer != null) slayer.reload();
             if (portal != null) portal.reload();
             if (bossDamage != null) bossDamage.reload();
-            sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-017", "§aSe actualizaron habilidades y recetas. Para cambiar módulos activos, reinicia el servidor."));
+            sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-017", "§aSe actualizaron los ajustes. Todos los módulos permanecen activos."));
             return true;
         }
         // Server-console-only bridge for custom/MMOItems versions that do not emit teleport events.
