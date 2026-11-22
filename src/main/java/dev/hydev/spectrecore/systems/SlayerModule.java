@@ -194,7 +194,7 @@ public final class SlayerModule implements Listener {
             return true;
         }
         if (!admin(sender)) { sender.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-004", "§cNo tienes permiso.")); return true; }
-        if (args.length < 1 || !CATEGORIES.contains(args[0].toLowerCase(Locale.ROOT))) { p.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-005", "§cCategoría: revenant, necromancer o spider.")); return true; }
+        if (args.length < 1 || !CATEGORIES.contains(args[0].toLowerCase(Locale.ROOT))) { p.sendMessage(Settings.message("slayer", "SlayerModule.mensaje-005", "§cEsta cacería no existe.")); return true; }
         String category = args[0].toLowerCase(Locale.ROOT); Mission m = mission(id, category);
         if (command.equals("activarslayer")) {
             int tier; try { tier = args.length > 1 ? Integer.parseInt(args[1]) : 0; } catch (NumberFormatException e) { tier = 0; }
