@@ -8,7 +8,8 @@ import base64
 root=Path(__file__).resolve().parents[1]
 resources=root/"src/main/resources"
 recipes=yaml.safe_load((resources/"modules/cocina/recetas.yml").read_text())["recetas"]
-outputs=yaml.safe_load((root/"integracion-mmoitems/CONSUMABLE_Cocina.yml").read_text())
+outputs=yaml.safe_load((root/"integracion-mmoitems/COCINA.yml").read_text())
+assert not (root/"integracion-mmoitems/CONSUMABLE_Cocina.yml").exists(), "Catálogo antiguo CONSUMABLE aún existe"
 ui=yaml.safe_load((resources/"ui/recetario.yml").read_text())
 assert len(recipes)==15 and len(outputs)==45
 assert all(isinstance(k,str) for k in recipes)
@@ -22,8 +23,7 @@ latin_names={
     "JUMP_BOOST":"Supersalto", "FIRE_RESISTANCE":"Resis. al fuego",
     "INVISIBILITY":"Invisibilidad", "ABSORPTION":"Absorción"
 }
-subtype=yaml.safe_load((root/"integracion-mmoitems/COCINA.yml").read_text(encoding="utf8"))
-assert subtype==outputs, "The standalone COCINA file must contain the same 45 meals."
+subtype=outputs  # Una única fuente de los 45 platos: el tipo COCINA.
 for item_id, value in subtype.items():
     base=value["base"]
     lore=base["lore"]
@@ -130,6 +130,9 @@ assert "event.setCancelled(true)" in java
 assert "Bukkit.getScheduler().runTask(plugin" in java
 assert "openRecipeDetail(player," in java
 assert "claimJournal.begin" in java and "resolveMMOItem(rewardId)" in java
+assert 'private static final String COOKING_ITEM_TYPE = "COCINA";' in java
+assert "getItem.invoke(instance, COOKING_ITEM_TYPE, id)" in java
+assert "mmoitems-type" not in (resources/"modules/cocina/config.yml").read_text()
 assert "firstIngredients.add(ingredients.getFirst())" in java
 assert "loadRecipeBookLayout()" in java
 assert "discoveries.getOrDefault(player.getUniqueId(), Set.of())" in java
