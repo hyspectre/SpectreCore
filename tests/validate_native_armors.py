@@ -10,7 +10,7 @@ resource = root / "src/main/resources/ui/armaduras.yml"
 raw = resource.read_text(encoding="utf-8")
 menu = yaml.safe_load(raw)
 sets = {"botania", "necrotica", "asterion", "ultimo-juramento", "sangre-primer-dragon"}
-assert menu["enabled"] is True
+assert "enabled" not in menu
 assert set(menu["pages"]) == sets | {"armaduras"}
 for page, payload in menu["pages"].items():
     assert payload["size"] == 54, page
