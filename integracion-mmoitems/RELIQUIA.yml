@@ -12,7 +12,8 @@ BROTE_MARCHITO:
     - '&f'
     - '&f Maná máximo &a+6'
     - '&f'
-    - '&8 Ent Corrupto y raíces pestilentes'
+    - '&8 Ent Corrupto y raíces'
+    - '&8 pestilentes'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 NUCLEO_SILVESTRE:
   base:
