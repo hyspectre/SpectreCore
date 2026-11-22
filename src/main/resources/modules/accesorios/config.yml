@@ -1,0 +1,12 @@
+# El núcleo del Relicario se encuentra en desarrollo; el módulo no consume objetos todavía.
+enabled: false
+consume-confirmation: true
+storage:
+  max-ids-per-player: 256
+ui:
+  size: 54
+  title: "<white>⇜ <gold>Relicario <dark_gray>│ <white>Colección"
+safety:
+  reject-duplicate-consumption: true
+  retain-discoveries-on-upgrade: true
+  reject-unregistered-mmoitems: true
