@@ -24,7 +24,7 @@ public final class CommandRoutingRegression {
             check(route.usage().startsWith("/spectrecore "),"Canonical usage "+route.path());
             if(!route.target().equals("$core"))targets.add(route.target());
         }
-        check(targets.size()==40,"36 former handlers plus contracts, phone and native Misiones menu");
+        check(targets.size()==41,"40 existing handlers plus native Relicario menu");
         check(CommandRoutes.resolve(new String[]{"resonancia","debug"}).route().target().equals("debugresonancia"),"Longest prefix wins over public resonance query");
         check(CommandRoutes.resolve(new String[]{"tesoros","mineria","3"}).arguments().equals(List.of("mineria","tesoro","3")),"Preview adapter keeps expected argument positions");
         check(CommandRoutes.resolve(new String[]{"portal","registrar","Alex","My session","abc"}).arguments().equals(List.of("Alex","My session","abc")),"Session arguments unchanged, no split/re-dispatch");
@@ -39,7 +39,7 @@ public final class CommandRoutingRegression {
         check(CommandRoutes.resolve(new String[]{"unknown"})==null,"Unknown path");
         check(CommandRoutes.resolve(new String[]{"portal"})==null,"Incomplete family");
         var publicRoots=CommandRoutes.children(new String[]{""},r->r.access()==CommandRoutes.Access.PUBLIC);
-        check(publicRoots.containsAll(List.of("cocina","armaduras","trabajos","resonancia","slayer","misiones","status","modulos")),"Public discovery");
+        check(publicRoots.containsAll(List.of("cocina","armaduras","relicario","trabajos","resonancia","slayer","misiones","status","modulos")),"Public discovery");
         check(!publicRoots.contains("cygnus")&&!publicRoots.contains("portal")&&!publicRoots.contains("reload"),"Hide privileged families");
         check(CommandRoutes.children(new String[]{"slayer","a"},r->true).equals(List.of("abandonar","activar")),"Prefix completion includes player cancellation");
         check(CommandRoutes.children(new String[]{"portal",""},r->r.access()!=CommandRoutes.Access.CONSOLE).equals(List.of("demo","estado","limpiar")),"Hide console callbacks from player suggestions");
