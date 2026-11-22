@@ -77,7 +77,7 @@ public final class ModuleConfigSmoke {
                 "enabled: false\ncaps:\n  health: 12\n");
         write(root,"modules/dungeons/config.yml","jefes:\n  enabled: false\nportal:\n  enabled: false\n");
         write(root,"modules/actividades/config.yml","cygnus:\n  enabled: false\n");
-        write(root,"modules/trabajos/config.yml","minero:\n  enabled: false\n");
+        write(root,"modules/trabajos/config.yml","minero:\n  enabled: false\ncontratos:\n  habilitados: false\n");
 
         manager.reload();
         alwaysOn(manager);
@@ -95,7 +95,8 @@ public final class ModuleConfigSmoke {
                 && !manager.read("accesorios/catalogo.yml").contains("enabled")
                 && !manager.read("dungeons/config.yml").contains("portal.enabled")
                 && !manager.read("actividades/config.yml").contains("cygnus.enabled")
-                && !manager.read("trabajos/config.yml").contains("minero.enabled"),
+                && !manager.read("trabajos/config.yml").contains("minero.enabled")
+                && !manager.read("trabajos/config.yml").contains("contratos.habilitados"),
                 "Every deprecated child switch removed");
         check(manager.read("equipamiento/config.yml").getInt("skills.botania.cooldown-seconds")==123,
                 "Remove disabled flag without destroying configured cooldown");
