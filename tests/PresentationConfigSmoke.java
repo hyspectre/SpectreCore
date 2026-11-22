@@ -73,9 +73,8 @@ public final class PresentationConfigSmoke {
         oldCooking.set("cooking.rewards.mmoitems-type", "CONSUMABLE");
         save("cocina/config.yml", oldCooking);
         manager.reload();
-        check("COCINA".equals(read("cocina/config.yml")
-                .getString("cooking.rewards.mmoitems-type")),
-                "Legacy cooking output type is migrated to COCINA");
+        check(!read("cocina/config.yml").contains("cooking.rewards.mmoitems-type"),
+                "Legacy cooking output selector is removed; output type is fixed in Java");
         check(Files.isRegularFile(root.resolve(
                 "backups/cocina-tipo-v1/modules/cocina/config.yml")),
                 "Legacy output type backed up before migration");
