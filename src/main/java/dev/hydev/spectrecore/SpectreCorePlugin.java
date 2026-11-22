@@ -243,12 +243,20 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
         if (moduleConfigs.active("accesorios") && commandRouter.get("relicario") != null) {
             relicario = new dev.hydev.spectrecore.relicario.RelicarioModule(this);
             if (relicario.enable()) {
+                getLogger().info("Relicario: ACTIVADO; catálogo y datos disponibles.");
                 commandRouter.get("relicario").setExecutor((sender, command, label, args) -> {
                     if (sender instanceof Player player) relicario.open(player);
                     else sender.sendMessage(Settings.component("<gray>Abre el Relicario dentro del juego."));
                     return true;
                 });
-            } else relicario = null;
+            } else {
+                getLogger().severe("Relicario: NO INICIADO aunque el módulo está solicitado. Revisa los avisos previos sobre ui/relicario.yml y el catálogo.");
+                relicario = null;
+            }
+        } else if (!moduleConfigs.active("accesorios")) {
+            getLogger().info("Relicario: DESACTIVADO en config.yml (modules.accesorios.enabled). Para cambios de módulos se requiere reiniciar el servidor.");
+        } else {
+            getLogger().severe("Relicario: ruta de comando no registrada; confirma la versión instalada del JAR.");
         }
         displayModels = new dev.hydev.spectrecore.model.DisplayModels(this);
         try {
