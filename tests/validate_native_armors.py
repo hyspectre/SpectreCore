@@ -46,7 +46,7 @@ for page, payload in menu["pages"].items():
 
 indicator = menu["indicador"]
 assert "{equipadas}" in indicator["piezas"]
-assert {"completo","parcial","incompleto","desactivado"} <= set(indicator)
+assert {"completo","parcial","incompleto"} <= set(indicator) and "desactivado" not in indicator
 java = (root / "src/main/java/dev/hydev/spectrecore/guide/ArmorGuide.java").read_text()
 plugin = (root / "src/main/java/dev/hydev/spectrecore/SpectreCorePlugin.java").read_text()
 mago = (root / "src/main/java/dev/hydev/spectrecore/guide/MagoMenu.java").read_text()
