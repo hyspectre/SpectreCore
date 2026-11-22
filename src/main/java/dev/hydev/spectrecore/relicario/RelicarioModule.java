@@ -255,7 +255,9 @@ public final class RelicarioModule implements Listener {
         return entries.containsKey(id) ? id : null;
     }
 
-    @EventHandler(priority=EventPriority.HIGH, ignoreCancelled=true)
+    // Paper may pre-cancel an air-click when vanilla predicts no use.
+    // Real MMOItems ID validation (below) still protects all mutations.
+    @EventHandler(priority=EventPriority.HIGH)
     public void onUse(PlayerInteractEvent event) {
         if (!active || event.getHand() != EquipmentSlot.HAND ||
                 (event.getAction() != Action.RIGHT_CLICK_AIR &&
