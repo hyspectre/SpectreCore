@@ -228,7 +228,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
         systemCommands.put("trabajo", jobs != null);
         for (String name : List.of("activarslayer","cancelarslayer","resetslayer","slayerstats","slayerinvocar","contratarslayer","abandonarslayer","comprartelefono","misiones")) systemCommands.put(name, slayer != null);
         for (String name : List.of("hydevportaljoin","hydevportalleave","hydevportalcleanup","hydevportalstatus","hydevportaldemo")) systemCommands.put(name, portal != null);
-        systemCommands.forEach((name, enabled) -> { if (!enabled && commandRouter.get(name) != null) commandRouter.get(name).setExecutor((sender,command,label,args) -> { sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-005", "Esta función está desactivada.")); return true; }); });
+        systemCommands.forEach((name, enabled) -> { if (!enabled && commandRouter.get(name) != null) commandRouter.get(name).setExecutor((sender,command,label,args) -> { sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-005", "Esta función no pudo iniciarse. Revisa la consola.")); return true; }); });
         if (getCommand("spectrecore") != null) getCommand("spectrecore").setTabCompleter(this);
         if (commandRouter.get("armaduras") != null && moduleConfigs.active("equipamiento.libro")) {
             armorGuide = new dev.hydev.spectrecore.guide.ArmorGuide(this);
@@ -250,11 +250,9 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
                     return true;
                 });
             } else {
-                getLogger().severe("Relicario: NO INICIADO aunque el módulo está solicitado. Revisa los avisos previos sobre ui/relicario.yml y el catálogo.");
+                getLogger().severe("Relicario: NO INICIADO. Revisa los avisos previos sobre ui/relicario.yml y el catálogo.");
                 relicario = null;
             }
-        } else if (!moduleConfigs.active("accesorios")) {
-            getLogger().info("Relicario: DESACTIVADO en config.yml (modules.accesorios.enabled). Para cambios de módulos se requiere reiniciar el servidor.");
         } else {
             getLogger().severe("Relicario: ruta de comando no registrada; confirma la versión instalada del JAR.");
         }
