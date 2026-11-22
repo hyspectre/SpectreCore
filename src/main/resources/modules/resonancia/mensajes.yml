@@ -40,7 +40,7 @@ MiningModule:
   mensaje-038: "<reset><light_purple>HYDEV · DIAGNÓSTICO MINERO"
   mensaje-039: "<reset><gray>Herramienta: <reset><white>{held-gettype} <reset><gray>| Nombre: <reset><white>{plain}"
   mensaje-040: "<gray>Herramienta inspeccionada."
-  mensaje-041: "<reset><gray>Estado de extracción: <reset><white>Verificado"
+  mensaje-041: "<gray>Condiciones de extracción verificadas."
   mensaje-042: "<reset><gray>Herramienta válida: <reset><white>{tool-held} <reset><gray>| Carga: <reset><white>{state-charge}/{maximum}"
   mensaje-043: "<reset><gray>Probabilidades T1/T2/T3: <reset><white>{valor1}/{valor2}/{valor3}"
   mensaje-044: "UUID inválido en mining-data.yml: {key}"
