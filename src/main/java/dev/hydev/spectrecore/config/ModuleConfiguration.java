@@ -58,7 +58,34 @@ public final class ModuleConfiguration {
             if(destination.isFile()){
                 if(path.endsWith("/mensajes.yml"))
                     PresentationMigrations.migrate(folder, destination, "modules/" + path);
-                yaml=strict(destination);var defaults=resource("modules/"+path);boolean changed=importCommandMetadata(path,yaml,defaults);for(String key:defaults.getKeys(true))if(!defaults.isConfigurationSection(key)&&!yaml.contains(key)){yaml.set(key,defaults.get(key));changed=true;}if(changed){File backup=new File(folder,"backups/configuration-v2/modules/"+path);if(!backup.exists()){Files.createDirectories(backup.toPath().getParent());Files.copy(destination.toPath(),backup.toPath());}save(destination,yaml);}}
+                yaml = strict(destination);
+                var defaults = resource("modules/" + path);
+                boolean changed = importCommandMetadata(path, yaml, defaults);
+                for (String key : defaults.getKeys(true)) {
+                    if (!defaults.isConfigurationSection(key) && !yaml.contains(key)) {
+                        yaml.set(key, defaults.get(key));
+                        changed = true;
+                    }
+                }
+                if (path.equals("cocina/config.yml")
+                        && !"COCINA".equals(yaml.getString("cooking.rewards.mmoitems-type"))) {
+                    File backup = new File(folder, "backups/cocina-tipo-v1/modules/cocina/config.yml");
+                    if (!backup.exists()) {
+                        Files.createDirectories(backup.toPath().getParent());
+                        Files.copy(destination.toPath(), backup.toPath());
+                    }
+                    yaml.set("cooking.rewards.mmoitems-type", "COCINA");
+                    changed = true;
+                }
+                if (changed) {
+                    File backup = new File(folder, "backups/configuration-v2/modules/" + path);
+                    if (!backup.exists()) {
+                        Files.createDirectories(backup.toPath().getParent());
+                        Files.copy(destination.toPath(), backup.toPath());
+                    }
+                    save(destination, yaml);
+                }
+            }
             else{
                 yaml=resource("modules/"+path);
                 switch(path){
@@ -76,6 +103,8 @@ public final class ModuleConfiguration {
                     case "actividades/config.yml"->{merge(yaml,originals.get("activities.yml"),"");if(originals.get("activities.yml").contains("entrada.proteccion"))yaml.set("entrada.enabled",originals.get("activities.yml").getBoolean("entrada.proteccion"));yaml.set("entrada.proteccion",null);}
                     default->{}
                 }
+                if (path.equals("cocina/config.yml"))
+                    yaml.set("cooking.rewards.mmoitems-type", "COCINA");
                 save(destination,yaml);
             }
             // Rewrite only explicit references to this plugin's former slash commands.
