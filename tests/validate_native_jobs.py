@@ -15,7 +15,7 @@ expected = {
     "granjero": ((8, 1, 3), (5, 3, 6), (3, 6, 10)),
     "cazador": ((12, 2, 6), (8, 6, 12), (5, 12, 24)),
 }
-assert gui["enabled"] is True
+assert "enabled" not in gui
 assert set(gui["pages"]) == {"trabajos", *expected}
 assert jobs["contratos"]["habilitados"] is True
 assert jobs["contratos"]["precios"] == {"novato": 50, "experimentado": 1500, "profesional": 3500}
