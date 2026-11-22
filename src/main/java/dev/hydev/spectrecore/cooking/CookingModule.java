@@ -95,6 +95,8 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
     private org.bukkit.Server getServer() { return plugin.getServer(); }
     private java.util.logging.Logger getLogger() { return plugin.getLogger(); }
     private static String prefix() { return ChatColor.DARK_GRAY + "[" + ChatColor.GOLD + Settings.text("cocina", "CookingModule.etiqueta-023", "Cocina Arcana") + ChatColor.DARK_GRAY + "] " + ChatColor.RESET; }
+    /** Cooking outputs are exclusively COCINA; no CONSUMABLE fallback. */
+    private static final String COOKING_ITEM_TYPE = "COCINA";
     private static final String LEGACY_TAG = "hydev_cocina_visual";
     private static final String OUR_TAG = "spectrecore_cooking_visual";
     private static final String PREVIOUS_TAG = "spectrecooking_visual";
@@ -766,7 +768,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
             Class<?> api = Class.forName("net.Indyuce.mmoitems.MMOItems", true, mmo.getClass().getClassLoader());
             Object instance = api.getField("plugin").get(null);
             Method getItem = api.getMethod("getItem", String.class, String.class);
-            Object value = getItem.invoke(instance, getConfig().getString("cooking.rewards.mmoitems-type", "CONSUMABLE"), id);
+            Object value = getItem.invoke(instance, COOKING_ITEM_TYPE, id);
             return value instanceof ItemStack stack ? stack.clone() : null;
         } catch (ReflectiveOperationException | LinkageError ex) {
             getLogger().warning(Settings.plain("cocina", "CookingModule.mensaje-010","No se pudo preparar la recompensa: {valor1}: {ex-getmessage}","valor1", ex.getClass().getSimpleName(),"ex-getmessage", ex.getMessage()));
