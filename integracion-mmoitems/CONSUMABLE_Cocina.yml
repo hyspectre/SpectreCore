@@ -10,10 +10,8 @@ HC_GUARDIAN_NORMAL:
     restore-food: 6
     item-cooldown: 3
     lore:
-    - '&8Cocina Arcana - Hydev'
     - '&7Calidad: &fNormal'
-    - '&7Efecto: &fRESISTANCE I &8(120s)'
-    - '&8Preparado en un caldero artesanal.'
+    - '&7Efecto: &fResistencia I &8(120s)'
     effects:
       RESISTANCE:
         duration: 120
@@ -28,10 +26,8 @@ HC_GUARDIAN_EXQUISITO:
     restore-food: 6
     item-cooldown: 3
     lore:
-    - '&8Cocina Arcana - Hydev'
     - '&7Calidad: &aExquisito'
-    - '&7Efecto: &fRESISTANCE I &8(150s)'
-    - '&8Preparado en un caldero artesanal.'
+    - '&7Efecto: &fResistencia I &8(150s)'
     effects:
       RESISTANCE:
         duration: 150
@@ -46,10 +42,8 @@ HC_GUARDIAN_PASADO:
     restore-food: 4
     item-cooldown: 3
     lore:
-    - '&8Cocina Arcana - Hydev'
     - '&7Calidad: &6Sobrecocido'
-    - '&7Efecto: &fRESISTANCE I &8(72s)'
-    - '&8Preparado en un caldero artesanal.'
+    - '&7Efecto: &fResistencia I &8(72s)'
     effects:
       RESISTANCE:
         duration: 72
@@ -64,10 +58,8 @@ HC_ALBA_NORMAL:
     restore-food: 6
     item-cooldown: 3
     lore:
-    - '&8Cocina Arcana - Hydev'
     - '&7Calidad: &fNormal'
-    - '&7Efecto: &fSPEED I &8(180s)'
-    - '&8Preparado en un caldero artesanal.'
+    - '&7Efecto: &fVelocidad I &8(180s)'
     effects:
       SPEED:
         duration: 180
@@ -82,10 +74,8 @@ HC_ALBA_EXQUISITO:
     restore-food: 6
     item-cooldown: 3
     lore:
-    - '&8Cocina Arcana - Hydev'
     - '&7Calidad: &aExquisito'
-    - '&7Efecto: &fSPEED I &8(225s)'
-    - '&8Preparado en un caldero artesanal.'
+    - '&7Efecto: &fVelocidad I &8(225s)'
     effects:
       SPEED:
         duration: 225
@@ -100,10 +90,8 @@ HC_ALBA_PASADO:
     restore-food: 4
     item-cooldown: 3
     lore:
-    - '&8Cocina Arcana - Hydev'
     - '&7Calidad: &6Sobrecocido'
-    - '&7Efecto: &fSPEED I &8(108s)'
-    - '&8Preparado en un caldero artesanal.'
+    - '&7Efecto: &fVelocidad I &8(108s)'
     effects:
       SPEED:
         duration: 108
@@ -118,10 +106,8 @@ HC_CARMESI_NORMAL:
     restore-food: 6
     item-cooldown: 3
     lore:
-    - '&8Cocina Arcana - Hydev'
     - '&7Calidad: &fNormal'
-    - '&7Efecto: &fSTRENGTH I &8(90s)'
-    - '&8Preparado en un caldero artesanal.'
+    - '&7Efecto: &fFuerza I &8(90s)'
     effects:
       STRENGTH:
         duration: 90
@@ -136,10 +122,8 @@ HC_CARMESI_EXQUISITO:
     restore-food: 6
     item-cooldown: 3
     lore:
-    - '&8Cocina Arcana - Hydev'
     - '&7Calidad: &aExquisito'
-    - '&7Efecto: &fSTRENGTH I &8(112s)'
-    - '&8Preparado en un caldero artesanal.'
+    - '&7Efecto: &fFuerza I &8(112s)'
     effects:
       STRENGTH:
         duration: 112
@@ -154,10 +138,8 @@ HC_CARMESI_PASADO:
     restore-food: 4
     item-cooldown: 3
     lore:
-    - '&8Cocina Arcana - Hydev'
     - '&7Calidad: &6Sobrecocido'
-    - '&7Efecto: &fSTRENGTH I &8(54s)'
-    - '&8Preparado en un caldero artesanal.'
+    - '&7Efecto: &fFuerza I &8(54s)'
     effects:
       STRENGTH:
         duration: 54
@@ -172,10 +154,8 @@ HC_ESPECTRAL_NORMAL:
     restore-food: 6
     item-cooldown: 3
     lore:
-    - '&8Cocina Arcana - Hydev'
     - '&7Calidad: &fNormal'
-    - '&7Efecto: &fREGENERATION I &8(20s)'
-    - '&8Preparado en un caldero artesanal.'
+    - '&7Efecto: &fRegeneración I &8(20s)'
     effects:
       REGENERATION:
         duration: 20
@@ -190,10 +170,8 @@ HC_ESPECTRAL_EXQUISITO:
     restore-food: 6
     item-cooldown: 3
     lore:
-    - '&8Cocina Arcana - Hydev'
     - '&7Calidad: &aExquisito'
-    - '&7Efecto: &fREGENERATION I &8(25s)'
-    - '&8Preparado en un caldero artesanal.'
+    - '&7Efecto: &fRegeneración I &8(25s)'
     effects:
       REGENERATION:
         duration: 25
@@ -208,10 +186,8 @@ HC_ESPECTRAL_PASADO:
     restore-food: 4
     item-cooldown: 3
     lore:
-    - '&8Cocina Arcana - Hydev'
     - '&7Calidad: &6Sobrecocido'
-    - '&7Efecto: &fREGENERATION I &8(12s)'
-    - '&8Preparado en un caldero artesanal.'
+    - '&7Efecto: &fRegeneración I &8(12s)'
     effects:
       REGENERATION:
         duration: 12
@@ -230,7 +206,6 @@ HC_MINERO_NORMAL:
     - '&7Calidad: &fNormal'
     - '&7Ingredientes: &fGrado 2/5'
     - '&7Efecto: &fPrisa minera I &8(180s)'
-    - '&8Preparado en un caldero artesanal.'
     effects:
       HASTE:
         duration: 180
@@ -249,7 +224,6 @@ HC_MINERO_EXQUISITO:
     - '&7Calidad: &aExquisito'
     - '&7Ingredientes: &fGrado 2/5'
     - '&7Efecto: &fPrisa minera I &8(225s)'
-    - '&8Preparado en un caldero artesanal.'
     effects:
       HASTE:
         duration: 225
@@ -268,7 +242,6 @@ HC_MINERO_PASADO:
     - '&7Calidad: &6Sobrecocido'
     - '&7Ingredientes: &fGrado 2/5'
     - '&7Efecto: &fPrisa minera I &8(108s)'
-    - '&8Preparado en un caldero artesanal.'
     effects:
       HASTE:
         duration: 108
@@ -287,7 +260,6 @@ HC_VELOCIDAD_NORMAL:
     - '&7Calidad: &fNormal'
     - '&7Ingredientes: &fGrado 3/5'
     - '&7Efecto: &fVelocidad II &8(90s)'
-    - '&8Preparado en un caldero artesanal.'
     effects:
       SPEED:
         duration: 90
@@ -306,7 +278,6 @@ HC_VELOCIDAD_EXQUISITO:
     - '&7Calidad: &aExquisito'
     - '&7Ingredientes: &fGrado 3/5'
     - '&7Efecto: &fVelocidad II &8(113s)'
-    - '&8Preparado en un caldero artesanal.'
     effects:
       SPEED:
         duration: 113
@@ -325,7 +296,6 @@ HC_VELOCIDAD_PASADO:
     - '&7Calidad: &6Sobrecocido'
     - '&7Ingredientes: &fGrado 3/5'
     - '&7Efecto: &fVelocidad II &8(54s)'
-    - '&8Preparado en un caldero artesanal.'
     effects:
       SPEED:
         duration: 54
@@ -344,7 +314,6 @@ HC_ESPELEOLOGO_NORMAL:
     - '&7Calidad: &fNormal'
     - '&7Ingredientes: &fGrado 1/5'
     - '&7Efecto: &fVisión nocturna I &8(180s)'
-    - '&8Preparado en un caldero artesanal.'
     effects:
       NIGHT_VISION:
         duration: 180
@@ -363,7 +332,6 @@ HC_ESPELEOLOGO_EXQUISITO:
     - '&7Calidad: &aExquisito'
     - '&7Ingredientes: &fGrado 1/5'
     - '&7Efecto: &fVisión nocturna I &8(225s)'
-    - '&8Preparado en un caldero artesanal.'
     effects:
       NIGHT_VISION:
         duration: 225
@@ -382,7 +350,6 @@ HC_ESPELEOLOGO_PASADO:
     - '&7Calidad: &6Sobrecocido'
     - '&7Ingredientes: &fGrado 1/5'
     - '&7Efecto: &fVisión nocturna I &8(108s)'
-    - '&8Preparado en un caldero artesanal.'
     effects:
       NIGHT_VISION:
         duration: 108
@@ -400,8 +367,7 @@ HC_MAREAS_NORMAL:
     - '&8Cocina de Hydev'
     - '&7Calidad: &fNormal'
     - '&7Ingredientes: &fGrado 2/5'
-    - '&7Efecto: &fRespiración acuática I &8(240s)'
-    - '&8Preparado en un caldero artesanal.'
+    - '&7Efecto: &fRespiración I &8(240s)'
     effects:
       WATER_BREATHING:
         duration: 240
@@ -419,8 +385,7 @@ HC_MAREAS_EXQUISITO:
     - '&8Cocina de Hydev'
     - '&7Calidad: &aExquisito'
     - '&7Ingredientes: &fGrado 2/5'
-    - '&7Efecto: &fRespiración acuática I &8(300s)'
-    - '&8Preparado en un caldero artesanal.'
+    - '&7Efecto: &fRespiración I &8(300s)'
     effects:
       WATER_BREATHING:
         duration: 300
@@ -438,8 +403,7 @@ HC_MAREAS_PASADO:
     - '&8Cocina de Hydev'
     - '&7Calidad: &6Sobrecocido'
     - '&7Ingredientes: &fGrado 2/5'
-    - '&7Efecto: &fRespiración acuática I &8(144s)'
-    - '&8Preparado en un caldero artesanal.'
+    - '&7Efecto: &fRespiración I &8(144s)'
     effects:
       WATER_BREATHING:
         duration: 144
@@ -457,8 +421,7 @@ HC_SALTADOR_NORMAL:
     - '&8Cocina de Hydev'
     - '&7Calidad: &fNormal'
     - '&7Ingredientes: &fGrado 3/5'
-    - '&7Efecto: &fSalto II &8(120s)'
-    - '&8Preparado en un caldero artesanal.'
+    - '&7Efecto: &fSupersalto II &8(120s)'
     effects:
       JUMP_BOOST:
         duration: 120
@@ -476,8 +439,7 @@ HC_SALTADOR_EXQUISITO:
     - '&8Cocina de Hydev'
     - '&7Calidad: &aExquisito'
     - '&7Ingredientes: &fGrado 3/5'
-    - '&7Efecto: &fSalto II &8(150s)'
-    - '&8Preparado en un caldero artesanal.'
+    - '&7Efecto: &fSupersalto II &8(150s)'
     effects:
       JUMP_BOOST:
         duration: 150
@@ -495,8 +457,7 @@ HC_SALTADOR_PASADO:
     - '&8Cocina de Hydev'
     - '&7Calidad: &6Sobrecocido'
     - '&7Ingredientes: &fGrado 3/5'
-    - '&7Efecto: &fSalto II &8(72s)'
-    - '&8Preparado en un caldero artesanal.'
+    - '&7Efecto: &fSupersalto II &8(72s)'
     effects:
       JUMP_BOOST:
         duration: 72
@@ -515,7 +476,6 @@ HC_ESCUDERO_NORMAL:
     - '&7Calidad: &fNormal'
     - '&7Ingredientes: &fGrado 2/5'
     - '&7Efecto: &fResistencia I &8(180s)'
-    - '&8Preparado en un caldero artesanal.'
     effects:
       RESISTANCE:
         duration: 180
@@ -534,7 +494,6 @@ HC_ESCUDERO_EXQUISITO:
     - '&7Calidad: &aExquisito'
     - '&7Ingredientes: &fGrado 2/5'
     - '&7Efecto: &fResistencia I &8(225s)'
-    - '&8Preparado en un caldero artesanal.'
     effects:
       RESISTANCE:
         duration: 225
@@ -553,7 +512,6 @@ HC_ESCUDERO_PASADO:
     - '&7Calidad: &6Sobrecocido'
     - '&7Ingredientes: &fGrado 2/5'
     - '&7Efecto: &fResistencia I &8(108s)'
-    - '&8Preparado en un caldero artesanal.'
     effects:
       RESISTANCE:
         duration: 108
@@ -571,8 +529,7 @@ HC_BRASA_NORMAL:
     - '&8Cocina de Hydev'
     - '&7Calidad: &fNormal'
     - '&7Ingredientes: &fGrado 3/5'
-    - '&7Efecto: &fResistencia al fuego I &8(240s)'
-    - '&8Preparado en un caldero artesanal.'
+    - '&7Efecto: &fResis. al fuego I &8(240s)'
     effects:
       FIRE_RESISTANCE:
         duration: 240
@@ -590,8 +547,7 @@ HC_BRASA_EXQUISITO:
     - '&8Cocina de Hydev'
     - '&7Calidad: &aExquisito'
     - '&7Ingredientes: &fGrado 3/5'
-    - '&7Efecto: &fResistencia al fuego I &8(300s)'
-    - '&8Preparado en un caldero artesanal.'
+    - '&7Efecto: &fResis. al fuego I &8(300s)'
     effects:
       FIRE_RESISTANCE:
         duration: 300
@@ -609,8 +565,7 @@ HC_BRASA_PASADO:
     - '&8Cocina de Hydev'
     - '&7Calidad: &6Sobrecocido'
     - '&7Ingredientes: &fGrado 3/5'
-    - '&7Efecto: &fResistencia al fuego I &8(144s)'
-    - '&8Preparado en un caldero artesanal.'
+    - '&7Efecto: &fResis. al fuego I &8(144s)'
     effects:
       FIRE_RESISTANCE:
         duration: 144
@@ -629,7 +584,6 @@ HC_VIGOR_NORMAL:
     - '&7Calidad: &fNormal'
     - '&7Ingredientes: &fGrado 4/5'
     - '&7Efecto: &fRegeneración II &8(16s)'
-    - '&8Preparado en un caldero artesanal.'
     effects:
       REGENERATION:
         duration: 16
@@ -648,7 +602,6 @@ HC_VIGOR_EXQUISITO:
     - '&7Calidad: &aExquisito'
     - '&7Ingredientes: &fGrado 4/5'
     - '&7Efecto: &fRegeneración II &8(20s)'
-    - '&8Preparado en un caldero artesanal.'
     effects:
       REGENERATION:
         duration: 20
@@ -667,7 +620,6 @@ HC_VIGOR_PASADO:
     - '&7Calidad: &6Sobrecocido'
     - '&7Ingredientes: &fGrado 4/5'
     - '&7Efecto: &fRegeneración II &8(10s)'
-    - '&8Preparado en un caldero artesanal.'
     effects:
       REGENERATION:
         duration: 10
@@ -686,7 +638,6 @@ HC_SOMBRA_NORMAL:
     - '&7Calidad: &fNormal'
     - '&7Ingredientes: &fGrado 3/5'
     - '&7Efecto: &fInvisibilidad I &8(150s)'
-    - '&8Preparado en un caldero artesanal.'
     effects:
       INVISIBILITY:
         duration: 150
@@ -705,7 +656,6 @@ HC_SOMBRA_EXQUISITO:
     - '&7Calidad: &aExquisito'
     - '&7Ingredientes: &fGrado 3/5'
     - '&7Efecto: &fInvisibilidad I &8(188s)'
-    - '&8Preparado en un caldero artesanal.'
     effects:
       INVISIBILITY:
         duration: 188
@@ -724,7 +674,6 @@ HC_SOMBRA_PASADO:
     - '&7Calidad: &6Sobrecocido'
     - '&7Ingredientes: &fGrado 3/5'
     - '&7Efecto: &fInvisibilidad I &8(90s)'
-    - '&8Preparado en un caldero artesanal.'
     effects:
       INVISIBILITY:
         duration: 90
@@ -743,8 +692,7 @@ HC_MARATON_NORMAL:
     - '&7Calidad: &fNormal'
     - '&7Ingredientes: &fGrado 4/5'
     - '&7Efecto: &fVelocidad II &8(180s)'
-    - '&7Efecto: &fSalto I &8(180s)'
-    - '&8Preparado en un caldero artesanal.'
+    - '&7Efecto: &fSupersalto I &8(180s)'
     effects:
       SPEED:
         duration: 180
@@ -766,8 +714,7 @@ HC_MARATON_EXQUISITO:
     - '&7Calidad: &aExquisito'
     - '&7Ingredientes: &fGrado 4/5'
     - '&7Efecto: &fVelocidad II &8(225s)'
-    - '&7Efecto: &fSalto I &8(225s)'
-    - '&8Preparado en un caldero artesanal.'
+    - '&7Efecto: &fSupersalto I &8(225s)'
     effects:
       SPEED:
         duration: 225
@@ -789,8 +736,7 @@ HC_MARATON_PASADO:
     - '&7Calidad: &6Sobrecocido'
     - '&7Ingredientes: &fGrado 4/5'
     - '&7Efecto: &fVelocidad II &8(108s)'
-    - '&7Efecto: &fSalto I &8(108s)'
-    - '&8Preparado en un caldero artesanal.'
+    - '&7Efecto: &fSupersalto I &8(108s)'
     effects:
       SPEED:
         duration: 108
@@ -813,7 +759,6 @@ HC_LEYENDA_NORMAL:
     - '&7Ingredientes: &fGrado 5/5'
     - '&7Efecto: &fAbsorción II &8(210s)'
     - '&7Efecto: &fRegeneración II &8(25s)'
-    - '&8Preparado en un caldero artesanal.'
     effects:
       ABSORPTION:
         duration: 210
@@ -836,7 +781,6 @@ HC_LEYENDA_EXQUISITO:
     - '&7Ingredientes: &fGrado 5/5'
     - '&7Efecto: &fAbsorción II &8(263s)'
     - '&7Efecto: &fRegeneración II &8(31s)'
-    - '&8Preparado en un caldero artesanal.'
     effects:
       ABSORPTION:
         duration: 263
@@ -859,7 +803,6 @@ HC_LEYENDA_PASADO:
     - '&7Ingredientes: &fGrado 5/5'
     - '&7Efecto: &fAbsorción II &8(126s)'
     - '&7Efecto: &fRegeneración II &8(15s)'
-    - '&8Preparado en un caldero artesanal.'
     effects:
       ABSORPTION:
         duration: 126
