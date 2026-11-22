@@ -72,10 +72,13 @@ Antes de probar la expansión en staging:
    (subtipo heredado de `CONSUMABLE`, sin modificar el tipo genérico).
    Instalar las 45 definiciones en `plugins/MMOItems/item/COCINA.yml`.
    **No copiar ni fusionar estos platos en `item/consumable.yml`**.
-   Tras reemplazar el catálogo, ejecutar `/mi reload` (o reiniciar) y
-   **obtener un objeto recién generado**: los platos fabricados antes del
-   arreglo pueden conservar metadatos sin efectos. No afirmar que se
-   actualizaron los objetos antiguos sin comprobarlo en el servidor.
+   Tras reemplazar el catálogo, ejecutar `/mi reload` (o reiniciar).
+   Las 45 variantes incrementan `revision-id: 1` para regenerar sus
+   estadísticas en copias antiguas al actualizarse en MMOItems (inicio de
+   sesión, interacción de inventario, según `item-revision.disable-on`).
+   **Comprobar primero un objeto recién generado** y después una copia
+   antigua: la actualización de objetos viejos depende de la configuración
+   concreta de MMOItems. Respaldar inventarios si ya había platos distribuidos.
    Si los IDs culinarios anteriores estuvieran en CONSUMABLE, revisar y
    migrar esos IDs con respaldo; conservar cualquier otro consumible.
 3. En MMOItems, los efectos de los consumibles usan `effects.<efecto>.duration`
