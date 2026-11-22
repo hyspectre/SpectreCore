@@ -226,7 +226,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
         systemCommands.put("trabajo", jobs != null);
         for (String name : List.of("activarslayer","cancelarslayer","resetslayer","slayerstats","slayerinvocar","contratarslayer","abandonarslayer","comprartelefono","misiones")) systemCommands.put(name, slayer != null);
         for (String name : List.of("hydevportaljoin","hydevportalleave","hydevportalcleanup","hydevportalstatus","hydevportaldemo")) systemCommands.put(name, portal != null);
-        systemCommands.forEach((name, enabled) -> { if (!enabled && commandRouter.get(name) != null) commandRouter.get(name).setExecutor((sender,command,label,args) -> { sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-005", "Ese módulo está desactivado.")); return true; }); });
+        systemCommands.forEach((name, enabled) -> { if (!enabled && commandRouter.get(name) != null) commandRouter.get(name).setExecutor((sender,command,label,args) -> { sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-005", "Esta función está desactivada.")); return true; }); });
         if (getCommand("spectrecore") != null) getCommand("spectrecore").setTabCompleter(this);
         if (commandRouter.get("armaduras") != null && moduleConfigs.active("equipamiento.libro")) {
             armorGuide = new dev.hydev.spectrecore.guide.ArmorGuide(this);
