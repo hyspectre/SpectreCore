@@ -209,7 +209,7 @@ public void open(Player player) { openPage(player, "armaduras"); }
             if (meta == null) continue;
             Entry named = selected == null ? entries().stream().filter(e -> e.skill.equals(id)).findFirst().orElse(null) : selected;
             String title = layout.getString(at + ".name", "Armaduras");
-            if (named != null) title = title.replace("{nombre}", named.name);
+            if (named != null) title = title.replace("{nombre}", named.name).replace("{habilidad}", named.ability);
             meta.displayName(styled(title));
             List<Component> lore = new ArrayList<>();
             for (String line : layout.getStringList(at + ".lore")) {
@@ -277,11 +277,17 @@ public void open(Player player) { openPage(player, "armaduras"); }
         clickGate.remove(event.getPlayer().getUniqueId());
     }
 
+    /** A configurable message can contain literal line breaks to keep each lore line short. */
+    private List<String> compactLines(List<String> source) {
+        List<String> result = new ArrayList<>();
+        for (String line : source)
+            for (String part : line.split("\\R", -1))
+                if (!part.isBlank() || !result.isEmpty()) result.add(part);
+        return result;
+    }
+
     private List<String> bonuses(Entry e, YamlConfiguration sets) {
         List<String> lines = new ArrayList<>();
-        lines.add(e.name);
-        lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-006", ""));
-        lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-007", "Bonificaciones del conjunto:"));
         boolean enabled = Settings.module("equipamiento/config.yml")
                 .getBoolean("skills." + e.skill + ".enabled", false);
         if (!enabled) lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-008", "DESACTIVADOS"));
@@ -295,36 +301,41 @@ public void open(Player player) { openPage(player, "armaduras"); }
                 lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-012", "({piezas}) +{vida} HP y +{velocidad}% velocidad.","piezas",Settings.module("equipamiento/config.yml").getInt("pasivos.piezas",2),"vida",value(Settings.module("equipamiento/config.yml").getDouble("pasivos.dragon-vida",4)),"velocidad",value(Settings.module("equipamiento/config.yml").getDouble("pasivos.dragon-velocidad",.02)*100)));
                 lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-013","(4) +{valor1} daño cuerpo a cuerpo; {valor2} menos daño recibido.","valor1", pct(e, "passive-damage-bonus", .03),"valor2", pct(e, "passive-damage-reduction", .03)));
             }
-            default -> lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-014", "Sin bonificaciones parciales del conjunto."));
+            default -> { /* Estos conjuntos reciben sus bonos desde la tabla de sets. */ }
         }
         lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-015", "(4) {e-ability}.", "e-ability", e.ability));
         if (e.skill.equals("ultimo-juramento")) lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-016","Con Juramento Profanado: Blink confirmado crea un eco; próximo golpe +{valor1} durante {valor2}. Requiere habilidad activa.","valor1", pct(e, "blink-next-hit-bonus", .10),"valor2", seconds(e, "blink-next-hit-window-ticks", 50)));
         if (e.skill.equals("sangre-primer-dragon")) lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-017","Con Dracoreliquia: +{valor1} s de bendición mientras la empuñas.","valor1", v(e, "weapon-duration-bonus-seconds", 2)));
         lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-018", ""));
-        lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-019", "Bonificaciones adicionales:"));
+        lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-019", "ᴏᴛʀᴏs ʙᴏɴᴏs"));
         ConfigurationSection bonuses = sets == null ? null : sets.getConfigurationSection(e.set + ".bonuses");
-        if (bonuses == null) lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-020", "No se encontró el conjunto. Revisar su configuración."));
-        else if (bonuses.getKeys(false).isEmpty()) lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-021", "Sin bonos extra."));
+        if (bonuses == null) lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-020", "Los bonos adicionales aún no están disponibles."));
+        else if (bonuses.getKeys(false).isEmpty()) { /* Sin bonos adicionales definidos. */ }
         else for (String count : bonuses.getKeys(false)) {
             ConfigurationSection level = bonuses.getConfigurationSection(count);
             if (level == null) continue;
-            lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-022", "({count} piezas)", "count", count));
+            lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-022", "({count})", "count", count.equals("5") ? "4 + arma" : count));
             for (String key : level.getKeys(false)) {
                 if (level.isConfigurationSection(key)) {
                     lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-023","Habilidad adicional: {valor1}.","valor1", level.getString(key + ".type", "adicional").replace('_', ' ')));
                     continue;
                 }
-                lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-024","{valor1}: {level-get-key}","valor1", bonusNames().getOrDefault(key, key.replace('-', ' ')),"level-get-key", level.get(key)));
+                if (key.equals("potion-regeneration")) {
+                    lines.add(Settings.text("equipamiento", "ArmorGuide.regeneracion",
+                            "<gray>     <green>ʀᴇɢᴇɴᴇʀᴀᴄɪóɴ ɪ"));
+                } else {
+                    String display = bonusNames().get(key);
+                    if (display != null) lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-024",
+                            "{valor1}: {level-get-key}", "valor1", display, "level-get-key", level.get(key)));
+                }
             }
         }
-        lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-025", ""));
-        lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-026", "No necesitas empuñar un arma para activar la habilidad de las cuatro piezas. Consulta aquí las bonificaciones actuales."));
-        return lines;
+        return compactLines(lines);
     }
 
     private List<String> ability(Entry e) {
         List<String> t = new ArrayList<>();
-        t.add(e.ability);
+        t.add("<white>" + e.ability);
         t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-027", ""));
         t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-028", "Equipa las cuatro piezas del mismo conjunto en sus ranuras."));
         switch (e.skill) {
@@ -332,7 +343,6 @@ public void open(Player player) { openPage(player, "armaduras"); }
                 t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-029","Acierta {v-e-hits-required-4} golpes cuerpo a cuerpo a enemigos. Máximo {valor2} entre golpes.","v-e-hits-required-4", v(e, "hits-required", 4),"valor2", seconds(e, "hit-window-ticks", 60)));
                 t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-030","Dos capullos florecen. Lanza {valor1} latigazos de {v-e-lash-damage-3} HP y Lentitud I por {valor3}.","valor1", value(Math.min(8, Math.max(1, n(e, "lash-count", 4)))),"v-e-lash-damage-3", v(e, "lash-damage", 3),"valor3", seconds(e, "slowness-ticks", 30)));
                 t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-031", "Alcance: {v-e-lash-range-7} bloques. Busca otro enemigo cercano si pierde su objetivo.", "v-e-lash-range-7", v(e, "lash-range", 7)));
-                t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-032","Primer latigazo: {valor1}; intervalo {valor2}.","valor1", seconds(e, "lash-first-delay-ticks", 20),"valor2", seconds(e, "lash-interval-ticks", 24)));
             }
             case "necrotica" -> {
                 t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-033","Al recibir daño hostil, invoca {valor1} calaveras orbitales.","valor1", value(Math.min(3, Math.max(1, n(e, "skulls", 3))))));
@@ -344,28 +354,37 @@ public void open(Player player) { openPage(player, "armaduras"); }
                 t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-037", "Gana {v-e-fury-on-hit-12} de furia al golpear y {v-e-fury-on-damage-6} al recibir daño hostil.", "v-e-fury-on-hit-12", v(e, "fury-on-hit", 12), "v-e-fury-on-damage-6", v(e, "fury-on-damage", 6)));
                 t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-038","Con {furia} de furia, pulsa Shift dos veces en {valor1}.","furia",Settings.module("equipamiento/config.yml").getInt("furia-maxima",100),"valor1", seconds(e, "double-shift-window-ticks", 9)));
                 t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-039","Golpes seguidos al mismo enemigo: +{valor1} de daño por combo, hasta {valor2}%.","valor1", pct(e, "damage-per-stack", .03),"valor2", value(n(e, "max-combo-stacks", 4) * n(e, "damage-per-stack", .03) * 100)));
-                t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-040","Cambiar de enemigo o pasar {valor1} entre golpes rompe el combo.","valor1", seconds(e, "combo-gap-ticks", 50)));
-                t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-041","La furia empieza a decaer tras {valor1} sin combate.","valor1", seconds(e, "fury-decay-delay-ticks", 400)));
             }
             case "ultimo-juramento" -> {
                 t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-042","Pulsa Shift dos veces en {valor1}.","valor1", seconds(e, "double-shift-window-ticks", 9)));
-                t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-043","+{valor1} daño cuerpo a cuerpo y +{pct-e-speed-bonus-20} velocidad; recibes {valor3} más de daño.","valor1", pct(e, "melee-damage-bonus", .15),"pct-e-speed-bonus-20", pct(e, "speed-bonus", .20),"valor3", pct(e, "damage-taken-increase", .20)));
+                t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-043",
+                        "Velocidad: +{pct-e-speed-bonus-20}; daño recibido: +{valor3}.",
+                        "pct-e-speed-bonus-20", pct(e, "speed-bonus", .20),
+                        "valor3", pct(e, "damage-taken-increase", .20)));
+                if (Settings.module("equipamiento/config.yml")
+                        .getBoolean("skills.ultimo-juramento.auraskills.enabled", true)) {
+                    t.add(Settings.text("equipamiento", "ArmorGuide.juramento-fuerza",
+                            "<gray>ғᴜᴇʀᴢᴀ <light_purple>+{valor1}",
+                            "valor1", v(e, "auraskills.strength-bonus", 45)));
+                } else {
+                    t.add(Settings.text("equipamiento", "ArmorGuide.juramento-dano",
+                            "<gray>ᴅᴀñᴏ ᴄᴇʀᴄᴀɴᴏ <light_purple>+{valor1}",
+                            "valor1", pct(e, "melee-damage-bonus", .15)));
+                }
                 t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-044","Cada golpe añade {valor1}, hasta {valor2} s desde la activación.","valor1", seconds(e, "extension-per-hit-ticks", 12),"valor2", v(e, "maximum-duration-seconds", 10)));
             }
             case "sangre-primer-dragon" -> {
                 t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-045","Recibe daño hostil o acierta {valor1} golpes cuerpo a cuerpo, con máximo {valor2} entre ambos.","valor1", v(e, "melee-hits-to-activate", 2),"valor2", seconds(e, "melee-hit-window-ticks", 60)));
                 t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-046","Bendición: +{valor1} daño cuerpo a cuerpo, {valor2} menos daño recibido y +{pct-e-speed-bonus-06} velocidad.","valor1", pct(e, "active-damage-bonus", .06),"valor2", pct(e, "active-damage-reduction", .06),"pct-e-speed-bonus-06", pct(e, "speed-bonus", .06)));
                 t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-047", "Cura {v-e-heal-on-activation-4} HP sin superar tu máximo.", "v-e-heal-on-activation-4", v(e, "heal-on-activation", 4)));
-                t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-048", "Daño y reducción se suman a los pasivos de 4 piezas. Aparece un dragón dorado."));
             }
             default -> { }
         }
         t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-049", ""));
         t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-050","Duración: {valor1} s.","valor1", v(e, "duration-seconds", e.skill.equals("necrotica") ? 30 : e.skill.equals("botania") ? 8 : e.skill.equals("ultimo-juramento") ? 7 : 10)));
         t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-051","Recarga: {valor1} s desde activación.","valor1", v(e, "cooldown-seconds", e.skill.equals("botania") ? 30 : e.skill.equals("asterion") ? 50 : e.skill.equals("ultimo-juramento") ? 40 : 45)));
-        t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-052", "1 HP = medio corazón. Daño base antes de defensas."));
-        t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-053", "Quitar una pieza cancela el efecto. La recarga continúa mientras el servidor siga encendido."));
-        return t;
+        t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-053", "Quitar una pieza cancela el efecto."));
+        return compactLines(t);
     }
 
 }
