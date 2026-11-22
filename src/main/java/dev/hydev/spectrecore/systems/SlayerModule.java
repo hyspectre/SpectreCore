@@ -112,7 +112,7 @@ public final class SlayerModule implements Listener {
     }
     public String bossDamageLabel(int tier) {
         return Integer.toString(config.getInt("presentacion.revenant.tier" + tier + ".dano",
-                switch (tier) { case 1 -> 8; case 2 -> 20; default -> 50; }));
+                switch (tier) { case 1 -> 32; case 2 -> 48; default -> 62; }));
     }
     public String slayerBossXpLabel(int tier) { return Integer.toString(xpFromBoss(tier)); }
     private int xpFromBoss(int tier) {
