@@ -161,7 +161,7 @@ public final class RelicarioModule implements Listener {
                     throw new IllegalArgumentException("Incomplete UI category: " + group);
             }
             ui = nextUi;
-            entries = Map.copyOf(next);
+            entries = java.util.Collections.unmodifiableMap(new LinkedHashMap<>(next));
             rules = validated;
             caps = Map.copyOf(limits);
             if (active) {
