@@ -9,7 +9,7 @@ source = yaml.safe_load((root/"src/main/resources/modules/accesorios/catalogo.ym
 items = yaml.safe_load((root/"integracion-mmoitems/RELIQUIA.yml").read_text(encoding="utf8"))
 types = yaml.safe_load((root/"integracion-mmoitems/ITEM_TYPE_RELIQUIA.yml").read_text(encoding="utf8"))
 general = yaml.safe_load((root/"src/main/resources/config.yml").read_text(encoding="utf8"))
-assert source["enabled"] is False, "Do not enable incomplete runtime until reviewed"
+assert source["enabled"] is True, "Relicario catalog must be ready"
 assert general["modules"]["accesorios"]["enabled"] is False
 assert source["mmoitems-type"] == "RELIQUIA"
 assert types["RELIQUIA"]["parent"] == "MISCELLANEOUS"
@@ -61,7 +61,7 @@ for stat in known_stats:
     total=sum(v[1] if isinstance(v,tuple) else v for v in winners.values())
     assert total <= source["caps"][stat]+1e-9,(stat,total,source["caps"][stat])
 ui = yaml.safe_load((root/"src/main/resources/ui/relicario.yml").read_text(encoding="utf8"))
-assert ui["enabled"] is False
+assert ui["enabled"] is True
 assert ui["general"]["size"] == 54
 assert set(ui["colecciones"]) == {"cripta","superficie","exploracion","excepcionales"}
 main_slots=[item["slot"] for item in ui["general"]["iconos"].values()]
