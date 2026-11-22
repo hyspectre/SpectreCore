@@ -1,8 +1,8 @@
 # Hydev Relicario v0.1 — 32 accesorios, 9 familias de mejora.
 # Los bonos son acumulativos entre familias; solo cuenta el mayor rango descubierto en cada familia.
 # Los límites se aplican sobre el resultado de la suma, no sobre cada objeto.
-enabled: false
-# Se mantiene apagado hasta validar las integraciones de estadísticas de la versión jugable.
+enabled: true
+# Se activa con modules.accesorios.enabled=true, tras instalar el tipo RELIQUIA en MMOItems.
 mmoitems-type: RELIQUIA
 caps:
   health: 12
