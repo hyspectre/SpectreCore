@@ -60,4 +60,19 @@ for stat in known_stats:
             winners[family]=(r["rango"],r["bonos"][stat])
     total=sum(v[1] if isinstance(v,tuple) else v for v in winners.values())
     assert total <= source["caps"][stat]+1e-9,(stat,total,source["caps"][stat])
-print("PASS Relicario: 32 registered objects, 9 upgrade families, 17 stat caps, no hand bonuses or visible overflow")
+ui = yaml.safe_load((root/"src/main/resources/ui/relicario.yml").read_text(encoding="utf8"))
+assert ui["enabled"] is False
+assert ui["general"]["size"] == 54
+assert set(ui["colecciones"]) == {"cripta","superficie","exploracion","excepcionales"}
+main_slots=[item["slot"] for item in ui["general"]["iconos"].values()]
+assert len(main_slots)==len(set(main_slots))
+assert {"cerrar","guia","estadisticas"} <= set(ui["general"]["iconos"])
+for category,payload in ui["colecciones"].items():
+    assert payload["size"] == 54
+    assert len(payload["recipe-slots"]) >= sum(1 for record in catalog.values() if record["categoria"]==category)
+    assert len(payload["recipe-slots"]) == len(set(payload["recipe-slots"]))
+    assert not {payload["volver-slot"],payload["cerrar-slot"]} & set(payload["recipe-slots"])
+assert ui["confirmacion"]["size"] == 27
+assert len({ui["confirmacion"][key] for key in ("item-slot","confirmar-slot","cancelar-slot")})==3
+print("PASS Relicario: 32 objects, 9 families, 17 caps, 5 configured views, no invalid item stats")
+
