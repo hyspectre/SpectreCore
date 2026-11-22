@@ -4,7 +4,6 @@ labels:
   estados:
     sin-contrato: "Sin contrato"
     disponible: "Disponible"
-    desactivado: "Desactivado"
     ya-contratado: "Ya contratado"
     procesando: "Procesando"
     rango-anterior: "Requiere rango anterior"
