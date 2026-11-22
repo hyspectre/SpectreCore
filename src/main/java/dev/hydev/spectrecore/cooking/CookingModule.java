@@ -1229,7 +1229,6 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
                 throw new IOException("ui/recetario.yml ausente o demasiado grande");
             YamlConfiguration next = new YamlConfiguration();
             next.load(file);
-            if (!next.getBoolean("enabled", true)) { recipeBookLayout = next; return; }
             for (String section : List.of("catalogo", "detalle")) {
                 if (next.getInt(section + ".espacios") != 54 || !next.isString(section + ".titulo"))
                     throw new IOException("Página incompleta: " + section);
@@ -1300,7 +1299,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
 
     private void openRecipeBook(Player player, int page) {
         YamlConfiguration ui = recipeBookLayout;
-        if (ui == null || !ui.getBoolean("enabled", true)) {
+        if (ui == null) {
             player.sendMessage(Settings.message("cocina", "CookingModule.recetario-no-disponible",
                     "<red>El recetario está cerrado por ahora."));
             return;
