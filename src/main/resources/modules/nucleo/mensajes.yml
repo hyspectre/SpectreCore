@@ -4,7 +4,7 @@ SpectreCorePlugin:
   mensaje-002: "Hay sistemas incompatibles activos. Consulta a administración antes de continuar."
   mensaje-003: "La minería especial está desactivada."
   mensaje-004: "Actividades desactivadas."
-  mensaje-005: "Esta función está desactivada."
+  mensaje-005: "Esta función no pudo iniciarse. Revisa la consola."
   mensaje-006: "Esta guía se abre dentro del juego."
   mensaje-007: "Hydev {getpluginmeta-getversion}: habilidades={skillsenabled}, cocina={cookingenabled}."
   mensaje-008: "Se actualizaron ajustes anteriores; el archivo original sigue intacto."
