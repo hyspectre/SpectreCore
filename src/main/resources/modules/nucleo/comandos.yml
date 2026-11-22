@@ -115,7 +115,7 @@ rutas:
     descripcion: "Estado de habilidades"
   modulos:
     uso: "/spectrecore modulos"
-    descripcion: "Estado de módulos"
+    descripcion: "Opciones de administración"
   reload:
     uso: "/spectrecore reload"
     descripcion: "Recargar configuración"
