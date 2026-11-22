@@ -109,8 +109,10 @@ public final class RelicarioModule implements Listener {
         try {
             YamlConfiguration config = plugin.moduleConfigs().read("accesorios/config.yml");
             YamlConfiguration catalog = plugin.moduleConfigs().read("accesorios/catalogo.yml");
-            if (!config.getBoolean("enabled", false) || !catalog.getBoolean("enabled", false))
+            if (!config.getBoolean("enabled", false) || !catalog.getBoolean("enabled", false)) {
+                plugin.getLogger().warning("Relicario no iniciado: revisa enabled: true en modules/accesorios/config.yml y modules/accesorios/catalogo.yml.");
                 return false;
+            }
             File file = new File(plugin.getDataFolder(), "ui/relicario.yml");
             if (!file.exists()) plugin.saveResource("ui/relicario.yml", false);
             if (!file.isFile() || file.length() > 96_000) throw new IllegalArgumentException("UI invalid");
