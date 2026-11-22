@@ -30,8 +30,10 @@ for item_id, value in subtype.items():
     assert not any("Cocina Arcana - Hydev" in line or
                    "Preparado en un caldero artesanal." in line for line in lore), item_id
     for effect_id, configuration in base["effects"].items():
+        assert "amplifier" in configuration and "level" not in configuration, (item_id, effect_id)
+        assert set(configuration) == {"duration", "amplifier"}, (item_id, effect_id)
         assert effect_id in latin_names, (item_id,effect_id)
-        roman={1:"I",2:"II"}[configuration["level"]]
+        roman={1:"I",2:"II"}[configuration["amplifier"]]
         expected=f"&7Efecto: &f{latin_names[effect_id]} {roman} &8({configuration['duration']}s)"
         assert expected in lore, (item_id,expected)
     assert sum(line.startswith("&7Efecto: &f") for line in lore)==len(base["effects"]),item_id
@@ -65,13 +67,13 @@ for id, r in recipes.items():
         assert item["max-stack-size"]==1
         assert item["item-cooldown"]>=3
         assert item["effects"] and all(
-            1<=e["level"]<=2 and 6<=e["duration"]<=600 for e in item["effects"].values())
+            1<=e["amplifier"]<=2 and 6<=e["duration"]<=600 for e in item["effects"].values())
     for effect in outputs[ids[0]]["base"]["effects"]:
         normal=outputs[ids[0]]["base"]["effects"][effect]
         exquisite=outputs[ids[1]]["base"]["effects"][effect]
         overcooked=outputs[ids[2]]["base"]["effects"][effect]
         assert overcooked["duration"]<normal["duration"]<exquisite["duration"],(id,effect)
-        assert normal["level"]==exquisite["level"]==overcooked["level"],id
+        assert normal["amplifier"]==exquisite["amplifier"]==overcooked["amplifier"],id
 
 assert all_ids==set(outputs)
 assert tiers=={1,2,3,4,5},tiers
@@ -82,8 +84,9 @@ assert recipes["espectral"]["resultado-normal"]=="HC_ESPECTRAL_NORMAL"
 assert "Prisa minera I" in recipes["minero"]["efecto-descripcion"]
 assert "HASTE" in outputs["HC_MINERO_NORMAL"]["base"]["effects"]
 assert "SPEED" in outputs["HC_VELOCIDAD_NORMAL"]["base"]["effects"]
-assert outputs["HC_VELOCIDAD_NORMAL"]["base"]["effects"]["SPEED"]["level"]==2
+assert outputs["HC_VELOCIDAD_NORMAL"]["base"]["effects"]["SPEED"]["amplifier"]==2
 assert "ABSORPTION" in outputs["HC_LEYENDA_NORMAL"]["base"]["effects"]
+assert all("level" not in effect and "amplifier" in effect for item in outputs.values() for effect in item["base"]["effects"].values())
 
 assert ui["enabled"] is True
 assert ui["catalogo"]["espacios"]==54
