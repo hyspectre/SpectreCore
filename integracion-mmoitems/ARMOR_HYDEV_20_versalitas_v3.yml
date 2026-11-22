@@ -1,0 +1,664 @@
+# ==========================================
+# HYDEV - 5 CONJUNTOS DE ARMADURAS | LORE BREVE v3
+# ==========================================
+
+# Reemplazar solo estos 20 IDs en ARMOR.yml; conservar el resto del archivo.
+VERDANA_ARMOR_1:
+  base:
+    material: PLAYER_HEAD
+    name: <gradient:#537D3B:#BDD88B>Yelmo de Raigambre</gradient>
+    tier: LEGENDARY
+    tooltip: GOLD
+    hide-armor-trim: true
+    set: HYDEV_RAIGAMBRE
+    armor: 3.0
+    armor-toughness: 3.0
+    additional-health: 2.0
+    max-mana: 4.0
+    required-fighting: 35.0
+    unbreakable: true
+    gem-sockets:
+    - '1'
+    trim-material: minecraft:copper
+    trim-pattern: minecraft:spire
+    lore:
+    - '&f'
+    - '&2 ❀ <gradient:#537D3B:#BDD88B>ʙᴏɴᴏs · ʀᴀɪɢᴀᴍʙʀᴇ</gradient>'
+    - '&f'
+    - '&7 (2) &fᴍᴀɴá ᴍáx. &a+20'
+    - '&7 (4) &fᴅᴀñᴏ ᴍáɢɪᴄᴏ &a+12%'
+    - '&7      &fᴅᴀñᴏ ʀᴇᴄɪʙɪᴅᴏ &a-4%'
+    - '&7 (4+ᴀʀᴍᴀ) &aʀᴇɢᴇɴᴇʀᴀᴄɪóɴ ɪ'
+    - '&8     ᴄᴏɴ ᴠᴇʀᴅᴀɴᴀ'
+    - '&f'
+    - '&f  <gradient:#537D3B:#BDD88B>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &aBotania'
+    - '&8  ᴍás ᴇɴ ᴇʟ ᴍᴇɴú ᴀʀᴍᴀᴅᴜʀᴀs'
+    dye-color: 45 78 47
+    skull-texture:
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGQ1YzNmMzk5ZDY2M2VhZDkyNjkzNTk2NDdlOTIyMmZiNTkyNTFkYTY4ZDdjNGI1NDM2MDBiNjM0MzhmZmZjNSJ9fX0=
+      uuid: 9522b467-0d56-4267-855b-1f22c5a4871e
+VERDANA_ARMOR_2:
+  base:
+    material: LEATHER_CHESTPLATE
+    name: <gradient:#537D3B:#BDD88B>Coraza de Raigambre</gradient>
+    tier: LEGENDARY
+    tooltip: GOLD
+    hide-armor-trim: true
+    set: HYDEV_RAIGAMBRE
+    armor: 8.0
+    armor-toughness: 3.0
+    additional-health: 4.0
+    max-mana: 8.0
+    required-fighting: 35.0
+    unbreakable: true
+    gem-sockets:
+    - '1'
+    trim-material: minecraft:gold
+    trim-pattern: minecraft:wild
+    lore:
+    - '&f'
+    - '&2 ❀ <gradient:#537D3B:#BDD88B>ʙᴏɴᴏs · ʀᴀɪɢᴀᴍʙʀᴇ</gradient>'
+    - '&f'
+    - '&7 (2) &fᴍᴀɴá ᴍáx. &a+20'
+    - '&7 (4) &fᴅᴀñᴏ ᴍáɢɪᴄᴏ &a+12%'
+    - '&7      &fᴅᴀñᴏ ʀᴇᴄɪʙɪᴅᴏ &a-4%'
+    - '&7 (4+ᴀʀᴍᴀ) &aʀᴇɢᴇɴᴇʀᴀᴄɪóɴ ɪ'
+    - '&8     ᴄᴏɴ ᴠᴇʀᴅᴀɴᴀ'
+    - '&f'
+    - '&f  <gradient:#537D3B:#BDD88B>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &aBotania'
+    - '&8  ᴍás ᴇɴ ᴇʟ ᴍᴇɴú ᴀʀᴍᴀᴅᴜʀᴀs'
+    dye-color: 137 226 6
+    hide-dye: true
+VERDANA_ARMOR_3:
+  base:
+    material: LEATHER_LEGGINGS
+    name: <gradient:#537D3B:#BDD88B>Grebas de Raigambre</gradient>
+    tier: LEGENDARY
+    tooltip: GOLD
+    hide-armor-trim: true
+    set: HYDEV_RAIGAMBRE
+    armor: 6.0
+    armor-toughness: 3.0
+    additional-health: 3.0
+    max-mana: 5.0
+    required-fighting: 35.0
+    unbreakable: true
+    gem-sockets:
+    - '1'
+    trim-material: minecraft:gold
+    trim-pattern: minecraft:wild
+    lore:
+    - '&f'
+    - '&2 ❀ <gradient:#537D3B:#BDD88B>ʙᴏɴᴏs · ʀᴀɪɢᴀᴍʙʀᴇ</gradient>'
+    - '&f'
+    - '&7 (2) &fᴍᴀɴá ᴍáx. &a+20'
+    - '&7 (4) &fᴅᴀñᴏ ᴍáɢɪᴄᴏ &a+12%'
+    - '&7      &fᴅᴀñᴏ ʀᴇᴄɪʙɪᴅᴏ &a-4%'
+    - '&7 (4+ᴀʀᴍᴀ) &aʀᴇɢᴇɴᴇʀᴀᴄɪóɴ ɪ'
+    - '&8     ᴄᴏɴ ᴠᴇʀᴅᴀɴᴀ'
+    - '&f'
+    - '&f  <gradient:#537D3B:#BDD88B>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &aBotania'
+    - '&8  ᴍás ᴇɴ ᴇʟ ᴍᴇɴú ᴀʀᴍᴀᴅᴜʀᴀs'
+    dye-color: 137 226 6
+    hide-dye: true
+VERDANA_ARMOR_4:
+  base:
+    material: LEATHER_BOOTS
+    name: <gradient:#537D3B:#BDD88B>Botas de Raigambre</gradient>
+    tier: LEGENDARY
+    tooltip: GOLD
+    hide-armor-trim: true
+    set: HYDEV_RAIGAMBRE
+    armor: 3.0
+    armor-toughness: 3.0
+    additional-health: 2.0
+    max-mana: 3.0
+    required-fighting: 35.0
+    unbreakable: true
+    gem-sockets:
+    - '1'
+    trim-material: minecraft:gold
+    lore:
+    - '&f'
+    - '&2 ❀ <gradient:#537D3B:#BDD88B>ʙᴏɴᴏs · ʀᴀɪɢᴀᴍʙʀᴇ</gradient>'
+    - '&f'
+    - '&7 (2) &fᴍᴀɴá ᴍáx. &a+20'
+    - '&7 (4) &fᴅᴀñᴏ ᴍáɢɪᴄᴏ &a+12%'
+    - '&7      &fᴅᴀñᴏ ʀᴇᴄɪʙɪᴅᴏ &a-4%'
+    - '&7 (4+ᴀʀᴍᴀ) &aʀᴇɢᴇɴᴇʀᴀᴄɪóɴ ɪ'
+    - '&8     ᴄᴏɴ ᴠᴇʀᴅᴀɴᴀ'
+    - '&f'
+    - '&f  <gradient:#537D3B:#BDD88B>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &aBotania'
+    - '&8  ᴍás ᴇɴ ᴇʟ ᴍᴇɴú ᴀʀᴍᴀᴅᴜʀᴀs'
+    dye-color: 247 113 255
+    trim-pattern: minecraft:flow
+    hide-dye: true
+DRACONIDO_ARMOR_1:
+  base:
+    material: PLAYER_HEAD
+    name: <gradient:#AA3A29:#EBA366>Yelmo Dracónico</gradient>
+    tier: LEGENDARY
+    tooltip: GOLD
+    hide-armor-trim: true
+    set: HYDEV_IGNEA
+    armor: 3.0
+    armor-toughness: 3.0
+    additional-health: 2.0
+    additional-crit-chance: 2.0
+    required-fighting: 35.0
+    unbreakable: true
+    gem-sockets:
+    - '1'
+    trim-material: minecraft:gold
+    trim-pattern: minecraft:eye
+    lore:
+    - '&f'
+    - '&6 ✧ <gradient:#AA3A29:#EBA366>ʙᴏɴᴏs · ᴅʀᴀᴄóɴɪᴄᴏ</gradient>'
+    - '&f'
+    - '&7 (2) &fᴠɪᴅᴀ ᴍáx. &6+4'
+    - '&7      &fᴠᴇʟᴏᴄɪᴅᴀᴅ &6+2%'
+    - '&7 (4) &fᴅᴀñᴏ ᴄᴇʀᴄᴀɴᴏ &6+3%'
+    - '&7      &fᴅᴀñᴏ ʀᴇᴄɪʙɪᴅᴏ &6-3%'
+    - '&7 (4+ᴀʀᴍᴀ) &fʙᴇɴᴅɪᴄɪóɴ &6+2 s'
+    - '&8     ᴄᴏɴ ᴅʀᴀᴄᴏʀᴇʟɪǫᴜɪᴀ'
+    - '&f'
+    - '&f  <gradient:#AA3A29:#EBA366>ʜᴀʙɪʟɪᴅᴀᴅ</gradient>'
+    - '&6   Sangre del Primer Dragón'
+    - '&8  ᴍás ᴇɴ ᴇʟ ᴍᴇɴú ᴀʀᴍᴀᴅᴜʀᴀs'
+    skull-texture:
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTExNWFjZjcyNTU0NjkzMWZmMGQ5NTI2M2FmOGRjYmU3ZDE0NzQ3YjNiYjFmYTI1Njg4ZjFiYjdkYWNkOWQ4MyJ9fX0=
+      uuid: f1e04fd5-c079-45c2-a22d-e20043c4d9fa
+DRACONIDO_ARMOR_2:
+  base:
+    material: LEATHER_CHESTPLATE
+    name: <gradient:#AA3A29:#EBA366>Coraza Dracónica</gradient>
+    tier: LEGENDARY
+    tooltip: GOLD
+    set: HYDEV_IGNEA
+    armor: 8.0
+    armor-toughness: 4.0
+    additional-health: 4.0
+    additional-crit-chance: 3.0
+    required-fighting: 35.0
+    unbreakable: true
+    gem-sockets:
+    - '1'
+    trim-material: minecraft:gold
+    trim-pattern: minecraft:rib
+    lore:
+    - '&f'
+    - '&6 ✧ <gradient:#AA3A29:#EBA366>ʙᴏɴᴏs · ᴅʀᴀᴄóɴɪᴄᴏ</gradient>'
+    - '&f'
+    - '&7 (2) &fᴠɪᴅᴀ ᴍáx. &6+4'
+    - '&7      &fᴠᴇʟᴏᴄɪᴅᴀᴅ &6+2%'
+    - '&7 (4) &fᴅᴀñᴏ ᴄᴇʀᴄᴀɴᴏ &6+3%'
+    - '&7      &fᴅᴀñᴏ ʀᴇᴄɪʙɪᴅᴏ &6-3%'
+    - '&7 (4+ᴀʀᴍᴀ) &fʙᴇɴᴅɪᴄɪóɴ &6+2 s'
+    - '&8     ᴄᴏɴ ᴅʀᴀᴄᴏʀᴇʟɪǫᴜɪᴀ'
+    - '&f'
+    - '&f  <gradient:#AA3A29:#EBA366>ʜᴀʙɪʟɪᴅᴀᴅ</gradient>'
+    - '&6   Sangre del Primer Dragón'
+    - '&8  ᴍás ᴇɴ ᴇʟ ᴍᴇɴú ᴀʀᴍᴀᴅᴜʀᴀs'
+    hide-dye: true
+    dye-color: 198 162 85
+    hide-armor-trim: true
+DRACONIDO_ARMOR_3:
+  base:
+    material: LEATHER_LEGGINGS
+    name: <gradient:#AA3A29:#EBA366>Grebas Dracónicas</gradient>
+    tier: LEGENDARY
+    tooltip: GOLD
+    hide-armor-trim: true
+    set: HYDEV_IGNEA
+    armor: 6.0
+    armor-toughness: 4.0
+    additional-health: 3.0
+    additional-crit-chance: 2.0
+    required-fighting: 35.0
+    unbreakable: true
+    gem-sockets:
+    - '1'
+    trim-material: minecraft:gold
+    trim-pattern: minecraft:tide
+    lore:
+    - '&f'
+    - '&6 ✧ <gradient:#AA3A29:#EBA366>ʙᴏɴᴏs · ᴅʀᴀᴄóɴɪᴄᴏ</gradient>'
+    - '&f'
+    - '&7 (2) &fᴠɪᴅᴀ ᴍáx. &6+4'
+    - '&7      &fᴠᴇʟᴏᴄɪᴅᴀᴅ &6+2%'
+    - '&7 (4) &fᴅᴀñᴏ ᴄᴇʀᴄᴀɴᴏ &6+3%'
+    - '&7      &fᴅᴀñᴏ ʀᴇᴄɪʙɪᴅᴏ &6-3%'
+    - '&7 (4+ᴀʀᴍᴀ) &fʙᴇɴᴅɪᴄɪóɴ &6+2 s'
+    - '&8     ᴄᴏɴ ᴅʀᴀᴄᴏʀᴇʟɪǫᴜɪᴀ'
+    - '&f'
+    - '&f  <gradient:#AA3A29:#EBA366>ʜᴀʙɪʟɪᴅᴀᴅ</gradient>'
+    - '&6   Sangre del Primer Dragón'
+    - '&8  ᴍás ᴇɴ ᴇʟ ᴍᴇɴú ᴀʀᴍᴀᴅᴜʀᴀs'
+    hide-dye: true
+    dye-color: 93 59 17
+DRACONIDO_ARMOR_4:
+  base:
+    material: NETHERITE_BOOTS
+    name: <gradient:#AA3A29:#EBA366>Botas Dracónicas</gradient>
+    tier: LEGENDARY
+    tooltip: GOLD
+    hide-armor-trim: true
+    set: HYDEV_IGNEA
+    armor: 3.0
+    armor-toughness: 3.0
+    additional-health: 2.0
+    additional-crit-chance: 1.0
+    required-fighting: 35.0
+    unbreakable: true
+    gem-sockets:
+    - '1'
+    trim-material: minecraft:gold
+    trim-pattern: minecraft:sentry
+    lore:
+    - '&f'
+    - '&6 ✧ <gradient:#AA3A29:#EBA366>ʙᴏɴᴏs · ᴅʀᴀᴄóɴɪᴄᴏ</gradient>'
+    - '&f'
+    - '&7 (2) &fᴠɪᴅᴀ ᴍáx. &6+4'
+    - '&7      &fᴠᴇʟᴏᴄɪᴅᴀᴅ &6+2%'
+    - '&7 (4) &fᴅᴀñᴏ ᴄᴇʀᴄᴀɴᴏ &6+3%'
+    - '&7      &fᴅᴀñᴏ ʀᴇᴄɪʙɪᴅᴏ &6-3%'
+    - '&7 (4+ᴀʀᴍᴀ) &fʙᴇɴᴅɪᴄɪóɴ &6+2 s'
+    - '&8     ᴄᴏɴ ᴅʀᴀᴄᴏʀᴇʟɪǫᴜɪᴀ'
+    - '&f'
+    - '&f  <gradient:#AA3A29:#EBA366>ʜᴀʙɪʟɪᴅᴀᴅ</gradient>'
+    - '&6   Sangre del Primer Dragón'
+    - '&8  ᴍás ᴇɴ ᴇʟ ᴍᴇɴú ᴀʀᴍᴀᴅᴜʀᴀs'
+CABALLERO_ARMOR_1:
+  base:
+    material: PLAYER_HEAD
+    name: <gradient:#6F7486:#C7BED7>Yelmo del Deshonrado</gradient>
+    tier: LEGENDARY
+    tooltip: GOLD
+    hide-armor-trim: true
+    set: HYDEV_VOTO
+    armor: 4.0
+    armor-toughness: 4.0
+    additional-health: 3.0
+    knockback-resistance: 0.05
+    required-fighting: 35.0
+    unbreakable: true
+    gem-sockets:
+    - '1'
+    trim-material: minecraft:amethyst
+    trim-pattern: minecraft:silence
+    lore:
+    - '&f'
+    - '&7 ✦ <gradient:#6F7486:#C7BED7>ʙᴏɴᴏs · ᴅᴇsʜᴏɴʀᴀᴅᴏ</gradient>'
+    - '&f'
+    - '&7 (2) &fᴠᴇʟᴏᴄɪᴅᴀᴅ &d+4%'
+    - '&7      &fᴄʀíᴛɪᴄᴏ &d+8%'
+    - '&7 (4+ᴀʀᴍᴀ) &fᴇᴄᴏ ᴅᴇ ʙʟɪɴᴋ'
+    - '&7      &fᴘʀóx. ɢᴏʟᴘᴇ &d+10%'
+    - '&8     ᴊᴜʀᴀᴍᴇɴᴛᴏ ᴘʀᴏꜰᴀɴᴀᴅᴏ'
+    - '&f'
+    - '&f  <gradient:#6F7486:#C7BED7>ʜᴀʙɪʟɪᴅᴀᴅ</gradient>'
+    - '&d   Último Juramento'
+    - '&8  ᴍás ᴇɴ ᴇʟ ᴍᴇɴú ᴀʀᴍᴀᴅᴜʀᴀs'
+    skull-texture:
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWUyOTZlMTJiMWVjODVjMGYxNmM4OTg0ZjBlZTkwNjFiZmVmMzU3MTU1MjRkZjgzMzU0OTNjNjgwZWM4MDA4NiJ9fX0=
+      uuid: 6a60e4b9-2a8e-49f9-b041-1e2707536267
+CABALLERO_ARMOR_2:
+  base:
+    material: LEATHER_CHESTPLATE
+    name: <gradient:#6F7486:#C7BED7>Coraza del Deshonrado</gradient>
+    tier: LEGENDARY
+    tooltip: GOLD
+    hide-armor-trim: true
+    set: HYDEV_VOTO
+    armor: 9.0
+    armor-toughness: 5.0
+    additional-health: 5.0
+    knockback-resistance: 0.1
+    required-fighting: 35.0
+    unbreakable: true
+    gem-sockets:
+    - '1'
+    trim-material: minecraft:amethyst
+    trim-pattern: minecraft:silence
+    lore:
+    - '&f'
+    - '&7 ✦ <gradient:#6F7486:#C7BED7>ʙᴏɴᴏs · ᴅᴇsʜᴏɴʀᴀᴅᴏ</gradient>'
+    - '&f'
+    - '&7 (2) &fᴠᴇʟᴏᴄɪᴅᴀᴅ &d+4%'
+    - '&7      &fᴄʀíᴛɪᴄᴏ &d+8%'
+    - '&7 (4+ᴀʀᴍᴀ) &fᴇᴄᴏ ᴅᴇ ʙʟɪɴᴋ'
+    - '&7      &fᴘʀóx. ɢᴏʟᴘᴇ &d+10%'
+    - '&8     ᴊᴜʀᴀᴍᴇɴᴛᴏ ᴘʀᴏꜰᴀɴᴀᴅᴏ'
+    - '&f'
+    - '&f  <gradient:#6F7486:#C7BED7>ʜᴀʙɪʟɪᴅᴀᴅ</gradient>'
+    - '&d   Último Juramento'
+    - '&8  ᴍás ᴇɴ ᴇʟ ᴍᴇɴú ᴀʀᴍᴀᴅᴜʀᴀs'
+    hide-dye: true
+    dye-color: 79 24 96
+CABALLERO_ARMOR_3:
+  base:
+    material: LEATHER_LEGGINGS
+    name: <gradient:#6F7486:#C7BED7>Grebas del Deshonrado</gradient>
+    tier: LEGENDARY
+    tooltip: GOLD
+    hide-armor-trim: true
+    set: HYDEV_VOTO
+    armor: 7.0
+    armor-toughness: 5.0
+    additional-health: 4.0
+    knockback-resistance: 0.07
+    required-fighting: 35.0
+    unbreakable: true
+    gem-sockets:
+    - '1'
+    trim-material: minecraft:amethyst
+    trim-pattern: minecraft:ward
+    lore:
+    - '&f'
+    - '&7 ✦ <gradient:#6F7486:#C7BED7>ʙᴏɴᴏs · ᴅᴇsʜᴏɴʀᴀᴅᴏ</gradient>'
+    - '&f'
+    - '&7 (2) &fᴠᴇʟᴏᴄɪᴅᴀᴅ &d+4%'
+    - '&7      &fᴄʀíᴛɪᴄᴏ &d+8%'
+    - '&7 (4+ᴀʀᴍᴀ) &fᴇᴄᴏ ᴅᴇ ʙʟɪɴᴋ'
+    - '&7      &fᴘʀóx. ɢᴏʟᴘᴇ &d+10%'
+    - '&8     ᴊᴜʀᴀᴍᴇɴᴛᴏ ᴘʀᴏꜰᴀɴᴀᴅᴏ'
+    - '&f'
+    - '&f  <gradient:#6F7486:#C7BED7>ʜᴀʙɪʟɪᴅᴀᴅ</gradient>'
+    - '&d   Último Juramento'
+    - '&8  ᴍás ᴇɴ ᴇʟ ᴍᴇɴú ᴀʀᴍᴀᴅᴜʀᴀs'
+    hide-dye: true
+    dye-color: 35 53 28
+CABALLERO_ARMOR_4:
+  base:
+    material: LEATHER_BOOTS
+    name: <gradient:#6F7486:#C7BED7>Botas del Deshonrado</gradient>
+    tier: LEGENDARY
+    tooltip: GOLD
+    hide-armor-trim: true
+    set: HYDEV_VOTO
+    armor: 4.0
+    armor-toughness: 4.0
+    additional-health: 3.0
+    knockback-resistance: 0.05
+    required-fighting: 35.0
+    unbreakable: true
+    gem-sockets:
+    - '1'
+    trim-material: minecraft:amethyst
+    trim-pattern: minecraft:sentry
+    lore:
+    - '&f'
+    - '&7 ✦ <gradient:#6F7486:#C7BED7>ʙᴏɴᴏs · ᴅᴇsʜᴏɴʀᴀᴅᴏ</gradient>'
+    - '&f'
+    - '&7 (2) &fᴠᴇʟᴏᴄɪᴅᴀᴅ &d+4%'
+    - '&7      &fᴄʀíᴛɪᴄᴏ &d+8%'
+    - '&7 (4+ᴀʀᴍᴀ) &fᴇᴄᴏ ᴅᴇ ʙʟɪɴᴋ'
+    - '&7      &fᴘʀóx. ɢᴏʟᴘᴇ &d+10%'
+    - '&8     ᴊᴜʀᴀᴍᴇɴᴛᴏ ᴘʀᴏꜰᴀɴᴀᴅᴏ'
+    - '&f'
+    - '&f  <gradient:#6F7486:#C7BED7>ʜᴀʙɪʟɪᴅᴀᴅ</gradient>'
+    - '&d   Último Juramento'
+    - '&8  ᴍás ᴇɴ ᴇʟ ᴍᴇɴú ᴀʀᴍᴀᴅᴜʀᴀs'
+    hide-dye: true
+    dye-color: 61 63 64
+MINOTAURO_ARMOR_1:
+  base:
+    material: PLAYER_HEAD
+    name: <gradient:#A25735:#E3BC7B>Yelmo del Laberinto</gradient>
+    tier: LEGENDARY
+    tooltip: GOLD
+    hide-armor-trim: true
+    set: HYDEV_LABERINTO
+    armor: 4.0
+    armor-toughness: 4.0
+    additional-health: 3.0
+    additional-strength: 1.0
+    required-fighting: 35.0
+    unbreakable: true
+    gem-sockets:
+    - '1'
+    trim-material: minecraft:copper
+    trim-pattern: minecraft:snout
+    lore:
+    - '&f'
+    - '&6 ◆ <gradient:#A25735:#E3BC7B>ʙᴏɴᴏs · ʟᴀʙᴇʀɪɴᴛᴏ</gradient>'
+    - '&f'
+    - '&7 (2) &fᴠɪᴅᴀ ᴍáx. &6+6'
+    - '&7 (4) &fʀᴇsɪsᴛ. ᴇᴍᴘᴜᴊᴇ &6+0,10'
+    - '&7 (4+ᴀʀᴍᴀ) &fᴄʀíᴛɪᴄᴏ &6+5%'
+    - '&8     ᴄᴏɴ ʜᴇɴᴅᴇᴅᴏʀᴀ'
+    - '&f'
+    - '&f  <gradient:#A25735:#E3BC7B>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &6Asterión'
+    - '&8  ᴍás ᴇɴ ᴇʟ ᴍᴇɴú ᴀʀᴍᴀᴅᴜʀᴀs'
+    skull-texture:
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTcxMTA2YTk0ZWVhNzRiOTNhMzRmYjJhNzI5OTBmNTk4OWExZTQ0NTJjMWNiODM5OWRjZDkyM2Y4MjU1MGYzMiJ9fX0=
+      uuid: de868642-96f0-42d3-9e76-daafaab07662
+MINOTAURO_ARMOR_2:
+  base:
+    material: LEATHER_CHESTPLATE
+    name: <gradient:#A25735:#E3BC7B>Coraza del Laberinto</gradient>
+    tier: LEGENDARY
+    tooltip: GOLD
+    hide-armor-trim: true
+    set: HYDEV_LABERINTO
+    armor: 8.0
+    armor-toughness: 5.0
+    additional-health: 5.0
+    additional-strength: 3.0
+    required-fighting: 35.0
+    unbreakable: true
+    gem-sockets:
+    - '1'
+    trim-material: minecraft:copper
+    trim-pattern: minecraft:rib
+    lore:
+    - '&f'
+    - '&6 ◆ <gradient:#A25735:#E3BC7B>ʙᴏɴᴏs · ʟᴀʙᴇʀɪɴᴛᴏ</gradient>'
+    - '&f'
+    - '&7 (2) &fᴠɪᴅᴀ ᴍáx. &6+6'
+    - '&7 (4) &fʀᴇsɪsᴛ. ᴇᴍᴘᴜᴊᴇ &6+0,10'
+    - '&7 (4+ᴀʀᴍᴀ) &fᴄʀíᴛɪᴄᴏ &6+5%'
+    - '&8     ᴄᴏɴ ʜᴇɴᴅᴇᴅᴏʀᴀ'
+    - '&f'
+    - '&f  <gradient:#A25735:#E3BC7B>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &6Asterión'
+    - '&8  ᴍás ᴇɴ ᴇʟ ᴍᴇɴú ᴀʀᴍᴀᴅᴜʀᴀs'
+    hide-dye: true
+    dye-color: 166 137 111
+MINOTAURO_ARMOR_3:
+  base:
+    material: LEATHER_LEGGINGS
+    name: <gradient:#A25735:#E3BC7B>Grebas del Laberinto</gradient>
+    tier: LEGENDARY
+    tooltip: GOLD
+    hide-armor-trim: true
+    set: HYDEV_LABERINTO
+    armor: 6.0
+    armor-toughness: 4.0
+    additional-health: 4.0
+    additional-strength: 2.0
+    required-fighting: 35.0
+    unbreakable: true
+    gem-sockets:
+    - '1'
+    trim-material: minecraft:copper
+    trim-pattern: minecraft:snout
+    lore:
+    - '&f'
+    - '&6 ◆ <gradient:#A25735:#E3BC7B>ʙᴏɴᴏs · ʟᴀʙᴇʀɪɴᴛᴏ</gradient>'
+    - '&f'
+    - '&7 (2) &fᴠɪᴅᴀ ᴍáx. &6+6'
+    - '&7 (4) &fʀᴇsɪsᴛ. ᴇᴍᴘᴜᴊᴇ &6+0,10'
+    - '&7 (4+ᴀʀᴍᴀ) &fᴄʀíᴛɪᴄᴏ &6+5%'
+    - '&8     ᴄᴏɴ ʜᴇɴᴅᴇᴅᴏʀᴀ'
+    - '&f'
+    - '&f  <gradient:#A25735:#E3BC7B>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &6Asterión'
+    - '&8  ᴍás ᴇɴ ᴇʟ ᴍᴇɴú ᴀʀᴍᴀᴅᴜʀᴀs'
+    hide-dye: true
+    dye-color: 115 89 84
+MINOTAURO_ARMOR_4:
+  base:
+    material: NETHERITE_BOOTS
+    name: <gradient:#A25735:#E3BC7B>Botas del Laberinto</gradient>
+    tier: LEGENDARY
+    tooltip: GOLD
+    hide-armor-trim: true
+    set: HYDEV_LABERINTO
+    armor: 3.0
+    armor-toughness: 3.0
+    additional-health: 3.0
+    additional-strength: 1.0
+    required-fighting: 35.0
+    unbreakable: true
+    gem-sockets:
+    - '1'
+    trim-material: minecraft:copper
+    trim-pattern: minecraft:sentry
+    lore:
+    - '&f'
+    - '&6 ◆ <gradient:#A25735:#E3BC7B>ʙᴏɴᴏs · ʟᴀʙᴇʀɪɴᴛᴏ</gradient>'
+    - '&f'
+    - '&7 (2) &fᴠɪᴅᴀ ᴍáx. &6+6'
+    - '&7 (4) &fʀᴇsɪsᴛ. ᴇᴍᴘᴜᴊᴇ &6+0,10'
+    - '&7 (4+ᴀʀᴍᴀ) &fᴄʀíᴛɪᴄᴏ &6+5%'
+    - '&8     ᴄᴏɴ ʜᴇɴᴅᴇᴅᴏʀᴀ'
+    - '&f'
+    - '&f  <gradient:#A25735:#E3BC7B>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &6Asterión'
+    - '&8  ᴍás ᴇɴ ᴇʟ ᴍᴇɴú ᴀʀᴍᴀᴅᴜʀᴀs'
+NECROTICO_1:
+  base:
+    material: PLAYER_HEAD
+    name: <gradient:#685093:#B5A2D5>Yelmo Necrótico</gradient>
+    set: NECROTICO
+    tier: LEGENDARY
+    tooltip: GOLD
+    browser-idx: 3.0
+    armor: 4.0
+    armor-toughness: 3.0
+    additional-health: 4.0
+    additional-crit-chance: 6.0
+    required-fighting: 25.0
+    required-mining: 17.0
+    trim-material: minecraft:amethyst
+    trim-pattern: minecraft:rib
+    max-item-damage: 800.0
+    unbreakable: true
+    repair-type: '1'
+    gem-sockets:
+    - '1'
+    - '1'
+    lore:
+    - '&f'
+    - '&5 ✦ <gradient:#685093:#B5A2D5>ʙᴏɴᴏs · ɴᴇᴄʀóᴛɪᴄᴏ</gradient>'
+    - '&f'
+    - '&7 (2) &fᴠɪᴅᴀ ᴍáx. &d+4'
+    - '&7 (4) &fᴅᴀñᴏ ʀᴇᴄɪʙɪᴅᴏ &d-5%'
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient>'
+    - '&d   Trinidad Profana'
+    - '&8  ᴍás ᴇɴ ᴇʟ ᴍᴇɴú ᴀʀᴍᴀᴅᴜʀᴀs'
+    hide-armor-trim: true
+    skull-texture:
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTE2ZWQ4YjdjNTdjNDZhYWNkY2JiZjRmYmE0MDAwNTJmZGYzOGIzYmEwNTQ5Nzg2NDM4ZWJhMmZhMjk0MTM0ZiJ9fX0=
+      uuid: e3fc050b-df6a-4fc4-987d-ce6b88282b43
+
+NECROTICO_2:
+  base:
+    material: NETHERITE_CHESTPLATE
+    name: <gradient:#685093:#B5A2D5>Coraza Necrótica</gradient>
+    set: NECROTICO
+    tier: LEGENDARY
+    tooltip: GOLD
+    browser-idx: 3.0
+    armor: 9.0
+    armor-toughness: 4.0
+    additional-health: 6.0
+    additional-crit-chance: 9.0
+    required-fighting: 25.0
+    required-mining: 17.0
+    trim-material: minecraft:amethyst
+    trim-pattern: minecraft:rib
+    max-item-damage: 800.0
+    unbreakable: true
+    repair-type: '1'
+    gem-sockets:
+    - '1'
+    - '1'
+    lore:
+    - '&f'
+    - '&5 ✦ <gradient:#685093:#B5A2D5>ʙᴏɴᴏs · ɴᴇᴄʀóᴛɪᴄᴏ</gradient>'
+    - '&f'
+    - '&7 (2) &fᴠɪᴅᴀ ᴍáx. &d+4'
+    - '&7 (4) &fᴅᴀñᴏ ʀᴇᴄɪʙɪᴅᴏ &d-5%'
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient>'
+    - '&d   Trinidad Profana'
+    - '&8  ᴍás ᴇɴ ᴇʟ ᴍᴇɴú ᴀʀᴍᴀᴅᴜʀᴀs'
+    hide-armor-trim: true
+
+NECROTICO_3:
+  base:
+    material: NETHERITE_LEGGINGS
+    name: <gradient:#685093:#B5A2D5>Grebas Necróticas</gradient>
+    set: NECROTICO
+    tier: LEGENDARY
+    tooltip: GOLD
+    browser-idx: 3.0
+    armor: 7.0
+    armor-toughness: 4.0
+    additional-health: 5.0
+    additional-crit-chance: 6.0
+    required-fighting: 25.0
+    required-mining: 17.0
+    trim-material: minecraft:amethyst
+    trim-pattern: minecraft:rib
+    max-item-damage: 800.0
+    unbreakable: true
+    repair-type: '1'
+    gem-sockets:
+    - '1'
+    - '1'
+    lore:
+    - '&f'
+    - '&5 ✦ <gradient:#685093:#B5A2D5>ʙᴏɴᴏs · ɴᴇᴄʀóᴛɪᴄᴏ</gradient>'
+    - '&f'
+    - '&7 (2) &fᴠɪᴅᴀ ᴍáx. &d+4'
+    - '&7 (4) &fᴅᴀñᴏ ʀᴇᴄɪʙɪᴅᴏ &d-5%'
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient>'
+    - '&d   Trinidad Profana'
+    - '&8  ᴍás ᴇɴ ᴇʟ ᴍᴇɴú ᴀʀᴍᴀᴅᴜʀᴀs'
+    hide-armor-trim: true
+
+NECROTICO_4:
+  base:
+    material: NETHERITE_BOOTS
+    name: <gradient:#685093:#B5A2D5>Botas Necróticas</gradient>
+    set: NECROTICO
+    tier: LEGENDARY
+    tooltip: GOLD
+    browser-idx: 3.0
+    armor: 3.0
+    armor-toughness: 3.0
+    additional-health: 3.0
+    additional-crit-chance: 5.0
+    required-fighting: 25.0
+    required-mining: 17.0
+    trim-material: minecraft:amethyst
+    trim-pattern: minecraft:rib
+    max-item-damage: 800.0
+    unbreakable: true
+    repair-type: '1'
+    gem-sockets:
+    - '1'
+    - '1'
+    lore:
+    - '&f'
+    - '&5 ✦ <gradient:#685093:#B5A2D5>ʙᴏɴᴏs · ɴᴇᴄʀóᴛɪᴄᴏ</gradient>'
+    - '&f'
+    - '&7 (2) &fᴠɪᴅᴀ ᴍáx. &d+4'
+    - '&7 (4) &fᴅᴀñᴏ ʀᴇᴄɪʙɪᴅᴏ &d-5%'
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient>'
+    - '&d   Trinidad Profana'
+    - '&8  ᴍás ᴇɴ ᴇʟ ᴍᴇɴú ᴀʀᴍᴀᴅᴜʀᴀs'
+    hide-armor-trim: true
