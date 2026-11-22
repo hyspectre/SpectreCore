@@ -1,14 +1,14 @@
 # Relicario de Hydev — módulo jugable (v0.2)
 
-Este commit prepara el catálogo y la lógica de acumulación, pero **NO instala
-todavía la absorción de accesorios ni aplica bonificaciones al jugador**.
+Este módulo implementa absorción con confirmación, colección persistente por UUID,
+menús y bonificaciones. Su activación permanece opcional hasta instalar el tipo RELIQUIA.
 
 ## Estado y ubicación
 - `src/main/resources/modules/accesorios/catalogo.yml`: 32 reliquias, 17 estadísticas y límites.
 - `src/main/resources/modules/accesorios/config.yml`: políticas de seguridad.
 - `src/main/resources/ui/relicario.yml`: índice, cuatro colecciones y confirmación.
 - `integracion-mmoitems/ITEM_TYPE_RELIQUIA.yml`: entrada para agregar a
-  `plugins/MMOItems/item-types.yml` cuando el módulo jugable esté listo.
+  `plugins/MMOItems/item-types.yml` antes de activar el módulo en el servidor.
 - `integracion-mmoitems/RELIQUIA.yml`: 32 objetos para el tipo personalizado,
   **sin stats equipables**. No sustituye otros archivos de MMOItems.
 - `RelicarioRules.java`: cálculo puro de familias y bonos, con pruebas.
@@ -18,9 +18,9 @@ todavía la absorción de accesorios ni aplica bonificaciones al jugador**.
 - En una misma familia solo aporta el accesorio del mayor rango registrado.
 - Los IDs antiguos permanecen descubiertos para el catálogo.
 - Los topes se aplican por estadística al total de todas las familias.
-- El registro se calculará desde IDs absorbidos, no desde valores incrementados.
-- Absorber el mismo ID dos veces estará prohibido.
-- El consumo confirmará y verificará el objeto MMOItems real, nunca su nombre.
+- El registro se calcula desde IDs absorbidos, no desde valores incrementados.
+- Absorber el mismo ID dos veces está prohibido.
+- El consumo confirma y verifica el objeto MMOItems real, nunca su nombre.
 
 ## Familias (9)
 - Brote Marchito → Núcleo Silvestre
@@ -35,7 +35,7 @@ todavía la absorción de accesorios ni aplica bonificaciones al jugador**.
 
 ## Instalación y activación
 1. Añadir el tipo `RELIQUIA` a `plugins/MMOItems/item-types.yml` (fusionar, no sobrescribir).
-2. Añadir los 32 IDs del archivo `RELIQUIA.yml` al archivo del tipo, una vez registrado; comprobar creación con `/mi browse`.
+2. Añadir los 32 IDs del archivo `RELIQUIA.yml` a `plugins/MMOItems/item/reliquia.yml`, una vez registrado el tipo; comprobar su creación con `/mi browse`.
 3. Instalar el nuevo SpectreCore. En `plugins/SpectreCore/config.yml`, ajustar `modules.accesorios.enabled: true` y reiniciar el servidor.
 4. Abrir `/spectrecore relicario`, probar primero una reliquia de baja rareza y verificar el archivo `plugins/SpectreCore/data/relicario/<UUID>.yml`.
 5. Hacer copia de seguridad antes de introducir objetos de valor. Si el almacenamiento falla, el consumo se bloquea.
