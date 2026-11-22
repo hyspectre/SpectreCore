@@ -475,15 +475,20 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
         if (sub.equals("reload")) {
             if (!canAdmin(sender)) { sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-015", "§cSin permiso.")); return true; }
             try { reloadConfig(); }
-            catch (Exception error) { sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-016", "§c{error-getmessage}. Se conserva la última configuración válida.", "error-getmessage", error.getMessage())); return true; }
+            catch (Exception error) {
+                getLogger().warning("Configuración: recarga rechazada: " + error.getMessage());
+                sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-016",
+                        "<red>No se pudieron actualizar los ajustes. Se conserva la configuración anterior."));
+                return true;
+            }
             for (Player player : Bukkit.getOnlinePlayers()) { clear(player.getUniqueId()); if (passive != null) passive.clear(player); }
             try {
                 if (mago == null) mago = new dev.hydev.spectrecore.guide.MagoMenu(this);
                 else mago.reload();
             } catch (Exception badMenu) {
-                sender.sendMessage(Settings.component(Settings.text("nucleo", "MagoMenu.reload-error",
-                    "<red>Menú inválido: {error}; se conserva la última versión válida.</red>",
-                    "error", badMenu.getMessage().replace('<',' ').replace('>',' '))));
+                getLogger().warning("El Mago: recarga rechazada: " + badMenu.getMessage());
+                sender.sendMessage(Settings.message("nucleo", "MagoMenu.reload-error",
+                    "<red>No se pudo actualizar la guía. Se conserva la versión anterior."));
             }
             reloadDiagnostics();
             if (toastService != null) toastService.reload();
