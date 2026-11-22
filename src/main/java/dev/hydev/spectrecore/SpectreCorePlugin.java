@@ -402,6 +402,12 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
         String sub = args.length == 0 ? "status" : args[0].toLowerCase(java.util.Locale.ROOT);
         if (sub.equals("integraciones")) {
             if (!canAdmin(sender)) { sender.sendMessage(Settings.component(Settings.text("nucleo", "Modelos.sin-permiso", "<red>Sin permiso.</red>"))); return true; }
+            // Vendor names belong in the server log/console, never in player chat.
+            if (sender instanceof Player) {
+                sender.sendMessage(Settings.message("nucleo", "Integraciones.solo-consola",
+                        "<gray>Esta revisión administrativa solo está disponible desde la consola."));
+                return true;
+            }
             integrations.status().forEach((name,ok) -> sender.sendMessage(Settings.component(Settings.text("nucleo", "Integraciones.estado",
                 "{nombre}: {estado}", "nombre", name,
                 "estado", ok ? Settings.text("nucleo", "Integraciones.activo", "<green>detectado</green>")
@@ -424,6 +430,12 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
         }
         if (sub.equals("diagnostico") || sub.equals("diagnostics")) {
             if (!canAdmin(sender)) { sender.sendMessage(Settings.component(Settings.text("nucleo", "Modelos.sin-permiso", "<red>Sin permiso.</red>"))); return true; }
+            // Storage flags, internal metrics and IDs are strictly server-console data.
+            if (sender instanceof Player) {
+                sender.sendMessage(Settings.message("nucleo", "Diagnostico.solo-consola",
+                        "<gray>El diagnóstico administrativo se consulta desde la consola."));
+                return true;
+            }
             sender.sendMessage(Settings.component(Settings.text("nucleo", "Diagnostico.estado",
                     "<gold>Hydev — diagnóstico: {estado}</gold>", "estado", diagnostics.enabled() ? "ON" : "OFF")));
             sender.sendMessage(Settings.component(Settings.text("nucleo", "Diagnostico.cocina", "<gray>Cocina: {estado}</gray>", "estado",
