@@ -99,6 +99,7 @@ public final class RelicarioModule implements Listener {
         for (Player p : Bukkit.getOnlinePlayers()) join(p);
         Bukkit.getScheduler().runTaskTimer(plugin, () -> {
             if (!active) return;
+            stats.prune();
             for (Player p : Bukkit.getOnlinePlayers()) if (ready(p.getUniqueId())) stats.refresh(p);
         }, 100L, 200L);
         return true;
