@@ -1,35 +1,35 @@
 trabajo:
-  descripcion: "Sistema Hydev trabajo"
+  descripcion: "Contratos y oficios"
   uso: "/spectrecore trabajos"
 activarslayer:
-  descripcion: "Sistema Hydev activarslayer"
+  descripcion: "Iniciar una cacería"
   uso: "/spectrecore slayer activar"
 cancelarslayer:
-  descripcion: "Sistema Hydev cancelarslayer"
+  descripcion: "Cancelar una cacería"
   uso: "/spectrecore slayer cancelar"
 resetslayer:
-  descripcion: "Sistema Hydev resetslayer"
+  descripcion: "Reiniciar una cacería"
   uso: "/spectrecore slayer reiniciar"
 slayerstats:
-  descripcion: "Sistema Hydev slayerstats"
+  descripcion: "Consultar el progreso de cacerías"
   uso: "/spectrecore slayer estado"
 slayerinvocar:
-  descripcion: "Sistema Hydev slayerinvocar"
+  descripcion: "Reintentar una aparición pendiente"
   uso: "/spectrecore slayer invocar"
 hydevportaljoin:
-  descripcion: "Sistema Hydev hydevportaljoin"
+  descripcion: "Registrar un participante"
   uso: "/spectrecore portal registrar"
 hydevportalleave:
-  descripcion: "Sistema Hydev hydevportalleave"
+  descripcion: "Registrar la salida de un participante"
   uso: "/spectrecore portal salir"
 hydevportalcleanup:
-  descripcion: "Sistema Hydev hydevportalcleanup"
+  descripcion: "Retirar portales activos"
   uso: "/spectrecore portal limpiar"
 hydevportalstatus:
-  descripcion: "Sistema Hydev hydevportalstatus"
+  descripcion: "Consultar el estado del portal"
   uso: "/spectrecore portal estado"
 hydevportaldemo:
-  descripcion: "Sistema Hydev hydevportaldemo"
+  descripcion: "Previsualizar el portal"
   uso: "/spectrecore portal demo"
 rompemuelas:
   descripcion: "Actividad administrativa Hydev"
@@ -104,7 +104,7 @@ armaduras:
   descripcion: "Guía de conjuntos, habilidades y bonos de armadura"
   uso: "/spectrecore armaduras"
 spectrecore:
-  descripcion: "Sistemas RPG y administración de Hydev"
+  descripcion: "Aventuras y herramientas de Hydev"
   uso: "/spectrecore ayuda"
 cocina:
   descripcion: "Sistema de cocina arcana"
@@ -130,7 +130,7 @@ rutas:
     descripcion: "Notificar un Blink confirmado"
   armaduras:
     uso: "/spectrecore armaduras"
-    descripcion: "Guía de armaduras mediante Dialogs"
+    descripcion: "Catálogo de armaduras y bonificaciones"
   cocina:
     uso: "/spectrecore cocina <ayuda|libro|recetas|estado|reparar|recargar>"
     descripcion: "Cocina y recetario"
