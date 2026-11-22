@@ -59,7 +59,7 @@ for job, tiers in expected_jobs.items():
     for name,(cooldown,minimum,maximum) in zip(('novato','experimentado','profesional'),tiers):
         assert jobs['cooldowns'][job][name] == cooldown
         assert jobs[job][name]['dinero'] == {'minimo':minimum,'maximo':maximum}
-assert jobs['contratos']['habilitados'] is True
+assert 'habilitados' not in jobs['contratos']
 assert jobs['contratos']['precios'] == {'novato':50,'experimentado':1500,'profesional':3500}
 slayer = load('modules/slayer/config.yml')
 assert slayer['objetivos'] == {'tier1':20,'tier2':50,'tier3':90}
