@@ -110,7 +110,19 @@ for where in ("catalogo.conocido","catalogo.pendiente","catalogo.desconocido","c
     assert isinstance(obj["nombre"],str) and isinstance(obj["lore"],list),where
     assert not re.search(r"/(?:mago|spectrecore)\b|MMOItems|MythicMobs",str(obj),re.I),where
 
+# The cooking module MUST NOT read CONSUMABLE or a configurable type
+# for output delivery, and legacy COCINA config must be migrated safely.
+config=yaml.safe_load((resources/"modules/cocina/config.yml").read_text())
+assert config["cooking"]["rewards"]["mmoitems-type"]=="COCINA"
+migration=(root/"src/main/java/dev/hydev/spectrecore/config/ModuleConfiguration.java").read_text()
+assert 'yaml.set("cooking.rewards.mmoitems-type", "COCINA")' in migration
+assert "backups/cocina-tipo-v1/modules/cocina/config.yml" in migration
+
 java=(root/"src/main/java/dev/hydev/spectrecore/cooking/CookingModule.java").read_text()
+assert 'private static final String COOKING_ITEM_TYPE = "COCINA"' in java
+assert "getItem.invoke(instance, COOKING_ITEM_TYPE, id)" in java
+assert "cooking.rewards.mmoitems-type" not in java
+assert 'getItem.invoke(instance, "CONSUMABLE"' not in java
 assert "RecipeBookHolder implements InventoryHolder" in java
 assert "Bukkit.createInventory(holder, 54" in java
 assert "CustomHeads.fromBase64(texture)" in java
