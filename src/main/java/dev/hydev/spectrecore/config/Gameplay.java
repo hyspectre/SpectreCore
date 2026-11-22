@@ -40,13 +40,9 @@ public final class Gameplay {
         bounded(values.get("slayer/config.yml"),"invocacion.nivel-mob",1,10000,true);
         var jobs = values.get("trabajos/config.yml");
         bounded(jobs,"avisos.intervalo-cooldown-milisegundos",0,3600000,true);
-        if (!jobs.isBoolean("contratos.habilitados"))
-            throw new java.io.IOException("trabajos/config.yml: contratos.habilitados debe ser true/false");
         for (String level : List.of("novato","experimentado","profesional"))
             bounded(jobs,"contratos.precios."+level,0,1_000_000_000,true);
         for (String job : List.of("minero","granjero","cazador")) {
-            if (!jobs.isBoolean(job+".enabled"))
-                throw new java.io.IOException("trabajos/config.yml: "+job+".enabled debe ser true/false");
             for (String level : List.of("novato","experimentado","profesional")) {
                 bounded(jobs,"cooldowns."+job+"."+level,0,3600,false);
                 bounded(jobs,job+"."+level+".dinero.minimo",0,1_000_000_000,true);
