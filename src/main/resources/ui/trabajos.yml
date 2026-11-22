@@ -10,7 +10,6 @@ labels:
     rango-anterior: "Requiere rango anterior"
 
 # Interfaz Java nativa; números leídos de modules/trabajos/config.yml
-enabled: true
 material-names:
   COAL_ORE: "Carbón"
   DEEPSLATE_COAL_ORE: "Carbón"
