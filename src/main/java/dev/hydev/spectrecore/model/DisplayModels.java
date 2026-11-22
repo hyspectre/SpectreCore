@@ -125,7 +125,9 @@ public final class DisplayModels implements Listener {
             if (duration < 20 || duration > 1200) throw new IllegalArgumentException("duration-ticks fuera de rango");
             parts = parseParts(yaml);
         } catch (IOException | InvalidConfigurationException | IllegalArgumentException ex) {
-            player.sendMessage(TextService.component(Settings.text("nucleo", "Modelos.invalido", "<red>Modelo inválido: {error}</red>", "error", sanitize(ex.getMessage()))));
+            plugin.getLogger().warning("Modelo: vista previa rechazada: " + ex.getMessage());
+            message(player, "Modelos.invalido",
+                    "<red>No se pudo preparar ese modelo. Avisa a administración.");
             return true;
         }
         clear(player.getUniqueId());
@@ -170,8 +172,9 @@ public final class DisplayModels implements Listener {
             admin.sendMessage(TextService.component(Settings.text("nucleo", "Modelos.colocado",
                     "<green>Modelo colocado: {id}. Para retirarlo usa /spectrecore modelo quitar {id}</green>", "id", id)));
         } catch (IOException | InvalidConfigurationException | IllegalArgumentException ex) {
-            admin.sendMessage(TextService.component(Settings.text("nucleo", "Modelos.invalido",
-                    "<red>Modelo inválido: {error}</red>", "error", sanitize(ex.getMessage()))));
+            plugin.getLogger().warning("Modelo: colocación rechazada: " + ex.getMessage());
+            message(admin, "Modelos.invalido",
+                    "<red>No se pudo preparar ese modelo. Avisa a administración.");
         }
         return true;
     }
