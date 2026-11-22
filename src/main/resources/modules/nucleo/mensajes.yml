@@ -45,7 +45,7 @@ YamlStore:
   texto-001: "No se pudo guardar "
 CommandRouter:
   sin-permiso: "<reset><red>No tienes permiso para este comando."
-  desactivado: "<reset><red>Esta función está desactivada."
+  no-disponible: "<reset><red>Esta función no pudo iniciarse. Revisa la consola del servidor."
   uso: "<reset><yellow>Uso: {uso}"
   cabecera: "<reset><gold>✦ Hydev <reset><gray>— comandos"
   categorias: "<reset><yellow>Categorías: <reset><white>{categorias}"
