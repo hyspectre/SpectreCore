@@ -18,7 +18,7 @@ assert set(menu["pages"]) == {"misiones", "revenant", "progresion"}
 
 for name, page in menu["pages"].items():
     assert page["size"] == 54, name
-    assert page["title"].startswith("&f⧇ &6Misiones"), name  # Conserva la presentación escogida por Hydev
+    assert page["title"].startswith("&f⧇ <gold>Misiones" if name == "progresion" else "&f⧇ &6Misiones"), name
     items = page["items"]
     slots = [item["slot"] for item in items.values()]
     assert len(slots) == len(set(slots)), f"Duplicate slots {name}"
