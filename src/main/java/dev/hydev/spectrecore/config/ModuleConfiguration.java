@@ -53,7 +53,7 @@ public final class ModuleConfiguration {
                 "skills.asterion.enabled","skills.ultimo-juramento.enabled",
                 "skills.sangre-primer-dragon.enabled","libro.enabled");
             case "dungeons/config.yml" -> List.of("jefes.enabled","portal.enabled");
-            case "trabajos/config.yml" -> List.of("minero.enabled","granjero.enabled","cazador.enabled");
+            case "trabajos/config.yml" -> List.of("minero.enabled","granjero.enabled","cazador.enabled","contratos.habilitados");
             case "actividades/config.yml" -> List.of("cygnus.enabled","entrada.enabled",
                 "cofre.enabled","polvos.enabled","desbloqueos.enabled","telefono.enabled");
             default -> List.of();
