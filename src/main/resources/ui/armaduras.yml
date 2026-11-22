@@ -7,7 +7,6 @@ indicador:
   incompleto: "<gray>ᴀúɴ ɴᴏ ᴄᴏᴍᴘʟᴇᴛᴀᴅᴏ"
   desactivado: "<red>ᴄᴏɴᴊᴜɴᴛᴏ ɪɴᴀᴄᴛɪᴠᴏ"
 
-enabled: true
 pages:
   armaduras:
     title: "<white>⇜ <gold>Armaduras <dark_gray>│ <white>Catálogo"
