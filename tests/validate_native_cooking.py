@@ -89,7 +89,7 @@ assert outputs["HC_VELOCIDAD_NORMAL"]["base"]["effects"]["SPEED"]["amplifier"]==
 assert "ABSORPTION" in outputs["HC_LEYENDA_NORMAL"]["base"]["effects"]
 assert all("level" not in effect and "amplifier" in effect for item in outputs.values() for effect in item["base"]["effects"].values())
 
-assert ui["enabled"] is True
+assert "enabled" not in ui
 assert ui["catalogo"]["espacios"]==54
 assert ui["catalogo"]["ocultar-desconocidas"] is False
 assert "pendiente" in ui["catalogo"]
