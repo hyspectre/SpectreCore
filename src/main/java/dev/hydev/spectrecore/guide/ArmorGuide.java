@@ -80,7 +80,6 @@ public final class ArmorGuide implements Listener {
             YamlConfiguration next = new YamlConfiguration();
             next.load(file);
             mergeEquipmentLabels(file, next);
-            if (!next.getBoolean("enabled", true)) { layout = next; return; }
             for (String page : Set.of("armaduras", "botania", "necrotica", "asterion",
                     "ultimo-juramento", "sangre-primer-dragon")) {
                 String root = "pages." + page;
@@ -176,7 +175,7 @@ public void open(Player player) { openPage(player, "armaduras"); }
     }
 
     public boolean openPage(Player player, String page) {
-        if (layout == null || !layout.getBoolean("enabled", true)) {
+        if (layout == null) {
             player.sendMessage(Settings.message("equipamiento", "ArmorGuide.gui-no-disponible",
                     "<red>El catálogo de armaduras no está disponible por ahora."));
             return false;
