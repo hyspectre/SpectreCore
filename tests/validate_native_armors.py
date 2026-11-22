@@ -26,7 +26,8 @@ for page, payload in menu["pages"].items():
         assert "" in item["name"] or id != "habilidad", (page,id)
         assert "⇜" in item["name"] or id not in {"volver","cerrar"}, (page,id)
         assert "⊱" not in item["name"]+" ".join(item["lore"]), (page,id)
-        assert not re.search(r"/(?:spectrecore|mago|[a-z]+\w*)\b", item["name"]+" ".join(item["lore"]), re.I), (page,id)
+        visible=re.sub(r"<[^>]*>", "", item["name"]+" ".join(item["lore"]))
+        assert not re.search(r"/(?:spectrecore|mago|[a-z]+\w*)\b", visible, re.I), (page,id)
         assert not re.search(r"(?:MMOItems|SpectreCore|zMenu|MythicMobs|LuckPerms)", item["name"]+" ".join(item["lore"]), re.I), (page,id)
         encoded = item["texture"]
         if encoded:
@@ -64,13 +65,12 @@ assert "armorGuide.enable();" in plugin and "armorGuide.disable();" in plugin
 assert "plugin.armors()" in mago
 # The menu uses the five actual helmet textures from its integration source.
 import collections
+armor_items_source = yaml.safe_load((root/"integracion-mmoitems/ARMOR_HYDEV_20_versalitas_v3.yml").read_text(encoding="utf8"))
 for family,page in {
     "VERDANA_ARMOR":"botania","NECROTICO":"necrotica",
     "MINOTAURO_ARMOR":"asterion","CABALLERO_ARMOR":"ultimo-juramento",
     "DRACONIDO_ARMOR":"sangre-primer-dragon"
 }.items():
-    helmet=armor_items_source= None
-    armor_items_source = yaml.safe_load((root/"integracion-mmoitems/ARMOR_HYDEV_20_versalitas_v3.yml").read_text(encoding="utf8"))
     helmet=armor_items_source[f"{family}_1"]["base"]["skull-texture"]["value"]
     assert menu["pages"]["armaduras"]["items"][page]["texture"] == helmet, page
     assert menu["pages"][page]["items"]["informacion"]["texture"] == helmet, page
