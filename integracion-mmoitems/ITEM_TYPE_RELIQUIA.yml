@@ -1,0 +1,7 @@
+# Añadir esta entrada a plugins/MMOItems/item-types.yml, no sustituir los demás tipos.
+# Las reliquias NO llevan stats numéricas nativas en el objeto; no deben bonificar al sostenerlas.
+RELIQUIA:
+  display: 'AMETHYST_SHARD:0'
+  name: 'ʀᴇʟɪǫᴜɪᴀ'
+  parent: MISCELLANEOUS
+
