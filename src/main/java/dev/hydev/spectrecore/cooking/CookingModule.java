@@ -478,7 +478,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         ItemStack stack = entity.getItemStack();
         if (stack.getAmount() < 1 || stack.getType() == Material.AIR) return;
         if (!getConfig().getBoolean("cooking.ingredients.allow-items-with-custom-meta", false) && stack.hasItemMeta()) {
-            msg(player, ChatColor.GRAY + Settings.text("cocina", "CookingModule.etiqueta-032", "Este ingrediente tiene datos personalizados y no se consumira.")); return;
+            msg(player, ChatColor.GRAY + Settings.text("cocina", "CookingModule.etiqueta-032", "Este ingrediente no se puede usar para cocinar.")); return;
         }
         Recipe recipe = station.recipeId == null ? null : recipes.get(station.recipeId);
         if (recipe == null) {
@@ -505,7 +505,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         UUID claim = claimJournal.begin(key(station.blockLocation), player.getUniqueId(),
                 "INGREDIENT", recipe.id() + ":" + expected.name(), consumed);
         if (claim == null) {
-            msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.mensaje-030", "§cCocina bloqueada: transacción pendiente o error de almacenamiento."));
+            msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.mensaje-030", "§cEsta cocina no está disponible por ahora. Avisa a administración."));
             return;
         }
         station.recipeId = recipe.id();
@@ -525,7 +525,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
             int next = CookingBatch.ingredientIndex(station.accepted, portions);
             label(station, Settings.text("cocina", "CookingModule.etiqueta-039", "§e") + recipe.name() + Settings.text("cocina", "CookingModule.etiqueta-040", " §7| §f") + station.accepted + "/" + required + " ingredientes");
             msg(player, ChatColor.GREEN + "Ingredientes " + station.accepted + "/" + required + ". "
-                    + ChatColor.GRAY + "Siguiente: " + ChatColor.WHITE + recipe.ingredients().get(next));
+                    + ChatColor.GRAY + "Siguiente: " + ChatColor.WHITE + ingredientDisplayName(recipe.ingredients().get(next)));
         }
         if (!saveStations()) return;
         try {
@@ -560,7 +560,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
             if (stations.containsKey(key(block.getLocation())) || block.getType() == Material.WATER_CAULDRON) {
                 event.setCancelled(true);
                 msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.etiqueta-122",
-                        "Cocina en mantenimiento: error de persistencia. Avisa a administración."));
+                        "Esta cocina no está disponible por ahora. Avisa a administración."));
             }
             return;
         }
@@ -568,7 +568,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         Station station = stations.get(key(block.getLocation()));
         if (station != null && claimJournal.blocked(key(station.blockLocation))) {
             event.setCancelled(true);
-            msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.mensaje-031", "§cEsta estación requiere revisión administrativa antes de usarla."));
+            msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.mensaje-031", "§cEsta cocina está temporalmente cerrada. Avisa a administración."));
             return;
         }
         Recipe recipe = station == null || station.recipeId == null ? null : recipes.get(station.recipeId);
@@ -581,7 +581,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
             if (block.getType() != Material.WATER_CAULDRON || use != CookingToolActions.Use.CREATE) return;
             if (claimJournal.blocked(key(block.getLocation()))) {
                 event.setCancelled(true);
-                msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.mensaje-031", "§cEsta estación requiere revisión administrativa antes de usarla."));
+                msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.mensaje-031", "§cEsta cocina está temporalmente cerrada. Avisa a administración."));
                 return;
             }
             event.setCancelled(true);
@@ -665,7 +665,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         UUID servingClaim = claimJournal.begin(key(station.blockLocation), player.getUniqueId(),
                 "SERVE", recipe.id() + ":" + quality + ":" + rewardId, 1);
         if (servingClaim == null) {
-            msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.mensaje-030", "§cCocina bloqueada: transacción pendiente o error de almacenamiento."));
+            msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.mensaje-030", "§cEsta cocina no está disponible por ahora. Avisa a administración."));
             return;
         }
         if (firstServing) {
@@ -737,7 +737,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         }
         UUID removalClaim = claimJournal.begin(key(station.blockLocation), player.getUniqueId(), "REMOVE", "station", 1);
         if (removalClaim == null) {
-            msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.mensaje-030", "§cCocina bloqueada: transacción pendiente o error de almacenamiento."));
+            msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.mensaje-030", "§cEsta cocina no está disponible por ahora. Avisa a administración."));
             return;
         }
         stations.remove(key(station.blockLocation));
@@ -761,7 +761,18 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         msg(player, ChatColor.GREEN + Settings.text("cocina", "CookingModule.etiqueta-063", "Cocina retirada con la esponja. Los bloques siguen intactos."));
     }
 
+    // Only items from the dedicated COCINA type are ever eligible as cooking rewards.
+    // Display names and lore are not used to identify or authorize them.
+    private String ingredientDisplayName(Material ingredient) {
+        YamlConfiguration ui = recipeBookLayout;
+        String name = ui == null ? null : ui.getString("materiales." + ingredient.name());
+        if (name != null && !name.isBlank()) return name;
+        String lower = ingredient.name().toLowerCase(java.util.Locale.ROOT).replace('_', ' ');
+        return Character.toUpperCase(lower.charAt(0)) + lower.substring(1);
+    }
+
     private ItemStack resolveMMOItem(String id) {
+        if (id == null || id.isBlank()) return null;
         Plugin mmo = getServer().getPluginManager().getPlugin("MMOItems");
         if (mmo == null || !mmo.isEnabled()) return null;
         try {
@@ -1361,8 +1372,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
             List<Integer> ingredientSlots = ui.getIntegerList("detalle.ingrediente-slots");
             for (int i = 0; i < 3; i++) {
                 Material ingredient = recipe.ingredients().get(i);
-                String name = ui.getString("materiales." + ingredient.name(),
-                        ingredient.name().toLowerCase(java.util.Locale.ROOT).replace('_',' '));
+                String name = ingredientDisplayName(ingredient);
                 String label = ui.getString("detalle.ingrediente.nombre","<white>{nombre-ingrediente}")
                         .replace("{nombre-ingrediente}",name);
                 List<String> ingredientLore = new ArrayList<>();
