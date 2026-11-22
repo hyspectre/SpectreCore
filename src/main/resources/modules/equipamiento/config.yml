@@ -11,7 +11,6 @@ engine:
     view-range: 0.75
 skills:
   botania:
-    enabled: true
     armor:
       type: ARMOR
       helmet: VERDANA_ARMOR_1
@@ -30,7 +29,6 @@ skills:
     slowness-ticks: 30
     show-permanent-buds: true
   necrotica:
-    enabled: true
     armor:
       type: ARMOR
       helmet: NECROTICO_1
@@ -52,7 +50,6 @@ skills:
     orbit-radius: 1.1
     pvp: false
   asterion:
-    enabled: true
     armor:
       type: ARMOR
       helmet: MINOTAURO_ARMOR_1
@@ -72,7 +69,6 @@ skills:
     passive-knockback-resistance: 0.1
     show-fury-actionbar: true
   ultimo-juramento:
-    enabled: true
     armor:
       type: ARMOR
       helmet: CABALLERO_ARMOR_1
@@ -97,7 +93,6 @@ skills:
     blink-next-hit-window-ticks: 50
     blink-max-range: 18.0
   sangre-primer-dragon:
-    enabled: true
     armor:
       type: ARMOR
       helmet: DRACONIDO_ARMOR_1
@@ -124,7 +119,6 @@ skills:
     speed-bonus: 0.06
     dragon-animation-ticks: 32
 libro:
-  enabled: true
   conjuntos:
     botania: HYDEV_RAIGAMBRE
     necrotica: NECROTICO
