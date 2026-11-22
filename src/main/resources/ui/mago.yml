@@ -36,13 +36,13 @@ close: "<gray>Cerrar</gray>"
 console-message: "<gray>Consulta al Mago dentro del juego.</gray>"
 pages:
   inicio:
-    title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>El Mago"
+    title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Biblioteca"
     body: "<gray>He reunido los conocimientos de Hydev. ¿Qué buscas, aventurero?</gray>"
     resumen: "<white>Descubre los conocimientos esenciales de Hydev."
     puntos:
       - "<gray>Elige un tema para empezar."
       - "<gray>Consejos prácticos para tu camino."
-      - "<dark_gray>Los contratos se consultan por separado."
+      - "<dark_gray>Los contratos te esperan en sus tablones."
     buttons:
       - label: '<aqua>⚔ Combate</aqua>'
         page: rpg
@@ -106,11 +106,11 @@ pages:
         descripcion: "<gray>Conjuntos, habilidades y combate"
   mascotas:
     title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Mascotas"
-    body: "<gray>Esta categoría estará disponible cuando implementemos mascotas.</gray>"
-    resumen: "<white>La compañía de mascotas aún no está disponible."
+    body: "<gray>Aún no he encontrado compañeros que quieran acompañarte en tus aventuras.</gray>"
+    resumen: "<white>Algunas criaturas aún desconfían de los aventureros."
     puntos:
-      - "<gray>Contenido en preparación."
-      - "<dark_gray>No hay mascotas desbloqueables todavía."
+      - "<gray>Este capítulo aún guarda páginas en blanco."
+      - "<dark_gray>Todavía no hay mascotas que puedas adoptar."
     buttons:
       - label: '<gray>Combate</gray>'
         page: rpg
@@ -118,10 +118,10 @@ pages:
   encantamientos:
     title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Encantamientos"
     body: "<gray>Los nuevos encantamientos permanecen ocultos por ahora.</gray>"
-    resumen: "<white>La ampliación de encantamientos está pendiente."
+    resumen: "<white>Hay encantamientos que aún esperan ser descubiertos."
     puntos:
-      - "<gray>Contenido en preparación."
-      - "<dark_gray>Se anunciará cuando esté disponible."
+      - "<gray>Este capítulo aún guarda páginas en blanco."
+      - "<dark_gray>Permanece atento a futuros hallazgos."
     buttons:
       - label: '<gray>Combate</gray>'
         page: rpg
@@ -129,10 +129,10 @@ pages:
   accesorios:
     title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Accesorios"
     body: "<gray>Los accesorios especiales todavía no están al alcance de los aventureros.</gray>"
-    resumen: "<white>Los accesorios especiales están en preparación."
+    resumen: "<white>Las reliquias especiales siguen siendo un misterio."
     puntos:
-      - "<gray>Contenido en preparación."
-      - "<dark_gray>Sin sistema activo por ahora."
+      - "<gray>Este capítulo aún guarda páginas en blanco."
+      - "<dark_gray>Aún no hay accesorios especiales que puedas equipar."
     buttons:
       - label: '<gray>Combate</gray>'
         page: rpg
@@ -230,7 +230,7 @@ pages:
     resumen: "<white>Cumple contratos y derrota jefes poderosos."
     puntos:
       - "<gray>Elimina enemigos para atraer al jefe."
-      - "<gray>Gana XP de Slayer al derrotarlo."
+      - "<gray>Obtén experiencia de cacería al derrotarlo."
       - "<gray>Los niveles conceden recetas de forja."
     buttons:
       - label: '<gray>Guías</gray>'
@@ -275,7 +275,7 @@ pages:
   actividades:
     title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Actividades"
     body: "<gray>Consulta encuentros, recompensas, desbloqueos y actividades especiales. Explora los acontecimientos y oportunidades que ofrece Hydev.</gray>"
-    resumen: "<white>Encuentra aventuras breves fuera de la dungeon."
+    resumen: "<white>Encuentra aventuras breves fuera de las mazmorras."
     puntos:
       - "<gray>Eventos, recompensas y desafíos."
       - "<gray>Conoce los encuentros disponibles."
