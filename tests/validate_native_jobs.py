@@ -47,7 +47,7 @@ for job, rows in expected.items():
         assert jobs[job][level]["dinero"] == {"minimo": min_amount, "maximo": max_amount}
         assert treasures["clasificacion"][domain][f"tier{tier}"]
         lore = " ".join(page[level]["lore"])
-        for token in ("{actividades}", "{minimo}", "{maximo}", "{cooldown}", "{precio}", "{estado}"):
+        for token in ("{actividades}", "{minimo}", "{maximo}", "{espera}", "{precio}", "{estado}"):
             assert token in lore, (job, level, token)
 
 java = (resources.parent / "java/dev/hydev/spectrecore/guide/JobsMenu.java").read_text(encoding="utf-8")
