@@ -67,14 +67,19 @@ public final class ModuleConfiguration {
                         changed = true;
                     }
                 }
+                // The type is no longer configurable: remove the old selector
+                // rather than leaving an option that appears to work.
                 if (path.equals("cocina/config.yml")
-                        && !"COCINA".equals(yaml.getString("cooking.rewards.mmoitems-type"))) {
+                        && yaml.contains("cooking.rewards.mmoitems-type")) {
                     File backup = new File(folder, "backups/cocina-tipo-v1/modules/cocina/config.yml");
                     if (!backup.exists()) {
                         Files.createDirectories(backup.toPath().getParent());
                         Files.copy(destination.toPath(), backup.toPath());
                     }
-                    yaml.set("cooking.rewards.mmoitems-type", "COCINA");
+                    yaml.set("cooking.rewards.mmoitems-type", null);
+                    var rewards = yaml.getConfigurationSection("cooking.rewards");
+                    if (rewards != null && rewards.getKeys(false).isEmpty())
+                        yaml.set("cooking.rewards", null);
                     changed = true;
                 }
                 if (changed) {
@@ -103,8 +108,12 @@ public final class ModuleConfiguration {
                     case "actividades/config.yml"->{merge(yaml,originals.get("activities.yml"),"");if(originals.get("activities.yml").contains("entrada.proteccion"))yaml.set("entrada.enabled",originals.get("activities.yml").getBoolean("entrada.proteccion"));yaml.set("entrada.proteccion",null);}
                     default->{}
                 }
-                if (path.equals("cocina/config.yml"))
-                    yaml.set("cooking.rewards.mmoitems-type", "COCINA");
+                if (path.equals("cocina/config.yml")) {
+                    yaml.set("cooking.rewards.mmoitems-type", null);
+                    var rewards = yaml.getConfigurationSection("cooking.rewards");
+                    if (rewards != null && rewards.getKeys(false).isEmpty())
+                        yaml.set("cooking.rewards", null);
+                }
                 save(destination,yaml);
             }
             // Rewrite only explicit references to this plugin's former slash commands.
