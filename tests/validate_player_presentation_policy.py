@@ -24,8 +24,8 @@ VISIBLE_FIELDS = {
     "descripcion-volver", "descripcion-cerrar"
 }
 INTERNAL_UI = re.compile(
-    r"\\b(?:API|UUID|YAML|JSON|Skript|Dialogs|staging|callback|"
-    r"plugin|plugins|m[oó]dulo|m[oó]dulos|cooldown|cooldowns|RPG)\\b",
+    r"\b(?:API|UUID|YAML|JSON|Skript|Dialogs|staging|callback|"
+    r"plugin|plugins|m[oó]dulo|m[oó]dulos|cooldown|cooldowns|RPG)\b",
     re.IGNORECASE,
 )
 
