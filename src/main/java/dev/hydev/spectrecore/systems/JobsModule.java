@@ -57,7 +57,7 @@ public final class JobsModule implements Listener {
                 return true;
             }
             p.sendMessage(Settings.message("trabajos", "JobsModule.mensaje-002", "§6✦ NIVELES DE TRABAJO"));
-            for (String job : List.of("minero", "granjero", "cazador")) { int tier = rank(p, job); p.sendMessage(Settings.message("trabajos", "JobsModule.mensaje-003","§7▪ §f{job}: {valor2}","job", displayJob(job),"valor2", (!dev.hydev.spectrecore.config.ModuleConfiguration.of(plugin).active("trabajos."+job)?Settings.component(Settings.text("trabajos", "JobsModule.texto-001", "§cDesactivado")):tier == 0 ? Settings.component(Settings.text("trabajos", "JobsModule.texto-002", "§cNo disponible")) : Settings.component(Settings.text("trabajos", "JobsModule.texto-003", "§e") + displayRank(ProgressRules.rank(tier)))))); }
+            for (String job : List.of("minero", "granjero", "cazador")) { int tier = rank(p, job); p.sendMessage(Settings.message("trabajos", "JobsModule.mensaje-003","§7▪ §f{job}: {valor2}","job", displayJob(job),"valor2", (tier == 0 ? Settings.component(Settings.text("trabajos", "JobsModule.texto-002", "§cNo disponible")) : Settings.component(Settings.text("trabajos", "JobsModule.texto-003", "§e") + displayRank(ProgressRules.rank(tier)))))); }
             p.sendMessage(Settings.message("trabajos", "JobsModule.mensaje-004", "§7Mejora tu nivel firmando §6contratos§7.")); return true;
         });
         timer = Bukkit.getScheduler().runTaskTimer(plugin, () -> { if (dirty) save(); }, 200, 200);
@@ -105,8 +105,7 @@ public final class JobsModule implements Listener {
         Object raw = config.get(priceKey);
         long price = raw instanceof Number n && Double.isFinite(n.doubleValue())
                 && n.doubleValue() == Math.rint(n.doubleValue()) ? n.longValue() : -1;
-        boolean enabled = config.getBoolean("contratos.habilitados", false)
-                && dev.hydev.spectrecore.config.ModuleConfiguration.of(plugin).active("trabajos." + job);
+        boolean enabled = JobsContractRules.JOBS.contains(job);
         var result = JobsContractRules.validate(job, level, enabled,
                 JobsContractRules.JOBS.contains(job) ? rank(player, job) : 0,
                 price, isPending(player));
@@ -195,7 +194,6 @@ public final class JobsModule implements Listener {
         if (p != null && p.isOnline() && tier > 0) pay(p, "cazador", tier, e.getEntity().getLocation());
     }
     private void pay(Player p, String job, int tier, Location location) {
-        if(!dev.hydev.spectrecore.config.ModuleConfiguration.of(plugin).active("trabajos."+job))return;
         if (rank(p, job) < tier) return;
         String level = ProgressRules.rank(tier), root = job + "." + level + ".dinero", cdKey = "cooldowns." + job + "." + level;
         if (!(config.get(root + ".minimo") instanceof Number minimum) || !(config.get(root + ".maximo") instanceof Number maximum) || !(config.get(cdKey) instanceof Number)) { missing(job, level); return; }
