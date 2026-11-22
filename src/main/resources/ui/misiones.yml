@@ -1,6 +1,5 @@
 # Menus nativos de SpectreCore; No requiere zMenu.
 # Textos, posiciones, lore y texturas basados en los menús originales de Hydev.
-enabled: true
 pages:
   misiones:
     title: '&f⧇ &6Misiones &8│ &fCatálogo'
