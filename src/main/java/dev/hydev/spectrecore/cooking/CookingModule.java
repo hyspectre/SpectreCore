@@ -6,7 +6,6 @@ import dev.hydev.spectrecore.model.CustomHeads;
 import dev.hydev.spectrecore.text.TextService;
 import net.kyori.adventure.text.format.TextDecoration;
 
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import dev.hydev.spectrecore.api.CookingCompletedEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -913,7 +912,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
             status = Settings.text("cocina", "CookingModule.etiqueta-093", "§6") + recipe.name() + Settings.text("cocina", "CookingModule.etiqueta-094", " §7| §f") + progress + Settings.text("cocina", "CookingModule.etiqueta-095", "% §8(") + station.elapsedMs / 1000L
                     + Settings.text("cocina", "CookingModule.etiqueta-096", " s) §7| ") + action;
         }
-        player.sendActionBar(LegacyComponentSerializer.legacySection().deserialize(status));
+        player.sendActionBar(TextService.component(status));
         if (verbose) msg(player, status);
     }
 
@@ -939,7 +938,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         UUID id = textDisplays.get(key(station.blockLocation));
         if (id == null || !chunkLoaded(station.blockLocation)) return;
         Entity entity = Bukkit.getEntity(id);
-        if (entity instanceof TextDisplay display) display.text(LegacyComponentSerializer.legacySection().deserialize(text));
+        if (entity instanceof TextDisplay display) display.text(TextService.component(text));
     }
 
     private boolean chunkLoaded(Location location) {
