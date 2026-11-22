@@ -113,9 +113,9 @@ for where in ("catalogo.conocido","catalogo.pendiente","catalogo.desconocido","c
 # The cooking module MUST NOT read CONSUMABLE or a configurable type
 # for output delivery, and legacy COCINA config must be migrated safely.
 config=yaml.safe_load((resources/"modules/cocina/config.yml").read_text())
-assert config["cooking"]["rewards"]["mmoitems-type"]=="COCINA"
+assert "mmoitems-type" not in (resources/"modules/cocina/config.yml").read_text()
 migration=(root/"src/main/java/dev/hydev/spectrecore/config/ModuleConfiguration.java").read_text()
-assert 'yaml.set("cooking.rewards.mmoitems-type", "COCINA")' in migration
+assert 'yaml.set("cooking.rewards.mmoitems-type", null)' in migration
 assert "backups/cocina-tipo-v1/modules/cocina/config.yml" in migration
 
 java=(root/"src/main/java/dev/hydev/spectrecore/cooking/CookingModule.java").read_text()
