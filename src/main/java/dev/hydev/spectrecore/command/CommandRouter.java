@@ -46,12 +46,12 @@ public final class CommandRouter {
         }
         var route=match.route();
         if(!access(sender,route)){say(sender,"sin-permiso","&cNo tienes permiso para este comando.");return true;}
-        if(!enabled(route)){say(sender,"desactivado","&cEste módulo está desactivado.");return true;}
+        if(!enabled(route)){say(sender,"desactivado","&cEsta función está desactivada.");return true;}
         if(route.parameters().isEmpty()&&args.length>route.words().size()){say(sender,"uso","&eUso: {uso}","uso",usage(route));return true;}
         String[] forwarded=match.arguments().toArray(String[]::new);
         if(route.target().equals("$core"))return core.apply(sender,forwarded);
         Handler handler=handlers.get(route.target());
-        if(handler==null||handler.executor==null){say(sender,"desactivado","&cEste módulo está desactivado.");return true;}
+        if(handler==null||handler.executor==null){say(sender,"desactivado","&cEsta función está desactivada.");return true;}
         return handler.execute(sender,"spectrecore "+route.path(),forwarded);
     }
     private void help(CommandSender sender,String group) {
