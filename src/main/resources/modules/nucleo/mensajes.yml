@@ -12,10 +12,6 @@ SpectreCorePlugin:
   mensaje-010: "Agricultura desactivada."
   mensaje-011: "Tesoros de combate desactivados."
   mensaje-012: "Minería desactivada."
-  mensaje-013: "<reset><gold>{name}<reset><gray>: {valor2}{valor3}"
-  texto-001: "<reset><green>ACTIVO"
-  texto-002: "<reset><red>INACTIVO"
-  texto-003: " <reset><yellow>(cambio pendiente: reiniciar)"
   mensaje-014: "<reset><gray>Usa /mago cocina para aprender o /spectrecore cocina recetas para consultar recetas."
   mensaje-015: "<reset><red>Sin permiso."
   mensaje-016: "<reset><red>No se pudieron actualizar los ajustes. Se conserva la configuración anterior."
@@ -42,7 +38,6 @@ MmoBridge:
 MiningVisuals:
   mensaje-001: "No se pudo mostrar la animación minera: {error-getmessage}"
 YamlStore:
-  texto-001: "No se pudo guardar "
 CommandRouter:
   sin-permiso: "<reset><red>No tienes permiso para este comando."
   no-disponible: "<reset><red>Esta función no pudo iniciarse. Revisa la consola del servidor."
