@@ -364,7 +364,7 @@ public final class RelicarioModule implements Listener {
                         (Set.of("health", "mana").contains(total.getKey()) ? "" : "%");
                 List<String> lore = new ArrayList<>();
                 if (total.getKey().equals("mana") && !stats.manaAvailable(player))
-                    lore.add(msg("mana-offline", "<yellow>El maná requiere AuraSkills activo."));
+                    lore.add(msg("mana-offline", "<yellow>La magia del mundo aún no responde."));
                 else lore.add(msg("active-bonus", "<green>Bonificación activa"));
                 put(inv, slot++, Material.PAPER, "<white>" + label + " <green>+" + value, lore);
             }
