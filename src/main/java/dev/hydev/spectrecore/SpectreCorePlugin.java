@@ -467,6 +467,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
             sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-012", "Minería desactivada.")); return true;
         }
         if (sub.equals("modulos") || sub.equals("modules")) {
+            if (!canAdmin(sender)) { sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-015", "§cSin permiso.")); return true; }
             moduleConfigs.requested().forEach((name, enabled) -> sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-013","§6{name}§7: {valor2}{valor3}","name", name,"valor2", (moduleConfigs.active(name) ? Settings.component(Settings.text("nucleo", "SpectreCorePlugin.texto-001", "§aACTIVO")) : Settings.component(Settings.text("nucleo", "SpectreCorePlugin.texto-002", "§cINACTIVO"))),"valor3", (moduleConfigs.restartPending(name) ? Settings.component(Settings.text("nucleo", "SpectreCorePlugin.texto-003", " §e(cambio pendiente: reiniciar)")) : ""))));
             return true;
         }
@@ -519,7 +520,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
         if (!(sender instanceof Player player)) { sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-021", "§7Usa este comando desde el juego (salvo reload/blink).")); return true; }
         UUID id = player.getUniqueId();
         if (sub.equals("status")) {
-            player.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-022","§d✦ Hydev {getpluginmeta-getversion} §7| demo: §f{valor2}","getpluginmeta-getversion", getPluginMeta().getVersion(),"valor2", demo.getOrDefault(id, "ninguno")));
+            player.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-022","§d✦ Hydev §7| Estado de habilidades"));
             for (SkillModule module : modules) player.sendMessage(Settings.component(module.status(player)));
             return true;
         }
