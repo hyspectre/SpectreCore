@@ -92,6 +92,17 @@ public final class PresentationConfigSmoke {
         var commandTexts=read("nucleo/comandos.yml");commandTexts.set("rutas",null);commandTexts.set("cocina.descripcion","Mi cocina personalizada");commandTexts.set("cocina.uso","/cocina libro");save("nucleo/comandos.yml",commandTexts);manager.reload();
         check(read("nucleo/comandos.yml").getString("rutas.cocina.descripcion").equals("Mi cocina personalizada"),"Custom old command descriptions retained in canonical routes");
         check(read("nucleo/comandos.yml").getString("rutas.cocina.uso").equals("/spectrecore cocina libro"),"Custom old usages migrated and retained");
+        var oldHelp = read("nucleo/comandos.yml");
+        oldHelp.set("rutas.armaduras.descripcion", "Guía de armaduras mediante Dialogs");
+        save("nucleo/comandos.yml", oldHelp);
+        manager.reload();
+        check("Catálogo de armaduras y bonificaciones".equals(
+                read("nucleo/comandos.yml").getString("rutas.armaduras.descripcion")),
+                "Known technical help text migrated safely");
+        check(Files.isRegularFile(root.resolve(
+                "backups/presentation-v2/modules/nucleo/comandos.yml")),
+                "Original help catalog preserved before migration");
+
         Settings.clear();System.out.println("PASS PresentationConfigSmoke: "+assertions+" live configuration/reload assertions");
     }
 }
