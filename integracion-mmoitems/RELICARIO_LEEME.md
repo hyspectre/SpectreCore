@@ -1,4 +1,4 @@
-# Relicario de Hydev — fase de catálogo (v0.1)
+# Relicario de Hydev — módulo jugable (v0.2)
 
 Este commit prepara el catálogo y la lógica de acumulación, pero **NO instala
 todavía la absorción de accesorios ni aplica bonificaciones al jugador**.
@@ -33,16 +33,14 @@ todavía la absorción de accesorios ni aplica bonificaciones al jugador**.
 - Brújula Extraviada → Rosa de los Vientos
 - Espejo de Escarcha → Espejo del Vacío
 
-## Antes de habilitar
-Falta implementar almacenamiento durable por UUID, interacción de confirmación,
-y recálculo al iniciar/cerrar sesión. También falta conectar los 17 tipos de
-bonificación con Paper, MythicLib y los sistemas de Cocina/Trabajos/Caza
-según corresponda. En particular, maná solo tiene efecto si el servidor
-cuenta con un proveedor de maná activo.
+## Instalación y activación
+1. Añadir el tipo `RELIQUIA` a `plugins/MMOItems/item-types.yml` (fusionar, no sobrescribir).
+2. Añadir los 32 IDs del archivo `RELIQUIA.yml` al archivo del tipo, una vez registrado; comprobar creación con `/mi browse`.
+3. Instalar el nuevo SpectreCore. En `plugins/SpectreCore/config.yml`, ajustar `modules.accesorios.enabled: true` y reiniciar el servidor.
+4. Abrir `/spectrecore relicario`, probar primero una reliquia de baja rareza y verificar el archivo `plugins/SpectreCore/data/relicario/<UUID>.yml`.
+5. Hacer copia de seguridad antes de introducir objetos de valor. Si el almacenamiento falla, el consumo se bloquea.
 
-**No activar** `modules.accesorios.enabled` ni
-`modules/accesorios/catalogo.yml: enabled` todavía; las configuraciones
-actuales se distribuyen con ambos interruptores en `false`.
+Bonos de vida, movimiento y minería son atributos Paper; maná usa AuraSkills (requiere API cargada); daño, defensa, cosechas, cocina y recompensas de oficios tienen ganchos propios de SpectreCore. Las bonificaciones de magia y fuego sobre otros plugins de combate deben verificarse en staging, pues el motor podría no atribuir sus golpes al jugador. El efecto de alimentos requiere un evento de consumo real.
 
 No hay cambios en la Forja, sus tres estaciones, los conjuntos ni los objetos
 existentes de jugadores.
