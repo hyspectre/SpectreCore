@@ -19,7 +19,7 @@ SpectreCorePlugin:
   mensaje-014: "<reset><gray>Usa /mago cocina para aprender o /spectrecore cocina recetas para consultar recetas."
   mensaje-015: "<reset><red>Sin permiso."
   mensaje-016: "<reset><red>No se pudieron actualizar los ajustes. Se conserva la configuración anterior."
-  mensaje-017: "<reset><green>Se actualizaron habilidades y recetas. Para cambiar módulos activos, reinicia el servidor."
+  mensaje-017: "<reset><green>Se actualizaron los ajustes. Todos los módulos permanecen activos."
   mensaje-018: "<reset><red>Solo consola."
   mensaje-019: "Uso: /spectrecore blink <jugador>"
   mensaje-020: "<reset><red>Jugador no conectado."
