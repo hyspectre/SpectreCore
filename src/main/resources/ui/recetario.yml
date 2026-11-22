@@ -1,5 +1,4 @@
 # Recetario independiente. No muestra comandos ni nombres técnicos al jugador.
-enabled: true
 catalogo:
   # False: todos pueden consultar los ingredientes; se conserva el progreso de descubrimiento.
   ocultar-desconocidas: false
