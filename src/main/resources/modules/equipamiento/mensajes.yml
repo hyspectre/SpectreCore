@@ -49,7 +49,6 @@ ArmorGuide:
   mensaje-003: "Pulsa un nombre."
   mensaje-004: "Armaduras de Hydev"
   mensaje-005: "Hydev"
-  mensaje-008: "<red>✦ ᴄᴏɴᴊᴜɴᴛᴏ ɪɴᴀᴄᴛɪᴠᴏ"
   mensaje-009: "<gray>({piezas}) <white>ᴠɪᴅᴀ ᴍáx. <gold>+{vida}"
   mensaje-010: "<gray>(4) <white>ʀᴇsɪsᴛ. ᴇᴍᴘᴜᴊᴇ <gold>+{valor1}"
   mensaje-011: "<gray>({piezas}) <white>ᴠᴇʟᴏᴄɪᴅᴀᴅ <light_purple>+{velocidad}%"
