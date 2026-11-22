@@ -1,5 +1,5 @@
 name: SpectreCore
-version: 0.7.6-aura-alpha
+version: 0.8.0-relicario-rc1
 main: dev.hydev.spectrecore.SpectreCorePlugin
 api-version: 1.21.10
 author: Hydev
@@ -20,7 +20,7 @@ softdepend:
 - SpectreSkills
 - SpectreCooking
 - HydevBotania
-description: Nucleo modular RPG de Hydev (habilidades legendarias + cocina arcana)
+description: Nucleo modular RPG de Hydev (reliquias, equipamiento, cocina y profesiones)
 commands:
   mago:
     description: Centro de conocimiento de Hydev
