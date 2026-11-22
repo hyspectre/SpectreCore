@@ -1,6 +1,6 @@
 plugins { java }
 group = "dev.hydev"
-version = "0.8.0-relicario-rc1"
+version = "0.8.1-always-on-rc1"
 
 repositories {
     maven("https://repo.papermc.io/repository/maven-public/")
