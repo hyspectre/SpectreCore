@@ -24,7 +24,7 @@ SpectreCorePlugin:
   mensaje-019: "Uso: /spectrecore blink <jugador>"
   mensaje-020: "<reset><red>Jugador no conectado."
   mensaje-021: "<reset><gray>Usa este comando desde el juego (salvo reload/blink)."
-  mensaje-022: "<reset><light_purple>✦ Hydev {getpluginmeta-getversion} <reset><gray>| demo: <reset><white>{valor2}"
+  mensaje-022: "<reset><light_purple>✦ Hydev <reset><gray>| Estado de habilidades"
   mensaje-023: "<reset><red>Sin permiso."
   mensaje-024: "<reset><red>Módulo desconocido. Usa /spectrecore demo <nombre> (Tab)."
   mensaje-025: "<reset><gray>Demo desactivada."
