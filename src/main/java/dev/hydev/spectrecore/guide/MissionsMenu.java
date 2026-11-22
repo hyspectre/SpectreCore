@@ -176,7 +176,7 @@ public final class MissionsMenu implements Listener {
     }
 
     public boolean open(Player player, String page) {
-        if (layout == null || !layout.getBoolean("enabled", true)) {
+        if (layout == null) {
             player.sendMessage("§cEl menú de misiones está temporalmente desactivado.");
             return false;
         }
