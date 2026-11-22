@@ -221,8 +221,8 @@ public final class MiningModule implements Listener {
         } else {
             player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-038", "§dHYDEV · DIAGNÓSTICO MINERO"));
             player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-039", "§7Herramienta: §f{held-gettype} §7| Nombre: §f{plain}", "held-gettype", held.getType(), "plain", plain));
-            player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-040", "§7Objeto: §f{mmo-type-held}:{mmo-id-held}", "mmo-type-held", mmo.type(held), "mmo-id-held", mmo.id(held)));
-            player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-041","§7Modo: §f{valor1} §7| Pico configurado: §f{valor2}","valor1", config.getString("gemas.identificar-por", "nombre"),"valor2", config.getString("gemas.pico", "sin ID")));
+            player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-040", "<gray>Herramienta inspeccionada."));
+            player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-041", "<gray>Condiciones de extracción verificadas."));
             player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-042", "§7Herramienta válida: §f{tool-held} §7| Carga: §f{state-charge}/{maximum}", "tool-held", tool(held), "state-charge", state.charge, "maximum", maximum()));
             player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-043","§7Probabilidades T1/T2/T3: §f{valor1}/{valor2}/{valor3}","valor1", config.getDouble("probabilidades.mineria.tier1", 0),"valor2", config.getDouble("probabilidades.mineria.tier2", 0),"valor3", config.getDouble("probabilidades.mineria.tier3", 0)));
         }
