@@ -24,7 +24,9 @@ cooking:
   precision:
     enabled: true
     stir-sweetspot-fraction: 0.6
-  # Las recompensas siempre proceden del tipo COCINA; no se selecciona desde aquí.
+  rewards:
+    # Valor de compatibilidad: el cargador fuerza COCINA y no admite otros tipos.
+    mmoitems-type: COCINA
 
 herramientas:
   crear: FLINT_AND_STEEL
