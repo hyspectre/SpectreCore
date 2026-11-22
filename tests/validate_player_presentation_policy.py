@@ -82,6 +82,14 @@ for desc in descriptions(routes):
     check(desc, "command help", no_commands=False)
     assert not INTERNAL_UI.search(desc), f"Technical command description: {desc}"
 
+# Integration vendors, persistent-storage flags and performance internals may
+# be printed to the console but must never be sent to players (even admins).
+core = (root/"src/main/java/dev/hydev/spectrecore/SpectreCorePlugin.java").read_text(encoding="utf8")
+assert "Integraciones.solo-consola" in core
+assert "Diagnostico.solo-consola" in core
+assert core.index("Integraciones.solo-consola") < core.index("integrations.status().forEach")
+assert core.index("Diagnostico.solo-consola") < core.index('Settings.text("nucleo", "Diagnostico.estado"')
+
 settings = yaml.safe_load((resources/"modules/nucleo/ajustes.yml").read_text(encoding="utf8"))
 presets = settings["toasts"]["presets"]
 assert len(presets) == 9
