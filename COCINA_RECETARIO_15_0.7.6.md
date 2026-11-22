@@ -60,16 +60,20 @@ Cada plato incluye **normal, exquisito y sobrecocido**:
 
 ## Integración de los objetos entregados
 
-El archivo `integracion-mmoitems/CONSUMABLE_Cocina.yml` contiene
-**45 definiciones**, 12 existentes y 33 nuevas.
+El archivo `integracion-mmoitems/COCINA.yml` contiene
+**45 definiciones**, 12 existentes y 33 nuevas. Es la única fuente de
+platos culinarios de SpectreCore: **no se buscan premios en CONSUMABLE**.
 
-**IMPORTANTE: este archivo del repositorio no modifica automáticamente el
-archivo de consumibles instalado en el servidor.** Antes de probar la
-expansión en staging:
+**IMPORTANTE: estos objetos no se instalan automáticamente.**
+Antes de probar la expansión en staging:
 
-1. Respaldar `plugins/SpectreCore/` y el archivo de consumibles del servidor.
-2. **Fusionar**, no reemplazar, las 33 definiciones `HC_*_{NORMAL,EXQUISITO,PASADO}`
-   nuevas en el archivo de `CONSUMABLE` actualmente instalado.
+1. Respaldar `plugins/SpectreCore/` y la configuración de MMOItems existente.
+2. Registrar el tipo `COCINA` en `plugins/MMOItems/item-types.yml`
+   (subtipo heredado de `CONSUMABLE`, sin modificar el tipo genérico).
+   Instalar las 45 definiciones en `plugins/MMOItems/item/COCINA.yml`.
+   **No copiar ni fusionar estos platos en `item/consumable.yml`**.
+   Si los IDs culinarios anteriores estuvieran en CONSUMABLE, revisar y
+   migrar esos IDs con respaldo; conservar cualquier otro consumible.
 3. Verificar por separado la compatibilidad de `HASTE`, `JUMP_BOOST`,
    `WATER_BREATHING` y `ABSORPTION` con la versión exacta de los consumibles
    utilizada en el servidor. La documentación oficial de efectos indica
