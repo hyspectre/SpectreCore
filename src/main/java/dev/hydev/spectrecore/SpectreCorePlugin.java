@@ -418,7 +418,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
                 return true;
             }
             if (toastService == null || !toastService.show(player, args[2]))
-                sender.sendMessage(Settings.message("nucleo", "ToastService.no-disponible", "§eToast no disponible o desactivado. Verifica la consola y los ajustes."));
+                sender.sendMessage(Settings.message("nucleo", "ToastService.no-disponible", "§eEsta notificación no está disponible."));
             else sender.sendMessage(Settings.message("nucleo", "ToastService.solicitado", "§7Toast solicitado (puede estar filtrado por antispam)."));
             return true;
         }
@@ -487,7 +487,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
             }
             reloadDiagnostics();
             if (toastService != null) toastService.reload();
-            if (displayModels != null && !displayModels.reloadOptions()) sender.sendMessage(Settings.component(Settings.text("nucleo", "Modelos.settings-invalido", "<red>models/settings.yml inválido; se conservan límites anteriores.</red>")));
+            if (displayModels != null && !displayModels.reloadOptions()) sender.sendMessage(Settings.component(Settings.text("nucleo", "Modelos.settings-invalido", "<red>No se pudieron actualizar los ajustes de modelos.</red>")));
             if (cooking != null) cooking.reload();
             if (mining != null) mining.reload();
             if (combatTreasures != null) combatTreasures.reload();
@@ -533,7 +533,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
         }
         if (sub.equals("reset")) {
             clear(id); cooldowns.resetAll(id);
-            player.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-027", "§aHabilidades y cooldowns reiniciados."));
+            player.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-027", "§aHabilidades y tiempos de espera reiniciados."));
             return true;
         }
         player.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-028", "§7/spectrecore ayuda"));
