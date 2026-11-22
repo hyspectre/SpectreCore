@@ -93,6 +93,8 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
     }
     private dev.hydev.spectrecore.guide.MagoMenu mago;
     private dev.hydev.spectrecore.guide.ArmorGuide armorGuide;
+    private dev.hydev.spectrecore.relicario.RelicarioModule relicario;
+    public dev.hydev.spectrecore.relicario.RelicarioModule relicario() { return relicario; }
     public dev.hydev.spectrecore.guide.ArmorGuide armors() { return armorGuide; }
     private dev.hydev.spectrecore.integration.IntegrationRegistry integrations;
     private AuraSkillsBridge auraSkillsBridge;
@@ -238,6 +240,16 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
             });
             commandRouter.get("armaduras").setTabCompleter((sender, command, label, args) -> List.of());
         }
+        if (moduleConfigs.active("accesorios") && commandRouter.get("relicario") != null) {
+            relicario = new dev.hydev.spectrecore.relicario.RelicarioModule(this);
+            if (relicario.enable()) {
+                commandRouter.get("relicario").setExecutor((sender, command, label, args) -> {
+                    if (sender instanceof Player player) relicario.open(player);
+                    else sender.sendMessage(Settings.component("<gray>Abre el Relicario dentro del juego."));
+                    return true;
+                });
+            } else relicario = null;
+        }
         displayModels = new dev.hydev.spectrecore.model.DisplayModels(this);
         try {
             mago = new dev.hydev.spectrecore.guide.MagoMenu(this);
@@ -273,6 +285,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
     }
 
     @Override public void onDisable() {
+        if (relicario != null) { relicario.disable(); relicario = null; }
         if (portal != null) { portal.disable(); portal = null; }
         if (slayer != null) { slayer.disable(); slayer = null; }
         if (jobs != null) { jobs.disable(); jobs = null; }
@@ -514,6 +527,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
             if (activities != null) activities.reload();
             if (jobs != null) jobs.reload();
             if (armorGuide != null) armorGuide.reload();
+            if (relicario != null) relicario.reload();
             if (slayer != null) slayer.reload();
             if (portal != null) portal.reload();
             if (bossDamage != null) bossDamage.reload();
