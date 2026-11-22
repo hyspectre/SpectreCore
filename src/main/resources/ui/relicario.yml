@@ -1,0 +1,98 @@
+# Menú Relicario v0.1. Estructura preparada para el módulo Java.
+# No se habilita hasta implementar la persistencia, el consumo y todos los efectos.
+enabled: false
+general:
+  title: "<white>⧇ <gold>Relicario <dark_gray>│ <white>Colecciones"
+  size: 54
+  numeros: "<gray>ᴅᴇsᴄᴜʙɪᴇʀᴛᴏs <yellow>{obtenidos}<gray>/{total}"
+  iconos:
+    cripta:
+      slot: 11
+      material: ECHO_SHARD
+      name: "<white>✦ <#BDA4EB>ᴄʀɪᴘᴛᴀ"
+      lore:
+      - ""
+      - "<gray>Memorias de los caídos"
+      - ""
+      - "<#FFDD00>► ᴄʟɪᴄ ᴘᴀʀᴀ ᴇxᴘʟᴏʀᴀʀ"
+    superficie:
+      slot: 13
+      material: WHEAT
+      name: "<white>✦ <#AED3A2>sᴜᴘᴇʀғɪᴄɪᴇ"
+      lore:
+      - ""
+      - "<gray>Oficios y criaturas"
+      - ""
+      - "<#FFDD00>► ᴄʟɪᴄ ᴘᴀʀᴀ ᴇxᴘʟᴏʀᴀʀ"
+    exploracion:
+      slot: 15
+      material: COMPASS
+      name: "<white>✦ <#97C5DD>ᴇxᴘʟᴏʀᴀᴄɪóɴ"
+      lore:
+      - ""
+      - "<gray>Los secretos del mundo"
+      - ""
+      - "<#FFDD00>► ᴄʟɪᴄ ᴘᴀʀᴀ ᴇxᴘʟᴏʀᴀʀ"
+    excepcionales:
+      slot: 31
+      material: NETHER_STAR
+      name: "<white>✦ <#E1C08A>ᴇxᴄᴇᴘᴄɪᴏɴᴀʟᴇs"
+      lore:
+      - ""
+      - "<gray>Hallazgos imposibles"
+      - ""
+      - "<#FFDD00>► ᴄʟɪᴄ ᴘᴀʀᴀ ᴇxᴘʟᴏʀᴀʀ"
+    estadisticas:
+      slot: 49
+      material: NETHER_STAR
+      name: "<white>⧈ <gold>ᴇsᴛᴀᴅísᴛɪᴄᴀs"
+      lore:
+      - "<gray>Consulta todos los bonos activos."
+    guia:
+      slot: 50
+      material: BOOK
+      name: "<white>✧ <gold>ɢᴜíᴀ ᴅᴇ ʀᴇʟɪǫᴜɪᴀs"
+      lore:
+      - "<gray>Absorbe accesorios para conservar"
+      - "<gray>su poder de manera permanente."
+    cerrar:
+      slot: 48
+      material: BARRIER
+      name: "<white>⇜ <gray>Cerrar menú"
+      lore:
+      - "<#FFDD00>► ᴄʟɪᴄ ᴘᴀʀᴀ ᴄᴇʀʀᴀʀ"
+colecciones:
+  cripta:
+    title: "<white>⧇ <gold>Relicario <dark_gray>│ <white>Cripta"
+    size: 54
+    recipe-slots: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25]
+    volver-slot: 48
+    cerrar-slot: 50
+  superficie:
+    title: "<white>⧇ <gold>Relicario <dark_gray>│ <white>Superficie"
+    size: 54
+    recipe-slots: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25]
+    volver-slot: 48
+    cerrar-slot: 50
+  exploracion:
+    title: "<white>⧇ <gold>Relicario <dark_gray>│ <white>Exploración"
+    size: 54
+    recipe-slots: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25]
+    volver-slot: 48
+    cerrar-slot: 50
+  excepcionales:
+    title: "<white>⧇ <gold>Relicario <dark_gray>│ <white>Excepcionales"
+    size: 54
+    recipe-slots: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25]
+    volver-slot: 48
+    cerrar-slot: 50
+estados:
+  descubierto: "<green>✦ ᴀʙsᴏʀʙɪᴅᴏ"
+  pendiente: "<gray>✦ ᴘᴇɴᴅɪᴇɴᴛᴇ"
+  superado: "<yellow>✦ ᴇᴠᴏʟᴜᴄɪᴏɴᴀᴅᴏ"
+confirmacion:
+  title: "<white> <gold>Absorber reliquia"
+  size: 27
+  item-slot: 13
+  confirmar-slot: 11
+  cancelar-slot: 15
