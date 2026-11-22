@@ -17,6 +17,7 @@ jobs:
           gradle-version: '8.14.3'
       - run: python3 -m pip install pyyaml
       - run: python3 tests/validate_release.py
+      - run: python3 tests/validate_always_on_modules.py
       - run: python3 tests/validate_native_missions.py
       - run: python3 tests/validate_native_armors.py
       - run: python3 tests/validate_relicario_catalog.py
