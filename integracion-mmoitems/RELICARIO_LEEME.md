@@ -36,8 +36,8 @@ menús y bonificaciones. Su activación permanece opcional hasta instalar el tip
 ## Instalación y activación
 1. Añadir el tipo `RELIQUIA` a `plugins/MMOItems/item-types.yml` (fusionar, no sobrescribir).
 2. Añadir los 32 IDs del archivo `RELIQUIA.yml` a `plugins/MMOItems/item/reliquia.yml`, una vez registrado el tipo; comprobar su creación con `/mi browse`.
-3. Instalar el nuevo SpectreCore. En `plugins/SpectreCore/config.yml`, ajustar `modules.accesorios.enabled: true` y reiniciar el servidor.
-4. Abrir `/spectrecore relicario`, probar primero una reliquia de baja rareza y verificar el archivo `plugins/SpectreCore/data/relicario/<UUID>.yml`.
+3. Instalar el JAR compilado de SpectreCore. En `plugins/SpectreCore/config.yml`, ajustar `modules.accesorios.enabled: true`. Si conservas archivos de la fase anterior, verificar también `enabled: true` en `modules/accesorios/config.yml`, `modules/accesorios/catalogo.yml` y `ui/relicario.yml`; actualizar/respaldar los menús anteriores, porque los archivos ya existentes no se sobrescriben por defecto. Reiniciar el servidor.
+4. Abrir `/spectrecore relicario`, entregar un artículo auténtico `RELIQUIA` mediante las herramientas administrativas de MMOItems, probar primero una reliquia de baja rareza y verificar el archivo `plugins/SpectreCore/data/relicario/<UUID>.yml`.
 5. Hacer copia de seguridad antes de introducir objetos de valor. Si el almacenamiento falla, el consumo se bloquea.
 
 Bonos de vida, movimiento y minería son atributos Paper; maná usa AuraSkills (requiere API cargada); daño, defensa, cosechas, cocina y recompensas de oficios tienen ganchos propios de SpectreCore. Las bonificaciones de magia y fuego sobre otros plugins de combate deben verificarse en staging, pues el motor podría no atribuir sus golpes al jugador. El efecto de alimentos requiere un evento de consumo real.
