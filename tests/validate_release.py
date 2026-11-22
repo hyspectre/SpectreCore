@@ -8,10 +8,12 @@ def load(path):
     return yaml.safe_load((resources / path).read_text(encoding='utf-8'))
 index = load('config.yml')
 assert index['config-version'] == 2
-assert list(index['modules']) == ['equipamiento','cocina','tesoros','resonancia','trabajos','slayer','dungeons','actividades','accesorios']
+assert 'modules' not in index, 'Modules must have no configurable enable switches'
 assert not {'skills','cooking','engine'} & set(index)
-for name,module in index['modules'].items():
-    assert module['enabled'] is (name!='accesorios')
+code = (root/'src/main/java/dev/hydev/spectrecore/config/ModuleConfiguration.java').read_text(encoding='utf-8')
+for name in ('equipamiento','cocina','tesoros','resonancia','trabajos','slayer','dungeons','actividades','accesorios'):
+    assert f'"{name}"' in code, name
+assert 'flags.put(name,true)' in code and 'index.set("modules",null)' in code
 plugin = load('plugin.yml')
 gradle = (root/'build.gradle.kts').read_text(encoding='utf-8')
 version = re.search(r'^version\s*=\s*"([^"]+)"', gradle, re.MULTILINE)
@@ -37,7 +39,7 @@ for recipe in recipes.values():
     for quality in ['normal','exquisito','pasado']:
         assert recipe['resultado-'+quality] in items
 mining = load('modules/tesoros/mineria.yml')
-assert mining['enabled'] is True and mining['tesoros']['id'] == 'PALADIO'
+assert 'enabled' not in mining and mining['tesoros']['id'] == 'PALADIO'
 assert mining['tesoros']['cantidad-minima'] == 2 and mining['tesoros']['cantidad-maxima'] == 8
 assert mining['probabilidades']['mineria'] == {} and 'gemas' not in mining
 resonance = load('modules/resonancia/config.yml')
@@ -53,7 +55,7 @@ expected_jobs = {
     'cazador': ((12,2,6),(8,6,12),(5,12,24)),
 }
 for job, tiers in expected_jobs.items():
-    assert jobs[job]['enabled'] is True
+    assert 'enabled' not in jobs[job]
     for name,(cooldown,minimum,maximum) in zip(('novato','experimentado','profesional'),tiers):
         assert jobs['cooldowns'][job][name] == cooldown
         assert jobs[job][name]['dinero'] == {'minimo':minimum,'maximo':maximum}
