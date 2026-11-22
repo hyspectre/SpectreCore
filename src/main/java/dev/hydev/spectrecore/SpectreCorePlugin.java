@@ -479,7 +479,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
             catch (Exception error) {
                 getLogger().warning("Configuración: recarga rechazada: " + error.getMessage());
                 sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-016",
-                        "<red>No se pudieron actualizar los ajustes. Se conserva la configuración anterior."));
+                        "<reset><red>No se pudieron actualizar los ajustes. Se conserva la configuración anterior."));
                 return true;
             }
             for (Player player : Bukkit.getOnlinePlayers()) { clear(player.getUniqueId()); if (passive != null) passive.clear(player); }
