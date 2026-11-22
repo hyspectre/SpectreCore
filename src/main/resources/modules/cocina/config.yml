@@ -24,9 +24,7 @@ cooking:
   precision:
     enabled: true
     stir-sweetspot-fraction: 0.6
-  rewards:
-    # Valor de compatibilidad: el cargador fuerza COCINA y no admite otros tipos.
-    mmoitems-type: COCINA
+  # Los platos solo se obtienen desde COCINA; no se puede modificar el tipo.
 
 herramientas:
   crear: FLINT_AND_STEEL
