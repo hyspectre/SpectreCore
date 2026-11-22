@@ -127,7 +127,7 @@ public final class DisplayModels implements Listener {
         } catch (IOException | InvalidConfigurationException | IllegalArgumentException ex) {
             plugin.getLogger().warning("Modelo: vista previa rechazada: " + ex.getMessage());
             message(player, "Modelos.invalido",
-                    "<red>No se pudo preparar ese modelo. Avisa a administración.");
+                    "<red>No se pudo preparar ese modelo. Avisa a administración.</red>");
             return true;
         }
         clear(player.getUniqueId());
@@ -174,7 +174,7 @@ public final class DisplayModels implements Listener {
         } catch (IOException | InvalidConfigurationException | IllegalArgumentException ex) {
             plugin.getLogger().warning("Modelo: colocación rechazada: " + ex.getMessage());
             message(admin, "Modelos.invalido",
-                    "<red>No se pudo preparar ese modelo. Avisa a administración.");
+                    "<red>No se pudo preparar ese modelo. Avisa a administración.</red>");
         }
         return true;
     }
