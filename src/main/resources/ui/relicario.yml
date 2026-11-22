@@ -1,6 +1,6 @@
 # Menú Relicario v0.1. Estructura preparada para el módulo Java.
 # No se habilita hasta implementar la persistencia, el consumo y todos los efectos.
-enabled: false
+enabled: true
 general:
   title: "<white>⧇ <gold>Relicario <dark_gray>│ <white>Colecciones"
   size: 54
@@ -96,3 +96,39 @@ confirmacion:
   item-slot: 13
   confirmar-slot: 11
   cancelar-slot: 15
+
+estadisticas:
+  title: "<white>⧇ <gold>Relicario <dark_gray>│ <white>Bonificaciones"
+  nombres:
+    health: "Vida máxima"
+    mana: "Maná máximo"
+    critical_chance: "Probabilidad crítica"
+    magic_damage: "Daño mágico"
+    melee_damage: "Daño cuerpo a cuerpo"
+    undead_damage: "Daño contra no muertos"
+    damage_reduction: "Reducción del daño"
+    fire_damage: "Daño ígneo"
+    mining_speed: "Velocidad minera"
+    crop_bonus: "Cosecha adicional"
+    hostile_damage: "Daño contra monstruos"
+    fire_reduction: "Protección del fuego"
+    food_duration: "Duración de platos"
+    cooking_speed: "Rapidez de cocina"
+    movement_speed: "Velocidad de movimiento"
+    projectile_reduction: "Protección de proyectiles"
+    contract_coins: "Monedas de encargos"
+mensajes:
+  storage-error: "<red>Tu Relicario no está disponible. Contacta a administración."
+  duplicate: "<yellow>✦ Ya has absorbido esta reliquia."
+  confirm: "<green>✦ Absorber reliquia"
+  permanent: "<gray>Se añadirá a tu colección permanente."
+  cancel: "<red>⇜ Conservar reliquia"
+  cancel-detail: "<gray>Vuelve sin consumir el objeto."
+  changed: "<red>La reliquia cambió de lugar. Inténtalo de nuevo."
+  absorbed: "<green>✦ Reliquia absorbida: <white>{nombre}"
+  back: "<gold>⇜ Volver al catálogo"
+  back-detail: "<gray>Revisar otras colecciones."
+  close: "<gray>Cerrar Relicario"
+  guide: "<gold>Relicario <gray>│ Cada reliquia se absorbe una vez. Solo cuenta la mayor versión de cada familia."
+  mana-offline: "<yellow>Necesitas AuraSkills activo para recibir maná."
+  active-bonus: "<green>✦ Bonificación activa"
