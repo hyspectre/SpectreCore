@@ -13,7 +13,7 @@ root = Path(__file__).resolve().parents[1]
 resource = root / "src/main/resources/ui/misiones.yml"
 raw = resource.read_text(encoding="utf-8")
 menu = yaml.safe_load(raw)
-assert menu["enabled"] is True
+assert "enabled" not in menu, "Menu can no longer be switched off"
 assert set(menu["pages"]) == {"misiones", "revenant", "progresion"}
 
 for name, page in menu["pages"].items():
