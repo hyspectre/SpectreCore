@@ -8,10 +8,10 @@ def load(path):
     return yaml.safe_load((resources / path).read_text(encoding='utf-8'))
 index = load('config.yml')
 assert index['config-version'] == 2
-assert list(index['modules']) == ['equipamiento','cocina','tesoros','resonancia','trabajos','slayer','dungeons','actividades']
+assert list(index['modules']) == ['equipamiento','cocina','tesoros','resonancia','trabajos','slayer','dungeons','actividades','accesorios']
 assert not {'skills','cooking','engine'} & set(index)
-for module in index['modules'].values():
-    assert module['enabled'] is True
+for name,module in index['modules'].items():
+    assert module['enabled'] is (name!='accesorios')
 plugin = load('plugin.yml')
 gradle = (root/'build.gradle.kts').read_text(encoding='utf-8')
 version = re.search(r'^version\s*=\s*"([^"]+)"', gradle, re.MULTILINE)
@@ -68,7 +68,7 @@ assert len(activities['cygnus']['movimientos']) == 7 and activities['cygnus']['p
 assert sum(activities['cofre']['premios'].values()) == 100
 assert len(activities['cygnus']['ofertas']) == 7 and len(activities['polvos']['comandos']) == 6
 assert activities['entrada']['nivel-resistencia'] == 100 and activities['entrada']['duracion-segundos'] == 30
-assert len(list((resources/'modules').rglob('*.yml'))) == 33
+assert len(list((resources/'modules').rglob('*.yml'))) == 35
 for obsolete in ['mining.yml','jobs.yml','activities.yml','portal.yml','cooking/recipes.yml']:
     assert not (resources/obsolete).exists(), obsolete
-print('PASS: 8 modules, 33 configuration files, unchanged default rewards/skills/recipes, validated exact job salaries, cooldowns and contract prices')
+print('PASS: 9 modules, 35 configuration files, unchanged default rewards/skills/recipes, validated exact job salaries, cooldowns and contract prices')
