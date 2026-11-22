@@ -26,6 +26,7 @@ public final class CommandRoutes {
         routes.add(route("blink","$core","equipamiento.ultimo-juramento",Access.CONSOLE,"<jugador>","Notificar un Blink confirmado","blink"));
         routes.add(route("toast prueba","$core","",Access.ADMIN,"<id>","Probar una notificación","toast","prueba"));
         routes.add(route("armaduras","armaduras","equipamiento.libro",Access.PUBLIC,"","Libro de armaduras"));
+        routes.add(route("relicario","relicario","accesorios",Access.PUBLIC,"","Colección de reliquias y estadísticas"));
         routes.add(route("cocina","cocina","cocina",Access.PUBLIC,"<ayuda|libro|recetas|estado|reparar|recargar>","Cocina y recetario"));
         routes.add(route("trabajos","trabajo","trabajos",Access.PUBLIC,"","Abrir catálogo de contratos y oficios"));
         routes.add(route("trabajos mineria","trabajo","trabajos",Access.PUBLIC,"","Abrir contratos de minería","minero"));
