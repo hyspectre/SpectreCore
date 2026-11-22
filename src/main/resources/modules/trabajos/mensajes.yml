@@ -2,7 +2,6 @@ JobsModule:
   mensaje-001: "Usa /spectrecore trabajos dentro del juego."
   mensaje-002: "<reset><gold>✦ NIVELES DE TRABAJO"
   mensaje-003: "<reset><gray>▪ <reset><white>{job}: {valor2}"
-  texto-001: "<reset><red>Desactivado"
   texto-002: "<reset><red>No disponible"
   texto-003: "<reset><yellow>"
   mensaje-004: "<reset><gray>Mejora tu nivel firmando <reset><gold>contratos<reset><gray>."
@@ -18,4 +17,4 @@ JobsModule:
   contrato-exito: "<reset><green>Contrato firmado: {trabajo} {rango}. Precio: {precio} ↾."
 
 JobsMenu:
-  desactivado: "<reset><red>El catálogo de trabajos está temporalmente desactivado."
+  desactivado: "<reset><red>El catálogo de trabajos no está disponible por ahora."
