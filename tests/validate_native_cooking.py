@@ -132,7 +132,7 @@ assert "openRecipeDetail(player," in java
 assert "claimJournal.begin" in java and "resolveMMOItem(rewardId)" in java
 assert 'private static final String COOKING_ITEM_TYPE = "COCINA";' in java
 assert "getItem.invoke(instance, COOKING_ITEM_TYPE, id)" in java
-assert "mmoitems-type" not in (resources/"modules/cocina/config.yml").read_text()
+assert yaml.safe_load((resources/"modules/cocina/config.yml").read_text())["cooking"]["rewards"]["mmoitems-type"]=="COCINA"
 assert "firstIngredients.add(ingredients.getFirst())" in java
 assert "loadRecipeBookLayout()" in java
 assert "discoveries.getOrDefault(player.getUniqueId(), Set.of())" in java
