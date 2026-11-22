@@ -72,13 +72,19 @@ Antes de probar la expansión en staging:
    (subtipo heredado de `CONSUMABLE`, sin modificar el tipo genérico).
    Instalar las 45 definiciones en `plugins/MMOItems/item/COCINA.yml`.
    **No copiar ni fusionar estos platos en `item/consumable.yml`**.
+   Tras reemplazar el catálogo, ejecutar `/mi reload` (o reiniciar) y
+   **obtener un objeto recién generado**: los platos fabricados antes del
+   arreglo pueden conservar metadatos sin efectos. No afirmar que se
+   actualizaron los objetos antiguos sin comprobarlo en el servidor.
    Si los IDs culinarios anteriores estuvieran en CONSUMABLE, revisar y
    migrar esos IDs con respaldo; conservar cualquier otro consumible.
-3. Verificar por separado la compatibilidad de `HASTE`, `JUMP_BOOST`,
-   `WATER_BREATHING` y `ABSORPTION` con la versión exacta de los consumibles
-   utilizada en el servidor. La documentación oficial de efectos indica
-   duración en segundos y nivel del efecto, pero no se ha probado todavía
-   esa integración en Hydev.
+3. En MMOItems, los efectos de los consumibles usan `effects.<efecto>.duration`
+   (segundos) y `effects.<efecto>.amplifier` (intensidad I=1, II=2).
+   **No usar `level`**: versiones recientes de MMOItems leen la clave
+   `amplifier`, y los objetos con `level` no incorporan el efecto esperado.
+   El catálogo se corrigió para las 45 variantes y sus 51 efectos.
+   Verificar en la versión instalada las variantes de `HASTE`, `JUMP_BOOST`,
+   `WATER_BREATHING` y `ABSORPTION`; aún no están probadas dentro de Hydev.
 4. Iniciar SpectreCore y comprobar que se cargaron 15 recetas y que se pueden
    resolver los tres objetos de **cada** plato.
 5. Si una recompensa no existe, la estación no entrega el plato ni consume
