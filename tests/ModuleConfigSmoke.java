@@ -70,7 +70,9 @@ public final class ModuleConfigSmoke {
         index.set("modules.resonancia.enabled",false);
         index.set("modules.accesorios.enabled",false);
         index.save(root.resolve("config.yml").toFile());
-        write(root,"modules/tesoros/mineria.yml","enabled: false\ntesoros:\n  id: PALADIO\n");
+        var miningModule=yaml(root.resolve("modules/tesoros/mineria.yml"));
+        miningModule.set("enabled", false);
+        miningModule.save(root.resolve("modules/tesoros/mineria.yml").toFile());
         write(root,"modules/equipamiento/config.yml",
                 "skills:\n  botania:\n    enabled: false\n    cooldown-seconds: 123\nlibro:\n  enabled: false\n");
         write(root,"modules/accesorios/catalogo.yml",
