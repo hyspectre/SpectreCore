@@ -107,19 +107,14 @@ public final class RelicarioModule implements Listener {
 
     public boolean reload() {
         try {
-            YamlConfiguration config = plugin.moduleConfigs().read("accesorios/config.yml");
             YamlConfiguration catalog = plugin.moduleConfigs().read("accesorios/catalogo.yml");
-            if (!config.getBoolean("enabled", false) || !catalog.getBoolean("enabled", false)) {
-                plugin.getLogger().warning("Relicario no iniciado: revisa enabled: true en modules/accesorios/config.yml y modules/accesorios/catalogo.yml.");
-                return false;
-            }
             File file = new File(plugin.getDataFolder(), "ui/relicario.yml");
             if (!file.exists()) plugin.saveResource("ui/relicario.yml", false);
             if (!file.isFile() || file.length() > 96_000) throw new IllegalArgumentException("UI invalid");
             YamlConfiguration nextUi = new YamlConfiguration();
             nextUi.load(file);
-            if (!nextUi.getBoolean("enabled", false) || nextUi.getInt("general.size") != 54)
-                throw new IllegalArgumentException("UI disabled or invalid");
+            if (nextUi.getInt("general.size") != 54)
+                throw new IllegalArgumentException("Invalid Relicario UI geometry");
             ConfigurationSection section = catalog.getConfigurationSection("accesorios");
             ConfigurationSection capSection = catalog.getConfigurationSection("caps");
             if (section == null || capSection == null || section.getKeys(false).size() != 32)
