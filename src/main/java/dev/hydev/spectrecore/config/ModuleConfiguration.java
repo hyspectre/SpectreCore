@@ -12,8 +12,8 @@ import java.util.*;
 
 /** Strict, restart-stable module index. Runtime compatibility keys are never written to disk. */
 public final class ModuleConfiguration {
-    public static final List<String> MODULES=List.of("equipamiento","cocina","tesoros","resonancia","trabajos","slayer","dungeons","actividades");
-    private static final List<String> FILES=List.of("equipamiento/config.yml","cocina/config.yml","cocina/recetas.yml","tesoros/config.yml","tesoros/mineria.yml","tesoros/combate.yml","tesoros/agricultura.yml","resonancia/config.yml","trabajos/config.yml","slayer/config.yml","dungeons/config.yml","dungeons/jefes.yml","dungeons/portal.yml","actividades/config.yml","equipamiento/mensajes.yml","equipamiento/ajustes.yml","cocina/mensajes.yml","cocina/ajustes.yml","tesoros/mensajes.yml","tesoros/ajustes.yml","resonancia/mensajes.yml","resonancia/ajustes.yml","trabajos/mensajes.yml","trabajos/ajustes.yml","slayer/mensajes.yml","slayer/ajustes.yml","dungeons/mensajes.yml","dungeons/ajustes.yml","actividades/mensajes.yml","actividades/ajustes.yml","nucleo/mensajes.yml","nucleo/ajustes.yml","nucleo/comandos.yml");
+    public static final List<String> MODULES=List.of("equipamiento","cocina","tesoros","resonancia","trabajos","slayer","dungeons","actividades","accesorios");
+    private static final List<String> FILES=List.of("accesorios/config.yml","accesorios/catalogo.yml","equipamiento/config.yml","cocina/config.yml","cocina/recetas.yml","tesoros/config.yml","tesoros/mineria.yml","tesoros/combate.yml","tesoros/agricultura.yml","resonancia/config.yml","trabajos/config.yml","slayer/config.yml","dungeons/config.yml","dungeons/jefes.yml","dungeons/portal.yml","actividades/config.yml","equipamiento/mensajes.yml","equipamiento/ajustes.yml","cocina/mensajes.yml","cocina/ajustes.yml","tesoros/mensajes.yml","tesoros/ajustes.yml","resonancia/mensajes.yml","resonancia/ajustes.yml","trabajos/mensajes.yml","trabajos/ajustes.yml","slayer/mensajes.yml","slayer/ajustes.yml","dungeons/mensajes.yml","dungeons/ajustes.yml","actividades/mensajes.yml","actividades/ajustes.yml","nucleo/mensajes.yml","nucleo/ajustes.yml","nucleo/comandos.yml");
     private static final List<String> LEGACY=List.of("config.yml","mining.yml","treasures.yml","combat-treasures.yml","agriculture-treasures.yml","jobs.yml","slayer.yml","portal.yml","activities.yml","cooking/recipes.yml");
     private final File folder; private final ClassLoader resources;
     private Map<String,YamlConfiguration> files=Map.of(); private Map<String,Boolean> requested=Map.of(),startup;
@@ -158,7 +158,7 @@ public final class ModuleConfiguration {
             save(rootFile,index);
         }
         Map<String,Boolean> flags=new LinkedHashMap<>();
-        for(String name:MODULES){String key="modules."+name+".enabled";if(index.contains(key)&&!index.isBoolean(key))throw new IOException("Debe ser true/false: config.yml "+key);flags.put(name,index.getBoolean(key,true));}
+        for(String name:MODULES){String key="modules."+name+".enabled";if(index.contains(key)&&!index.isBoolean(key))throw new IOException("Debe ser true/false: config.yml "+key);flags.put(name,index.getBoolean(key,!name.equals("accesorios")));}
         flags.put("tesoros.mineria",flags.get("tesoros")&&bool(next.get("tesoros/mineria.yml"),"enabled"));
         flags.put("tesoros.combate",flags.get("tesoros")&&bool(next.get("tesoros/combate.yml"),"enabled"));
         flags.put("tesoros.agricultura",flags.get("tesoros")&&bool(next.get("tesoros/agricultura.yml"),"enabled"));
