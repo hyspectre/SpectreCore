@@ -44,7 +44,7 @@ assert visual["segmentos"] == 9
 slots = list(range(visual["inicio-slot"], visual["inicio-slot"] + visual["segmentos"]))
 assert slots == list(range(27,36))
 assert not (set(slots) & {entry["slot"] for entry in menu["pages"]["progresion"]["items"].values()})
-assert all(not re.search(r"/(?:spectrecore|mago|cocina|mi)\\b", line, re.I)
+assert all(not re.search(r"/(?:spectrecore|mago|cocina|mi)\b", line, re.I)
            for page in menu["pages"].values() for entry in page["items"].values()
            for line in [entry["name"], *entry["lore"]]), "Command visible in a mission menu"
 java = (root / "src/main/java/dev/hydev/spectrecore/guide/MissionsMenu.java").read_text(encoding="utf-8")
