@@ -175,7 +175,12 @@ public final class LegacyActivities implements Listener {
             if(section==null)throw new IllegalArgumentException(Settings.text("actividades", "LegacyActivities.etiqueta-028", "Faltan premios"));
             for(String material:section.getKeys(false)){if(!section.isInt(material))throw new IllegalArgumentException(Settings.text("actividades", "LegacyActivities.texto-004", "Peso no entero"));Material type=Material.valueOf(material);if(type.isAir()||!type.isItem())throw new IllegalArgumentException(Settings.text("actividades", "LegacyActivities.texto-005", "Material inválido"));weights.put(material,section.getInt(material));}
             pending.put(id, Material.valueOf(ActivityRules.weightedPrize(ThreadLocalRandom.current().nextInt(1,101),weights)));
-        }catch(IllegalArgumentException error){player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-022", "§cEste cofre no está disponible. Avisa a administración.", "error-getmessage", error.getMessage()));return;}
+        }catch(IllegalArgumentException error){
+            plugin.getLogger().warning("Cofre de actividad: configuración inválida: " + error.getMessage());
+            player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-022",
+                    "<red>Este cofre no está disponible. Avisa a administración."));
+            return;
+        }
         if (!savePending()) { pending.remove(id); chestStorageReady = false; player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-023", "§cNo se pudo guardar el cofre; inténtalo más tarde.")); return; }
         Location forward = player.getLocation(); double yaw = Math.toRadians(forward.getYaw());
         Location at = forward.clone().add(-Math.sin(yaw) * 2, 1, Math.cos(yaw) * 2);
