@@ -56,7 +56,7 @@ public final class ModuleConfiguration {
         Map<String,YamlConfiguration> next=new LinkedHashMap<>();
         for(String path:FILES){File destination=file(path);YamlConfiguration yaml;
             if(destination.isFile()){
-                if(path.endsWith("/mensajes.yml"))
+                if (path.endsWith("/mensajes.yml") || path.equals("nucleo/comandos.yml"))
                     PresentationMigrations.migrate(folder, destination, "modules/" + path);
                 yaml = strict(destination);
                 var defaults = resource("modules/" + path);
