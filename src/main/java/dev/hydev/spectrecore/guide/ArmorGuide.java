@@ -136,11 +136,9 @@ public final class ArmorGuide implements Listener {
         int count = plugin.sets() == null ? 0
                 : plugin.sets().countArmor(player, config.getConfigurationSection("skills." + entry.skill + ".armor"));
         int pieces = Math.max(1, Math.min(4, config.getInt("pasivos.piezas", 2)));
-        boolean enabled = config.getBoolean("skills." + entry.skill + ".enabled", false);
         boolean partial = Set.of("asterion", "ultimo-juramento", "sangre-primer-dragon").contains(entry.skill);
         String status;
-        if (!enabled) status = layout.getString("indicador.desactivado", "<red>Conjunto desactivado");
-        else if (count == 4) status = layout.getString("indicador.completo", "<green>Habilidad del conjunto disponible");
+        if (count == 4) status = layout.getString("indicador.completo", "<green>Habilidad del conjunto disponible");
         else if (partial && count >= pieces) status = layout.getString("indicador.parcial", "<yellow>Bonificación parcial activa");
         else status = layout.getString("indicador.incompleto", "<gray>Bonificaciones aún incompletas");
         String summary = layout.getString("indicador.piezas",
@@ -287,9 +285,6 @@ public void open(Player player) { openPage(player, "armaduras"); }
 
     private List<String> bonuses(Entry e, YamlConfiguration sets) {
         List<String> lines = new ArrayList<>();
-        boolean enabled = Settings.module("equipamiento/config.yml")
-                .getBoolean("skills." + e.skill + ".enabled", false);
-        if (!enabled) lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-008", "<red>✦ ᴄᴏɴᴊᴜɴᴛᴏ ɪɴᴀᴄᴛɪᴠᴏ"));
         switch (e.skill) {
             case "asterion" -> {
                 lines.add(Settings.text("equipamiento", "ArmorGuide.mensaje-009", "<gray>({piezas}) <white>ᴠɪᴅᴀ ᴍáx. <gold>+{vida}","piezas",Settings.module("equipamiento/config.yml").getInt("pasivos.piezas",2),"vida",value(Settings.module("equipamiento/config.yml").getDouble("pasivos.laberinto-vida",6))));
