@@ -151,6 +151,9 @@ public final class ModuleConfiguration {
         if(legacy){
             Map<String,String> aliases=Map.of("equipamiento","skills","cocina","cooking","trabajos","jobs","slayer","slayer","actividades","activities");
             aliases.forEach((name,previous)->{if(old.contains("modules."+previous+".enabled"))index.set("modules."+name+".enabled",old.getBoolean("modules."+previous+".enabled"));});
+            // Preserve an explicit Relicario switch during migration from pre-v2 configurations.
+            if(old.contains("modules.accesorios.enabled"))
+                index.set("modules.accesorios.enabled",old.getBoolean("modules.accesorios.enabled"));
             index.set("modules.resonancia.enabled",old.getBoolean("modules.mining.enabled",true)&&mining.getBoolean("gemas.activadas",true));
             for(String key:old.getKeys(false))if(!Set.of("config-version","modules","skills","engine","cooking").contains(key)){
                 if(old.isConfigurationSection(key))merge(index,old.getConfigurationSection(key),key+".");else index.set(key,old.get(key));
