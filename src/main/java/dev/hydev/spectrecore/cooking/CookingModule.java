@@ -1464,8 +1464,13 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         }
         if (action.equals("recargar")) {
             if (!cookingAdmin(sender)) { sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-017", "{prefix}§cNo tienes permiso.", "prefix", Settings.component(prefix()))); return true; }
-            try { plugin.reloadConfig(); loadRecipes(); loadRecipeBookLayout(); sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-018", "{prefix}§aConfiguracion y recetas recargadas.", "prefix", Settings.component(prefix()))); }
-            catch (Exception error) { sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-019", "{prefix}§c{error-getmessage}", "prefix", Settings.component(prefix()), "error-getmessage", error.getMessage())); }
+            try { plugin.reloadConfig(); loadRecipes(); loadRecipeBookLayout(); sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-018", "{prefix}§aRecetas y preparaciones actualizadas.", "prefix", Settings.component(prefix()))); }
+            catch (Exception error) {
+                getLogger().warning("Cocina: recarga rechazada: " + error.getMessage());
+                sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-019",
+                        "{prefix}<red>No se pudieron actualizar las recetas. Avisa a administración.",
+                        "prefix", Settings.component(prefix())));
+            }
             return true;
         }
         if (!(sender instanceof Player player)) {
