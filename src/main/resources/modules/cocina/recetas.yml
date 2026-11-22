@@ -138,7 +138,7 @@ recetas:
     pista: "Un pez, algas y cristales del océano."
     uso: "Exploración"
     nivel-ingredientes: 2
-    efecto-descripcion: "Respiración acuática I · 240 s"
+    efecto-descripcion: "Respiración I · 240 s"
     icono: "HEART_OF_THE_SEA"
     ingredientes:
     - COD
@@ -157,7 +157,7 @@ recetas:
     pista: "Las patas de conejo alivian cada caída."
     uso: "Movimiento"
     nivel-ingredientes: 3
-    efecto-descripcion: "Salto II · 120 s"
+    efecto-descripcion: "Supersalto II · 120 s"
     icono: "RABBIT_FOOT"
     ingredientes:
     - RABBIT_FOOT
@@ -195,7 +195,7 @@ recetas:
     pista: "Polvo ardiente y magma bajo hervor."
     uso: "Supervivencia"
     nivel-ingredientes: 3
-    efecto-descripcion: "Resistencia al fuego I · 240 s"
+    efecto-descripcion: "Resis. al fuego I · 240 s"
     icono: "BLAZE_POWDER"
     ingredientes:
     - BLAZE_POWDER
@@ -252,7 +252,7 @@ recetas:
     pista: "Una perla del End despierta las piernas."
     uso: "Movimiento"
     nivel-ingredientes: 4
-    efecto-descripcion: "Velocidad II + Salto I · 180 s"
+    efecto-descripcion: "Velocidad II + Supersalto I · 180 s"
     icono: "ENDER_PEARL"
     ingredientes:
     - ENDER_PEARL
