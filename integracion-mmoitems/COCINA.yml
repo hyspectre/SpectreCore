@@ -3,6 +3,7 @@
 # Conserva las 45 variantes originales; no copies estos mismos IDs dos veces en el mismo tipo.
 HC_GUARDIAN_NORMAL:
   base:
+    revision-id: 1
     material: MUSHROOM_STEW
     name: '&6Guiso del Guardian &fNormal'
     tier: RARE
@@ -19,6 +20,7 @@ HC_GUARDIAN_NORMAL:
         amplifier: 1
 HC_GUARDIAN_EXQUISITO:
   base:
+    revision-id: 1
     material: MUSHROOM_STEW
     name: '&6Guiso del Guardian &aExquisito'
     tier: RARE
@@ -35,6 +37,7 @@ HC_GUARDIAN_EXQUISITO:
         amplifier: 1
 HC_GUARDIAN_PASADO:
   base:
+    revision-id: 1
     material: MUSHROOM_STEW
     name: '&6Guiso del Guardian &6Sobrecocido'
     tier: COMMON
@@ -51,6 +54,7 @@ HC_GUARDIAN_PASADO:
         amplifier: 1
 HC_ALBA_NORMAL:
   base:
+    revision-id: 1
     material: RABBIT_STEW
     name: '&eCaldo del Alba &fNormal'
     tier: RARE
@@ -67,6 +71,7 @@ HC_ALBA_NORMAL:
         amplifier: 1
 HC_ALBA_EXQUISITO:
   base:
+    revision-id: 1
     material: RABBIT_STEW
     name: '&eCaldo del Alba &aExquisito'
     tier: RARE
@@ -83,6 +88,7 @@ HC_ALBA_EXQUISITO:
         amplifier: 1
 HC_ALBA_PASADO:
   base:
+    revision-id: 1
     material: RABBIT_STEW
     name: '&eCaldo del Alba &6Sobrecocido'
     tier: COMMON
@@ -99,6 +105,7 @@ HC_ALBA_PASADO:
         amplifier: 1
 HC_CARMESI_NORMAL:
   base:
+    revision-id: 1
     material: BEETROOT_SOUP
     name: '&cEstofado Carmesi &fNormal'
     tier: RARE
@@ -115,6 +122,7 @@ HC_CARMESI_NORMAL:
         amplifier: 1
 HC_CARMESI_EXQUISITO:
   base:
+    revision-id: 1
     material: BEETROOT_SOUP
     name: '&cEstofado Carmesi &aExquisito'
     tier: RARE
@@ -131,6 +139,7 @@ HC_CARMESI_EXQUISITO:
         amplifier: 1
 HC_CARMESI_PASADO:
   base:
+    revision-id: 1
     material: BEETROOT_SOUP
     name: '&cEstofado Carmesi &6Sobrecocido'
     tier: COMMON
@@ -147,6 +156,7 @@ HC_CARMESI_PASADO:
         amplifier: 1
 HC_ESPECTRAL_NORMAL:
   base:
+    revision-id: 1
     material: MUSHROOM_STEW
     name: '&dConsome Espectral &fNormal'
     tier: RARE
@@ -163,6 +173,7 @@ HC_ESPECTRAL_NORMAL:
         amplifier: 1
 HC_ESPECTRAL_EXQUISITO:
   base:
+    revision-id: 1
     material: MUSHROOM_STEW
     name: '&dConsome Espectral &aExquisito'
     tier: RARE
@@ -179,6 +190,7 @@ HC_ESPECTRAL_EXQUISITO:
         amplifier: 1
 HC_ESPECTRAL_PASADO:
   base:
+    revision-id: 1
     material: MUSHROOM_STEW
     name: '&dConsome Espectral &6Sobrecocido'
     tier: COMMON
@@ -195,6 +207,7 @@ HC_ESPECTRAL_PASADO:
         amplifier: 1
 HC_MINERO_NORMAL:
   base:
+    revision-id: 1
     material: RABBIT_STEW
     name: '&6Caldo Minero &fNormal'
     tier: RARE
@@ -213,6 +226,7 @@ HC_MINERO_NORMAL:
         amplifier: 1
 HC_MINERO_EXQUISITO:
   base:
+    revision-id: 1
     material: RABBIT_STEW
     name: '&6Caldo Minero &aExquisito'
     tier: RARE
@@ -231,6 +245,7 @@ HC_MINERO_EXQUISITO:
         amplifier: 1
 HC_MINERO_PASADO:
   base:
+    revision-id: 1
     material: RABBIT_STEW
     name: '&6Caldo Minero &6Sobrecocido'
     tier: COMMON
@@ -249,6 +264,7 @@ HC_MINERO_PASADO:
         amplifier: 1
 HC_VELOCIDAD_NORMAL:
   base:
+    revision-id: 1
     material: RABBIT_STEW
     name: '&6Caldo de Velocidad &fNormal'
     tier: RARE
@@ -267,6 +283,7 @@ HC_VELOCIDAD_NORMAL:
         amplifier: 2
 HC_VELOCIDAD_EXQUISITO:
   base:
+    revision-id: 1
     material: RABBIT_STEW
     name: '&6Caldo de Velocidad &aExquisito'
     tier: RARE
@@ -285,6 +302,7 @@ HC_VELOCIDAD_EXQUISITO:
         amplifier: 2
 HC_VELOCIDAD_PASADO:
   base:
+    revision-id: 1
     material: RABBIT_STEW
     name: '&6Caldo de Velocidad &6Sobrecocido'
     tier: COMMON
@@ -303,6 +321,7 @@ HC_VELOCIDAD_PASADO:
         amplifier: 2
 HC_ESPELEOLOGO_NORMAL:
   base:
+    revision-id: 1
     material: MUSHROOM_STEW
     name: '&6Sopa del Espeleólogo &fNormal'
     tier: RARE
@@ -321,6 +340,7 @@ HC_ESPELEOLOGO_NORMAL:
         amplifier: 1
 HC_ESPELEOLOGO_EXQUISITO:
   base:
+    revision-id: 1
     material: MUSHROOM_STEW
     name: '&6Sopa del Espeleólogo &aExquisito'
     tier: RARE
@@ -339,6 +359,7 @@ HC_ESPELEOLOGO_EXQUISITO:
         amplifier: 1
 HC_ESPELEOLOGO_PASADO:
   base:
+    revision-id: 1
     material: MUSHROOM_STEW
     name: '&6Sopa del Espeleólogo &6Sobrecocido'
     tier: COMMON
@@ -357,6 +378,7 @@ HC_ESPELEOLOGO_PASADO:
         amplifier: 1
 HC_MAREAS_NORMAL:
   base:
+    revision-id: 1
     material: BEETROOT_SOUP
     name: '&6Caldo de las Mareas &fNormal'
     tier: RARE
@@ -375,6 +397,7 @@ HC_MAREAS_NORMAL:
         amplifier: 1
 HC_MAREAS_EXQUISITO:
   base:
+    revision-id: 1
     material: BEETROOT_SOUP
     name: '&6Caldo de las Mareas &aExquisito'
     tier: RARE
@@ -393,6 +416,7 @@ HC_MAREAS_EXQUISITO:
         amplifier: 1
 HC_MAREAS_PASADO:
   base:
+    revision-id: 1
     material: BEETROOT_SOUP
     name: '&6Caldo de las Mareas &6Sobrecocido'
     tier: COMMON
@@ -411,6 +435,7 @@ HC_MAREAS_PASADO:
         amplifier: 1
 HC_SALTADOR_NORMAL:
   base:
+    revision-id: 1
     material: RABBIT_STEW
     name: '&6Estofado del Saltador &fNormal'
     tier: RARE
@@ -429,6 +454,7 @@ HC_SALTADOR_NORMAL:
         amplifier: 2
 HC_SALTADOR_EXQUISITO:
   base:
+    revision-id: 1
     material: RABBIT_STEW
     name: '&6Estofado del Saltador &aExquisito'
     tier: RARE
@@ -447,6 +473,7 @@ HC_SALTADOR_EXQUISITO:
         amplifier: 2
 HC_SALTADOR_PASADO:
   base:
+    revision-id: 1
     material: RABBIT_STEW
     name: '&6Estofado del Saltador &6Sobrecocido'
     tier: COMMON
@@ -465,6 +492,7 @@ HC_SALTADOR_PASADO:
         amplifier: 2
 HC_ESCUDERO_NORMAL:
   base:
+    revision-id: 1
     material: MUSHROOM_STEW
     name: '&6Potaje del Escudero &fNormal'
     tier: RARE
@@ -483,6 +511,7 @@ HC_ESCUDERO_NORMAL:
         amplifier: 1
 HC_ESCUDERO_EXQUISITO:
   base:
+    revision-id: 1
     material: MUSHROOM_STEW
     name: '&6Potaje del Escudero &aExquisito'
     tier: RARE
@@ -501,6 +530,7 @@ HC_ESCUDERO_EXQUISITO:
         amplifier: 1
 HC_ESCUDERO_PASADO:
   base:
+    revision-id: 1
     material: MUSHROOM_STEW
     name: '&6Potaje del Escudero &6Sobrecocido'
     tier: COMMON
@@ -519,6 +549,7 @@ HC_ESCUDERO_PASADO:
         amplifier: 1
 HC_BRASA_NORMAL:
   base:
+    revision-id: 1
     material: BEETROOT_SOUP
     name: '&6Caldo de la Brasa &fNormal'
     tier: RARE
@@ -537,6 +568,7 @@ HC_BRASA_NORMAL:
         amplifier: 1
 HC_BRASA_EXQUISITO:
   base:
+    revision-id: 1
     material: BEETROOT_SOUP
     name: '&6Caldo de la Brasa &aExquisito'
     tier: RARE
@@ -555,6 +587,7 @@ HC_BRASA_EXQUISITO:
         amplifier: 1
 HC_BRASA_PASADO:
   base:
+    revision-id: 1
     material: BEETROOT_SOUP
     name: '&6Caldo de la Brasa &6Sobrecocido'
     tier: COMMON
@@ -573,6 +606,7 @@ HC_BRASA_PASADO:
         amplifier: 1
 HC_VIGOR_NORMAL:
   base:
+    revision-id: 1
     material: MUSHROOM_STEW
     name: '&6Consomé de Vitalidad &fNormal'
     tier: RARE
@@ -591,6 +625,7 @@ HC_VIGOR_NORMAL:
         amplifier: 2
 HC_VIGOR_EXQUISITO:
   base:
+    revision-id: 1
     material: MUSHROOM_STEW
     name: '&6Consomé de Vitalidad &aExquisito'
     tier: RARE
@@ -609,6 +644,7 @@ HC_VIGOR_EXQUISITO:
         amplifier: 2
 HC_VIGOR_PASADO:
   base:
+    revision-id: 1
     material: MUSHROOM_STEW
     name: '&6Consomé de Vitalidad &6Sobrecocido'
     tier: COMMON
@@ -627,6 +663,7 @@ HC_VIGOR_PASADO:
         amplifier: 2
 HC_SOMBRA_NORMAL:
   base:
+    revision-id: 1
     material: BEETROOT_SOUP
     name: '&6Sopa de las Sombras &fNormal'
     tier: RARE
@@ -645,6 +682,7 @@ HC_SOMBRA_NORMAL:
         amplifier: 1
 HC_SOMBRA_EXQUISITO:
   base:
+    revision-id: 1
     material: BEETROOT_SOUP
     name: '&6Sopa de las Sombras &aExquisito'
     tier: RARE
@@ -663,6 +701,7 @@ HC_SOMBRA_EXQUISITO:
         amplifier: 1
 HC_SOMBRA_PASADO:
   base:
+    revision-id: 1
     material: BEETROOT_SOUP
     name: '&6Sopa de las Sombras &6Sobrecocido'
     tier: COMMON
@@ -681,6 +720,7 @@ HC_SOMBRA_PASADO:
         amplifier: 1
 HC_MARATON_NORMAL:
   base:
+    revision-id: 1
     material: RABBIT_STEW
     name: '&6Caldo del Maratón &fNormal'
     tier: RARE
@@ -703,6 +743,7 @@ HC_MARATON_NORMAL:
         amplifier: 1
 HC_MARATON_EXQUISITO:
   base:
+    revision-id: 1
     material: RABBIT_STEW
     name: '&6Caldo del Maratón &aExquisito'
     tier: RARE
@@ -725,6 +766,7 @@ HC_MARATON_EXQUISITO:
         amplifier: 1
 HC_MARATON_PASADO:
   base:
+    revision-id: 1
     material: RABBIT_STEW
     name: '&6Caldo del Maratón &6Sobrecocido'
     tier: COMMON
@@ -747,6 +789,7 @@ HC_MARATON_PASADO:
         amplifier: 1
 HC_LEYENDA_NORMAL:
   base:
+    revision-id: 1
     material: MUSHROOM_STEW
     name: '&6Banquete del Eco &fNormal'
     tier: RARE
@@ -769,6 +812,7 @@ HC_LEYENDA_NORMAL:
         amplifier: 2
 HC_LEYENDA_EXQUISITO:
   base:
+    revision-id: 1
     material: MUSHROOM_STEW
     name: '&6Banquete del Eco &aExquisito'
     tier: RARE
@@ -791,6 +835,7 @@ HC_LEYENDA_EXQUISITO:
         amplifier: 2
 HC_LEYENDA_PASADO:
   base:
+    revision-id: 1
     material: MUSHROOM_STEW
     name: '&6Banquete del Eco &6Sobrecocido'
     tier: COMMON
