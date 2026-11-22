@@ -131,6 +131,9 @@ rutas:
   armaduras:
     uso: "/spectrecore armaduras"
     descripcion: "Catálogo de armaduras y bonificaciones"
+  relicario:
+    uso: "/spectrecore relicario"
+    descripcion: "Reliquias descubiertas y bonificaciones"
   cocina:
     uso: "/spectrecore cocina <ayuda|libro|recetas|estado|reparar|recargar>"
     descripcion: "Cocina y recetario"
