@@ -18,7 +18,7 @@ assert set(menu["pages"]) == {"misiones", "revenant", "progresion"}
 
 for name, page in menu["pages"].items():
     assert page["size"] == 54, name
-    assert page["title"].startswith("<dark_gray>⧇ <gold>Misiones"), name
+    assert page["title"].startswith("&f⧇ &6Misiones"), name  # Conserva la presentación escogida por Hydev
     items = page["items"]
     slots = [item["slot"] for item in items.values()]
     assert len(slots) == len(set(slots)), f"Duplicate slots {name}"
@@ -44,8 +44,9 @@ assert visual["segmentos"] == 9
 slots = list(range(visual["inicio-slot"], visual["inicio-slot"] + visual["segmentos"]))
 assert slots == list(range(27,36))
 assert not (set(slots) & {entry["slot"] for entry in menu["pages"]["progresion"]["items"].values()})
-assert all(not any("/spectrecore" in line.lower() for line in entry["lore"])
-           for entry in menu["pages"]["progresion"]["items"].values())
+assert all(not re.search(r"/(?:spectrecore|mago|cocina|mi)\\b", line, re.I)
+           for page in menu["pages"].values() for entry in page["items"].values()
+           for line in [entry["name"], *entry["lore"]]), "Command visible in a mission menu"
 java = (root / "src/main/java/dev/hydev/spectrecore/guide/MissionsMenu.java").read_text(encoding="utf-8")
 assert "drawProgressBar(player, inventory, choices)" in java
 assert "slayer.slayerProgressSegments(player, segments)" in java
@@ -62,10 +63,18 @@ for tier in ("1", "2", "3"):
     lore = " ".join(revenant[tier]["lore"])
     for key in ("{vida}", "{dano}", "{xp-slayer}"):
         assert key in lore, (tier, key)
-assert "Cubo Podrido x1 <dark_gray>(50%)" in " ".join(revenant["2"]["lore"])
-assert "Cubo Podrido x1 <dark_gray>(40%)" in " ".join(revenant["3"]["lore"])
+assert "Corazón Podrido x1 &8(50%)" in " ".join(revenant["2"]["lore"])
+assert "Corazón Podrido x1 &8(40%)" in " ".join(revenant["3"]["lore"])
 
 config = yaml.safe_load((root / "src/main/resources/modules/slayer/config.yml").read_text(encoding="utf-8"))
+assert config["presentacion"]["revenant"] == {
+    "tier1": {"vida": 1600, "dano": 32},
+    "tier2": {"vida": 3800, "dano": 48},
+    "tier3": {"vida": 7800, "dano": 62},
+}
+assert config["progresion"]["revenant"]["recompensas"]["1"] == ["Receta: Osespina"]
+assert config["progresion"]["revenant"]["recompensas"]["5"][0] == "Receta: Mordisco"
+assert config["progresion"]["revenant"]["recompensas"]["8"] == ["Receta: Umbría"]
 assert config["contratos"]["habilitados"] is True  # new installs: native contracts enabled by default
 assert config["acceso-remoto"]["habilitado"] is True
 assert config["acceso-remoto"]["precio"] == 500
