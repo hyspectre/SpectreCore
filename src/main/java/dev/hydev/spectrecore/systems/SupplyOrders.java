@@ -71,6 +71,11 @@ public final class SupplyOrders {
                     "<red>No se puede procesar este encargo. Contacta a administración."));
             return false;
         }
+        if (!Bukkit.getPluginManager().isPluginEnabled("Vault")) {
+            player.sendMessage(Settings.message("trabajos", "SupplyOrders.no-disponible",
+                    "<red>No se puede procesar este encargo. Contacta a administración."));
+            return false; // Never remove items when the economy is definitely offline.
+        }
         if (jobs.rank(player, "minero") < rank) {
             player.sendMessage(Settings.message("trabajos", "SupplyOrders.rango",
                     "<yellow>Debes mejorar tu contrato de minería."));
