@@ -17,6 +17,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -170,8 +171,15 @@ public final class RelicarioStats implements Listener {
 
     @EventHandler(priority=EventPriority.HIGH, ignoreCancelled=true)
     public void outgoing(EntityDamageByEntityEvent event) {
-        if (!(event.getDamager() instanceof Player player) ||
-                !(event.getEntity() instanceof LivingEntity enemy) || event.getDamage() <= 0) return;
+        if (!(event.getEntity() instanceof LivingEntity enemy) || event.getDamage() <= 0) return;
+        // DamageSource attributes indirect damage to the true player caster when supported.
+        // Projectile shooter is the fallback for integrations that do not populate DamageSource.
+        Player player = null;
+        if (event.getDamager() instanceof Player direct) player = direct;
+        else if (event.getDamageSource().getCausingEntity() instanceof Player caster) player = caster;
+        else if (event.getDamager() instanceof Projectile projectile
+                && projectile.getShooter() instanceof Player shooter) player = shooter;
+        if (player == null) return;
         double bonus = 0;
         var kind = event.getCause();
         if (kind == EntityDamageEvent.DamageCause.ENTITY_ATTACK ||
