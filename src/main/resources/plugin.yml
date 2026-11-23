@@ -22,9 +22,6 @@ softdepend:
 - HydevBotania
 description: Nucleo modular RPG de Hydev (reliquias, equipamiento, cocina y profesiones)
 commands:
-  mago:
-    description: Centro de conocimiento de Hydev
-    usage: /mago [seccion]
   spectrecore:
     description: Sistemas RPG y administración de Hydev
     usage: /spectrecore ayuda
