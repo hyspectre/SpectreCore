@@ -72,7 +72,25 @@ public final class MithrilToolModule implements Listener {
     private int capacity() { return settings.getInt("herramientas-mitrilo.resonancia.maxima", 100); }
     private int cost(String path) { return settings.getInt("herramientas-mitrilo." + path, 0); }
     private void feedback(Player player, String id, String fallback, Object... values) {
-        player.sendMessage(Settings.message("tesoros", "MithrilTools." + id, fallback, values));
+        // Explicit literals keep every user-visible default in the audited message catalog.
+        player.sendMessage(switch (id) {
+            case "carga-completa" -> Settings.message("tesoros", "MithrilTools.carga-completa", "<gray>La herramienta ya está completamente cargada.", values);
+            case "cargada" -> Settings.message("tesoros", "MithrilTools.cargada", "<aqua>✦ Resonancia restaurada: <white>{carga}/100", values);
+            case "sin-carga" -> Settings.message("tesoros", "MithrilTools.sin-carga", "<yellow>Necesitas más resonancia o aguardar la recarga.", values);
+            case "sin-veta" -> Settings.message("tesoros", "MithrilTools.sin-veta", "<gray>Mira una veta natural que puedas extraer.", values);
+            case "veta" -> Settings.message("tesoros", "MithrilTools.veta", "<aqua>✦ Veta marcada. Extrae para recoger hasta tres bloques adicionales.", values);
+            case "zona" -> Settings.message("tesoros", "MithrilTools.zona", "<red>La herramienta no puede utilizarse en esta zona.", values);
+            case "sin-senal" -> Settings.message("tesoros", "MithrilTools.sin-senal", "<gray>El pulso no detectó minerales accesibles.", values);
+            case "senal" -> Settings.message("tesoros", "MithrilTools.senal", "<aqua>✦ Señal {intensidad}<gray> · {direccion} · Profundidad {profundidad}", values);
+            case "luz" -> Settings.message("tesoros", "MithrilTools.luz", "<aqua>✦ Farol encendido.", values);
+            case "luz-apagada" -> Settings.message("tesoros", "MithrilTools.luz-apagada", "<gray>Farol apagado.", values);
+            case "anclado" -> Settings.message("tesoros", "MithrilTools.anclado", "<aqua>✦ El Farol recuerda tu ubicación.", values);
+            case "ancla-limpiada" -> Settings.message("tesoros", "MithrilTools.ancla-limpiada", "<gray>Se borró el sendero del Farol.", values);
+            case "ruta" -> Settings.message("tesoros", "MithrilTools.ruta", "<aqua>✦ Sendero de retorno visible durante 20 segundos.", values);
+            case "sin-tunel" -> Settings.message("tesoros", "MithrilTools.sin-tunel", "<gray>La Barrena necesita roca común y un camino permitido.", values);
+            case "tunel" -> Settings.message("tesoros", "MithrilTools.tunel", "<aqua>✦ Barrena activada. No extrae minerales ni concede experiencia adicional.", values);
+            default -> Settings.component(fallback);
+        });
     }
 
     /** Called exclusively from a genuine, uncancelled player BlockBreakEvent. */
