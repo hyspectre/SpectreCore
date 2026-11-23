@@ -23,6 +23,7 @@ jobs:
       - run: python3 tests/validate_relicario_catalog.py
       - run: python3 tests/validate_native_cooking.py
       - run: python3 tests/validate_native_jobs.py
+      - run: python3 tests/validate_supply_board.py
       - run: python3 tests/validate_presentation.py
       - run: python3 tests/validate_player_presentation_policy.py
       - run: python3 tests/validate_mago_models.py
