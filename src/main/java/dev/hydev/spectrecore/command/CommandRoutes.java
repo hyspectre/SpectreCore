@@ -33,6 +33,8 @@ public final class CommandRoutes {
         routes.add(route("trabajos agricultura","trabajo","trabajos",Access.PUBLIC,"","Abrir contratos de agricultura","granjero"));
         routes.add(route("trabajos caza","trabajo","trabajos",Access.PUBLIC,"","Abrir contratos de caza","cazador"));
         routes.add(route("trabajos estado","trabajo","trabajos",Access.PUBLIC,"","Consultar niveles de trabajo en chat","estado"));
+        routes.add(route("trabajos transacciones","trabajo","trabajos",Access.ADMIN,"","Revisar compras de trabajo pendientes","transacciones"));
+        routes.add(route("trabajos resolver","trabajo","trabajos",Access.ADMIN,"<uuid>","Cerrar un caso conciliado manualmente","resolver"));
         routes.add(route("resonancia","resonancia","resonancia",Access.PUBLIC,"","Carga del Pico Perdido"));
         routes.add(route("resonancia debug","debugresonancia","resonancia",Access.HYDEV_ADMIN,"","Diagnóstico de resonancia"));
         routes.add(route("item nombre","nombreitem","",Access.HYDEV_ADMIN,"","Inspeccionar y copiar el nombre del objeto"));
