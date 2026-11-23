@@ -33,7 +33,8 @@ for part in model['parts']:
         assert all(isinstance(n,(float,int)) for n in part[field])
     assert not part.get('base64') or part['type']=='ITEM_DISPLAY'
 plugin=read('plugin.yml')
-assert set(plugin['commands'])=={'spectrecore','mago'}
+assert set(plugin['commands'])=={'spectrecore'}
+assert 'route("mago","mago","",Access.PUBLIC' in (root/'src/main/java/dev/hydev/spectrecore/command/CommandRoutes.java').read_text(encoding='utf8')
 required={'MythicLib','MMOItems','MythicMobs','ItemsAdder','AuraSkills','FancyNPCs','FancyHolograms','zMenu','WorldGuard','LuckPerms','Essentials','FastAsyncWorldEdit'}
 assert required<=set(plugin['softdepend'])
 assert not any('Book.book(' in p.read_text(encoding='utf8') or '.openBook(' in p.read_text(encoding='utf8') for p in (root/'src/main/java').rglob('*.java'))
