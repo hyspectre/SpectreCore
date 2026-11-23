@@ -53,7 +53,7 @@ tasks.check { dependsOn(commandRoutingRegression) }
 val configTestDirectory = layout.buildDirectory.dir("module-config-tests")
 val compileModuleConfigTest = tasks.register<JavaCompile>("compileModuleConfigTest") {
     dependsOn(tasks.classes)
-    source("tests/ModuleConfigSmoke.java", "tests/PresentationConfigSmoke.java", "tests/PlayerTransactionJournalSmoke.java")
+    source("tests/ModuleConfigSmoke.java", "tests/PresentationConfigSmoke.java", "tests/PlayerTransactionJournalSmoke.java", "tests/SupplyOrderRulesSmoke.java")
     classpath = sourceSets.main.get().output + configurations.compileClasspath.get()
     destinationDirectory.set(configTestDirectory)
     options.encoding = "UTF-8"
@@ -127,3 +127,11 @@ val collectionMilestonesSmoke = tasks.register<JavaExec>("collectionMilestonesSm
     javaLauncher.set(javaToolchains.launcherFor { languageVersion.set(JavaLanguageVersion.of(21)) })
 }
 tasks.check { dependsOn(collectionMilestonesSmoke) }
+
+val supplyOrderRulesSmoke = tasks.register<JavaExec>("supplyOrderRulesSmoke") {
+    dependsOn(compileModuleConfigTest)
+    classpath = files(configTestDirectory, sourceSets.main.get().output, configurations.compileClasspath)
+    mainClass.set("SupplyOrderRulesSmoke")
+    javaLauncher.set(javaToolchains.launcherFor { languageVersion.set(JavaLanguageVersion.of(21)) })
+}
+tasks.check { dependsOn(supplyOrderRulesSmoke) }
