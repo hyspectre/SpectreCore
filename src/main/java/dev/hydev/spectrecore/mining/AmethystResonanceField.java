@@ -83,6 +83,7 @@ public final class AmethystResonanceField implements Listener {
     private final Map<UUID, Node> hitboxes = new HashMap<>();
     private org.bukkit.configuration.file.YamlConfiguration config;
     private boolean registered;
+    private BukkitTask pulseTask;
     private boolean warnedMissingRewards;
 
     public AmethystResonanceField(JavaPlugin plugin, MithrilDeviceData devices,
@@ -112,6 +113,16 @@ public final class AmethystResonanceField implements Listener {
         Bukkit.getPluginManager().registerEvents(this, plugin);
         for (World world : Bukkit.getWorlds())
             for (Chunk chunk : world.getLoadedChunks()) cleanupOrphans(chunk);
+        pulseTask = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
+            // At most 8 sessions × 5 nodes: one tiny visual pulse per second.
+            for (Node node : hitboxes.values()) {
+                if (!node.visual.isValid() || !node.visual.getWorld().isChunkLoaded(
+                        node.visual.getBlockX() >> 4, node.visual.getBlockZ() >> 4)) continue;
+                Location center = node.hitbox.getLocation().add(0, .5, 0);
+                center.getWorld().spawnParticle(Particle.ENCHANT, center,
+                        2, .32, .28, .32, .02);
+            }
+        }, 20, 20);
         registered = true;
     }
 
@@ -164,8 +175,10 @@ public final class AmethystResonanceField implements Listener {
                         || !spot.getWorld().isChunkLoaded(spot.getBlockX() >> 4, spot.getBlockZ() >> 4)
                         || !spot.getBlock().getType().isAir()
                         || !regions.canBuild(owner, spot.getBlock())) continue;
+                Material model = session.nodes.size() % 2 == 0
+                        ? Material.BUDDING_AMETHYST : Material.AMETHYST_BLOCK;
                 BlockDisplay visual = spot.getWorld().spawn(spot, BlockDisplay.class, display -> {
-                    display.setBlock(Material.AMETHYST_BLOCK.createBlockData());
+                    display.setBlock(model.createBlockData());
                     display.setPersistent(false);
                     display.setInvulnerable(true);
                     display.setGravity(false);
@@ -241,7 +254,7 @@ public final class AmethystResonanceField implements Listener {
         node.hitbox.remove();
         node.visual.remove();
 
-        String[] grades = {"basica", "intermedia", "superior"};
+        String[] grades = {"básica", "refinada", "arcana"};
         int index = AmethystResonanceRules.quality(ThreadLocalRandom.current().nextDouble(100),
                 amount("calidad.basica"), amount("calidad.intermedia"), amount("calidad.superior"));
         ItemStack reward = node.session.rewards.get(index).clone();
@@ -288,6 +301,8 @@ public final class AmethystResonanceField implements Listener {
 
     public void disable() {
         for (UUID owner : new ArrayList<>(sessions.keySet())) close(owner);
+        if (pulseTask != null) pulseTask.cancel();
+        pulseTask = null;
         if (registered) HandlerList.unregisterAll(this);
         registered = false;
     }
