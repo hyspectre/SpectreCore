@@ -247,15 +247,19 @@ public final class MithrilToolModule implements Listener {
 
     private boolean amethyst(Player player) {
         ItemStack held = player.getInventory().getItemInMainHand();
-        int price = cost("pico-amatista.activacion");
-        if (!AmethystResonanceRules.available(data.energy(held),
-                data.cooldown(held), System.currentTimeMillis(), price,
-                amethystField.activeFields(), cost("pico-amatista.max-sesiones"))) {
-            if (amethystField.activeFields() >= cost("pico-amatista.max-sesiones"))
-                feedback(player, "sin-cristales",
-                        "<yellow>No hay espacio seguro para invocar cristales o sus gemas todavía no están disponibles.");
-            else feedback(player, "sin-carga",
-                        "<yellow>Necesitas más resonancia o aguardar la recarga.");
+        long now = System.currentTimeMillis();
+        int fullPrice = cost("pico-amatista.activacion");
+        int totalNodes = cost("pico-amatista.bloques");
+        int minimum = cost("pico-amatista.minimo-bloques");
+        int maxFields = cost("pico-amatista.max-sesiones");
+        if (amethystField.activeFields() >= maxFields) {
+            feedback(player, "sin-cristales",
+                    "<yellow>No hay espacio seguro para invocar cristales o sus gemas todavía no están disponibles.");
+            return true;
+        }
+        int minimumPrice = AmethystResonanceRules.activationCost(fullPrice, minimum, totalNodes);
+        if (!MithrilRules.canUse(data.energy(held), minimumPrice, now, data.cooldown(held))) {
+            feedback(player, "sin-carga", "<yellow>Necesitas más resonancia o aguardar la recarga.");
             return true;
         }
         var plan = amethystField.prepare(player);
@@ -264,19 +268,26 @@ public final class MithrilToolModule implements Listener {
                     "<yellow>No hay espacio seguro para invocar cristales o sus gemas todavía no están disponibles.");
             return true;
         }
+        int expectedCost = AmethystResonanceRules.activationCost(fullPrice, plan.positions().size(), totalNodes);
+        if (!AmethystResonanceRules.available(data.energy(held), data.cooldown(held),
+                now, expectedCost, amethystField.activeFields(), maxFields)) {
+            feedback(player, "sin-carga", "<yellow>Necesitas más resonancia o aguardar la recarga.");
+            return true;
+        }
         int summoned = amethystField.summon(player, data.serial(held), plan);
         if (summoned == 0) {
             feedback(player, "sin-cristales",
                     "<yellow>No hay espacio seguro para invocar cristales o sus gemas todavía no están disponibles.");
             return true;
         }
+        int price = AmethystResonanceRules.activationCost(fullPrice, summoned, totalNodes);
         if (!spend(player, price, cost("pico-amatista.recarga-segundos") * 1000L, 0)) {
             amethystField.close(player.getUniqueId());
             return true;
         }
         feedback(player, "campo-ametista",
-                "<light_purple>✦ Resonancia amplificada: {cantidad} cristales. ¡Rómpelos con tu pico!",
-                "cantidad", summoned);
+                "<light_purple>✦ {cantidad} cristales invocados <gray>(-{costo} de resonancia). <light_purple>¡Rómpelos!",
+                "cantidad", summoned, "costo", price);
         return true;
     }
 
