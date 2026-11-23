@@ -22,7 +22,7 @@ public final class MithrilDeviceData {
     public static final String CRYSTAL = "CRISTAL_MITRILO";
     private static final Set<String> TOOLS = Set.of(PICK, TEMPERED, COMPASS, LANTERN, DRILL);
     private final MmoBridge mmo = new MmoBridge();
-    private final NamespacedKey charge, cooldown, active, lit, anchor, path;
+    private final NamespacedKey charge, cooldown, active, lit, anchor, path, serial;
 
     public MithrilDeviceData(JavaPlugin plugin) {
         charge = new NamespacedKey(plugin, "mitrilo_resonancia");
@@ -31,6 +31,7 @@ public final class MithrilDeviceData {
         lit = new NamespacedKey(plugin, "mitrilo_luz");
         anchor = new NamespacedKey(plugin, "mitrilo_ancla");
         path = new NamespacedKey(plugin, "mitrilo_ruta");
+        serial = new NamespacedKey(plugin, "mitrilo_serial");
     }
 
     public String id(ItemStack stack) {
@@ -43,6 +44,13 @@ public final class MithrilDeviceData {
         return stack != null && !stack.getType().isAir()
                 && "MATERIAL".equalsIgnoreCase(mmo.type(stack))
                 && CRYSTAL.equals(mmo.id(stack));
+    }
+
+    public String serial(ItemStack stack) { return string(stack, serial); }
+    public ItemStack identify(ItemStack stack) {
+        if (id(stack).isEmpty() || !serial(stack).isEmpty()) return stack;
+        return modify(stack, data -> data.set(serial, PersistentDataType.STRING,
+                java.util.UUID.randomUUID().toString()));
     }
 
     public int energy(ItemStack stack) {
