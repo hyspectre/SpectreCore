@@ -277,6 +277,7 @@ public final class JobsModule implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void broken(BlockBreakEvent e) {
+        if (dev.hydev.spectrecore.mining.MithrilAutomationGuard.active()) return;
         boolean wasPlaced = placed.consume(e.getBlock());
         boolean alreadyKnown = Boolean.TRUE.equals(provenance.remove(e));
         if (wasPlaced || alreadyKnown) return;
