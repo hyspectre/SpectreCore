@@ -85,7 +85,7 @@ El Pico de Amatista es un objeto de `TOOL`, ID estable **`PICO_AMATISTA`**, que 
 
 - **Receta en la Forja:** 20 Mitrilo (`MATERIAL:MITRILO`), 12 Paladio (`MATERIAL:PALADIO`) y 16 fragmentos de amatista. Los tres ingredientes son obligatorios.
 - **Carga:** minar una mena natural con el Pico suma 4 puntos a su resonancia, hasta 100. Los bloques colocados y las habilidades automáticas no generan carga.
-- **Activación:** agacharse y hacer clic derecho con el Pico. Consume 75 de resonancia, tiene recarga de 120 segundos e invoca **hasta cinco bloques hechizados** durante 30 segundos.
+- **Activación:** agacharse y hacer clic derecho con el Pico. Consume **75 de resonancia para cinco bloques** (60 para cuatro, 45 para tres), tiene recarga de 120 segundos e invoca **hasta cinco bloques hechizados** durante 30 segundos.
 - **Extracción:** golpea cada bloque tres veces con ese mismo Pico para romperlo. Cada bloque deja una gema MMOItems (`GEM_STONE`) y desaparece. Solo quien lo invocó puede obtener sus recompensas.
 - **Probabilidades por bloque:** 75 % gema básica, 22 % gema refinada y 3 % gema arcana. Los cristales no sueltan bloques de amatista del mundo.
 - **Ubicación:** cristales visibles mediante entidades `BlockDisplay` con hitbox `Interaction`. Aparecen cerca del jugador, únicamente donde existe espacio y el jugador tiene permiso; no sustituyen bloques de construcciones ni se pueden llevar como objetos. Si no hay tres posiciones seguras, no se consume resonancia.
