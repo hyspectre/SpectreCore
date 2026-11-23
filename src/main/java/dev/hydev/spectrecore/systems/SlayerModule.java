@@ -786,7 +786,9 @@ public final class SlayerModule implements Listener {
             if (data.contains(xpPath) && experience == null)
                 throw new IllegalStateException("Slayer: progreso inválido: " + xpPath);
             if (experience != null) {
-                if ((experience.contains("xp") && !experience.isLong("xp"))
+                if ((experience.contains("xp") && (!(experience.get("xp") instanceof Number xp)
+                        || !Double.isFinite(xp.doubleValue()) || xp.doubleValue() != Math.rint(xp.doubleValue())
+                        || xp.longValue() < 0))
                         || (experience.contains("victorias") && !experience.isInt("victorias")))
                     throw new IllegalStateException("Slayer: XP o victorias inválidas: " + xpPath);
                 SlayerRecord progress = revenant(uuid);
