@@ -19,6 +19,14 @@ public final class AmethystResonanceRules {
         return roll < basic ? 0 : roll < basic + intermediate ? 1 : 2;
     }
 
+    /** A short cave must never cost as much as a full five-node field. */
+    public static int activationCost(int fullCost, int generated, int maximum) {
+        if (fullCost < 1 || fullCost > 1000 || maximum < 1 || maximum > 8
+                || generated < 1 || generated > maximum)
+            throw new IllegalArgumentException("Invalid crystal field size or price");
+        return (fullCost * generated + maximum - 1) / maximum;
+    }
+
     public static boolean hit(long now, long previous, int intervalMillis, int remaining) {
         return now >= previous && now - previous >= intervalMillis && remaining > 0;
     }
