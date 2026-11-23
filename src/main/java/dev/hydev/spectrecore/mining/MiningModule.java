@@ -102,6 +102,7 @@ public final class MiningModule implements Listener {
     public static int tier(Material material) { return dev.hydev.spectrecore.config.Gameplay.tier("mineria",material.name()); }
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void mine(BlockBreakEvent event) {
+        if (MithrilAutomationGuard.active()) return;
         Block block = event.getBlock();
         boolean relocated = placed.consume(block);
         int tier = tier(block.getType());
