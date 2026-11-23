@@ -1,0 +1,48 @@
+"""Mithril consistency contract: single MMOItems ID, tool recipes, safe order economics."""
+from pathlib import Path
+import yaml
+
+root = Path(__file__).resolve().parents[1]
+res = root / "src/main/resources"
+mining = yaml.safe_load((res/"modules/tesoros/mineria.yml").read_text(encoding="utf8"))
+jobs = yaml.safe_load((res/"modules/trabajos/config.yml").read_text(encoding="utf8"))
+gui = yaml.safe_load((res/"ui/abastecimiento.yml").read_text(encoding="utf8"))
+material = yaml.safe_load((root/"integracion-mmoitems/MATERIAL_MITRILO.yml").read_text(encoding="utf8"))
+tools = yaml.safe_load((root/"integracion-mmoitems/TOOL_MITRILO.yml").read_text(encoding="utf8"))
+station = yaml.safe_load((root/"integracion-mmoitems/RECETAS_FORJA_MITRILO.yml").read_text(encoding="utf8"))
+resource = mining["mitrilo"]
+order = jobs["encargos"]["mitrilo"]
+
+assert (resource["tipo"], resource["id"]) == ("MATERIAL","MITRILO")
+assert (order["tipo"],order["id"]) == ("MATERIAL","MITRILO")
+assert resource["cantidad-minima"] == 1 and resource["cantidad-maxima"] == 2
+assert resource["rango-minimo"] == 2
+assert resource["probabilidades"] == {"tier2": 1.0, "tier3": 2.0}
+assert resource["herramientas"]["tipo"] == "TOOL"
+assert resource["herramientas"]["bonificaciones"] == {
+    "PICO_MITRILO": 1.25, "PICO_MITRILO_TEMPLADO": 1.60
+}
+assert order == {"tipo":"MATERIAL", "id":"MITRILO", "cantidad":4, "recompensa":180, "rango-minimo":2}
+assert set(material) == {"MITRILO"} and material["MITRILO"]["base"]["material"] == "PRISMARINE_CRYSTALS"
+assert set(tools) == {"PICO_MITRILO", "PICO_MITRILO_TEMPLADO"}
+assert tools["PICO_MITRILO"]["base"]["material"] == "DIAMOND_PICKAXE"
+assert tools["PICO_MITRILO_TEMPLADO"]["base"]["material"] == "NETHERITE_PICKAXE"
+recipes = station["recipes"]
+assert set(recipes) == {"pico-mitrilo", "pico-mitrilo-templado"}
+assert recipes["pico-mitrilo"]["output"] == "mmoitems{type=TOOL,id=PICO_MITRILO}"
+assert recipes["pico-mitrilo-templado"]["output"] == "mmoitems{type=TOOL,id=PICO_MITRILO_TEMPLADO}"
+for recipe in recipes.values():
+    assert any("mmoitem{type=MATERIAL,id=MITRILO,amount=" in i for i in recipe["ingredients"])
+    assert recipe["crafting-time"] > 0
+assert "mitrilo" in gui["items"] and "pedido-mitrilo" in gui["items"]
+assert "{recompensa}" in " ".join(gui["items"]["pedido-mitrilo"]["lore"])
+mining_code = (res.parent/"java/dev/hydev/spectrecore/mining/MiningModule.java").read_text(encoding="utf8")
+order_code = (res.parent/"java/dev/hydev/spectrecore/systems/SupplyOrders.java").read_text(encoding="utf8")
+assert "private boolean mithril(" in mining_code
+assert "treasureCooldown.awarded" in mining_code and "mmo.build(type, id" in mining_code
+assert "journal.begin(" in order_code and "setStorageContents(next)" in order_code
+assert order_code.index("journal.begin(") < order_code.index("setStorageContents(next)") < order_code.index("economy.deposit(")
+assert "journal.finish(token)" in order_code and "SupplyOrderRules.allocation" in order_code
+assert "economy.deposit(player, coins, false)" in order_code
+assert "dispatchCommand" not in order_code
+print("PASS Mithril: valid reward tiers, durable order transaction, mining picks and Forge recipe fragment")
