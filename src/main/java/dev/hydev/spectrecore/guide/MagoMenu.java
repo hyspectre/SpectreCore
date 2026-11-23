@@ -85,6 +85,16 @@ public final class MagoMenu implements Listener {
         YamlConfiguration candidate = new YamlConfiguration();
         candidate.load(installed);
         mergeVisuals(installed, candidate);
+        // Old player-facing guidance contradicted the always-stacking Relicario.
+        // Correct only the exact packaged legacy text in memory; keep custom edits intact.
+        String oldRelicAdvice = "<gray>Solo cuenta la reliquia superior de cada familia.";
+        List<String> relicPoints = candidate.getStringList("pages.accesorios.puntos");
+        if (relicPoints.contains(oldRelicAdvice)) {
+            List<String> corrected = new ArrayList<>(relicPoints);
+            corrected.replaceAll(line -> line.equals(oldRelicAdvice)
+                    ? "<gray>Todas las reliquias absorbidas aportan bonos." : line);
+            candidate.set("pages.accesorios.puntos", corrected);
+        }
         ConfigurationSection root = candidate.getConfigurationSection("pages");
         if (root == null || !root.isConfigurationSection("inicio") || root.getKeys(false).size() > 40)
             throw new IOException("El Mago: catálogo de páginas incompleto");

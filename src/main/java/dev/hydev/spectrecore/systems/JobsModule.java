@@ -4,6 +4,7 @@ import dev.hydev.spectrecore.config.Settings;
 import dev.hydev.spectrecore.activities.ActivityRules;
 import dev.hydev.spectrecore.mining.PlacedOres;
 import dev.hydev.spectrecore.guide.JobsMenu;
+import dev.hydev.spectrecore.guide.SupplyGuide;
 import dev.hydev.spectrecore.integration.LuckPermsContractBridge;
 import dev.hydev.spectrecore.storage.ClaimJournal;
 import dev.hydev.spectrecore.treasure.CombatTreasureRules;
@@ -30,6 +31,7 @@ public final class JobsModule implements Listener {
     private final PlacedOres previousMining, previousCrops;
     private LuckPermsContractBridge permissions;
     private JobsMenu menu;
+    private SupplyGuide supplies;
     private ClaimJournal purchaseJournal;
     private boolean storageLoaded;
     private final Set<UUID> purchasesInProgress = new HashSet<>();
@@ -75,11 +77,14 @@ public final class JobsModule implements Listener {
         }
         menu = new JobsMenu(plugin, this);
         menu.enable();
+        supplies = new SupplyGuide(plugin, this);
+        supplies.enable();
         if (dev.hydev.spectrecore.command.CommandRouter.of(plugin).get("trabajo") != null) dev.hydev.spectrecore.command.CommandRouter.of(plugin).get("trabajo").setExecutor((sender, cmd, label, args) -> {
             if (args.length > 0 && (args[0].equalsIgnoreCase("transacciones") || args[0].equalsIgnoreCase("resolver"))) {
                 return purchaseAdmin(sender, args);
             }
             if (!(sender instanceof Player p)) { sender.sendMessage(Settings.message("trabajos", "JobsModule.mensaje-001", "Usa /spectrecore trabajos dentro del juego.")); return true; }
+            if (args.length > 0 && args[0].equalsIgnoreCase("abastecimiento")) return openSupplies(p);
             if (args.length == 0 || !args[0].equalsIgnoreCase("estado")) {
                 String page = args.length > 0 && JobsContractRules.JOBS.contains(args[0].toLowerCase(Locale.ROOT))
                         ? args[0].toLowerCase(Locale.ROOT) : "trabajos";
@@ -96,9 +101,11 @@ public final class JobsModule implements Listener {
         config = dev.hydev.spectrecore.config.ModuleConfiguration.module(plugin, "trabajos/config.yml");
         warned.clear();
         if (menu != null) menu.reload();
+        if (supplies != null) supplies.reload();
     }
     public void disable() {
         if (timer != null) timer.cancel();
+        if (supplies != null) { supplies.disable(); supplies = null; }
         if (menu != null) { menu.disable(); menu = null; }
         HandlerList.unregisterAll(this); HandlerList.unregisterAll(placed); if (storageLoaded) save();
         if (purchaseJournal != null && purchaseJournal.count() > 0)
@@ -106,6 +113,9 @@ public final class JobsModule implements Listener {
         if (!purchasesInProgress.isEmpty())
             plugin.getLogger().warning("TRABAJOS: Hay " + purchasesInProgress.size() + " compra(s) LuckPerms pendiente(s) al apagar; revisar saldos si hubo errores.");
     }
+    public boolean openSupplies(Player player) { return supplies != null && supplies.open(player); }
+    public boolean openOverview(Player player) { return menu != null && menu.open(player, "trabajos"); }
+
     public String displayJob(String id) {
         String fallback = switch (id) {
             case "minero" -> "Minería";
