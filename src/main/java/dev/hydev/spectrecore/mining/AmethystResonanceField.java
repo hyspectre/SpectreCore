@@ -81,6 +81,7 @@ public final class AmethystResonanceField implements Listener {
     private final NamespacedKey marker;
     private final Map<UUID, Session> sessions = new HashMap<>();
     private final Map<UUID, Node> hitboxes = new HashMap<>();
+    private final Map<UUID, Node> displays = new HashMap<>();
     private org.bukkit.configuration.file.YamlConfiguration config;
     private boolean registered;
     private BukkitTask pulseTask;
@@ -126,6 +127,16 @@ public final class AmethystResonanceField implements Listener {
         registered = true;
     }
 
+    private boolean occupied(World world, int x, int y, int z) {
+        for (Node node : hitboxes.values()) {
+            if (!node.hitbox.isValid() || node.hitbox.getWorld() != world) continue;
+            Location at = node.hitbox.getLocation();
+            if (at.getBlockX() == x && at.getBlockY() == y && at.getBlockZ() == z)
+                return true;
+        }
+        return false;
+    }
+
     /** Validates both the available nodes and every possible reward BEFORE charge. */
     public Plan prepare(Player player) {
         if (!player.isOnline() || sessions.containsKey(player.getUniqueId())
@@ -158,7 +169,7 @@ public final class AmethystResonanceField implements Listener {
             Block at = world.getBlockAt(bx, y, bz);
             if (!at.getType().isAir() || !at.getRelative(0, 1, 0).getType().isAir()
                     || !at.getRelative(0, -1, 0).getType().isSolid()
-                    || !regions.canBuild(player, at)) continue;
+                    || occupied(world, bx, y, bz) || !regions.canBuild(player, at)) continue;
             available.add(new Location(world, bx, y, bz));
         }
         return available.size() < amount("minimo-bloques") ? null : new Plan(List.copyOf(available), List.copyOf(gemItems));
@@ -175,6 +186,7 @@ public final class AmethystResonanceField implements Listener {
                 if (!owner.isOnline() || owner.getWorld() != spot.getWorld()
                         || !spot.getWorld().isChunkLoaded(spot.getBlockX() >> 4, spot.getBlockZ() >> 4)
                         || !spot.getBlock().getType().isAir()
+                        || occupied(spot.getWorld(), spot.getBlockX(), spot.getBlockY(), spot.getBlockZ())
                         || !regions.canBuild(owner, spot.getBlock())) continue;
                 Material model = session.nodes.size() % 2 == 0
                         ? Material.BUDDING_AMETHYST : Material.AMETHYST_BLOCK;
@@ -204,6 +216,7 @@ public final class AmethystResonanceField implements Listener {
                 Node node = new Node(session, visual, hitbox);
                 session.nodes.add(node);
                 hitboxes.put(hitbox.getUniqueId(), node);
+                displays.put(visual.getUniqueId(), node);
                 spot.getWorld().spawnParticle(Particle.END_ROD, spot.clone().add(.5, .6, .5),
                         7, .24, .25, .24, .015);
             }
@@ -252,6 +265,7 @@ public final class AmethystResonanceField implements Listener {
         node.claimed = true;
         node.session.nodes.remove(node);
         hitboxes.remove(target.getUniqueId());
+        displays.remove(node.visual.getUniqueId());
         node.hitbox.remove();
         node.visual.remove();
 
@@ -277,6 +291,7 @@ public final class AmethystResonanceField implements Listener {
         if (session.timeout != null) session.timeout.cancel();
         for (Node node : new ArrayList<>(session.nodes)) {
             hitboxes.remove(node.hitbox.getUniqueId());
+            displays.remove(node.visual.getUniqueId());
             node.visual.remove();
             node.hitbox.remove();
         }
@@ -296,7 +311,8 @@ public final class AmethystResonanceField implements Listener {
     private void cleanupOrphans(Chunk chunk) {
         for (Entity entity : chunk.getEntities())
             if (entity.getPersistentDataContainer().has(marker, PersistentDataType.BYTE)
-                    && !hitboxes.containsKey(entity.getUniqueId()))
+                    && !hitboxes.containsKey(entity.getUniqueId())
+                    && !displays.containsKey(entity.getUniqueId()))
                 entity.remove();
     }
 
