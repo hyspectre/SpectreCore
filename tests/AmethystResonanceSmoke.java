@@ -14,6 +14,10 @@ public final class AmethystResonanceSmoke {
         check(!AmethystResonanceRules.available(74, 0, 123L, 75, 0, 8), "charge");
         check(!AmethystResonanceRules.available(100, 400L, 123L, 75, 0, 8), "cooldown");
         check(!AmethystResonanceRules.available(100, 0, 123L, 75, 8, 8), "global cap");
+        check(AmethystResonanceRules.activationCost(75, 3, 5) == 45, "three crystals cost 45");
+        check(AmethystResonanceRules.activationCost(75, 4, 5) == 60, "four crystals cost 60");
+        check(AmethystResonanceRules.activationCost(75, 5, 5) == 75, "full field cost 75");
+        invalid(() -> AmethystResonanceRules.activationCost(75, 6, 5));
         check(AmethystResonanceRules.quality(0, 75, 22, 3) == 0, "basic first");
         check(AmethystResonanceRules.quality(74.999, 75, 22, 3) == 0, "basic edge");
         check(AmethystResonanceRules.quality(75, 75, 22, 3) == 1, "intermediate edge");
