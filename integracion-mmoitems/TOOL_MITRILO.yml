@@ -1,0 +1,22 @@
+# Fusionar estas entradas en plugins/MMOItems/item/TOOL.yml.
+# Ambas usan el tipo MMOItems TOOL existente: no crear un tipo adicional.
+PICO_MITRILO:
+  base:
+    revision-id: 1
+    material: DIAMOND_PICKAXE
+    name: '<gradient:#6EBCCF:#D4F4E9>Pico de Mitrilo</gradient>'
+    tier: RARE
+    lore:
+    - '&7Herramienta ligera para vetas profundas.'
+    - '&b+25% posibilidad de hallar Mitrilo.'
+    - '&8Fabricado en la Forja de Hydev.'
+PICO_MITRILO_TEMPLADO:
+  base:
+    revision-id: 1
+    material: NETHERITE_PICKAXE
+    name: '<gradient:#A2ECDE:#F5E7BB>Pico de Mitrilo Templado</gradient>'
+    tier: EPIC
+    lore:
+    - '&7Forjado para la minería más exigente.'
+    - '&b+60% posibilidad de hallar Mitrilo.'
+    - '&8Fabricado en la Forja de Hydev.'
