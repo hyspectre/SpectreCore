@@ -51,3 +51,11 @@ recipes:
     - 'vanilla{type=NETHERITE_PICKAXE,amount=1}'
     - 'vanilla{type=DIAMOND,amount=4}'
     - 'vanilla{type=IRON_BLOCK,amount=4}'
+  pico-amatista:
+    output: 'mmoitems{type=TOOL,id=PICO_AMATISTA}'
+    crafting-time: 35
+    ingredients:
+    - 'mmoitem{type=MATERIAL,id=MITRILO,amount=20}'
+    - 'mmoitem{type=MATERIAL,id=PALADIO,amount=12}'
+    - 'vanilla{type=AMETHYST_SHARD,amount=16}'
+
