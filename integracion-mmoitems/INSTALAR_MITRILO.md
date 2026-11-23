@@ -79,6 +79,30 @@ Los valores se configuran en `modules/tesoros/mineria.yml`, sección `herramient
 
 La carga de energía y la minería automática no alteran el progreso de AuraSkills por diseño ni generan pagos de trabajo adicionales; no se prometen comportamientos externos de terceros sin prueba ingame.
 
+## Pico de Amatista — resonancia amplificada (0.9.0-dev5)
+
+El Pico de Amatista es un objeto de `TOOL`, ID estable **`PICO_AMATISTA`**, que comparte la energía persistente de las herramientas de Mitrilo, pero se especializa en **extraer gemas** en lugar de vetas o túneles.
+
+- **Receta en la Forja:** 20 Mitrilo (`MATERIAL:MITRILO`), 12 Paladio (`MATERIAL:PALADIO`) y 16 fragmentos de amatista. Los tres ingredientes son obligatorios.
+- **Carga:** minar una mena natural con el Pico suma 4 puntos a su resonancia, hasta 100. Los bloques colocados y las habilidades automáticas no generan carga.
+- **Activación:** agacharse y hacer clic derecho con el Pico. Consume 75 de resonancia, tiene recarga de 120 segundos e invoca **hasta cinco bloques hechizados** durante 30 segundos.
+- **Extracción:** golpea cada bloque tres veces con ese mismo Pico para romperlo. Cada bloque deja una gema MMOItems (`GEM_STONE`) y desaparece. Solo quien lo invocó puede obtener sus recompensas.
+- **Probabilidades por bloque:** 75 % gema básica, 22 % gema refinada y 3 % gema arcana. Los cristales no sueltan bloques de amatista del mundo.
+- **Ubicación:** cristales visibles mediante entidades `BlockDisplay` con hitbox `Interaction`. Aparecen cerca del jugador, únicamente donde existe espacio y el jugador tiene permiso; no sustituyen bloques de construcciones ni se pueden llevar como objetos. Si no hay tres posiciones seguras, no se consume resonancia.
+- **Seguridad:** límite global de ocho campos simultáneos, máximo cinco cristales por campo. Desaparecen al terminar el tiempo, cerrar el servidor, desconectarse o teletransportarse; tras un reinicio se limpian las entidades huérfanas al cargar chunks.
+
+### Archivos MMOItems necesarios
+
+1. Fusiona la entrada `PICO_AMATISTA` del archivo `integracion-mmoitems/TOOL_MITRILO.yml` con el archivo `TOOL.yml` de la instalación.
+2. Fusiona las tres entradas de `integracion-mmoitems/GEM_STONE_AMATISTA.yml` con el archivo `GEM_STONE.yml`, **sin reemplazar otras gemas**.
+3. Fusiona la receta `pico-amatista` de `RECETAS_FORJA_MITRILO.yml` con la estación de la Forja ya instalada y verifica la sintaxis de esa versión de MMOItems. No se implementó una Forja duplicada.
+4. Revisa la obtención de **Paladio**. En la configuración base sus probabilidades de hallazgo siguen vacías: no se activaron automáticamente para evitar alterar su economía sin acuerdo. Puede obtenerse mediante fuentes existentes del servidor o al definir tasas en `tesoros/mineria.yml`.
+5. Verifica los tres IDs `GEM_STONE` y la integración WorldGuard en Paper antes de probar la habilidad. Si faltan gemas reales o un espacio seguro, se bloquea la invocación sin gastar energía.
+
+Los ajustes de energía, duración, número de cristales, golpes y calidades están en `modules/tesoros/mineria.yml` bajo `herramientas-mitrilo.pico-amatista`; los mensajes del jugador están en `modules/tesoros/mensajes.yml`.
+
+**Alcance:** los bloques son manifestaciones mágicas rompibles mediante golpes a sus hitboxes, no bloques reales colocados. La mecánica de golpeo depende de eventos Paper y requiere una prueba ingame que todavía no se ha realizado.
+
 ## Estado de validación
 
 Esta entrega se prueba mediante GitHub Actions (sintaxis, Java, YAML, reglas y código de transacciones). Permanecen aplazadas las pruebas completas dentro de Paper, fallos simulados Vault/LuckPerms y daño mágico MythicMobs/MMOItems, según el acuerdo para cerrar 0.9.
