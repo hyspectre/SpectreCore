@@ -61,6 +61,14 @@ public final class MithrilDrill {
         final int x = origin.getBlockX(), y = origin.getBlockY(), z = origin.getBlockZ();
         if (y < world.getMinHeight() || y + 1 >= world.getMaxHeight()) return false;
         final BlockFace face = cardinal(origin);
+        // Preflight the first tunnel slice before the caller spends resonance.
+        int fx = x + face.getModX(), fz = z + face.getModZ();
+        if (!world.isChunkLoaded(fx >> 4, fz >> 4)) return false;
+        Block firstFeet = world.getBlockAt(fx, y, fz);
+        Block firstHead = world.getBlockAt(fx, y + 1, fz);
+        if (!allowed(firstFeet, materials) || !allowed(firstHead, materials)
+                || !regions.canBuild(player, firstFeet) || !regions.canBuild(player, firstHead))
+            return false;
         final int[] progress = {0};
         final UUID id = player.getUniqueId();
         BukkitTask task = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
