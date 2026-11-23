@@ -113,17 +113,30 @@ public final class MithrilToolModule implements Listener {
         if (perBlock <= 0) return;
         List<Block> vein = prospector.connected(player, ore,
                 cost("pico.radio"), cost("pico.max-resaltados"));
-        int limit = cost("pico.max-bloques-adicionales"), done = 0;
-        for (Block extra : vein) {
-            if (extra.equals(ore) || done >= limit) continue;
-            current = player.getInventory().getItemInMainHand();
-            if (data.energy(current) < perBlock) break;
-            ItemStack breaker = current;
-            if (!MithrilAutomationGuard.breakBlock(() -> extra.breakNaturally(breaker, true))) continue;
-            data.update(player, EquipmentSlot.HAND, data.changeCharge(current, -perBlock, capacity()));
-            done++;
-            if (!MithrilDrill.wear(player, data, 1)) break;
-        }
+        int limit = cost("pico.max-bloques-adicionales");
+        List<Block> extras = vein.stream().filter(extra -> !extra.equals(ore)).limit(limit).toList();
+        if (extras.isEmpty()) return;
+        // Do not modify world blocks at MONITOR. Finish the real break first,
+        // then revalidate region, item identity and provenance the following tick.
+        String serial = data.serial(current), originalOre = ore.getType().name();
+        org.bukkit.World world = ore.getWorld();
+        Bukkit.getScheduler().runTask(plugin, () -> {
+            if (!plugin.isEnabled() || !player.isOnline() || player.getWorld() != world) return;
+            for (Block extra : extras) {
+                ItemStack live = player.getInventory().getItemInMainHand();
+                if (data.energy(live) < perBlock || data.activeUntil(live) <= System.currentTimeMillis()
+                        || !serial.equals(data.serial(live))
+                        || (!MithrilDeviceData.PICK.equals(data.id(live))
+                            && !MithrilDeviceData.TEMPERED.equals(data.id(live)))
+                        || !world.isChunkLoaded(extra.getX() >> 4, extra.getZ() >> 4)
+                        || !MithrilRules.sameOre(originalOre, extra.getType().name())
+                        || placed.isMarked(extra) || !regions.canBuild(player, extra)) break;
+                ItemStack breaker = live;
+                if (!MithrilAutomationGuard.breakBlock(() -> extra.breakNaturally(breaker, true))) break;
+                data.update(player, EquipmentSlot.HAND, data.changeCharge(live, -perBlock, capacity()));
+                if (!MithrilDrill.wear(player, data, 1)) break;
+            }
+        });
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
