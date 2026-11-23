@@ -36,6 +36,7 @@ public final class MithrilToolModule implements Listener {
     private final MithrilProspector prospector;
     private final MithrilLantern lantern;
     private final MithrilDrill drill;
+    private final AmethystResonanceField amethystField;
     private YamlConfiguration settings;
     private final Map<UUID, BukkitTask> signals = new HashMap<>();
     private boolean active;
@@ -48,21 +49,25 @@ public final class MithrilToolModule implements Listener {
         prospector = new MithrilProspector(plugin, placed, regions);
         lantern = new MithrilLantern(plugin, data);
         drill = new MithrilDrill(plugin, data, regions);
+        amethystField = new AmethystResonanceField(plugin, data, regions);
     }
 
     public void enable() {
         reload();
         Bukkit.getPluginManager().registerEvents(this, plugin);
         lantern.enable();
+        amethystField.enable();
         active = true;
     }
     public void reload() {
         settings = dev.hydev.spectrecore.config.ModuleConfiguration.module(plugin, "tesoros/mineria.yml");
+        amethystField.configure(settings);
     }
     public void disable() {
         prospector.disable();
         drill.disable();
         lantern.disable();
+        amethystField.disable();
         signals.values().forEach(BukkitTask::cancel);
         signals.clear();
         if (active) HandlerList.unregisterAll(this);
@@ -89,6 +94,8 @@ public final class MithrilToolModule implements Listener {
             case "ruta" -> Settings.message("tesoros", "MithrilTools.ruta", "<aqua>✦ Sendero de retorno visible durante 20 segundos.", values);
             case "sin-tunel" -> Settings.message("tesoros", "MithrilTools.sin-tunel", "<gray>La Barrena necesita roca común y un camino permitido.", values);
             case "tunel" -> Settings.message("tesoros", "MithrilTools.tunel", "<aqua>✦ Barrena activada. No extrae minerales ni concede experiencia adicional.", values);
+            case "sin-cristales" -> Settings.message("tesoros", "MithrilTools.sin-cristales", "<yellow>No hay espacio seguro para invocar cristales o sus gemas todavía no están disponibles.", values);
+            case "campo-ametista" -> Settings.message("tesoros", "MithrilTools.campo-ametista", "<light_purple>✦ Resonancia amplificada: {cantidad} cristales. ¡Rómpelos con tu pico!", values);
             default -> Settings.component(fallback);
         });
     }
@@ -167,6 +174,7 @@ public final class MithrilToolModule implements Listener {
         data.update(player, EquipmentSlot.HAND, main);
         boolean used = switch (id) {
             case MithrilDeviceData.PICK, MithrilDeviceData.TEMPERED -> player.isSneaking() && pick(player);
+            case MithrilDeviceData.AMETHYST -> player.isSneaking() && amethyst(player);
             case MithrilDeviceData.COMPASS -> compass(player);
             case MithrilDeviceData.LANTERN -> light(player);
             case MithrilDeviceData.DRILL -> player.isSneaking() && drill(player);
@@ -228,6 +236,36 @@ public final class MithrilToolModule implements Listener {
                 cost("pico.duracion-segundos") * 1000L)) return true;
         prospector.highlight(player, vein, cost("pico.resaltado-segundos"));
         feedback(player, "veta", "<aqua>✦ Veta marcada. Extrae para recoger hasta tres bloques adicionales.");
+        return true;
+    }
+
+    private boolean amethyst(Player player) {
+        ItemStack held = player.getInventory().getItemInMainHand();
+        int price = cost("pico-amatista.activacion");
+        if (!MithrilRules.canUse(data.energy(held), price, System.currentTimeMillis(),
+                data.cooldown(held))) {
+            feedback(player, "sin-carga", "<yellow>Necesitas más resonancia o aguardar la recarga.");
+            return true;
+        }
+        var plan = amethystField.prepare(player);
+        if (plan == null) {
+            feedback(player, "sin-cristales",
+                    "<yellow>No hay espacio seguro para invocar cristales o sus gemas todavía no están disponibles.");
+            return true;
+        }
+        int summoned = amethystField.summon(player, data.serial(held), plan);
+        if (summoned == 0) {
+            feedback(player, "sin-cristales",
+                    "<yellow>No hay espacio seguro para invocar cristales o sus gemas todavía no están disponibles.");
+            return true;
+        }
+        if (!spend(player, price, cost("pico-amatista.recarga-segundos") * 1000L, 0)) {
+            amethystField.close(player.getUniqueId());
+            return true;
+        }
+        feedback(player, "campo-ametista",
+                "<light_purple>✦ Resonancia amplificada: {cantidad} cristales. ¡Rómpelos con tu pico!",
+                "cantidad", summoned);
         return true;
     }
 
