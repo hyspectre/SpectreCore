@@ -80,7 +80,14 @@ public final class MithrilProspector {
         highlights.put(player.getUniqueId(), task);
     }
 
+    public boolean scanSlotAvailable(UUID player) {
+        return scans.containsKey(player) || scans.size() < 8;
+    }
+
     public void scan(Player player, int radius, int vertical, Consumer<Signal> completed) {
+        if (!scanSlotAvailable(player.getUniqueId())) {
+            completed.accept(null); return;
+        }
         cancel(scans, player.getUniqueId());
         Location center = player.getLocation().clone();
         World world = center.getWorld();
@@ -92,7 +99,10 @@ public final class MithrilProspector {
         final int[] bestOffset = {0,0,0};
         UUID id = player.getUniqueId();
         BukkitTask task = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
-            if (!player.isOnline() || player.getWorld() != world) { cancel(scans, id); return; }
+            if (!player.isOnline() || player.getWorld() != world
+                    || player.getLocation().distanceSquared(center) > 64) {
+                cancel(scans, id); return;
+            }
             for (int processed = 0; processed < 500 && index[0] < total; processed++, index[0]++) {
                 int n = index[0], dx = n % diameter - radius;
                 int dz = (n / diameter) % diameter - radius;
