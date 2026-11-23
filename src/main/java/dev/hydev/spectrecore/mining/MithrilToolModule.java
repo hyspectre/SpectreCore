@@ -114,6 +114,12 @@ public final class MithrilToolModule implements Listener {
         }
         ItemStack current = player.getInventory().getItemInMainHand();
         String id = data.id(current);
+        if (MithrilDeviceData.AMETHYST.equals(id)) {
+            player.sendActionBar(Settings.message("tesoros", "MithrilTools.amatista-carga",
+                    "<light_purple>✦ Resonancia de amatista: <white>{actual}/{maxima}",
+                    "actual", data.energy(current), "maxima", capacity()));
+            return; // Amethyst rewards belong exclusively to enchanted nodes.
+        }
         if (!MithrilDeviceData.PICK.equals(id) && !MithrilDeviceData.TEMPERED.equals(id)) return;
         if (data.activeUntil(current) <= System.currentTimeMillis()) return;
         int perBlock = cost("pico.coste-bloque-adicional");
