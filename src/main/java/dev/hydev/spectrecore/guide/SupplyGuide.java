@@ -34,14 +34,16 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
- * Read-only resource sourcing board. Reads the actual treasure rules; never creates
- * recipes, items, payments or additional persisted state. No periodic inventory scan.
+ * Source-backed resource board and transactional blacksmith order.
+ * Item consumption and payment belong exclusively to SupplyOrders.
+ * No periodic inventory scan or parallel crafting implementation.
  */
 public final class SupplyGuide implements Listener {
     private static final List<String> SOURCES = List.of(
-            "mineria", "combate", "agricultura-1", "agricultura-2", "agricultura-3");
+            "mineria", "mitrilo", "combate", "agricultura-1", "agricultura-2", "agricultura-3");
     private static final List<String> BUTTONS = List.of(
-            "mineria", "combate", "agricultura-1", "agricultura-2", "agricultura-3", "volver", "cerrar", "guia");
+            "mineria", "mitrilo", "combate", "agricultura-1", "agricultura-2", "agricultura-3",
+            "pedido-mitrilo", "volver", "cerrar", "guia");
 
     private record Resource(String type, String id, String job, String chanceDomain, int tier) {
         boolean valid() {
@@ -105,7 +107,8 @@ public final class SupplyGuide implements Listener {
                         throw new IOException("Texto inválido o demasiado largo: " + key);
             }
             for (String key : List.of("sin-hallazgos", "sin-acceso", "disponible",
-                    "recurso-no-disponible", "consulta-no-disponible", "sin-contrato", "error")) {
+                    "recurso-no-disponible", "consulta-no-disponible", "sin-contrato",
+                    "faltan-materiales", "entrega-lista", "error")) {
                 if (!candidate.isString("estados." + key)
                         || candidate.getString("estados." + key, "").length() > 256)
                     throw new IOException("Estado inválido: " + key);
@@ -122,6 +125,11 @@ public final class SupplyGuide implements Listener {
             return new Resource(yaml.getString("tesoros.tipo", "MATERIAL"),
                     yaml.getString("tesoros.id", ""), "minero", "mineria", 0);
         }
+        if (key.equals("mitrilo")) {
+            var yaml = ModuleConfiguration.module(plugin, "tesoros/mineria.yml");
+            return new Resource(yaml.getString("mitrilo.tipo", "MATERIAL"),
+                    yaml.getString("mitrilo.id", "MITRILO"), "minero", "mitrilo", 0);
+        }
         if (key.equals("combate")) {
             var yaml = ModuleConfiguration.module(plugin, "tesoros/combate.yml");
             return new Resource(yaml.getString("botin.tipo", "MATERIAL"),
@@ -137,16 +145,20 @@ public final class SupplyGuide implements Listener {
         if (!resource.valid() || !itemAvailable)
             return layout.getString("estados.recurso-no-disponible");
         var yaml = ModuleConfiguration.module(plugin, "tesoros/" +
-                (resource.chanceDomain().equals("mineria") ? "mineria" :
+                (Set.of("mineria", "mitrilo").contains(resource.chanceDomain()) ? "mineria" :
                         resource.chanceDomain().equals("combate") ? "combate" : "agricultura") + ".yml");
+        boolean mithril = resource.chanceDomain().equals("mitrilo");
         boolean anyChance = false, unlocked = false;
         for (int tier = 1; tier <= 3; tier++) {
             if (resource.tier() > 0 && resource.tier() != tier) continue;
-            Object raw = yaml.get("probabilidades." + resource.chanceDomain() + ".tier" + tier);
+            if (mithril && tier < 2) continue;
+            Object raw = yaml.get((mithril ? "mitrilo.probabilidades.tier" + tier
+                    : "probabilidades." + resource.chanceDomain() + ".tier" + tier));
             if (!(raw instanceof Number rate) || !Double.isFinite(rate.doubleValue())
                     || rate.doubleValue() <= 0 || rate.doubleValue() > 100) continue;
             anyChance = true;
-            if (player.hasPermission("tesoros." + resource.chanceDomain() + ".tier" + tier))
+            if (mithril ? jobs.rank(player, "minero") >= yaml.getInt("mitrilo.rango-minimo", 2)
+                    : player.hasPermission("tesoros." + resource.chanceDomain() + ".tier" + tier))
                 unlocked = true;
         }
         if (!anyChance) return layout.getString("estados.sin-hallazgos");
@@ -204,6 +216,20 @@ public final class SupplyGuide implements Listener {
                 values.put("rango", rank);
                 values.put("estado", styled(acquisition(player, resource, actual != null), Map.of()));
             }
+            if (key.equals("pedido-mitrilo") && jobs.supplyOrders() != null) {
+                var order = jobs.supplyOrders();
+                values.put("cantidad", order.required());
+                values.put("recompensa", order.payment());
+                values.put("disponibles", order.count(player));
+                values.put("rango", jobs.displayRank(ProgressRules.rank(order.minimumRank())));
+                values.put("estado", styled(jobs.rank(player, "minero") < order.minimumRank()
+                        ? layout.getString("estados.sin-acceso")
+                        : order.count(player) < order.required()
+                        ? layout.getString("estados.faltan-materiales")
+                        : layout.getString("estados.entrega-lista"), Map.of()));
+                ItemStack mithrilItem = mmo.build(order.type(), order.itemId(), 1);
+                if (mithrilItem != null && !mithrilItem.getType().isAir()) icon = mithrilItem;
+            }
             ItemMeta meta = icon.getItemMeta();
             if (meta == null) continue;
             meta.displayName(styled(layout.getString(root + ".nombre"), values));
@@ -225,12 +251,15 @@ public final class SupplyGuide implements Listener {
         int slot = event.getRawSlot();
         if (slot < 0 || slot >= 54) return;
         String action = holder.actions.get(slot);
-        if (action == null || !List.of("volver", "cerrar").contains(action)) return;
+        if (action == null || !List.of("volver", "cerrar", "pedido-mitrilo").contains(action)) return;
         Bukkit.getScheduler().runTask(plugin, () -> {
             if (!plugin.isEnabled() || !player.isOnline()
                     || player.getOpenInventory().getTopInventory().getHolder() != holder) return;
             if (action.equals("volver")) jobs.openOverview(player);
-            else player.closeInventory();
+            else if (action.equals("pedido-mitrilo")) {
+                player.closeInventory();
+                jobs.fulfillMithrilOrder(player);
+            } else player.closeInventory();
         });
     }
 
