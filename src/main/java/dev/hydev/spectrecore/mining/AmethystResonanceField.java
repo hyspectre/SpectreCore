@@ -151,6 +151,7 @@ public final class AmethystResonanceField implements Listener {
         List<Location> available = new ArrayList<>();
         for (int[] pair : OFFSETS) {
             if (available.size() >= amount("bloques")) break;
+            if (!AmethystResonanceRules.slot(pair[0], pair[1], 4)) continue;
             int bx = x + pair[0], bz = z + pair[1];
             if (!world.isChunkLoaded(bx >> 4, bz >> 4)
                     || y <= world.getMinHeight() || y + 1 >= world.getMaxHeight()) continue;
