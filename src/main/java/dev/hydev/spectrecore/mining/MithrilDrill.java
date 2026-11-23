@@ -51,7 +51,7 @@ public final class MithrilDrill {
     }
 
     public boolean start(Player player, int steps, int intervalTicks, List<String> materials) {
-        if (running(player) || steps < 1 || steps > 8 || intervalTicks < 1 || intervalTicks > 40
+        if ((running.size() >= 8 && !running(player)) || running(player) || steps < 1 || steps > 8 || intervalTicks < 1 || intervalTicks > 40
                 || materials == null || materials.isEmpty()) return false;
         final ItemStack held = player.getInventory().getItemInMainHand();
         if (!MithrilDeviceData.DRILL.equals(data.id(held)) || data.serial(held).isEmpty()) return false;
