@@ -1,8 +1,8 @@
 # SpectreCore — núcleo RPG de Hydev
 
-**Versión en desarrollo:** `0.9.0-dev4`  
+**Versión en desarrollo:** `0.9.0-dev5`  
 **Servidor objetivo:** Paper 1.21.10 · Java 21  
-**Estado:** cuarta entrega de 0.9; usa GitHub Actions para validar el código. **No es una versión de producción**.
+**Estado:** quinta entrega de 0.9; usa GitHub Actions para validar el código. **No es una versión de producción**.
 
 SpectreCore reúne cocina, accesorios consumibles, habilidades de armadura, profesiones, encargos, exploración, Slayer, herramientas de mundo y menús dentro de un único plugin modular. Los módulos forman parte permanente del sistema; no existen interruptores de configuración para desactivarlos.
 
@@ -11,6 +11,8 @@ La línea 0.9 incorpora **hitos de colección en el Relicario**: progreso visibl
 La tercera entrega agrega **Mitrilo**, hallazgo de minería avanzada y recurso para dos picos de MMOItems. El tablón incorpora el **Pedido del Herrero**, que entrega 4 Mitrilo por 180 monedas con registro de transacciones. Los fragmentos de recetas deben integrarse en la Forja ya existente, sin crear una estación duplicada. Consulta [INSTALAR_MITRILO.md](integracion-mmoitems/INSTALAR_MITRILO.md).
 
 La cuarta entrega añade **Brújula Geológica, Farol de Mitrilo, Barrena de Mitrilo y Cristal de Mitrilo**, además de una habilidad de extracción por vetas en el Pico existente. Todas las herramientas guardan su energía de forma persistente en cada objeto. Consulta la [guía de instalación y controles](integracion-mmoitems/INSTALAR_MITRILO.md) antes de fusionar ítems y recetas en MMOItems.
+
+La quinta entrega introduce el **Pico de Amatista** y una resonancia amplificada: su habilidad crea bloques hechizados temporales que se rompen para obtener gemas de distintas calidades. El pico utiliza Mitrilo, Paladio y amatista en su receta. Consulta las instrucciones del [Pico de Amatista](integracion-mmoitems/INSTALAR_MITRILO.md#pico-de-amatista--resonancia-amplificada-090-dev5).
 
 ## Comandos
 
