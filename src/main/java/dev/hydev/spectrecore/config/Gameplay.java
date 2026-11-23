@@ -42,6 +42,27 @@ public final class Gameplay {
         bounded(jobs,"avisos.intervalo-cooldown-milisegundos",0,3600000,true);
         for (String level : List.of("novato","experimentado","profesional"))
             bounded(jobs,"contratos.precios."+level,0,1_000_000_000,true);
+        var ores = values.get("tesoros/mineria.yml");
+        if (!"MATERIAL".equals(ores.getString("mitrilo.tipo"))
+                || !"MITRILO".equals(ores.getString("mitrilo.id")))
+            throw new java.io.IOException("tesoros/mineria.yml: el Mitrilo debe conservar el ID MATERIAL:MITRILO");
+        bounded(ores, "mitrilo.cantidad-minima", 1, 64, true);
+        bounded(ores, "mitrilo.cantidad-maxima", 1, 64, true);
+        if (ores.getInt("mitrilo.cantidad-maxima") < ores.getInt("mitrilo.cantidad-minima"))
+            throw new java.io.IOException("tesoros/mineria.yml: cantidad Mitrilo invertida");
+        bounded(ores, "mitrilo.rango-minimo", 2, 3, true);
+        for (int tier = 2; tier <= 3; tier++)
+            bounded(ores, "mitrilo.probabilidades.tier" + tier, 0, 100, false);
+        if (!"TOOL".equals(ores.getString("mitrilo.herramientas.tipo")))
+            throw new java.io.IOException("tesoros/mineria.yml: herramientas Mitrilo deben usar TOOL");
+        for (String tool : List.of("PICO_MITRILO", "PICO_MITRILO_TEMPLADO"))
+            bounded(ores, "mitrilo.herramientas.bonificaciones." + tool, 1, 3, false);
+        if (!"MATERIAL".equals(jobs.getString("encargos.mitrilo.tipo"))
+                || !"MITRILO".equals(jobs.getString("encargos.mitrilo.id")))
+            throw new java.io.IOException("trabajos/config.yml: el pedido debe usar MATERIAL:MITRILO");
+        bounded(jobs, "encargos.mitrilo.cantidad", 1, 64, true);
+        bounded(jobs, "encargos.mitrilo.recompensa", 1, 1_000_000_000, true);
+        bounded(jobs, "encargos.mitrilo.rango-minimo", 2, 3, true);
         for (String job : List.of("minero","granjero","cazador")) {
             for (String level : List.of("novato","experimentado","profesional")) {
                 bounded(jobs,"cooldowns."+job+"."+level,0,3600,false);
