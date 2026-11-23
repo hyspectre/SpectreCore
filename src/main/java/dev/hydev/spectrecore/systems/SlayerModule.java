@@ -12,6 +12,7 @@ import net.kyori.adventure.title.Title;
 import org.bukkit.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
+import java.io.IOException;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.*;
@@ -52,6 +53,7 @@ public final class SlayerModule implements Listener {
     private long[] xpThresholds = SlayerProgressionRules.defaultThresholds();
     private final Map<UUID, BossBar> bars = new HashMap<>(); private final Map<UUID, Long> attempts = new HashMap<>();
     private BukkitTask timer; private boolean dirty;
+    private boolean playerDataLoaded;
     private boolean mythicDetectionWarned;
     public SlayerModule(JavaPlugin plugin) {
         this.plugin = plugin;
@@ -90,7 +92,7 @@ public final class SlayerModule implements Listener {
     public void disable() {
         if (timer != null) timer.cancel();
         if (missionsMenu != null) { missionsMenu.disable(); missionsMenu = null; }
-        HandlerList.unregisterAll(this); Bukkit.getOnlinePlayers().forEach(this::hideBar); save();
+        HandlerList.unregisterAll(this); Bukkit.getOnlinePlayers().forEach(this::hideBar); if (playerDataLoaded) save();
     }
     private Mission mission(UUID id, String category) { return missions.computeIfAbsent(id, unused -> new HashMap<>()).computeIfAbsent(category, unused -> new Mission()); }
     private String name(String category) { return config.getString("categorias." + category + ".nombre", category); }
@@ -732,7 +734,17 @@ public final class SlayerModule implements Listener {
         }, 1);
     }
     private void load() {
-        var data = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "slayer-data.yml"));
+        File source = new File(plugin.getDataFolder(), "slayer-data.yml");
+        var data = new YamlConfiguration();
+        try {
+            if (source.exists()) {
+                if (!source.isFile() || source.length() > 16_000_000L)
+                    throw new IOException("Archivo inválido o demasiado grande");
+                data.load(source); // Strict load: a corrupt YAML must not silently reset progression.
+            }
+        } catch (Exception error) {
+            throw new IllegalStateException("Slayer: datos ilegibles; no se sobrescribirá slayer-data.yml", error);
+        }
         for (String id : data.getKeys(false)) try {
             UUID uuid = UUID.fromString(id);
             for (String category : CATEGORIES) {
@@ -756,7 +768,7 @@ public final class SlayerModule implements Listener {
                     m.bossZ = section.getInt("boss-z");
                     activeBosses.put(m.bossId, new BossClaim(uuid, category, m.tier));
                 } catch (IllegalArgumentException invalid) {
-                    plugin.getLogger().warning("Slayer: UUID de jefe inválido para " + uuid);
+                    throw new IllegalStateException("Slayer: UUID de jefe inválido para " + uuid, invalid);
                 }
             }
             var experience = data.getConfigurationSection(id + ".revenant-progression");
@@ -766,9 +778,9 @@ public final class SlayerModule implements Listener {
                 progress.victories = Math.max(0, experience.getInt("victorias", 0));
             }
         } catch (IllegalArgumentException invalid) {
-            plugin.getLogger().warning(Settings.plain("slayer", "SlayerModule.mensaje-019",
-                    "UUID inválido en slayer-data.yml: {id}", "id", id));
+            throw new IllegalStateException("Slayer: identificador de progreso inválido en slayer-data.yml: " + id, invalid);
         }
+        playerDataLoaded = true;
     }
 
     private boolean save() {
