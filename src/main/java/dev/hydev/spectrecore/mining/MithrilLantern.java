@@ -94,12 +94,13 @@ public final class MithrilLantern {
         return true;
     }
 
-    public void moved(Player player, Location from, Location to) {
+    public void moved(Player player, Location from, Location to, int maximumDistance) {
         if (to == null || from.getBlockX() == to.getBlockX()
                 && from.getBlockY() == to.getBlockY() && from.getBlockZ() == to.getBlockZ()) return;
         for (EquipmentSlot hand : List.of(EquipmentSlot.HAND, EquipmentSlot.OFF_HAND)) {
             ItemStack stack = data.held(player, hand);
-            if (!MithrilDeviceData.LANTERN.equals(data.id(stack)) || !data.lit(stack)) continue;
+            if (stack.getType() != org.bukkit.Material.SOUL_LANTERN
+                    || !MithrilDeviceData.LANTERN.equals(data.id(stack)) || !data.lit(stack)) continue;
             String origin = data.anchor(stack);
             if (origin.isBlank()) continue;
             if (!origin.startsWith(player.getWorld().getUID() + ":")) {
@@ -111,7 +112,8 @@ public final class MithrilLantern {
             if (last.distanceSquared(to) < 16 || stops.size() >= 64) continue;
             String rawAnchor = origin.substring(origin.indexOf(':') + 1);
             List<Location> beginnings = parse(player.getWorld(), rawAnchor);
-            if (beginnings.isEmpty() || beginnings.getFirst().distanceSquared(to) > 256 * 256) continue;
+            if (beginnings.isEmpty() || beginnings.getFirst().distanceSquared(to)
+                    > maximumDistance * maximumDistance) continue;
             String point = to.getBlockX() + "," + to.getBlockY() + "," + to.getBlockZ();
             String path = data.path(stack) + ";" + point;
             if (path.length() <= 4096) data.update(player, hand, data.path(stack, path));
