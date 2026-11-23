@@ -23,7 +23,7 @@ assert len(gui["material-names"]) >= 30
 for page, payload in gui["pages"].items():
     assert payload["size"] == 54 and payload["title"].startswith("<dark_gray>⧇ <gold>Trabajos")
     items = payload["items"]
-    assert len(items) == 5 if page == "trabajos" else len(items) == 6
+    assert len(items) == 6
     slots = [entry["slot"] for entry in items.values()]
     assert len(set(slots)) == len(slots) and all(0 <= slot < 54 for slot in slots)
     for entry in items.values():
@@ -34,7 +34,7 @@ for page, payload in gui["pages"].items():
         skin = parsed["textures"]["SKIN"]["url"]
         assert re.fullmatch(r"https?://textures\.minecraft\.net/texture/[a-fA-F0-9]{32,128}", skin), skin
 
-assert [gui["pages"]["trabajos"]["items"][key]["slot"] for key in expected] == [20, 22, 24]
+assert [gui["pages"]["trabajos"]["items"][key]["slot"] for key in expected] == [20, 22, 24]\nassert gui["pages"]["trabajos"]["items"]["abastecimiento"]["slot"] == 31
 for job, rows in expected.items():
     page = gui["pages"][job]["items"]
     assert [page[key]["slot"] for key in ("novato", "experimentado", "profesional")] == [19, 22, 25]
@@ -67,7 +67,7 @@ assert "LuckPermsProvider.get()" in bridge and "saveUser(user)" in bridge
 assert "Bukkit.dispatchCommand" not in java and "dispatchCommand" not in module
 assert 'route("trabajos mineria","trabajo"' in routes
 assert 'route("trabajos agricultura","trabajo"' in routes
-assert 'route("trabajos caza","trabajo"' in routes
+assert 'route("trabajos caza","trabajo"' in routes\nassert 'route("trabajos abastecimiento","trabajo"' in routes
 for banned in ("player-command-as-op", "console-command", "type: withdraw", "%vault_eco_balance%"):
     assert banned not in (resources / "ui/trabajos.yml").read_text(encoding="utf-8")
-print("PASS Jobs GUI: 4 native inventories, 9 original heads, 9 configured payout/cooldown tiers, safe rank progression")
+print("PASS Jobs GUI: index with sourcing shortcut, 3 contracts, safe tiers and route")
