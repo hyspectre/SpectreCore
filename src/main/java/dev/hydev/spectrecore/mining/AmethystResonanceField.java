@@ -117,7 +117,7 @@ public final class AmethystResonanceField implements Listener {
             // At most 8 sessions × 5 nodes: one tiny visual pulse per second.
             for (Node node : hitboxes.values()) {
                 if (!node.visual.isValid() || !node.visual.getWorld().isChunkLoaded(
-                        node.visual.getBlockX() >> 4, node.visual.getBlockZ() >> 4)) continue;
+                        node.visual.getLocation().getBlockX() >> 4, node.visual.getLocation().getBlockZ() >> 4)) continue;
                 Location center = node.hitbox.getLocation().add(0, .5, 0);
                 center.getWorld().spawnParticle(Particle.ENCHANT, center,
                         2, .32, .28, .32, .02);
