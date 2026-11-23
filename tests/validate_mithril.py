@@ -24,11 +24,11 @@ assert resource["herramientas"]["bonificaciones"] == {
 }
 assert order == {"tipo":"MATERIAL", "id":"MITRILO", "cantidad":4, "recompensa":180, "rango-minimo":2}
 assert set(material) == {"MITRILO", "LINGOTE_MITRILO", "CRISTAL_MITRILO"} and material["MITRILO"]["base"]["material"] == "PRISMARINE_CRYSTALS"
-assert set(tools) == {"PICO_MITRILO", "PICO_MITRILO_TEMPLADO", "BRUJULA_GEOLOGICA", "FAROL_MITRILO", "BARRENA_MITRILO"}
+assert set(tools) == {"PICO_MITRILO", "PICO_MITRILO_TEMPLADO", "BRUJULA_GEOLOGICA", "FAROL_MITRILO", "BARRENA_MITRILO", "PICO_AMATISTA"}
 assert tools["PICO_MITRILO"]["base"]["material"] == "DIAMOND_PICKAXE"
 assert tools["PICO_MITRILO_TEMPLADO"]["base"]["material"] == "NETHERITE_PICKAXE"
 recipes = station["recipes"]
-assert set(recipes) == {"pico-mitrilo", "pico-mitrilo-templado", "lingote-mitrilo", "cristal-mitrilo", "brujula-geologica", "farol-mitrilo", "barrena-mitrilo"}
+assert set(recipes) == {"pico-mitrilo", "pico-mitrilo-templado", "lingote-mitrilo", "cristal-mitrilo", "brujula-geologica", "farol-mitrilo", "barrena-mitrilo", "pico-amatista"}
 assert recipes["pico-mitrilo"]["output"] == "mmoitems{type=TOOL,id=PICO_MITRILO}"
 assert recipes["pico-mitrilo-templado"]["output"] == "mmoitems{type=TOOL,id=PICO_MITRILO_TEMPLADO}"
 for recipe in recipes.values():

@@ -75,6 +75,31 @@ public final class Gameplay {
                 || ores.getInt(root+"barrena.intervalo-ticks") > 20
                 || ores.getInt(root+"farol.distancia-maxima") > 256)
             throw new java.io.IOException("tesoros/mineria.yml: límites de rendimiento de Mitrilo fuera de rango");
+        String field = root + "pico-amatista.";
+        for (String number : List.of("activacion","recarga-segundos","duracion-segundos",
+                "bloques","minimo-bloques","max-sesiones","golpes","intervalo-golpe-ms"))
+            bounded(ores, field + number, 1, 1000, true);
+        if (ores.getInt(field+"activacion") > ores.getInt(root+"resonancia.maxima")
+                || ores.getInt(field+"recarga-segundos") < 30 || ores.getInt(field+"recarga-segundos") > 600
+                || ores.getInt(field+"duracion-segundos") > 60
+                || ores.getInt(field+"bloques") > 6 || ores.getInt(field+"bloques") < 3
+                || ores.getInt(field+"minimo-bloques") < 2
+                || ores.getInt(field+"minimo-bloques") > ores.getInt(field+"bloques")
+                || ores.getInt(field+"max-sesiones") > 12
+                || ores.getInt(field+"golpes") > 6
+                || ores.getInt(field+"intervalo-golpe-ms") < 200)
+            throw new java.io.IOException("tesoros/mineria.yml: límites de resonancia amplificada inválidos");
+        int totalGemChance = 0;
+        Set<String> gemIds = new HashSet<>();
+        for (String grade : List.of("basica", "intermedia", "superior")) {
+            bounded(ores, field + "calidad." + grade, 0, 100, true);
+            totalGemChance += ores.getInt(field + "calidad." + grade);
+            String id = ores.getString(field + "gemas." + grade, "");
+            if (!id.matches("[A-Z][A-Z0-9_]{2,63}") || !gemIds.add(id))
+                throw new java.io.IOException("tesoros/mineria.yml: gemas de amatista con IDs inválidos o repetidos");
+        }
+        if (totalGemChance != 100)
+            throw new java.io.IOException("tesoros/mineria.yml: calidad de gemas de amatista debe sumar 100");
         var safeStone = Set.of("STONE", "DEEPSLATE", "ANDESITE", "DIORITE",
                 "GRANITE", "TUFF", "CALCITE", "BLACKSTONE", "BASALT",
                 "NETHERRACK", "END_STONE");

@@ -61,3 +61,21 @@ BARRENA_MITRILO:
     - '&7Máximo 8 tramos; se detiene ante minerales.'
     - '&bPerforación: 50 &8· &745 s'
     - '&8Consume durabilidad en cada bloque.'
+
+# Pico especial de resonancia minera: consume la misma energía persistente
+# que el equipo de Mitrilo y crea cinco cristales golpeables, sin cambiar terreno.
+PICO_AMATISTA:
+  base:
+    revision-id: 1
+    material: NETHERITE_PICKAXE
+    max-stack-size: 1
+    name: '<gradient:#BC87FF:#F3D1FC>Pico de Amatista</gradient>'
+    tier: LEGENDARY
+    lore:
+    - '&7Un conductor de resonancia amplificada.'
+    - '&7Minar menas naturales carga su energía.'
+    - '&eAgáchate + clic derecho: &7Invocar cristales.'
+    - '&7Golpea cada cristal tres veces para obtener una gema.'
+    - '&d5 cristales &8· &d75 de resonancia &8· &7120 s'
+    - '&8Los cristales desaparecen después de 30 s.'
+

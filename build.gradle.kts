@@ -1,6 +1,6 @@
 plugins { java }
 group = "dev.hydev"
-version = "0.9.0-dev4"
+version = "0.9.0-dev5"
 
 repositories {
     maven("https://repo.papermc.io/repository/maven-public/")
@@ -53,7 +53,7 @@ tasks.check { dependsOn(commandRoutingRegression) }
 val configTestDirectory = layout.buildDirectory.dir("module-config-tests")
 val compileModuleConfigTest = tasks.register<JavaCompile>("compileModuleConfigTest") {
     dependsOn(tasks.classes)
-    source("tests/ModuleConfigSmoke.java", "tests/PresentationConfigSmoke.java", "tests/PlayerTransactionJournalSmoke.java", "tests/SupplyOrderRulesSmoke.java", "tests/MithrilRulesSmoke.java")
+    source("tests/ModuleConfigSmoke.java", "tests/PresentationConfigSmoke.java", "tests/PlayerTransactionJournalSmoke.java", "tests/SupplyOrderRulesSmoke.java", "tests/MithrilRulesSmoke.java", "tests/AmethystResonanceSmoke.java")
     classpath = sourceSets.main.get().output + configurations.compileClasspath.get()
     destinationDirectory.set(configTestDirectory)
     options.encoding = "UTF-8"
@@ -143,3 +143,11 @@ val mithrilRulesSmoke = tasks.register<JavaExec>("mithrilRulesSmoke") {
     javaLauncher.set(javaToolchains.launcherFor { languageVersion.set(JavaLanguageVersion.of(21)) })
 }
 tasks.check { dependsOn(mithrilRulesSmoke) }
+
+val amethystResonanceSmoke = tasks.register<JavaExec>("amethystResonanceSmoke") {
+    dependsOn(compileModuleConfigTest)
+    classpath = files(configTestDirectory, sourceSets.main.get().output, configurations.compileClasspath)
+    mainClass.set("AmethystResonanceSmoke")
+    javaLauncher.set(javaToolchains.launcherFor { languageVersion.set(JavaLanguageVersion.of(21)) })
+}
+tasks.check { dependsOn(amethystResonanceSmoke) }
