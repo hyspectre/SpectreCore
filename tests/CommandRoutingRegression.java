@@ -34,6 +34,7 @@ public final class CommandRoutingRegression {
         check(CommandRoutes.resolve(new String[]{"trabajos","agricultura"}).arguments().equals(List.of("granjero")),"Native Farming contracts");
         check(CommandRoutes.resolve(new String[]{"trabajos","caza"}).arguments().equals(List.of("cazador")),"Native Hunter contracts");
         check(CommandRoutes.resolve(new String[]{"trabajos","estado"}).arguments().equals(List.of("estado")),"Jobs chat status preserved");
+        check(CommandRoutes.resolve(new String[]{"trabajos","abastecimiento"}).arguments().equals(List.of("abastecimiento")),"Supply board uses the existing Jobs handler");
         check(CommandRoutes.resolve(new String[]{"misiones"}).route().target().equals("misiones"),"Native Misiones route");
         check(CommandRoutes.resolve(new String[]{"mago"}).route().target().equals("mago"),"Mago nested under /spectrecore");
         check(CommandRoutes.resolve(new String[]{"trabajos","transacciones"}).route().access()==CommandRoutes.Access.ADMIN,"Pending purchases require admin");
