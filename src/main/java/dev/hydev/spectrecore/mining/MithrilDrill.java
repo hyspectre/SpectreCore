@@ -90,7 +90,10 @@ public final class MithrilDrill {
             for (Block target : List.of(feet, head)) {
                 if (target.getType().isAir()) continue;
                 current = player.getInventory().getItemInMainHand();
-                if (!target.breakNaturally(current, true)) { cancel(id); return; }
+                ItemStack breaker = current;
+                if (!MithrilAutomationGuard.breakBlock(() -> target.breakNaturally(breaker, true))) {
+                    cancel(id); return;
+                }
                 // Mining via abilities does not count as manual progress or Mithril drops.
                 if (!wear(player, data, 1)) { cancel(id); return; }
             }
