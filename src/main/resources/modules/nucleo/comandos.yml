@@ -134,12 +134,21 @@ rutas:
   relicario:
     uso: "/spectrecore relicario"
     descripcion: "Reliquias descubiertas y bonificaciones"
+  mago:
+    uso: "/spectrecore mago [seccion]"
+    descripcion: "Centro de conocimiento de Hydev"
   cocina:
     uso: "/spectrecore cocina <ayuda|libro|recetas|estado|reparar|recargar>"
     descripcion: "Cocina y recetario"
   trabajos:
     uso: "/spectrecore trabajos"
     descripcion: "Niveles de trabajos"
+    transacciones:
+      uso: "/spectrecore trabajos transacciones"
+      descripcion: "Revisar contratos pendientes de conciliación"
+    resolver:
+      uso: "/spectrecore trabajos resolver <uuid>"
+      descripcion: "Cerrar una transacción ya conciliada"
   resonancia:
     uso: "/spectrecore resonancia"
     descripcion: "Carga del Pico Perdido"
