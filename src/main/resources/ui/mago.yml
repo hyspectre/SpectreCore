@@ -133,7 +133,7 @@ pages:
     puntos:
       - "<gray>Descubre objetos de la Cripta y el mundo."
       - "<gray>Sus bonificaciones se acumulan."
-      - "<gray>Solo cuenta la reliquia superior de cada familia."
+      - "<gray>Todas las reliquias absorbidas aportan bonos."
       - "<gray>El Relicario muestra tu progreso."
     buttons:
       - label: '<gray>Combate</gray>'
