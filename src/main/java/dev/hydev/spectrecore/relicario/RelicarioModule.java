@@ -139,9 +139,18 @@ public final class RelicarioModule implements Listener {
             nextUi.load(file);
             if (nextUi.getInt("general.size") != 54)
                 throw new IllegalArgumentException("Invalid Relicario UI geometry");
-            List<Integer> nextMilestones = CollectionMilestones.validate(
-                    nextUi.contains("general.hitos") ? nextUi.getIntegerList("general.hitos")
-                            : List.of(25, 50, 100));
+            List<Integer> nextMilestones = List.of(25, 50, 100);
+            if (nextUi.contains("general.hitos")) {
+                Object raw = nextUi.get("general.hitos");
+                if (!(raw instanceof List<?> values)) throw new IllegalArgumentException("Invalid milestones list");
+                List<Integer> parsed = new ArrayList<>();
+                for (Object value : values) {
+                    if (!(value instanceof Integer percent))
+                        throw new IllegalArgumentException("Milestone percentages must be integers");
+                    parsed.add(percent);
+                }
+                nextMilestones = CollectionMilestones.validate(parsed);
+            }
             ConfigurationSection section = catalog.getConfigurationSection("accesorios");
             ConfigurationSection capSection = catalog.getConfigurationSection("caps");
             if (section == null || capSection == null || section.getKeys(false).isEmpty())
@@ -189,6 +198,12 @@ public final class RelicarioModule implements Listener {
                 int close = nextUi.getInt(root + ".cerrar-slot", 50);
                 int progressSlot = progressSlot(nextUi, root, slots, back, close);
                 Material progressMaterial = Material.matchMaterial(nextUi.getString(root + ".progreso-material", "AMETHYST_SHARD"));
+                Object configuredName = nextUi.get(root + ".nombre");
+                if (configuredName != null && (!(configuredName instanceof String name)
+                        || name.isBlank() || name.length() > 50))
+                    throw new IllegalArgumentException("Invalid collection name: " + group);
+                if (nextUi.contains(root + ".progreso-material") && !nextUi.isString(root + ".progreso-material"))
+                    throw new IllegalArgumentException("Invalid collection progress material: " + group);
                 long needed = next.values().stream().filter(e -> e.category.equals(group)).count();
                 if (!nextUi.isConfigurationSection(root) || nextUi.getInt(root + ".size", 54) != 54
                         || slots.size() < needed || back < 0 || back >= 54 || close < 0 || close >= 54 || back == close
