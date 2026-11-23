@@ -248,9 +248,14 @@ public final class MithrilToolModule implements Listener {
     private boolean amethyst(Player player) {
         ItemStack held = player.getInventory().getItemInMainHand();
         int price = cost("pico-amatista.activacion");
-        if (!MithrilRules.canUse(data.energy(held), price, System.currentTimeMillis(),
-                data.cooldown(held))) {
-            feedback(player, "sin-carga", "<yellow>Necesitas más resonancia o aguardar la recarga.");
+        if (!AmethystResonanceRules.available(data.energy(held),
+                data.cooldown(held), System.currentTimeMillis(), price,
+                amethystField.activeFields(), cost("pico-amatista.max-sesiones"))) {
+            if (amethystField.activeFields() >= cost("pico-amatista.max-sesiones"))
+                feedback(player, "sin-cristales",
+                        "<yellow>No hay espacio seguro para invocar cristales o sus gemas todavía no están disponibles.");
+            else feedback(player, "sin-carga",
+                        "<yellow>Necesitas más resonancia o aguardar la recarga.");
             return true;
         }
         var plan = amethystField.prepare(player);
