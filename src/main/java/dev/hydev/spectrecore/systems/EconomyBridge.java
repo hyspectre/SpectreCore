@@ -35,6 +35,8 @@ public final class EconomyBridge {
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     public Result deposit(Player player, long amount, boolean fallback) {
+        if (player == null || amount < 0 || amount > 1_000_000_000L) return Result.FAILED;
+        if (amount == 0) return Result.CONFIRMED;
         var vault = Bukkit.getPluginManager().getPlugin("Vault");
         if (vault != null && vault.isEnabled()) try {
             Class<?> api = Class.forName("net.milkbowl.vault.economy.Economy", true, vault.getClass().getClassLoader());
