@@ -24,3 +24,6 @@ CombatTreasures:
 TreasureCooldowns:
   mensaje-001: "UUID inválido en treasure-data.yml: {id}"
   mensaje-002: "No se pudo guardar cooldown de tesoros: {error-getmessage}"
+
+MiningModule:
+  mitrilo: "<aqua>✦ Has encontrado <white>{cantidad} <aqua>Mitrilo."
