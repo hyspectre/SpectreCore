@@ -9,6 +9,8 @@ estados:
   recurso-no-disponible: "<red>Este recurso aún no está disponible"
   consulta-no-disponible: "—"
   sin-contrato: "Sin contrato"
+  faltan-materiales: "<yellow>Necesitas reunir más Mitrilo"
+  entrega-lista: "<green>Pedido listo para entregar"
   error: "<red>No se pudo consultar esta fuente"
 items:
   mineria:
@@ -17,6 +19,16 @@ items:
     nombre: "<gold>✦ Minerales especiales"
     lore:
       - "<gray>Origen: extracción de minerales"
+      - "<gray>En tu mochila: <white>{cantidad}"
+      - "<gray>Tu oficio: <yellow>{rango}"
+      - "<gray>Estado: {estado}"
+  mitrilo:
+    slot: 28
+    material: PRISMARINE_CRYSTALS
+    nombre: "<aqua>✦ Mitrilo"
+    lore:
+      - "<gray>Mineral raro de vetas profundas"
+      - "<gray>Materia prima para picos mineros"
       - "<gray>En tu mochila: <white>{cantidad}"
       - "<gray>Tu oficio: <yellow>{rango}"
       - "<gray>Estado: {estado}"
@@ -56,6 +68,18 @@ items:
       - "<gray>En tu mochila: <white>{cantidad}"
       - "<gray>Tu oficio: <yellow>{rango}"
       - "<gray>Estado: {estado}"
+  pedido-mitrilo:
+    slot: 40
+    material: SMITHING_TABLE
+    nombre: "<gold>✦ Pedido del Herrero"
+    lore:
+      - "<gray>El herrero necesita Mitrilo para su taller."
+      - "<gray>Entrega: <white>{cantidad} unidades de Mitrilo"
+      - "<gray>En tu mochila: <white>{disponibles}"
+      - "<gray>Contrato requerido: <yellow>{rango}"
+      - "<gray>Recompensa: <gold>{recompensa} ↾"
+      - "<gray>Estado: {estado}"
+      - "<yellow>► Clic para entregar los materiales"
   guia:
     slot: 49
     material: BOOK
@@ -63,7 +87,7 @@ items:
     lore:
       - "<gray>Descubre recursos mediante tus oficios."
       - "<gray>Consulta las recetas en la Forja."
-      - "<gray>Este tablón no entrega ni consume objetos."
+      - "<gray>Solo el pedido consume Mitrilo al aceptarlo."
   volver:
     slot: 48
     material: ARROW
