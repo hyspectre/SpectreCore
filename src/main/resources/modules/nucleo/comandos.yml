@@ -143,6 +143,9 @@ rutas:
   trabajos:
     uso: "/spectrecore trabajos"
     descripcion: "Niveles de trabajos"
+    abastecimiento:
+      uso: "/spectrecore trabajos abastecimiento"
+      descripcion: "Consulta materiales y hallazgos de tus oficios"
     transacciones:
       uso: "/spectrecore trabajos transacciones"
       descripcion: "Revisar contratos pendientes de conciliación"
