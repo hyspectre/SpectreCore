@@ -16,11 +16,12 @@ module = (root / "src/main/java/dev/hydev/spectrecore/systems/JobsModule.java").
 
 assert layout["size"] == 54 and isinstance(layout["title"], str)
 assert set(layout["items"]) == {
-    "mineria", "combate", "agricultura-1", "agricultura-2", "agricultura-3", "volver", "cerrar", "guia"
+    "mineria", "mitrilo", "combate", "agricultura-1", "agricultura-2",
+    "agricultura-3", "pedido-mitrilo", "volver", "cerrar", "guia"
 }
 assert set(layout["estados"]) == {
     "sin-hallazgos", "sin-acceso", "disponible", "recurso-no-disponible",
-    "consulta-no-disponible", "sin-contrato", "error",
+    "consulta-no-disponible", "sin-contrato", "faltan-materiales", "entrega-lista", "error",
 }
 slots = [item["slot"] for item in layout["items"].values()]
 assert len(slots) == len(set(slots)) and all(type(slot) is int and 0 <= slot < 54 for slot in slots)
@@ -34,10 +35,11 @@ assert jobs["pages"]["trabajos"]["items"]["abastecimiento"]["slot"] == 31
 assert "tesoros.id" in source and "tesoros.tipo" in source
 assert "botin.id" in source and "botin.tipo" in source
 assert "botin.tier" in source and "probabilidades." in source
-assert mining["tesoros"]["id"] == "PALADIO"
+assert mining["tesoros"]["id"] == "PALADIO" and mining["mitrilo"]["id"] == "MITRILO"
 assert combat["botin"]["id"] == "ALMA_1"
 assert farming["botin"] == {f"tier{i}": f"AGRICULTURA_T{i}" for i in range(1, 4)}
 assert "inventoryCounts(Player player)" in source
+assert 'jobs.fulfillMithrilOrder(player)' in source and 'pedido-mitrilo' in source
 assert "getStorageContents()" in source and "mmo.id(item)" in source and "mmo.type(item)" in source
 assert "hasPermission(\"tesoros.\"" in source
 assert "Bukkit.getScheduler().runTask(plugin" in source
@@ -58,4 +60,4 @@ for forbidden in (
 forbidden_technical = re.compile(r"MMOItems|MythicMobs|Vault|LuckPerms|Skript", re.I)
 for section in layout["items"].values():
     assert not forbidden_technical.search(section["nombre"] + " ".join(section["lore"]))
-print("PASS Supply Board: existing treasure IDs, 8 safe slots, inventory snapshots, no crafting or grants")
+print("PASS Supply Board: existing treasures, Mithril and supply orders, 10 distinct safe slots")
