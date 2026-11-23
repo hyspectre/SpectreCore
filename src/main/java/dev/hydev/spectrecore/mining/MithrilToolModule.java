@@ -223,6 +223,10 @@ public final class MithrilToolModule implements Listener {
             feedback(player, "zona", "<red>La herramienta no puede utilizarse en esta zona.");
             return true;
         }
+        if (!prospector.scanSlotAvailable(player.getUniqueId())) {
+            feedback(player, "sin-senal", "<gray>El pulso no detectó minerales accesibles.");
+            return true; // Do not charge while the bounded scanner is at capacity.
+        }
         if (!spend(player, cost("brujula.activacion"),
                 cost("brujula.recarga-segundos") * 1000L, 0)) return true;
         prospector.scan(player, cost("brujula.radio-horizontal"), cost("brujula.radio-vertical"), result -> {
