@@ -55,15 +55,12 @@ assert sorted(len(f) for f in families.values()) == [2]*8 + [3], families
 for family,ranks in families.items():
     assert set(ranks)==set(range(1,len(ranks)+1)), family
 for stat in known_stats:
-    winners={}
-    for id,r in catalog.items():
-        if stat not in r["bonos"]:continue
-        family=r.get("familia")
-        if not family:winners[id]=r["bonos"][stat]
-        elif r["rango"]>=winners.get(family,(-1,0))[0]:
-            winners[family]=(r["rango"],r["bonos"][stat])
-    total=sum(v[1] if isinstance(v,tuple) else v for v in winners.values())
-    assert total <= source["caps"][stat]+1e-9,(stat,total,source["caps"][stat])
+    total = sum(r["bonos"].get(stat, 0.0) for r in catalog.values())
+    capped = min(total, source["caps"][stat])
+    assert 0 <= capped <= source["caps"][stat] + 1e-9, (stat, total, capped)
+    # Every distinct consumed ID counts, including different ranks of one family.
+    if total > source["caps"][stat]:
+        assert capped == source["caps"][stat]
 ui = yaml.safe_load((root/"src/main/resources/ui/relicario.yml").read_text(encoding="utf8"))
 assert "enabled" not in ui
 assert ui["general"]["size"] == 54

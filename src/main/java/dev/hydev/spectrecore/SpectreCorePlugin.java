@@ -221,8 +221,17 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
                 sender.sendMessage(Settings.message("nucleo", "SpectreCorePlugin.mensaje-004", "Actividades desactivadas.")); return true;
             });
         }
-        if (getConfig().getBoolean("modules.jobs.enabled", true)) { jobs = new dev.hydev.spectrecore.systems.JobsModule(this); jobs.enable(); }
-        if (getConfig().getBoolean("modules.slayer.enabled", true)) { slayer = new dev.hydev.spectrecore.systems.SlayerModule(this); slayer.enable(); }
+        try {
+            jobs = new dev.hydev.spectrecore.systems.JobsModule(this);
+            jobs.enable();
+            slayer = new dev.hydev.spectrecore.systems.SlayerModule(this);
+            slayer.enable();
+        } catch (RuntimeException startupFailure) {
+            getLogger().severe("No se pudo iniciar progreso o contratos; se detiene SpectreCore para proteger los datos: "
+                    + startupFailure.getMessage());
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
         if (getConfig().getBoolean("modules.exit-portal.enabled", true)) { portal = new dev.hydev.spectrecore.systems.PortalModule(this); portal.enable(); }
         java.util.Map<String, Boolean> systemCommands = new java.util.HashMap<>();
         systemCommands.put("trabajo", jobs != null);
@@ -260,14 +269,14 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
         try {
             mago = new dev.hydev.spectrecore.guide.MagoMenu(this);
         } catch (Exception error) {
-            getLogger().severe("No se pudo cargar ui/mago.yml: " + error.getMessage() + "; /mago no estará disponible.");
+            getLogger().severe("No se pudo cargar ui/mago.yml: " + error.getMessage() + "; /spectrecore mago no estará disponible.");
         }
-        if (getCommand("mago") != null) {
-            getCommand("mago").setExecutor((sender,cmd,label,args) -> {
+        if (commandRouter.get("mago") != null) {
+            commandRouter.get("mago").setExecutor((sender,cmd,label,args) -> {
                 if (mago == null) { sender.sendMessage(Settings.component(Settings.text("nucleo", "MagoMenu.no-disponible", "<red>El Mago está temporalmente desactivado.</red>"))); return true; }
                 return mago.command(sender,args);
             });
-            getCommand("mago").setTabCompleter((sender,cmd,label,args) -> mago == null ? List.of() : mago.complete(args));
+            commandRouter.get("mago").setTabCompleter((sender,cmd,label,args) -> mago == null ? List.of() : mago.complete(args));
         }
         registerItemInspector();
         getLogger().info(Settings.plain("nucleo", "SpectreCorePlugin.mensaje-007", "Hydev {getpluginmeta-getversion}: habilidades={skillsenabled}, cocina={cookingenabled}.", "getpluginmeta-getversion", getPluginMeta().getVersion(), "skillsenabled", skillsEnabled, "cookingenabled", cookingEnabled));

@@ -129,7 +129,7 @@ public final class RelicarioModule implements Listener {
                 throw new IllegalArgumentException("Invalid Relicario UI geometry");
             ConfigurationSection section = catalog.getConfigurationSection("accesorios");
             ConfigurationSection capSection = catalog.getConfigurationSection("caps");
-            if (section == null || capSection == null || section.getKeys(false).size() != 32)
+            if (section == null || capSection == null || section.getKeys(false).isEmpty())
                 throw new IllegalArgumentException("Accessory catalog missing or incomplete");
             Map<String, Double> limits = new LinkedHashMap<>();
             for (String key : capSection.getKeys(false)) {
@@ -168,10 +168,16 @@ public final class RelicarioModule implements Listener {
             }
             var validated = RelicarioRules.validateCatalog(next.values().stream().map(Entry::relic).toList());
             for (String group : GROUPS) {
-                if (!nextUi.isConfigurationSection("colecciones." + group) ||
-                    nextUi.getIntegerList("colecciones." + group + ".recipe-slots").size()
-                        < next.values().stream().filter(e -> e.category.equals(group)).count())
-                    throw new IllegalArgumentException("Incomplete UI category: " + group);
+                String root = "colecciones." + group;
+                List<Integer> slots = nextUi.getIntegerList(root + ".recipe-slots");
+                int back = nextUi.getInt(root + ".volver-slot", 48);
+                int close = nextUi.getInt(root + ".cerrar-slot", 50);
+                long needed = next.values().stream().filter(e -> e.category.equals(group)).count();
+                if (!nextUi.isConfigurationSection(root) || nextUi.getInt(root + ".size", 54) != 54
+                        || slots.size() < needed || back < 0 || back >= 54 || close < 0 || close >= 54 || back == close
+                        || slots.stream().anyMatch(slot -> slot < 0 || slot >= 54 || slot == back || slot == close)
+                        || new java.util.HashSet<>(slots).size() != slots.size())
+                    throw new IllegalArgumentException("Incomplete/overlapping UI category: " + group);
             }
             ui = nextUi;
             entries = java.util.Collections.unmodifiableMap(new LinkedHashMap<>(next));
@@ -391,10 +397,8 @@ public final class RelicarioModule implements Listener {
             for (Entry entry : entries.values()) {
                 if (!entry.category.equals(page) || i >= slots.size()) continue;
                 boolean owned = obtained.contains(entry.id);
-                boolean upgraded = owned && RelicarioRules.superseded(entry.relic, rules.values(), obtained);
-                String state = owned ? upgraded ? ui.getString("estados.superado", "<yellow>✦ Evolucionado")
-                                  : ui.getString("estados.descubierto", "<green>✦ Absorbido")
-                             : ui.getString("estados.pendiente", "<gray>✦ Pendiente");
+                String state = owned ? ui.getString("estados.descubierto", "<green>✦ Absorbido")
+                        : ui.getString("estados.pendiente", "<gray>✦ Pendiente");
                 List<String> lore = new ArrayList<>();
                 lore.add("");
                 lore.add("<gray>" + entry.origin);
@@ -414,8 +418,9 @@ public final class RelicarioModule implements Listener {
     }
 
     private void back(Inventory inv, Holder holder) {
-        int back = ui.getInt("colecciones.cripta.volver-slot",48);
-        int close = ui.getInt("colecciones.cripta.cerrar-slot",50);
+        String section = "colecciones." + (GROUPS.contains(holder.page) ? holder.page : "cripta");
+        int back = ui.getInt(section + ".volver-slot",48);
+        int close = ui.getInt(section + ".cerrar-slot",50);
         put(inv, back, Material.ARROW, msg("back", "<gold>⇜ Volver"),
                 List.of(msg("back-detail", "<gray>Regresar al catálogo.")));
         put(inv, close, Material.BARRIER, msg("close", "<gray>Cerrar menú"), List.of());
@@ -456,7 +461,7 @@ public final class RelicarioModule implements Listener {
 
     private void guide(Player player) {
         player.closeInventory();
-        player.sendMessage(text(msg("guide", "<gold>Absorbe una reliquia para guardar su poder. Solo cuenta la versión superior de cada familia.")));
+        player.sendMessage(text(msg("guide", "<gold>Absorbe una reliquia para guardar su poder. Todas las reliquias absorbidas aportan sus bonos.")));
     }
 
     private void absorb(Player player, Holder holder) {

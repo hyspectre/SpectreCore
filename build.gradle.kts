@@ -1,6 +1,6 @@
 plugins { java }
 group = "dev.hydev"
-version = "0.8.1-always-on-rc1"
+version = "0.8.2-stability-rc1"
 
 repositories {
     maven("https://repo.papermc.io/repository/maven-public/")
@@ -53,7 +53,7 @@ tasks.check { dependsOn(commandRoutingRegression) }
 val configTestDirectory = layout.buildDirectory.dir("module-config-tests")
 val compileModuleConfigTest = tasks.register<JavaCompile>("compileModuleConfigTest") {
     dependsOn(tasks.classes)
-    source("tests/ModuleConfigSmoke.java", "tests/PresentationConfigSmoke.java")
+    source("tests/ModuleConfigSmoke.java", "tests/PresentationConfigSmoke.java", "tests/PlayerTransactionJournalSmoke.java")
     classpath = sourceSets.main.get().output + configurations.compileClasspath.get()
     destinationDirectory.set(configTestDirectory)
     options.encoding = "UTF-8"
@@ -101,3 +101,11 @@ val slayerCombatSmoke = tasks.register<JavaExec>("slayerCombatSmoke") {
     javaLauncher.set(javaToolchains.launcherFor { languageVersion.set(JavaLanguageVersion.of(21)) })
 }
 tasks.check { dependsOn(slayerCombatSmoke) }
+
+val transactionJournalSmoke = tasks.register<JavaExec>("transactionJournalSmoke") {
+    dependsOn(compileModuleConfigTest)
+    classpath = files(configTestDirectory, sourceSets.main.get().output, configurations.compileClasspath)
+    mainClass.set("PlayerTransactionJournalSmoke")
+    javaLauncher.set(javaToolchains.launcherFor { languageVersion.set(JavaLanguageVersion.of(21)) })
+}
+tasks.check { dependsOn(transactionJournalSmoke) }

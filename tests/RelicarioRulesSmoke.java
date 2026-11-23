@@ -13,11 +13,10 @@ public final class RelicarioRulesSmoke {
         var caps = Map.of("mana", 20.0, "magic_damage", 4.0, "melee_damage", 4.0);
         var discovered = Set.of("BROTE_MARCHITO","NUCLEO_SILVESTRE","CORONA_PEREGRINO","ECLIPSE_BOLSILLO");
         var sum = RelicarioRules.totals(catalog,discovered,caps);
-        ok(sum.get("mana") == 20.0); // 16+10, not 6+16+10; capped
+        ok(sum.get("mana") == 20.0); // 6+16+10, capped
         ok(sum.get("magic_damage") == 1.0 && sum.get("melee_damage") == 1.0);
-        ok(RelicarioRules.active(catalog,discovered).size()==3);
-        ok(RelicarioRules.superseded(low,catalog,discovered));
-        ok(!RelicarioRules.superseded(high,catalog,discovered));
+        ok(RelicarioRules.active(catalog,discovered).size()==4);
+        ok(RelicarioRules.totals(catalog,discovered,Map.of("mana",100.0,"magic_damage",4.0,"melee_damage",4.0)).get("mana")==32.0);
         ok(!RelicarioRules.canAbsorb(low.id(),discovered,RelicarioRules.validateCatalog(catalog)));
         ok(RelicarioRules.canAbsorb(low.id(),Set.of(),RelicarioRules.validateCatalog(catalog)));
         ok(RelicarioRules.totals(catalog,Set.of("BROTE_MARCHITO"),caps).get("mana")==6.0);
@@ -30,10 +29,8 @@ public final class RelicarioRulesSmoke {
             new RelicarioRules.Relic("BAD", "broken", 1, Map.of("mana",Double.NaN));
             throw new AssertionError("nonfinite should fail");
         } catch (IllegalArgumentException expected) { }
-        try {
-            RelicarioRules.validateCatalog(List.of(low, new RelicarioRules.Relic("OTHER_BROTE","raigambre",1,Map.of("mana",5.0))));
-            throw new AssertionError("duplicate family rank should fail");
-        } catch (IllegalArgumentException expected) { }
-        System.out.println("PASS RelicarioRulesSmoke: upgrades, cumulative caps, duplicate safety and deterministic recomputation");
+        // Ranks and families are labels, not mutually exclusive equipment slots.
+        ok(RelicarioRules.active(List.of(low, new RelicarioRules.Relic("OTHER_BROTE","raigambre",1,Map.of("mana",5.0))), Set.of("BROTE_MARCHITO","OTHER_BROTE")).size()==2);
+        System.out.println("PASS RelicarioRulesSmoke: simultaneous bonuses, global caps, duplicate safety and deterministic recomputation");
     }
 }

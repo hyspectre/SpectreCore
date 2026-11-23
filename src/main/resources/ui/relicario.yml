@@ -86,7 +86,6 @@ colecciones:
 estados:
   descubierto: "<green>✦ ᴀʙsᴏʀʙɪᴅᴏ"
   pendiente: "<gray>✦ ᴘᴇɴᴅɪᴇɴᴛᴇ"
-  superado: "<yellow>✦ ᴇᴠᴏʟᴜᴄɪᴏɴᴀᴅᴏ"
 confirmacion:
   title: "<white> <gold>Absorber reliquia"
   size: 27
@@ -126,6 +125,6 @@ mensajes:
   back: "<gold>⇜ Volver al catálogo"
   back-detail: "<gray>Revisar otras colecciones."
   close: "<gray>Cerrar Relicario"
-  guide: "<gold>Relicario <gray>│ Cada reliquia se absorbe una vez. Solo cuenta la mayor versión de cada familia."
+  guide: "<gold>Relicario <gray>│ Cada reliquia se absorbe una vez. Todas las reliquias absorbidas aportan sus bonificaciones."
   mana-offline: "<yellow>El poder de maná aún no está disponible."
   active-bonus: "<green>✦ Bonificación activa"

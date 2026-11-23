@@ -18,8 +18,9 @@ plugin = load('plugin.yml')
 gradle = (root/'build.gradle.kts').read_text(encoding='utf-8')
 version = re.search(r'^version\s*=\s*"([^"]+)"', gradle, re.MULTILINE)
 assert version is not None and plugin['name'] == 'SpectreCore' and plugin['version'] == version.group(1)
-assert set(plugin['commands']) == {'spectrecore', 'mago'} and not plugin['commands']['spectrecore'].get('aliases')
-assert not plugin['commands']['mago'].get('permission'), 'Mago must remain public'
+assert set(plugin['commands']) == {'spectrecore'} and not plugin['commands']['spectrecore'].get('aliases')
+routes = (root/'src/main/java/dev/hydev/spectrecore/command/CommandRoutes.java').read_text(encoding='utf-8')
+assert 'route("mago","mago","",Access.PUBLIC' in routes, 'El Mago must remain public below /spectrecore'
 equipment = load('modules/equipamiento/config.yml')
 expected = {'botania':'VERDANA_ARMOR','necrotica':'NECROTICO','asterion':'MINOTAURO_ARMOR','ultimo-juramento':'CABALLERO_ARMOR','sangre-primer-dragon':'DRACONIDO_ARMOR'}
 assert set(equipment['skills']) == set(expected)
