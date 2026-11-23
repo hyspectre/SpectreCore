@@ -51,6 +51,38 @@ public final class Gameplay {
         if (ores.getInt("mitrilo.cantidad-maxima") < ores.getInt("mitrilo.cantidad-minima"))
             throw new java.io.IOException("tesoros/mineria.yml: cantidad Mitrilo invertida");
         bounded(ores, "mitrilo.rango-minimo", 2, 3, true);
+        String root = "herramientas-mitrilo.";
+        for (String item : List.of("resonancia.maxima","resonancia.por-mineral-natural",
+                "cristal.recupera","pico.activacion","pico.duracion-segundos",
+                "pico.radio","pico.max-resaltados","pico.resaltado-segundos",
+                "pico.max-bloques-adicionales","pico.coste-bloque-adicional",
+                "pico.recarga-segundos","brujula.activacion",
+                "brujula.radio-horizontal","brujula.radio-vertical",
+                "brujula.duracion-senal-segundos","brujula.recarga-segundos",
+                "farol.anclar","farol.ruta","farol.marcas-segundos",
+                "farol.recarga-segundos","farol.distancia-maxima",
+                "barrena.activacion","barrena.pasos","barrena.intervalo-ticks",
+                "barrena.recarga-segundos"))
+            bounded(ores, root+item, 1, 256, true);
+        if (ores.getInt(root+"resonancia.maxima") > 200
+                || ores.getInt(root+"pico.radio") > 6
+                || ores.getInt(root+"pico.max-resaltados") > 8
+                || ores.getInt(root+"pico.max-bloques-adicionales") > 3
+                || ores.getInt(root+"brujula.radio-horizontal") > 20
+                || ores.getInt(root+"brujula.radio-vertical") > 16
+                || ores.getInt(root+"barrena.pasos") > 8
+                || ores.getInt(root+"barrena.intervalo-ticks") < 4
+                || ores.getInt(root+"barrena.intervalo-ticks") > 20
+                || ores.getInt(root+"farol.distancia-maxima") > 256)
+            throw new java.io.IOException("tesoros/mineria.yml: límites de rendimiento de Mitrilo fuera de rango");
+        var safeStone = Set.of("STONE", "DEEPSLATE", "ANDESITE", "DIORITE",
+                "GRANITE", "TUFF", "CALCITE", "BLACKSTONE", "BASALT",
+                "NETHERRACK", "END_STONE");
+        var drillable = ores.getStringList(root+"barrena.bloques");
+        if (drillable.isEmpty() || drillable.size() > safeStone.size()
+                || !safeStone.containsAll(drillable)
+                || new HashSet<>(drillable).size() != drillable.size())
+            throw new java.io.IOException("tesoros/mineria.yml: la Barrena solo admite roca común sin duplicados");
         for (int tier = 2; tier <= 3; tier++)
             bounded(ores, "mitrilo.probabilidades.tier" + tier, 0, 100, false);
         if (!"TOOL".equals(ores.getString("mitrilo.herramientas.tipo")))

@@ -20,3 +20,44 @@ PICO_MITRILO_TEMPLADO:
     - '&7Forjado para la minería más exigente.'
     - '&b+60% posibilidad de hallar Mitrilo.'
     - '&8Fabricado en la Forja de Hydev.'
+
+# Controles: clic derecho; agacharse + clic derecho para los modos avanzados.
+# La resonancia es del objeto, se conserva en su PDC y nunca se simula con lore.
+BRUJULA_GEOLOGICA:
+  base:
+    revision-id: 1
+    material: COMPASS
+    max-stack-size: 1
+    name: '<gradient:#74B8CE:#E7E3BD>Brújula Geológica</gradient>'
+    tier: RARE
+    lore:
+    - '&7Pulsa para sentir minerales naturales cercanos.'
+    - '&7Indica dirección y profundidad aproximadas.'
+    - '&bPulso: 30 de resonancia &8· &735 s'
+    - '&8Se carga en la mano secundaria al minar.'
+FAROL_MITRILO:
+  base:
+    revision-id: 1
+    material: SOUL_LANTERN
+    max-stack-size: 1
+    name: '<gradient:#8EDCCF:#BDA9E9>Farol de Mitrilo</gradient>'
+    tier: RARE
+    lore:
+    - '&7Ilumina el camino mientras lo sostienes.'
+    - '&eClic derecho: &7Encender o apagar.'
+    - '&eAgachado + clic: &7Anclar o revelar ruta.'
+    - '&bAncla: 10 &8· &bRuta: 20'
+    - '&8El sendero desaparece tras 20 s.'
+BARRENA_MITRILO:
+  base:
+    revision-id: 1
+    material: NETHERITE_PICKAXE
+    max-stack-size: 1
+    name: '<gradient:#74B8CE:#E7E3BD>Barrena de Mitrilo</gradient>'
+    tier: EPIC
+    lore:
+    - '&7Excava roca común en un túnel de 1 x 2.'
+    - '&eAgáchate y haz clic derecho para perforar.'
+    - '&7Máximo 8 tramos; se detiene ante minerales.'
+    - '&bPerforación: 50 &8· &745 s'
+    - '&8Consume durabilidad en cada bloque.'

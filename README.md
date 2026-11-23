@@ -1,14 +1,16 @@
 # SpectreCore — núcleo RPG de Hydev
 
-**Versión en desarrollo:** `0.9.0-dev3`  
+**Versión en desarrollo:** `0.9.0-dev4`  
 **Servidor objetivo:** Paper 1.21.10 · Java 21  
-**Estado:** tercera entrega de 0.9; usa GitHub Actions para validar el código. **No es una versión de producción**.
+**Estado:** cuarta entrega de 0.9; usa GitHub Actions para validar el código. **No es una versión de producción**.
 
 SpectreCore reúne cocina, accesorios consumibles, habilidades de armadura, profesiones, encargos, exploración, Slayer, herramientas de mundo y menús dentro de un único plugin modular. Los módulos forman parte permanente del sistema; no existen interruptores de configuración para desactivarlos.
 
 La línea 0.9 incorpora **hitos de colección en el Relicario**: progreso visible por categoría, objetivos configurables y celebración de descubrimientos. No añade monedas, estadísticas ni estructuras nuevas de persistencia. Incluye además un **Tablón de abastecimiento** para consultar los materiales realmente definidos por minería, caza y agricultura, cuánto llevas y si sus hallazgos están accesibles. No crea recetas ni altera la economía. Consulta [ROADMAP_0.9.md](ROADMAP_0.9.md) para el alcance pendiente.
 
 La tercera entrega agrega **Mitrilo**, hallazgo de minería avanzada y recurso para dos picos de MMOItems. El tablón incorpora el **Pedido del Herrero**, que entrega 4 Mitrilo por 180 monedas con registro de transacciones. Los fragmentos de recetas deben integrarse en la Forja ya existente, sin crear una estación duplicada. Consulta [INSTALAR_MITRILO.md](integracion-mmoitems/INSTALAR_MITRILO.md).
+
+La cuarta entrega añade **Brújula Geológica, Farol de Mitrilo, Barrena de Mitrilo y Cristal de Mitrilo**, además de una habilidad de extracción por vetas en el Pico existente. Todas las herramientas guardan su energía de forma persistente en cada objeto. Consulta la [guía de instalación y controles](integracion-mmoitems/INSTALAR_MITRILO.md) antes de fusionar ítems y recetas en MMOItems.
 
 ## Comandos
 

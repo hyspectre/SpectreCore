@@ -43,6 +43,42 @@ Desde `/spectrecore trabajos abastecimiento` se puede entregar **4 Mitrilo por 1
 - Si algo falla entre el retiro y el pago, **no** reembolsa automáticamente una operación ambigua; queda pendiente para administración, evitando pago duplicado.
 - `/spectrecore trabajos transacciones` permite consultar los casos, y `/spectrecore trabajos resolver <uuid>` cerrarlos **solo tras verificar inventario, monedas y permisos**.
 
+## Herramientas de exploración y energía (0.9.0-dev4)
+
+Esta versión mantiene `MATERIAL:MITRILO` y agrega tres nuevos objetos al archivo `TOOL_MITRILO.yml`, así como dos materiales a `MATERIAL_MITRILO.yml`:
+
+| Objeto | Tipo/ID MMOItems | Uso |
+|---|---|---|
+| Brújula Geológica | `TOOL:BRUJULA_GEOLOGICA` | Pulso para localizar menas naturales sin revelar coordenadas exactas |
+| Farol de Mitrilo | `TOOL:FAROL_MITRILO` | Visión nocturna al sostenerlo encendido; ancla y guía de retorno |
+| Barrena de Mitrilo | `TOOL:BARRENA_MITRILO` | Túnel de 1×2, máximo 8 tramos y 16 bloques |
+| Lingote de Mitrilo | `MATERIAL:LINGOTE_MITRILO` | Refinamiento intermedio a partir de Mitrilo |
+| Cristal de Mitrilo | `MATERIAL:CRISTAL_MITRILO` | Restaura 50 puntos a la herramienta sostenida en la mano secundaria |
+
+### Energía compartida en concepto, independiente por objeto
+
+Cada herramienta de Mitrilo guarda su propia carga en los datos persistentes del objeto, hasta **100 puntos**. Se obtienen **4 puntos** por mena natural minada a mano con pico; no cuentan bloques colocados, movidos por pistones ni la extracción automática del Pico/Barrena. Se conserva la energía al transferir, desconectar o almacenar el objeto. No se mezcla con la Resonancia del Pico Perdido.
+
+Para recargar, sostén **Cristal de Mitrilo en la mano principal** y una herramienta de Mitrilo en la secundaria, luego haz clic derecho. La luz básica del Farol no consume energía: es una decisión de balance sobre la propuesta del otro chat.
+
+### Controles y balance
+
+- **Pico de Mitrilo (ambos modelos):** agáchate y haz clic derecho mirando una mena natural para marcar hasta 8 minerales conectados dentro de radio 5, durante 5 s. Activación de 25 puntos, duración de 15 s y recarga de 20 s. Durante ese periodo, romper manualmente una mena puede extraer hasta 3 bloques conectados adicionales, pagando 5 puntos y 1 de durabilidad por bloque; no concede cobros ni recompensas de minería manual por esos bloques. El aumento pasivo a la probabilidad de hallar Mitrilo se mantiene.
+- **Brújula Geológica:** clic derecho, pulso horizontal de 16 bloques y vertical de ±12. Cuesta 30 puntos, tiene recarga de 35 s y muestra durante 8 s una señal débil, moderada o intensa, con dirección cardinal y profundidad aproximadas. Solo considera menas naturales en regiones autorizadas, sin cargar chunks.
+- **Farol de Mitrilo:** clic derecho enciende/apaga la visión nocturna mientras se sostiene en cualquiera de las manos. Agachado + clic derecho fija el ancla por 10 puntos y empieza a recordar el recorrido; repetir el gesto revela las marcas de retorno durante 20 s por 20 puntos, recarga de 30 s. Alcance máximo: 256 bloques, una sola ancla por Farol. Agachado + clic izquierdo borra el ancla. Teletransportarse o cambiar de mundo interrumpe el recorrido. La ruta se almacena en el ítem.
+- **Barrena de Mitrilo:** agachado + clic derecho para perforar roca ordinaria. Cuesta 50 puntos, recarga 45 s, excava un bloque cada 0,25 s hasta 16 bloques en un túnel de 8×1×2. Usa el botín normal sin multiplicadores, consume 1 de durabilidad por bloque y se detiene ante menas, líquidos, contenedores, zonas protegidas, chunks no cargados o si el jugador se aleja/cambia la herramienta.
+
+Los valores se configuran en `modules/tesoros/mineria.yml`, sección `herramientas-mitrilo`. Los nombres y mensajes se configuran mediante los archivos MMOItems y `modules/tesoros/mensajes.yml`.
+
+### Instalación y pruebas necesarias
+
+1. Fusiona las entradas nuevas en los **archivos existentes** `plugins/MMOItems/item/MATERIAL.yml` y `TOOL.yml`, conservando todos los IDs previos.
+2. Añade los fragmentos de recetas de brújula, farol, barrena, lingote y cristal a la estación **real** de MMOItems que utiliza el NPC Forja. Su archivo no está en este repositorio, por lo que **no se han instalado ni verificado en el servidor**. Revisa el formato de recetas con tu versión exacta de la estación.
+3. Verifica que WorldGuard esté presente y que las funciones de prospección y excavación respeten las regiones; si la API no está disponible, dichas habilidades se bloquean.
+4. Prueba en Paper el guardado de PDC al guardar/transferir los ítems, desconexiones, compatibilidad de durabilidad con MMOItems, tiempos, drops y configuración de ItemsAdder antes de desplegar.
+
+La carga de energía y la minería automática no alteran el progreso de AuraSkills por diseño ni generan pagos de trabajo adicionales; no se prometen comportamientos externos de terceros sin prueba ingame.
+
 ## Estado de validación
 
 Esta entrega se prueba mediante GitHub Actions (sintaxis, Java, YAML, reglas y código de transacciones). Permanecen aplazadas las pruebas completas dentro de Paper, fallos simulados Vault/LuckPerms y daño mágico MythicMobs/MMOItems, según el acuerdo para cerrar 0.9.

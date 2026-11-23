@@ -1,6 +1,6 @@
 # SpectreCore 0.9 — Plan de desarrollo
 
-**Estado:** en desarrollo. `0.9.0-dev3` es una entrega parcial, no una versión lista para producción.
+**Estado:** en desarrollo. `0.9.0-dev4` es una entrega parcial, no una versión lista para producción.
 
 ## Dirección jugable
 
@@ -33,6 +33,18 @@ Construir conexiones útiles entre exploración, accesorios, profesiones, fabric
 - Pedido repetible de 4 Mitrilo por 180 monedas; el jugador elige entre reservar el mineral para herramientas o venderlo a la Forja.
 - Retiro y pago con bitácora persistente; transacciones ambiguas quedan para reconciliación administrativa.
 - Pruebas estáticas, integración de configuración, tests de cantidades y CI. **No representa prueba ingame ni instalación automática de MMOItems.**
+
+### 0.9.0-dev4 — Herramientas especializadas de Mitrilo (implementadas en esta rama)
+
+- **Pico de Mitrilo:** mantiene la bonificación pasiva para hallar Mitrilo y añade una habilidad de vetas conectadas, con hasta tres bloques adicionales por extracción y consumo de energía/durabilidad.
+- **Brújula Geológica:** pulso regional limitado, señales de intensidad y orientación durante 8 segundos. No revela coordenadas exactas ni carga chunks.
+- **Farol de Mitrilo:** visión nocturna básica gratuita y sendero de retorno anclado en el ítem, con límite espacial y marcas temporales.
+- **Barrena de Mitrilo:** túnel 1×2 de hasta 16 bloques, un bloque cada 0,25 segundos, solo en roca de lista blanca.
+- **Cristal de Mitrilo:** recarga 50 de los 100 puntos máximos de resonancia almacenados individualmente en cada herramienta.
+- Las habilidades respetan la protección WorldGuard verificada; sin ella, las lecturas y excavaciones sensibles se bloquean. La minería automática no incrementa botines ni pagos por extracción manual.
+- Configuración y textos en YAML, cinco nuevos IDs de MMOItems, fragmentos para la Forja existente y pruebas de regresión.
+
+**Pendiente fuera del repositorio:** fusionar los ítems/recetas con MMOItems y comprobar en el servidor la persistencia de datos del ítem, la protección de regiones, la durabilidad, los controles y las partículas. No hay nueva estación de forja.
 
 ### Próximas líneas (no implementadas)
 
