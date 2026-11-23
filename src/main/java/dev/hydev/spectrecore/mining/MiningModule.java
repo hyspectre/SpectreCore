@@ -182,7 +182,18 @@ public final class MiningModule implements Listener {
         int rank = player.hasPermission("trabajo.minero.profesional") ? 3 : 2;
         if (required > rank) return false;
         double chance = config.getDouble("mitrilo.probabilidades.tier" + tier, 0);
-        if (!Double.isFinite(chance) || chance <= 0 || chance > 100
+        // Exact MMOItems TOOL IDs only: ordinary renamed pickaxes receive no bonus.
+        ItemStack pickaxe = player.getInventory().getItemInMainHand();
+        String expectedType = config.getString("mitrilo.herramientas.tipo", "TOOL");
+        if (expectedType.equalsIgnoreCase(mmo.type(pickaxe))) {
+            String id = mmo.id(pickaxe);
+            Object raw = config.get("mitrilo.herramientas.bonificaciones." + id);
+            if (raw instanceof Number factor && Double.isFinite(factor.doubleValue())
+                    && factor.doubleValue() >= 1 && factor.doubleValue() <= 3)
+                chance *= factor.doubleValue();
+        }
+        chance = Math.min(100.0, chance);
+        if (!Double.isFinite(chance) || chance <= 0
                 || ThreadLocalRandom.current().nextDouble(100) >= chance) return false;
         String type = config.getString("mitrilo.tipo", "MATERIAL");
         String id = config.getString("mitrilo.id", "MITRILO");
