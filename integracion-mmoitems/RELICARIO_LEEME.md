@@ -14,10 +14,10 @@ menús y bonificaciones. Todos los módulos de SpectreCore se inician automátic
 - `RelicarioRules.java`: cálculo puro de familias y bonos, con pruebas.
 
 ## Regla de progreso
-- Todos los accesorios de familias **distintas** se acumulan simultáneamente.
-- En una misma familia solo aporta el accesorio del mayor rango registrado.
+- Todos los accesorios absorbidos se acumulan simultáneamente, incluso si pertenecen a la misma familia.
+- Los rangos no sustituyen atributos de reliquias ya consumidas.
 - Los IDs antiguos permanecen descubiertos para el catálogo.
-- Los topes se aplican por estadística al total de todas las familias.
+- Los topes se aplican por estadística al total de todos los accesorios.
 - El registro se calcula desde IDs absorbidos, no desde valores incrementados.
 - Absorber el mismo ID dos veces está prohibido.
 - El consumo confirma y verifica el objeto MMOItems real, nunca su nombre.
