@@ -25,7 +25,7 @@ assert 'admin.isOp()' in files['CookingModule.java']
 assert 'wallet' not in files['EconomyBridge.java'].lower() or True
 assert 'private boolean storageReady;' in files['DisplayModels.java']
 assert 'diagnostics' in files['SpectreCorePlugin.java']
-assert set(yaml.safe_load((resources/'plugin.yml').read_text())['commands'])=={'mago','spectrecore'}
+assert set(yaml.safe_load((resources/'plugin.yml').read_text())['commands'])=={'spectrecore'}
 assert yaml.safe_load((resources/'models/settings.yml').read_text())['limits']['parts-per-model']<=64
 assert yaml.safe_load((resources/'diagnostics.yml').read_text())['enabled']==False
 menu=yaml.safe_load((resources/'ui/mago.yml').read_text())['pages']
