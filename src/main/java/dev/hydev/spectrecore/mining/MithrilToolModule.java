@@ -259,7 +259,8 @@ public final class MithrilToolModule implements Listener {
     }
 
     @EventHandler public void move(PlayerMoveEvent event) {
-        if (event.getTo() != null) lantern.moved(event.getPlayer(), event.getFrom(), event.getTo());
+        if (event.getTo() != null) lantern.moved(event.getPlayer(), event.getFrom(), event.getTo(),
+                cost("farol.distancia-maxima"));
     }
     @EventHandler public void teleport(PlayerTeleportEvent event) { lantern.teleported(event.getPlayer()); }
     @EventHandler public void quit(PlayerQuitEvent event) {
