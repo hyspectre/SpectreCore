@@ -31,7 +31,6 @@ public final class MithrilRegionAccess {
         try {
             ClassLoader loader = guard.getClass().getClassLoader();
             Class<?> wg = Class.forName("com.sk89q.worldguard.WorldGuard", true, loader);
-            Class<?> platformType = Class.forName("com.sk89q.worldguard.internal.platform.WorldGuardPlatform", true, loader);
             Class<?> regionContainer = Class.forName("com.sk89q.worldguard.protection.regions.RegionContainer", true, loader);
             Class<?> regionQuery = Class.forName("com.sk89q.worldguard.protection.regions.RegionQuery", true, loader);
             Class<?> localPlayer = Class.forName("com.sk89q.worldguard.LocalPlayer", true, loader);
@@ -41,7 +40,7 @@ public final class MithrilRegionAccess {
             Class<?> wgBukkit = Class.forName("com.sk89q.worldguard.bukkit.WorldGuardPlugin", true, loader);
             instance = wg.getMethod("getInstance");
             platform = wg.getMethod("getPlatform");
-            container = platformType.getMethod("getRegionContainer");
+            container = platform.getReturnType().getMethod("getRegionContainer");
             createQuery = regionContainer.getMethod("createQuery");
             testBuild = regionQuery.getMethod("testBuild", weLocation, localPlayer,
                     Array.newInstance(stateFlag, 0).getClass());
