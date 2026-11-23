@@ -48,6 +48,17 @@ cazador:
   profesional:
     dinero: {minimo: 12, maximo: 24}
 
+# Encargo repetible del herrero: el jugador decide entre entregar Mitrilo
+# para obtener monedas o reservarlo para fabricar sus herramientas.
+# No genera monedas adicionales por cada bloque minado.
+encargos:
+  mitrilo:
+    tipo: MATERIAL
+    id: MITRILO
+    cantidad: 4
+    recompensa: 180
+    rango-minimo: 2
+
 # Precios extraídos de los tres menús originales de zMenu.
 contratos:
   precios:
