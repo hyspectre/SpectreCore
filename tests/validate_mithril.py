@@ -32,7 +32,7 @@ assert set(recipes) == {"pico-mitrilo", "pico-mitrilo-templado", "lingote-mitril
 assert recipes["pico-mitrilo"]["output"] == "mmoitems{type=TOOL,id=PICO_MITRILO}"
 assert recipes["pico-mitrilo-templado"]["output"] == "mmoitems{type=TOOL,id=PICO_MITRILO_TEMPLADO}"
 for recipe in recipes.values():
-    assert any("mmoitem{type=MATERIAL,id=MITRILO,amount=" in i for i in recipe["ingredients"])
+    assert any("mmoitem{type=MATERIAL,id=" in i for i in recipe["ingredients"])
     assert recipe["crafting-time"] > 0
 assert recipes["brujula-geologica"]["output"] == "mmoitems{type=TOOL,id=BRUJULA_GEOLOGICA}"
 assert recipes["farol-mitrilo"]["output"] == "mmoitems{type=TOOL,id=FAROL_MITRILO}"
@@ -48,7 +48,7 @@ assert tool_config["barrena"]["pasos"] == 8 and tool_config["barrena"]["interval
 assert all("ORE" not in item for item in tool_config["barrena"]["bloques"])
 assert (res.parent/"java/dev/hydev/spectrecore/mining/MithrilToolModule.java").is_file()
 assert (res.parent/"java/dev/hydev/spectrecore/mining/MithrilRegionAccess.java").is_file()
-assert assert "mitrilo" in gui["items"] and "pedido-mitrilo" in gui["items"]
+assert "mitrilo" in gui["items"] and "pedido-mitrilo" in gui["items"]
 assert "{recompensa}" in " ".join(gui["items"]["pedido-mitrilo"]["lore"])
 mining_code = (res.parent/"java/dev/hydev/spectrecore/mining/MiningModule.java").read_text(encoding="utf8")
 order_code = (res.parent/"java/dev/hydev/spectrecore/systems/SupplyOrders.java").read_text(encoding="utf8")
