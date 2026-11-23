@@ -5,11 +5,13 @@ import dev.hydev.spectrecore.activities.ActivityRules;
 import dev.hydev.spectrecore.mining.PlacedOres;
 import dev.hydev.spectrecore.guide.JobsMenu;
 import dev.hydev.spectrecore.integration.LuckPermsContractBridge;
+import dev.hydev.spectrecore.storage.ClaimJournal;
 import dev.hydev.spectrecore.treasure.CombatTreasureRules;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.*;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.*;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -17,6 +19,7 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -27,6 +30,8 @@ public final class JobsModule implements Listener {
     private final PlacedOres previousMining, previousCrops;
     private LuckPermsContractBridge permissions;
     private JobsMenu menu;
+    private ClaimJournal purchaseJournal;
+    private boolean storageLoaded;
     private final Set<UUID> purchasesInProgress = new HashSet<>();
     private final Map<UUID, Set<String>> confirmedRanks = new HashMap<>();
     private final Map<BlockBreakEvent, Boolean> provenance = new WeakHashMap<>();
@@ -36,11 +41,33 @@ public final class JobsModule implements Listener {
         previousCrops = new PlacedOres(plugin, "placed_crop_blocks_v1", m -> false);
     }
     public void enable() {
-        reload(); var data = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "jobs-data.yml"));
-        for (String job : List.of("minero", "granjero", "cazador")) {
-            var section = data.getConfigurationSection(job);
-            if (section != null) for (String id : section.getKeys(false)) last.put(job + "." + id, section.getLong(id));
+        reload();
+        var data = new YamlConfiguration();
+        File source = new File(plugin.getDataFolder(), "jobs-data.yml");
+        try {
+            if (source.exists()) {
+                if (!source.isFile() || source.length() > 8_000_000L) throw new IOException("Archivo de trabajos inválido");
+                data.load(source); // Strict parse; never silently replace corrupted progress.
+            }
+            for (String job : List.of("minero", "granjero", "cazador")) {
+                var section = data.getConfigurationSection(job);
+                if (data.contains(job) && section == null) throw new IOException("Sección de trabajo inválida: " + job);
+                if (section != null) for (String id : section.getKeys(false)) {
+                    UUID.fromString(id);
+                    long timestamp = section.getLong(id, -1L);
+                    if (timestamp < 0) throw new IOException("Tiempo de trabajo inválido: " + job + "." + id);
+                    last.put(job + "." + id, timestamp);
+                }
+            }
+        } catch (Exception failure) {
+            throw new IllegalStateException("Trabajos: no se cargarán datos dañados ni se sobrescribirá jobs-data.yml", failure);
         }
+        purchaseJournal = new ClaimJournal(new File(plugin.getDataFolder(), "data/jobs/purchases.yml").toPath());
+        if (!purchaseJournal.load()) throw new IllegalStateException("Trabajos: registro de compras ilegible; revisar data/jobs/purchases.yml");
+        for (ClaimJournal.Claim pending : purchaseJournal.unresolved())
+            plugin.getLogger().severe("TRABAJO PENDIENTE: transacción=" + pending.id() + " jugador="
+                    + pending.player() + " contrato=" + pending.subject() + "; verificar saldo y permiso antes de resolver.");
+        storageLoaded = true;
         Bukkit.getPluginManager().registerEvents(this, plugin); Bukkit.getPluginManager().registerEvents(placed, plugin);
         if (Bukkit.getPluginManager().isPluginEnabled("LuckPerms")) {
             try { permissions = new LuckPermsContractBridge(plugin); }
@@ -49,6 +76,9 @@ public final class JobsModule implements Listener {
         menu = new JobsMenu(plugin, this);
         menu.enable();
         if (dev.hydev.spectrecore.command.CommandRouter.of(plugin).get("trabajo") != null) dev.hydev.spectrecore.command.CommandRouter.of(plugin).get("trabajo").setExecutor((sender, cmd, label, args) -> {
+            if (args.length > 0 && (args[0].equalsIgnoreCase("transacciones") || args[0].equalsIgnoreCase("resolver"))) {
+                return purchaseAdmin(sender, args);
+            }
             if (!(sender instanceof Player p)) { sender.sendMessage(Settings.message("trabajos", "JobsModule.mensaje-001", "Usa /spectrecore trabajos dentro del juego.")); return true; }
             if (args.length == 0 || !args[0].equalsIgnoreCase("estado")) {
                 String page = args.length > 0 && JobsContractRules.JOBS.contains(args[0].toLowerCase(Locale.ROOT))
@@ -70,7 +100,9 @@ public final class JobsModule implements Listener {
     public void disable() {
         if (timer != null) timer.cancel();
         if (menu != null) { menu.disable(); menu = null; }
-        HandlerList.unregisterAll(this); HandlerList.unregisterAll(placed); save();
+        HandlerList.unregisterAll(this); HandlerList.unregisterAll(placed); if (storageLoaded) save();
+        if (purchaseJournal != null && purchaseJournal.count() > 0)
+            plugin.getLogger().severe("TRABAJOS: existen " + purchaseJournal.count() + " transacciones que necesitan reconciliación.");
         if (!purchasesInProgress.isEmpty())
             plugin.getLogger().warning("TRABAJOS: Hay " + purchasesInProgress.size() + " compra(s) LuckPerms pendiente(s) al apagar; revisar saldos si hubo errores.");
     }
@@ -99,6 +131,50 @@ public final class JobsModule implements Listener {
     }
     public boolean isPending(Player p) { return purchasesInProgress.contains(p.getUniqueId()); }
 
+    /** Reconciliation requires manual verification of both the Vault balance and LuckPerms rank. */
+    private boolean purchaseAdmin(CommandSender sender, String[] args) {
+        if (!sender.hasPermission("spectrecore.admin")) {
+            sender.sendMessage(Settings.component("<red>Sin permiso.")); return true;
+        }
+        if (purchaseJournal == null || !purchaseJournal.ready()) {
+            sender.sendMessage(Settings.component("<red>Registro de compras no disponible.")); return true;
+        }
+        if (args[0].equalsIgnoreCase("transacciones")) {
+            sender.sendMessage(Settings.component("<gold>Compras pendientes: " + purchaseJournal.count()));
+            for (ClaimJournal.Claim claim : purchaseJournal.unresolved())
+                sender.sendMessage(Settings.component("<yellow>" + claim.id() + "<gray> · " + claim.player()
+                        + " · " + claim.subject()));
+            return true;
+        }
+        if (args.length != 2) {
+            sender.sendMessage(Settings.component("<yellow>Uso: /spectrecore trabajos resolver <uuid>")); return true;
+        }
+        try {
+            UUID token = UUID.fromString(args[1]);
+            if (purchaseJournal.unresolved().stream().noneMatch(claim -> claim.id().equals(token))) {
+                sender.sendMessage(Settings.component("<red>No existe esa transacción.")); return true;
+            }
+            if (purchaseJournal.resolve(token)) {
+                plugin.getLogger().warning("TRABAJO: transacción reconciliada manualmente por " + sender.getName() + ": " + token);
+                sender.sendMessage(Settings.component("<green>Registro resuelto. Asegúrate de haber verificado permiso y saldo."));
+            } else sender.sendMessage(Settings.component("<red>No se pudo registrar la resolución."));
+        } catch (IllegalArgumentException invalid) {
+            sender.sendMessage(Settings.component("<red>UUID inválido."));
+        }
+        return true;
+    }
+
+    private void endPurchase(UUID claim, String context) {
+        if (purchaseJournal == null || !purchaseJournal.finish(claim))
+            plugin.getLogger().severe("TRABAJO: transacción no finalizada " + claim + " (" + context + "); requiere revisión.");
+    }
+
+    private void refundPurchase(Player player, long price, UUID claim, String context) {
+        if (economy.deposit(player, price, false) == EconomyBridge.Result.CONFIRMED) endPurchase(claim, context);
+        else plugin.getLogger().severe("TRABAJO: reembolso sin confirmar " + claim + " jugador="
+                + player.getUniqueId() + " monto=" + price + " (" + context + "); requiere conciliación.");
+    }
+
     /** Main-thread purchase entry point, shared by native UI and command routes. */
     public void purchase(Player player, String job, String level) {
         String priceKey = "contratos.precios." + level;
@@ -126,9 +202,21 @@ public final class JobsModule implements Listener {
             return;
         }
         UUID id = player.getUniqueId();
+        String station = "job:" + id;
+        if (purchaseJournal == null || purchaseJournal.blocked(station)) {
+            player.sendMessage(Settings.component("<red>Hay una compra pendiente de revisión. Avisa a administración."));
+            return;
+        }
         purchasesInProgress.add(id);
+        UUID claim = purchaseJournal.begin(station, id, "JOB_PURCHASE", job + ":" + level + ":" + price, 1);
+        if (claim == null) {
+            purchasesInProgress.remove(id);
+            player.sendMessage(Settings.component("<red>No se pudo registrar el contrato. No se ha cobrado."));
+            return;
+        }
         if (economy.withdraw(player, price) != EconomyBridge.Result.CONFIRMED) {
             purchasesInProgress.remove(id);
+            endPurchase(claim, "cobro no confirmado");
             player.sendMessage(Settings.message("trabajos", "JobsModule.contrato-sin-saldo",
                     "§cNo se pudo confirmar el pago."));
             player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 0.6f, 1f);
@@ -139,9 +227,7 @@ public final class JobsModule implements Listener {
         try { grant = permissions.grant(player, job, level); }
         catch (RuntimeException | LinkageError failure) {
             purchasesInProgress.remove(id);
-            if (economy.deposit(player, price, false) != EconomyBridge.Result.CONFIRMED)
-                plugin.getLogger().severe("REEMBOLSO DE TRABAJO FALLIDO: " + id
-                        + " " + job + " " + level + " monto=" + price);
+            refundPurchase(player, price, claim, "excepción al conceder permiso");
             plugin.getLogger().severe("LUCKPERMS CONTRACT ERROR AFTER CHARGE " + id + ": " + failure);
             return;
         }
@@ -154,13 +240,12 @@ public final class JobsModule implements Listener {
             Bukkit.getScheduler().runTask(plugin, () -> {
                 purchasesInProgress.remove(id);
                 if (error != null || !Boolean.TRUE.equals(saved)) {
-                    if (economy.deposit(player, price, false) != EconomyBridge.Result.CONFIRMED)
-                        plugin.getLogger().severe("REEMBOLSO DE TRABAJO FALLIDO: " + id
-                                + " " + job + " " + level + " monto=" + price);
+                    refundPurchase(player, price, claim, "concesión de permiso fallida");
                     if (player.isOnline()) player.sendMessage(Settings.message("trabajos", "JobsModule.contrato-fallo",
                             "§cNo se pudo guardar el contrato. Se intentó devolver el pago."));
                     return;
                 }
+                endPurchase(claim, "permiso concedido");
                 confirmedRanks.computeIfAbsent(id, key -> new HashSet<>()).add(job + "." + level);
                 plugin.getLogger().info("TRABAJO CONTRATADO: " + id + " " + job + "." + level + " monto=" + price);
                 if (player.isOnline()) {
