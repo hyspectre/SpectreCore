@@ -1,6 +1,6 @@
 # SpectreCore 0.9 — Plan de desarrollo
 
-**Estado:** en desarrollo. `0.9.0-dev4` es una entrega parcial, no una versión lista para producción.
+**Estado:** en desarrollo. `0.9.0-dev5` es una entrega parcial, no una versión lista para producción.
 
 ## Dirección jugable
 
@@ -45,6 +45,15 @@ Construir conexiones útiles entre exploración, accesorios, profesiones, fabric
 - Configuración y textos en YAML, cinco nuevos IDs de MMOItems, fragmentos para la Forja existente y pruebas de regresión.
 
 **Pendiente fuera del repositorio:** fusionar los ítems/recetas con MMOItems y comprobar en el servidor la persistencia de datos del ítem, la protección de regiones, la durabilidad, los controles y las partículas. No hay nueva estación de forja.
+
+### 0.9.0-dev5 — Pico de Amatista (implementado en esta rama)
+
+- Pico legendario con receta de Mitrilo, Paladio y amatista, sin reemplazar los picos anteriores.
+- Usa resonancia persistente para invocar cinco bloques encantados temporales y romperlos con el mismo pico mediante golpes.
+- Cada cristal entrega exactamente una gema `GEM_STONE`, con tres calidades configurables (75/22/3 %). Los tres objetos se proporcionan como fragmentos MMOItems.
+- Los bloques visuales no alteran terreno. Pertenecen al jugador, tienen caducidad, una sola entrega y se limpian al desconectar, teletransportarse, apagar o cargar chunks.
+- Para activar se comprueban tanto permisos de WorldGuard como existencia de gemas MMOItems y espacio suficiente.
+- Pruebas de reglas, catálogo, YAML y compilación. No se presenta como verificada ingame.
 
 ### Próximas líneas (no implementadas)
 
