@@ -1,42 +1,46 @@
-# SpectreCore 0.7.3-m2-alpha — Hydev · FUENTES PARA STAGING
+# SpectreCore — núcleo RPG de Hydev
 
-**El código se compila mediante GitHub Actions. La aprobación para producción sigue pendiente de pruebas dentro del servidor.** Esta entrega continúa la 0.7.3-m1 y preserva sus correcciones de persistencia, sus mecánicas y la jerarquía administrativa `/spectrecore`.
+**Versión candidata:** `0.8.2-stability-rc1`  
+**Servidor objetivo:** Paper 1.21.10 · Java 21  
+**Estado:** compilación y pruebas automatizadas en GitHub Actions; **validación ingame pendiente**.
 
-## Novedades m2
-
-- `/spectrecore mago`: centro informativo con **Paper Dialogs** y categorías definidas en `ui/spectrecore mago.yml`.
-- `/spectrecore mago armaduras`: guía de los cinco conjuntos en Dialogs, sin libros. `/spectrecore armaduras` sigue funcionando por compatibilidad.
-- `/spectrecore mago recetas`: reusa el inventario GUI del recetario existente.
-- MiniMessage vía Adventure en menús, recetario y nuevos componentes; mensajes antiguos `&` / `§` siguen disponibles.
-- Texturas de cabezas custom con payload `textures` Base64 de Minecraft y caché acotada.
-- Vistas previas temporales de modelos YAML con `BlockDisplay`, `ItemDisplay` (incluye cabezas Base64) y `TextDisplay`.
-- Detección opcional de MythicLib, MMOItems, MythicMobs, ItemsAdder, AuraSkills, FancyNPCs, FancyHolograms, zMenu, WorldGuard, LuckPerms, Essentials, FastAsyncWorldEdit y Vault.
-- `models/ejemplo.yml`, `ui/spectrecore mago.yml` y textos en `modules/*/mensajes.yml` editables sin cambiar Java.
-
-## Compilar y probar
-
-Java **21** + Paper **1.21.10** y Gradle compatible. Ejecuta `gradle clean build` en la raíz (requiere acceso a repositorios de dependencias). La compilación se verifica en GitHub Actions por cada commit; revisa el resultado de la rama antes de instalar.
-
-Comprobaciones sin servidor (requieren `javac` y, para validadores YAML, Python con PyYAML):
-
-```bash
-bash tests/check_java_syntax.sh
-bash tests/run_pure_java_tests.sh
-python tests/validate_release.py
-python tests/validate_presentation.py
-python tests/validate_mago_models.py
-```
-
-`tests/MigrationRegression.java` y `tests/CommandRoutingRegression.java` se ejecutan como tareas Gradle; esta entrega también los ejecutó con Java 21 de forma aislada.
+SpectreCore reúne cocina, accesorios consumibles, habilidades de armadura, profesiones, encargos, exploración, Slayer, herramientas de mundo y menús dentro de un único plugin modular. Los módulos forman parte permanente del sistema; no existen interruptores de configuración para desactivarlos.
 
 ## Comandos
 
-- Jugadores: `/spectrecore mago`, `/spectrecore mago rpg`, `/spectrecore mago armaduras`, `/spectrecore mago recetas`.
-- Administradores: `/spectrecore ayuda`, `/spectrecore integraciones`, `/spectrecore modelo vista ejemplo`, `/spectrecore reload`.
-- Comandos antiguos de `/spectrecore` permanecen. Los aliases de «libro» en Cocina son compatibilidad temporal y no deben considerarse el estándar visual nuevo.
+Solo se registra `/spectrecore` como comando raíz.
 
-## Estado real de integraciones
+- Jugadores: `/spectrecore mago`, `/spectrecore relicario`, `/spectrecore armaduras`, `/spectrecore cocina`, `/spectrecore trabajos`, `/spectrecore misiones`.
+- Administradores: `/spectrecore integraciones`, `/spectrecore diagnostico`, `/spectrecore modelo`, `/spectrecore reload`.
+- Compras pendientes: `/spectrecore trabajos transacciones`; resolver solo después de comprobar permisos y saldos mediante `/spectrecore trabajos resolver <uuid>`.
 
-Los complementos externos se **detectan**, pero esta versión NO implementa todavía todos sus adaptadores API. No instala nuevas dependencias obligatorias. Los modelos 3D son solo previsualizaciones, **no** despliegues persistentes. MiniMessage aún no se ha aplicado a todos los mensajes históricos.
+La navegación del Mago usa menús del servidor configurados en `src/main/resources/ui/mago.yml`. Todas las rutas y permisos aparecen en `src/main/java/dev/hydev/spectrecore/command/CommandRoutes.java`.
 
-Lee **`MIGRACION_0.7.3-m2.md`** antes de usar staging y conserva copia íntegra de JAR/config/datos originales. No reemplazar la versión de producción con este ZIP.
+## Configuración y recursos
+
+- `src/main/resources/modules/`: balance, recetas, mensajes, límites y presentación.
+- `src/main/resources/ui/`: menús nativos, incluido el Relicario.
+- `integracion-mmoitems/`: ítems y configuraciones de MMOItems que debe instalar la administración.
+- `src/main/resources/models/`: modelos con Display Entities, admitiendo cabezas Base64.
+- Adventure MiniMessage en textos configurables; preserva soporte para colores heredados cuando sea necesario.
+
+## Integraciones
+
+Paper, MythicLib/MMOItems, MythicMobs, ItemsAdder y AuraSkills integran el ecosistema previsto. También se detectan o utilizan, según función y versión, WorldGuard, LuckPerms, FancyNPCs, FancyHolograms, zMenu, EssentialsX, FAWE y Vault. La presencia de un plugin no garantiza que todas sus funciones estén integradas.
+
+## Compilación y verificaciones
+
+```bash
+gradle clean build --no-daemon
+bash tests/run_pure_java_tests.sh
+python3 tests/validate_release.py
+python3 tests/validate_relicario_catalog.py
+```
+
+El workflow `.github/workflows/build.yml` ejecuta además validadores de configuración, pruebas Java y empaqueta el JAR al completar satisfactoriamente. La compilación no sustituye pruebas reales dentro de Minecraft.
+
+## Actualización segura
+
+Lee [MIGRACION_0.8.2-stability-rc1.md](MIGRACION_0.8.2-stability-rc1.md), conserva copias de los archivos persistentes y actualiza las referencias antiguas a `/mago` por `/spectrecore mago`. Las transacciones de trabajos interrumpidas se dejan en cuarentena para conciliación manual.
+
+**No instalar directamente en producción sin completar las pruebas de integración y respaldar los datos.**
