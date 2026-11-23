@@ -11,3 +11,25 @@ MITRILO:
     - '&7Metal pálido, ligero y resistente.'
     - '&7Utilizado en herramientas mineras.'
     - '&8Se extrae en vetas profundas.'
+LINGOTE_MITRILO:
+  base:
+    revision-id: 1
+    material: IRON_INGOT
+    name: '<gradient:#9FE9DD:#D8EDF0>Lingote de Mitrilo</gradient>'
+    tier: RARE
+    max-stack-size: 64
+    lore:
+    - '&7Mitrilo refinado para herramientas.'
+    - '&8Fundido a partir del mineral bruto.'
+CRISTAL_MITRILO:
+  base:
+    revision-id: 1
+    material: AMETHYST_SHARD
+    name: '<gradient:#8EDCCF:#BDA9E9>Cristal de Mitrilo</gradient>'
+    tier: RARE
+    max-stack-size: 64
+    lore:
+    - '&7Restaura 50 puntos de resonancia.'
+    - '&7Cristal en mano principal, herramienta'
+    - '&7de Mitrilo en mano secundaria.'
+    - '&eClic derecho para recargar.'
