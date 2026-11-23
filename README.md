@@ -1,10 +1,12 @@
 # SpectreCore — núcleo RPG de Hydev
 
-**Versión candidata:** `0.8.2-stability-rc1`  
+**Versión en desarrollo:** `0.9.0-dev1`  
 **Servidor objetivo:** Paper 1.21.10 · Java 21  
-**Estado:** compilación y pruebas automatizadas en GitHub Actions; **validación ingame pendiente**.
+**Estado:** primera entrega de 0.9; compilación y pruebas automatizadas en GitHub Actions. **No es una versión de producción**.
 
 SpectreCore reúne cocina, accesorios consumibles, habilidades de armadura, profesiones, encargos, exploración, Slayer, herramientas de mundo y menús dentro de un único plugin modular. Los módulos forman parte permanente del sistema; no existen interruptores de configuración para desactivarlos.
+
+La línea 0.9 incorpora **hitos de colección en el Relicario**: progreso visible por categoría, objetivos configurables y celebración de descubrimientos. No añade monedas, estadísticas ni estructuras nuevas de persistencia. Consulta [ROADMAP_0.9.md](ROADMAP_0.9.md) para el alcance y las verificaciones aplazadas.
 
 ## Comandos
 
