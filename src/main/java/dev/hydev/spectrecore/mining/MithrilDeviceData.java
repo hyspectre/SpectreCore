@@ -16,11 +16,12 @@ import java.util.Set;
 public final class MithrilDeviceData {
     public static final String PICK = "PICO_MITRILO";
     public static final String TEMPERED = "PICO_MITRILO_TEMPLADO";
+    public static final String AMETHYST = "PICO_AMATISTA";
     public static final String COMPASS = "BRUJULA_GEOLOGICA";
     public static final String LANTERN = "FAROL_MITRILO";
     public static final String DRILL = "BARRENA_MITRILO";
     public static final String CRYSTAL = "CRISTAL_MITRILO";
-    private static final Set<String> TOOLS = Set.of(PICK, TEMPERED, COMPASS, LANTERN, DRILL);
+    private static final Set<String> TOOLS = Set.of(PICK, TEMPERED, AMETHYST, COMPASS, LANTERN, DRILL);
     private final MmoBridge mmo = new MmoBridge();
     private final NamespacedKey charge, cooldown, active, lit, anchor, path, serial;
 
