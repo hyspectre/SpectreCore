@@ -95,7 +95,7 @@ public final class MithrilToolModule implements Listener {
             case "sin-tunel" -> Settings.message("tesoros", "MithrilTools.sin-tunel", "<gray>La Barrena necesita roca común y un camino permitido.", values);
             case "tunel" -> Settings.message("tesoros", "MithrilTools.tunel", "<aqua>✦ Barrena activada. No extrae minerales ni concede experiencia adicional.", values);
             case "sin-cristales" -> Settings.message("tesoros", "MithrilTools.sin-cristales", "<yellow>No hay espacio seguro para invocar cristales o sus gemas todavía no están disponibles.", values);
-            case "campo-ametista" -> Settings.message("tesoros", "MithrilTools.campo-ametista", "<light_purple>✦ Resonancia amplificada: {cantidad} cristales. ¡Rómpelos con tu pico!", values);
+            case "campo-ametista" -> Settings.message("tesoros", "MithrilTools.campo-ametista", "<light_purple>✦ {cantidad} cristales invocados <gray>(-{costo} de resonancia). <light_purple>¡Rómpelos!", values);
             default -> Settings.component(fallback);
         });
     }
