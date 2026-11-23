@@ -81,7 +81,9 @@ public final class SupplyGuide implements Listener {
                 throw new IOException("El tablón de abastecimiento es ilegible o demasiado grande");
             YamlConfiguration candidate = new YamlConfiguration();
             candidate.load(file); // Strict: malformed YAML preserves the last valid layout.
-            if (candidate.getInt("size", -1) != 54 || !candidate.isString("title"))
+            if (candidate.getInt("size", -1) != 54 || !candidate.isString("title")
+                    || candidate.getString("title", "").isBlank()
+                    || candidate.getString("title", "").length() > 256)
                 throw new IOException("Tamaño o título inválido en el tablón de abastecimiento");
             Set<Integer> taken = new HashSet<>();
             for (String key : BUTTONS) {
@@ -92,11 +94,15 @@ public final class SupplyGuide implements Listener {
                 int slot = candidate.getInt(root + ".slot");
                 Material icon = Material.matchMaterial(candidate.getString(root + ".material", ""));
                 if (slot < 0 || slot >= 54 || !taken.add(slot) || icon == null || !icon.isItem()
-                        || candidate.getString(root + ".nombre", "").length() > 256
-                        || candidate.getStringList(root + ".lore").size() > 16)
+                        || candidate.getString(root + ".nombre", "").isBlank()
+                        || candidate.getString(root + ".nombre", "").length() > 256)
                     throw new IOException("Entrada fuera de límites o superpuesta: " + key);
-                for (String line : candidate.getStringList(root + ".lore"))
-                    if (line.length() > 256) throw new IOException("Texto demasiado largo: " + key);
+                Object loreValue = candidate.get(root + ".lore");
+                if (!(loreValue instanceof List<?> lore) || lore.size() > 16)
+                    throw new IOException("Lista de texto inválida: " + key);
+                for (Object value : lore)
+                    if (!(value instanceof String line) || line.length() > 256)
+                        throw new IOException("Texto inválido o demasiado largo: " + key);
             }
             for (String key : List.of("sin-hallazgos", "sin-acceso", "disponible",
                     "recurso-no-disponible", "consulta-no-disponible", "sin-contrato", "error")) {
@@ -190,7 +196,7 @@ public final class SupplyGuide implements Listener {
                 String rank = jobs.rank(player, resource.job()) == 0
                         ? layout.getString("estados.sin-contrato")
                         : jobs.displayRank(ProgressRules.rank(jobs.rank(player, resource.job())));
-                String quantity = readable && resource.valid()
+                String quantity = readable && resource.valid() && actual != null
                         ? Integer.toString(counts.getOrDefault(
                                 resource.type().toUpperCase(Locale.ROOT) + ":" + resource.id().toUpperCase(Locale.ROOT), 0))
                         : layout.getString("estados.consulta-no-disponible");
