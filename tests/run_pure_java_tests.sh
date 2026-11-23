@@ -12,6 +12,8 @@ javac -encoding UTF-8 -d "$TMP" \
   "$ROOT/tests/TexturePayloadSmoke.java" \
   "$ROOT/tests/AtomicFileStoreSmoke.java" \
   "$ROOT/src/main/java/dev/hydev/spectrecore/relicario/RelicarioRules.java" \
+  "$ROOT/src/main/java/dev/hydev/spectrecore/relicario/CollectionMilestones.java" \
+  "$ROOT/tests/CollectionMilestonesSmoke.java" \
   "$ROOT/tests/RelicarioRulesSmoke.java" \
   "$ROOT/src/main/java/dev/hydev/spectrecore/core/CombatRules.java" \
   "$ROOT/src/main/java/dev/hydev/spectrecore/core/AsterionComboRules.java" \
@@ -29,4 +31,4 @@ javac -encoding UTF-8 -d "$TMP" \
   "$ROOT/tests/CooldownsSmoke.java" \
   "$ROOT/tests/CookingTimingSmoke.java" \
   "$ROOT/tests/CookingBatchSmoke.java"
-for cls in RelicarioRulesSmoke PresentationMigrationsSmoke DiagnosticsSmoke TexturePayloadSmoke AtomicFileStoreSmoke CombatRulesSmoke AsterionComboSmoke SlayerContractSmoke JobsContractSmoke CooldownsSmoke CookingTimingSmoke CookingToolsSmoke CookingBatchSmoke; do java -ea -cp "$TMP" "$cls"; done
+for cls in CollectionMilestonesSmoke RelicarioRulesSmoke PresentationMigrationsSmoke DiagnosticsSmoke TexturePayloadSmoke AtomicFileStoreSmoke CombatRulesSmoke AsterionComboSmoke SlayerContractSmoke JobsContractSmoke CooldownsSmoke CookingTimingSmoke CookingToolsSmoke CookingBatchSmoke; do java -ea -cp "$TMP" "$cls"; done
