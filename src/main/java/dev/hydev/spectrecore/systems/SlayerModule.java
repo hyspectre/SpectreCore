@@ -748,8 +748,18 @@ public final class SlayerModule implements Listener {
         for (String id : data.getKeys(false)) try {
             UUID uuid = UUID.fromString(id);
             for (String category : CATEGORIES) {
-                var section = data.getConfigurationSection(id + "." + category);
+                String branch = id + "." + category;
+                var section = data.getConfigurationSection(branch);
+                if (data.contains(branch) && section == null)
+                    throw new IllegalStateException("Slayer: sección de misión inválida: " + branch);
                 if (section == null) continue;
+                for (String key : List.of("tier", "required", "kills"))
+                    if (section.contains(key) && !section.isInt(key))
+                        throw new IllegalStateException("Slayer: campo numérico inválido: " + branch + "." + key);
+                if (section.contains("active") && !section.isBoolean("active"))
+                    throw new IllegalStateException("Slayer: campo activo inválido: " + branch);
+                if (section.contains("boss-id") && !section.isString("boss-id"))
+                    throw new IllegalStateException("Slayer: UUID de jefe no textual: " + branch);
                 Mission m = mission(uuid, category);
                 m.tier = Math.max(0, Math.min(3, section.getInt("tier",0)));
                 m.required = m.tier == 0 ? 0 : Math.max(1, section.getInt("required", ProgressRules.required(m.tier)));
@@ -771,8 +781,14 @@ public final class SlayerModule implements Listener {
                     throw new IllegalStateException("Slayer: UUID de jefe inválido para " + uuid, invalid);
                 }
             }
-            var experience = data.getConfigurationSection(id + ".revenant-progression");
+            String xpPath = id + ".revenant-progression";
+            var experience = data.getConfigurationSection(xpPath);
+            if (data.contains(xpPath) && experience == null)
+                throw new IllegalStateException("Slayer: progreso inválido: " + xpPath);
             if (experience != null) {
+                if ((experience.contains("xp") && !experience.isLong("xp"))
+                        || (experience.contains("victorias") && !experience.isInt("victorias")))
+                    throw new IllegalStateException("Slayer: XP o victorias inválidas: " + xpPath);
                 SlayerRecord progress = revenant(uuid);
                 progress.totalXp = Math.max(0L, Math.min(1_000_000_000L, experience.getLong("xp", 0)));
                 progress.victories = Math.max(0, experience.getInt("victorias", 0));
