@@ -19,6 +19,10 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitTask;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
@@ -33,6 +37,7 @@ public final class MithrilToolModule implements Listener {
     private final MithrilLantern lantern;
     private final MithrilDrill drill;
     private YamlConfiguration settings;
+    private final Map<UUID, BukkitTask> signals = new HashMap<>();
     private boolean active;
 
     public MithrilToolModule(JavaPlugin plugin, PlacedOres placed) {
@@ -58,6 +63,8 @@ public final class MithrilToolModule implements Listener {
         prospector.disable();
         drill.disable();
         lantern.disable();
+        signals.values().forEach(BukkitTask::cancel);
+        signals.clear();
         if (active) HandlerList.unregisterAll(this);
         active = false;
     }
@@ -71,6 +78,8 @@ public final class MithrilToolModule implements Listener {
     /** Called exclusively from a genuine, uncancelled player BlockBreakEvent. */
     public void onManualOre(Player player, Block ore) {
         if (player.getGameMode() != GameMode.SURVIVAL) return;
+        // Prevent charging devices by punching ores with an unsuitable tool.
+        if (!player.getInventory().getItemInMainHand().getType().name().endsWith("_PICKAXE")) return;
         int amount = cost("resonancia.por-mineral-natural");
         if (amount <= 0) return;
         for (EquipmentSlot hand : List.of(EquipmentSlot.HAND, EquipmentSlot.OFF_HAND)) {
@@ -102,8 +111,17 @@ public final class MithrilToolModule implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void interact(PlayerInteractEvent event) {
         if (event.getHand() != EquipmentSlot.HAND
-                || event.getPlayer().getGameMode() != GameMode.SURVIVAL
-                || (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK)
+                || event.getPlayer().getGameMode() != GameMode.SURVIVAL) return;
+        if (event.getPlayer().isSneaking()
+                && (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK)
+                && MithrilDeviceData.LANTERN.equals(
+                    data.id(event.getPlayer().getInventory().getItemInMainHand()))) {
+            lantern.teleported(event.getPlayer()); // Clear the anchor, not the light.
+            feedback(event.getPlayer(), "ancla-limpiada", "<gray>Se borró el sendero del Farol.");
+            event.setCancelled(true);
+            return;
+        }
+        if ((event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK)
                 || (event.getAction() == Action.RIGHT_CLICK_BLOCK && event.isCancelled())) return;
         Player player = event.getPlayer();
         ItemStack main = data.held(player, EquipmentSlot.HAND);
@@ -194,11 +212,27 @@ public final class MithrilToolModule implements Listener {
                 feedback(player, "sin-senal", "<gray>El pulso no detectó minerales accesibles.");
                 return;
             }
+            String intensity = MithrilRules.signal(result.distance());
+            String direction = MithrilRules.direction(result.dx(), result.dz());
+            String depth = MithrilRules.depth(result.dy());
             feedback(player, "senal",
                     "<aqua>✦ Señal {intensidad}<gray> · {direccion} · Profundidad {profundidad}",
-                    "intensidad", MithrilRules.signal(result.distance()),
-                    "direccion", MithrilRules.direction(result.dx(), result.dz()),
-                    "profundidad", MithrilRules.depth(result.dy()));
+                    "intensidad", intensity, "direccion", direction, "profundidad", depth);
+            UUID uuid = player.getUniqueId();
+            BukkitTask old = signals.remove(uuid);
+            if (old != null) old.cancel();
+            int[] remaining = {cost("brujula.duracion-senal-segundos")};
+            BukkitTask repeating = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
+                if (!player.isOnline() || remaining[0]-- <= 0) {
+                    BukkitTask timer = signals.remove(uuid);
+                    if (timer != null) timer.cancel();
+                    return;
+                }
+                player.sendActionBar(Settings.message("tesoros", "MithrilTools.senal",
+                        "<aqua>✦ Señal {intensidad}<gray> · {direccion} · Profundidad {profundidad}",
+                        "intensidad", intensity, "direccion", direction, "profundidad", depth));
+            }, 0, 20);
+            signals.put(uuid, repeating);
             player.playSound(player.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_CHIME, .5f, 1f);
         });
         return true;
@@ -269,5 +303,7 @@ public final class MithrilToolModule implements Listener {
         prospector.quit(id);
         drill.cancel(id);
         lantern.cancel(id);
+        BukkitTask signal = signals.remove(id);
+        if (signal != null) signal.cancel();
     }
 }
