@@ -64,6 +64,10 @@ for stat in known_stats:
 ui = yaml.safe_load((root/"src/main/resources/ui/relicario.yml").read_text(encoding="utf8"))
 assert "enabled" not in ui
 assert ui["general"]["size"] == 54
+milestones = ui["general"]["hitos"]
+assert milestones and len(milestones) <= 8 and milestones[-1] == 100
+assert all(type(n) is int and 1 <= n <= 100 for n in milestones)
+assert milestones == sorted(set(milestones)), "Milestones must be strictly increasing"
 assert set(ui["colecciones"]) == {"cripta","superficie","exploracion","excepcionales"}
 main_slots=[item["slot"] for item in ui["general"]["iconos"].values()]
 assert len(main_slots)==len(set(main_slots))
@@ -73,7 +77,12 @@ for category,payload in ui["colecciones"].items():
     assert len(payload["recipe-slots"]) >= sum(1 for record in catalog.values() if record["categoria"]==category)
     assert len(payload["recipe-slots"]) == len(set(payload["recipe-slots"]))
     assert not {payload["volver-slot"],payload["cerrar-slot"]} & set(payload["recipe-slots"])
+    assert payload["nombre"].strip() and len(payload["nombre"]) <= 50
+    assert payload["progreso-material"] == "AMETHYST_SHARD"
+    assert 0 <= payload["progreso-slot"] < 54
+    assert payload["progreso-slot"] not in (payload["volver-slot"], payload["cerrar-slot"])
+    assert payload["progreso-slot"] not in payload["recipe-slots"]
 assert ui["confirmacion"]["size"] == 27
 assert len({ui["confirmacion"][key] for key in ("item-slot","confirmar-slot","cancelar-slot")})==3
-print("PASS Relicario: 32 objects, 9 families, 17 caps, 5 configured views, no invalid item stats")
+print("PASS Relicario: 32 objects, 9 families, 17 caps, 5 configured views, visible milestones, no invalid item stats")
 
