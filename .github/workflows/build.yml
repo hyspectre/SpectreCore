@@ -33,6 +33,6 @@ jobs:
       - run: gradle clean build --no-daemon
       - uses: actions/upload-artifact@v4
         with:
-          name: SpectreCore-0.8.2-stability-rc1
-          path: build/libs/SpectreCore-0.8.2-stability-rc1.jar
+          name: SpectreCore-0.9.0-dev1
+          path: build/libs/SpectreCore-0.9.0-dev1.jar
           if-no-files-found: error
