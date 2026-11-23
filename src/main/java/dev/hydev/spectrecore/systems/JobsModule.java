@@ -33,6 +33,7 @@ public final class JobsModule implements Listener {
     private JobsMenu menu;
     private SupplyGuide supplies;
     private ClaimJournal purchaseJournal;
+    private SupplyOrders supplyOrders;
     private boolean storageLoaded;
     private final Set<UUID> purchasesInProgress = new HashSet<>();
     private final Map<UUID, Set<String>> confirmedRanks = new HashMap<>();
@@ -66,6 +67,7 @@ public final class JobsModule implements Listener {
         }
         purchaseJournal = new ClaimJournal(new File(plugin.getDataFolder(), "data/jobs/purchases.yml").toPath());
         if (!purchaseJournal.load()) throw new IllegalStateException("Trabajos: registro de compras ilegible; revisar data/jobs/purchases.yml");
+        supplyOrders = new SupplyOrders(plugin, this, purchaseJournal);
         for (ClaimJournal.Claim pending : purchaseJournal.unresolved())
             plugin.getLogger().severe("TRABAJO PENDIENTE: transacción=" + pending.id() + " jugador="
                     + pending.player() + " contrato=" + pending.subject() + "; verificar saldo y permiso antes de resolver.");
@@ -114,6 +116,10 @@ public final class JobsModule implements Listener {
             plugin.getLogger().warning("TRABAJOS: Hay " + purchasesInProgress.size() + " compra(s) LuckPerms pendiente(s) al apagar; revisar saldos si hubo errores.");
     }
     public boolean openSupplies(Player player) { return supplies != null && supplies.open(player); }
+    public void fulfillMithrilOrder(Player player) {
+        if (supplyOrders != null) supplyOrders.fulfill(player);
+    }
+    public SupplyOrders supplyOrders() { return supplyOrders; }
     public boolean openOverview(Player player) { return menu != null && menu.open(player, "trabajos"); }
 
     public String displayJob(String id) {
@@ -150,7 +156,7 @@ public final class JobsModule implements Listener {
             sender.sendMessage(Settings.component("<red>Registro de compras no disponible.")); return true;
         }
         if (args[0].equalsIgnoreCase("transacciones")) {
-            sender.sendMessage(Settings.component("<gold>Compras pendientes: " + purchaseJournal.count()));
+            sender.sendMessage(Settings.component("<gold>Transacciones pendientes: " + purchaseJournal.count()));
             for (ClaimJournal.Claim claim : purchaseJournal.unresolved())
                 sender.sendMessage(Settings.component("<yellow>" + claim.id() + "<gray> · " + claim.player()
                         + " · " + claim.subject()));
@@ -166,7 +172,7 @@ public final class JobsModule implements Listener {
             }
             if (purchaseJournal.resolve(token)) {
                 plugin.getLogger().warning("TRABAJO: transacción reconciliada manualmente por " + sender.getName() + ": " + token);
-                sender.sendMessage(Settings.component("<green>Registro resuelto. Asegúrate de haber verificado permiso y saldo."));
+                sender.sendMessage(Settings.component("<green>Registro resuelto. Verifica previamente inventario, saldo y permisos."));
             } else sender.sendMessage(Settings.component("<red>No se pudo registrar la resolución."));
         } catch (IllegalArgumentException invalid) {
             sender.sendMessage(Settings.component("<red>UUID inválido."));

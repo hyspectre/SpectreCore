@@ -12,6 +12,7 @@ MiningModule:
   mensaje-014: "¡TESORO ENCONTRADO!"
   mensaje-015: "✦ {reward-getamount} minerales raros"
   mensaje-016: "<reset><white>↹ <reset><yellow>¡Obtuviste un mineral raro!"
+  mitrilo: "<aqua>✦ Encontraste <white>{cantidad} <aqua>Mitrilo."
 CombatTreasures:
   mensaje-001: "No se pudo generar el hallazgo de combate ({type}:{id})."
   mensaje-002: "<reset><white>⧇ <reset><blue><bold>ALMAS <reset><red>La recompensa no está disponible; avisa a administración."
@@ -24,3 +25,4 @@ CombatTreasures:
 TreasureCooldowns:
   mensaje-001: "UUID inválido en treasure-data.yml: {id}"
   mensaje-002: "No se pudo guardar cooldown de tesoros: {error-getmessage}"
+

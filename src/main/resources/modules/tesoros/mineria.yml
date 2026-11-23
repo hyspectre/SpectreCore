@@ -3,6 +3,24 @@ tesoros:
   id: PALADIO
   cantidad-minima: 2
   cantidad-maxima: 8
+# Mitrilo es un hallazgo independiente de Paladio, solo de menas avanzadas.
+# La clasificación T2/T3 se toma de tesoros/config.yml. El contrato minero
+# Experimentado o Profesional habilita la búsqueda; sin crear bloques nuevos.
+mitrilo:
+  tipo: MATERIAL
+  id: MITRILO
+  cantidad-minima: 1
+  cantidad-maxima: 2
+  rango-minimo: 2
+  # Multiplicador de probabilidad solo al usar herramientas MMOItems reales.
+  herramientas:
+    tipo: TOOL
+    bonificaciones:
+      PICO_MITRILO: 1.25
+      PICO_MITRILO_TEMPLADO: 1.60
+  probabilidades:
+    tier2: 1.0
+    tier3: 2.0
 probabilidades:
   mineria: {}
 visuales:

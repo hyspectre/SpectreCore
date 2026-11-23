@@ -16,5 +16,14 @@ JobsModule:
   contrato-fallo: "<reset><red>No se pudo guardar el contrato. Se intentó devolver el pago."
   contrato-exito: "<reset><green>Contrato firmado: {trabajo} {rango}. Precio: {precio} ↾."
 
+SupplyOrders:
+  no-disponible: "<red>No se puede procesar este encargo. Contacta a administración."
+  rango: "<yellow>Debes mejorar tu contrato de minería."
+  pendiente: "<yellow>Tienes una transacción pendiente. Contacta a administración."
+  insuficiente: "<yellow>Necesitas {cantidad} Mitrilo para entregar el pedido."
+  revision: "<red>El pedido requiere revisión. Avisa a administración."
+  pagado-pendiente: "<yellow>Recibiste el pago; administración revisará el registro."
+  entregado: "<green>✦ Pedido entregado: <white>{cantidad} Mitrilo <gray>· <gold>{monedas} ↾"
+
 JobsMenu:
   desactivado: "<reset><red>El catálogo de trabajos no está disponible por ahora."

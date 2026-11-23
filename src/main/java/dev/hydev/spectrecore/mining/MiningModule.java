@@ -153,7 +153,11 @@ public final class MiningModule implements Listener {
         }
     }
     private void treasure(Player player, Block block, int tier) {
-        if (!treasureCooldown.ready(player.getUniqueId()) || !player.hasPermission("tesoros.mineria.tier" + tier)) return;
+        if (!treasureCooldown.ready(player.getUniqueId())) return;
+        // Mitrilo is exclusive with regular mining treasures for this block.
+        // No new world blocks, background scanning or extra cooldown ledgers.
+        if (mithril(player, block, tier)) return;
+        if (!player.hasPermission("tesoros.mineria.tier" + tier)) return;
         double chance = config.getDouble("probabilidades.mineria.tier" + tier, 0);
         if (!Double.isFinite(chance) || ThreadLocalRandom.current().nextDouble(100) >= Math.max(0, Math.min(100, chance))) return;
         String type = config.getString("tesoros.tipo", "MATERIAL"), id = config.getString("tesoros.id", "PALADIO");
@@ -169,6 +173,47 @@ public final class MiningModule implements Listener {
         player.showTitle(Title.title(Settings.component(Settings.text("tesoros", "MiningModule.mensaje-014", "¡TESORO ENCONTRADO!"), Settings.color("tesoros", "MiningModule.color-014", NamedTextColor.GOLD)), Settings.component(Settings.text("tesoros", "MiningModule.mensaje-015", "✦ {reward-getamount} minerales raros", "reward-getamount", reward.getAmount()), Settings.color("tesoros", "MiningModule.color-015", NamedTextColor.YELLOW)), Title.Times.times(Duration.ofMillis(Settings.i("tesoros", "MiningModule.ofmillis-010-arg0", 150)), Duration.ofSeconds(Settings.i("tesoros", "MiningModule.ofseconds-011-arg0", 2)), Duration.ofMillis(Settings.i("tesoros", "MiningModule.ofmillis-012-arg0", 350)))));
         player.sendMessage(Settings.message("tesoros", "MiningModule.mensaje-016", "§f↹ §e¡Obtuviste un mineral raro!"));
     }
+    private boolean mithril(Player player, Block block, int tier) {
+        if (tier < 2) return false;
+        boolean experienced = player.hasPermission("trabajo.minero.experimentado")
+                || player.hasPermission("trabajo.minero.profesional");
+        if (!experienced) return false;
+        int required = config.getInt("mitrilo.rango-minimo", 2);
+        int rank = player.hasPermission("trabajo.minero.profesional") ? 3 : 2;
+        if (required > rank) return false;
+        double chance = config.getDouble("mitrilo.probabilidades.tier" + tier, 0);
+        // Exact MMOItems TOOL IDs only: ordinary renamed pickaxes receive no bonus.
+        ItemStack pickaxe = player.getInventory().getItemInMainHand();
+        String expectedType = config.getString("mitrilo.herramientas.tipo", "TOOL");
+        if (expectedType.equalsIgnoreCase(mmo.type(pickaxe))) {
+            String id = mmo.id(pickaxe);
+            Object raw = config.get("mitrilo.herramientas.bonificaciones." + id);
+            if (raw instanceof Number factor && Double.isFinite(factor.doubleValue())
+                    && factor.doubleValue() >= 1 && factor.doubleValue() <= 3)
+                chance *= factor.doubleValue();
+        }
+        chance = Math.min(100.0, chance);
+        if (!Double.isFinite(chance) || chance <= 0
+                || ThreadLocalRandom.current().nextDouble(100) >= chance) return false;
+        String type = config.getString("mitrilo.tipo", "MATERIAL");
+        String id = config.getString("mitrilo.id", "MITRILO");
+        int min = config.getInt("mitrilo.cantidad-minima", 1);
+        int max = config.getInt("mitrilo.cantidad-maxima", 2);
+        if (min < 1 || min > max || max > 64) return false;
+        ItemStack reward = mmo.build(type, id, ThreadLocalRandom.current().nextInt(min, max + 1));
+        if (reward == null) { missing(player, type, id); return false; }
+        deliver(player, reward);
+        treasureCooldown.awarded(player.getUniqueId());
+        dirty = true;
+        if (config.getBoolean("visuales-tesoros.activados", true))
+            visuals.treasure(block.getLocation().add(.5, .5, .5), block.getType(), tier);
+        player.sendMessage(Settings.message("tesoros", "MiningModule.mitrilo",
+                "<aqua>✦ Encontraste <white>{cantidad} <aqua>Mitrilo.",
+                "cantidad", reward.getAmount()));
+        player.playSound(player.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_CHIME, 0.7f, 1.35f);
+        return true;
+    }
+
     private void missing(Player player, String type, String id) {
         player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-017", "{prefix}§cLa recompensa no está disponible. Avisa a administración.", "prefix", Settings.component(prefix())));
         if (reported.add(type + ":" + id)) plugin.getLogger().warning(Settings.plain("resonancia", "MiningModule.mensaje-018", "No se pudo generar el hallazgo minero ({type}:{id}).", "type", type, "id", id));

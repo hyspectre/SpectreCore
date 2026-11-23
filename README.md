@@ -1,12 +1,14 @@
 # SpectreCore — núcleo RPG de Hydev
 
-**Versión en desarrollo:** `0.9.0-dev2`  
+**Versión en desarrollo:** `0.9.0-dev3`  
 **Servidor objetivo:** Paper 1.21.10 · Java 21  
-**Estado:** segunda entrega de 0.9; usa GitHub Actions para validar el código. **No es una versión de producción**.
+**Estado:** tercera entrega de 0.9; usa GitHub Actions para validar el código. **No es una versión de producción**.
 
 SpectreCore reúne cocina, accesorios consumibles, habilidades de armadura, profesiones, encargos, exploración, Slayer, herramientas de mundo y menús dentro de un único plugin modular. Los módulos forman parte permanente del sistema; no existen interruptores de configuración para desactivarlos.
 
 La línea 0.9 incorpora **hitos de colección en el Relicario**: progreso visible por categoría, objetivos configurables y celebración de descubrimientos. No añade monedas, estadísticas ni estructuras nuevas de persistencia. Incluye además un **Tablón de abastecimiento** para consultar los materiales realmente definidos por minería, caza y agricultura, cuánto llevas y si sus hallazgos están accesibles. No crea recetas ni altera la economía. Consulta [ROADMAP_0.9.md](ROADMAP_0.9.md) para el alcance pendiente.
+
+La tercera entrega agrega **Mitrilo**, hallazgo de minería avanzada y recurso para dos picos de MMOItems. El tablón incorpora el **Pedido del Herrero**, que entrega 4 Mitrilo por 180 monedas con registro de transacciones. Los fragmentos de recetas deben integrarse en la Forja ya existente, sin crear una estación duplicada. Consulta [INSTALAR_MITRILO.md](integracion-mmoitems/INSTALAR_MITRILO.md).
 
 ## Comandos
 
@@ -38,6 +40,7 @@ bash tests/run_pure_java_tests.sh
 python3 tests/validate_release.py
 python3 tests/validate_relicario_catalog.py
 python3 tests/validate_supply_board.py
+python3 tests/validate_mithril.py
 ```
 
 El workflow `.github/workflows/build.yml` ejecuta además validadores de configuración, pruebas Java y empaqueta el JAR al completar satisfactoriamente. La compilación no sustituye pruebas reales dentro de Minecraft.

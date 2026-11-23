@@ -1,6 +1,6 @@
 # SpectreCore 0.9 — Plan de desarrollo
 
-**Estado:** en desarrollo. `0.9.0-dev2` es una entrega parcial, no una versión lista para producción.
+**Estado:** en desarrollo. `0.9.0-dev3` es una entrega parcial, no una versión lista para producción.
 
 ## Dirección jugable
 
@@ -25,9 +25,18 @@ Construir conexiones útiles entre exploración, accesorios, profesiones, fabric
 - El menú es de consulta, configurable en `ui/abastecimiento.yml`. Los menús de Trabajos personalizados antiguos pueden mostrar un acceso en una casilla libre sin modificar el archivo original; el comando sigue funcionando si el menú está lleno.
 - Pruebas de contrato en `tests/validate_supply_board.py` y el pipeline de compilación.
 
+### 0.9.0-dev3 — Mitrilo y Pedido del Herrero (implementado en esta rama)
+
+- Mitrilo: recurso `MATERIAL:MITRILO` en vetas mineras T2/T3, accesible mediante contrato minero Experimentado.
+- Dos nuevos picos `TOOL` definidos en MMOItems; mejoran la obtención de Mitrilo cuando se equipan.
+- Recetas de la Forja existentes: se proporcionan fragmentos, a incorporar tras verificar el archivo de estación real (no se duplica la Forja).
+- Pedido repetible de 4 Mitrilo por 180 monedas; el jugador elige entre reservar el mineral para herramientas o venderlo a la Forja.
+- Retiro y pago con bitácora persistente; transacciones ambiguas quedan para reconciliación administrativa.
+- Pruebas estáticas, integración de configuración, tests de cantidades y CI. **No representa prueba ingame ni instalación automática de MMOItems.**
+
 ### Próximas líneas (no implementadas)
 
-1. **Recetas reales de Forja:** importar o verificar la configuración efectiva de fabricación/NPC, ausente en el repositorio de SpectreCore. Solo entonces vincular materiales con productos concretos; no inventar ingredientes ni duplicar la creación de objetos.
+1. **Forja real:** fusionar las dos recetas de Mitrilo en la estación MMOItems que abre el NPC. Su archivo real todavía no está en el repositorio, por lo que la instalación sigue pendiente.
 2. **Encargos culinarios:** objetivos que aprovechen las 15 recetas y sus calidades, con balance y transacciones seguras.
 3. **Identidad de colecciones:** mostrar rutas verificadas de obtención de reliquias, sin anunciar drops inexistentes.
 

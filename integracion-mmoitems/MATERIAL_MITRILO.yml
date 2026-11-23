@@ -1,0 +1,13 @@
+# Fusionar esta entrada en plugins/MMOItems/item/MATERIAL.yml.
+# NO sustituir el archivo existente: conserva Paladio, Oricalco y otros minerales.
+MITRILO:
+  base:
+    revision-id: 1
+    material: PRISMARINE_CRYSTALS
+    name: '<gradient:#6EBCCF:#D4F4E9>Mitrilo</gradient>'
+    tier: RARE
+    max-stack-size: 64
+    lore:
+    - '&7Metal pálido, ligero y resistente.'
+    - '&7Utilizado en herramientas mineras.'
+    - '&8Se extrae en vetas profundas.'

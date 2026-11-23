@@ -1,5 +1,5 @@
 name: SpectreCore
-version: 0.9.0-dev2
+version: 0.9.0-dev3
 main: dev.hydev.spectrecore.SpectreCorePlugin
 api-version: 1.21.10
 author: Hydev
