@@ -24,6 +24,22 @@ mitrilo:
 # Resonancia independiente en los PDC de cada objeto; el Pico Perdido
 # conserva su propio sistema anterior y no comparte energía con Mitrilo.
 herramientas-mitrilo:
+  # Resonancia amplificada: cristales visibles y golpeables sin modificar el mundo.
+  # Cada cristal consumido entrega una única gema a su invocador.
+  pico-amatista:
+    activacion: 75
+    recarga-segundos: 120
+    duracion-segundos: 30
+    bloques: 5
+    minimo-bloques: 3
+    max-sesiones: 8
+    golpes: 3
+    intervalo-golpe-ms: 300
+    calidad: {basica: 75, intermedia: 22, superior: 3}
+    gemas:
+      basica: GEMA_AMATISTA_BASICA
+      intermedia: GEMA_AMATISTA_INTERMEDIA
+      superior: GEMA_AMATISTA_SUPERIOR
   resonancia:
     maxima: 100
     por-mineral-natural: 4
