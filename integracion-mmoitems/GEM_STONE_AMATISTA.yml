@@ -1,0 +1,31 @@
+# Fusiona estas entradas bajo los IDs existentes de
+# plugins/MMOItems/item/GEM_STONE.yml sin reemplazar gemas del servidor.
+# IDs de recompensa utilizados por SpectreCore al romper cristales.
+# No se agregan estadísticas a las gemas hasta que se defina su uso.
+GEMA_AMATISTA_BASICA:
+  base:
+    revision-id: 1
+    material: AMETHYST_SHARD
+    name: '<gradient:#B78AE8:#EAD5FA>Gema de Amatista</gradient>'
+    tier: COMMON
+    lore:
+    - '&7Resonancia cristalizada.'
+    - '&8Extraída de un bloque hechizado.'
+GEMA_AMATISTA_INTERMEDIA:
+  base:
+    revision-id: 1
+    material: AMETHYST_CLUSTER
+    name: '<gradient:#9A64E6:#D6ACFA>Gema de Amatista Refinada</gradient>'
+    tier: RARE
+    lore:
+    - '&7Concentra una resonancia inusual.'
+    - '&8Extraída de un bloque hechizado.'
+GEMA_AMATISTA_SUPERIOR:
+  base:
+    revision-id: 1
+    material: ECHO_SHARD
+    name: '<gradient:#6F45C3:#F0C5FF>Gema de Amatista Arcana</gradient>'
+    tier: EPIC
+    lore:
+    - '&7Una concentración excepcional de energía.'
+    - '&8Extraída de un bloque hechizado.'
