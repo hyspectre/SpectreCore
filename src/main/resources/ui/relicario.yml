@@ -1,6 +1,7 @@
 general:
   title: "<white>⧇ <gold>Relicario <dark_gray>│ <white>Colecciones"
   size: 54
+  hitos: [25, 50, 100]
   numeros: "<gray>ᴅᴇsᴄᴜʙɪᴇʀᴛᴏs <yellow>{obtenidos}<gray>/{total}"
   iconos:
     cripta:
@@ -60,24 +61,36 @@ general:
       - "<#FFDD00>► ᴄʟɪᴄ ᴘᴀʀᴀ ᴄᴇʀʀᴀʀ"
 colecciones:
   cripta:
+    nombre: "Cripta"
+    progreso-slot: 4
+    progreso-material: AMETHYST_SHARD
     title: "<white>⧇ <gold>Relicario <dark_gray>│ <white>Cripta"
     size: 54
     recipe-slots: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25]
     volver-slot: 48
     cerrar-slot: 50
   superficie:
+    nombre: "Superficie"
+    progreso-slot: 4
+    progreso-material: AMETHYST_SHARD
     title: "<white>⧇ <gold>Relicario <dark_gray>│ <white>Superficie"
     size: 54
     recipe-slots: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25]
     volver-slot: 48
     cerrar-slot: 50
   exploracion:
+    nombre: "Exploración"
+    progreso-slot: 4
+    progreso-material: AMETHYST_SHARD
     title: "<white>⧇ <gold>Relicario <dark_gray>│ <white>Exploración"
     size: 54
     recipe-slots: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25]
     volver-slot: 48
     cerrar-slot: 50
   excepcionales:
+    nombre: "Excepcionales"
+    progreso-slot: 4
+    progreso-material: AMETHYST_SHARD
     title: "<white>⧇ <gold>Relicario <dark_gray>│ <white>Excepcionales"
     size: 54
     recipe-slots: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25]
@@ -128,3 +141,11 @@ mensajes:
   guide: "<gold>Relicario <gray>│ Cada reliquia se absorbe una vez. Todas las reliquias absorbidas aportan sus bonificaciones."
   mana-offline: "<yellow>El poder de maná aún no está disponible."
   active-bonus: "<green>✦ Bonificación activa"
+  progreso-titulo: "<gold>✦ Avance de la colección"
+  progreso-estado: "<gray>Absorbidas: <white>{obtenidas}<gray>/{total} <dark_gray>· <gold>{avance}%"
+  progreso-siguiente: "<gray>Próximo hito: <gold>{porcentaje}% <dark_gray>(<white>{objetivo}/{total}<dark_gray>)"
+  progreso-completo: "<green>✦ Colección completada"
+  progreso-vacio: "<gray>Esta colección todavía no tiene reliquias."
+  pista-origen: "<gray>Pista: <white>{origen}"
+  hito-alcanzado: "<gold>✦ {coleccion}: {porcentaje}% de descubrimientos."
+  coleccion-completa: "<gold>✦ Colección de {coleccion} completada."
