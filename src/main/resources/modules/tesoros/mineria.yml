@@ -21,6 +21,43 @@ mitrilo:
   probabilidades:
     tier2: 1.0
     tier3: 2.0
+# Resonancia independiente en los PDC de cada objeto; el Pico Perdido
+# conserva su propio sistema anterior y no comparte energía con Mitrilo.
+herramientas-mitrilo:
+  resonancia:
+    maxima: 100
+    por-mineral-natural: 4
+  cristal:
+    recupera: 50
+  pico:
+    activacion: 25
+    duracion-segundos: 15
+    radio: 5
+    max-resaltados: 8
+    resaltado-segundos: 5
+    max-bloques-adicionales: 3
+    coste-bloque-adicional: 5
+    recarga-segundos: 20
+  brujula:
+    activacion: 30
+    radio-horizontal: 16
+    radio-vertical: 12
+    duracion-senal-segundos: 8
+    recarga-segundos: 35
+  farol:
+    anclar: 10
+    ruta: 20
+    marcas-segundos: 20
+    recarga-segundos: 30
+    distancia-maxima: 256
+  barrena:
+    activacion: 50
+    pasos: 8
+    intervalo-ticks: 5
+    recarga-segundos: 45
+    # Solo roca ordinaria. Ninguna mena, inventario, líquido o bloque especial.
+    bloques: [STONE, DEEPSLATE, ANDESITE, DIORITE, GRANITE, TUFF, CALCITE,
+      BLACKSTONE, BASALT, NETHERRACK, END_STONE]
 probabilidades:
   mineria: {}
 visuales:
