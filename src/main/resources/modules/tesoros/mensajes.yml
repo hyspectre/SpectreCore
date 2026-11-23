@@ -44,6 +44,7 @@ MithrilTools:
   tunel: "<aqua>✦ Barrena activada. No extrae minerales ni concede experiencia adicional."
   sin-cristales: "<yellow>No hay espacio seguro para invocar cristales o sus gemas todavía no están disponibles."
   campo-ametista: "<light_purple>✦ Resonancia amplificada: {cantidad} cristales. ¡Rómpelos con tu pico!"
+  amatista-carga: "<light_purple>✦ Resonancia de amatista: <white>{actual}/{maxima}"
 
 AmethystField:
   gema: "<light_purple>✦ Cristal roto: <white>Gema {calidad}."
