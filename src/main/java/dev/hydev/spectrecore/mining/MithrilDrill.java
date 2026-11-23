@@ -75,29 +75,29 @@ public final class MithrilDrill {
             ItemStack current = player.getInventory().getItemInMainHand();
             if (!plugin.isEnabled() || !player.isOnline() || player.getWorld() != world
                     || !serial.equals(data.serial(current)) || !MithrilDeviceData.DRILL.equals(data.id(current))
-                    || player.getLocation().distanceSquared(origin) > 36 || progress[0] >= steps) {
+                    || player.getLocation().distanceSquared(origin) > 36 || progress[0] >= steps * 2) {
                 cancel(id); return;
             }
-            int delta = ++progress[0], bx = x + face.getModX() * delta,
-                    bz = z + face.getModZ() * delta;
+            // One physical block per 5 ticks (0.25 s), up to 8 x 2 blocks.
+            int index = progress[0]++, delta = index / 2 + 1;
+            int bx = x + face.getModX() * delta, bz = z + face.getModZ() * delta;
             if (!world.isChunkLoaded(bx >> 4, bz >> 4)) { cancel(id); return; }
             Block feet = world.getBlockAt(bx, y, bz), head = world.getBlockAt(bx, y + 1, bz);
-            // Both cells must be buildable even when air; no mining through a protected doorway.
+            // Check both cells before drilling either to avoid half-entering restricted terrain.
             if (!regions.canBuild(player, feet) || !regions.canBuild(player, head)
                     || !allowed(feet, materials) || !allowed(head, materials)) {
                 cancel(id); return;
             }
-            for (Block target : List.of(feet, head)) {
-                if (target.getType().isAir()) continue;
+            Block target = index % 2 == 0 ? feet : head;
+            if (!target.getType().isAir()) {
                 current = player.getInventory().getItemInMainHand();
                 ItemStack breaker = current;
                 if (!MithrilAutomationGuard.breakBlock(() -> target.breakNaturally(breaker, true))) {
                     cancel(id); return;
                 }
-                // Mining via abilities does not count as manual progress or Mithril drops.
                 if (!wear(player, data, 1)) { cancel(id); return; }
             }
-            if (progress[0] >= steps) cancel(id);
+            if (progress[0] >= steps * 2) cancel(id);
         }, 0, intervalTicks);
         running.put(id, task);
         return true;
