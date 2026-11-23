@@ -12,6 +12,12 @@ mitrilo:
   cantidad-minima: 1
   cantidad-maxima: 2
   rango-minimo: 2
+  # Multiplicador de probabilidad solo al usar herramientas MMOItems reales.
+  herramientas:
+    tipo: TOOL
+    bonificaciones:
+      PICO_MITRILO: 1.25
+      PICO_MITRILO_TEMPLADO: 1.60
   probabilidades:
     tier2: 1.0
     tier3: 2.0
