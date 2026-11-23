@@ -34,6 +34,7 @@ public final class CommandRoutes {
         routes.add(route("trabajos agricultura","trabajo","trabajos",Access.PUBLIC,"","Abrir contratos de agricultura","granjero"));
         routes.add(route("trabajos caza","trabajo","trabajos",Access.PUBLIC,"","Abrir contratos de caza","cazador"));
         routes.add(route("trabajos estado","trabajo","trabajos",Access.PUBLIC,"","Consultar niveles de trabajo en chat","estado"));
+        routes.add(route("trabajos abastecimiento","trabajo","trabajos",Access.PUBLIC,"","Consultar materiales de profesiones y hallazgos","abastecimiento"));
         routes.add(route("trabajos transacciones","trabajo","trabajos",Access.ADMIN,"","Revisar compras de trabajo pendientes","transacciones"));
         routes.add(route("trabajos resolver","trabajo","trabajos",Access.ADMIN,"<uuid>","Cerrar un caso conciliado manualmente","resolver"));
         routes.add(route("resonancia","resonancia","resonancia",Access.PUBLIC,"","Carga del Pico Perdido"));
