@@ -91,7 +91,8 @@ public final class MithrilToolModule implements Listener {
             if (extra.equals(ore) || done >= limit) continue;
             current = player.getInventory().getItemInMainHand();
             if (data.energy(current) < perBlock) break;
-            if (!extra.breakNaturally(current, true)) continue;
+            ItemStack breaker = current;
+            if (!MithrilAutomationGuard.breakBlock(() -> extra.breakNaturally(breaker, true))) continue;
             data.update(player, EquipmentSlot.HAND, data.changeCharge(current, -perBlock, capacity()));
             done++;
             if (!MithrilDrill.wear(player, data, 1)) break;
