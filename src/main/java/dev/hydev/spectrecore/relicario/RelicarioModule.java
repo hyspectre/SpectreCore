@@ -81,6 +81,7 @@ public final class RelicarioModule implements Listener {
     private Map<String, RelicarioRules.Relic> rules = Map.of();
     private Map<String, Double> caps = Map.of();
     private YamlConfiguration ui;
+    private List<Integer> milestones = List.of(25, 50, 100);
     private boolean active;
     private Method getType, getId;
     private boolean warnedMmo;
@@ -127,6 +128,9 @@ public final class RelicarioModule implements Listener {
             nextUi.load(file);
             if (nextUi.getInt("general.size") != 54)
                 throw new IllegalArgumentException("Invalid Relicario UI geometry");
+            List<Integer> nextMilestones = CollectionMilestones.validate(
+                    nextUi.contains("general.hitos") ? nextUi.getIntegerList("general.hitos")
+                            : List.of(25, 50, 100));
             ConfigurationSection section = catalog.getConfigurationSection("accesorios");
             ConfigurationSection capSection = catalog.getConfigurationSection("caps");
             if (section == null || capSection == null || section.getKeys(false).isEmpty())
@@ -172,14 +176,19 @@ public final class RelicarioModule implements Listener {
                 List<Integer> slots = nextUi.getIntegerList(root + ".recipe-slots");
                 int back = nextUi.getInt(root + ".volver-slot", 48);
                 int close = nextUi.getInt(root + ".cerrar-slot", 50);
+                int progressSlot = nextUi.getInt(root + ".progreso-slot", 4);
+                Material progressMaterial = Material.matchMaterial(nextUi.getString(root + ".progreso-material", "AMETHYST_SHARD"));
                 long needed = next.values().stream().filter(e -> e.category.equals(group)).count();
                 if (!nextUi.isConfigurationSection(root) || nextUi.getInt(root + ".size", 54) != 54
                         || slots.size() < needed || back < 0 || back >= 54 || close < 0 || close >= 54 || back == close
+                        || progressSlot < 0 || progressSlot >= 54 || progressSlot == back || progressSlot == close
+                        || slots.contains(progressSlot) || progressMaterial == null || !progressMaterial.isItem()
                         || slots.stream().anyMatch(slot -> slot < 0 || slot >= 54 || slot == back || slot == close)
                         || new java.util.HashSet<>(slots).size() != slots.size())
                     throw new IllegalArgumentException("Incomplete/overlapping UI category: " + group);
             }
             ui = nextUi;
+            milestones = nextMilestones;
             entries = java.util.Collections.unmodifiableMap(new LinkedHashMap<>(next));
             rules = validated;
             caps = Map.copyOf(limits);
@@ -342,6 +351,49 @@ public final class RelicarioModule implements Listener {
         inv.setItem(slot, item);
     }
 
+    /** Uses the existing durable discovery ledger; no second progression record. */
+    private CollectionMilestones.Progress collectionProgress(String group, Set<String> owned) {
+        int count = 0, total = 0;
+        for (Entry entry : entries.values()) if (entry.category.equals(group)) {
+            total++;
+            if (owned.contains(entry.id)) count++;
+        }
+        return CollectionMilestones.progress(count, total, milestones);
+    }
+
+    private String collectionName(String group) {
+        String fallback = switch (group) {
+            case "cripta" -> "Cripta";
+            case "superficie" -> "Superficie";
+            case "exploracion" -> "Exploración";
+            case "excepcionales" -> "Excepcionales";
+            default -> "Colección";
+        };
+        return ui.getString("colecciones." + group + ".nombre", fallback);
+    }
+
+    private String nextMilestone(CollectionMilestones.Progress progress) {
+        return msg("progreso-siguiente",
+                "<gray>Próximo hito: <gold>{porcentaje}% <dark_gray>(<white>{objetivo}/{total}<dark_gray>)")
+                .replace("{porcentaje}", Integer.toString(progress.nextPercent()))
+                .replace("{objetivo}", Integer.toString(progress.nextRequired()))
+                .replace("{total}", Integer.toString(progress.total()));
+    }
+
+    private List<String> progressLore(CollectionMilestones.Progress progress) {
+        if (progress.total() == 0)
+            return List.of(msg("progreso-vacio", "<gray>Esta colección todavía no tiene reliquias."));
+        List<String> lore = new ArrayList<>();
+        lore.add(msg("progreso-estado", "<gray>Absorbidas: <white>{obtenidas}<gray>/{total} <dark_gray>· <gold>{avance}%")
+                .replace("{obtenidas}", Integer.toString(progress.obtained()))
+                .replace("{total}", Integer.toString(progress.total()))
+                .replace("{avance}", Integer.toString(progress.percent())));
+        lore.add(progress.complete()
+                ? msg("progreso-completo", "<green>✦ Colección completada")
+                : nextMilestone(progress));
+        return lore;
+    }
+
     public void open(Player player) { openPage(player, "inicio"); }
     public void openPage(Player player, String requested) {
         if (!active || !ready(player.getUniqueId())) {
@@ -373,6 +425,10 @@ public final class RelicarioModule implements Listener {
                     lore.add(ui.getString("general.numeros",
                             "<gray>Descubiertos <yellow>{obtenidos}<gray>/{total}")
                             .replace("{obtenidos}", Long.toString(have)).replace("{total}", Long.toString(all)));
+                    CollectionMilestones.Progress progress = collectionProgress(id, obtained);
+                    lore.add(progress.complete() ? msg("progreso-completo", "<green>✦ Colección completada")
+                            : progress.total() > 0 ? nextMilestone(progress)
+                            : msg("progreso-vacio", "<gray>Esta colección todavía no tiene reliquias."));
                 }
                 put(inv, slot, material, label, lore);
                 holder.actions.put(slot, id.equals("cerrar") ? "close" : id);
@@ -392,7 +448,12 @@ public final class RelicarioModule implements Listener {
             }
             back(inv, holder);
         } else {
-            List<Integer> slots = ui.getIntegerList("colecciones." + page + ".recipe-slots");
+            String group = "colecciones." + page;
+            List<Integer> slots = ui.getIntegerList(group + ".recipe-slots");
+            CollectionMilestones.Progress progress = collectionProgress(page, obtained);
+            put(inv, ui.getInt(group + ".progreso-slot", 4),
+                    Material.matchMaterial(ui.getString(group + ".progreso-material", "AMETHYST_SHARD")),
+                    msg("progreso-titulo", "<gold>Progreso de colección"), progressLore(progress));
             int i = 0;
             for (Entry entry : entries.values()) {
                 if (!entry.category.equals(page) || i >= slots.size()) continue;
@@ -401,7 +462,8 @@ public final class RelicarioModule implements Listener {
                         : ui.getString("estados.pendiente", "<gray>✦ Pendiente");
                 List<String> lore = new ArrayList<>();
                 lore.add("");
-                lore.add("<gray>" + entry.origin);
+                lore.add(msg("pista-origen", "<gray>Pista: <white>{origen}")
+                        .replace("{origen}", entry.origin));
                 lore.add("");
                 for (var bonus : entry.relic.bonuses().entrySet()) {
                     String label = ui.getString("estadisticas.nombres." + bonus.getKey(), bonus.getKey());
@@ -483,6 +545,8 @@ public final class RelicarioModule implements Listener {
             player.sendMessage(text(msg("duplicate", "<yellow>Ya absorbiste esta reliquia.")));
             return;
         }
+        Entry entry = entries.get(holder.id);
+        CollectionMilestones.Progress before = collectionProgress(entry.category, store.discovered(player.getUniqueId()));
         if (!store.discover(player.getUniqueId(), holder.id)) {
             player.closeInventory();
             player.sendMessage(text(msg("storage-error", "<red>No se pudo guardar tu Relicario.")));
@@ -493,9 +557,19 @@ public final class RelicarioModule implements Listener {
         else { held.setAmount(held.getAmount() - 1); player.getInventory().setItemInMainHand(held); }
         stats.refresh(player);
         player.closeInventory();
-        Entry entry = entries.get(holder.id);
         player.sendMessage(text(msg("absorbed", "<green>✦ Reliquia absorbida: <white>{nombre}")
                 .replace("{nombre}", entry.name)));
-        player.playSound(player.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_CHIME, .8f, 1.4f);
+        CollectionMilestones.Progress after = collectionProgress(entry.category, store.discovered(player.getUniqueId()));
+        int milestone = CollectionMilestones.crossed(before.obtained(), after.obtained(), after.total(), milestones);
+        if (milestone == 100) {
+            player.sendMessage(text(msg("coleccion-completa", "<gold>✦ Colección de {coleccion} completada.")
+                    .replace("{coleccion}", collectionName(entry.category))));
+            player.playSound(player.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, .65f, 1f);
+        } else if (milestone > 0) {
+            player.sendMessage(text(msg("hito-alcanzado", "<gold>✦ {coleccion}: {porcentaje}% de descubrimientos.")
+                    .replace("{coleccion}", collectionName(entry.category))
+                    .replace("{porcentaje}", Integer.toString(milestone))));
+            player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, .6f, 1.2f);
+        } else player.playSound(player.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_CHIME, .8f, 1.4f);
     }
 }
