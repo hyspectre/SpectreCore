@@ -33,6 +33,7 @@ public final class MiningModule implements Listener {
     private final MmoBridge mmo = new MmoBridge();
     private final MiningVisuals visuals;
     private final PlacedOres placed;
+    private final MithrilToolModule mithrilTools;
     private final Map<UUID, State> states = new HashMap<>();
     private final dev.hydev.spectrecore.treasure.TreasureCooldowns treasureCooldown;
     private final Set<String> reported = new HashSet<>();
@@ -43,11 +44,13 @@ public final class MiningModule implements Listener {
     public MiningModule(JavaPlugin plugin, dev.hydev.spectrecore.treasure.TreasureCooldowns treasureCooldown) {
         this.plugin = plugin; this.treasureCooldown = treasureCooldown;
         visuals = new MiningVisuals(plugin); placed = new PlacedOres(plugin);
+        mithrilTools = new MithrilToolModule(plugin, placed);
     }
     public void enable() {
         reload(); loadData();
         Bukkit.getPluginManager().registerEvents(this, plugin);
         Bukkit.getPluginManager().registerEvents(placed, plugin); visuals.enable();
+        mithrilTools.enable();
         for (String name : List.of("resonancia", "debugresonancia", "nombreitem")) {
             var command = dev.hydev.spectrecore.command.CommandRouter.of(plugin).get(name);
             if (command != null) {
@@ -70,11 +73,13 @@ public final class MiningModule implements Listener {
     }
     public void disable() {
         if (timer != null) timer.cancel();
+        mithrilTools.disable();
         HandlerList.unregisterAll(this); HandlerList.unregisterAll(placed); visuals.disable(); saveData();
         states.clear();
     }
     public void reload() {
         config = dev.hydev.spectrecore.config.ModuleConfiguration.of(plugin).mining();
+        if (mithrilTools != null) mithrilTools.reload();
         visuals.configure(config.getBoolean("visuales.activados", true), config.getInt("visuales.max-animaciones", 32));
         reported.clear();
     }
@@ -102,6 +107,7 @@ public final class MiningModule implements Listener {
         int tier = tier(block.getType());
         Player player = event.getPlayer();
         if (relocated || tier == 0 || player.getGameMode() != GameMode.SURVIVAL) return;
+        mithrilTools.onManualOre(player, block);
         if (config.getBoolean("gemas.activadas", true) && tool(player.getInventory().getItemInMainHand())) resonance(player, block, tier);
         if (config.getBoolean("tesoros.activados", true)) treasure(player, block, tier);
     }
