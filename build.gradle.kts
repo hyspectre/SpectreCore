@@ -109,3 +109,21 @@ val transactionJournalSmoke = tasks.register<JavaExec>("transactionJournalSmoke"
     javaLauncher.set(javaToolchains.launcherFor { languageVersion.set(JavaLanguageVersion.of(21)) })
 }
 tasks.check { dependsOn(transactionJournalSmoke) }
+
+val collectionTestDirectory = layout.buildDirectory.dir("collection-milestones-tests")
+val compileCollectionMilestonesSmoke = tasks.register<JavaCompile>("compileCollectionMilestonesSmoke") {
+    dependsOn(tasks.classes)
+    source("tests/CollectionMilestonesSmoke.java")
+    classpath = sourceSets.main.get().output
+    destinationDirectory.set(collectionTestDirectory)
+    options.encoding = "UTF-8"
+    options.release.set(21)
+    javaCompiler.set(javaToolchains.compilerFor { languageVersion.set(JavaLanguageVersion.of(21)) })
+}
+val collectionMilestonesSmoke = tasks.register<JavaExec>("collectionMilestonesSmoke") {
+    dependsOn(compileCollectionMilestonesSmoke)
+    classpath = files(collectionTestDirectory, sourceSets.main.get().output)
+    mainClass.set("CollectionMilestonesSmoke")
+    javaLauncher.set(javaToolchains.launcherFor { languageVersion.set(JavaLanguageVersion.of(21)) })
+}
+tasks.check { dependsOn(collectionMilestonesSmoke) }
