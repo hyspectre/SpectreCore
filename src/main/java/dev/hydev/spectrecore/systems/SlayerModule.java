@@ -778,7 +778,8 @@ public final class SlayerModule implements Listener {
                 progress.victories = Math.max(0, experience.getInt("victorias", 0));
             }
         } catch (IllegalArgumentException invalid) {
-            throw new IllegalStateException("Slayer: identificador de progreso inválido en slayer-data.yml: " + id, invalid);
+            throw new IllegalStateException(Settings.plain("slayer", "SlayerModule.mensaje-019",
+                    "UUID inválido en slayer-data.yml: {id}", "id", id), invalid);
         }
         playerDataLoaded = true;
     }
