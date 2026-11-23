@@ -1,10 +1,7 @@
 package dev.hydev.spectrecore.relicario;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,36 +39,19 @@ public final class RelicarioRules {
         Objects.requireNonNull(relics);
         if (relics.isEmpty() || relics.size() > 256) throw new IllegalArgumentException("Catalog size");
         Map<String, Relic> result = new LinkedHashMap<>();
-        Set<String> familyRanks = new HashSet<>();
         for (Relic relic : relics) {
             if (result.putIfAbsent(relic.id(), relic) != null)
                 throw new IllegalArgumentException("Duplicate id " + relic.id());
-            if (!relic.family().isEmpty()
-                    && !familyRanks.add(relic.family() + ":" + relic.rank()))
-                throw new IllegalArgumentException("Duplicate family rank " + relic.family());
         }
         return Collections.unmodifiableMap(result);
     }
 
-    /**
-     * The recorded IDs never disappear, even when a higher family rank replaces
-     * the active bonuses. No same-ID stacking, irrespective of collection order.
-     */
+    /** Every consumed ID contributes concurrently. Family and rank only classify relics. */
     public static List<Relic> active(Collection<Relic> catalog, Set<String> discovered) {
         var byId = validateCatalog(catalog);
         Objects.requireNonNull(discovered);
-        Map<String, Relic> familyWinners = new HashMap<>();
-        List<Relic> independent = new ArrayList<>();
-        for (String id : discovered) {
-            Relic relic = byId.get(id);
-            if (relic == null) continue; // old/retired IDs remain saved but give no stats
-            if (relic.family().isEmpty()) independent.add(relic);
-            else familyWinners.merge(relic.family(), relic,
-                    (a, b) -> a.rank() > b.rank() ? a : b);
-        }
-        independent.addAll(familyWinners.values());
-        independent.sort((a, b) -> a.id().compareTo(b.id()));
-        return List.copyOf(independent);
+        return discovered.stream().map(byId::get).filter(Objects::nonNull)
+                .sorted((a, b) -> a.id().compareTo(b.id())).toList();
     }
 
     /** Aggregated permanent contributions, clamped by the configured cap per stat. */
@@ -95,9 +75,4 @@ public final class RelicarioRules {
         return id != null && catalog.containsKey(id) && !discovered.contains(id);
     }
 
-    public static boolean superseded(Relic relic, Collection<Relic> catalog, Set<String> discovered) {
-        if (relic.family().isEmpty()) return false;
-        return active(catalog, discovered).stream().anyMatch(other ->
-                other.family().equals(relic.family()) && other.rank() > relic.rank());
-    }
 }
