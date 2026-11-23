@@ -74,6 +74,17 @@ public final class RelicarioModule implements Listener {
         @Override public Inventory getInventory() { return inventory; }
     }
 
+    /** Old customized UI files have no progress slot: reuse a free position instead of breaking them. */
+    private static int progressSlot(YamlConfiguration config, String root, List<Integer> recipeSlots,
+                                    int back, int close) {
+        String key = root + ".progreso-slot";
+        if (config.contains(key)) return config.isInt(key) ? config.getInt(key) : -2;
+        if (!recipeSlots.contains(4) && back != 4 && close != 4) return 4;
+        for (int slot = 0; slot < 54; slot++)
+            if (!recipeSlots.contains(slot) && slot != back && slot != close) return slot;
+        return -1; // Legacy layout has no spare slot: preserve its original contents.
+    }
+
     private final SpectreCorePlugin plugin;
     private RelicarioStore store;
     private RelicarioStats stats;
@@ -176,12 +187,13 @@ public final class RelicarioModule implements Listener {
                 List<Integer> slots = nextUi.getIntegerList(root + ".recipe-slots");
                 int back = nextUi.getInt(root + ".volver-slot", 48);
                 int close = nextUi.getInt(root + ".cerrar-slot", 50);
-                int progressSlot = nextUi.getInt(root + ".progreso-slot", 4);
+                int progressSlot = progressSlot(nextUi, root, slots, back, close);
                 Material progressMaterial = Material.matchMaterial(nextUi.getString(root + ".progreso-material", "AMETHYST_SHARD"));
                 long needed = next.values().stream().filter(e -> e.category.equals(group)).count();
                 if (!nextUi.isConfigurationSection(root) || nextUi.getInt(root + ".size", 54) != 54
                         || slots.size() < needed || back < 0 || back >= 54 || close < 0 || close >= 54 || back == close
-                        || progressSlot < 0 || progressSlot >= 54 || progressSlot == back || progressSlot == close
+                        || progressSlot < -1 || (nextUi.contains(root + ".progreso-slot") && progressSlot < 0)
+                        || progressSlot >= 54 || progressSlot == back || progressSlot == close
                         || slots.contains(progressSlot) || progressMaterial == null || !progressMaterial.isItem()
                         || slots.stream().anyMatch(slot -> slot < 0 || slot >= 54 || slot == back || slot == close)
                         || new java.util.HashSet<>(slots).size() != slots.size())
@@ -451,7 +463,9 @@ public final class RelicarioModule implements Listener {
             String group = "colecciones." + page;
             List<Integer> slots = ui.getIntegerList(group + ".recipe-slots");
             CollectionMilestones.Progress progress = collectionProgress(page, obtained);
-            put(inv, ui.getInt(group + ".progreso-slot", 4),
+            int progressSlot = progressSlot(ui, group, slots,
+                    ui.getInt(group + ".volver-slot", 48), ui.getInt(group + ".cerrar-slot", 50));
+            if (progressSlot >= 0) put(inv, progressSlot,
                     Material.matchMaterial(ui.getString(group + ".progreso-material", "AMETHYST_SHARD")),
                     msg("progreso-titulo", "<gold>Progreso de colección"), progressLore(progress));
             int i = 0;
