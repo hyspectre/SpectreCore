@@ -1,0 +1,18 @@
+# FRAGMENTO: añadir bajo recipes: en la Forja existente de MMOItems.
+# SpectreCore gestiona sus habilidades de minería; la Forja consume los
+# ingredientes y entrega las mejoras del TALADRO original de Cygnus.
+recipes:
+  taladro-reforzado:
+    output: 'mmoitems{type=TOOL,id=TALADRO_REFORZADO}'
+    crafting-time: 20
+    ingredients:
+    - 'mmoitem{type=TOOL,id=TALADRO,amount=1}'
+    - 'mmoitem{type=MATERIAL,id=CHATARRA_MECANICA,amount=12}'
+    - 'vanilla{type=IRON_INGOT,amount=16}'
+  taladro-calibrado:
+    output: 'mmoitems{type=TOOL,id=TALADRO_CALIBRADO}'
+    crafting-time: 35
+    ingredients:
+    - 'mmoitem{type=TOOL,id=TALADRO_REFORZADO,amount=1}'
+    - 'mmoitem{type=MATERIAL,id=CHATARRA_ANTIGUA,amount=6}'
+    - 'mmoitem{type=MATERIAL,id=PALADIO,amount=8}'
