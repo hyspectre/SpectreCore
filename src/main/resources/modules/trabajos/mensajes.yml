@@ -37,3 +37,4 @@ MinerWorkshop:
   revision: "<red>La operación requiere revisión. Avisa a administración antes de repetirla."
   compactado: "<green>✦ Has compactado <white>{cantidad} {mineral} <green>hechizado(s)."
   pulverizado: "<gold>✦ Has pulverizado <white>{cantidad} {mineral} <gold>por {dinero} monedas."
+  resultado-breve: "<gold>✦ Mineralurgia completada."
