@@ -79,6 +79,22 @@ public final class Gameplay {
             bounded(ores, "suerte.cantidad-"+material+".por-punto",0,10,false);
             bounded(ores, "suerte.cantidad-"+material+".maximo-porcentaje",0,100,false);
         }
+        if(!ores.getStringList("taladro.tipos").equals(
+                List.of("TALADRO","TALADRO_REFORZADO","TALADRO_CALIBRADO")))
+            throw new java.io.IOException("tesoros/mineria.yml: conservar los IDs del Taladro y sus dos mejoras");
+        Set<String> drillableRocks=Set.of("STONE","DEEPSLATE","ANDESITE","DIORITE","GRANITE","TUFF","CALCITE");
+        var rocks=ores.getStringList("taladro.bloques");
+        if(rocks.isEmpty() || rocks.size()>drillableRocks.size()
+                || new HashSet<>(rocks).size()!=rocks.size() || !drillableRocks.containsAll(rocks))
+            throw new java.io.IOException("tesoros/mineria.yml: Taladro solo puede perforar piedra");
+        for(int tier=1;tier<=3;tier++){
+            bounded(ores,"taladro.intervalo-milisegundos.nivel"+tier,150,1200,true);
+            bounded(ores,"taladro.extras.nivel"+tier,0,3,true);
+        }
+        if(ores.getInt("taladro.extras.nivel1")!=0
+                || ores.getInt("taladro.extras.nivel2")>1
+                || ores.getInt("taladro.extras.nivel3")>3)
+            throw new java.io.IOException("tesoros/mineria.yml: Taladro supera sus límites de extracción");
         bounded(ores,"encuentros.max-activos",1,16,true);
         Set<String> permittedGoblin=Set.of("GOLD_ORE","DEEPSLATE_GOLD_ORE");
         Set<String> permittedProspector=Set.of("DIAMOND_ORE","DEEPSLATE_DIAMOND_ORE",
