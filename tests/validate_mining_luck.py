@@ -98,5 +98,7 @@ assert "progression.meets(player,\"mitrilo\")" in mining
 assert "progression.meets(player,\"resonancia\")" in mining
 assert "progression.meets(player,\"paladio\")" in mining
 assert "progression.meets(player,\"ingenieria\")" in (src/"mining/MithrilLantern.java").read_text(encoding="utf-8")
-assert "progression.meets(player,\"paladio\")" in (src/"mining/StoneDrill.java").read_text(encoding="utf-8")
+drill_src=(src/"mining/StoneDrill.java").read_text(encoding="utf-8")
+assert 'tier==3?"resonancia":tier==2?"duendes":"paladio"' in drill_src
+assert "progression.meets(player,requiredStage)" in drill_src
 print("PASS AuraSkills Luck: levels 1/3/6/12/15/18/22/25, old Pico identity, native encounters and stone drill")
