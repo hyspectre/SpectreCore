@@ -136,8 +136,9 @@ public final class MinerWorkshopMenu implements Listener {
         data.put("entrada",(long)amount*perBatch);
         data.put("salida",total);
         data.put("monedas",Math.max(0,amount*workshop.payment(mineral)));
-        data.put("estado",unlocked?amount>0?"<green>Listo para transformar":"<yellow>Faltan materiales"
-                :level<0?"<red>Progreso no disponible":"<yellow>Minería "+required+" requerida");
+        String state=unlocked?(amount>0?"<green>Listo para transformar":"<yellow>Faltan materiales")
+                :level<0?"<red>Progreso no disponible":"<yellow>Minería "+required+" requerida";
+        data.put("estado",TextService.component(state));
         for(String control:CONTROLS) {
             String path="items."+control;
             Material mat=Material.matchMaterial(layout.getString(path+".material","BOOK"));
