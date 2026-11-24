@@ -9,3 +9,6 @@ JobsModule:
   playsound-006-arg2: 0.5
   playsound-007-arg3: 1.5
   color-004: GOLD
+MinerWorkshop:
+  sonido-compactar: BLOCK_ANVIL_USE
+  sonido-pulverizar: BLOCK_GRINDSTONE_USE
