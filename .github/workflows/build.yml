@@ -25,6 +25,7 @@ jobs:
       - run: python3 tests/validate_native_jobs.py
       - run: python3 tests/validate_miner_workshop.py
       - run: python3 tests/validate_mining_luck.py
+      - run: python3 tests/test_instalador_mineria.py
       - run: python3 tests/validate_supply_board.py
       - run: python3 tests/validate_mithril.py
       - run: python3 tests/validate_amethyst_field.py
