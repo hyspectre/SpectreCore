@@ -12,3 +12,5 @@ JobsModule:
 MinerWorkshop:
   sonido-compactar: BLOCK_ANVIL_USE
   sonido-pulverizar: BLOCK_GRINDSTONE_USE
+  particula: ENCHANT
+  particulas: 12
