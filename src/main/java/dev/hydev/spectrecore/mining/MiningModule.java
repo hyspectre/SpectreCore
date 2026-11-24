@@ -37,6 +37,7 @@ public final class MiningModule implements Listener {
     private final MiningLuck luck;
     private final MiningEncounters encounters;
     private final StoneDrill drill;
+    private final MiningProgression progression;
     private final Map<UUID, State> states = new HashMap<>();
     private final dev.hydev.spectrecore.treasure.TreasureCooldowns treasureCooldown;
     private final Set<String> reported = new HashSet<>();
@@ -53,6 +54,7 @@ public final class MiningModule implements Listener {
         luck = new MiningLuck(plugin);
         encounters = new MiningEncounters(plugin, luck);
         drill = new StoneDrill(plugin);
+        progression = new MiningProgression(plugin);
         mithrilTools = new MithrilToolModule(plugin, placed);
     }
     public void enable() {
@@ -62,6 +64,7 @@ public final class MiningModule implements Listener {
         mithrilTools.enable();
         encounters.enable();
         drill.enable();
+        progression.enable();
         for (String name : List.of("resonancia", "debugresonancia", "nombreitem")) {
             var command = dev.hydev.spectrecore.command.CommandRouter.of(plugin).get(name);
             if (command != null) {
@@ -84,6 +87,7 @@ public final class MiningModule implements Listener {
     }
     public void disable() {
         if (timer != null) timer.cancel();
+        progression.disable();
         drill.disable();
         encounters.disable();
         mithrilTools.disable();
@@ -125,7 +129,9 @@ public final class MiningModule implements Listener {
         encounters.naturalOreBroken(player, block);
         if (tier == 0) return; // Obsidian triggers a Prospector, not ore resonance or Mitrilo.
         mithrilTools.onManualOre(player, block);
-        if (config.getBoolean("gemas.activadas", true) && tool(player.getInventory().getItemInMainHand())) resonance(player, block, tier);
+        if (progression.meets(player,"resonancia")
+                && config.getBoolean("gemas.activadas", true)
+                && tool(player.getInventory().getItemInMainHand())) resonance(player, block, tier);
         if (config.getBoolean("tesoros.activados", true)) treasure(player, block, tier);
     }
     private boolean expire(Player player, State state) {
@@ -180,7 +186,7 @@ public final class MiningModule implements Listener {
         // Mitrilo is exclusive with regular mining treasures for this block.
         // No new world blocks, background scanning or extra cooldown ledgers.
         if (mithril(player, block, tier)) return;
-        if (!player.hasPermission("tesoros.mineria.tier" + tier)) return;
+        if (!progression.meets(player,"paladio")) return;
         double chance = MiningLuckRules.chance(
                 config.getDouble("probabilidades.mineria.tier" + tier, 0), luck.stat(player),
                 config.getDouble("suerte.hallazgos.incremento-relativo-por-punto", 1.5),
@@ -205,7 +211,7 @@ public final class MiningModule implements Listener {
         player.sendMessage(Settings.message("tesoros", "MiningModule.mensaje-016", "§f↹ §e¡Obtuviste un mineral raro!"));
     }
     private boolean mithril(Player player, Block block, int tier) {
-        if (tier < 2) return false;
+        if (tier < 2 || !progression.meets(player,"mitrilo")) return false;
         boolean experienced = player.hasPermission("trabajo.minero.experimentado")
                 || player.hasPermission("trabajo.minero.profesional");
         if (!experienced) return false;
