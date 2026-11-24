@@ -1,0 +1,62 @@
+# Hydev · Conductas mineras | MythicMobs 5.13 Free
+# Solo mecánicas públicas, sin skills premium ni recompensas duplicadas.
+# Los efectos de ataque son breves, anunciados y no modifican bloques.
+HYDEV_DUENDE_LLEGADA:
+  Skills:
+    - sound{s=entity.zombie.ambient;v=0.6;p=1.65} @self
+    - particles{p=happy_villager;a=10;hs=0.4;vs=0.35;s=0.02;y=0.65} @self
+
+# El duende no se queda quieto recibiendo golpes: salta hacia atrás,
+# levanta polvo y corre un momento. Su botín se pierde si logra escapar.
+HYDEV_DUENDE_ESCAPADA:
+  Cooldown: 6
+  Skills:
+    - disengage{velocity=1.35;velocityY=0.35} @trigger
+    - potion{type=SPEED;duration=55;level=1} @self
+    - particles{p=smoke;a=14;hs=0.4;vs=0.3;s=0.03;y=0.7} @self
+    - sound{s=entity.endermite.hurt;v=0.8;p=1.5} @self
+
+# Si se le persigue demasiado, se abalanza y regresa al cuerpo a cuerpo.
+HYDEV_DUENDE_EMBESTIDA:
+  Cooldown: 9
+  Conditions:
+    - targetwithin{d=8} true
+  Skills:
+    - sound{s=entity.zombie.attack_wooden_door;v=0.45;p=1.9} @self
+    - leap{velocity=6} @target
+    - particles{p=crit;a=7;hs=0.25;vs=0.22;s=0.05;y=0.7} @self
+
+# Golpe de distracción: ralentización leve, no hurta inventarios.
+HYDEV_DUENDE_GOLPE_SUCIO:
+  Cooldown: 9
+  Skills:
+    - potion{type=SLOWNESS;duration=30;level=1} @target
+    - sound{s=entity.item.pickup;v=0.6;p=1.55} @self
+
+HYDEV_PROSPECTOR_DESPERTAR:
+  Skills:
+    - sound{s=block.deepslate.break;v=0.85;p=0.55} @self
+    - particles{p=block;material=DEEPSLATE;a=16;hs=0.6;vs=0.35;s=0.07;y=0.3} @self
+
+# Un pisotón poderoso, telegrafiado 1,25 s antes de causar daño.
+# Quedarse cerca es peligroso; alejarse permite evitarlo por completo.
+HYDEV_PROSPECTOR_TERREMOTO:
+  Cooldown: 13
+  Conditions:
+    - targetwithin{d=7} true
+  Skills:
+    - sound{s=entity.iron_golem.attack;v=1;p=0.55} @self
+    - particlering{p=smoke;a=18;points=20;radius=3;hs=0.03;vs=0.01;s=0.01;y=0.15} @self
+    - delay 25
+    - sound{s=block.deepslate.break;v=1;p=0.65} @self
+    - particlering{p=block;material=DEEPSLATE;a=22;points=24;radius=3;hs=0.15;vs=0.15;s=0.09;y=0.3} @self
+    - damage{a=5} @PlayersInRadius{r=3}
+    - throw{velocity=6;velocityY=2} @PlayersInRadius{r=3}
+
+# Defensa corta y excepcional, no invulnerabilidad.
+HYDEV_PROSPECTOR_GUARDIA:
+  Cooldown: 19
+  Skills:
+    - potion{type=RESISTANCE;duration=45;level=1} @self
+    - particles{p=enchant;a=12;hs=0.55;vs=0.85;s=0.02;y=1.0} @self
+    - sound{s=block.anvil.place;v=0.6;p=1.6} @self
