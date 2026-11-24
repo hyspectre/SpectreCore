@@ -100,6 +100,9 @@ suerte:
   cantidad-mitrilo:
     por-punto: 0.8
     maximo-porcentaje: 25.0
+  calidad-gemas:
+    puntos-por-luck: 0.05
+    maximo-puntos: 5.0
 
 # Los mobs son MythicMobs Free; el encuentro y botín los gestiona SpectreCore.
 # Ningún mob aparece por bloques colocados ni minados automáticamente.
