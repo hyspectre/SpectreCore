@@ -1,6 +1,7 @@
 package dev.hydev.spectrecore.mining;
 
 import dev.hydev.spectrecore.config.ModuleConfiguration;
+import dev.hydev.spectrecore.config.Settings;
 import dev.hydev.spectrecore.migration.MmoBridge;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -35,12 +36,14 @@ public final class StoneDrill implements Listener {
     private final JavaPlugin plugin;
     private final MmoBridge mmo = new MmoBridge();
     private final MithrilRegionAccess regions;
+    private final MiningProgression progression;
     private final Map<UUID, Long> lastBreak = new HashMap<>();
     private boolean active;
 
     public StoneDrill(JavaPlugin plugin) {
         this.plugin=plugin;
         regions=new MithrilRegionAccess(plugin);
+        progression=new MiningProgression(plugin);
     }
     private YamlConfiguration config() {
         return ModuleConfiguration.module(plugin,"tesoros/mineria.yml");
@@ -71,6 +74,13 @@ public final class StoneDrill implements Listener {
         Player player=event.getPlayer();
         int tier=tier(player.getInventory().getItemInMainHand());
         if(tier==0)return;
+        if(!progression.meets(player,"paladio")){
+            event.setCancelled(true);
+            player.sendActionBar(Settings.message("trabajos","MiningProgression.requisito-herramienta",
+                    "<yellow>Necesitas Minería nivel {nivel} para utilizar esta herramienta.",
+                    "nivel",progression.required("paladio")));
+            return;
+        }
         if(player.getGameMode()!=GameMode.SURVIVAL
                 || !stone(event.getBlock()) || !regions.canBuild(player,event.getBlock())){
             event.setCancelled(true);return;
@@ -84,7 +94,8 @@ public final class StoneDrill implements Listener {
         int tier=tier(player.getInventory().getItemInMainHand());
         if(tier==0)return;
         Block rock=event.getBlock();
-        if(player.getGameMode()!=GameMode.SURVIVAL
+        if(!progression.meets(player,"paladio")
+                || player.getGameMode()!=GameMode.SURVIVAL
                 || !stone(rock) || !regions.canBuild(player,rock)){
             event.setCancelled(true);return;
         }
