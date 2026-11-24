@@ -39,6 +39,7 @@ public final class MiningEncounters implements Listener {
     private final JavaPlugin plugin;
     private final MiningLuck luck;
     private final MythicMiningSpawns mythic;
+    private final MiningProgression progression;
     private final WorldGuardBridge regions;
     private final MmoBridge mmo = new MmoBridge();
     private final NamespacedKey kindKey, ownerKey;
@@ -51,6 +52,7 @@ public final class MiningEncounters implements Listener {
     public MiningEncounters(JavaPlugin plugin, MiningLuck luck) {
         this.plugin = plugin; this.luck = luck;
         mythic = new MythicMiningSpawns(plugin);
+        progression = new MiningProgression(plugin);
         regions = new WorldGuardBridge(plugin.getLogger());
         kindKey = new NamespacedKey(plugin, "mining_encounter_kind");
         ownerKey = new NamespacedKey(plugin, "mining_encounter_owner");
@@ -81,6 +83,7 @@ public final class MiningEncounters implements Listener {
         String kind = trigger("duende",block.getType())?"duende":
                 trigger("prospector",block.getType())?"prospector":null;
         if(kind==null) return;
+        if(!progression.meets(player,kind.equals("duende")?"duendes":"resonancia"))return;
         String key="encuentros."+kind+".";
         YamlConfiguration cfg=config();
         int cap=cfg.getInt("encuentros.max-activos",12);
