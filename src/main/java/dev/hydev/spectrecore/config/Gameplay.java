@@ -117,6 +117,8 @@ public final class Gameplay {
                 || ores.getInt("taladro.extras.nivel2")>1
                 || ores.getInt("taladro.extras.nivel3")>3)
             throw new java.io.IOException("tesoros/mineria.yml: Taladro supera sus límites de extracción");
+        bounded(ores,"suerte.calidad-gemas.puntos-por-luck",0,1,false);
+        bounded(ores,"suerte.calidad-gemas.maximo-puntos",0,10,false);
         bounded(ores,"encuentros.max-activos",1,16,true);
         Set<String> permittedGoblin=Set.of("GOLD_ORE","DEEPSLATE_GOLD_ORE");
         Set<String> permittedProspector=Set.of("DIAMOND_ORE","DEEPSLATE_DIAMOND_ORE",
