@@ -76,6 +76,7 @@ public final class AmethystResonanceField implements Listener {
 
     private final JavaPlugin plugin;
     private final MithrilDeviceData devices;
+    private final MiningLuck luck;
     private final MithrilRegionAccess regions;
     private final MmoBridge items = new MmoBridge();
     private final NamespacedKey marker;
@@ -91,6 +92,7 @@ public final class AmethystResonanceField implements Listener {
                                   MithrilRegionAccess regions) {
         this.plugin = plugin;
         this.devices = devices;
+        this.luck = new MiningLuck(plugin);
         this.regions = regions;
         marker = new NamespacedKey(plugin, "amatista_nodo_v1");
     }
@@ -270,7 +272,11 @@ public final class AmethystResonanceField implements Listener {
         node.visual.remove();
 
         String[] grades = {"básica", "refinada", "arcana"};
-        int index = AmethystResonanceRules.quality(ThreadLocalRandom.current().nextDouble(100),
+        double roll = MiningLuckRules.qualityRoll(ThreadLocalRandom.current().nextDouble(100),
+                luck.stat(player),
+                config.getDouble("suerte.calidad-gemas.puntos-por-luck",0.05),
+                config.getDouble("suerte.calidad-gemas.maximo-puntos",5.0));
+        int index = AmethystResonanceRules.quality(roll,
                 amount("calidad.basica"), amount("calidad.intermedia"), amount("calidad.superior"));
         ItemStack reward = node.session.rewards.get(index).clone();
         var excess = player.getInventory().addItem(reward);
