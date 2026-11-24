@@ -42,6 +42,11 @@ assert "MiningLuckRules.chance(" in encounters and "MiningLuckRules.quantity(" i
 assert "getPersistentDataContainer()" in encounters and "EntityDeathEvent" in encounters
 assert "event.getDrops().clear()" in encounters and "getKiller()" in encounters
 assert "maxMultiplier" in rules and "bonusCapPercent" in rules
+assert "qualityRoll" in rules
+assert "MiningLuckRules.qualityRoll(" in mining
+assert "MiningLuckRules.qualityRoll(" in (src/"mining/AmethystResonanceField.java").read_text(encoding="utf-8")
+assert cfg["suerte"]["calidad-gemas"] == {"puntos-por-luck":.05,"maximo-puntos":5.0}
+
 assert not (resources/"ui/progreso-mineria.yml").exists(), "AuraSkills owns the progression menu"
 progress=yaml.safe_load((resources/"modules/trabajos/config.yml").read_text(encoding="utf-8"))
 levels=progress["progresion-mineria"]
