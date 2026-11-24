@@ -42,6 +42,29 @@ public final class Gameplay {
         bounded(jobs,"avisos.intervalo-cooldown-milisegundos",0,3600000,true);
         for (String level : List.of("novato","experimentado","profesional"))
             bounded(jobs,"contratos.precios."+level,0,1_000_000_000,true);
+        String workshop = "taller-minero.";
+        bounded(jobs, workshop+"nivel-minimo", 1, 100, true);
+        bounded(jobs, workshop+"compactar-unidades", 64, 64, true);
+        bounded(jobs, workshop+"max-operaciones", 1, 16, true);
+        Map<String,String> enchantedMinerals = Map.of(
+                "cobre","COBRE", "hierro","HIERRO", "oro","ORO",
+                "lapis","LAPIS", "redstone","REDSTONE", "diamante","DIAMANTE");
+        Set<String> rawInputs = new HashSet<>();
+        Set<String> supportedRaw = Set.of("COPPER_INGOT","IRON_INGOT","GOLD_INGOT",
+                "LAPIS_LAZULI","REDSTONE","DIAMOND");
+        for (var entry : enchantedMinerals.entrySet()) {
+            String root = workshop+"recetas."+entry.getKey()+".";
+            if (!entry.getValue().equals(jobs.getString(root+"resultado-id")))
+                throw new java.io.IOException("trabajos/config.yml: ID encantado modificado: "+entry.getKey());
+            String origin = jobs.getString(root+"origen","");
+            // Registry-free validation also runs in headless Gradle tests.
+            if (!supportedRaw.contains(origin) || !rawInputs.add(origin))
+                throw new java.io.IOException("trabajos/config.yml: mineral base inválido o repetido: "+origin);
+            if (!jobs.isString(root+"nombre") || jobs.getString(root+"nombre","").isBlank()
+                    || jobs.getString(root+"nombre","").length()>48)
+                throw new java.io.IOException("trabajos/config.yml: nombre de mineral inválido: "+entry.getKey());
+            bounded(jobs, root+"pago", 1, 1000000, true);
+        }
         var ores = values.get("tesoros/mineria.yml");
         if (!"MATERIAL".equals(ores.getString("mitrilo.tipo"))
                 || !"MITRILO".equals(ores.getString("mitrilo.id")))

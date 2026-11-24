@@ -27,3 +27,14 @@ SupplyOrders:
 
 JobsMenu:
   desactivado: "<reset><red>El catálogo de trabajos no está disponible por ahora."
+MinerWorkshop:
+  no-disponible: "<red>El taller no puede procesar esta operación. Avisa a administración."
+  sin-nivel: "<yellow>No se pudo consultar tu progreso de Minería. Inténtalo más tarde."
+  nivel: "<yellow>Necesitas Minería nivel {nivel} para usar el taller."
+  pendiente: "<yellow>Hay una operación pendiente de revisión. Avisa a administración."
+  insuficiente: "<yellow>No tienes suficientes materiales para esta operación."
+  espacio: "<yellow>No hay espacio suficiente o faltan materiales en tu mochila."
+  revision: "<red>La operación requiere revisión. Avisa a administración antes de repetirla."
+  compactado: "<green>✦ Has compactado <white>{cantidad} {mineral} <green>hechizado(s)."
+  pulverizado: "<gold>✦ Has pulverizado <white>{cantidad} {mineral} <gold>por {dinero} monedas."
+  resultado-breve: "<gold>✦ Mineralurgia completada."

@@ -1,6 +1,6 @@
 # SpectreCore 0.9 — Plan de desarrollo
 
-**Estado:** en desarrollo. `0.9.0-dev5` es una entrega parcial, no una versión lista para producción.
+**Estado:** en desarrollo. `0.9.0-dev6` es una entrega parcial, no una versión lista para producción.
 
 ## Dirección jugable
 
@@ -54,6 +54,15 @@ Construir conexiones útiles entre exploración, accesorios, profesiones, fabric
 - Los bloques visuales no alteran terreno. Pertenecen al jugador, tienen caducidad, una sola entrega y se limpian al desconectar, teletransportarse, apagar o cargar chunks.
 - Para activar se comprueban tanto permisos de WorldGuard como existencia de gemas MMOItems y espacio suficiente.
 - Pruebas de reglas, catálogo, YAML y compilación. No se presenta como verificada ingame.
+
+### 0.9.0-dev6 — Taller nativo de Mineralurgia
+
+- La compactación y pulverización de los seis minerales hechizados se gestionan en Java por SpectreCore, no mediante una estación externa. Se conservan los IDs `MATERIAL:COBRE/HIERRO/ORO/LAPIS/REDSTONE/DIAMANTE`.
+- Nivel 3 de Minería tomado exclusivamente de AuraSkills (sin progreso duplicado), 64 materiales base por uno hechizado y venta por pagos fijos.
+- Menú de dos pestañas con previsualización, lotes 1/4/todo, confirmación, mensajes, sonidos y partículas configurables. Se abre mediante `/spectrecore minero`, el menú Trabajos o el Compactador Portátil de Cygnus.
+- Operaciones en hilo principal, inventario de almacenamiento únicamente, diario persistente compartido con encargos y contratos, bloqueo de duplicación y revisión manual de transacciones ambiguas.
+- Desactivados los pagos heredados de pulverización sin consumo verificable de objetos.
+- Necesario conectar la acción del NPC Minero dentro del servidor, además de probar MMOItems/AuraSkills/Vault en Paper.
 
 ### Próximas líneas (no implementadas)
 

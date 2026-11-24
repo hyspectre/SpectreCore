@@ -71,3 +71,18 @@ economia:
 
 avisos:
   intervalo-cooldown-milisegundos: 5000
+
+# Taller nativo de Mineralurgia. Los minerales hechizados son los IDs
+# MATERIAL existentes del servidor; nunca se generan variantes paralelas.
+# Pagos fijos para que el jugador conozca el resultado ANTES de confirmar.
+taller-minero:
+  nivel-minimo: 3
+  compactar-unidades: 64
+  max-operaciones: 8
+  recetas:
+    cobre: {nombre: "Cobre", origen: COPPER_INGOT, resultado-id: COBRE, pago: 12}
+    hierro: {nombre: "Hierro", origen: IRON_INGOT, resultado-id: HIERRO, pago: 30}
+    oro: {nombre: "Oro", origen: GOLD_INGOT, resultado-id: ORO, pago: 55}
+    lapis: {nombre: "Lapislázuli", origen: LAPIS_LAZULI, resultado-id: LAPIS, pago: 40}
+    redstone: {nombre: "Redstone", origen: REDSTONE, resultado-id: REDSTONE, pago: 35}
+    diamante: {nombre: "Diamante", origen: DIAMOND, resultado-id: DIAMANTE, pago: 135}

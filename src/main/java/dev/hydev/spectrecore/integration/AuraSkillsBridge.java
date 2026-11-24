@@ -3,6 +3,7 @@ package dev.hydev.spectrecore.integration;
 import dev.aurelium.auraskills.api.AuraSkillsApi;
 import dev.aurelium.auraskills.api.stat.StatModifier;
 import dev.aurelium.auraskills.api.stat.Stats;
+import dev.aurelium.auraskills.api.skill.Skills;
 import dev.aurelium.auraskills.api.user.SkillsUser;
 import dev.aurelium.auraskills.api.util.AuraSkillsModifier;
 import dev.hydev.spectrecore.SpectreCorePlugin;
@@ -37,6 +38,18 @@ public final class AuraSkillsBridge {
         if (!ready() || player == null || !player.isOnline()) return null;
         SkillsUser user = AuraSkillsApi.get().getUser(player.getUniqueId());
         return user != null && user.isLoaded() ? user : null;
+    }
+
+    /** Read-only source of truth for mining unlocks; -1 means data unavailable. */
+    public int miningLevel(Player player) {
+        try {
+            if (!Skills.MINING.isEnabled()) return -1;
+            SkillsUser loaded = user(player);
+            return loaded == null ? -1 : Math.max(0, loaded.getSkillLevel(Skills.MINING));
+        } catch (RuntimeException | LinkageError failure) {
+            warn(failure);
+            return -1;
+        }
     }
 
     /**

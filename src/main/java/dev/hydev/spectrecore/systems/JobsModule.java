@@ -5,6 +5,7 @@ import dev.hydev.spectrecore.activities.ActivityRules;
 import dev.hydev.spectrecore.mining.PlacedOres;
 import dev.hydev.spectrecore.guide.JobsMenu;
 import dev.hydev.spectrecore.guide.SupplyGuide;
+import dev.hydev.spectrecore.guide.MinerWorkshopMenu;
 import dev.hydev.spectrecore.integration.LuckPermsContractBridge;
 import dev.hydev.spectrecore.storage.ClaimJournal;
 import dev.hydev.spectrecore.treasure.CombatTreasureRules;
@@ -34,6 +35,8 @@ public final class JobsModule implements Listener {
     private SupplyGuide supplies;
     private ClaimJournal purchaseJournal;
     private SupplyOrders supplyOrders;
+    private MinerWorkshop minerWorkshop;
+    private MinerWorkshopMenu minerWorkshopMenu;
     private boolean storageLoaded;
     private final Set<UUID> purchasesInProgress = new HashSet<>();
     private final Map<UUID, Set<String>> confirmedRanks = new HashMap<>();
@@ -68,6 +71,7 @@ public final class JobsModule implements Listener {
         purchaseJournal = new ClaimJournal(new File(plugin.getDataFolder(), "data/jobs/purchases.yml").toPath());
         if (!purchaseJournal.load()) throw new IllegalStateException("Trabajos: registro de compras ilegible; revisar data/jobs/purchases.yml");
         supplyOrders = new SupplyOrders(plugin, this, purchaseJournal);
+        minerWorkshop = new MinerWorkshop(plugin, this, purchaseJournal);
         for (ClaimJournal.Claim pending : purchaseJournal.unresolved())
             plugin.getLogger().severe("TRABAJO PENDIENTE: transacción=" + pending.id() + " jugador="
                     + pending.player() + " contrato=" + pending.subject() + "; verificar saldo y permiso antes de resolver.");
@@ -81,12 +85,15 @@ public final class JobsModule implements Listener {
         menu.enable();
         supplies = new SupplyGuide(plugin, this);
         supplies.enable();
+        minerWorkshopMenu = new MinerWorkshopMenu(plugin, this, minerWorkshop);
+        minerWorkshopMenu.enable();
         if (dev.hydev.spectrecore.command.CommandRouter.of(plugin).get("trabajo") != null) dev.hydev.spectrecore.command.CommandRouter.of(plugin).get("trabajo").setExecutor((sender, cmd, label, args) -> {
             if (args.length > 0 && (args[0].equalsIgnoreCase("transacciones") || args[0].equalsIgnoreCase("resolver"))) {
                 return purchaseAdmin(sender, args);
             }
             if (!(sender instanceof Player p)) { sender.sendMessage(Settings.message("trabajos", "JobsModule.mensaje-001", "Usa /spectrecore trabajos dentro del juego.")); return true; }
             if (args.length > 0 && args[0].equalsIgnoreCase("abastecimiento")) return openSupplies(p);
+            if (args.length > 0 && args[0].equalsIgnoreCase("taller")) return openMinerWorkshop(p);
             if (args.length == 0 || !args[0].equalsIgnoreCase("estado")) {
                 String page = args.length > 0 && JobsContractRules.JOBS.contains(args[0].toLowerCase(Locale.ROOT))
                         ? args[0].toLowerCase(Locale.ROOT) : "trabajos";
@@ -104,9 +111,11 @@ public final class JobsModule implements Listener {
         warned.clear();
         if (menu != null) menu.reload();
         if (supplies != null) supplies.reload();
+        if (minerWorkshopMenu != null) minerWorkshopMenu.reload();
     }
     public void disable() {
         if (timer != null) timer.cancel();
+        if (minerWorkshopMenu != null) { minerWorkshopMenu.disable(); minerWorkshopMenu = null; }
         if (supplies != null) { supplies.disable(); supplies = null; }
         if (menu != null) { menu.disable(); menu = null; }
         HandlerList.unregisterAll(this); HandlerList.unregisterAll(placed); if (storageLoaded) save();
@@ -116,6 +125,7 @@ public final class JobsModule implements Listener {
             plugin.getLogger().warning("TRABAJOS: Hay " + purchasesInProgress.size() + " compra(s) LuckPerms pendiente(s) al apagar; revisar saldos si hubo errores.");
     }
     public boolean openSupplies(Player player) { return supplies != null && supplies.open(player); }
+    public boolean openMinerWorkshop(Player player) { return minerWorkshopMenu != null && minerWorkshopMenu.open(player); }
     public void fulfillMithrilOrder(Player player) {
         if (supplyOrders != null) supplyOrders.fulfill(player);
     }

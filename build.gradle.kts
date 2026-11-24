@@ -1,6 +1,6 @@
 plugins { java }
 group = "dev.hydev"
-version = "0.9.0-dev5"
+version = "0.9.0-dev6"
 
 repositories {
     maven("https://repo.papermc.io/repository/maven-public/")
@@ -53,7 +53,7 @@ tasks.check { dependsOn(commandRoutingRegression) }
 val configTestDirectory = layout.buildDirectory.dir("module-config-tests")
 val compileModuleConfigTest = tasks.register<JavaCompile>("compileModuleConfigTest") {
     dependsOn(tasks.classes)
-    source("tests/ModuleConfigSmoke.java", "tests/PresentationConfigSmoke.java", "tests/PlayerTransactionJournalSmoke.java", "tests/SupplyOrderRulesSmoke.java", "tests/MithrilRulesSmoke.java", "tests/AmethystResonanceSmoke.java")
+    source("tests/ModuleConfigSmoke.java", "tests/PresentationConfigSmoke.java", "tests/PlayerTransactionJournalSmoke.java", "tests/SupplyOrderRulesSmoke.java", "tests/MithrilRulesSmoke.java", "tests/AmethystResonanceSmoke.java", "tests/MinerWorkshopSmoke.java")
     classpath = sourceSets.main.get().output + configurations.compileClasspath.get()
     destinationDirectory.set(configTestDirectory)
     options.encoding = "UTF-8"
@@ -151,3 +151,11 @@ val amethystResonanceSmoke = tasks.register<JavaExec>("amethystResonanceSmoke") 
     javaLauncher.set(javaToolchains.launcherFor { languageVersion.set(JavaLanguageVersion.of(21)) })
 }
 tasks.check { dependsOn(amethystResonanceSmoke) }
+
+val minerWorkshopSmoke = tasks.register<JavaExec>("minerWorkshopSmoke") {
+    dependsOn(compileModuleConfigTest)
+    classpath = files(configTestDirectory, sourceSets.main.get().output, configurations.compileClasspath)
+    mainClass.set("MinerWorkshopSmoke")
+    javaLauncher.set(javaToolchains.launcherFor { languageVersion.set(JavaLanguageVersion.of(21)) })
+}
+tasks.check { dependsOn(minerWorkshopSmoke) }

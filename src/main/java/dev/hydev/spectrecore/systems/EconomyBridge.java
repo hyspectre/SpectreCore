@@ -7,6 +7,20 @@ import dev.hydev.spectrecore.config.Settings;
 
 public final class EconomyBridge {
     public enum Result { CONFIRMED, COMMAND_SENT, FAILED }
+    /** Verify a real Vault economy provider before removing inventory items. */
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public boolean available() {
+        var vault = Bukkit.getPluginManager().getPlugin("Vault");
+        if (vault == null || !vault.isEnabled()) return false;
+        try {
+            Class<?> api = Class.forName("net.milkbowl.vault.economy.Economy", true,
+                    vault.getClass().getClassLoader());
+            return Bukkit.getServicesManager().getRegistration((Class) api) != null;
+        } catch (ReflectiveOperationException | LinkageError | RuntimeException error) {
+            return false;
+        }
+    }
+
     /**
      * Confirmed Vault withdrawal only. Never run a console economy command for player contracts:
      * a dispatch "success" cannot prove the money was actually deducted.

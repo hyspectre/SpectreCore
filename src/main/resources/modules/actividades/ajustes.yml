@@ -2,9 +2,6 @@ LegacyActivities:
   sound-001: ENTITY_PLAYER_LEVELUP
   playsound-001-arg2: 1.0
   playsound-002-arg3: 1.0
-  sound-002: BLOCK_AMETHYST_CLUSTER_BREAK
-  playsound-003-arg2: 0.7
-  playsound-004-arg3: 1.3
   sound-003: BLOCK_ENCHANTMENT_TABLE_USE
   playsound-005-arg2: 0.5
   playsound-006-arg3: 1.1

@@ -23,6 +23,7 @@ jobs:
       - run: python3 tests/validate_relicario_catalog.py
       - run: python3 tests/validate_native_cooking.py
       - run: python3 tests/validate_native_jobs.py
+      - run: python3 tests/validate_miner_workshop.py
       - run: python3 tests/validate_supply_board.py
       - run: python3 tests/validate_mithril.py
       - run: python3 tests/validate_amethyst_field.py
@@ -36,6 +37,6 @@ jobs:
       - run: gradle clean build --no-daemon
       - uses: actions/upload-artifact@v4
         with:
-          name: SpectreCore-0.9.0-dev5
-          path: build/libs/SpectreCore-0.9.0-dev5.jar
+          name: SpectreCore-0.9.0-dev6
+          path: build/libs/SpectreCore-0.9.0-dev6.jar
           if-no-files-found: error
