@@ -161,7 +161,8 @@ public final class MinerWorkshopMenu implements Listener {
             int count=workshop.available(player,key,mode);
             data.put("material",workshop.display(key));
             data.put("cantidad",count);
-            data.put("seleccionado",key.equals(mineral)?"<green>Seleccionado":"<yellow>Clic para seleccionar");
+            data.put("seleccionado",TextService.component(key.equals(mineral)
+                    ? "<green>Seleccionado" : "<yellow>Clic para seleccionar"));
             Material fallback=Material.matchMaterial(layout.getString(path+".material","STONE"));
             ItemStack base=new ItemStack(fallback==null?Material.STONE:fallback);
             if(mode==MinerWorkshop.Mode.PULVERIZAR) {
