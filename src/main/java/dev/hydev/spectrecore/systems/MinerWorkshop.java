@@ -224,6 +224,11 @@ public final class MinerWorkshop {
                 ? Settings.sound("trabajos", "MinerWorkshop.sonido-compactar", Sound.BLOCK_ANVIL_USE)
                 : Settings.sound("trabajos", "MinerWorkshop.sonido-pulverizar", Sound.BLOCK_GRINDSTONE_USE);
         player.playSound(player.getLocation(), sound, 0.6f, mode == Mode.COMPACTAR ? 1.25f : 1.45f);
+        player.spawnParticle(Settings.particle("trabajos", "MinerWorkshop.particula", org.bukkit.Particle.ENCHANT),
+                player.getLocation().add(0, 1.1, 0),
+                Settings.i("trabajos", "MinerWorkshop.particulas", 12), .32, .35, .32, .02);
+        player.sendActionBar(Settings.message("trabajos", "MinerWorkshop.resultado-breve",
+                "<gold>✦ Mineralurgia completada."));
         return true;
     }
     private void unavailable(Player player) {
