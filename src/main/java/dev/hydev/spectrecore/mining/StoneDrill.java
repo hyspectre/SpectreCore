@@ -49,7 +49,7 @@ public final class StoneDrill implements Listener {
         return ModuleConfiguration.module(plugin,"tesoros/mineria.yml");
     }
     private int tier(ItemStack item) {
-        if(item==null || !item.getType().name().endsWith("_PICKAXE")
+        if(item==null || item.getType().isAir()
                 || !"TOOL".equalsIgnoreCase(mmo.type(item)))return 0;
         String id=mmo.id(item);
         List<String> upgrades=config().getStringList("taladro.tipos");
