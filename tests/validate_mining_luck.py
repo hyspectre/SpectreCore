@@ -43,4 +43,29 @@ assert "getPersistentDataContainer()" in encounters and "EntityDeathEvent" in en
 assert "event.getDrops().clear()" in encounters and "getKiller()" in encounters
 assert "maxMultiplier" in rules and "bonusCapPercent" in rules
 assert not (resources/"ui/progreso-mineria.yml").exists(), "AuraSkills owns the progression menu"
-print("PASS AuraSkills Luck: no level-30 legacy permission, capped encounters and natural mineral bonuses")
+progress=yaml.safe_load((resources/"modules/trabajos/config.yml").read_text(encoding="utf-8"))
+levels=progress["progresion-mineria"]
+assert {k:levels[k] for k in ("inicial","paladio","duendes","resonancia","mitrilo","arcana","ingenieria")}=={
+    "inicial":1,"paladio":6,"duendes":12,"resonancia":15,"mitrilo":18,"arcana":22,"ingenieria":25}
+assert progress["taller-minero"]["nivel-minimo"]==3
+assert not (resources/"ui/progreso-mineria.yml").exists()
+resonance=yaml.safe_load((resources/"modules/resonancia/config.yml").read_text(encoding="utf-8"))
+assert resonance["gemas"]["pico"]=="PICO_GEMAS"
+assert resonance["gemas"]["identificar-por"]=="id"
+gem_items=yaml.safe_load((root/"integracion-mmoitems/GEM_STONE_PICO_PERDIDO.yml").read_text(encoding="utf-8"))
+assert set(resonance["gemas"]["ids"].values())==set(gem_items)
+drill=yaml.safe_load((root/"integracion-mmoitems/TOOL_TALADRO_MEJORAS.yml").read_text(encoding="utf-8"))
+assert set(drill)=={"TALADRO_REFORZADO","TALADRO_CALIBRADO"}
+recipes=yaml.safe_load((root/"integracion-mmoitems/RECETAS_FORJA_TALADRO.yml").read_text(encoding="utf-8"))["recipes"]
+assert set(recipes)=={"taladro-reforzado","taladro-calibrado"}
+lost=yaml.safe_load((root/"integracion-mmoitems/RECETA_PICO_PERDIDO.yml").read_text(encoding="utf-8"))["recipes"]["picoperdido"]
+assert "id=PICO_GEMAS" in lost["output"] and any("FRAGMENTO_PICO_PERDIDO" in x for x in lost["ingredients"])
+assert "TOOL:PICO_PERDIDO" not in (root/"integracion-mmoitems/RECETA_PICO_PERDIDO.yml").read_text(encoding="utf-8")
+assert (src/"mining/MiningProgression.java").exists()
+assert "SkillLevelUpEvent" in (src/"mining/MiningProgression.java").read_text(encoding="utf-8")
+assert "progresion.meets(player,\"mitrilo\")" in mining
+assert "progresion.meets(player,\"resonancia\")" in mining
+assert "progresion.meets(player,\"paladio\")" in mining
+assert "progresion.meets(player,\"ingenieria\")" in (src/"mining/MithrilLantern.java").read_text(encoding="utf-8")
+assert "progression.meets(player,\"paladio\")" in (src/"mining/StoneDrill.java").read_text(encoding="utf-8")
+print("PASS AuraSkills Luck: levels 1/3/6/12/15/18/22/25, old Pico identity, native encounters and stone drill")
