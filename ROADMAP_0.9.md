@@ -1,6 +1,6 @@
 # SpectreCore 0.9 — Plan de desarrollo
 
-**Estado:** en desarrollo. `0.9.0-dev6` es una entrega parcial, no una versión lista para producción.
+**Estado:** en desarrollo. `0.9.0-dev7` es una entrega parcial, no una versión lista para producción.
 
 ## Dirección jugable
 
@@ -63,6 +63,18 @@ Construir conexiones útiles entre exploración, accesorios, profesiones, fabric
 - Operaciones en hilo principal, inventario de almacenamiento únicamente, diario persistente compartido con encargos y contratos, bloqueo de duplicación y revisión manual de transacciones ambiguas.
 - Desactivados los pagos heredados de pulverización sin consumo verificable de objetos.
 - Necesario conectar la acción del NPC Minero dentro del servidor, además de probar MMOItems/AuraSkills/Vault en Paper.
+
+### 0.9.0-dev7 — Minería: encuentros, herramientas, Luck y progresión
+
+- Desbloqueos a nivel 1/3/6/12/15/18/22/25 usando exclusivamente los niveles y el menú de AuraSkills; no se duplica progreso.
+- Duendes al romper oro natural desde nivel 12 y Prospectores al extraer diamante, esmeralda y obsidiana natural desde nivel 15. Tipos MythicMobs Free, origen de spawn seguro, cooldown y población limitados; botines materiales MMOItems entregados por SpectreCore.
+- Taladro original `TOOL:TALADRO` desde nivel 6, con dos mejoras mediante Chatarra Mecánica y Antigua. Solo perfora piedra y las rocas adicionales no producen recursos ni experiencia.
+- Receta original del Pico Perdido encontrada y conservada con `TOOL:PICO_GEMAS`, ahora reconstruible con fragmentos de Prospectores; tres objetos `GEM_STONE` completan sus recompensas originales.
+- Paladio ya tiene probabilidades predeterminadas reales. El Mitrilo se desbloquea a nivel 18, el Pico de Amatista a 22 y la Brújula/Farol/Barrena a 25.
+- Luck de AuraSkills interviene en encuentros, probabilidades de Paladio/Mitrilo, cantidad extra, botines de monstruos y calidad de gemas. Límites globales configurables; la experiencia de AuraSkills no se altera.
+- Los contratos de Minería nuevos requieren niveles 1/6/15; se preservan los ya comprados.
+- `integracion-auraskills/rewards/mining.yml` conserva los patrones de Toughness/Luck y quita el permiso sin uso de nivel 30; **requiere instalación externa**.
+- **Pendiente:** importar configuraciones de MMOItems, MythicMobs y la Forja, configurar el NPC y validar encuentros y herramientas dentro de Paper.
 
 ### Próximas líneas (no implementadas)
 

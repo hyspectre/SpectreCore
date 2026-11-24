@@ -1,0 +1,15 @@
+# Copiar a plugins/AuraSkills/rewards/mining.yml si corresponde a
+# la configuración actualmente instalada. Conserva los patrones originales.
+# El antiguo permiso tesoromineria1 del nivel 30 ya no se utiliza.
+# La progresión visual de Minería sigue siendo de AuraSkills.
+patterns:
+  - type: stat
+    stat: toughness
+    value: 1
+    pattern:
+      interval: 1
+  - type: stat
+    stat: luck
+    value: 1
+    pattern:
+      interval: 2

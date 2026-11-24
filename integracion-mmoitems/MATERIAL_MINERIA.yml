@@ -1,0 +1,32 @@
+# FRAGMENTO: fusionar estas entradas, sin sobrescribir las anteriores,
+# dentro de plugins/MMOItems/item/MATERIAL.yml.
+CHATARRA_MECANICA:
+  base:
+    revision-id: 1
+    material: IRON_NUGGET
+    name: '<gradient:#BCA78B:#E0D2B4>Chatarra Mecánica</gradient>'
+    tier: COMMON
+    max-stack-size: 64
+    lore:
+      - '&7Piezas de mecanismos robados por duendes.'
+      - '&7Utilizada en mejoras de herramientas mineras.'
+CHATARRA_ANTIGUA:
+  base:
+    revision-id: 1
+    material: NETHERITE_SCRAP
+    name: '<gradient:#C1A49B:#D8C8DC>Chatarra Antigua</gradient>'
+    tier: RARE
+    max-stack-size: 64
+    lore:
+      - '&7Restos de máquinas de otra época.'
+      - '&7Recuperada de los Prospectores Antiguos.'
+FRAGMENTO_PICO_PERDIDO:
+  base:
+    revision-id: 1
+    material: PRISMARINE_SHARD
+    name: '<gradient:#B9A9EA:#F0C4F4>Fragmento del Pico Perdido</gradient>'
+    tier: EPIC
+    max-stack-size: 64
+    lore:
+      - '&7Un pedazo de metal que aún vibra.'
+      - '&7Se recupera de los Prospectores Antiguos.'

@@ -26,3 +26,8 @@ CombatTreasures:
   ofmillis-003-arg0: 150
   ofseconds-004-arg0: 2
   ofmillis-005-arg0: 350
+MiningEncounters:
+  sonido-encuentro: BLOCK_AMETHYST_BLOCK_CHIME
+  volumen: 0.7
+  tono-duende: 1.7
+  tono-prospector: 0.7

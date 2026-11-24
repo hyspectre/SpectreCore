@@ -32,6 +32,7 @@ public final class MithrilToolModule implements Listener {
     private final JavaPlugin plugin;
     private final PlacedOres placed;
     private final MithrilDeviceData data;
+    private final MiningProgression progression;
     private final MithrilRegionAccess regions;
     private final MithrilProspector prospector;
     private final MithrilLantern lantern;
@@ -45,6 +46,7 @@ public final class MithrilToolModule implements Listener {
         this.plugin = plugin;
         this.placed = placed;
         data = new MithrilDeviceData(plugin);
+        progression = new MiningProgression(plugin);
         regions = new MithrilRegionAccess(plugin);
         prospector = new MithrilProspector(plugin, placed, regions);
         lantern = new MithrilLantern(plugin, data);
@@ -100,16 +102,29 @@ public final class MithrilToolModule implements Listener {
         });
     }
 
+    private String stage(String id) {
+        return switch (id) {
+            case MithrilDeviceData.AMETHYST -> "arcana";
+            case MithrilDeviceData.COMPASS, MithrilDeviceData.LANTERN,
+                 MithrilDeviceData.DRILL -> "ingenieria";
+            default -> "mitrilo";
+        };
+    }
+    private boolean unlocked(Player player, String id) {
+        return progression.meets(player,stage(id));
+    }
+
     /** Called exclusively from a genuine, uncancelled player BlockBreakEvent. */
     public void onManualOre(Player player, Block ore) {
-        if (player.getGameMode() != GameMode.SURVIVAL) return;
+        if (player.getGameMode() != GameMode.SURVIVAL
+                || !progression.meets(player,"mitrilo")) return;
         // Prevent charging devices by punching ores with an unsuitable tool.
         if (!player.getInventory().getItemInMainHand().getType().name().endsWith("_PICKAXE")) return;
         int amount = cost("resonancia.por-mineral-natural");
         if (amount <= 0) return;
         for (EquipmentSlot hand : List.of(EquipmentSlot.HAND, EquipmentSlot.OFF_HAND)) {
             ItemStack stack = data.held(player, hand);
-            if (data.id(stack).isEmpty()) continue;
+            if (data.id(stack).isEmpty() || !unlocked(player,data.id(stack))) continue;
             data.update(player, hand, data.changeCharge(stack, amount, capacity()));
         }
         ItemStack current = player.getInventory().getItemInMainHand();
@@ -158,6 +173,7 @@ public final class MithrilToolModule implements Listener {
                 || event.getPlayer().getGameMode() != GameMode.SURVIVAL) return;
         if (event.getPlayer().isSneaking()
                 && (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK)
+                && unlocked(event.getPlayer(),MithrilDeviceData.LANTERN)
                 && MithrilDeviceData.LANTERN.equals(
                     data.id(event.getPlayer().getInventory().getItemInMainHand()))) {
             lantern.teleported(event.getPlayer()); // Clear the anchor, not the light.
@@ -170,11 +186,26 @@ public final class MithrilToolModule implements Listener {
         Player player = event.getPlayer();
         ItemStack main = data.held(player, EquipmentSlot.HAND);
         if (data.crystal(main)) {
+            String heldTool=data.id(data.held(player,EquipmentSlot.OFF_HAND));
+            if (!heldTool.isEmpty() && !unlocked(player,heldTool)) {
+                event.setCancelled(true);
+                player.sendActionBar(Settings.message("trabajos","MiningProgression.requisito-herramienta",
+                        "<yellow>Necesitas Minería nivel {nivel} para utilizar esta herramienta.",
+                        "nivel", progression.required(stage(heldTool))));
+                return;
+            }
             if (recharge(player)) event.setCancelled(true);
             return;
         }
         String id = data.id(main);
         if (id.isEmpty()) return;
+        if(!unlocked(player,id)){
+            event.setCancelled(true);
+            player.sendActionBar(Settings.message("trabajos","MiningProgression.requisito-herramienta",
+                    "<yellow>Necesitas Minería nivel {nivel} para utilizar esta herramienta.",
+                    "nivel", progression.required(stage(id))));
+            return;
+        }
         // Exactly one interaction per main hand; offhand dispatch cannot double-charge.
         main = data.identify(main);
         data.update(player, EquipmentSlot.HAND, main);

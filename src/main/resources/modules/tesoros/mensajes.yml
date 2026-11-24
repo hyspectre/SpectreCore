@@ -48,3 +48,7 @@ MithrilTools:
 
 AmethystField:
   gema: "<light_purple>✦ Cristal roto: <white>Gema {calidad}."
+MiningEncounters:
+  duende: "<gold>✦ ¡Un Duende del Oro salió de las rocas!"
+  prospector: "<light_purple>✦ ¡Has despertado a un Prospector Antiguo!"
+  recompensa: "<green>✦ Hallazgo minero: <white>{cantidad} {nombre}"

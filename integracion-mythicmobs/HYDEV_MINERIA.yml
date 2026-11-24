@@ -1,0 +1,43 @@
+# Añadir estas definiciones a plugins/MythicMobs/Mobs/HYDEV_MINERIA.yml.
+# Solo se utilizan atributos y opciones públicas de MythicMobs Free.
+# Las probabilidades y los drops NO se configuran aquí: SpectreCore es su dueño.
+HYDEV_DUENDE_MINERO:
+  Type: ZOMBIE
+  Display: '<gold>Duende del Oro'
+  Health: 45
+  Damage: 4
+  Options:
+    Baby: true
+    MovementSpeed: 0.34
+    Scale: 0.78
+    Despawn: true
+    PreventOtherDrops: true
+    KnockbackResistance: 0.1
+
+  AIGoalSelectors:
+  - clear
+  - meleeattack
+  - randomstroll
+  AITargetSelectors:
+  - clear
+  - players
+
+HYDEV_PROSPECTOR_ANTIGUO:
+  Type: IRON_GOLEM
+  Display: '<light_purple>Prospector Antiguo'
+  Health: 250
+  Damage: 9
+  Options:
+    MovementSpeed: 0.23
+    Scale: 1.12
+    Despawn: true
+    PreventOtherDrops: true
+    KnockbackResistance: 0.65
+
+  AIGoalSelectors:
+  - clear
+  - meleeattack
+  - randomstroll
+  AITargetSelectors:
+  - clear
+  - players

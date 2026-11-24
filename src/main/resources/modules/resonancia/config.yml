@@ -1,14 +1,14 @@
 gemas:
-  identificar-por: nombre
+  identificar-por: id
   nombre: Pico Perdido
-  pico: ''
+  pico: PICO_GEMAS
   tipo-pico: TOOL
   carga-maxima: 50
   ventana-segundos: 30
   ids:
-    basica: ''
-    intermedia: ''
-    superior: ''
+    basica: GEMA_PERDIDA_BASICA
+    intermedia: GEMA_PERDIDA_INTERMEDIA
+    superior: GEMA_PERDIDA_SUPERIOR
 visuales:
   activados: true
   max-animaciones: 32

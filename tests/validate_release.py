@@ -42,10 +42,11 @@ for recipe in recipes.values():
 mining = load('modules/tesoros/mineria.yml')
 assert 'enabled' not in mining and mining['tesoros']['id'] == 'PALADIO'
 assert mining['tesoros']['cantidad-minima'] == 2 and mining['tesoros']['cantidad-maxima'] == 8
-assert mining['probabilidades']['mineria'] == {} and 'gemas' not in mining
+assert mining['probabilidades']['mineria'] == {'tier1':0.65,'tier2':0.90,'tier3':1.40} and 'gemas' not in mining
 resonance = load('modules/resonancia/config.yml')
 assert resonance['gemas']['carga-maxima'] == 50 and resonance['gemas']['ventana-segundos'] == 30
-assert resonance['gemas']['ids'] == {'basica':'','intermedia':'','superior':''}
+assert resonance['gemas']['ids'] == {'basica':'GEMA_PERDIDA_BASICA','intermedia':'GEMA_PERDIDA_INTERMEDIA','superior':'GEMA_PERDIDA_SUPERIOR'}
+assert resonance['gemas']['pico'] == 'PICO_GEMAS' and resonance['gemas']['identificar-por'] == 'id'
 assert load('modules/tesoros/combate.yml')['botin'] == {'tipo':'MATERIAL','id':'ALMA_1'}
 assert load('modules/tesoros/agricultura.yml')['botin'] == {'tier1':'AGRICULTURA_T1','tier2':'AGRICULTURA_T2','tier3':'AGRICULTURA_T3'}
 assert load('modules/tesoros/config.yml')['cooldown-compartido-segundos'] == 5

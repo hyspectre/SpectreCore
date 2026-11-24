@@ -72,6 +72,27 @@ economia:
 avisos:
   intervalo-cooldown-milisegundos: 5000
 
+# AuraSkills es la única fuente de niveles; este mapa define qué se desbloquea.
+# El nivel de Mineralurgia se conserva bajo taller-minero.nivel-minimo.
+# El menú de progresión es el nativo de AuraSkills.
+progresion-mineria:
+  inicial: 1
+  paladio: 6
+  duendes: 12
+  resonancia: 15
+  mitrilo: 18
+  arcana: 22
+  ingenieria: 25
+  nombres:
+    inicial: "Minería Inicial"
+    hechizados: "Minerales Hechizados"
+    paladio: "Paladio, Taladro y contrato Experimentado"
+    duendes: "Duendes del Oro"
+    resonancia: "Pico Perdido, Prospectores y contrato Profesional"
+    mitrilo: "Mitrilo"
+    arcana: "Resonancia Arcana"
+    ingenieria: "Ingeniería y Prospección"
+
 # Taller nativo de Mineralurgia. Los minerales hechizados son los IDs
 # MATERIAL existentes del servidor; nunca se generan variantes paralelas.
 # Pagos fijos para que el jugador conozca el resultado ANTES de confirmar.

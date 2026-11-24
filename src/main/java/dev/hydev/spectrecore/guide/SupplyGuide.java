@@ -3,6 +3,7 @@ package dev.hydev.spectrecore.guide;
 import dev.hydev.spectrecore.config.ModuleConfiguration;
 import dev.hydev.spectrecore.migration.MmoBridge;
 import dev.hydev.spectrecore.systems.JobsModule;
+import dev.hydev.spectrecore.mining.MiningProgression;
 import dev.hydev.spectrecore.systems.ProgressRules;
 import dev.hydev.spectrecore.text.TextService;
 import net.kyori.adventure.text.Component;
@@ -157,8 +158,12 @@ public final class SupplyGuide implements Listener {
             if (!(raw instanceof Number rate) || !Double.isFinite(rate.doubleValue())
                     || rate.doubleValue() <= 0 || rate.doubleValue() > 100) continue;
             anyChance = true;
-            if (mithril ? jobs.rank(player, "minero") >= yaml.getInt("mitrilo.rango-minimo", 2)
-                    : player.hasPermission("tesoros." + resource.chanceDomain() + ".tier" + tier))
+            if (mithril
+                    ? jobs.rank(player,"minero") >= yaml.getInt("mitrilo.rango-minimo",2)
+                            && new MiningProgression(plugin).meets(player,"mitrilo")
+                    : resource.chanceDomain().equals("mineria")
+                        ? new MiningProgression(plugin).meets(player,"paladio")
+                        : player.hasPermission("tesoros." + resource.chanceDomain() + ".tier" + tier))
                 unlocked = true;
         }
         if (!anyChance) return layout.getString("estados.sin-hallazgos");
