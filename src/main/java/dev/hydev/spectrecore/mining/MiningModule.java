@@ -34,6 +34,8 @@ public final class MiningModule implements Listener {
     private final MiningVisuals visuals;
     private final PlacedOres placed;
     private final MithrilToolModule mithrilTools;
+    private final MiningLuck luck;
+    private final MiningEncounters encounters;
     private final Map<UUID, State> states = new HashMap<>();
     private final dev.hydev.spectrecore.treasure.TreasureCooldowns treasureCooldown;
     private final Set<String> reported = new HashSet<>();
@@ -43,7 +45,12 @@ public final class MiningModule implements Listener {
     private int saveClock;
     public MiningModule(JavaPlugin plugin, dev.hydev.spectrecore.treasure.TreasureCooldowns treasureCooldown) {
         this.plugin = plugin; this.treasureCooldown = treasureCooldown;
-        visuals = new MiningVisuals(plugin); placed = new PlacedOres(plugin);
+        visuals = new MiningVisuals(plugin);
+        // Obsidian must be marked on placement too; no recycled blocks may summon Prospectors.
+        placed = new PlacedOres(plugin, "placed_ores_v1",
+                material -> MiningModule.tier(material) > 0 || material == Material.OBSIDIAN);
+        luck = new MiningLuck(plugin);
+        encounters = new MiningEncounters(plugin, luck);
         mithrilTools = new MithrilToolModule(plugin, placed);
     }
     public void enable() {
@@ -51,6 +58,7 @@ public final class MiningModule implements Listener {
         Bukkit.getPluginManager().registerEvents(this, plugin);
         Bukkit.getPluginManager().registerEvents(placed, plugin); visuals.enable();
         mithrilTools.enable();
+        encounters.enable();
         for (String name : List.of("resonancia", "debugresonancia", "nombreitem")) {
             var command = dev.hydev.spectrecore.command.CommandRouter.of(plugin).get(name);
             if (command != null) {
@@ -73,6 +81,7 @@ public final class MiningModule implements Listener {
     }
     public void disable() {
         if (timer != null) timer.cancel();
+        encounters.disable();
         mithrilTools.disable();
         HandlerList.unregisterAll(this); HandlerList.unregisterAll(placed); visuals.disable(); saveData();
         states.clear();
@@ -107,7 +116,10 @@ public final class MiningModule implements Listener {
         boolean relocated = placed.consume(block);
         int tier = tier(block.getType());
         Player player = event.getPlayer();
-        if (relocated || tier == 0 || player.getGameMode() != GameMode.SURVIVAL) return;
+        if (relocated || (tier == 0 && block.getType() != Material.OBSIDIAN)
+                || player.getGameMode() != GameMode.SURVIVAL) return;
+        encounters.naturalOreBroken(player, block);
+        if (tier == 0) return; // Obsidian triggers a Prospector, not ore resonance or Mitrilo.
         mithrilTools.onManualOre(player, block);
         if (config.getBoolean("gemas.activadas", true) && tool(player.getInventory().getItemInMainHand())) resonance(player, block, tier);
         if (config.getBoolean("tesoros.activados", true)) treasure(player, block, tier);
@@ -165,12 +177,20 @@ public final class MiningModule implements Listener {
         // No new world blocks, background scanning or extra cooldown ledgers.
         if (mithril(player, block, tier)) return;
         if (!player.hasPermission("tesoros.mineria.tier" + tier)) return;
-        double chance = config.getDouble("probabilidades.mineria.tier" + tier, 0);
-        if (!Double.isFinite(chance) || ThreadLocalRandom.current().nextDouble(100) >= Math.max(0, Math.min(100, chance))) return;
+        double chance = MiningLuckRules.chance(
+                config.getDouble("probabilidades.mineria.tier" + tier, 0), luck.stat(player),
+                config.getDouble("suerte.hallazgos.incremento-relativo-por-punto", 1.5),
+                config.getDouble("suerte.hallazgos.multiplicador-maximo", 2.0));
+        if (ThreadLocalRandom.current().nextDouble(100) >= chance) return;
         String type = config.getString("tesoros.tipo", "MATERIAL"), id = config.getString("tesoros.id", "PALADIO");
         int min = Math.max(1, Math.min(64, config.getInt("tesoros.cantidad-minima", 2)));
         int max = Math.max(min, Math.min(64, config.getInt("tesoros.cantidad-maxima", 8)));
-        ItemStack reward = mmo.build(type, id, ThreadLocalRandom.current().nextInt(min, max + 1));
+        int quantity = MiningLuckRules.quantity(ThreadLocalRandom.current().nextInt(min, max + 1),
+                64, luck.stat(player),
+                config.getDouble("suerte.cantidad-paladio.por-punto", 1.0),
+                config.getDouble("suerte.cantidad-paladio.maximo-porcentaje", 35.0),
+                ThreadLocalRandom.current().nextDouble(100));
+        ItemStack reward = mmo.build(type, id, quantity);
         if (reward == null) { missing(player, type, id); return; }
         deliver(player, reward);
         treasureCooldown.awarded(player.getUniqueId());
@@ -199,15 +219,21 @@ public final class MiningModule implements Listener {
                     && factor.doubleValue() >= 1 && factor.doubleValue() <= 3)
                 chance *= factor.doubleValue();
         }
-        chance = Math.min(100.0, chance);
-        if (!Double.isFinite(chance) || chance <= 0
-                || ThreadLocalRandom.current().nextDouble(100) >= chance) return false;
+        chance = MiningLuckRules.chance(Math.min(100.0, chance), luck.stat(player),
+                config.getDouble("suerte.hallazgos.incremento-relativo-por-punto", 1.5),
+                config.getDouble("suerte.hallazgos.multiplicador-maximo", 2.0));
+        if (chance <= 0 || ThreadLocalRandom.current().nextDouble(100) >= chance) return false;
         String type = config.getString("mitrilo.tipo", "MATERIAL");
         String id = config.getString("mitrilo.id", "MITRILO");
         int min = config.getInt("mitrilo.cantidad-minima", 1);
         int max = config.getInt("mitrilo.cantidad-maxima", 2);
         if (min < 1 || min > max || max > 64) return false;
-        ItemStack reward = mmo.build(type, id, ThreadLocalRandom.current().nextInt(min, max + 1));
+        int quantity = MiningLuckRules.quantity(ThreadLocalRandom.current().nextInt(min, max + 1),
+                64, luck.stat(player),
+                config.getDouble("suerte.cantidad-mitrilo.por-punto", 0.8),
+                config.getDouble("suerte.cantidad-mitrilo.maximo-porcentaje", 25.0),
+                ThreadLocalRandom.current().nextDouble(100));
+        ItemStack reward = mmo.build(type, id, quantity);
         if (reward == null) { missing(player, type, id); return false; }
         deliver(player, reward);
         treasureCooldown.awarded(player.getUniqueId());
