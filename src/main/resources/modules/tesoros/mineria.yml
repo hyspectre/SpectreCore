@@ -74,8 +74,48 @@ herramientas-mitrilo:
     # Solo roca ordinaria. Ninguna mena, inventario, líquido o bloque especial.
     bloques: [STONE, DEEPSLATE, ANDESITE, DIORITE, GRANITE, TUFF, CALCITE,
       BLACKSTONE, BASALT, NETHERRACK, END_STONE]
+# La Suerte de AuraSkills incrementa probabilidades relativas y otorga como
+# máximo una unidad adicional, sin multiplicar drops de Minecraft ni XP.
+suerte:
+  hallazgos:
+    incremento-relativo-por-punto: 1.5
+    multiplicador-maximo: 2.0
+  encuentros:
+    incremento-relativo-por-punto: 1.5
+    multiplicador-maximo: 2.0
+  botin:
+    incremento-relativo-por-punto: 1.0
+    multiplicador-maximo: 1.8
+  cantidad-paladio:
+    por-punto: 1.0
+    maximo-porcentaje: 35.0
+  cantidad-mitrilo:
+    por-punto: 0.8
+    maximo-porcentaje: 25.0
+
+# Los mobs son MythicMobs Free; el encuentro y botín los gestiona SpectreCore.
+# Ningún mob aparece por bloques colocados ni minados automáticamente.
+encuentros:
+  max-activos: 12
+  duende:
+    mob: HYDEV_DUENDE_MINERO
+    menas: [GOLD_ORE, DEEPSLATE_GOLD_ORE]
+    probabilidad: 3.5
+    recarga-segundos: 70
+    botin:
+      chatarra: {tipo: MATERIAL, id: CHATARRA_MECANICA, nombre: "Chatarra Mecánica", probabilidad: 85.0, minimo: 1, maximo: 3}
+  prospector:
+    mob: HYDEV_PROSPECTOR_ANTIGUO
+    menas: [DIAMOND_ORE, DEEPSLATE_DIAMOND_ORE, EMERALD_ORE, DEEPSLATE_EMERALD_ORE, OBSIDIAN]
+    probabilidad: 2.2
+    recarga-segundos: 150
+    botin:
+      chatarra: {tipo: MATERIAL, id: CHATARRA_ANTIGUA, nombre: "Chatarra Antigua", probabilidad: 70.0, minimo: 1, maximo: 2}
+      paladio: {tipo: MATERIAL, id: PALADIO, nombre: "Paladio", probabilidad: 55.0, minimo: 2, maximo: 4}
+      fragmento: {tipo: MATERIAL, id: FRAGMENTO_PICO_PERDIDO, nombre: "Fragmento del Pico Perdido", probabilidad: 65.0, minimo: 1, maximo: 1}
+
 probabilidades:
-  mineria: {}
+  mineria: {tier1: 0.65, tier2: 0.90, tier3: 1.40}
 visuales:
   activados: true
   max-animaciones: 32
