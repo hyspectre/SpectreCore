@@ -1,6 +1,6 @@
 plugins { java }
 group = "dev.hydev"
-version = "0.9.0-dev6"
+version = "0.9.0-dev7"
 
 repositories {
     maven("https://repo.papermc.io/repository/maven-public/")
