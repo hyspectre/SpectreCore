@@ -74,6 +74,14 @@ herramientas-mitrilo:
     # Solo roca ordinaria. Ninguna mena, inventario, líquido o bloque especial.
     bloques: [STONE, DEEPSLATE, ANDESITE, DIORITE, GRANITE, TUFF, CALCITE,
       BLACKSTONE, BASALT, NETHERRACK, END_STONE]
+# Taladro inicial y dos mejoras: exclusivamente roca ordinaria, jamás menas.
+# Barrena de Mitrilo sigue siendo la herramienta avanzada para túneles.
+taladro:
+  tipos: [TALADRO, TALADRO_REFORZADO, TALADRO_CALIBRADO]
+  bloques: [STONE, DEEPSLATE, ANDESITE, DIORITE, GRANITE, TUFF, CALCITE]
+  intervalo-milisegundos: {nivel1: 500, nivel2: 350, nivel3: 250}
+  extras: {nivel1: 0, nivel2: 1, nivel3: 3}
+
 # La Suerte de AuraSkills incrementa probabilidades relativas y otorga como
 # máximo una unidad adicional, sin multiplicar drops de Minecraft ni XP.
 suerte:
