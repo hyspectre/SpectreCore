@@ -104,6 +104,15 @@ pages:
           - "<gray>caza y agricultura."
           - "<gray>Revisa qué llevas en tu mochila."
           - "<#FFCC55>► Clic para explorar"
+      taller:
+        slot: 33
+        texture: ""
+        name: "<white>✦ <gold>Taller del Minero"
+        lore:
+          - "<gray>Compacta 64 minerales en un material hechizado."
+          - "<gray>O pulverízalo para obtener monedas."
+          - "<gold>Requisito: <white>Minería nivel 3"
+          - "<#FFCC55>► Clic para abrir el taller"
       info:
         slot: 49
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGUxNTU5NDhjYTg1YjA1MTM3ZDJkM2E1YjA4MmY1N2U3NmM2ODFiZmNkZjRmMGRjZjg2ZWFmZjY4MWI5MzY3OCJ9fX0="
