@@ -23,7 +23,7 @@ assert len(gui["material-names"]) >= 30
 for page, payload in gui["pages"].items():
     assert payload["size"] == 54 and payload["title"].startswith("<dark_gray>⧇ <gold>Trabajos")
     items = payload["items"]
-    assert len(items) == 6
+    assert len(items) == (7 if page == "trabajos" else 6)
     slots = [entry["slot"] for entry in items.values()]
     assert len(set(slots)) == len(slots) and all(0 <= slot < 54 for slot in slots)
     for entry in items.values():
@@ -36,6 +36,7 @@ for page, payload in gui["pages"].items():
 
 assert [gui["pages"]["trabajos"]["items"][key]["slot"] for key in expected] == [20, 22, 24]
 assert gui["pages"]["trabajos"]["items"]["abastecimiento"]["slot"] == 31
+assert gui["pages"]["trabajos"]["items"]["taller"]["slot"] == 33
 for job, rows in expected.items():
     page = gui["pages"][job]["items"]
     assert [page[key]["slot"] for key in ("novato", "experimentado", "profesional")] == [19, 22, 25]
