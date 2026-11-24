@@ -24,6 +24,12 @@ public final class MiningLuckSmoke {
         ok(MiningLuckRules.quantity(1,64,12,.8,25,9.5)==2,"Mitrilo extra unit");
         ok(MiningLuckRules.quantity(1,64,12,.8,25,9.61)==1,"Mitrilo no extra");
         ok(MiningLuckRules.quantity(0,64,1000,1,35,0)==0,"zero original gives zero");
+        ok(Math.abs(MiningLuckRules.qualityRoll(90,12,.05,5)-90.6)<.00001,
+                "Luck slightly raises gem rarity");
+        ok(MiningLuckRules.qualityRoll(99.99,10000,.05,5)<100,
+                "quality roll never exceeds 100");
+        ok(MiningLuckRules.qualityRoll(40,10000,.05,5)==45,
+                "gem rarity cap");
         invalid(()->MiningLuckRules.chance(120,0,1,2));
         invalid(()->MiningLuckRules.chance(2,0,-1,2));
         invalid(()->MiningLuckRules.quantity(1,64,4,1,35,100));
