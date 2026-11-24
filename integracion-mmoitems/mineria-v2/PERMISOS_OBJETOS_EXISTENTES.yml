@@ -1,0 +1,11 @@
+# Hydev · Permisos añadidos a objetos ORIGINALES.
+# El instalador solo modifica base.item-permissions, no nombres, lore ni stats.
+# No crear duplicados de TALADRO, PICO_GEMAS ni COMPACTADOR.
+TOOL:
+  TALADRO:
+    - hydev.mineria.paladio
+  PICO_GEMAS:
+    - hydev.mineria.resonancia
+MATERIAL:
+  COMPACTADOR:
+    - hydev.mineria.hechizados
