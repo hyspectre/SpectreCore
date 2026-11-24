@@ -74,11 +74,12 @@ public final class StoneDrill implements Listener {
         Player player=event.getPlayer();
         int tier=tier(player.getInventory().getItemInMainHand());
         if(tier==0)return;
-        if(!progression.meets(player,"paladio")){
+        String requiredStage=tier==3?"resonancia":tier==2?"duendes":"paladio";
+        if(!progression.meets(player,requiredStage)){
             event.setCancelled(true);
             player.sendActionBar(Settings.message("trabajos","MiningProgression.requisito-herramienta",
                     "<yellow>Necesitas Minería nivel {nivel} para utilizar esta herramienta.",
-                    "nivel",progression.required("paladio")));
+                    "nivel",progression.required(requiredStage)));
             return;
         }
         if(player.getGameMode()!=GameMode.SURVIVAL
@@ -94,7 +95,8 @@ public final class StoneDrill implements Listener {
         int tier=tier(player.getInventory().getItemInMainHand());
         if(tier==0)return;
         Block rock=event.getBlock();
-        if(!progression.meets(player,"paladio")
+        String requiredStage=tier==3?"resonancia":tier==2?"duendes":"paladio";
+        if(!progression.meets(player,requiredStage)
                 || player.getGameMode()!=GameMode.SURVIVAL
                 || !stone(rock) || !regions.canBuild(player,rock)){
             event.setCancelled(true);return;
