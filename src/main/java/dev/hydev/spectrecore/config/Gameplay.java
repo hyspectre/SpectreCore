@@ -50,14 +50,15 @@ public final class Gameplay {
                 "cobre","COBRE", "hierro","HIERRO", "oro","ORO",
                 "lapis","LAPIS", "redstone","REDSTONE", "diamante","DIAMANTE");
         Set<String> rawInputs = new HashSet<>();
+        Set<String> supportedRaw = Set.of("COPPER_INGOT","IRON_INGOT","GOLD_INGOT",
+                "LAPIS_LAZULI","REDSTONE","DIAMOND");
         for (var entry : enchantedMinerals.entrySet()) {
             String root = workshop+"recetas."+entry.getKey()+".";
             if (!entry.getValue().equals(jobs.getString(root+"resultado-id")))
                 throw new java.io.IOException("trabajos/config.yml: ID encantado modificado: "+entry.getKey());
             String origin = jobs.getString(root+"origen","");
-            Material material = Material.matchMaterial(origin);
-            if (material == null || !material.isItem() || material.isAir()
-                    || !rawInputs.add(origin))
+            // Registry-free validation also runs in headless Gradle tests.
+            if (!supportedRaw.contains(origin) || !rawInputs.add(origin))
                 throw new java.io.IOException("trabajos/config.yml: mineral base inválido o repetido: "+origin);
             if (!jobs.isString(root+"nombre") || jobs.getString(root+"nombre","").isBlank()
                     || jobs.getString(root+"nombre","").length()>48)
