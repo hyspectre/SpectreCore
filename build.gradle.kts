@@ -53,7 +53,7 @@ tasks.check { dependsOn(commandRoutingRegression) }
 val configTestDirectory = layout.buildDirectory.dir("module-config-tests")
 val compileModuleConfigTest = tasks.register<JavaCompile>("compileModuleConfigTest") {
     dependsOn(tasks.classes)
-    source("tests/ModuleConfigSmoke.java", "tests/PresentationConfigSmoke.java", "tests/PlayerTransactionJournalSmoke.java", "tests/SupplyOrderRulesSmoke.java", "tests/MithrilRulesSmoke.java", "tests/AmethystResonanceSmoke.java", "tests/MinerWorkshopSmoke.java")
+    source("tests/ModuleConfigSmoke.java", "tests/PresentationConfigSmoke.java", "tests/PlayerTransactionJournalSmoke.java", "tests/SupplyOrderRulesSmoke.java", "tests/MithrilRulesSmoke.java", "tests/AmethystResonanceSmoke.java", "tests/MinerWorkshopSmoke.java", "tests/MiningLuckSmoke.java")
     classpath = sourceSets.main.get().output + configurations.compileClasspath.get()
     destinationDirectory.set(configTestDirectory)
     options.encoding = "UTF-8"
@@ -159,3 +159,11 @@ val minerWorkshopSmoke = tasks.register<JavaExec>("minerWorkshopSmoke") {
     javaLauncher.set(javaToolchains.launcherFor { languageVersion.set(JavaLanguageVersion.of(21)) })
 }
 tasks.check { dependsOn(minerWorkshopSmoke) }
+
+val miningLuckSmoke = tasks.register<JavaExec>("miningLuckSmoke") {
+    dependsOn(compileModuleConfigTest)
+    classpath = files(configTestDirectory, sourceSets.main.get().output, configurations.compileClasspath)
+    mainClass.set("MiningLuckSmoke")
+    javaLauncher.set(javaToolchains.launcherFor { languageVersion.set(JavaLanguageVersion.of(21)) })
+}
+tasks.check { dependsOn(miningLuckSmoke) }
