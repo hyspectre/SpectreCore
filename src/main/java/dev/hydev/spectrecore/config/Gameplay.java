@@ -69,6 +69,50 @@ public final class Gameplay {
         if (!"MATERIAL".equals(ores.getString("mitrilo.tipo"))
                 || !"MITRILO".equals(ores.getString("mitrilo.id")))
             throw new java.io.IOException("tesoros/mineria.yml: el Mitrilo debe conservar el ID MATERIAL:MITRILO");
+        for (int tier=1; tier<=3; tier++)
+            bounded(ores,"probabilidades.mineria.tier"+tier,0,100,false);
+        for (String path : List.of("hallazgos","encuentros","botin")) {
+            bounded(ores, "suerte."+path+".incremento-relativo-por-punto",0,10,false);
+            bounded(ores, "suerte."+path+".multiplicador-maximo",1,5,false);
+        }
+        for (String material : List.of("paladio","mitrilo")) {
+            bounded(ores, "suerte.cantidad-"+material+".por-punto",0,10,false);
+            bounded(ores, "suerte.cantidad-"+material+".maximo-porcentaje",0,100,false);
+        }
+        bounded(ores,"encuentros.max-activos",1,16,true);
+        Set<String> permittedGoblin=Set.of("GOLD_ORE","DEEPSLATE_GOLD_ORE");
+        Set<String> permittedProspector=Set.of("DIAMOND_ORE","DEEPSLATE_DIAMOND_ORE",
+                "EMERALD_ORE","DEEPSLATE_EMERALD_ORE","OBSIDIAN");
+        for(String kind : List.of("duende","prospector")) {
+            String rootEncounter="encuentros."+kind+".";
+            String mob=ores.getString(rootEncounter+"mob","");
+            if(!mob.matches("[A-Za-z0-9_]{2,64}"))
+                throw new java.io.IOException("tesoros/mineria.yml: mob minero inválido: "+kind);
+            var triggers=ores.getStringList(rootEncounter+"menas");
+            Set<String> allowed=kind.equals("duende")?permittedGoblin:permittedProspector;
+            if(triggers.isEmpty() || triggers.size()>allowed.size()
+                    || new HashSet<>(triggers).size()!=triggers.size() || !allowed.containsAll(triggers))
+                throw new java.io.IOException("tesoros/mineria.yml: menas de encuentro inválidas: "+kind);
+            bounded(ores,rootEncounter+"probabilidad",0,100,false);
+            bounded(ores,rootEncounter+"recarga-segundos",0,3600,true);
+            List<String> drops=kind.equals("duende")?List.of("chatarra"):
+                    List.of("chatarra","paladio","fragmento");
+            for(String drop:drops) {
+                String rootDrop=rootEncounter+"botin."+drop+".";
+                String id=ores.getString(rootDrop+"id","");
+                if(!"MATERIAL".equals(ores.getString(rootDrop+"tipo"))
+                        || !id.matches("[A-Z][A-Z0-9_]{2,63}")
+                        || !ores.isString(rootDrop+"nombre"))
+                    throw new java.io.IOException("tesoros/mineria.yml: botín inválido "+rootDrop);
+                bounded(ores,rootDrop+"probabilidad",0,100,false);
+                bounded(ores,rootDrop+"minimo",1,32,true);
+                bounded(ores,rootDrop+"maximo",1,32,true);
+                if(ores.getInt(rootDrop+"maximo")<ores.getInt(rootDrop+"minimo"))
+                    throw new java.io.IOException("tesoros/mineria.yml: cantidad invertida en "+rootDrop);
+                if(drop.equals("paladio") && !"PALADIO".equals(id))
+                    throw new java.io.IOException("tesoros/mineria.yml: el Paladio debe conservar su ID");
+            }
+        }
         bounded(ores, "mitrilo.cantidad-minima", 1, 64, true);
         bounded(ores, "mitrilo.cantidad-maxima", 1, 64, true);
         if (ores.getInt("mitrilo.cantidad-maxima") < ores.getInt("mitrilo.cantidad-minima"))
