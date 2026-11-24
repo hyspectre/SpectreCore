@@ -68,9 +68,9 @@ assert "id=PICO_GEMAS" in lost["output"] and any("FRAGMENTO_PICO_PERDIDO" in x f
 assert "TOOL:PICO_PERDIDO" not in (root/"integracion-mmoitems/RECETA_PICO_PERDIDO.yml").read_text(encoding="utf-8")
 assert (src/"mining/MiningProgression.java").exists()
 assert "SkillLevelUpEvent" in (src/"mining/MiningProgression.java").read_text(encoding="utf-8")
-assert "progresion.meets(player,\"mitrilo\")" in mining
-assert "progresion.meets(player,\"resonancia\")" in mining
-assert "progresion.meets(player,\"paladio\")" in mining
-assert "progresion.meets(player,\"ingenieria\")" in (src/"mining/MithrilLantern.java").read_text(encoding="utf-8")
+assert "progression.meets(player,\"mitrilo\")" in mining
+assert "progression.meets(player,\"resonancia\")" in mining
+assert "progression.meets(player,\"paladio\")" in mining
+assert "progression.meets(player,\"ingenieria\")" in (src/"mining/MithrilLantern.java").read_text(encoding="utf-8")
 assert "progression.meets(player,\"paladio\")" in (src/"mining/StoneDrill.java").read_text(encoding="utf-8")
 print("PASS AuraSkills Luck: levels 1/3/6/12/15/18/22/25, old Pico identity, native encounters and stone drill")
