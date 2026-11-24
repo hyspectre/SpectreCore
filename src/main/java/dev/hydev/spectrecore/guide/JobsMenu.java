@@ -5,6 +5,7 @@ import dev.hydev.spectrecore.config.Settings;
 import dev.hydev.spectrecore.model.CustomHeads;
 import dev.hydev.spectrecore.systems.JobsContractRules;
 import dev.hydev.spectrecore.systems.JobsModule;
+import dev.hydev.spectrecore.mining.MiningProgression;
 import dev.hydev.spectrecore.systems.ProgressRules;
 import net.kyori.adventure.text.Component;
 import dev.hydev.spectrecore.text.TextService;
@@ -307,6 +308,16 @@ public final class JobsMenu implements Listener {
         else state = current == tier - 1
                 ? label("disponible", "Disponible")
                 : label("rango-anterior", "Requiere rango anterior");
+        if (job.equals("minero") && current < tier && current == tier-1) {
+            var progression=new MiningProgression(plugin);
+            String milestone=switch(level) {
+                case "novato" -> "inicial";
+                case "experimentado" -> "paladio";
+                default -> "resonancia";
+            };
+            if(!progression.meets(player,milestone))
+                state="<yellow>Minería nivel "+progression.required(milestone)+" requerida";
+        }
         return line.replace("{rango}", currentRank).replace("{minimo}", min)
                 .replace("{maximo}", max).replace("{espera}", cooldown)
                 .replace("{precio}", price).replace("{estado}", state);
