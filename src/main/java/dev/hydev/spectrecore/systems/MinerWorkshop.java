@@ -80,8 +80,8 @@ public final class MinerWorkshop {
         return MinerWorkshopRules.batches(available(player, key, mode), unit, cap());
     }
     public boolean availableFor(Player player) {
-        int level = level(player);
-        return level >= 0 && level >= minimumLevel();
+        return new dev.hydev.spectrecore.mining.MiningProgression(plugin)
+                .meets(player,"hechizados");
     }
     public boolean ready() { return journal != null && journal.ready(); }
 
@@ -146,7 +146,8 @@ public final class MinerWorkshop {
                     "<yellow>No se pudo consultar tu progreso de Minería. Inténtalo más tarde."));
             return false;
         }
-        if (level < minimumLevel()) {
+        if (level < minimumLevel()
+                || !player.hasPermission("hydev.mineria.hechizados")) {
             player.sendMessage(Settings.message("trabajos", "MinerWorkshop.nivel",
                     "<yellow>Necesitas Minería nivel {nivel} para usar el taller.",
                     "nivel", minimumLevel()));
