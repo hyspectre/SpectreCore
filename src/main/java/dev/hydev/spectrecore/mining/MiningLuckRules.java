@@ -24,6 +24,17 @@ public final class MiningLuckRules {
         return Math.min(100.0, basePercent * multiplier);
     }
 
+    /** Small Luck shift favors rare gem grades without bypassing tier-1 constraints. */
+    public static double qualityRoll(double roll0to100, double luck,
+                                     double pointsPerLuck, double maxShift) {
+        if(!Double.isFinite(roll0to100) || roll0to100<0 || roll0to100>=100
+                || !Double.isFinite(pointsPerLuck) || pointsPerLuck<0 || pointsPerLuck>1
+                || !Double.isFinite(maxShift) || maxShift<0 || maxShift>10)
+            throw new IllegalArgumentException("Invalid mining gem quality bonus");
+        double shift=Math.min(maxShift,bounded(luck,10000)*pointsPerLuck);
+        return Math.min(99.999999,roll0to100+shift);
+    }
+
     /** Only one additional unit may be awarded; quantity never doubles recursively. */
     public static int quantity(int base, int maxBase, double luck,
                                double bonusPercentPerLuck, double bonusCapPercent,
