@@ -1,0 +1,30 @@
+# Fragmento para plugins/MMOItems/item/GEM_STONE.yml.
+# Estos IDs nuevos completan la antigua resonancia del Pico Perdido.
+# No sustituyen las gemas de amatista que ya fueron definidas.
+GEMA_PERDIDA_BASICA:
+  base:
+    revision-id: 1
+    material: AMETHYST_SHARD
+    name: '<gradient:#7CCD91:#CEE8B4>Gema de Resonancia</gradient>'
+    tier: COMMON
+    lore:
+    - '&7Una pequeña gema obtenida en las minas.'
+    - '&7Calidad: Común'
+GEMA_PERDIDA_INTERMEDIA:
+  base:
+    revision-id: 1
+    material: AMETHYST_SHARD
+    name: '<gradient:#77BCEF:#C4DBF9>Gema de Resonancia Refinada</gradient>'
+    tier: RARE
+    lore:
+    - '&7Concentra una resonancia más estable.'
+    - '&7Calidad: Intermedia'
+GEMA_PERDIDA_SUPERIOR:
+  base:
+    revision-id: 1
+    material: AMETHYST_SHARD
+    name: '<gradient:#B28AEE:#E3CDF9>Gema de Resonancia Superior</gradient>'
+    tier: EPIC
+    lore:
+    - '&7Su interior vibra con energía antigua.'
+    - '&7Calidad: Superior'
