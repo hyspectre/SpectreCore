@@ -22,33 +22,39 @@ import java.util.UUID;
 public final class MithrilLantern {
     private final JavaPlugin plugin;
     private final MithrilDeviceData data;
+    private final MiningProgression progression;
     private final Map<UUID,BukkitTask> routes = new HashMap<>();
     private BukkitTask lightTask;
 
     public MithrilLantern(JavaPlugin plugin, MithrilDeviceData data) {
         this.plugin = plugin; this.data = data;
+        this.progression = new MiningProgression(plugin);
     }
 
     public void enable() {
         // Ten-second cadence, not a per-tick scan. Long enough to avoid Night Vision flicker.
         lightTask = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
-            for (Player player : Bukkit.getOnlinePlayers())
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                if(!progression.meets(player,"ingenieria"))continue;
                 for (EquipmentSlot hand : List.of(EquipmentSlot.HAND, EquipmentSlot.OFF_HAND)) {
                     ItemStack stack = data.held(player, hand);
                     if (!MithrilDeviceData.LANTERN.equals(data.id(stack)) || !data.lit(stack)) continue;
                     light(player);
                     break;
                 }
+            }
         }, 20, 200);
     }
 
     public void light(Player player) {
+        if(!progression.meets(player,"ingenieria"))return;
         PotionEffect current = player.getPotionEffect(PotionEffectType.NIGHT_VISION);
         if (current != null && (current.getAmplifier() > 0 || current.getDuration() > 500)) return;
         player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 500, 0, true, false, false));
     }
 
     public boolean anchor(Player player, EquipmentSlot hand, int cost, int capacity) {
+        if(!progression.meets(player,"ingenieria"))return false;
         ItemStack stack = data.held(player, hand);
         if (!MithrilDeviceData.LANTERN.equals(data.id(stack)) || data.energy(stack) < cost) return false;
         Location at = player.getLocation();
@@ -64,6 +70,7 @@ public final class MithrilLantern {
 
     public boolean route(Player player, EquipmentSlot hand, int cost, int capacity, long cooldownMs,
                          int seconds) {
+        if(!progression.meets(player,"ingenieria"))return false;
         ItemStack stack = data.held(player, hand);
         if (!MithrilDeviceData.LANTERN.equals(data.id(stack)) || data.anchor(stack).isBlank()
                 || data.energy(stack) < cost || data.cooldown(stack) > System.currentTimeMillis()) return false;
@@ -95,6 +102,7 @@ public final class MithrilLantern {
     }
 
     public void moved(Player player, Location from, Location to, int maximumDistance) {
+        if(!progression.meets(player,"ingenieria"))return;
         if (to == null || from.getBlockX() == to.getBlockX()
                 && from.getBlockY() == to.getBlockY() && from.getBlockZ() == to.getBlockZ()) return;
         for (EquipmentSlot hand : List.of(EquipmentSlot.HAND, EquipmentSlot.OFF_HAND)) {
