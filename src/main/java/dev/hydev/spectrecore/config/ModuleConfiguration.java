@@ -92,6 +92,31 @@ public final class ModuleConfiguration {
                 yaml = strict(destination);
                 var defaults = resource("modules/" + path);
                 boolean changed = importCommandMetadata(path, yaml, defaults);
+                // Only migrate the shipped legacy Lost Pick defaults; custom IDs
+                // and custom identification schemes are never replaced.
+                if(path.equals("resonancia/config.yml")) {
+                    boolean originalPick="nombre".equalsIgnoreCase(yaml.getString("gemas.identificar-por"))
+                            && "Pico Perdido".equals(yaml.getString("gemas.nombre"))
+                            && yaml.getString("gemas.pico","").isBlank();
+                    boolean blanks=false;
+                    for(String quality:List.of("basica","intermedia","superior"))
+                        if(yaml.getString("gemas.ids."+quality,"").isBlank())blanks=true;
+                    if(originalPick||blanks) {
+                        File backup=new File(folder,"backups/pico-perdido-v1/modules/resonancia/config.yml");
+                        if(!backup.exists()) {
+                            Files.createDirectories(backup.toPath().getParent());
+                            Files.copy(destination.toPath(),backup.toPath());
+                        }
+                        if(originalPick) {
+                            yaml.set("gemas.identificar-por","id");
+                            yaml.set("gemas.pico","PICO_GEMAS");
+                        }
+                        for(String quality:List.of("basica","intermedia","superior"))
+                            if(yaml.getString("gemas.ids."+quality,"").isBlank())
+                                yaml.set("gemas.ids."+quality,defaults.getString("gemas.ids."+quality));
+                        changed=true;
+                    }
+                }
                 for (String key : defaults.getKeys(true)) {
                     if (!defaults.isConfigurationSection(key) && !yaml.contains(key)) {
                         yaml.set(key, defaults.get(key));
