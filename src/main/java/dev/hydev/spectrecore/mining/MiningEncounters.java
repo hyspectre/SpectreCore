@@ -6,6 +6,7 @@ import dev.hydev.spectrecore.integration.WorldGuardBridge;
 import dev.hydev.spectrecore.migration.MmoBridge;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Difficulty;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -14,6 +15,8 @@ import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Mob;
+import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
@@ -48,6 +51,7 @@ public final class MiningEncounters implements Listener {
     private final Set<String> pending = new HashSet<>();
     private final Set<String> warned = new HashSet<>();
     private boolean enabled;
+    private BukkitTask pursuit;
 
     public MiningEncounters(JavaPlugin plugin, MiningLuck luck) {
         this.plugin = plugin; this.luck = luck;
@@ -63,8 +67,30 @@ public final class MiningEncounters implements Listener {
     public void enable() {
         Bukkit.getPluginManager().registerEvents(this, plugin);
         enabled=true;
+        // At most 12 mobs, one follow-up every 40 ticks: never per-tick
+        // pathfinding or scans of other world entities.
+        pursuit=Bukkit.getScheduler().runTaskTimer(plugin,this::retarget,40L,40L);
+    }
+    private void retarget() {
+        active.keySet().removeIf(id -> {
+            Entity entity=Bukkit.getEntity(id);
+            if(!(entity instanceof Mob mob) || mob.isDead() || !mob.isValid()) return true;
+            String raw=mob.getPersistentDataContainer().get(ownerKey,PersistentDataType.STRING);
+            if(raw==null)return true;
+            try {
+                Player owner=Bukkit.getPlayer(UUID.fromString(raw));
+                if(owner==null || !owner.isOnline() || owner.getGameMode()!=GameMode.SURVIVAL
+                        || owner.getWorld()!=mob.getWorld())return false;
+                if(owner.getLocation().distanceSquared(mob.getLocation())>24*24)return false;
+                if(mob.getTarget()!=owner)mob.setTarget(owner);
+            } catch(IllegalArgumentException invalid) {
+                return true;
+            }
+            return false;
+        });
     }
     public void disable() {
+        if(pursuit!=null){pursuit.cancel();pursuit=null;}
         if(enabled)HandlerList.unregisterAll(this);
         enabled=false;
         for(UUID id : Set.copyOf(active.keySet())) {
@@ -79,7 +105,8 @@ public final class MiningEncounters implements Listener {
         return config().getStringList("encuentros."+kind+".menas").contains(ore.name());
     }
     public void naturalOreBroken(Player player, Block block) {
-        if (!enabled || player.getGameMode()!=GameMode.SURVIVAL || !player.isOnline())return;
+        if (!enabled || player.getGameMode()!=GameMode.SURVIVAL || !player.isOnline()
+                || player.getWorld().getDifficulty()==Difficulty.PEACEFUL)return;
         String kind = trigger("duende",block.getType())?"duende":
                 trigger("prospector",block.getType())?"prospector":null;
         if(kind==null) return;
@@ -129,6 +156,10 @@ public final class MiningEncounters implements Listener {
                 spawned.getPersistentDataContainer().set(kindKey,PersistentDataType.STRING,kind);
                 spawned.getPersistentDataContainer().set(ownerKey,PersistentDataType.STRING,owner.toString());
                 active.put(spawned.getUniqueId(),kind);
+                if(spawned instanceof Mob mob) {
+                    mob.setAI(true);
+                    mob.setTarget(player);
+                }
                 timer.put(owner,System.currentTimeMillis());
                 player.sendMessage(kind.equals("duende")
                         ? Settings.message("tesoros","MiningEncounters.duende",
@@ -146,16 +177,28 @@ public final class MiningEncounters implements Listener {
     }
 
     private Location findLocation(Player owner, Location ore) {
-        if(ore.getWorld()==null || !ore.getWorld().isChunkLoaded(ore.getBlockX()>>4,ore.getBlockZ()>>4))return null;
-        if(!regions.canBuild(owner,ore))return null;
-        Location playerLoc=owner.getLocation();
-        int[][] directions={{2,0},{-2,0},{0,2},{0,-2},{2,2},{-2,-2}};
-        for(int[] direction:directions) {
-            Location attempt=playerLoc.clone().add(direction[0],0,direction[1]);
-            if(!attempt.getWorld().isChunkLoaded(attempt.getBlockX()>>4,attempt.getBlockZ()>>4))continue;
-            if(attempt.getBlock().isPassable() && attempt.clone().add(0,1,0).getBlock().isPassable()
-                    && attempt.clone().add(0,-1,0).getBlock().getType().isSolid()
-                    && regions.canBuild(owner,attempt))return attempt;
+        if(ore.getWorld()==null
+                || !ore.getWorld().isChunkLoaded(ore.getBlockX()>>4,ore.getBlockZ()>>4)
+                || !regions.canBuild(owner,ore))return null;
+        Location center=owner.getLocation();
+        // Test a few positions at actual player-foot height, not the ore's
+        // often fully enclosed height. Never load chunks for a spawn.
+        int[][] offsets={{2,0},{-2,0},{0,2},{0,-2},{2,2},{-2,-2},{-2,2},{2,-2},{0,0}};
+        for(int delta=0;delta<=2;delta++){
+            for(int yShift:delta==0?new int[]{0}:new int[]{delta,-delta}){
+                for(int[] offset:offsets) {
+                    Location attempt=center.clone().add(offset[0],yShift,offset[1]);
+                    if(!attempt.getWorld().isChunkLoaded(attempt.getBlockX()>>4,attempt.getBlockZ()>>4))
+                        continue;
+                    Block feet=attempt.getBlock();
+                    Block head=feet.getRelative(0,1,0);
+                    Block floor=feet.getRelative(0,-1,0);
+                    if(!feet.getType().isAir() || !head.getType().isAir()
+                            || !floor.getType().isSolid()) continue;
+                    if(!regions.canBuild(owner,attempt))continue;
+                    return attempt.getBlock().getLocation().add(.5,0,.5);
+                }
+            }
         }
         return null;
     }
