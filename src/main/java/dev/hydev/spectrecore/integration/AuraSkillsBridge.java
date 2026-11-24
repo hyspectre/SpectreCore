@@ -40,6 +40,19 @@ public final class AuraSkillsBridge {
         return user != null && user.isLoaded() ? user : null;
     }
 
+    /** Native AuraSkills Luck stat, including AuraSkills-owned equipment modifiers. */
+    public double miningLuck(Player player) {
+        try {
+            SkillsUser loaded = user(player);
+            if (loaded == null || !Stats.LUCK.isEnabled()) return Double.NaN;
+            double luck = loaded.getStatLevel(Stats.LUCK);
+            return Double.isFinite(luck) ? Math.max(0.0, luck) : Double.NaN;
+        } catch (RuntimeException | LinkageError failure) {
+            warn(failure);
+            return Double.NaN;
+        }
+    }
+
     /** Read-only source of truth for mining unlocks; -1 means data unavailable. */
     public int miningLevel(Player player) {
         try {
