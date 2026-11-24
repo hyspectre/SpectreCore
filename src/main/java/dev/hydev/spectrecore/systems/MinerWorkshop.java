@@ -178,7 +178,7 @@ public final class MinerWorkshop {
             try { money = MinerWorkshopRules.payout(batches, payment(key)); }
             catch (IllegalArgumentException | ArithmeticException invalid) { unavailable(player); return false; }
             // Fail before removing inventory if Vault is definitely absent.
-            if (!Bukkit.getPluginManager().isPluginEnabled("Vault")) { unavailable(player); return false; }
+            if (!economy.available()) { unavailable(player); return false; }
         }
         ItemStack[] storage = player.getInventory().getStorageContents();
         ItemStack[] projected = projected(storage, key, mode, batches, built);
