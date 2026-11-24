@@ -36,6 +36,7 @@ public final class MiningModule implements Listener {
     private final MithrilToolModule mithrilTools;
     private final MiningLuck luck;
     private final MiningEncounters encounters;
+    private final StoneDrill drill;
     private final Map<UUID, State> states = new HashMap<>();
     private final dev.hydev.spectrecore.treasure.TreasureCooldowns treasureCooldown;
     private final Set<String> reported = new HashSet<>();
@@ -51,6 +52,7 @@ public final class MiningModule implements Listener {
                 material -> MiningModule.tier(material) > 0 || material == Material.OBSIDIAN);
         luck = new MiningLuck(plugin);
         encounters = new MiningEncounters(plugin, luck);
+        drill = new StoneDrill(plugin);
         mithrilTools = new MithrilToolModule(plugin, placed);
     }
     public void enable() {
@@ -59,6 +61,7 @@ public final class MiningModule implements Listener {
         Bukkit.getPluginManager().registerEvents(placed, plugin); visuals.enable();
         mithrilTools.enable();
         encounters.enable();
+        drill.enable();
         for (String name : List.of("resonancia", "debugresonancia", "nombreitem")) {
             var command = dev.hydev.spectrecore.command.CommandRouter.of(plugin).get(name);
             if (command != null) {
@@ -81,6 +84,7 @@ public final class MiningModule implements Listener {
     }
     public void disable() {
         if (timer != null) timer.cancel();
+        drill.disable();
         encounters.disable();
         mithrilTools.disable();
         HandlerList.unregisterAll(this); HandlerList.unregisterAll(placed); visuals.disable(); saveData();
