@@ -1,8 +1,8 @@
 # SpectreCore — núcleo RPG de Hydev
 
-**Versión en desarrollo:** `0.9.0-dev6`  
+**Versión en desarrollo:** `0.9.0-dev7`  
 **Servidor objetivo:** Paper 1.21.10 · Java 21  
-**Estado:** sexta entrega de 0.9; usa GitHub Actions para validar el código. **No es una versión de producción**.
+**Estado:** séptima entrega de 0.9; usa GitHub Actions para validar el código. **No es una versión de producción**.
 
 SpectreCore reúne cocina, accesorios consumibles, habilidades de armadura, profesiones, encargos, exploración, Slayer, herramientas de mundo y menús dentro de un único plugin modular. Los módulos forman parte permanente del sistema; no existen interruptores de configuración para desactivarlos.
 
@@ -15,6 +15,8 @@ La cuarta entrega añade **Brújula Geológica, Farol de Mitrilo, Barrena de Mit
 La quinta entrega introduce el **Pico de Amatista** y una resonancia amplificada: su habilidad crea bloques hechizados temporales que se rompen para obtener gemas de distintas calidades. El pico utiliza Mitrilo, Paladio y amatista en su receta. Consulta las instrucciones del [Pico de Amatista](integracion-mmoitems/INSTALAR_MITRILO.md#pico-de-amatista--resonancia-amplificada-090-dev5).
 
 La sexta entrega añade el **Taller del Minero** dentro de SpectreCore. Desde nivel 3 de Minería de AuraSkills, los jugadores pueden compactar 64 minerales comunes en un objeto hechizado MMOItems o pulverizarlo para obtener un pago fijo. Tiene menú nativo, vista previa, confirmación, operaciones por lotes y protección de transacciones. Se abre por `/spectrecore minero`, desde Trabajos o con el Compactador Portátil. Consulta la [guía de integración del NPC Minero](integracion-mmoitems/TALLER_MINERO_NATIVO.md).
+
+La séptima entrega desarrolla **Minería completa hasta nivel 25**: Duendes al extraer oro, Prospectores al hallar menas profundas, Chatarra, Taladro y dos mejoras, reconstrucción del Pico Perdido con su ID original `TOOL:PICO_GEMAS`, probabilidades funcionales de Paladio y gemas de resonancia. **Luck de AuraSkills** mejora encuentros, botines, cantidades y calidades con límites seguros. El menú de progreso permanece en AuraSkills; SpectreCore únicamente valida los niveles. Consulta la [guía de instalación de Minería](integracion-mmoitems/MINERIA_DEV7_INSTALACION.md).
 
 ## Comandos
 
