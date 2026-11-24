@@ -1,4 +1,5 @@
 LegacyActivities:
+  taller: "<yellow>El Minero ahora procesa materiales en su propio taller. Usa /spectrecore minero."
   mensaje-029: "La ruta de activity-pending.yml no es un archivo regular. Cofres desactivados."
   mensaje-030: "La sección claims de activity-pending.yml está dañada."
   mensaje-027: "<reset><red>El sistema de cofres está temporalmente desactivado por un error de almacenamiento."
