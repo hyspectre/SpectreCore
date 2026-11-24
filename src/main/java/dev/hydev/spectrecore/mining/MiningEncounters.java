@@ -87,6 +87,12 @@ public final class MiningEncounters implements Listener {
         String key="encuentros."+kind+".";
         YamlConfiguration cfg=config();
         int cap=cfg.getInt("encuentros.max-activos",12);
+        // Vanished/unloaded mobs cannot permanently consume the server cap.
+        // This is bounded by max-activos (12 by default), never a global scan.
+        active.keySet().removeIf(id->{
+            Entity mob=Bukkit.getEntity(id);
+            return mob==null || mob.isDead() || !mob.isValid();
+        });
         if(active.size()+pending.size()>=cap)return;
         long now=System.currentTimeMillis();
         Map<UUID,Long> timer=cooldowns.computeIfAbsent(kind,unused->new HashMap<>());
