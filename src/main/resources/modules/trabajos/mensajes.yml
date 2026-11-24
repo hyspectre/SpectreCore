@@ -39,6 +39,5 @@ MinerWorkshop:
   pulverizado: "<gold>✦ Has pulverizado <white>{cantidad} {mineral} <gold>por {dinero} monedas."
   resultado-breve: "<gold>✦ Mineralurgia completada."
 MiningProgression:
-  desbloqueado: "<gold>✦ Minería nivel {nivel}: <white>{nombre} <green>desbloqueado."
   requisito-contrato: "<yellow>Necesitas Minería nivel {nivel} para firmar este contrato."
   requisito-herramienta: "<yellow>Necesitas Minería nivel {nivel} para utilizar esta herramienta."
