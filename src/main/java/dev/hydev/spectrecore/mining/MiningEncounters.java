@@ -126,8 +126,12 @@ public final class MiningEncounters implements Listener {
                             "<gold>✦ ¡Un Duende del Oro salió de las rocas!")
                         : Settings.message("tesoros","MiningEncounters.prospector",
                             "<light_purple>✦ ¡Has despertado a un Prospector Antiguo!"));
-                player.playSound(player.getLocation(),Sound.BLOCK_AMETHYST_BLOCK_CHIME,0.7f,
-                        kind.equals("duende")?1.7f:0.7f);
+                player.playSound(player.getLocation(),
+                        Settings.sound("tesoros","MiningEncounters.sonido-encuentro",Sound.BLOCK_AMETHYST_BLOCK_CHIME),
+                        Settings.f("tesoros","MiningEncounters.volumen",0.7f),
+                        kind.equals("duende")
+                                ? Settings.f("tesoros","MiningEncounters.tono-duende",1.7f)
+                                : Settings.f("tesoros","MiningEncounters.tono-prospector",0.7f));
             } finally { pending.remove(reserve); }
         });
     }
