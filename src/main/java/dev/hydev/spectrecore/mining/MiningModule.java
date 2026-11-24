@@ -148,7 +148,11 @@ public final class MiningModule implements Listener {
             if (!player.isSneaking()) {
                 player.sendActionBar(Settings.component(Settings.text("resonancia", "MiningModule.mensaje-003", "✦ Resonancia completa · Agáchate y mina"), Settings.color("resonancia", "MiningModule.color-002", NamedTextColor.LIGHT_PURPLE))); return;
             }
-            String quality = dev.hydev.spectrecore.config.Gameplay.gemQuality(tier, ThreadLocalRandom.current().nextDouble(100));
+            double roll = MiningLuckRules.qualityRoll(ThreadLocalRandom.current().nextDouble(100),
+                    luck.stat(player),
+                    config.getDouble("suerte.calidad-gemas.puntos-por-luck",0.05),
+                    config.getDouble("suerte.calidad-gemas.maximo-puntos",5.0));
+            String quality = dev.hydev.spectrecore.config.Gameplay.gemQuality(tier, roll);
             String id = config.getString("gemas.ids." + quality, "");
             ItemStack reward = mmo.build("GEM_STONE", id, 1);
             if (reward == null) { missing(player, "GEM_STONE", id); return; }
