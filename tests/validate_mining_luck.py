@@ -67,7 +67,33 @@ lost=yaml.safe_load((root/"integracion-mmoitems/RECETA_PICO_PERDIDO.yml").read_t
 assert "id=PICO_GEMAS" in lost["output"] and any("FRAGMENTO_PICO_PERDIDO" in x for x in lost["ingredients"])
 assert "TOOL:PICO_PERDIDO" not in (root/"integracion-mmoitems/RECETA_PICO_PERDIDO.yml").read_text(encoding="utf-8")
 assert (src/"mining/MiningProgression.java").exists()
-assert "SkillLevelUpEvent" in (src/"mining/MiningProgression.java").read_text(encoding="utf-8")
+progress_java=(src/"mining/MiningProgression.java").read_text(encoding="utf-8")
+assert "SkillLevelUpEvent" not in progress_java
+assert 'player.hasPermission(permission(stage))' in progress_java
+assert 'return "hydev.mineria."+stage;' in progress_java
+assert sorted(rewards["levels"])==[1,3,6,12,15,18,22,25]
+for level, stage in [(1,"inicial"),(3,"hechizados"),(6,"paladio"),(12,"duendes"),
+                     (15,"resonancia"),(18,"mitrilo"),(22,"arcana"),(25,"ingenieria")]:
+    prize=rewards["levels"][level][0]
+    assert prize["type"]=="permission" and prize["value"] is True
+    assert prize["permission"]=="hydev.mineria."+stage
+    assert prize["menu_message"] and prize["chat_message"]
+assert "hydev.mineria.hechizados" in (src/"systems/MinerWorkshop.java").read_text(encoding="utf-8")
+assets=root/"integracion-mmoitems/mineria-v2"
+newtypes={name:yaml.safe_load((assets/name).read_text(encoding="utf-8")) for name in
+        ("MATERIAL_MINERIA_NUEVOS.yml","GEM_STONE_MINERIA_NUEVOS.yml","TOOL_MINERIA_NUEVOS.yml")}
+assert len(newtypes["MATERIAL_MINERIA_NUEVOS.yml"])==6
+assert len(newtypes["GEM_STONE_MINERIA_NUEVOS.yml"])==6
+assert len(newtypes["TOOL_MINERIA_NUEVOS.yml"])==8
+assert "PICO_GEMAS" not in newtypes["TOOL_MINERIA_NUEVOS.yml"]
+assert "TALADRO" not in newtypes["TOOL_MINERIA_NUEVOS.yml"]
+assert "PALADIO" not in newtypes["MATERIAL_MINERIA_NUEVOS.yml"]
+assert (root/"integracion-mythicmobs/HYDEV_MINERIA_SKILLS.yml").is_file()
+skills=yaml.safe_load((root/"integracion-mythicmobs/HYDEV_MINERIA_SKILLS.yml").read_text(encoding="utf-8"))
+assert len(skills)>=7
+for mob in mobs.values():
+    assert len(mob["Skills"])>=3 and mob["Options"]["NoAI"] is False
+    assert "meleeattack" in mob["AIGoalSelectors"] and "players" in mob["AITargetSelectors"]
 assert "progression.meets(player,\"mitrilo\")" in mining
 assert "progression.meets(player,\"resonancia\")" in mining
 assert "progression.meets(player,\"paladio\")" in mining
