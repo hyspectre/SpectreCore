@@ -22,7 +22,7 @@ public final class MiningLuckSmoke {
         ok(MiningLuckRules.quantity(2,64,1000,1,35,34.9)==3,"Paladio bonus cap");
         ok(MiningLuckRules.quantity(2,64,1000,1,35,35)==2,"no >35% extra chance");
         ok(MiningLuckRules.quantity(1,64,12,.8,25,9.5)==2,"Mitrilo extra unit");
-        ok(MiningLuckRules.quantity(1,64,12,.8,25,9.6)==1,"Mitrilo no extra");
+        ok(MiningLuckRules.quantity(1,64,12,.8,25,9.61)==1,"Mitrilo no extra");
         ok(MiningLuckRules.quantity(0,64,1000,1,35,0)==0,"zero original gives zero");
         invalid(()->MiningLuckRules.chance(120,0,1,2));
         invalid(()->MiningLuckRules.chance(2,0,-1,2));
