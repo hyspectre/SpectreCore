@@ -14,6 +14,14 @@ HYDEV_DUENDE_MINERO:
     PreventOtherDrops: true
     KnockbackResistance: 0.1
 
+  AIGoalSelectors:
+  - clear
+  - meleeattack
+  - randomstroll
+  AITargetSelectors:
+  - clear
+  - players
+
 HYDEV_PROSPECTOR_ANTIGUO:
   Type: IRON_GOLEM
   Display: '<light_purple>Prospector Antiguo'
@@ -25,3 +33,11 @@ HYDEV_PROSPECTOR_ANTIGUO:
     Despawn: true
     PreventOtherDrops: true
     KnockbackResistance: 0.65
+
+  AIGoalSelectors:
+  - clear
+  - meleeattack
+  - randomstroll
+  AITargetSelectors:
+  - clear
+  - players
