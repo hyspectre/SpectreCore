@@ -1,0 +1,127 @@
+# Taller Minero de Hydev. Vista nativa; ningún menú externo ni estación duplicada.
+title: "<dark_gray>✦ <gold>Taller del Minero <dark_gray>│ <white>Mineralurgia"
+size: 54
+items:
+  informacion:
+    slot: 4
+    material: BOOK
+    nombre: "<gold>✦ Mineralurgia"
+    lore:
+    - "<gray>Transforma tus hallazgos en materiales"
+    - "<gray>valiosos o véndelos por monedas."
+    - "<gold>Tu nivel de Minería: <white>{nivel}"
+    - "<gold>Acceso requerido: <white>{requisito}"
+    - "<gray>Estado: {estado}"
+  compactar:
+    slot: 10
+    material: ANVIL
+    nombre: "<aqua>Compactación"
+    lore:
+    - "<gray>Transforma {necesarios} minerales normales"
+    - "<gray>en una unidad hechizada."
+    - "<yellow>► Seleccionar operación"
+  pulverizar:
+    slot: 16
+    material: GRINDSTONE
+    nombre: "<gold>Pulverización"
+    lore:
+    - "<gray>Convierte minerales hechizados"
+    - "<gray>en monedas, con pago garantizado."
+    - "<yellow>► Seleccionar operación"
+  vista-previa:
+    slot: 22
+    material: AMETHYST_SHARD
+    nombre: "<light_purple>✧ {modo}: {mineral}"
+    lore:
+    - "<gray>Entrada: <white>{entrada}"
+    - "<gray>Resultado: <gold>{salida}"
+    - "<gray>Disponible: <white>{disponibles}"
+    - "<gray>Estado: {estado}"
+  una:
+    slot: 37
+    material: IRON_NUGGET
+    nombre: "<white>Una operación"
+    lore:
+    - "<gray>Transformar una unidad por vez."
+    - "<yellow>► Seleccionar"
+  cuatro:
+    slot: 40
+    material: GOLD_INGOT
+    nombre: "<gold>Cuatro operaciones"
+    lore:
+    - "<gray>Procesa hasta cuatro lotes juntos."
+    - "<yellow>► Seleccionar"
+  maximo:
+    slot: 43
+    material: DIAMOND
+    nombre: "<aqua>Todo lo disponible"
+    lore:
+    - "<gray>Hasta {maximo} lote(s) por operación."
+    - "<gray>Límite seguro por transacción."
+    - "<yellow>► Seleccionar"
+  confirmar:
+    slot: 49
+    material: LIME_DYE
+    nombre: "<green>✦ Confirmar {modo}"
+    lore:
+    - "<gray>Material: <white>{mineral}"
+    - "<gray>Lotes: <white>{lotes}"
+    - "<gray>Consumo: <white>{entrada}"
+    - "<gray>Recibirás: <gold>{salida}"
+    - "<gray>Estado: {estado}"
+    - "<yellow>► Clic para transformar"
+  volver:
+    slot: 48
+    material: ARROW
+    nombre: "<gold>⇜ Volver a Trabajos"
+    lore:
+    - "<gray>Consultar contratos y progreso."
+  cerrar:
+    slot: 50
+    material: BARRIER
+    nombre: "<gray>⇜ Cerrar el taller"
+    lore:
+    - "<gray>Guardar tus materiales y salir."
+minerales:
+  cobre:
+    slot: 27
+    material: COPPER_INGOT
+    nombre: "<#DB986F>Cobre"
+    lore:
+    - "<gray>En tu mochila: <white>{cantidad}"
+    - "{seleccionado}"
+  hierro:
+    slot: 28
+    material: IRON_INGOT
+    nombre: "<white>Hierro"
+    lore:
+    - "<gray>En tu mochila: <white>{cantidad}"
+    - "{seleccionado}"
+  oro:
+    slot: 29
+    material: GOLD_INGOT
+    nombre: "<gold>Oro"
+    lore:
+    - "<gray>En tu mochila: <white>{cantidad}"
+    - "{seleccionado}"
+  lapis:
+    slot: 30
+    material: LAPIS_LAZULI
+    nombre: "<blue>Lapislázuli"
+    lore:
+    - "<gray>En tu mochila: <white>{cantidad}"
+    - "{seleccionado}"
+  redstone:
+    slot: 31
+    material: REDSTONE
+    nombre: "<red>Redstone"
+    lore:
+    - "<gray>En tu mochila: <white>{cantidad}"
+    - "{seleccionado}"
+  diamante:
+    slot: 32
+    material: DIAMOND
+    nombre: "<aqua>Diamante"
+    lore:
+    - "<gray>En tu mochila: <white>{cantidad}"
+    - "{seleccionado}"
