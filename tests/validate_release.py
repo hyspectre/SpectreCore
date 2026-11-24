@@ -42,7 +42,7 @@ for recipe in recipes.values():
 mining = load('modules/tesoros/mineria.yml')
 assert 'enabled' not in mining and mining['tesoros']['id'] == 'PALADIO'
 assert mining['tesoros']['cantidad-minima'] == 2 and mining['tesoros']['cantidad-maxima'] == 8
-assert mining['probabilidades']['mineria'] == {} and 'gemas' not in mining
+assert mining['probabilidades']['mineria'] == {'tier1':0.65,'tier2':0.90,'tier3':1.40} and 'gemas' not in mining
 resonance = load('modules/resonancia/config.yml')
 assert resonance['gemas']['carga-maxima'] == 50 and resonance['gemas']['ventana-segundos'] == 30
 assert resonance['gemas']['ids'] == {'basica':'','intermedia':'','superior':''}
