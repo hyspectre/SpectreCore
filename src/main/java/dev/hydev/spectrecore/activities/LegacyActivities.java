@@ -104,16 +104,10 @@ public final class LegacyActivities implements Listener {
             offer(player,new Offer(config.getString("cygnus.ofertas."+name+".tipo",fallback.type),config.getString("cygnus.ofertas."+name+".id",fallback.id)));
         }
         else if (MONEY.containsKey(name)) {
-            int[] range = MONEY.get(name);int min=config.getInt("polvos.comandos."+name+".minimo",range[0]),max=config.getInt("polvos.comandos."+name+".maximo",range[1]);
-            if(min<0||max<min){player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-004", "Rango de pago inválido."));return true;}
-            long amount = ThreadLocalRandom.current().nextLong(min, (long)max + 1);
-            EconomyBridge.Result payment = economy.deposit(player, amount, true);
-            if (payment != EconomyBridge.Result.FAILED) {
-                if (payment == EconomyBridge.Result.COMMAND_SENT)
-                    plugin.getLogger().warning("Economía: comando de depósito emitido pero no confirmado para " + player.getUniqueId());
-                player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-005", "§fRecibiste §a${amount} §fpor pulverizar este mineral.", "amount", amount));
-                player.playSound(player.getLocation(), Settings.sound("actividades", "LegacyActivities.sound-002", Sound.BLOCK_AMETHYST_CLUSTER_BREAK),Settings.f("actividades", "LegacyActivities.playsound-003-arg2", .7f),Settings.f("actividades", "LegacyActivities.playsound-004-arg3", 1.3f));
-            } else player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-006", "§cNo se pudo confirmar el pago. Inténtalo más tarde."));
+            // Legacy station hooks never consume material. Paying here would let
+            // an NPC grant unlimited money: route players to the native workshop.
+            player.sendMessage(Settings.message("actividades", "LegacyActivities.taller",
+                    "<yellow>El Minero ahora procesa materiales en su propio taller. Usa /spectrecore minero."));
         } else if (UNLOCKS.containsKey(name)) {
             String permission=config.getString("desbloqueos.comandos."+name,UNLOCKS.get(name));
             if(!permission.matches("[A-Za-z0-9._*\\-]+")){player.sendMessage(Settings.message("actividades", "LegacyActivities.mensaje-007", "Este desbloqueo no está disponible. Avisa a administración."));return true;}
