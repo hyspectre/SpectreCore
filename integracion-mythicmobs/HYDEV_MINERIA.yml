@@ -1,43 +1,65 @@
-# Añadir estas definiciones a plugins/MythicMobs/Mobs/HYDEV_MINERIA.yml.
-# Solo se utilizan atributos y opciones públicas de MythicMobs Free.
-# Las probabilidades y los drops NO se configuran aquí: SpectreCore es su dueño.
+# HYDEV · Bestiario de las Minas
+# Depende de Skills/HYDEV_MINERIA_SKILLS.yml (MythicMobs Free 5.13).
+# La invocación, el nivel, el límite de encuentros y el botín son de SpectreCore.
 HYDEV_DUENDE_MINERO:
   Type: ZOMBIE
-  Display: '<gold>Duende del Oro'
-  Health: 45
-  Damage: 4
+  Display: '<gradient:#C8AA53:#F7DF88>Duende del Oro</gradient>'
+  Health: 48
+  Damage: 3
+  Faction: HydevMineria
   Options:
     Baby: true
+    NoAI: false
+    FollowRange: 24
     MovementSpeed: 0.34
-    Scale: 0.78
+    Scale: 0.82
     Despawn: true
     PreventOtherDrops: true
-    KnockbackResistance: 0.1
-
+    KnockbackResistance: 0.05
+  Equipment:
+    - GOLDEN_HELMET HEAD
+    - GOLDEN_HOE HAND
   AIGoalSelectors:
-  - clear
-  - meleeattack
-  - randomstroll
+    - clear
+    - float
+    - meleeattack
+    - randomstroll
+    - randomlookaround
   AITargetSelectors:
-  - clear
-  - players
+    - clear
+    - players
+  Skills:
+    - skill{s=HYDEV_DUENDE_LLEGADA} @self ~onSpawn
+    - skill{s=HYDEV_DUENDE_ESCAPADA} @self ~onDamaged 0.65
+    - skill{s=HYDEV_DUENDE_EMBESTIDA} @target ~onTimer:160 0.45
+    - skill{s=HYDEV_DUENDE_GOLPE_SUCIO} @target ~onAttack 0.35
 
 HYDEV_PROSPECTOR_ANTIGUO:
   Type: IRON_GOLEM
-  Display: '<light_purple>Prospector Antiguo'
-  Health: 250
-  Damage: 9
+  Display: '<gradient:#A2B5BE:#D8D0BE>Prospector Antiguo</gradient>'
+  Health: 260
+  Damage: 8
+  Faction: HydevMineria
   Options:
-    MovementSpeed: 0.23
-    Scale: 1.12
+    NoAI: false
+    FollowRange: 24
+    MovementSpeed: 0.26
+    Scale: 1.15
     Despawn: true
     PreventOtherDrops: true
-    KnockbackResistance: 0.65
-
+    KnockbackResistance: 0.75
+  # Usa navegación terrestre real y agresión contra jugadores.
+  # El spawner de SpectreCore también fija el objetivo inicial.
   AIGoalSelectors:
-  - clear
-  - meleeattack
-  - randomstroll
+    - clear
+    - float
+    - meleeattack
+    - randomstroll
+    - randomlookaround
   AITargetSelectors:
-  - clear
-  - players
+    - clear
+    - players
+  Skills:
+    - skill{s=HYDEV_PROSPECTOR_DESPERTAR} @self ~onSpawn
+    - skill{s=HYDEV_PROSPECTOR_TERREMOTO} @self ~onTimer:180 0.65
+    - skill{s=HYDEV_PROSPECTOR_GUARDIA} @self ~onDamaged 0.25
