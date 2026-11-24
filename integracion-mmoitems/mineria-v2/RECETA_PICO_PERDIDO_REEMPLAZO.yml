@@ -1,0 +1,13 @@
+# Sustituye SOLO la receta picoperdido, sin alterar el ítem TOOL:PICO_GEMAS.
+# Antes costaba Sello del Minotauro; ahora exige fragmentos de Prospectores.
+recipes:
+  picoperdido:
+    output: 'mmoitems{type=TOOL,id=PICO_GEMAS}'
+    crafting-time: 35
+    conditions:
+    - 'permission{list="hydev.mineria.resonancia";display="Minería nivel 15"}'
+    ingredients:
+    - 'mmoitem{type=MATERIAL,id=FRAGMENTO_PICO_PERDIDO,amount=4}'
+    - 'mmoitem{type=MATERIAL,id=PALADIO,amount=24}'
+    - 'mmoitem{type=MATERIAL,id=ORO,amount=2}'
+    - 'mmoitem{type=MATERIAL,id=DIAMANTE,amount=2}'
