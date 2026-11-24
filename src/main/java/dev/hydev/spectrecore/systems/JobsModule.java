@@ -3,6 +3,7 @@ package dev.hydev.spectrecore.systems;
 import dev.hydev.spectrecore.config.Settings;
 import dev.hydev.spectrecore.activities.ActivityRules;
 import dev.hydev.spectrecore.mining.PlacedOres;
+import dev.hydev.spectrecore.mining.MiningProgression;
 import dev.hydev.spectrecore.guide.JobsMenu;
 import dev.hydev.spectrecore.guide.SupplyGuide;
 import dev.hydev.spectrecore.guide.MinerWorkshopMenu;
@@ -221,6 +222,21 @@ public final class JobsModule implements Listener {
                     "§cNo puedes firmar este contrato: {motivo}", "motivo", result.name()));
             player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 0.6f, 1f);
             return;
+        }
+        if ("minero".equals(job)) {
+            MiningProgression progression=new MiningProgression(plugin);
+            String milestone=switch(level) {
+                case "novato" -> "inicial";
+                case "experimentado" -> "paladio";
+                case "profesional" -> "resonancia";
+                default -> null;
+            };
+            if (milestone == null || !progression.meets(player,milestone)) {
+                player.sendMessage(Settings.message("trabajos","MiningProgression.requisito-contrato",
+                        "<yellow>Necesitas Minería nivel {nivel} para firmar este contrato.",
+                        "nivel",milestone==null?"—":progression.required(milestone)));
+                return;
+            }
         }
         if (permissions == null || !permissions.ready(player)) {
             player.sendMessage(Settings.message("trabajos", "JobsModule.contrato-sin-luckperms",
