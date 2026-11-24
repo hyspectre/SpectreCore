@@ -26,7 +26,6 @@ jobs:
       - run: python3 tests/validate_miner_workshop.py
       - run: python3 tests/validate_mining_luck.py
       - run: python3 tests/test_instalador_mineria.py
-      - run: python3 tests/package_mining_integrations.py
       - run: python3 tests/validate_supply_board.py
       - run: python3 tests/validate_mithril.py
       - run: python3 tests/validate_amethyst_field.py
@@ -38,6 +37,7 @@ jobs:
       - run: bash tests/run_pure_java_tests.sh
       - run: bash tests/check_java_syntax.sh
       - run: gradle clean build --no-daemon
+      - run: python3 tests/package_mining_integrations.py
       - uses: actions/upload-artifact@v4
         with:
           name: SpectreCore-0.9.0-dev8
