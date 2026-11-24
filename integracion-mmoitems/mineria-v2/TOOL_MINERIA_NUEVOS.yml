@@ -9,7 +9,7 @@ TALADRO_REFORZADO:
     tier: RARE
     tooltip: COPPER
     item-permissions:
-    - hydev.mineria.paladio
+    - hydev.mineria.duendes
     lore:
     - '&f  <gradient:#BFA982:#E5D1AD>ᴍᴇᴄáɴɪᴄᴀ · ʀᴇғᴏʀᴢᴀᴅᴏ</gradient>'
     - '&f ᴘᴇʀғᴏʀᴀᴄɪóɴ &a+1 roca cercana'
@@ -25,7 +25,7 @@ TALADRO_CALIBRADO:
     tier: EPIC
     tooltip: SILVER
     item-permissions:
-    - hydev.mineria.paladio
+    - hydev.mineria.resonancia
     lore:
     - '&f  <gradient:#9EAFC2:#CCEADE>ᴍᴇᴄáɴɪᴄᴀ · ᴄᴀʟɪʙʀᴀᴅᴏ</gradient>'
     - '&f ᴘᴇʀғᴏʀᴀᴄɪóɴ &a+3 rocas cercanas'
