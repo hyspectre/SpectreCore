@@ -42,8 +42,30 @@ public final class Gameplay {
         bounded(jobs,"avisos.intervalo-cooldown-milisegundos",0,3600000,true);
         for (String level : List.of("novato","experimentado","profesional"))
             bounded(jobs,"contratos.precios."+level,0,1_000_000_000,true);
+        int previousLevel=0;
+        for(String stage : List.of("inicial","paladio","duendes",
+                "resonancia","mitrilo","arcana","ingenieria")) {
+            String key="progresion-mineria."+stage;
+            bounded(jobs,key,1,100,true);
+            int level=jobs.getInt(key);
+            if(level<=previousLevel)
+                throw new java.io.IOException("trabajos/config.yml: niveles de Minería fuera de orden: "+stage);
+            previousLevel=level;
+        }
+        var stages=jobs.getConfigurationSection("progresion-mineria.nombres");
+        if(stages==null)
+            throw new java.io.IOException("trabajos/config.yml: faltan nombres de progresión minera");
+        for(String stage:List.of("inicial","hechizados","paladio","duendes",
+                "resonancia","mitrilo","arcana","ingenieria")) {
+            String label=jobs.getString("progresion-mineria.nombres."+stage,"");
+            if(label.isBlank()||label.length()>96)
+                throw new java.io.IOException("trabajos/config.yml: nombre de hito minero inválido: "+stage);
+        }
         String workshop = "taller-minero.";
         bounded(jobs, workshop+"nivel-minimo", 1, 100, true);
+        if(jobs.getInt("progresion-mineria.inicial")>jobs.getInt(workshop+"nivel-minimo")
+                || jobs.getInt(workshop+"nivel-minimo")>=jobs.getInt("progresion-mineria.paladio"))
+            throw new java.io.IOException("trabajos/config.yml: Mineralurgia debe quedar entre inicio y Paladio");
         bounded(jobs, workshop+"compactar-unidades", 64, 64, true);
         bounded(jobs, workshop+"max-operaciones", 1, 16, true);
         Map<String,String> enchantedMinerals = Map.of(
