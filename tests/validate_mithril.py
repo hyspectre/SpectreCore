@@ -31,9 +31,9 @@ recipes = station["recipes"]
 assert set(recipes) == {"pico-mitrilo", "pico-mitrilo-templado", "carga-resonante", "llave-resonante", "brujula-geologica", "farol-mitrilo", "barrena-mitrilo", "pico-amatista"}
 assert recipes["pico-mitrilo"]["output"] == "mmoitems{type=TOOL,id=PICO_MITRILO}"
 assert recipes["pico-mitrilo-templado"]["output"] == "mmoitems{type=TOOL,id=PICO_MITRILO_TEMPLADO}"
-for recipe in recipes.values():
+for name, recipe in recipes.items():
     assert any("mmoitem{type=MATERIAL,id=" in i for i in recipe["ingredients"])
-    assert recipe["crafting-time"] > 0
+    assert recipe["crafting-time"] == 0 if name == "pico-mitrilo-templado" else recipe["crafting-time"] > 0
 assert recipes["brujula-geologica"]["output"] == "mmoitems{type=TOOL,id=BRUJULA_GEOLOGICA}"
 assert recipes["farol-mitrilo"]["output"] == "mmoitems{type=TOOL,id=FAROL_MITRILO}"
 assert recipes["barrena-mitrilo"]["output"] == "mmoitems{type=TOOL,id=BARRENA_MITRILO}"

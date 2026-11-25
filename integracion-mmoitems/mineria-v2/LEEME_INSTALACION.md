@@ -74,9 +74,10 @@ contiene recetas propias del Guante Minero o el Compactador, el instalador usa e
 recetas. Puedes señalarla con `--forja /ruta/forja.yml`.
 
 Tras arrancar, abre `/forjaminera` con Minería inicial, o usa desde consola
-`mi stations open forja-minera JUGADOR`. Prueba una herramienta recién creada y
-una gema antes de mejorar una herramienta valiosa: las recetas que consumen la
-herramienta anterior fabrican una nueva plantilla y no transfieren gemas instaladas.
+`mi stations open forja-minera JUGADOR`. Las mejoras del Guante Minero, del Taladro Reforzado y del Pico de Mitrilo
+son instantáneas. Instala juntos este JAR y las recetas. La Forja conserva las gemas
+de la herramienta consumida y añade una ranura vacía. Prueba primero con un ejemplar
+de prueba y comprueba también el bono de una gema de dungeons tras la mejora.
 
 ### Gemas de minería
 

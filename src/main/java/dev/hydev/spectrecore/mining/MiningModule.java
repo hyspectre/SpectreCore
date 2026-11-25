@@ -39,6 +39,7 @@ public final class MiningModule implements Listener {
     private final MithrilToolModule mithrilTools;
     private final MiningLuck luck;
     private final MiningGems gems;
+    private Listener forgeUpgrades;
     private final MiningEncounters encounters;
     private final StoneDrill drill;
     private final MiningProgression progression;
@@ -75,6 +76,10 @@ public final class MiningModule implements Listener {
         Bukkit.getPluginManager().registerEvents(placed, plugin); visuals.enable();
         mithrilTools.enable();
         encounters.enable();
+        if (Bukkit.getPluginManager().isPluginEnabled("MMOItems")) {
+            forgeUpgrades = new MiningForgeUpgrades(plugin);
+            Bukkit.getPluginManager().registerEvents(forgeUpgrades, plugin);
+        }
         Bukkit.getPluginManager().registerEvents(gems,plugin);
         drill.enable();
         progression.enable();
@@ -134,6 +139,7 @@ public final class MiningModule implements Listener {
         progression.disable();
         drill.disable();
         encounters.disable();
+        if (forgeUpgrades != null) HandlerList.unregisterAll(forgeUpgrades);
         HandlerList.unregisterAll(gems);
         gems.clear();
         mithrilTools.disable();

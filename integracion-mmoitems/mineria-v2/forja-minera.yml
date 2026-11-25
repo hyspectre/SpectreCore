@@ -12,7 +12,7 @@ command:
 recipes:
   taladro-reforzado:
     output: 'mmoitems{type=TOOL,id=TALADRO_REFORZADO}'
-    crafting-time: 20
+    crafting-time: 0
     conditions:
     - 'permission{list="hydev.mineria.duendes";display="Minería nivel 12"}'
     ingredients:
@@ -22,7 +22,7 @@ recipes:
 
   taladro-calibrado:
     output: 'mmoitems{type=TOOL,id=TALADRO_CALIBRADO}'
-    crafting-time: 35
+    crafting-time: 0
     conditions:
     - 'permission{list="hydev.mineria.resonancia";display="Minería nivel 15"}'
     ingredients:
@@ -42,7 +42,7 @@ recipes:
 
   pico-mitrilo-templado:
     output: 'mmoitems{type=TOOL,id=PICO_MITRILO_TEMPLADO}'
-    crafting-time: 25
+    crafting-time: 0
     conditions:
     - 'permission{list="hydev.mineria.mitrilo";display="Minería nivel 18"}'
     ingredients:

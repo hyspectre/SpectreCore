@@ -11,7 +11,7 @@ recipes:
     - 'vanilla{type=IRON_INGOT,amount=6}'
   pico-mitrilo-templado:
     output: 'mmoitems{type=TOOL,id=PICO_MITRILO_TEMPLADO}'
-    crafting-time: 25
+    crafting-time: 0
     ingredients:
     - 'mmoitem{type=MATERIAL,id=MITRILO,amount=36}'
     - 'mmoitem{type=TOOL,id=PICO_MITRILO,amount=1}'

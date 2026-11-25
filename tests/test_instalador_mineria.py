@@ -123,6 +123,13 @@ gui-layout:
     assert "hydev.mineria.ingenieria" in str(definitions["recipes"]["brujula-geologica"])
     assert "hydev.mineria.duendes" in str(definitions["recipes"]["taladro-reforzado"])
     assert "hydev.mineria.resonancia" in str(definitions["recipes"]["taladro-calibrado"])
+    upgrades = {"taladro-reforzado", "taladro-calibrado", "pico-mitrilo-templado"}
+    assert {key for key, recipe in definitions["recipes"].items() if recipe["crafting-time"] == 0} == upgrades
+    before = dedicated.read_text()
+    dedicated.write_text(before.replace("crafting-time: 0", "crafting-time: 20"))
+    module.install(plugin,station,True)
+    migrated = yaml.safe_load(dedicated.read_text())
+    assert migrated == definitions
     snapshot={p:p.read_bytes() for p in [*originals, dedicated, plugin/"item/reliquia.yml"]}
     module.install(plugin,station,True)
     assert all(p.read_bytes()==data for p,data in snapshot.items()),"second install changed YAML"

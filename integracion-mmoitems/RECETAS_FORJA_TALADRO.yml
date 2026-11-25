@@ -4,14 +4,14 @@
 recipes:
   taladro-reforzado:
     output: 'mmoitems{type=TOOL,id=TALADRO_REFORZADO}'
-    crafting-time: 20
+    crafting-time: 0
     ingredients:
     - 'mmoitem{type=TOOL,id=TALADRO,amount=1}'
     - 'mmoitem{type=MATERIAL,id=CHATARRA_MECANICA,amount=12}'
     - 'vanilla{type=IRON_INGOT,amount=16}'
   taladro-calibrado:
     output: 'mmoitems{type=TOOL,id=TALADRO_CALIBRADO}'
-    crafting-time: 35
+    crafting-time: 0
     ingredients:
     - 'mmoitem{type=TOOL,id=TALADRO_REFORZADO,amount=1}'
     - 'mmoitem{type=MATERIAL,id=CHATARRA_ANTIGUA,amount=6}'
