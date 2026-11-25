@@ -19,7 +19,7 @@ public final class MithrilRegionAccess {
     private boolean warned;
     private Method instance, platform, container, createQuery, testBuild, wrapPlayer, adapt;
     private Object worldGuardPlugin;
-    private Object zeroFlags;
+    private Object zeroFlags, breakFlags;
     private boolean resolved;
 
     public MithrilRegionAccess(JavaPlugin plugin) { this.plugin = plugin; }
@@ -48,6 +48,9 @@ public final class MithrilRegionAccess {
             adapt = adapter.getMethod("adapt", org.bukkit.Location.class);
             worldGuardPlugin = wgBukkit.getMethod("inst").invoke(null);
             zeroFlags = Array.newInstance(stateFlag, 0);
+            breakFlags = Array.newInstance(stateFlag, 1);
+            Class<?> flags = Class.forName("com.sk89q.worldguard.protection.flags.Flags", true, loader);
+            Array.set(breakFlags, 0, flags.getField("BLOCK_BREAK").get(null));
             resolved = true;
             return true;
         } catch (ReflectiveOperationException | LinkageError | RuntimeException failure) {
@@ -60,6 +63,14 @@ public final class MithrilRegionAccess {
     }
 
     public boolean canBuild(Player player, Block block) {
+        return allowed(player, block, false);
+    }
+
+    public boolean canBreak(Player player, Block block) {
+        return allowed(player, block, true);
+    }
+
+    private boolean allowed(Player player, Block block, boolean breaking) {
         if (!initialize() || player == null || block == null
                 || !block.getWorld().isChunkLoaded(block.getX() >> 4, block.getZ() >> 4)) return false;
         try {
@@ -68,7 +79,7 @@ public final class MithrilRegionAccess {
             Object query = createQuery.invoke(container.invoke(platformValue));
             Object location = adapt.invoke(null, block.getLocation());
             Object actor = wrapPlayer.invoke(worldGuardPlugin, player);
-            return Boolean.TRUE.equals(testBuild.invoke(query, location, actor, zeroFlags));
+            return Boolean.TRUE.equals(testBuild.invoke(query, location, actor, breaking ? breakFlags : zeroFlags));
         } catch (ReflectiveOperationException | LinkageError | RuntimeException failure) {
             if (!warned) {
                 warned = true;

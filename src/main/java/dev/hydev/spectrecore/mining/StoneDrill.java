@@ -83,7 +83,7 @@ public final class StoneDrill implements Listener {
             return;
         }
         if(player.getGameMode()!=GameMode.SURVIVAL
-                || !stone(event.getBlock()) || !regions.canBuild(player,event.getBlock())){
+                || !stone(event.getBlock()) || !regions.canBreak(player,event.getBlock())){
             event.setCancelled(true);return;
         }
         event.setInstaBreak(true);
@@ -98,7 +98,7 @@ public final class StoneDrill implements Listener {
         String requiredStage=tier==3?"resonancia":tier==2?"duendes":"paladio";
         if(!progression.meets(player,requiredStage)
                 || player.getGameMode()!=GameMode.SURVIVAL
-                || !stone(rock) || !regions.canBuild(player,rock)){
+                || !stone(rock) || !regions.canBreak(player,rock)){
             event.setCancelled(true);return;
         }
         long now=System.currentTimeMillis();
@@ -123,7 +123,7 @@ public final class StoneDrill implements Listener {
                 if(completed>=extras)break;
                 Block target=center.getRelative(face);
                 if(!target.getWorld().isChunkLoaded(target.getX()>>4,target.getZ()>>4)
-                        ||!stone(target)||!regions.canBuild(player,target))continue;
+                        ||!stone(target)||!regions.canBreak(player,target))continue;
                 // Auxiliary clearance gives no drops and no AuraSkills XP.
                 target.setType(Material.AIR,false);
                 completed++;

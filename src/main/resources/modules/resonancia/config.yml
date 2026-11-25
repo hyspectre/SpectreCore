@@ -6,9 +6,9 @@ gemas:
   carga-maxima: 50
   ventana-segundos: 30
   ids:
-    basica: GEMA_PERDIDA_BASICA
-    intermedia: GEMA_PERDIDA_INTERMEDIA
-    superior: GEMA_PERDIDA_SUPERIOR
+    basica: [GEMA_RUBI_1, GEMA_ONICE_1, GEMA_AMATISTA_1]
+    intermedia: [GEMA_RUBI_2, GEMA_ONICE_2, GEMA_AMATISTA_2]
+    superior: [GEMA_RUBI_3, GEMA_ONICE_3, GEMA_AMATISTA_3]
 visuales:
   activados: true
   max-animaciones: 32

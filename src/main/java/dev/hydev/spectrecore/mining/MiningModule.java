@@ -152,6 +152,10 @@ public final class MiningModule implements Listener {
             default -> { return; }
         }
         if (!progression.meets(player, "arcana") || ThreadLocalRandom.current().nextDouble() >= 0.005) return;
+        if (mmo.build("MATERIAL", "LLAVE_RESONANTE", 1) == null) return;
+        for (String core : CORES) {
+            if (mmo.build("GEM_STONE", "GEMA_" + core + "_IV", 1) == null) return;
+        }
         for (var face : List.of(org.bukkit.block.BlockFace.DOWN, org.bukkit.block.BlockFace.NORTH,
                 org.bukkit.block.BlockFace.SOUTH, org.bukkit.block.BlockFace.WEST, org.bukkit.block.BlockFace.EAST,
                 org.bukkit.block.BlockFace.UP)) {
@@ -242,6 +246,13 @@ public final class MiningModule implements Listener {
         }
     }
 
+    private String gemId(String quality) {
+        String path = "gemas.ids." + quality;
+        List<String> pool = config.getStringList(path);
+        if (!pool.isEmpty()) return pool.get(ThreadLocalRandom.current().nextInt(pool.size()));
+        return config.getString(path, "");
+    }
+
     private boolean expire(Player player, State state) {
         if (MigrationRules.expired(state.activeUntil, System.currentTimeMillis())) {
             state.activeUntil = 0; state.charge = 0; dirty = true;
@@ -261,7 +272,7 @@ public final class MiningModule implements Listener {
                     config.getDouble("suerte.calidad-gemas.puntos-por-luck",0.05),
                     config.getDouble("suerte.calidad-gemas.maximo-puntos",5.0));
             String quality = dev.hydev.spectrecore.config.Gameplay.gemQuality(tier, roll);
-            String id = config.getString("gemas.ids." + quality, "");
+            String id = gemId(quality);
             ItemStack reward = mmo.build("GEM_STONE", id, 1);
             if (reward == null) { missing(player, "GEM_STONE", id); return; }
             deliver(player, reward); // Resolve before consuming resonance; no delayed award can be lost on quit.
@@ -395,7 +406,7 @@ public final class MiningModule implements Listener {
             if(!config.getBoolean("gemas.activadas",true)){sender.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-024", "Resonancia desactivada."));return true;}
             String quality = args[2].toLowerCase(Locale.ROOT);
             if (!Set.of("basica", "intermedia", "superior").contains(quality)) { player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-025", "§cCalidad válida: basica, intermedia o superior.")); return true; }
-            ItemStack gem = mmo.build("GEM_STONE", config.getString("gemas.ids." + quality, ""), 1);
+            ItemStack gem = mmo.build("GEM_STONE", gemId(quality), 1);
             visuals.gem(at, gem == null ? new ItemStack(Material.AMETHYST_SHARD) : gem, quality);
         } else { player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-026", "§cUsa tesoro o gema.")); return true; }
         player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-027", "§7Vista previa visual: no entrega objetos ni cambia la resonancia."));

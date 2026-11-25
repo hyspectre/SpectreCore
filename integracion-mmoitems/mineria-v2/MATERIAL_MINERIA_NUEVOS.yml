@@ -78,3 +78,11 @@ CRISTAL_MITRILO:
     - '&f ʀᴇᴄᴀʀɢᴀ &b+50 de resonancia'
     - '&7 Clic con herramienta en mano secundaria.'
     - '&8 Consume un cristal por uso.'
+
+AMATISTA_RESONANTE:
+  base:
+    material: AMETHYST_SHARD
+    name: '<gradient:#AA77D6:#EED6FC>Amatista Resonante</gradient>'
+    tier: RARE
+    tooltip: COPPER
+    max-stack-size: 64

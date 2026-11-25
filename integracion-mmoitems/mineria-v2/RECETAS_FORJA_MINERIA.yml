@@ -28,7 +28,7 @@ recipes:
     conditions:
     - 'permission{list="hydev.mineria.mitrilo";display="Minería nivel 18"}'
     ingredients:
-    - 'mmoitem{type=MATERIAL,id=MITRILO,amount=12}'
+    - 'mmoitem{type=MATERIAL,id=MITRILO,amount=18}'
     - 'vanilla{type=STICK,amount=2}'
     - 'vanilla{type=IRON_INGOT,amount=6}'
 
@@ -38,7 +38,7 @@ recipes:
     conditions:
     - 'permission{list="hydev.mineria.mitrilo";display="Minería nivel 18"}'
     ingredients:
-    - 'mmoitem{type=MATERIAL,id=MITRILO,amount=24}'
+    - 'mmoitem{type=MATERIAL,id=MITRILO,amount=36}'
     - 'mmoitem{type=TOOL,id=PICO_MITRILO,amount=1}'
     - 'vanilla{type=DIAMOND,amount=8}'
 
@@ -65,7 +65,7 @@ recipes:
     conditions:
     - 'permission{list="hydev.mineria.ingenieria";display="Minería nivel 25"}'
     ingredients:
-    - 'mmoitem{type=MATERIAL,id=MITRILO,amount=8}'
+    - 'mmoitem{type=MATERIAL,id=MITRILO,amount=12}'
     - 'vanilla{type=COMPASS,amount=1}'
     - 'vanilla{type=REDSTONE,amount=4}'
     - 'vanilla{type=AMETHYST_SHARD,amount=2}'
@@ -76,7 +76,7 @@ recipes:
     conditions:
     - 'permission{list="hydev.mineria.ingenieria";display="Minería nivel 25"}'
     ingredients:
-    - 'mmoitem{type=MATERIAL,id=MITRILO,amount=10}'
+    - 'mmoitem{type=MATERIAL,id=MITRILO,amount=16}'
     - 'vanilla{type=SOUL_LANTERN,amount=1}'
     - 'vanilla{type=AMETHYST_SHARD,amount=4}'
     - 'vanilla{type=COPPER_INGOT,amount=2}'
@@ -87,7 +87,7 @@ recipes:
     conditions:
     - 'permission{list="hydev.mineria.ingenieria";display="Minería nivel 25"}'
     ingredients:
-    - 'mmoitem{type=MATERIAL,id=MITRILO,amount=28}'
+    - 'mmoitem{type=MATERIAL,id=MITRILO,amount=42}'
     - 'vanilla{type=NETHERITE_PICKAXE,amount=1}'
     - 'vanilla{type=DIAMOND,amount=4}'
     - 'vanilla{type=IRON_BLOCK,amount=4}'
@@ -98,6 +98,6 @@ recipes:
     conditions:
     - 'permission{list="hydev.mineria.arcana";display="Minería nivel 22"}'
     ingredients:
-    - 'mmoitem{type=MATERIAL,id=MITRILO,amount=20}'
+    - 'mmoitem{type=MATERIAL,id=MITRILO,amount=30}'
     - 'mmoitem{type=MATERIAL,id=PALADIO,amount=12}'
     - 'vanilla{type=AMETHYST_SHARD,amount=16}'

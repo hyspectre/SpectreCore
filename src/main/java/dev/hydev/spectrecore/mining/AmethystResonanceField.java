@@ -34,15 +34,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Mineable enchanted-looking blocks made of BlockDisplay + Interaction entities.
  * Never modifies real blocks. Each node can award exactly one configured MMOItems
- * GEM_STONE and is removed before delivery; only its summoning player can mine it.
+ * material and is removed before delivery; only its summoning player can mine it.
  */
 public final class AmethystResonanceField implements Listener {
-    public record Plan(List<Location> positions, List<ItemStack> rewards) { }
+    public record Plan(List<Location> positions, ItemStack reward) { }
 
     private static final int[][] OFFSETS = {
             {2,0}, {0,2}, {-2,0}, {0,-2}, {2,2}, {-2,2}, {-2,-2}, {2,-2},
@@ -66,17 +65,16 @@ public final class AmethystResonanceField implements Listener {
         final String toolSerial;
         final World world;
         final List<Node> nodes = new ArrayList<>();
-        final List<ItemStack> rewards;
+        final ItemStack reward;
         BukkitTask timeout;
-        Session(Player player, String serial, List<ItemStack> rewards) {
+        Session(Player player, String serial, ItemStack reward) {
             owner = player.getUniqueId(); toolSerial = serial; world = player.getWorld();
-            this.rewards = rewards;
+            this.reward = reward;
         }
     }
 
     private final JavaPlugin plugin;
     private final MithrilDeviceData devices;
-    private final MiningLuck luck;
     private final MithrilRegionAccess regions;
     private final MmoBridge items = new MmoBridge();
     private final NamespacedKey marker;
@@ -92,7 +90,6 @@ public final class AmethystResonanceField implements Listener {
                                   MithrilRegionAccess regions) {
         this.plugin = plugin;
         this.devices = devices;
-        this.luck = new MiningLuck(plugin);
         this.regions = regions;
         marker = new NamespacedKey(plugin, "amatista_nodo_v1");
     }
@@ -105,9 +102,6 @@ public final class AmethystResonanceField implements Listener {
         return config.getInt("herramientas-mitrilo.pico-amatista." + name);
     }
 
-    private String gemId(String quality) {
-        return config.getString("herramientas-mitrilo.pico-amatista.gemas." + quality, "");
-    }
 
     public int activeFields() { return sessions.size(); }
 
@@ -144,19 +138,13 @@ public final class AmethystResonanceField implements Listener {
         if (!player.isOnline() || sessions.containsKey(player.getUniqueId())
                 || sessions.size() >= amount("max-sesiones")
                 || !regions.canBuild(player, player.getLocation().getBlock())) return null;
-        List<ItemStack> gemItems = new ArrayList<>();
-        for (String quality : List.of("basica", "intermedia", "superior")) {
-            String id = gemId(quality);
-            ItemStack item = id.isBlank() ? null : items.build("GEM_STONE", id, 1);
-            if (item == null) {
-                if (!warnedMissingRewards) {
-                    plugin.getLogger().warning("Pico de Amatista: falta una gema GEM_STONE configurada "
-                            + "o la integración MMOItems; no se descontará resonancia.");
-                    warnedMissingRewards = true;
-                }
-                return null;
+        ItemStack reward = items.build("MATERIAL", "AMATISTA_RESONANTE", 1);
+        if (reward == null) {
+            if (!warnedMissingRewards) {
+                plugin.getLogger().warning("Pico de Amatista: falta MATERIAL:AMATISTA_RESONANTE.");
+                warnedMissingRewards = true;
             }
-            gemItems.add(item);
+            return null;
         }
         World world = player.getWorld();
         int x = player.getLocation().getBlockX(), y = player.getLocation().getBlockY(),
@@ -174,7 +162,7 @@ public final class AmethystResonanceField implements Listener {
                     || occupied(world, bx, y, bz) || !regions.canBuild(player, at)) continue;
             available.add(new Location(world, bx, y, bz));
         }
-        return available.size() < amount("minimo-bloques") ? null : new Plan(List.copyOf(available), List.copyOf(gemItems));
+        return available.size() < amount("minimo-bloques") ? null : new Plan(List.copyOf(available), reward);
     }
 
     /** No reward is scheduled or handed out before a player actually breaks a node. */
@@ -182,7 +170,7 @@ public final class AmethystResonanceField implements Listener {
         if (plan == null || serial == null || serial.isBlank()
                 || sessions.containsKey(owner.getUniqueId()) || sessions.size() >= amount("max-sesiones"))
             return 0;
-        Session session = new Session(owner, serial, plan.rewards);
+        Session session = new Session(owner, serial, plan.reward);
         try {
             for (Location spot : plan.positions) {
                 if (!owner.isOnline() || owner.getWorld() != spot.getWorld()
@@ -271,14 +259,7 @@ public final class AmethystResonanceField implements Listener {
         node.hitbox.remove();
         node.visual.remove();
 
-        String[] grades = {"básica", "refinada", "arcana"};
-        double roll = MiningLuckRules.qualityRoll(ThreadLocalRandom.current().nextDouble(100),
-                luck.stat(player),
-                config.getDouble("suerte.calidad-gemas.puntos-por-luck",0.05),
-                config.getDouble("suerte.calidad-gemas.maximo-puntos",5.0));
-        int index = AmethystResonanceRules.quality(roll,
-                amount("calidad.basica"), amount("calidad.intermedia"), amount("calidad.superior"));
-        ItemStack reward = node.session.rewards.get(index).clone();
+        ItemStack reward = node.session.reward.clone();
         var excess = player.getInventory().addItem(reward);
         for (ItemStack item : excess.values()) {
             player.getWorld().dropItem(player.getLocation(), item, drop -> {
@@ -287,9 +268,8 @@ public final class AmethystResonanceField implements Listener {
             });
         }
         player.getWorld().playSound(player.getLocation(), Sound.BLOCK_AMETHYST_CLUSTER_BREAK, .65f, 1.25f);
-        player.sendMessage(Settings.message("tesoros", "AmethystField.gema",
-                "<light_purple>✦ Cristal roto: <white>Gema {calidad}.",
-                "calidad", grades[index]));
+        player.sendMessage(Settings.message("tesoros", "AmethystField.resonante",
+                "<light_purple>✦ <white>Amatista Resonante"));
         if (node.session.nodes.isEmpty()) close(node.session.owner);
     }
 

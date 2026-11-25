@@ -1,44 +1,4 @@
-# Hydev · Definiciones completas de las seis gemas mineras.
-# Los IDs se mantienen en GEM_STONE; sin crear un tipo nuevo.
-GEMA_PERDIDA_BASICA:
-  base:
-    revision-id: 1
-    material: AMETHYST_SHARD
-    name: '<gradient:#70AD93:#C8DFC0>Gema de Resonancia</gradient>'
-    tier: COMMON
-    tooltip: COPPER
-    max-stack-size: 64
-    lore:
-    - '&f  <gradient:#70AD93:#C8DFC0>ɢᴇᴍᴀ · ᴄᴏᴍúɴ</gradient>'
-    - '&7 Vibración débil, nacida de la roca.'
-    - '&8 Obtenida mediante el Pico Perdido.'
-
-GEMA_PERDIDA_INTERMEDIA:
-  base:
-    revision-id: 1
-    material: AMETHYST_SHARD
-    name: '<gradient:#79A8D1:#CCD9F2>Gema de Resonancia Refinada</gradient>'
-    tier: RARE
-    tooltip: COPPER
-    max-stack-size: 64
-    lore:
-    - '&f  <gradient:#79A8D1:#CCD9F2>ɢᴇᴍᴀ · ʀᴇғɪɴᴀᴅᴀ</gradient>'
-    - '&7 Una veta conserva su antigua voz.'
-    - '&8 Obtenida mediante el Pico Perdido.'
-
-GEMA_PERDIDA_SUPERIOR:
-  base:
-    revision-id: 1
-    material: ECHO_SHARD
-    name: '<gradient:#9474CF:#E4C7F5>Gema de Resonancia Superior</gradient>'
-    tier: EPIC
-    tooltip: SILVER
-    max-stack-size: 64
-    lore:
-    - '&f  <gradient:#9474CF:#E4C7F5>ɢᴇᴍᴀ · sᴜᴘᴇʀɪᴏʀ</gradient>'
-    - '&7 Resonancia pura y excepcional.'
-    - '&8 Obtenida mediante el Pico Perdido.'
-
+# Las gemas de dungeons ya existen en GEM_STONE.
 GEMA_AMATISTA_BASICA:
   base:
     revision-id: 1

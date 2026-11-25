@@ -13,6 +13,12 @@ import java.util.*;
 /** All gameplay modules are always installed. Legacy enabled switches are stripped on migration. */
 public final class ModuleConfiguration {
     public static final List<String> MODULES=List.of("equipamiento","cocina","tesoros","resonancia","trabajos","slayer","dungeons","actividades","accesorios");
+    private static boolean needsGemPool(YamlConfiguration yaml, String quality) {
+        Object value = yaml.get("gemas.ids." + quality);
+        return value == null || value instanceof String id && (id.isBlank()
+                || id.equals("GEMA_PERDIDA_" + quality.toUpperCase(java.util.Locale.ROOT)));
+    }
+
     private static final List<String> FILES=List.of("accesorios/config.yml","accesorios/catalogo.yml","equipamiento/config.yml","cocina/config.yml","cocina/recetas.yml","tesoros/config.yml","tesoros/mineria.yml","tesoros/combate.yml","tesoros/agricultura.yml","resonancia/config.yml","trabajos/config.yml","slayer/config.yml","dungeons/config.yml","dungeons/jefes.yml","dungeons/portal.yml","actividades/config.yml","equipamiento/mensajes.yml","equipamiento/ajustes.yml","cocina/mensajes.yml","cocina/ajustes.yml","tesoros/mensajes.yml","tesoros/ajustes.yml","resonancia/mensajes.yml","resonancia/ajustes.yml","trabajos/mensajes.yml","trabajos/ajustes.yml","slayer/mensajes.yml","slayer/ajustes.yml","dungeons/mensajes.yml","dungeons/ajustes.yml","actividades/mensajes.yml","actividades/ajustes.yml","nucleo/mensajes.yml","nucleo/ajustes.yml","nucleo/comandos.yml");
     private static final List<String> LEGACY=List.of("config.yml","mining.yml","treasures.yml","combat-treasures.yml","agriculture-treasures.yml","jobs.yml","slayer.yml","portal.yml","activities.yml","cooking/recipes.yml");
     private final File folder; private final ClassLoader resources;
@@ -100,7 +106,7 @@ public final class ModuleConfiguration {
                             && yaml.getString("gemas.pico","").isBlank();
                     boolean blanks=false;
                     for(String quality:List.of("basica","intermedia","superior"))
-                        if(yaml.getString("gemas.ids."+quality,"").isBlank())blanks=true;
+                        if(needsGemPool(yaml, quality))blanks=true;
                     if(originalPick||blanks) {
                         File backup=new File(folder,"backups/pico-perdido-v1/modules/resonancia/config.yml");
                         if(!backup.exists()) {
@@ -112,8 +118,8 @@ public final class ModuleConfiguration {
                             yaml.set("gemas.pico","PICO_GEMAS");
                         }
                         for(String quality:List.of("basica","intermedia","superior"))
-                            if(yaml.getString("gemas.ids."+quality,"").isBlank())
-                                yaml.set("gemas.ids."+quality,defaults.getString("gemas.ids."+quality));
+                            if(needsGemPool(yaml, quality))
+                                yaml.set("gemas.ids."+quality,defaults.get("gemas.ids."+quality));
                         changed=true;
                     }
                 }

@@ -77,17 +77,38 @@ def patch_permission(text: str, name: str, permission: str) -> tuple[str, bool]:
         return text, False
     a, b = spans[name]
     fragment = "".join(lines[a:b])
-    if permission in fragment:
-        return text, False
     entries = fragment.splitlines(keepends=True)
     start = next((i for i, line in enumerate(entries)
                  if re.match(r"^  base:\s*$", line)), None)
     if start is None:
         raise ValueError(f"{name}: entrada sin base; no se modifica")
     existing = next((i for i in range(start + 1, len(entries))
-                     if re.match(r"^    item-permissions:\s*$", entries[i])), None)
+                     if re.match(r"^    item-permissions:", entries[i])), None)
     if existing is not None:
-        entries.insert(existing + 1, f"    - {permission}\n")
+        line = entries[existing].rstrip("\r\n")
+        header, _, comment = line.partition("#")
+        value = header.split(":", 1)[1].strip()
+        if value:
+            if not re.fullmatch(r"\[\s*(?:[\w.'\x22*-]+(?:\s*,\s*[\w.'\x22*-]+)*)?\s*\]", value):
+                raise ValueError(f"{name}: formato de item-permissions no reconocido")
+            permissions = [entry.strip().strip("'\x22") for entry in value[1:-1].split(",")]
+            if permission in permissions:
+                return text, False
+            separator = ", " if value[1:-1].strip() else ""
+            entries[existing] = "    item-permissions: " + value[:-1] + separator + permission + "]" + (" #" + comment if comment else "") + "\n"
+        else:
+            index = existing + 1
+            indent = "    "
+            for entry in entries[index:]:
+                if not entry.strip() or entry.lstrip().startswith("#"):
+                    continue
+                match = re.match(r"^( {4,})-\s+(.*)", entry)
+                if not match:
+                    break
+                indent = match[1]
+                if match[2].split("#", 1)[0].strip().strip("'\x22") == permission:
+                    return text, False
+            entries.insert(index, f"{indent}- {permission}\n")
     else:
         entries.insert(start + 1, f"    item-permissions:\n    - {permission}\n")
     lines[a:b] = ["".join(entries)]
@@ -117,10 +138,6 @@ def merge_recipes(original: str, additions: dict, lost: dict):
     old_lines = rows[start + 1:end]
     old_text = "".join(old_lines)
     lines, spans = lines_and_sections(old_text, TOP_RECIPE, stop_at_root=True)
-    # Recipe IDs not owned by Hydev are never replaced.
-    for key in additions:
-        if key in spans and key != "picoperdido":
-            continue
     to_add = []
     to_replace = {}
     for key, block in {**additions, **lost}.items():
@@ -139,7 +156,7 @@ def merge_recipes(original: str, additions: dict, lost: dict):
     if to_add:
         result_text += "\n".join(to_add)
     rows[start + 1:end] = [result_text]
-    return "".join(rows), sorted(to_replace), sorted(set(additions) | set(lost) - set(spans))
+    return "".join(rows), sorted(to_replace), sorted((set(additions) | set(lost)) - set(spans))
 
 def detect_forge(plugin: Path, requested: str | None):
     if requested:

@@ -29,7 +29,7 @@ assert tools["PICO_AMATISTA"]["base"]["material"] == "NETHERITE_PICKAXE"
 craft = recipes["pico-amatista"]
 assert craft["output"] == "mmoitems{type=TOOL,id=PICO_AMATISTA}"
 assert craft["ingredients"] == [
-    "mmoitem{type=MATERIAL,id=MITRILO,amount=20}",
+    "mmoitem{type=MATERIAL,id=MITRILO,amount=30}",
     "mmoitem{type=MATERIAL,id=PALADIO,amount=12}",
     "vanilla{type=AMETHYST_SHARD,amount=16}",
 ]
@@ -46,9 +46,9 @@ assert "regions.canBuild(player" in source and "owner.equals(player.getUniqueId(
 assert "toolSerial.equals(devices.serial(held))" in source
 assert "node.claimed = true" in source and source.index("node.claimed = true") < source.index("addItem(reward)")
 assert "hitboxes.remove(target.getUniqueId())" in source
-assert "getItemInMainHand()" in source and 'items.build("GEM_STONE", id, 1)' in source
+assert "getItemInMainHand()" in source and 'items.build("MATERIAL", "AMATISTA_RESONANTE", 1)' in source
 assert "setType(" not in source and "breakNaturally(" not in source
 assert "data.identify(main)" in ability and "amethystField.summon(" in ability
 assert "MithrilDeviceData.AMETHYST" in ability
 assert "amethystField.disable()" in ability
-print("PASS Amethyst: 3 real gem IDs, exact recipe, one-time owner-only nodes and no world block mutation")
+print("PASS Amethyst: resonant amethyst, exact recipe, one-time owner-only nodes and no world block mutation")

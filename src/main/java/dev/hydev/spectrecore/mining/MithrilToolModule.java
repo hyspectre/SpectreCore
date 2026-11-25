@@ -65,7 +65,10 @@ public final class MithrilToolModule implements Listener {
         settings = dev.hydev.spectrecore.config.ModuleConfiguration.module(plugin, "tesoros/mineria.yml");
         amethystField.configure(settings);
     }
+    private final Map<UUID, java.util.Set<org.bukkit.Location>> markedVeins = new HashMap<>();
+
     public void disable() {
+        markedVeins.clear();
         prospector.disable();
         drill.disable();
         lantern.disable();
@@ -137,12 +140,14 @@ public final class MithrilToolModule implements Listener {
         }
         if (!MithrilDeviceData.PICK.equals(id) && !MithrilDeviceData.TEMPERED.equals(id)) return;
         if (data.activeUntil(current) <= System.currentTimeMillis()) return;
+        var marked = markedVeins.get(player.getUniqueId());
+        if (marked == null || !marked.contains(ore.getLocation())) return;
         int perBlock = cost("pico.coste-bloque-adicional");
         if (perBlock <= 0) return;
         List<Block> vein = prospector.connected(player, ore,
                 cost("pico.radio"), cost("pico.max-resaltados"));
         int limit = cost("pico.max-bloques-adicionales");
-        List<Block> extras = vein.stream().filter(extra -> !extra.equals(ore)).limit(limit).toList();
+        List<Block> extras = vein.stream().filter(extra -> !extra.equals(ore) && marked.contains(extra.getLocation())).limit(limit).toList();
         if (extras.isEmpty()) return;
         // Do not modify world blocks at MONITOR. Finish the real break first,
         // then revalidate region, item identity and provenance the following tick.
@@ -158,7 +163,7 @@ public final class MithrilToolModule implements Listener {
                             && !MithrilDeviceData.TEMPERED.equals(data.id(live)))
                         || !world.isChunkLoaded(extra.getX() >> 4, extra.getZ() >> 4)
                         || !MithrilRules.sameOre(originalOre, extra.getType().name())
-                        || placed.isMarked(extra) || !regions.canBuild(player, extra)) break;
+                        || placed.isMarked(extra) || !regions.canBreak(player, extra)) break;
                 ItemStack breaker = live;
                 if (!MithrilAutomationGuard.breakBlock(() -> extra.breakNaturally(breaker, true))) break;
                 data.update(player, EquipmentSlot.HAND, data.changeCharge(live, -perBlock, capacity()));
@@ -259,7 +264,7 @@ public final class MithrilToolModule implements Listener {
     private boolean pick(Player player) {
         Block target = player.getTargetBlockExact(6);
         if (target == null || MithrilRules.sameOre(target.getType().name(), target.getType().name()) == false
-                || placed.isMarked(target) || !regions.canBuild(player, target)) {
+                || placed.isMarked(target) || !regions.canBreak(player, target)) {
             feedback(player, "sin-veta", "<gray>Mira una veta natural que puedas extraer.");
             return true;
         }
@@ -271,6 +276,7 @@ public final class MithrilToolModule implements Listener {
         }
         if (!spend(player, cost("pico.activacion"), cost("pico.recarga-segundos") * 1000L,
                 cost("pico.duracion-segundos") * 1000L)) return true;
+        markedVeins.put(player.getUniqueId(), vein.stream().map(Block::getLocation).collect(java.util.stream.Collectors.toSet()));
         prospector.highlight(player, vein, cost("pico.resaltado-segundos"));
         feedback(player, "veta", "<aqua>✦ Veta marcada. Extrae para recoger hasta tres bloques adicionales.");
         return true;
@@ -425,6 +431,7 @@ public final class MithrilToolModule implements Listener {
     }
     @EventHandler public void teleport(PlayerTeleportEvent event) { lantern.teleported(event.getPlayer()); }
     @EventHandler public void quit(PlayerQuitEvent event) {
+        markedVeins.remove(event.getPlayer().getUniqueId());
         var id = event.getPlayer().getUniqueId();
         prospector.quit(id);
         drill.cancel(id);

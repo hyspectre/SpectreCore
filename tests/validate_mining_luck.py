@@ -44,7 +44,6 @@ assert "event.getDrops().clear()" in encounters and "getKiller()" in encounters
 assert "maxMultiplier" in rules and "bonusCapPercent" in rules
 assert "qualityRoll" in rules
 assert "MiningLuckRules.qualityRoll(" in mining
-assert "MiningLuckRules.qualityRoll(" in (src/"mining/AmethystResonanceField.java").read_text(encoding="utf-8")
 assert cfg["suerte"]["calidad-gemas"] == {"puntos-por-luck":.05,"maximo-puntos":5.0}
 
 assert not (resources/"ui/progreso-mineria.yml").exists(), "AuraSkills owns the progression menu"
@@ -58,7 +57,7 @@ resonance=yaml.safe_load((resources/"modules/resonancia/config.yml").read_text(e
 assert resonance["gemas"]["pico"]=="PICO_GEMAS"
 assert resonance["gemas"]["identificar-por"]=="id"
 gem_items=yaml.safe_load((root/"integracion-mmoitems/GEM_STONE_PICO_PERDIDO.yml").read_text(encoding="utf-8"))
-assert set(resonance["gemas"]["ids"].values())==set(gem_items)
+assert {gem for pool in resonance["gemas"]["ids"].values() for gem in pool}==set(gem_items)
 drill=yaml.safe_load((root/"integracion-mmoitems/TOOL_TALADRO_MEJORAS.yml").read_text(encoding="utf-8"))
 assert set(drill)=={"TALADRO_REFORZADO","TALADRO_CALIBRADO"}
 recipes=yaml.safe_load((root/"integracion-mmoitems/RECETAS_FORJA_TALADRO.yml").read_text(encoding="utf-8"))["recipes"]
@@ -82,8 +81,8 @@ assert "hydev.mineria.hechizados" in (src/"systems/MinerWorkshop.java").read_tex
 assets=root/"integracion-mmoitems/mineria-v2"
 newtypes={name:yaml.safe_load((assets/name).read_text(encoding="utf-8")) for name in
         ("MATERIAL_MINERIA_NUEVOS.yml","GEM_STONE_MINERIA_NUEVOS.yml","TOOL_MINERIA_NUEVOS.yml")}
-assert len(newtypes["MATERIAL_MINERIA_NUEVOS.yml"])==6
-assert len(newtypes["GEM_STONE_MINERIA_NUEVOS.yml"])==6
+assert "AMATISTA_RESONANTE" in newtypes["MATERIAL_MINERIA_NUEVOS.yml"]
+assert len(newtypes["GEM_STONE_MINERIA_NUEVOS.yml"])==3
 assert len(newtypes["TOOL_MINERIA_NUEVOS.yml"])==8
 assert "PICO_GEMAS" not in newtypes["TOOL_MINERIA_NUEVOS.yml"]
 assert "TALADRO" not in newtypes["TOOL_MINERIA_NUEVOS.yml"]
