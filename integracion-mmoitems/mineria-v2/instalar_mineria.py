@@ -44,7 +44,7 @@ def lines_and_sections(text: str, matcher: re.Pattern, stop_at_root=False):
         spans[key] = (start, end)
     return lines, spans
 
-def merge_items(original: str, incoming: str, label: str):
+def merge_items(original: str, incoming: str, label: str, *, only_missing=False):
     old_lines, old_spans = lines_and_sections(original, TOP_ITEM)
     source_lines, new_spans = lines_and_sections(incoming, TOP_ITEM)
     if not new_spans:
@@ -54,6 +54,8 @@ def merge_items(original: str, incoming: str, label: str):
     for key, (start, end) in new_spans.items():
         block = "".join(source_lines[start:end]).rstrip() + "\n"
         if key in old_spans:
+            if only_missing:
+                continue
             a, b = old_spans[key]
             previous = "".join(old_lines[a:b]).rstrip() + "\n"
             if previous != block:
@@ -114,6 +116,21 @@ def patch_permission(text: str, name: str, permission: str) -> tuple[str, bool]:
     lines[a:b] = ["".join(entries)]
     return "".join(lines), True
 
+def make_unbreakable(text: str, item: str) -> str:
+    lines, spans = lines_and_sections(text, TOP_ITEM)
+    if item not in spans:
+        return text
+    start, end = spans[item]
+    for i in range(start + 1, end):
+        if re.match(r"^    unbreakable:", lines[i]):
+            lines[i] = re.sub(r"(?<=unbreakable:)[^#\r\n]*", " true ", lines[i]).rstrip() + "\n"
+            return "".join(lines)
+    for i in range(start + 1, end):
+        if re.match(r"^  base:\s*(?:#.*)?$", lines[i]):
+            lines.insert(i + 1, "    unbreakable: true\n")
+            return "".join(lines)
+    raise ValueError(f"{item}: entrada sin base")
+
 def recipe_area(text: str):
     rows = text.splitlines(keepends=True)
     roots = [i for i, line in enumerate(rows)
@@ -133,6 +150,26 @@ def read_recipes(source: Path):
     return {name: "".join(content[a:b]).rstrip() + "\n"
             for name, (a,b) in spans.items()}
 
+# Previous shipped recipe bodies identify untouched recipes on existing installations.
+RETIRED_RECIPES = '''  lingote-mitrilo:
+    output: 'mmoitems{type=MATERIAL,id=LINGOTE_MITRILO}'
+    crafting-time: 5
+    conditions:
+    - 'permission{list="hydev.mineria.mitrilo";display="Minería nivel 18"}'
+    ingredients:
+    - 'mmoitem{type=MATERIAL,id=MITRILO,amount=2}'
+
+  cristal-mitrilo:
+    output: 'mmoitems{type=MATERIAL,id=CRISTAL_MITRILO}'
+    crafting-time: 5
+    conditions:
+    - 'permission{list="hydev.mineria.mitrilo";display="Minería nivel 18"}'
+    ingredients:
+    - 'mmoitem{type=MATERIAL,id=LINGOTE_MITRILO,amount=2}'
+    - 'vanilla{type=AMETHYST_SHARD,amount=4}'
+
+'''
+
 def merge_recipes(original: str, additions: dict, lost: dict):
     rows, start, end = recipe_area(original)
     old_lines = rows[start + 1:end]
@@ -140,6 +177,12 @@ def merge_recipes(original: str, additions: dict, lost: dict):
     lines, spans = lines_and_sections(old_text, TOP_RECIPE, stop_at_root=True)
     to_add = []
     to_replace = {}
+    obsolete, old_spans = lines_and_sections(RETIRED_RECIPES, TOP_RECIPE)
+    for key, (start_old, end_old) in old_spans.items():
+        if key in spans:
+            first, last = spans[key]
+            if "".join(lines[first:last]).strip() == "".join(obsolete[start_old:end_old]).strip():
+                to_replace[key] = ""
     for key, block in {**additions, **lost}.items():
         if key in spans:
             a, b = spans[key]
@@ -183,6 +226,13 @@ def install(plugin: Path, forge: Path, apply: bool):
             raise ValueError(f"Falta el tipo original {dest}; no se creará otro tipo.")
         old = dest.read_text(encoding="utf-8")
         new, replaced, added = merge_items(old, src.read_text(encoding="utf-8"), typ)
+        if typ == "GEM_STONE":
+            dungeon_catalog = ROOT / "GEM_STONE_DUNGEONS.yml"
+            if not dungeon_catalog.is_file():
+                dungeon_catalog = ROOT.parent / "GEM_STONE_PICO_PERDIDO.yml"
+            new, _, dungeon_added = merge_items(new, dungeon_catalog.read_text(encoding="utf-8"),
+                                                 "gemas de dungeons", only_missing=True)
+            added.extend(dungeon_added)
         for item, permission in (
                 ([("COMPACTADOR", "hydev.mineria.hechizados")]
                  if typ == "MATERIAL" else
@@ -190,6 +240,8 @@ def install(plugin: Path, forge: Path, apply: bool):
                   ("PICO_GEMAS","hydev.mineria.resonancia")]
                  if typ == "TOOL" else [])):
             new, _ = patch_permission(new, item, permission)
+            if typ == "TOOL":
+                new = make_unbreakable(new, item)
         changes[dest] = new
         print(f"{typ}: nuevos {len(added)}, actualizados {len(replaced)}; "
               f"objetos originales preservados")

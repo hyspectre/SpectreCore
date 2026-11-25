@@ -113,7 +113,8 @@ public final class StoneDrill implements Listener {
         org.bukkit.Location origin=rock.getLocation();
         String heldId=mmo.id(player.getInventory().getItemInMainHand());
         Bukkit.getScheduler().runTask(plugin,()->{
-            if(!active||!player.isOnline()||!player.getUniqueId().equals(owner)
+            if(event.isCancelled() || !origin.getBlock().getType().isAir()
+                    || !active||!player.isOnline()||!player.getUniqueId().equals(owner)
                     ||player.getWorld()!=origin.getWorld()
                     ||player.getLocation().distanceSquared(origin)>64
                     ||!heldId.equals(mmo.id(player.getInventory().getItemInMainHand())))return;

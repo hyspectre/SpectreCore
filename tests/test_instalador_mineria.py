@@ -74,6 +74,7 @@ gui-layout:
   name: 'Forja Original'
   slots: 54
 """,encoding="utf-8")
+    station.write_text(station.read_text().replace("  otro-original:",module.RETIRED_RECIPES+"  otro-original:"))
     originals={p:p.read_bytes() for p in [*sorted((plugin/"item").glob("*.yml")),station]}
     assert module.detect_forge(plugin,None)==station
     module.install(plugin,station,False)
@@ -90,11 +91,16 @@ gui-layout:
     assert material["PALADIO"]["base"]["name"]=="Paladio original"
     assert material["COMPACTADOR"]["base"]["name"]=="Compactador original"
     assert "hydev.mineria.hechizados" in material["COMPACTADOR"]["base"]["item-permissions"]
+    assert tool["TALADRO"]["base"]["unbreakable"] is True
+    assert tool["PICO_GEMAS"]["base"]["unbreakable"] is True
     assert tool["TALADRO"]["base"]["name"]=="Taladro original"
     assert "hydev.mineria.paladio" in tool["TALADRO"]["base"]["item-permissions"]
     assert tool["PICO_GEMAS"]["base"]["name"]=="Pico Perdido original"
     assert "hydev.mineria.resonancia" in tool["PICO_GEMAS"]["base"]["item-permissions"]
     definitions=yaml.safe_load(station.read_text("utf-8"))
+    assert "lingote-mitrilo" not in definitions["recipes"] and "cristal-mitrilo" not in definitions["recipes"]
+    installed_gems=yaml.safe_load((plugin/"item/GEM_STONE.yml").read_text())
+    assert "GEMA_ANTIGUA" in installed_gems and "GEMA_RUBI_3" in installed_gems
     assert definitions["gui-layout"]["name"]=="Forja Original"
     assert definitions["recipes"]["otro-original"]["output"]=="vanilla{type=IRON_PICKAXE}"
     assert "FRAGMENTO_PICO_PERDIDO" in str(definitions["recipes"]["picoperdido"])
