@@ -3,8 +3,17 @@
 # Los efectos de ataque son breves, anunciados y no modifican bloques.
 HYDEV_DUENDE_LLEGADA:
   Skills:
+    - sound{s=block.gravel.break;v=0.85;p=1.35} @self
+    - particlering{p=block;material=GOLD_ORE;a=1;points=14;radius=0.65;y=0.15} @self
+    - delay 3
+    - particles{p=block;material=GOLD_BLOCK;a=22;hs=0.30;vs=0.48;s=0.10;y=0.85} @self
+    - sound{s=entity.item.pickup;v=0.75;p=1.25} @self
+    - delay 3
+    - particlering{p=crit;a=1;points=18;radius=1.1;y=0.4} @self
+    - sound{s=entity.item.pickup;v=0.75;p=1.65} @self
+    - delay 4
+    - particles{p=happy_villager;a=8;hs=0.32;vs=0.20;y=1.1} @self
     - sound{s=entity.zombie.ambient;v=0.6;p=1.65} @self
-    - particles{p=happy_villager;a=10;hs=0.4;vs=0.35;s=0.02;y=0.65} @self
 
 # El duende no se queda quieto recibiendo golpes: salta hacia atrás,
 # levanta polvo y corre un momento. Su botín se pierde si logra escapar.
@@ -35,8 +44,17 @@ HYDEV_DUENDE_GOLPE_SUCIO:
 
 HYDEV_PROSPECTOR_DESPERTAR:
   Skills:
-    - sound{s=block.deepslate.break;v=0.85;p=0.55} @self
-    - particles{p=block;material=DEEPSLATE;a=16;hs=0.6;vs=0.35;s=0.07;y=0.3} @self
+    - sound{s=block.deepslate.break;v=1.0;p=0.55} @self
+    - particlering{p=block;material=DEEPSLATE;a=1;points=12;radius=0.7;y=0.15} @self
+    - delay 4
+    - particlering{p=block;material=DEEPSLATE;a=1;points=18;radius=1.4;y=0.18} @self
+    - particles{p=smoke;a=14;hs=0.4;vs=0.4;s=0.04;y=0.75} @self
+    - delay 4
+    - particlering{p=block;material=TUFF;a=1;points=24;radius=2.1;y=0.18} @self
+    - sound{s=block.anvil.land;v=0.7;p=0.65} @self
+    - delay 5
+    - particles{p=electric_spark;a=16;hs=0.55;vs=0.45;s=0.06;y=1.9} @self
+    - sound{s=entity.iron_golem.repair;v=0.85;p=0.72} @self
 
 # Un pisotón poderoso, telegrafiado 1,25 s antes de causar daño.
 # Quedarse cerca es peligroso; alejarse permite evitarlo por completo.
