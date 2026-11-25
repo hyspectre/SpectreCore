@@ -2,7 +2,8 @@
 # Las 2 herramientas antiguas TALADRO y PICO_GEMAS se conservan; ver permisos de existentes.
 TALADRO_REFORZADO:
   base:
-    revision-id: 1
+    revision-id: 2
+    unbreakable: true
     material: IRON_PICKAXE
     max-stack-size: 1
     name: '<gradient:#BFA982:#E5D1AD>Taladro Reforzado</gradient>'
@@ -18,7 +19,8 @@ TALADRO_REFORZADO:
 
 TALADRO_CALIBRADO:
   base:
-    revision-id: 1
+    revision-id: 2
+    unbreakable: true
     material: DIAMOND_PICKAXE
     max-stack-size: 1
     name: '<gradient:#9EAFC2:#CCEADE>Taladro Calibrado</gradient>'
@@ -34,7 +36,8 @@ TALADRO_CALIBRADO:
 
 PICO_MITRILO:
   base:
-    revision-id: 1
+    revision-id: 2
+    unbreakable: true
     material: DIAMOND_PICKAXE
     max-stack-size: 1
     name: '<gradient:#70B8B9:#D1E9E0>Pico de Mitrilo</gradient>'
@@ -50,7 +53,8 @@ PICO_MITRILO:
 
 PICO_MITRILO_TEMPLADO:
   base:
-    revision-id: 1
+    revision-id: 2
+    unbreakable: true
     material: NETHERITE_PICKAXE
     max-stack-size: 1
     name: '<gradient:#84C4BB:#F1DFB0>Pico de Mitrilo Templado</gradient>'
@@ -66,7 +70,8 @@ PICO_MITRILO_TEMPLADO:
 
 PICO_AMATISTA:
   base:
-    revision-id: 1
+    revision-id: 2
+    unbreakable: true
     material: NETHERITE_PICKAXE
     max-stack-size: 1
     name: '<gradient:#A278D6:#E6CDF5>Pico de Amatista</gradient>'
@@ -82,7 +87,8 @@ PICO_AMATISTA:
 
 BRUJULA_GEOLOGICA:
   base:
-    revision-id: 1
+    revision-id: 2
+    unbreakable: true
     material: COMPASS
     max-stack-size: 1
     name: '<gradient:#80AFC7:#E2D7B6>Brújula Geológica</gradient>'
@@ -98,7 +104,8 @@ BRUJULA_GEOLOGICA:
 
 FAROL_MITRILO:
   base:
-    revision-id: 1
+    revision-id: 2
+    unbreakable: true
     material: SOUL_LANTERN
     max-stack-size: 1
     name: '<gradient:#74B8B5:#D0B8E9>Farol de Mitrilo</gradient>'
@@ -114,7 +121,8 @@ FAROL_MITRILO:
 
 BARRENA_MITRILO:
   base:
-    revision-id: 1
+    revision-id: 2
+    unbreakable: true
     material: NETHERITE_PICKAXE
     max-stack-size: 1
     name: '<gradient:#73B2C4:#DBD7C0>Barrena de Mitrilo</gradient>'
