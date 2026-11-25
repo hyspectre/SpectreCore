@@ -57,7 +57,11 @@ PICO_GEMAS:
     material: DIAMOND_PICKAXE
     name: 'Pico Perdido original'
 """,encoding="utf-8")
-    (plugin/"item/GEM_STONE.yml").write_text("""GEMA_ANTIGUA:
+    (plugin/"item/GEM_STONE.yml").write_text("""GEMA_RUBI_1:
+  base:
+    material: PAPER
+    name: Rubí personalizado
+GEMA_ANTIGUA:
   base:
     material: AMETHYST_SHARD
 """,encoding="utf-8")
@@ -100,6 +104,7 @@ gui-layout:
     definitions=yaml.safe_load(station.read_text("utf-8"))
     assert "lingote-mitrilo" not in definitions["recipes"] and "cristal-mitrilo" not in definitions["recipes"]
     installed_gems=yaml.safe_load((plugin/"item/GEM_STONE.yml").read_text())
+    assert installed_gems["GEMA_RUBI_1"]["base"]["name"] == "Rubí personalizado"
     assert "GEMA_ANTIGUA" in installed_gems and "GEMA_RUBI_3" in installed_gems
     assert definitions["gui-layout"]["name"]=="Forja Original"
     assert definitions["recipes"]["otro-original"]["output"]=="vanilla{type=IRON_PICKAXE}"

@@ -6,7 +6,6 @@ from sys import argv
 root=Path(__file__).resolve().parents[1]
 destination=Path(argv[1]) if len(argv)>1 else root/"build/Hydev_Mineria_Integraciones_v2.zip"
 assets={
-    "integracion-mmoitems/GEM_STONE_PICO_PERDIDO.yml":"MMOItems/mineria-v2/GEM_STONE_DUNGEONS.yml",
     "integracion-auraskills/rewards/mining.yml":"AuraSkills/rewards/mining.yml",
     "integracion-mythicmobs/HYDEV_MINERIA.yml":"MythicMobs/Mobs/HYDEV_MINERIA.yml",
     "integracion-mythicmobs/HYDEV_MINERIA_SKILLS.yml":"MythicMobs/Skills/HYDEV_MINERIA_SKILLS.yml",

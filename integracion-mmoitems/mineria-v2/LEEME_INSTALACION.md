@@ -55,7 +55,7 @@ Archivos fuente dentro de `MMOItems/mineria-v2/`:
 
 - `MATERIAL_MINERIA_NUEVOS.yml` (7 materiales)
 - `TOOL_MINERIA_NUEVOS.yml` (8 herramientas)
-- `GEM_STONE_MINERIA_NUEVOS.yml` (3 gemas de amatista; Resonancia utiliza el catálogo de dungeons)
+- `GEM_STONE_MINERIA_NUEVOS.yml` (9 gemas de dungeons; se agregan únicamente los IDs que falten)
 - `RECETAS_FORJA_MINERIA.yml` (10 recetas)
 - `RECETA_PICO_PERDIDO_REEMPLAZO.yml` (la receta original `picoperdido`)
 - `PERMISOS_OBJETOS_EXISTENTES.yml` (referencia, no instalar como tipo)

@@ -1,39 +1,177 @@
-# Las gemas de dungeons ya existen en GEM_STONE.
-GEMA_AMATISTA_BASICA:
+# HYDEV — entrega actualizada para GEM_STONE.
+# Fusionar por ID con tu archivo existente. No sustituir otros objetos.
+# Si un ID ya existe, actualizar su bloque; no pegarlo por segunda vez.
+
+# PEGAR en el tipo GEM_STONE. Los sockets existentes son el texto "1"; no cambiar socket global.
+# Gemas 100% éxito propuesto; comprobar cómo interpreta success-rate tu versión.
+GEMA_RUBI_1:
   base:
-    revision-id: 1
-    material: AMETHYST_SHARD
-    name: '<gradient:#AC82D2:#E2D0F3>Gema de Amatista</gradient>'
+    material: PAPER
+    custom-model-data: 200201.0
+    name: <gradient:#C68CD8:#EED6FC>Rubí de Filo I</gradient>
     tier: COMMON
-    tooltip: COPPER
-    max-stack-size: 64
+    gem-color: '1'
+    displayed-type: Gema de mejora
+    success-rate: 100.0
     lore:
-    - '&f  <gradient:#AC82D2:#E2D0F3>ᴄʀɪsᴛᴀʟ · ᴄᴏᴍúɴ</gradient>'
-    - '&7 Frágil eco de amatista encantada.'
-    - '&8 Extraída de un cristal invocado.'
-
-GEMA_AMATISTA_INTERMEDIA:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ᴍᴇᴊᴏʀᴀ</gradient> &fDaño de ataque: +1'
+    - '&f'
+    - '&e ᴀʀʀᴀsᴛʀᴀʀ sᴏʙʀᴇ ᴜɴ ᴏʙᴊᴇᴛᴏ'
+    - '&e ᴄᴏɴ ʀᴀɴᴜʀᴀs ᴄᴏᴍᴘᴀᴛɪʙʟᴇs.'
+    - '&e ʀᴀɴᴜʀᴀs: 1. ᴀᴘʟɪᴄᴀᴄɪᴏ́ɴ ᴜ́ɴɪᴄᴀ'
+    - '&e ᴘᴏʀ ɢᴇᴍᴀ.'
+    attack-damage: 1.0
+    tooltip: COPPER
+GEMA_RUBI_2:
   base:
-    revision-id: 1
-    material: AMETHYST_CLUSTER
-    name: '<gradient:#956AC7:#E0B8F1>Gema de Amatista Refinada</gradient>'
+    material: PAPER
+    custom-model-data: 200203.0
+    name: <gradient:#C68CD8:#EED6FC>Rubí de Filo II</gradient>
     tier: RARE
-    tooltip: COPPER
-    max-stack-size: 64
+    gem-color: '1'
+    displayed-type: Gema de mejora
+    success-rate: 100.0
     lore:
-    - '&f  <gradient:#956AC7:#E0B8F1>ᴄʀɪsᴛᴀʟ · ʀᴇғɪɴᴀᴅᴏ</gradient>'
-    - '&7 Una chispa late entre las grietas.'
-    - '&8 Extraída de un cristal invocado.'
-
-GEMA_AMATISTA_SUPERIOR:
-  base:
-    revision-id: 1
-    material: ECHO_SHARD
-    name: '<gradient:#7953B0:#EBC7F6>Gema de Amatista Arcana</gradient>'
-    tier: EPIC
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ᴍᴇᴊᴏʀᴀ</gradient> &fDaño de ataque: +2'
+    - '&f'
+    - '&e ᴀʀʀᴀsᴛʀᴀʀ sᴏʙʀᴇ ᴜɴ ᴏʙᴊᴇᴛᴏ'
+    - '&e ᴄᴏɴ ʀᴀɴᴜʀᴀs ᴄᴏᴍᴘᴀᴛɪʙʟᴇs.'
+    - '&e ʀᴀɴᴜʀᴀs: 1. ᴀᴘʟɪᴄᴀᴄɪᴏ́ɴ ᴜ́ɴɪᴄᴀ'
+    - '&e ᴘᴏʀ ɢᴇᴍᴀ.'
+    attack-damage: 2.0
     tooltip: SILVER
-    max-stack-size: 64
+GEMA_RUBI_3:
+  base:
+    material: PAPER
+    custom-model-data: 200205.0
+    name: <gradient:#C68CD8:#EED6FC>Rubí de Filo III</gradient>
+    tier: EPIC
+    gem-color: '1'
+    displayed-type: Gema de mejora
+    success-rate: 100.0
     lore:
-    - '&f  <gradient:#7953B0:#EBC7F6>ᴄʀɪsᴛᴀʟ · ᴀʀᴄᴀɴᴏ</gradient>'
-    - '&7 El último pulso de una veta antigua.'
-    - '&8 Extraída de un cristal invocado.'
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ᴍᴇᴊᴏʀᴀ</gradient> &fDaño de ataque: +3'
+    - '&f'
+    - '&e ᴀʀʀᴀsᴛʀᴀʀ sᴏʙʀᴇ ᴜɴ ᴏʙᴊᴇᴛᴏ'
+    - '&e ᴄᴏɴ ʀᴀɴᴜʀᴀs ᴄᴏᴍᴘᴀᴛɪʙʟᴇs.'
+    - '&e ʀᴀɴᴜʀᴀs: 1. ᴀᴘʟɪᴄᴀᴄɪᴏ́ɴ ᴜ́ɴɪᴄᴀ'
+    - '&e ᴘᴏʀ ɢᴇᴍᴀ.'
+    attack-damage: 3.0
+    tooltip: GOLD
+GEMA_ONICE_1:
+  base:
+    material: PAPER
+    custom-model-data: 200213.0
+    name: <gradient:#C68CD8:#EED6FC>Ónice de Vigor I</gradient>
+    tier: COMMON
+    gem-color: '1'
+    displayed-type: Gema de mejora
+    success-rate: 100.0
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ᴍᴇᴊᴏʀᴀ</gradient> &fVida adicional: +2'
+    - '&f'
+    - '&e ᴀʀʀᴀsᴛʀᴀʀ sᴏʙʀᴇ ᴜɴ ᴏʙᴊᴇᴛᴏ'
+    - '&e ᴄᴏɴ ʀᴀɴᴜʀᴀs ᴄᴏᴍᴘᴀᴛɪʙʟᴇs.'
+    - '&e ʀᴀɴᴜʀᴀs: 1. ᴀᴘʟɪᴄᴀᴄɪᴏ́ɴ ᴜ́ɴɪᴄᴀ'
+    - '&e ᴘᴏʀ ɢᴇᴍᴀ.'
+    additional-health: 2.0
+    tooltip: COPPER
+GEMA_ONICE_2:
+  base:
+    material: PAPER
+    custom-model-data: 200215.0
+    name: <gradient:#C68CD8:#EED6FC>Ónice de Vigor II</gradient>
+    tier: RARE
+    gem-color: '1'
+    displayed-type: Gema de mejora
+    success-rate: 100.0
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ᴍᴇᴊᴏʀᴀ</gradient> &fVida adicional: +4'
+    - '&f'
+    - '&e ᴀʀʀᴀsᴛʀᴀʀ sᴏʙʀᴇ ᴜɴ ᴏʙᴊᴇᴛᴏ'
+    - '&e ᴄᴏɴ ʀᴀɴᴜʀᴀs ᴄᴏᴍᴘᴀᴛɪʙʟᴇs.'
+    - '&e ʀᴀɴᴜʀᴀs: 1. ᴀᴘʟɪᴄᴀᴄɪᴏ́ɴ ᴜ́ɴɪᴄᴀ'
+    - '&e ᴘᴏʀ ɢᴇᴍᴀ.'
+    additional-health: 4.0
+    tooltip: SILVER
+GEMA_ONICE_3:
+  base:
+    material: PAPER
+    custom-model-data: 200217.0
+    name: <gradient:#C68CD8:#EED6FC>Ónice de Vigor III</gradient>
+    tier: EPIC
+    gem-color: '1'
+    displayed-type: Gema de mejora
+    success-rate: 100.0
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ᴍᴇᴊᴏʀᴀ</gradient> &fVida adicional: +6'
+    - '&f'
+    - '&e ᴀʀʀᴀsᴛʀᴀʀ sᴏʙʀᴇ ᴜɴ ᴏʙᴊᴇᴛᴏ'
+    - '&e ᴄᴏɴ ʀᴀɴᴜʀᴀs ᴄᴏᴍᴘᴀᴛɪʙʟᴇs.'
+    - '&e ʀᴀɴᴜʀᴀs: 1. ᴀᴘʟɪᴄᴀᴄɪᴏ́ɴ ᴜ́ɴɪᴄᴀ'
+    - '&e ᴘᴏʀ ɢᴇᴍᴀ.'
+    additional-health: 6.0
+    tooltip: GOLD
+GEMA_AMATISTA_1:
+  base:
+    material: PAPER
+    custom-model-data: 200231.0
+    name: <gradient:#C68CD8:#EED6FC>Amatista Arcana I</gradient>
+    tier: COMMON
+    gem-color: '1'
+    displayed-type: Gema de mejora
+    success-rate: 100.0
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ᴍᴇᴊᴏʀᴀ</gradient> &fDaño mágico: +3'
+    - '&f'
+    - '&e ᴀʀʀᴀsᴛʀᴀʀ sᴏʙʀᴇ ᴜɴ ᴏʙᴊᴇᴛᴏ'
+    - '&e ᴄᴏɴ ʀᴀɴᴜʀᴀs ᴄᴏᴍᴘᴀᴛɪʙʟᴇs.'
+    - '&e ʀᴀɴᴜʀᴀs: 1. ᴀᴘʟɪᴄᴀᴄɪᴏ́ɴ ᴜ́ɴɪᴄᴀ'
+    - '&e ᴘᴏʀ ɢᴇᴍᴀ.'
+    magic-damage: 3.0
+    tooltip: COPPER
+GEMA_AMATISTA_2:
+  base:
+    material: PAPER
+    custom-model-data: 200233.0
+    name: <gradient:#C68CD8:#EED6FC>Amatista Arcana II</gradient>
+    tier: RARE
+    gem-color: '1'
+    displayed-type: Gema de mejora
+    success-rate: 100.0
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ᴍᴇᴊᴏʀᴀ</gradient> &fDaño mágico: +5'
+    - '&f'
+    - '&e ᴀʀʀᴀsᴛʀᴀʀ sᴏʙʀᴇ ᴜɴ ᴏʙᴊᴇᴛᴏ'
+    - '&e ᴄᴏɴ ʀᴀɴᴜʀᴀs ᴄᴏᴍᴘᴀᴛɪʙʟᴇs.'
+    - '&e ʀᴀɴᴜʀᴀs: 1. ᴀᴘʟɪᴄᴀᴄɪᴏ́ɴ ᴜ́ɴɪᴄᴀ'
+    - '&e ᴘᴏʀ ɢᴇᴍᴀ.'
+    magic-damage: 5.0
+    tooltip: SILVER
+GEMA_AMATISTA_3:
+  base:
+    material: PAPER
+    custom-model-data: 200235.0
+    name: <gradient:#C68CD8:#EED6FC>Amatista Arcana III</gradient>
+    tier: EPIC
+    gem-color: '1'
+    displayed-type: Gema de mejora
+    success-rate: 100.0
+    lore:
+    - '&f'
+    - '&f  <gradient:#FCD05C:#E43A96>ᴍᴇᴊᴏʀᴀ</gradient> &fDaño mágico: +8'
+    - '&f'
+    - '&e ᴀʀʀᴀsᴛʀᴀʀ sᴏʙʀᴇ ᴜɴ ᴏʙᴊᴇᴛᴏ'
+    - '&e ᴄᴏɴ ʀᴀɴᴜʀᴀs ᴄᴏᴍᴘᴀᴛɪʙʟᴇs.'
+    - '&e ʀᴀɴᴜʀᴀs: 1. ᴀᴘʟɪᴄᴀᴄɪᴏ́ɴ ᴜ́ɴɪᴄᴀ'
+    - '&e ᴘᴏʀ ɢᴇᴍᴀ.'
+    magic-damage: 8.0
+    tooltip: GOLD

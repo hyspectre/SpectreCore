@@ -225,14 +225,8 @@ def install(plugin: Path, forge: Path, apply: bool):
         if not dest.is_file():
             raise ValueError(f"Falta el tipo original {dest}; no se creará otro tipo.")
         old = dest.read_text(encoding="utf-8")
-        new, replaced, added = merge_items(old, src.read_text(encoding="utf-8"), typ)
-        if typ == "GEM_STONE":
-            dungeon_catalog = ROOT / "GEM_STONE_DUNGEONS.yml"
-            if not dungeon_catalog.is_file():
-                dungeon_catalog = ROOT.parent / "GEM_STONE_PICO_PERDIDO.yml"
-            new, _, dungeon_added = merge_items(new, dungeon_catalog.read_text(encoding="utf-8"),
-                                                 "gemas de dungeons", only_missing=True)
-            added.extend(dungeon_added)
+        new, replaced, added = merge_items(old, src.read_text(encoding="utf-8"), typ,
+                                          only_missing=(typ == "GEM_STONE"))
         for item, permission in (
                 ([("COMPACTADOR", "hydev.mineria.hechizados")]
                  if typ == "MATERIAL" else

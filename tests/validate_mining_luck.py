@@ -82,7 +82,7 @@ assets=root/"integracion-mmoitems/mineria-v2"
 newtypes={name:yaml.safe_load((assets/name).read_text(encoding="utf-8")) for name in
         ("MATERIAL_MINERIA_NUEVOS.yml","GEM_STONE_MINERIA_NUEVOS.yml","TOOL_MINERIA_NUEVOS.yml")}
 assert "AMATISTA_RESONANTE" in newtypes["MATERIAL_MINERIA_NUEVOS.yml"]
-assert len(newtypes["GEM_STONE_MINERIA_NUEVOS.yml"])==3
+assert newtypes["GEM_STONE_MINERIA_NUEVOS.yml"] == gem_items
 assert len(newtypes["TOOL_MINERIA_NUEVOS.yml"])==8
 assert "PICO_GEMAS" not in newtypes["TOOL_MINERIA_NUEVOS.yml"]
 assert "TALADRO" not in newtypes["TOOL_MINERIA_NUEVOS.yml"]
