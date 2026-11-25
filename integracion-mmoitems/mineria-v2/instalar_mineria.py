@@ -79,25 +79,54 @@ def patch_permission(text: str, name: str, permission: str) -> tuple[str, bool]:
         return text, False
     a, b = spans[name]
     fragment = "".join(lines[a:b])
+    legacy = re.search(r"(?m)^    item-permissions:", fragment)
+    if legacy:
+        if re.search(r"(?m)^    permission:", fragment):
+            # Consolidate both lists without dropping a pre-existing requirement.
+            part = fragment[legacy.start():].splitlines(keepends=True)
+            count = 1
+            while count < len(part) and re.match(r"^ {4,}-\s", part[count]):
+                count += 1
+            raw = part[0].partition(":")[2].partition("#")[0].strip()
+            if raw and not (raw.startswith("[") and raw.endswith("]")):
+                raise ValueError(f"{name}: lista de permisos antiguos no reconocida")
+            nodes = raw[1:-1].split(",") if raw else [x.strip()[1:] for x in part[1:count]]
+            end = legacy.start() + sum(map(len, part[:count]))
+            # Refuse ambiguous list continuations instead of overwriting other data.
+            tail = fragment[end:]
+            meaningful = next((x for x in tail.splitlines() if x.strip() and not x.lstrip().startswith("#")), "")
+            if re.match(r"^ {4,}-\s", meaningful):
+                raise ValueError(f"{name}: revisar la lista de permisos antiguos")
+            lines[a:b] = [fragment[:legacy.start()] + tail]
+            merged = "".join(lines)
+            for node in nodes:
+                node = node.partition("#")[0].strip().strip("\"'")
+                if node:
+                    if not re.fullmatch(r"[\w.*-]+", node):
+                        raise ValueError(f"{name}: permiso antiguo no reconocido")
+                    merged, _ = patch_permission(merged, name, node)
+            return patch_permission(merged, name, permission)[0], True
+        lines[a:b] = [fragment[:legacy.start()] + fragment[legacy.start():].replace("item-permissions:", "permission:", 1)]
+        return patch_permission("".join(lines), name, permission)[0], True
     entries = fragment.splitlines(keepends=True)
     start = next((i for i, line in enumerate(entries)
                  if re.match(r"^  base:\s*$", line)), None)
     if start is None:
         raise ValueError(f"{name}: entrada sin base; no se modifica")
     existing = next((i for i in range(start + 1, len(entries))
-                     if re.match(r"^    item-permissions:", entries[i])), None)
+                     if re.match(r"^    permission:", entries[i])), None)
     if existing is not None:
         line = entries[existing].rstrip("\r\n")
         header, _, comment = line.partition("#")
         value = header.split(":", 1)[1].strip()
         if value:
             if not re.fullmatch(r"\[\s*(?:[\w.'\x22*-]+(?:\s*,\s*[\w.'\x22*-]+)*)?\s*\]", value):
-                raise ValueError(f"{name}: formato de item-permissions no reconocido")
+                raise ValueError(f"{name}: formato de permission no reconocido")
             permissions = [entry.strip().strip("'\x22") for entry in value[1:-1].split(",")]
             if permission in permissions:
                 return text, False
             separator = ", " if value[1:-1].strip() else ""
-            entries[existing] = "    item-permissions: " + value[:-1] + separator + permission + "]" + (" #" + comment if comment else "") + "\n"
+            entries[existing] = "    permission: " + value[:-1] + separator + permission + "]" + (" #" + comment if comment else "") + "\n"
         else:
             index = existing + 1
             indent = "    "
@@ -112,7 +141,7 @@ def patch_permission(text: str, name: str, permission: str) -> tuple[str, bool]:
                     return text, False
             entries.insert(index, f"{indent}- {permission}\n")
     else:
-        entries.insert(start + 1, f"    item-permissions:\n    - {permission}\n")
+        entries.insert(start + 1, f"    permission:\n    - {permission}\n")
     lines[a:b] = ["".join(entries)]
     return "".join(lines), True
 

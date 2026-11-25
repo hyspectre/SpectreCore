@@ -94,13 +94,13 @@ gui-layout:
     tool=yaml.safe_load((plugin/"item/TOOL.yml").read_text("utf-8"))
     assert material["PALADIO"]["base"]["name"]=="Paladio original"
     assert material["COMPACTADOR"]["base"]["name"]=="Compactador original"
-    assert "hydev.mineria.hechizados" in material["COMPACTADOR"]["base"]["item-permissions"]
+    assert "hydev.mineria.hechizados" in material["COMPACTADOR"]["base"]["permission"]
     assert tool["TALADRO"]["base"]["unbreakable"] is True
     assert tool["PICO_GEMAS"]["base"]["unbreakable"] is True
     assert tool["TALADRO"]["base"]["name"]=="Taladro original"
-    assert "hydev.mineria.paladio" in tool["TALADRO"]["base"]["item-permissions"]
+    assert "hydev.mineria.paladio" in tool["TALADRO"]["base"]["permission"]
     assert tool["PICO_GEMAS"]["base"]["name"]=="Pico Perdido original"
-    assert "hydev.mineria.resonancia" in tool["PICO_GEMAS"]["base"]["item-permissions"]
+    assert "hydev.mineria.resonancia" in tool["PICO_GEMAS"]["base"]["permission"]
     definitions=yaml.safe_load(station.read_text("utf-8"))
     assert "lingote-mitrilo" not in definitions["recipes"] and "cristal-mitrilo" not in definitions["recipes"]
     installed_gems=yaml.safe_load((plugin/"item/GEM_STONE.yml").read_text())
@@ -118,9 +118,15 @@ gui-layout:
     assert all(p.read_bytes()==data for p,data in snapshot.items()),"second install changed YAML"
 print("PASS Hydev mining integration: live reward nodes, 7 MM skills and idempotent backed-up MMOItems install")
 
-for permissions in ("    item-permissions: [otra] # permiso original", "    item-permissions: # original\n      - otra"):
+for permissions in ("    permission: [otra] # permiso original", "    permission: # original\n      - otra"):
     sample = "TALADRO:\n  base:\n" + permissions + "\n"
     changed, _ = module.patch_permission(sample, "TALADRO", "hydev.mineria.paladio")
-    assert changed.count("item-permissions:") == 1
-    assert set(yaml.safe_load(changed)["TALADRO"]["base"]["item-permissions"]) == {"otra", "hydev.mineria.paladio"}
+    assert changed.count("permission:") == 1
+    assert set(yaml.safe_load(changed)["TALADRO"]["base"]["permission"]) == {"otra", "hydev.mineria.paladio"}
     assert module.patch_permission(changed, "TALADRO", "hydev.mineria.paladio")[0] == changed
+
+for existing in ("", "    permission: [original]\n"):
+    old = "TALADRO:\n  base:\n" + existing + "    item-permissions:\n    - hydev.mineria.paladio\n"
+    updated, changed = module.patch_permission(old, "TALADRO", "hydev.mineria.paladio")
+    assert changed and "item-permissions:" not in updated
+    assert set(yaml.safe_load(updated)["TALADRO"]["base"]["permission"]) == ({"original"} if existing else set()) | {"hydev.mineria.paladio"}
