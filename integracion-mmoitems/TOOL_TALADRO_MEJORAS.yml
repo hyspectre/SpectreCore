@@ -22,4 +22,4 @@ TALADRO_CALIBRADO:
       - '&7Despeja roca común con precisión.'
       - '&7Rompe hasta 3 bloques adicionales cercanos.'
       - '&7Las rocas adicionales no entregan recursos.'
-      - '&7No extrae menas ni atraviesa protecciones.'
+      - '&7Pica las menas individualmente.'

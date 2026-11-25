@@ -15,7 +15,7 @@ TALADRO_REFORZADO:
     - '&f  <gradient:#BFA982:#E5D1AD>ᴍᴇᴄáɴɪᴄᴀ · ʀᴇғᴏʀᴢᴀᴅᴏ</gradient>'
     - '&f ᴘᴇʀғᴏʀᴀᴄɪóɴ &a+1 roca cercana'
     - '&7 Acelera la excavación de piedra.'
-    - '&8 No extrae menas ni botín adicional.'
+    - '&8 Perforar solo actúa en roca.'
 
 TALADRO_CALIBRADO:
   base:
