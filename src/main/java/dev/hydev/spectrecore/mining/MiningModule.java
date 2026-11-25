@@ -43,10 +43,13 @@ public final class MiningModule implements Listener {
     private final Set<String> reported = new HashSet<>();
     private YamlConfiguration config;
     private BukkitTask timer;
+    private final String geodeNamespace;
+    private static final List<String> CORES = List.of("VETA", "MAGNETITA", "FLUORITA", "DIAMANTE_LOCO");
+    private static final List<String> CORE_NAMES = List.of("Veta", "Magnetita", "Fluorita", "Diamante Loco");
     private boolean dirty;
     private int saveClock;
     public MiningModule(JavaPlugin plugin, dev.hydev.spectrecore.treasure.TreasureCooldowns treasureCooldown) {
-        this.plugin = plugin; this.treasureCooldown = treasureCooldown;
+        this.plugin = plugin; geodeNamespace = new NamespacedKey(plugin, "geoda").getNamespace(); this.treasureCooldown = treasureCooldown;
         visuals = new MiningVisuals(plugin);
         // Obsidian must be marked on placement too; no recycled blocks may summon Prospectors.
         placed = new PlacedOres(plugin, "placed_ores_v1",
@@ -74,7 +77,8 @@ public final class MiningModule implements Listener {
         }
         timer = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
             for (Player player : Bukkit.getOnlinePlayers()) {
-                if (!config.getBoolean("gemas.activadas", true)) break;
+                showGeodes(player);
+                if (!config.getBoolean("gemas.activadas", true)) continue;
                 State state = states.get(player.getUniqueId());
                 if (state != null && expire(player, state)) continue;
                 if (state != null && state.activeUntil > 0 && tool(player.getInventory().getItemInMainHand())) {
@@ -128,12 +132,116 @@ public final class MiningModule implements Listener {
                 || player.getGameMode() != GameMode.SURVIVAL) return;
         encounters.naturalOreBroken(player, block);
         if (tier == 0) return; // Obsidian triggers a Prospector, not ore resonance or Mitrilo.
+        discoverGeode(player, block);
         mithrilTools.onManualOre(player, block);
         if (progression.meets(player,"resonancia")
                 && config.getBoolean("gemas.activadas", true)
                 && tool(player.getInventory().getItemInMainHand())) resonance(player, block, tier);
         if (config.getBoolean("tesoros.activados", true)) treasure(player, block, tier);
     }
+    // Each discoverer's player data owns its markers. Absolute deadlines survive relogs.
+    private NamespacedKey marker(Block block) {
+        return new NamespacedKey(plugin, "geoda/" + block.getWorld().getUID() + "/" +
+                block.getX() + "/" + block.getY() + "/" + block.getZ());
+    }
+
+    private void discoverGeode(Player player, Block ore) {
+        switch (ore.getType()) {
+            case DIAMOND_ORE, DEEPSLATE_DIAMOND_ORE, EMERALD_ORE, DEEPSLATE_EMERALD_ORE,
+                    REDSTONE_ORE, DEEPSLATE_REDSTONE_ORE -> { }
+            default -> { return; }
+        }
+        if (!progression.meets(player, "arcana") || ThreadLocalRandom.current().nextDouble() >= 0.005) return;
+        for (var face : List.of(org.bukkit.block.BlockFace.DOWN, org.bukkit.block.BlockFace.NORTH,
+                org.bukkit.block.BlockFace.SOUTH, org.bukkit.block.BlockFace.WEST, org.bukkit.block.BlockFace.EAST,
+                org.bukkit.block.BlockFace.UP)) {
+            Block anchor = ore.getRelative(face);
+            if (anchor.getType() != Material.STONE && anchor.getType() != Material.DEEPSLATE) continue;
+            var key = marker(anchor);
+            var data = player.getPersistentDataContainer();
+            var type = org.bukkit.persistence.PersistentDataType.LONG_ARRAY;
+            long now = System.currentTimeMillis();
+            long[] previous = data.get(key, type);
+            if (previous != null && previous.length == 2 && previous[0] > now) continue;
+            data.set(key, type, new long[]{now + Duration.ofMinutes(10).toMillis(), 0});
+            player.playSound(anchor.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_CHIME, 1, 1);
+            player.sendMessage("§dGeoda descubierta §7· " + anchor.getX() + ", " + anchor.getY() + ", " +
+                    anchor.getZ() + " · Reservada para ti durante 10 min.");
+            return;
+        }
+    }
+
+    private void showGeodes(Player player) {
+        var data = player.getPersistentDataContainer();
+        var type = org.bukkit.persistence.PersistentDataType.LONG_ARRAY;
+        long now = System.currentTimeMillis();
+        for (NamespacedKey key : data.getKeys()) {
+            if (!key.getNamespace().equals(geodeNamespace) || !key.getKey().startsWith("geoda/")) continue;
+            long[] state = data.get(key, type);
+            if (state == null || state.length != 2 || state[0] <= now) {
+                data.remove(key);
+                continue;
+            }
+            String[] parts = key.getKey().split("/");
+            if (parts.length != 5 || !parts[1].equals(player.getWorld().getUID().toString())) continue;
+            Location point = new Location(player.getWorld(), Integer.parseInt(parts[2]) + 0.5,
+                    Integer.parseInt(parts[3]) + 0.5, Integer.parseInt(parts[4]) + 0.5);
+            if (point.distanceSquared(player.getLocation()) <= 32 * 32)
+                player.spawnParticle(Particle.END_ROD, point, 8, 0.6, 0.6, 0.6, 0);
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void openGeode(org.bukkit.event.player.PlayerInteractEvent event) {
+        if (event.getHand() != org.bukkit.inventory.EquipmentSlot.HAND ||
+                event.getAction() != org.bukkit.event.block.Action.RIGHT_CLICK_BLOCK) return;
+        var player = event.getPlayer();
+        var block = event.getClickedBlock();
+        if (block == null || player.getGameMode() != GameMode.SURVIVAL) return;
+        var data = player.getPersistentDataContainer();
+        var key = marker(block);
+        var type = org.bukkit.persistence.PersistentDataType.LONG_ARRAY;
+        long[] state = data.get(key, type);
+        if (state == null || state.length != 2) return;
+        if (state[0] <= System.currentTimeMillis()) { data.remove(key); return; }
+        var held = player.getInventory().getItemInMainHand();
+        if (!"LLAVE_RESONANTE".equals(mmo.id(held)) || !"MATERIAL".equals(mmo.type(held))) {
+            player.sendActionBar(Component.text("Geoda sellada · Usa una Llave Resonante"));
+            return;
+        }
+        event.setCancelled(true);
+        int index = (int) state[1];
+        if (player.isSneaking() || index == 0) {
+            index = index % CORES.size() + 1;
+            data.set(key, type, new long[]{state[0], index});
+            player.sendMessage("§d" + CORE_NAMES.get(index - 1) +
+                    " IV §7· Agáchate y pulsa para cambiar. Pulsa de pie para abrir.");
+            return;
+        }
+        String core = CORES.get(index - 1);
+        int payment = -1;
+        if (core.equals("DIAMANTE_LOCO")) {
+            ItemStack[] inventory = player.getInventory().getStorageContents();
+            for (int i = 0; i < inventory.length; i++) {
+                ItemStack candidate = inventory[i];
+                if (candidate != null && "GEM_STONE".equals(mmo.type(candidate)) &&
+                        "GEMA_DIAMANTE_LOCO_III".equals(mmo.id(candidate))) { payment = i; break; }
+            }
+            if (payment < 0) { player.sendMessage("§eNecesitas un Diamante Loco III."); return; }
+        }
+        ItemStack reward = mmo.build("GEM_STONE", "GEMA_" + core + "_IV", 1);
+        if (reward == null || reward.getType().isAir()) {
+            player.sendMessage("§eEste núcleo aún no está disponible."); return;
+        }
+        data.remove(key);
+        held.subtract();
+        if (payment >= 0) player.getInventory().getItem(payment).subtract();
+        for (var excess : player.getInventory().addItem(reward).values()) {
+            var drop = player.getWorld().dropItem(player.getLocation(), excess);
+            drop.setOwner(player.getUniqueId());
+        }
+    }
+
     private boolean expire(Player player, State state) {
         if (MigrationRules.expired(state.activeUntil, System.currentTimeMillis())) {
             state.activeUntil = 0; state.charge = 0; dirty = true;
