@@ -1,0 +1,204 @@
+name: 'Forja Minera'
+max-queue-size: 10
+layout: default
+command:
+  name: forjaminera
+  description: Abrir la Forja Minera
+  usage: /forjaminera
+  permission: hydev.mineria.inicial
+  message:
+    no-perm: '&cNecesitas Minería nivel 1.'
+    not-a-player: '&cUsa este comando dentro del juego.'
+recipes:
+  taladro-reforzado:
+    output: 'mmoitems{type=TOOL,id=TALADRO_REFORZADO}'
+    crafting-time: 20
+    conditions:
+    - 'permission{list="hydev.mineria.duendes";display="Minería nivel 12"}'
+    ingredients:
+    - 'mmoitem{type=TOOL,id=TALADRO,amount=1}'
+    - 'mmoitem{type=MATERIAL,id=CHATARRA_MECANICA,amount=12}'
+    - 'vanilla{type=IRON_INGOT,amount=16}'
+
+  taladro-calibrado:
+    output: 'mmoitems{type=TOOL,id=TALADRO_CALIBRADO}'
+    crafting-time: 35
+    conditions:
+    - 'permission{list="hydev.mineria.resonancia";display="Minería nivel 15"}'
+    ingredients:
+    - 'mmoitem{type=TOOL,id=TALADRO_REFORZADO,amount=1}'
+    - 'mmoitem{type=MATERIAL,id=CHATARRA_ANTIGUA,amount=6}'
+    - 'mmoitem{type=MATERIAL,id=PALADIO,amount=8}'
+
+  pico-mitrilo:
+    output: 'mmoitems{type=TOOL,id=PICO_MITRILO}'
+    crafting-time: 10
+    conditions:
+    - 'permission{list="hydev.mineria.mitrilo";display="Minería nivel 18"}'
+    ingredients:
+    - 'mmoitem{type=MATERIAL,id=MITRILO,amount=18}'
+    - 'vanilla{type=STICK,amount=2}'
+    - 'vanilla{type=IRON_INGOT,amount=6}'
+
+  pico-mitrilo-templado:
+    output: 'mmoitems{type=TOOL,id=PICO_MITRILO_TEMPLADO}'
+    crafting-time: 25
+    conditions:
+    - 'permission{list="hydev.mineria.mitrilo";display="Minería nivel 18"}'
+    ingredients:
+    - 'mmoitem{type=MATERIAL,id=MITRILO,amount=36}'
+    - 'mmoitem{type=TOOL,id=PICO_MITRILO,amount=1}'
+    - 'vanilla{type=DIAMOND,amount=8}'
+
+  brujula-geologica:
+    output: 'mmoitems{type=TOOL,id=BRUJULA_GEOLOGICA}'
+    crafting-time: 15
+    conditions:
+    - 'permission{list="hydev.mineria.ingenieria";display="Minería nivel 25"}'
+    ingredients:
+    - 'mmoitem{type=MATERIAL,id=AMATISTA_RESONANTE,amount=2}'
+    - 'mmoitem{type=MATERIAL,id=MITRILO,amount=12}'
+    - 'vanilla{type=COMPASS,amount=1}'
+    - 'vanilla{type=REDSTONE,amount=4}'
+    - 'vanilla{type=AMETHYST_SHARD,amount=2}'
+
+  farol-mitrilo:
+    output: 'mmoitems{type=TOOL,id=FAROL_MITRILO}'
+    crafting-time: 15
+    conditions:
+    - 'permission{list="hydev.mineria.ingenieria";display="Minería nivel 25"}'
+    ingredients:
+    - 'mmoitem{type=MATERIAL,id=AMATISTA_RESONANTE,amount=3}'
+    - 'mmoitem{type=MATERIAL,id=MITRILO,amount=16}'
+    - 'vanilla{type=SOUL_LANTERN,amount=1}'
+    - 'vanilla{type=AMETHYST_SHARD,amount=4}'
+    - 'vanilla{type=COPPER_INGOT,amount=2}'
+
+  barrena-mitrilo:
+    output: 'mmoitems{type=TOOL,id=BARRENA_MITRILO}'
+    crafting-time: 30
+    conditions:
+    - 'permission{list="hydev.mineria.ingenieria";display="Minería nivel 25"}'
+    ingredients:
+    - 'mmoitem{type=MATERIAL,id=AMATISTA_RESONANTE,amount=4}'
+    - 'mmoitem{type=MATERIAL,id=MITRILO,amount=42}'
+    - 'vanilla{type=NETHERITE_PICKAXE,amount=1}'
+    - 'vanilla{type=DIAMOND,amount=4}'
+    - 'vanilla{type=IRON_BLOCK,amount=4}'
+
+  pico-amatista:
+    output: 'mmoitems{type=TOOL,id=PICO_AMATISTA}'
+    crafting-time: 35
+    conditions:
+    - 'permission{list="hydev.mineria.arcana";display="Minería nivel 22"}'
+    ingredients:
+    - 'mmoitem{type=MATERIAL,id=MITRILO,amount=30}'
+    - 'mmoitem{type=MATERIAL,id=PALADIO,amount=12}'
+    - 'vanilla{type=AMETHYST_SHARD,amount=16}'
+
+  llave-resonante:
+    output: 'mmoitems{type=MATERIAL,id=LLAVE_RESONANTE}'
+    crafting-time: 5
+    conditions:
+    - 'permission{list="hydev.mineria.arcana";display="Minería nivel 22"}'
+    ingredients:
+    - 'mmoitem{type=MATERIAL,id=AMATISTA_RESONANTE,amount=3}'
+    - 'vanilla{type=COPPER_INGOT,amount=1}'
+
+  carga-resonante:
+    output: 'mmoitems{type=MATERIAL,id=CARGA_RESONANTE}'
+    crafting-time: 5
+    conditions:
+    - 'permission{list="hydev.mineria.arcana";display="Minería nivel 22"}'
+    ingredients:
+    - 'mmoitem{type=MATERIAL,id=AMATISTA_RESONANTE,amount=2}'
+    - 'vanilla{type=COPPER_INGOT,amount=1}'
+
+  picoperdido:
+    output: 'mmoitems{type=TOOL,id=PICO_GEMAS}'
+    crafting-time: 35
+    conditions:
+    - 'permission{list="hydev.mineria.resonancia";display="Minería nivel 15"}'
+    ingredients:
+    - 'mmoitem{type=MATERIAL,id=FRAGMENTO_PICO_PERDIDO,amount=4}'
+    - 'mmoitem{type=MATERIAL,id=PALADIO,amount=24}'
+    - 'mmoitem{type=MATERIAL,id=ORO,amount=2}'
+    - 'mmoitem{type=MATERIAL,id=DIAMANTE,amount=2}'
+
+  guante-minero:
+    output: 'mmoitems{type=TOOL,id=TALADRO}'
+    crafting-time: 20
+    conditions:
+    - 'permission{list="hydev.mineria.paladio";display="Minería nivel 6"}'
+    ingredients:
+    - 'mmoitem{type=MATERIAL,id=PALADIO,amount=8}'
+    - 'vanilla{type=IRON_INGOT,amount=16}'
+  compactador:
+    output: 'mmoitems{type=MATERIAL,id=COMPACTADOR}'
+    crafting-time: 20
+    conditions:
+    - 'permission{list="hydev.mineria.hechizados";display="Minería nivel 3"}'
+    ingredients:
+    - 'vanilla{type=IRON_INGOT,amount=12}'
+    - 'vanilla{type=PISTON,amount=1}'
+  moneda-mellada:
+    output: 'mmoitems{type=RELIQUIA,id=MONEDA_MELLADA}'
+    crafting-time: 20
+    conditions:
+    - 'permission{list="hydev.mineria.duendes";display="Minería nivel 12"}'
+    ingredients:
+    - 'vanilla{type=GOLD_INGOT,amount=24}'
+    - 'mmoitem{type=MATERIAL,id=CHATARRA_MECANICA,amount=8}'
+  diapason-antiguo:
+    output: 'mmoitems{type=RELIQUIA,id=DIAPASON_ANTIGUO}'
+    crafting-time: 20
+    conditions:
+    - 'permission{list="hydev.mineria.resonancia";display="Minería nivel 15"}'
+    ingredients:
+    - 'mmoitem{type=MATERIAL,id=PALADIO,amount=12}'
+    - 'mmoitem{type=MATERIAL,id=CHATARRA_ANTIGUA,amount=6}'
+  eco-cuarzo:
+    output: 'mmoitems{type=RELIQUIA,id=ECO_CUARZO}'
+    crafting-time: 20
+    conditions:
+    - 'permission{list="hydev.mineria.resonancia";display="Minería nivel 15"}'
+    ingredients:
+    - 'vanilla{type=QUARTZ,amount=32}'
+    - 'mmoitem{type=MATERIAL,id=FRAGMENTO_PICO_PERDIDO,amount=1}'
+  lupa-espato:
+    output: 'mmoitems{type=RELIQUIA,id=LUPA_ESPATO}'
+    crafting-time: 20
+    conditions:
+    - 'permission{list="hydev.mineria.arcana";display="Minería nivel 22"}'
+    ingredients:
+    - 'vanilla{type=GLASS,amount=16}'
+    - 'mmoitem{type=MATERIAL,id=AMATISTA_RESONANTE,amount=4}'
+  bobina-cobre:
+    output: 'mmoitems{type=RELIQUIA,id=BOBINA_COBRE}'
+    crafting-time: 20
+    conditions:
+    - 'permission{list="hydev.mineria.ingenieria";display="Minería nivel 25"}'
+    ingredients:
+    - 'vanilla{type=COPPER_INGOT,amount=24}'
+    - 'mmoitem{type=MATERIAL,id=MITRILO,amount=12}'
+    - 'mmoitem{type=MATERIAL,id=CHATARRA_MECANICA,amount=8}'
+gui-layout:
+  name: 'Forja Minera'
+  slots: 54
+  enable_right_click_preview: false
+  items:
+    recipe:
+      slots: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34]
+      delay_format: smhdMy
+      craft:
+        name: '&f{name}'
+        name_multiple: '&f{amount} × {name}'
+        lore: ['{conditions}', '{ingredients}', '{crafting_time}&7Tiempo: {crafting_time}', '&eClic para forjar']
+      none: {item: AIR}
+    queued_item:
+      slots: [44, 45, 46, 47, 48, 49, 50, 51, 52, 53]
+      existing:
+        name: '&f{name}'
+        delay_format: smhdMy
+        lore: ['{queue}&7Faltan {time_left}', '{queue}&eClic para cancelar', '{ready}&eClic para recoger']
+      none: {item: AIR}

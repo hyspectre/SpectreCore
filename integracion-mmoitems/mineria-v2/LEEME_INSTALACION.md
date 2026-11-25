@@ -49,59 +49,31 @@ no aparecen.
 que el parser de MythicMobs reconozca todos los skills. Comprueba consola
 al recargar, IA y comportamiento en cuevas con jugadores de prueba.
 
-## 3. MMOItems — nuevos archivos, sin mezclar a mano
+## 3. MMOItems y SpectreCore
 
-Archivos fuente dentro de `MMOItems/mineria-v2/`:
-
-- `MATERIAL_MINERIA_NUEVOS.yml` (7 materiales)
-- `TOOL_MINERIA_NUEVOS.yml` (8 herramientas)
-- `GEM_STONE_MINERIA_NUEVOS.yml` (9 gemas de dungeons; se agregan únicamente los IDs que falten)
-- `RECETAS_FORJA_MINERIA.yml` (10 recetas)
-- `RECETA_PICO_PERDIDO_REEMPLAZO.yml` (la receta original `picoperdido`)
-- `PERMISOS_OBJETOS_EXISTENTES.yml` (referencia, no instalar como tipo)
-- `instalar_mineria.py` (instalador seguro y verificable)
-
-**MMOItems exige que los objetos estén dentro de sus catálogos originales por
-tipo**, por lo que los archivos nuevos son fuentes independientes y el
-instalador solo fusiona sus entradas. No se crea un tipo nuevo, no se pierde
-el Paladio anterior y **los objetos originales** `TOOL:TALADRO`,
-`TOOL:PICO_GEMAS` y `MATERIAL:COMPACTADOR` conservan
-nombres, lore y demás estadísticas.
-
-### Instalar sin editar archivos a mano
-
-Desde la carpeta `MMOItems/mineria-v2/`:
+Instala el JAR de esta entrega. Con el servidor detenido, descomprime la integración
+y abre una terminal en `MMOItems/mineria-v2/`. El primer comando simula y el segundo
+guarda los cambios con respaldo bajo `.hydev-backups/`.
 
 ```bash
 python3 instalar_mineria.py /ruta/servidor/plugins/MMOItems
-```
-
-Este comando es una **simulación**, muestra los cambios y no escribe nada.
-
-Cuando compruebes que detectó tu Forja:
-
-```bash
 python3 instalar_mineria.py /ruta/servidor/plugins/MMOItems --aplicar
 ```
 
-Si la Forja real no contiene la receta `picoperdido`, indícala:
+El tipo personalizado RELIQUIA debe estar registrado como en la instalación del Relicario.
+El instalador fusiona las cinco reliquias, actualiza las herramientas y el lore de
+Rubí, Ónice y Amatista I–III, e instala sus formatos. Para una instalación manual,
+fusiona las entradas por ID en sus tipos, copia los dos formatos en
+`MMOItems/language/lore-formats/` y la estación en `MMOItems/crafting-stations/`.
+Las herramientas nuevas usan ranuras de color de texto `1`. En las dos plantillas
+originales TALADRO y PICO_GEMAS añade una ranura de ese color.
 
-```bash
-python3 instalar_mineria.py /ruta/servidor/plugins/MMOItems --forja /ruta/forja.yml --aplicar
-```
+La estación `forja-minera` incluye las diez herramientas, el Compactador,
+la Llave Resonante, la Carga Resonante y las cinco reliquias. Si la forja anterior
+contiene recetas propias del Guante Minero o el Compactador, el instalador usa esas
+recetas. Puedes señalarla con `--forja /ruta/forja.yml`.
 
-Se hacen respaldos en `plugins/MMOItems/.hydev-backups/`, se preservan
-entradas ajenas a Minería, y se modifican solamente entradas nuevas,
-las recetas seleccionadas y los tres permisos de objetos antiguos.
-Las recetas de Forja requieren el permiso concedido por AuraSkills.
-
-**Prueba el instalador en una copia del servidor antes de producción.**
-Para reiniciar el servidor se recomienda detenerlo durante la edición para
-no competir con guardados en vivo de MMOItems.
-
-## SpectreCore
-
-Debe instalarse la versión compilada desde la rama correspondiente a esta
-integración. Verifica en servidor que los controles de permisos, la API de
-Luck y el spawn funcionen antes de permitir el contenido al público.
-No se sobrescribieron datos del progreso de jugadores.
+Tras arrancar, abre `/forjaminera` con Minería inicial, o usa desde consola
+`mi stations open forja-minera JUGADOR`. Prueba una herramienta recién creada y
+una gema antes de mejorar una herramienta valiosa: las recetas que consumen la
+herramienta anterior fabrican una nueva plantilla y no transfieren gemas instaladas.

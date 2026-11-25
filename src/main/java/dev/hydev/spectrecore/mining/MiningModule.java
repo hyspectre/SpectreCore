@@ -1,5 +1,7 @@
 package dev.hydev.spectrecore.mining;
 
+import static dev.hydev.spectrecore.relicario.RelicarioModule.miningBonus;
+
 import dev.hydev.spectrecore.config.Settings;
 import dev.hydev.spectrecore.migration.MigrationRules;
 import dev.hydev.spectrecore.migration.MmoBridge;
@@ -186,7 +188,7 @@ public final class MiningModule implements Listener {
                     REDSTONE_ORE, DEEPSLATE_REDSTONE_ORE -> { }
             default -> { return; }
         }
-        if (!progression.meets(player, "arcana") || ThreadLocalRandom.current().nextDouble() >= 0.005) return;
+        if (!progression.meets(player, "arcana") || ThreadLocalRandom.current().nextDouble() >= 0.005 * (1 + miningBonus(plugin, player, "geode_chance") / 100)) return;
         if (mmo.build("MATERIAL", "LLAVE_RESONANTE", 1) == null) return;
         for (String core : CORES) {
             if (mmo.build("GEM_STONE", "GEMA_" + core + "_IV", 1) == null) return;
@@ -337,7 +339,8 @@ public final class MiningModule implements Listener {
             if (config.getBoolean("visuales-resonancia.activados",true)) visuals.gem(block.getLocation().add(.5, .5, .5), reward, quality);
             return;
         }
-        state.charge = Math.min(maximum(), state.charge + Settings.module("resonancia/config.yml").getInt("reglas.carga-por-tier.tier"+tier)); dirty = true;
+        int extra = ThreadLocalRandom.current().nextDouble(100) < miningBonus(plugin, player, "resonance_extra") ? 1 : 0;
+        state.charge = Math.min(maximum(), state.charge + extra + Settings.module("resonancia/config.yml").getInt("reglas.carga-por-tier.tier"+tier)); dirty = true;
         if (state.charge >= maximum()) {
             state.activeUntil = System.currentTimeMillis() + window() * 1000L;
             boolean nativeToast = ((dev.hydev.spectrecore.SpectreCorePlugin) plugin).toasts() != null

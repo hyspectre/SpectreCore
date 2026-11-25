@@ -109,6 +109,11 @@ confirmacion:
 estadisticas:
   title: "<white>⧇ <gold>Relicario <dark_gray>│ <white>Bonificaciones"
   nombres:
+    signal_seconds: "Señal de la brújula"
+    geode_chance: "Hallazgo de geodas"
+    resonance_extra: "Carga extra al minar"
+    prospector_chance: "Aparición de prospectores"
+    duende_chance: "Aparición de duendes"
     health: "Vida máxima"
     mana: "Maná máximo"
     critical_chance: "Probabilidad crítica"

@@ -1,4 +1,4 @@
-# Hydev / Relicario — 32 reliquias para MMOItems
+# Hydev / Relicario — 37 reliquias para MMOItems
 # Archivo: plugins/MMOItems/item/reliquia.yml
 # El efecto permanente lo aplica SpectreCore tras la absorción.
 # NO añadir estadísticas nativas al objeto, porque duplicarían las bonificaciones.
@@ -546,4 +546,84 @@ ECLIPSE_BOLSILLO:
     - '&f Daño cuerpo a cuerpo &a+1%'
     - '&f Daño mágico &a+1%'
     - '&8 Colección excepcional'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+MONEDA_MELLADA:
+  base:
+    material: PLAYER_HEAD
+    skull-texture:
+      uuid: 2a545cbb-9e93-4843-bb8d-eaa1b48bf1ed
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDdmMjQzYTA3MmZjZmE2ZTZmZTU3OTJkZGU2YTM5NzQwNGU5M2JkZWQyMTExMGQyZGViNDc5NmUyYTA1N2UyNSJ9fX0=
+    disable-interaction: true
+    lore-format: reliquia-compacta
+    name: '<gradient:#D19F65:#F3DFC5>Moneda Mellada</gradient>'
+    tier: RARE
+    tooltip: COPPER
+    lore:
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f Aparición de duendes &a+25%'
+    - '&8 Forja Minera'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+DIAPASON_ANTIGUO:
+  base:
+    material: PLAYER_HEAD
+    skull-texture:
+      uuid: 63e4f986-d287-4e09-a27b-9891088fadae
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTU5NWM5ZTI0NTBiZDIwYmVmZjQ2ZTZjNDQ5ZWE1M2ViYzdjZGU1NTA2ODE4Y2JjMTEyM2U1ZWI0Yjk1YTQxOSJ9fX0=
+    disable-interaction: true
+    lore-format: reliquia-compacta
+    name: '<gradient:#D19F65:#F3DFC5>Diapasón Antiguo</gradient>'
+    tier: EPIC
+    tooltip: SILVER
+    lore:
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f Aparición de prospectores &a+25%'
+    - '&8 Forja Minera'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+ECO_CUARZO:
+  base:
+    material: PLAYER_HEAD
+    skull-texture:
+      uuid: 76773b1e-be23-41b9-b1fa-e5511eb21f95
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2QxMTE5NjQzY2VjZmJlMDA0MTQxYTFlYTQwNjJmODMxNWNhNzhlNTAzOTU4YWM1MDUwNWU4NTkyYzQ0YTYwMSJ9fX0=
+    disable-interaction: true
+    lore-format: reliquia-compacta
+    name: '<gradient:#D19F65:#F3DFC5>Eco de Cuarzo</gradient>'
+    tier: RARE
+    tooltip: COPPER
+    lore:
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f 20% de ganar &a+1 de resonancia'
+    - '&8 Forja Minera'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+LUPA_ESPATO:
+  base:
+    material: PLAYER_HEAD
+    skull-texture:
+      uuid: 0c6f69dc-c793-4b79-8e91-901959c3f6db
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmRlMWIyMzQzNGZjYmQ2MTBiNzhiZmIxZTY4MDlmNzQwZmM2ZGZlMjQwNGQ4OWI1YmJkODU2ODM1NjdjYTU0ZiJ9fX0=
+    disable-interaction: true
+    lore-format: reliquia-compacta
+    name: '<gradient:#D19F65:#F3DFC5>Lupa de Espato</gradient>'
+    tier: EPIC
+    tooltip: SILVER
+    lore:
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f Hallazgo de geodas &a+30%'
+    - '&8 Forja Minera'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
+BOBINA_COBRE:
+  base:
+    material: PLAYER_HEAD
+    skull-texture:
+      uuid: 5c263a25-74c9-486a-af32-937ef09e05bf
+      value: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjFhOWFlOWRiMzZmNzBkNDY3MzU0MDY5ZmJiZGNjN2QyNzliYWY2NzIxNTYxMzgxZGE2MGQzMzliMjNkODgyOSJ9fX0=
+    disable-interaction: true
+    lore-format: reliquia-compacta
+    name: '<gradient:#D19F65:#F3DFC5>Bobina de Cobre</gradient>'
+    tier: EPIC
+    tooltip: SILVER
+    lore:
+    - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
+    - '&f Señal de la brújula &a+4 s'
+    - '&8 Forja Minera'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'

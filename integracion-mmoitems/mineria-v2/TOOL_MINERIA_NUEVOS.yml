@@ -2,7 +2,8 @@
 # Las 2 herramientas antiguas TALADRO y PICO_GEMAS se conservan; ver permisos de existentes.
 TALADRO_REFORZADO:
   base:
-    revision-id: 4
+    revision-id: 5
+    gem-sockets: ['1', '1']
     unbreakable: true
     material: IRON_PICKAXE
     max-stack-size: 1
@@ -20,7 +21,8 @@ TALADRO_REFORZADO:
 
 TALADRO_CALIBRADO:
   base:
-    revision-id: 4
+    revision-id: 5
+    gem-sockets: ['1', '1', '1']
     unbreakable: true
     material: DIAMOND_PICKAXE
     max-stack-size: 1
@@ -38,7 +40,8 @@ TALADRO_CALIBRADO:
 
 PICO_MITRILO:
   base:
-    revision-id: 4
+    revision-id: 5
+    gem-sockets: ['1']
     unbreakable: true
     material: DIAMOND_PICKAXE
     max-stack-size: 1
@@ -56,7 +59,8 @@ PICO_MITRILO:
 
 PICO_MITRILO_TEMPLADO:
   base:
-    revision-id: 4
+    revision-id: 5
+    gem-sockets: ['1', '1']
     unbreakable: true
     material: NETHERITE_PICKAXE
     max-stack-size: 1
@@ -74,7 +78,8 @@ PICO_MITRILO_TEMPLADO:
 
 PICO_AMATISTA:
   base:
-    revision-id: 4
+    revision-id: 5
+    gem-sockets: ['1']
     unbreakable: true
     material: NETHERITE_PICKAXE
     max-stack-size: 1
@@ -92,7 +97,8 @@ PICO_AMATISTA:
 
 BRUJULA_GEOLOGICA:
   base:
-    revision-id: 4
+    revision-id: 5
+    gem-sockets: ['1']
     unbreakable: true
     material: COMPASS
     max-stack-size: 1
@@ -110,7 +116,8 @@ BRUJULA_GEOLOGICA:
 
 FAROL_MITRILO:
   base:
-    revision-id: 4
+    revision-id: 5
+    gem-sockets: ['1']
     unbreakable: true
     material: SOUL_LANTERN
     max-stack-size: 1
@@ -130,7 +137,8 @@ FAROL_MITRILO:
 
 BARRENA_MITRILO:
   base:
-    revision-id: 4
+    revision-id: 5
+    gem-sockets: ['1']
     unbreakable: true
     material: NETHERITE_PICKAXE
     max-stack-size: 1

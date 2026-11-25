@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parent
 TYPES = {
     "MATERIAL": ROOT / "MATERIAL_MINERIA_NUEVOS.yml",
     "GEM_STONE": ROOT / "GEM_STONE_MINERIA_NUEVOS.yml",
+    "RELIQUIA": ROOT / "RELIQUIA_MINERIA.yml",
     "TOOL": ROOT / "TOOL_MINERIA_NUEVOS.yml",
 }
 RECIPE_SOURCE = ROOT / "RECETAS_FORJA_MINERIA.yml"
@@ -145,6 +146,33 @@ def patch_permission(text: str, name: str, permission: str) -> tuple[str, bool]:
     lines[a:b] = ["".join(entries)]
     return "".join(lines), True
 
+def replace_base_field(text, item, field, replacement):
+    lines, spans = lines_and_sections(text, TOP_ITEM)
+    if item not in spans:
+        return text
+    start, end = spans[item]
+    base = next(i for i in range(start, end) if lines[i].strip() == "base:")
+    index = next((i for i in range(base + 1, end) if lines[i].startswith("    " + field + ":")), None)
+    if index is None:
+        lines.insert(base + 1, replacement)
+    else:
+        stop = index + 1
+        while stop < end and re.match(r"^ {4,}- ", lines[stop]):
+            stop += 1
+        lines[index:stop] = [replacement]
+    return "".join(lines)
+
+def repair_gem_lore(text, source):
+    rows, gems = lines_and_sections(source, TOP_ITEM)
+    for item, (start, end) in gems.items():
+        lore = next(i for i in range(start, end) if rows[i].startswith("    lore:"))
+        last = lore + 1
+        while last < end and rows[last].startswith("    -"):
+            last += 1
+        text = replace_base_field(text, item, "lore", "".join(rows[lore:last]))
+        text = replace_base_field(text, item, "lore-format", "    lore-format: gema-minera\n")
+    return text
+
 def make_unbreakable(text: str, item: str) -> str:
     lines, spans = lines_and_sections(text, TOP_ITEM)
     if item not in spans:
@@ -240,8 +268,10 @@ def detect_forge(plugin: Path, requested: str | None):
     candidates = []
     if location.is_dir():
         for path in location.glob("*.yml"):
-            if re.search(r"(?m)^  picoperdido:[ \t]*(?:#.*)?$", path.read_text(encoding="utf-8")):
+            if path.name != "forja-minera.yml" and re.search(r"(?m)^  picoperdido:[ \t]*(?:#.*)?$", path.read_text(encoding="utf-8")):
                 candidates.append(path)
+    if not candidates:
+        return None
     if len(candidates) != 1:
         raise ValueError(f"No se identificó una Forja única ({len(candidates)} coincidencias); "
                          "indica --forja <archivo.yml>.")
@@ -250,12 +280,17 @@ def detect_forge(plugin: Path, requested: str | None):
 def install(plugin: Path, forge: Path, apply: bool):
     changes: dict[Path, str] = {}
     for typ, src in TYPES.items():
-        dest = plugin / "item" / f"{typ}.yml"
-        if not dest.is_file():
+        matches = [p for p in (plugin / "item").glob("*.yml") if p.stem.upper() == typ]
+        if len(matches) > 1:
+            raise ValueError(f"Hay varios archivos para {typ}: {matches}")
+        dest = matches[0] if matches else plugin / "item" / f"{typ.lower()}.yml"
+        if not dest.is_file() and typ != "RELIQUIA":
             raise ValueError(f"Falta el tipo original {dest}; no se creará otro tipo.")
-        old = dest.read_text(encoding="utf-8")
+        old = dest.read_text(encoding="utf-8") if dest.exists() else ""
         new, replaced, added = merge_items(old, src.read_text(encoding="utf-8"), typ,
                                           only_missing=(typ == "GEM_STONE"))
+        if typ == "GEM_STONE":
+            new = repair_gem_lore(new, src.read_text(encoding="utf-8"))
         for item, permission in (
                 ([("COMPACTADOR", "hydev.mineria.hechizados")]
                  if typ == "MATERIAL" else
@@ -265,16 +300,59 @@ def install(plugin: Path, forge: Path, apply: bool):
             new, _ = patch_permission(new, item, permission)
             if typ == "TOOL":
                 new = make_unbreakable(new, item)
+                rows, spans = lines_and_sections(new, TOP_ITEM)
+                if item in spans:
+                    first, last = spans[item]
+                    socket = next((n for n in range(first,last) if rows[n].startswith("    gem-sockets:")), None)
+                    if socket is None:
+                        new = replace_base_field(new, item, "gem-sockets", "    gem-sockets: ['1']\n")
+                    else:
+                        value = rows[socket].split(":",1)[1].partition("#")[0].strip()
+                        if value:
+                            if not (value.startswith("[") and value.endswith("]")):
+                                raise ValueError(f"{item}: revisar la lista de ranuras")
+                            entries = [s.strip() for s in value[1:-1].split(",") if s.strip()]
+                            if not any(s.strip(chr(34) + chr(39)) == "1" for s in entries):
+                                entries.append("'1'")
+                                rows[socket] = "    gem-sockets: [" + ", ".join(entries) + "]\n"
+                        else:
+                            entries = []
+                            for row in rows[socket+1:last]:
+                                if not row.strip() or row.lstrip().startswith("#"):
+                                    continue
+                                match = re.match(r"^ {4,}- (.+)", row)
+                                if not match:
+                                    break
+                                entries.append(match[1].partition("#")[0].strip().strip(chr(34) + chr(39)))
+                            if "1" not in entries:
+                                indent = next((re.match(r"^ +", row)[0] for row in rows[socket+1:last]
+                                               if re.match(r"^ {4,}- ",row)), "    ") if entries else "    "
+                                rows.insert(socket+1, indent + "- '1'\n")
+                        new = "".join(rows)
         changes[dest] = new
         print(f"{typ}: nuevos {len(added)}, actualizados {len(replaced)}; "
               f"objetos originales preservados")
-    old_forja = forge.read_text(encoding="utf-8")
-    new_forja, replaced, added = merge_recipes(
-        old_forja, read_recipes(RECIPE_SOURCE), read_recipes(LOST_SOURCE))
-    changes[forge] = new_forja
-    print(f"Forja: nuevas {len(added)}, actualizadas {len(replaced)}")
+    dedicated = plugin / "crafting-stations" / "forja-minera.yml"
+    station = (ROOT / "forja-minera.yml").read_text(encoding="utf-8")
+    if forge and forge != dedicated:
+        for block in read_recipes(forge).values():
+            for item, key in (("TALADRO", "guante-minero"), ("COMPACTADOR", "compactador")):
+                if re.search(r"^    output:.*\bid=" + item + r"[,;}]", block, re.M):
+                    body = re.sub(r"^  [a-z0-9-]+:", "  " + key + ":", block, count=1)
+                    station = merge_recipes(station, {key: body}, {})[0]
+    if dedicated.exists():
+        # Preserve server-specific recipes and GUI options on later installs.
+        rows, begin, end = recipe_area(station)
+        recipe_rows, spans = lines_and_sections("".join(rows[begin+1:end]), TOP_RECIPE)
+        managed = {key: "".join(recipe_rows[a:b]) for key,(a,b) in spans.items()}
+        station = merge_recipes(dedicated.read_text(encoding="utf-8"), managed, {})[0]
+    changes[dedicated] = station
+    for fmt in ("gema-minera", "reliquia-compacta"):
+        target = plugin / "language/lore-formats" / (fmt + ".yml")
+        if fmt == "gema-minera" or not target.exists():
+            changes[target] = (ROOT / (fmt + ".yml")).read_text(encoding="utf-8")
     modified = {path: new for path, new in changes.items()
-                if path.read_text(encoding="utf-8") != new}
+                if not path.exists() or path.read_text(encoding="utf-8") != new}
     if not modified:
         print("Todos los archivos ya están actualizados.")
         return
@@ -283,7 +361,7 @@ def install(plugin: Path, forge: Path, apply: bool):
     if not apply:
         print("Simulación completa. Vuelve a ejecutar con --aplicar para realizar copias de seguridad y guardar.")
         return
-    name = datetime.datetime.now().strftime("mineria_%Y%m%d_%H%M%S")
+    name = datetime.datetime.now().strftime("mineria_%Y%m%d_%H%M%S_%f")
     backup = plugin / ".hydev-backups" / name
     backup.mkdir(parents=True, exist_ok=False)
     for path in modified:
@@ -294,10 +372,12 @@ def install(plugin: Path, forge: Path, apply: bool):
             relative = Path("forja_externa") / path.name
         destination = backup / relative
         destination.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(path, destination)
+        if path.exists():
+            shutil.copy2(path, destination)
     completed = []
     try:
         for path, data in modified.items():
+            path.parent.mkdir(parents=True, exist_ok=True)
             with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", newline="\n",
                                               dir=path.parent, prefix=".hydev-", suffix=".tmp",
                                               delete=False) as tmp:
@@ -312,7 +392,10 @@ def install(plugin: Path, forge: Path, apply: bool):
         for path in completed:
             relative = path.relative_to(plugin) if path.is_relative_to(plugin) \
                 else Path("forja_externa") / path.name
-            shutil.copy2(backup / relative, path)
+            if (backup / relative).exists():
+                shutil.copy2(backup / relative, path)
+            else:
+                path.unlink(missing_ok=True)
         raise
     print(f"Instalación completada. Respaldo íntegro: {backup}")
     print("Reinicia MMOItems y verifica las recetas y permisos con un jugador de prueba.")

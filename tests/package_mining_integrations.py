@@ -14,6 +14,7 @@ folder=root/"integracion-mmoitems/mineria-v2"
 for name in ("MATERIAL_MINERIA_NUEVOS.yml","TOOL_MINERIA_NUEVOS.yml",
              "GEM_STONE_MINERIA_NUEVOS.yml","RECETAS_FORJA_MINERIA.yml",
              "RECETA_PICO_PERDIDO_REEMPLAZO.yml","PERMISOS_OBJETOS_EXISTENTES.yml",
+             "RELIQUIA_MINERIA.yml","forja-minera.yml","gema-minera.yml","reliquia-compacta.yml",
              "instalar_mineria.py","LEEME_INSTALACION.md"):
     assets[f"integracion-mmoitems/mineria-v2/{name}"]=f"MMOItems/mineria-v2/{name}"
 destination.parent.mkdir(parents=True,exist_ok=True)

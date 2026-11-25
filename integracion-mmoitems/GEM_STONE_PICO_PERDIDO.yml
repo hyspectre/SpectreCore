@@ -6,6 +6,7 @@
 # Gemas 100% éxito propuesto; comprobar cómo interpreta success-rate tu versión.
 GEMA_RUBI_1:
   base:
+    lore-format: gema-minera
     material: PAPER
     custom-model-data: 200201.0
     name: <gradient:#C68CD8:#EED6FC>Rubí de Filo I</gradient>
@@ -25,6 +26,7 @@ GEMA_RUBI_1:
     tooltip: COPPER
 GEMA_RUBI_2:
   base:
+    lore-format: gema-minera
     material: PAPER
     custom-model-data: 200203.0
     name: <gradient:#C68CD8:#EED6FC>Rubí de Filo II</gradient>
@@ -44,6 +46,7 @@ GEMA_RUBI_2:
     tooltip: SILVER
 GEMA_RUBI_3:
   base:
+    lore-format: gema-minera
     material: PAPER
     custom-model-data: 200205.0
     name: <gradient:#C68CD8:#EED6FC>Rubí de Filo III</gradient>
@@ -63,6 +66,7 @@ GEMA_RUBI_3:
     tooltip: GOLD
 GEMA_ONICE_1:
   base:
+    lore-format: gema-minera
     material: PAPER
     custom-model-data: 200213.0
     name: <gradient:#C68CD8:#EED6FC>Ónice de Vigor I</gradient>
@@ -82,6 +86,7 @@ GEMA_ONICE_1:
     tooltip: COPPER
 GEMA_ONICE_2:
   base:
+    lore-format: gema-minera
     material: PAPER
     custom-model-data: 200215.0
     name: <gradient:#C68CD8:#EED6FC>Ónice de Vigor II</gradient>
@@ -101,6 +106,7 @@ GEMA_ONICE_2:
     tooltip: SILVER
 GEMA_ONICE_3:
   base:
+    lore-format: gema-minera
     material: PAPER
     custom-model-data: 200217.0
     name: <gradient:#C68CD8:#EED6FC>Ónice de Vigor III</gradient>
@@ -120,6 +126,7 @@ GEMA_ONICE_3:
     tooltip: GOLD
 GEMA_AMATISTA_1:
   base:
+    lore-format: gema-minera
     material: PAPER
     custom-model-data: 200231.0
     name: <gradient:#C68CD8:#EED6FC>Amatista Arcana I</gradient>
@@ -139,6 +146,7 @@ GEMA_AMATISTA_1:
     tooltip: COPPER
 GEMA_AMATISTA_2:
   base:
+    lore-format: gema-minera
     material: PAPER
     custom-model-data: 200233.0
     name: <gradient:#C68CD8:#EED6FC>Amatista Arcana II</gradient>
@@ -158,6 +166,7 @@ GEMA_AMATISTA_2:
     tooltip: SILVER
 GEMA_AMATISTA_3:
   base:
+    lore-format: gema-minera
     material: PAPER
     custom-model-data: 200235.0
     name: <gradient:#C68CD8:#EED6FC>Amatista Arcana III</gradient>

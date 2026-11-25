@@ -101,19 +101,27 @@ gui-layout:
     assert "hydev.mineria.paladio" in tool["TALADRO"]["base"]["permission"]
     assert tool["PICO_GEMAS"]["base"]["name"]=="Pico Perdido original"
     assert "hydev.mineria.resonancia" in tool["PICO_GEMAS"]["base"]["permission"]
-    definitions=yaml.safe_load(station.read_text("utf-8"))
+    dedicated = station.with_name("forja-minera.yml")
+    assert station.read_bytes() == originals[station]
+    definitions=yaml.safe_load(dedicated.read_text("utf-8"))
+    assert module.detect_forge(plugin,None) == station
+    assert len(definitions["recipes"]) == 18
+    assert len(yaml.safe_load((plugin/"item/reliquia.yml").read_text())) == 5
+    for item, count in {"TALADRO":1, "TALADRO_REFORZADO":2,"TALADRO_CALIBRADO":3,"PICO_MITRILO_TEMPLADO":2}.items():
+        assert tool[item]["base"]["gem-sockets"] == ["1"] * count
     assert "lingote-mitrilo" not in definitions["recipes"] and "cristal-mitrilo" not in definitions["recipes"]
     installed_gems=yaml.safe_load((plugin/"item/GEM_STONE.yml").read_text())
     assert installed_gems["GEMA_RUBI_1"]["base"]["name"] == "Rubí personalizado"
     assert "GEMA_ANTIGUA" in installed_gems and "GEMA_RUBI_3" in installed_gems
-    assert definitions["gui-layout"]["name"]=="Forja Original"
-    assert definitions["recipes"]["otro-original"]["output"]=="vanilla{type=IRON_PICKAXE}"
+    assert definitions["gui-layout"]["name"]=="Forja Minera"
+    assert "otro-original" not in definitions["recipes"]
+    assert installed_gems["GEMA_RUBI_1"]["base"]["lore"] and installed_gems["GEMA_RUBI_1"]["base"]["lore-format"] == "gema-minera"
     assert "FRAGMENTO_PICO_PERDIDO" in str(definitions["recipes"]["picoperdido"])
     assert "hydev.mineria.resonancia" in str(definitions["recipes"]["picoperdido"])
     assert "hydev.mineria.ingenieria" in str(definitions["recipes"]["brujula-geologica"])
     assert "hydev.mineria.duendes" in str(definitions["recipes"]["taladro-reforzado"])
     assert "hydev.mineria.resonancia" in str(definitions["recipes"]["taladro-calibrado"])
-    snapshot={p:p.read_bytes() for p in originals}
+    snapshot={p:p.read_bytes() for p in [*originals, dedicated, plugin/"item/reliquia.yml"]}
     module.install(plugin,station,True)
     assert all(p.read_bytes()==data for p,data in snapshot.items()),"second install changed YAML"
 print("PASS Hydev mining integration: live reward nodes, 7 MM skills and idempotent backed-up MMOItems install")

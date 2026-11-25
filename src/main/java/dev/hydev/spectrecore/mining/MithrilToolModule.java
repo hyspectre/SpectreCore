@@ -1,5 +1,7 @@
 package dev.hydev.spectrecore.mining;
 
+import static dev.hydev.spectrecore.relicario.RelicarioModule.miningBonus;
+
 import dev.hydev.spectrecore.config.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -355,7 +357,7 @@ public final class MithrilToolModule implements Listener {
             UUID uuid = player.getUniqueId();
             BukkitTask old = signals.remove(uuid);
             if (old != null) old.cancel();
-            int[] remaining = {cost("brujula.duracion-senal-segundos")};
+            int[] remaining = {cost("brujula.duracion-senal-segundos") + (int) miningBonus(plugin, player, "signal_seconds")};
             BukkitTask repeating = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
                 if (!player.isOnline() || remaining[0]-- <= 0) {
                     BukkitTask timer = signals.remove(uuid);

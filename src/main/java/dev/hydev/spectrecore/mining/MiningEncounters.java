@@ -1,5 +1,7 @@
 package dev.hydev.spectrecore.mining;
 
+import static dev.hydev.spectrecore.relicario.RelicarioModule.miningBonus;
+
 import dev.hydev.spectrecore.config.ModuleConfiguration;
 import dev.hydev.spectrecore.config.Settings;
 import dev.hydev.spectrecore.integration.WorldGuardBridge;
@@ -132,6 +134,7 @@ public final class MiningEncounters implements Listener {
                 luck.stat(player),
                 cfg.getDouble("suerte.encuentros.incremento-relativo-por-punto",1.5),
                 cfg.getDouble("suerte.encuentros.multiplicador-maximo",2.0));
+        chance = Math.min(100, chance * (1 + miningBonus(plugin, player, kind + "_chance") / 100));
         if(ThreadLocalRandom.current().nextDouble(100)>=chance) {
             pending.remove(reserve);
             return;
@@ -210,6 +213,7 @@ public final class MiningEncounters implements Listener {
                 cfg.getDouble(root+"probabilidad",0),stat,
                 cfg.getDouble("suerte.botin.incremento-relativo-por-punto",1),
                 cfg.getDouble("suerte.botin.multiplicador-maximo",1.8));
+        chance = Math.min(100, chance * (1 + miningBonus(plugin, player, kind + "_chance") / 100));
         if(ThreadLocalRandom.current().nextDouble(100)>=chance)return;
         int min=cfg.getInt(root+"minimo",1),max=cfg.getInt(root+"maximo",1);
         if(min<1||max<min||max>32)return;
