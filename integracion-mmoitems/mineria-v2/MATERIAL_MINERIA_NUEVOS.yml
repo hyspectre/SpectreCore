@@ -52,33 +52,6 @@ MITRILO:
     - '&7 Metal frío, ligero y resistente.'
     - '&8 Hallazgo de las vetas profundas.'
 
-LINGOTE_MITRILO:
-  base:
-    revision-id: 1
-    material: IRON_INGOT
-    name: '<gradient:#84C5BE:#E0EDEB>Lingote de Mitrilo</gradient>'
-    tier: RARE
-    tooltip: COPPER
-    max-stack-size: 64
-    lore:
-    - '&f  <gradient:#84C5BE:#E0EDEB>ᴍᴇᴛᴀʟ · ʀᴇғɪɴᴀᴅᴏ</gradient>'
-    - '&7 Mitrilo templado en la Forja.'
-    - '&8 Forja instrumentos de exploración.'
-
-CRISTAL_MITRILO:
-  base:
-    revision-id: 1
-    material: AMETHYST_SHARD
-    name: '<gradient:#85C0D2:#CFB0EA>Cristal de Mitrilo</gradient>'
-    tier: RARE
-    tooltip: COPPER
-    max-stack-size: 64
-    lore:
-    - '&f  <gradient:#85C0D2:#CFB0EA>ᴄʀɪsᴛᴀʟ · ʀᴇsᴏɴᴀɴᴄɪᴀ</gradient>'
-    - '&f ʀᴇᴄᴀʀɢᴀ &b+50 de resonancia'
-    - '&7 Clic con herramienta en mano secundaria.'
-    - '&8 Consume un cristal por uso.'
-
 AMATISTA_RESONANTE:
   base:
     material: AMETHYST_SHARD
@@ -86,3 +59,17 @@ AMATISTA_RESONANTE:
     tier: RARE
     tooltip: COPPER
     max-stack-size: 64
+
+LLAVE_RESONANTE:
+  base:
+    material: TRIPWIRE_HOOK
+    name: '<gradient:#AA77D6:#EED6FC>Llave Resonante</gradient>'
+    tier: RARE
+    tooltip: COPPER
+
+CARGA_RESONANTE:
+  base:
+    material: AMETHYST_SHARD
+    name: '<gradient:#AA77D6:#EED6FC>Carga Resonante</gradient>'
+    tier: RARE
+    tooltip: COPPER

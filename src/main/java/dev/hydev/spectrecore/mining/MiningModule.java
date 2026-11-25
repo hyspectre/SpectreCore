@@ -195,17 +195,32 @@ public final class MiningModule implements Listener {
         }
     }
 
-    @EventHandler(ignoreCancelled = true)
+    @EventHandler
     public void openGeode(org.bukkit.event.player.PlayerInteractEvent event) {
-        if (event.getHand() != org.bukkit.inventory.EquipmentSlot.HAND ||
-                event.getAction() != org.bukkit.event.block.Action.RIGHT_CLICK_BLOCK) return;
+        if (event.getHand() != org.bukkit.inventory.EquipmentSlot.HAND) return;
+        var action = event.getAction();
+        if (action != org.bukkit.event.block.Action.RIGHT_CLICK_AIR
+                && action != org.bukkit.event.block.Action.RIGHT_CLICK_BLOCK) return;
+        if (action == org.bukkit.event.block.Action.RIGHT_CLICK_BLOCK && event.isCancelled()) return;
         var player = event.getPlayer();
-        var block = event.getClickedBlock();
-        if (block == null || player.getGameMode() != GameMode.SURVIVAL) return;
+        if (player.getGameMode() != GameMode.SURVIVAL) return;
         var data = player.getPersistentDataContainer();
-        var key = marker(block);
         var type = org.bukkit.persistence.PersistentDataType.LONG_ARRAY;
-        long[] state = data.get(key, type);
+        var block = event.getClickedBlock();
+        NamespacedKey key = block == null ? null : marker(block);
+        long[] state = key == null ? null : data.get(key, type);
+        if (state == null) {
+            var heldKey = player.getInventory().getItemInMainHand();
+            if (!"LLAVE_RESONANTE".equals(mmo.id(heldKey)) || !"MATERIAL".equals(mmo.type(heldKey))) return;
+            // The private marker can still be pointed at after its backing rock is mined.
+            var ray = new org.bukkit.util.BlockIterator(player, 5);
+            while (ray.hasNext()) {
+                var point = ray.next();
+                key = marker(point);
+                state = data.get(key, type);
+                if (state != null || !point.isPassable()) break;
+            }
+        }
         if (state == null || state.length != 2) return;
         if (state[0] <= System.currentTimeMillis()) { data.remove(key); return; }
         var held = player.getInventory().getItemInMainHand();

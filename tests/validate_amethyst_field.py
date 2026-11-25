@@ -33,7 +33,7 @@ assert craft["ingredients"] == [
     "mmoitem{type=MATERIAL,id=PALADIO,amount=12}",
     "vanilla{type=AMETHYST_SHARD,amount=16}",
 ]
-assert "AmethystField" in messages and "gema" in messages["AmethystField"]
+assert "AmethystField" in messages and "resonante" in messages["AmethystField"]
 assert "campo-ametista" in messages["MithrilTools"]
 source_dir = root/"src/main/java/dev/hydev/spectrecore/mining"
 source = (source_dir/"AmethystResonanceField.java").read_text(encoding="utf-8")

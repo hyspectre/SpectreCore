@@ -16,21 +16,11 @@ recipes:
     - 'mmoitem{type=MATERIAL,id=MITRILO,amount=36}'
     - 'mmoitem{type=TOOL,id=PICO_MITRILO,amount=1}'
     - 'vanilla{type=DIAMOND,amount=8}'
-  lingote-mitrilo:
-    output: 'mmoitems{type=MATERIAL,id=LINGOTE_MITRILO}'
-    crafting-time: 5
-    ingredients:
-    - 'mmoitem{type=MATERIAL,id=MITRILO,amount=2}'
-  cristal-mitrilo:
-    output: 'mmoitems{type=MATERIAL,id=CRISTAL_MITRILO}'
-    crafting-time: 5
-    ingredients:
-    - 'mmoitem{type=MATERIAL,id=LINGOTE_MITRILO,amount=2}'
-    - 'vanilla{type=AMETHYST_SHARD,amount=4}'
   brujula-geologica:
     output: 'mmoitems{type=TOOL,id=BRUJULA_GEOLOGICA}'
     crafting-time: 15
     ingredients:
+    - 'mmoitem{type=MATERIAL,id=AMATISTA_RESONANTE,amount=2}'
     - 'mmoitem{type=MATERIAL,id=MITRILO,amount=12}'
     - 'vanilla{type=COMPASS,amount=1}'
     - 'vanilla{type=REDSTONE,amount=4}'
@@ -39,6 +29,7 @@ recipes:
     output: 'mmoitems{type=TOOL,id=FAROL_MITRILO}'
     crafting-time: 15
     ingredients:
+    - 'mmoitem{type=MATERIAL,id=AMATISTA_RESONANTE,amount=3}'
     - 'mmoitem{type=MATERIAL,id=MITRILO,amount=16}'
     - 'vanilla{type=SOUL_LANTERN,amount=1}'
     - 'vanilla{type=AMETHYST_SHARD,amount=4}'
@@ -47,6 +38,7 @@ recipes:
     output: 'mmoitems{type=TOOL,id=BARRENA_MITRILO}'
     crafting-time: 30
     ingredients:
+    - 'mmoitem{type=MATERIAL,id=AMATISTA_RESONANTE,amount=4}'
     - 'mmoitem{type=MATERIAL,id=MITRILO,amount=42}'
     - 'vanilla{type=NETHERITE_PICKAXE,amount=1}'
     - 'vanilla{type=DIAMOND,amount=4}'
@@ -59,3 +51,21 @@ recipes:
     - 'mmoitem{type=MATERIAL,id=PALADIO,amount=12}'
     - 'vanilla{type=AMETHYST_SHARD,amount=16}'
 
+
+  llave-resonante:
+    output: 'mmoitems{type=MATERIAL,id=LLAVE_RESONANTE}'
+    crafting-time: 5
+    conditions:
+    - 'permission{list="hydev.mineria.arcana";display="Minería nivel 22"}'
+    ingredients:
+    - 'mmoitem{type=MATERIAL,id=AMATISTA_RESONANTE,amount=3}'
+    - 'vanilla{type=COPPER_INGOT,amount=1}'
+
+  carga-resonante:
+    output: 'mmoitems{type=MATERIAL,id=CARGA_RESONANTE}'
+    crafting-time: 5
+    conditions:
+    - 'permission{list="hydev.mineria.arcana";display="Minería nivel 22"}'
+    ingredients:
+    - 'mmoitem{type=MATERIAL,id=AMATISTA_RESONANTE,amount=2}'
+    - 'vanilla{type=COPPER_INGOT,amount=1}'

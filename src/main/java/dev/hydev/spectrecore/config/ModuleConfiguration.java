@@ -159,7 +159,14 @@ public final class ModuleConfiguration {
                     case "equipamiento/config.yml"->{branch(yaml,"engine",old);branch(yaml,"skills",old);}
                     case "cocina/config.yml"->branch(yaml,"cooking",old);
                     case "cocina/recetas.yml"->{var recipes=originals.get("cooking/recipes.yml");if(!recipes.contains("recetas"))recipes=strict(new File(folder.getParentFile(),"SpectreCooking/recipes.yml"));merge(yaml,recipes,"");}
-                    case "resonancia/config.yml"->{branch(yaml,"gemas",mining);branch(yaml,"visuales",mining);yaml.set("gemas.activadas",null);}
+                    case "resonancia/config.yml"->{
+                        var defaults = resource("modules/" + path);
+                        branch(yaml,"gemas",mining);
+                        branch(yaml,"visuales",mining);
+                        yaml.set("gemas.activadas",null);
+                        for (String quality : List.of("basica","intermedia","superior"))
+                            if (needsGemPool(yaml, quality)) yaml.set("gemas.ids." + quality, defaults.get("gemas.ids." + quality));
+                    }
                     case "tesoros/mineria.yml"->{branch(yaml,"tesoros",mining);branch(yaml,"probabilidades",mining);branch(yaml,"visuales",mining);yaml.set("tesoros.activados",null);}
                     case "tesoros/config.yml"->{var shared=originals.get("treasures.yml");if(shared.contains("cooldown-compartido-segundos"))yaml.set("cooldown-compartido-segundos",shared.get("cooldown-compartido-segundos"));else if(mining.contains("tesoros.cooldown-segundos"))yaml.set("cooldown-compartido-segundos",mining.get("tesoros.cooldown-segundos"));}
                     case "tesoros/combate.yml","tesoros/agricultura.yml"->{String name=path.contains("combate")?"combat":"agriculture",type=name.equals("combat")?"combate":"agricultura";File source=new File(folder,name+"-treasures.yml");merge(yaml,originals.get(name+"-treasures.yml"),"");if(!source.isFile()){var s=skript.getConfigurationSection("probabilidades."+type);if(s!=null)merge(yaml,s,"probabilidades."+type+".");}}

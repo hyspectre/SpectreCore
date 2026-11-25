@@ -225,16 +225,18 @@ public final class MithrilToolModule implements Listener {
         if (used) event.setCancelled(true);
     }
 
+    private int configRecharge() { return settings.getInt("herramientas-mitrilo.carga.recupera", 30); }
+
     private boolean recharge(Player player) {
         ItemStack stack = data.held(player, EquipmentSlot.OFF_HAND);
-        if (data.id(stack).isEmpty()) return false;
+        if (data.id(stack).isEmpty() || MithrilDeviceData.AMETHYST.equals(data.id(stack))) return false;
         int max = capacity(), existing = data.energy(stack);
         if (existing >= max) {
             feedback(player, "carga-completa", "<gray>La herramienta ya está completamente cargada.");
             return true;
         }
         data.update(player, EquipmentSlot.OFF_HAND,
-                data.changeCharge(stack, cost("cristal.recupera"), max));
+                data.changeCharge(stack, configRecharge(), max));
         ItemStack crystal = data.held(player, EquipmentSlot.HAND);
         if (crystal.getAmount() <= 1) data.update(player, EquipmentSlot.HAND, new ItemStack(Material.AIR));
         else {

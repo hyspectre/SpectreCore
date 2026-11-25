@@ -23,12 +23,12 @@ assert resource["herramientas"]["bonificaciones"] == {
     "PICO_MITRILO": 1.25, "PICO_MITRILO_TEMPLADO": 1.60
 }
 assert order == {"tipo":"MATERIAL", "id":"MITRILO", "cantidad":4, "recompensa":180, "rango-minimo":2}
-assert set(material) == {"MITRILO", "LINGOTE_MITRILO", "CRISTAL_MITRILO"} and material["MITRILO"]["base"]["material"] == "PRISMARINE_CRYSTALS"
+assert set(material) == {"MITRILO", "AMATISTA_RESONANTE", "CARGA_RESONANTE", "LLAVE_RESONANTE"} and material["MITRILO"]["base"]["material"] == "PRISMARINE_CRYSTALS"
 assert set(tools) == {"PICO_MITRILO", "PICO_MITRILO_TEMPLADO", "BRUJULA_GEOLOGICA", "FAROL_MITRILO", "BARRENA_MITRILO", "PICO_AMATISTA"}
 assert tools["PICO_MITRILO"]["base"]["material"] == "DIAMOND_PICKAXE"
 assert tools["PICO_MITRILO_TEMPLADO"]["base"]["material"] == "NETHERITE_PICKAXE"
 recipes = station["recipes"]
-assert set(recipes) == {"pico-mitrilo", "pico-mitrilo-templado", "lingote-mitrilo", "cristal-mitrilo", "brujula-geologica", "farol-mitrilo", "barrena-mitrilo", "pico-amatista"}
+assert set(recipes) == {"pico-mitrilo", "pico-mitrilo-templado", "carga-resonante", "llave-resonante", "brujula-geologica", "farol-mitrilo", "barrena-mitrilo", "pico-amatista"}
 assert recipes["pico-mitrilo"]["output"] == "mmoitems{type=TOOL,id=PICO_MITRILO}"
 assert recipes["pico-mitrilo-templado"]["output"] == "mmoitems{type=TOOL,id=PICO_MITRILO_TEMPLADO}"
 for recipe in recipes.values():
@@ -37,11 +37,11 @@ for recipe in recipes.values():
 assert recipes["brujula-geologica"]["output"] == "mmoitems{type=TOOL,id=BRUJULA_GEOLOGICA}"
 assert recipes["farol-mitrilo"]["output"] == "mmoitems{type=TOOL,id=FAROL_MITRILO}"
 assert recipes["barrena-mitrilo"]["output"] == "mmoitems{type=TOOL,id=BARRENA_MITRILO}"
-assert recipes["cristal-mitrilo"]["output"] == "mmoitems{type=MATERIAL,id=CRISTAL_MITRILO}"
+assert recipes["carga-resonante"]["output"] == "mmoitems{type=MATERIAL,id=CARGA_RESONANTE}"
 device_config = resource["herramientas"]  # Keep original passive Pico bonuses.
 tool_config = mining["herramientas-mitrilo"]
 assert tool_config["resonancia"] == {"maxima": 100, "por-mineral-natural": 4}
-assert tool_config["cristal"]["recupera"] == 50
+assert tool_config["carga"]["recupera"] == 30
 assert tool_config["pico"]["max-bloques-adicionales"] == 3
 assert tool_config["brujula"]["radio-horizontal"] == 16 and tool_config["brujula"]["radio-vertical"] == 12
 assert tool_config["barrena"]["pasos"] == 8 and tool_config["barrena"]["intervalo-ticks"] == 5

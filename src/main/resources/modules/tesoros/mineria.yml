@@ -45,6 +45,8 @@ herramientas-mitrilo:
     por-mineral-natural: 4
   cristal:
     recupera: 50
+  carga:
+    recupera: 30
   pico:
     activacion: 25
     duracion-segundos: 15

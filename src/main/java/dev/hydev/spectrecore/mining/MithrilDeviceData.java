@@ -20,7 +20,7 @@ public final class MithrilDeviceData {
     public static final String COMPASS = "BRUJULA_GEOLOGICA";
     public static final String LANTERN = "FAROL_MITRILO";
     public static final String DRILL = "BARRENA_MITRILO";
-    public static final String CRYSTAL = "CRISTAL_MITRILO";
+    public static final String CHARGE = "CARGA_RESONANTE";
     private static final Set<String> TOOLS = Set.of(PICK, TEMPERED, AMETHYST, COMPASS, LANTERN, DRILL);
     private final MmoBridge mmo = new MmoBridge();
     private final NamespacedKey charge, cooldown, active, lit, anchor, path, serial;
@@ -44,7 +44,7 @@ public final class MithrilDeviceData {
     public boolean crystal(ItemStack stack) {
         return stack != null && !stack.getType().isAir()
                 && "MATERIAL".equalsIgnoreCase(mmo.type(stack))
-                && CRYSTAL.equals(mmo.id(stack));
+                && (CHARGE.equals(mmo.id(stack)) || "CRISTAL_MITRILO".equals(mmo.id(stack)));
     }
 
     public String serial(ItemStack stack) { return string(stack, serial); }

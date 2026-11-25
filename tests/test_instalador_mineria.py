@@ -106,3 +106,10 @@ gui-layout:
     module.install(plugin,station,True)
     assert all(p.read_bytes()==data for p,data in snapshot.items()),"second install changed YAML"
 print("PASS Hydev mining integration: live reward nodes, 7 MM skills and idempotent backed-up MMOItems install")
+
+for permissions in ("    item-permissions: [otra] # permiso original", "    item-permissions: # original\n      - otra"):
+    sample = "TALADRO:\n  base:\n" + permissions + "\n"
+    changed, _ = module.patch_permission(sample, "TALADRO", "hydev.mineria.paladio")
+    assert changed.count("item-permissions:") == 1
+    assert set(yaml.safe_load(changed)["TALADRO"]["base"]["item-permissions"]) == {"otra", "hydev.mineria.paladio"}
+    assert module.patch_permission(changed, "TALADRO", "hydev.mineria.paladio")[0] == changed
