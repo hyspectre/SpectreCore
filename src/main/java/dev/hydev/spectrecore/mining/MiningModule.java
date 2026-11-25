@@ -3,6 +3,7 @@ package dev.hydev.spectrecore.mining;
 import dev.hydev.spectrecore.config.Settings;
 import dev.hydev.spectrecore.migration.MigrationRules;
 import dev.hydev.spectrecore.migration.MmoBridge;
+import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -48,6 +49,9 @@ public final class MiningModule implements Listener {
     private static final List<String> CORE_NAMES = List.of("Veta", "Magnetita", "Fluorita", "Diamante Loco");
     private boolean dirty;
     private int saveClock;
+    private int barFrame;
+    private final Map<UUID, BossBar> resonanceBars = new HashMap<>();
+    private final MiningPermissionSync permissionSync;
     public MiningModule(JavaPlugin plugin, dev.hydev.spectrecore.treasure.TreasureCooldowns treasureCooldown) {
         this.plugin = plugin; geodeNamespace = new NamespacedKey(plugin, "geoda").getNamespace(); this.treasureCooldown = treasureCooldown;
         visuals = new MiningVisuals(plugin);
@@ -58,6 +62,7 @@ public final class MiningModule implements Listener {
         encounters = new MiningEncounters(plugin, luck);
         drill = new StoneDrill(plugin);
         progression = new MiningProgression(plugin);
+        permissionSync = new MiningPermissionSync(plugin, progression);
         mithrilTools = new MithrilToolModule(plugin, placed);
     }
     public void enable() {
@@ -71,26 +76,56 @@ public final class MiningModule implements Listener {
         for (String name : List.of("resonancia", "debugresonancia", "nombreitem")) {
             var command = dev.hydev.spectrecore.command.CommandRouter.of(plugin).get(name);
             if (command != null) {
-                command.setExecutor((sender, cmd, label, args) -> command(sender, cmd.getName()));
+                command.setExecutor((sender, cmd, label, args) -> command(sender, cmd.getName(), args));
                 command.setTabCompleter((sender, cmd, label, args) -> List.of());
             }
         }
         timer = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
+            boolean second = ++barFrame % 4 == 0;
             for (Player player : Bukkit.getOnlinePlayers()) {
-                showGeodes(player);
-                if (!config.getBoolean("gemas.activadas", true)) continue;
+                if (second) showGeodes(player);
                 State state = states.get(player.getUniqueId());
-                if (state != null && expire(player, state)) continue;
-                if (state != null && state.activeUntil > 0 && tool(player.getInventory().getItemInMainHand())) {
-                    long left = Math.max(0, (state.activeUntil - System.currentTimeMillis() + 999) / 1000);
-                    player.sendActionBar(Settings.component(Settings.text("resonancia", "MiningModule.mensaje-001", "✦ Resonancia lista · Shift + minar · {left} s", "left", left), Settings.color("resonancia", "MiningModule.color-001", NamedTextColor.LIGHT_PURPLE)));
-                }
+                if (state != null && config.getBoolean("gemas.activadas", true)) expire(player, state);
+                updateBar(player, state);
             }
-            if (++saveClock >= 10) { saveClock = 0; if (dirty) saveData(); }
-        }, 20, 20);
+            if (second && ++saveClock >= 10) { saveClock = 0; if (dirty) saveData(); }
+        }, 5, 5);
+    }
+
+    private void updateBar(Player player, State state) {
+        if (state == null || state.charge <= 0 || !config.getBoolean("gemas.activadas", true)
+                || !tool(player.getInventory().getItemInMainHand())) {
+            hideBar(player);
+            return;
+        }
+        BossBar bar = resonanceBars.computeIfAbsent(player.getUniqueId(), id -> {
+            BossBar created = BossBar.bossBar(Component.empty(), 0, BossBar.Color.PURPLE, BossBar.Overlay.PROGRESS);
+            player.showBossBar(created);
+            return created;
+        });
+        if (state.activeUntil > 0) {
+            long remaining = Math.max(0, state.activeUntil - System.currentTimeMillis());
+            bar.progress(Math.min(1f, remaining / (window() * 1000f)));
+            bar.color(barFrame % 8 < 4 ? BossBar.Color.PINK : BossBar.Color.PURPLE);
+            bar.name(Settings.message("resonancia", "MiningModule.barra-lista",
+                    "<light_purple>✦ Agáchate y mina · {s} s", "s", (remaining + 999) / 1000));
+        } else {
+            float target = Math.min(1f, state.charge / (float) maximum());
+            bar.progress(Math.min(target, bar.progress() + Math.max(0.01f, (target - bar.progress()) / 2)));
+            bar.color(BossBar.Color.PURPLE);
+            bar.name(Settings.message("resonancia", "MiningModule.barra-carga",
+                    "<light_purple>✦ Resonancia <white>{carga}/{max}", "carga", state.charge, "max", maximum()));
+        }
+    }
+
+    private void hideBar(Player player) {
+        BossBar bar = resonanceBars.remove(player.getUniqueId());
+        if (bar != null) player.hideBossBar(bar);
     }
     public void disable() {
         if (timer != null) timer.cancel();
+        Bukkit.getOnlinePlayers().forEach(this::hideBar);
+        permissionSync.stop();
         progression.disable();
         drill.disable();
         encounters.disable();
@@ -311,12 +346,6 @@ public final class MiningModule implements Listener {
             player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-007", "{prefix}§d§lRESONANCIA COMPLETA", "prefix", Settings.component(prefix())));
             player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-008", "§7Agáchate y rompe un mineral en los próximos {window} segundos.", "window", window()));
             player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-009", "§7La calidad depende del mineral que elijas.")); if(config.getBoolean("visuales-resonancia.activados",true)) visuals.charged(player);
-        } else {
-            int filled = (int) Math.floor(12.0 * state.charge / maximum());
-            player.sendActionBar(Settings.component(Settings.text("resonancia", "MiningModule.mensaje-010", "✦ "), Settings.color("resonancia", "MiningModule.color-009", NamedTextColor.LIGHT_PURPLE))
-                .append(Settings.component(Settings.text("resonancia", "MiningModule.mensaje-011", "{repeat-filled}", "repeat-filled", "▰".repeat(filled)), Settings.color("resonancia", "MiningModule.color-010", NamedTextColor.LIGHT_PURPLE)))
-                .append(Settings.component(Settings.text("resonancia", "MiningModule.mensaje-012", "{repeat-12-filled}", "repeat-12-filled", "▱".repeat(12 - filled)), Settings.color("resonancia", "MiningModule.color-011", NamedTextColor.DARK_GRAY)))
-                .append(Settings.component(Settings.text("resonancia", "MiningModule.mensaje-013", " {state-charge}/{maximum}", "state-charge", state.charge, "maximum", maximum()), Settings.color("resonancia", "MiningModule.color-012", NamedTextColor.WHITE))));
         }
     }
     private void treasure(Player player, Block block, int tier) {
@@ -427,7 +456,12 @@ public final class MiningModule implements Listener {
         player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-027", "§7Vista previa visual: no entrega objetos ni cambia la resonancia."));
         return true;
     }
-    private boolean command(CommandSender sender, String name) {
+    private boolean command(CommandSender sender, String name, String[] args) {
+        if (name.equals("debugresonancia") && args.length == 1 && args[0].equals("sincronizar")) {
+            if (admin(sender)) permissionSync.start(sender);
+            else sender.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-019", "§cNo tienes permiso."));
+            return true;
+        }
         if (!(sender instanceof Player player)) { sender.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-028", "Usa este comando dentro del juego.")); return true; }
         if (!name.equals("resonancia") && !admin(sender)) { sender.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-029", "§cNo tienes permiso.")); return true; }
         State state = state(player); expire(player, state);
@@ -454,7 +488,7 @@ public final class MiningModule implements Listener {
         }
         return true;
     }
-    @EventHandler public void quit(PlayerQuitEvent event) { if (dirty) saveData(); }
+    @EventHandler public void quit(PlayerQuitEvent event) { hideBar(event.getPlayer()); if (dirty) saveData(); }
     private void loadData() {
         var data = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "mining-data.yml"));
         var section = data.getConfigurationSection("players");

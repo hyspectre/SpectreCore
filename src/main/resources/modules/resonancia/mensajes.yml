@@ -1,4 +1,6 @@
 MiningModule:
+  barra-lista: "<light_purple>✦ Agáchate y mina · {s} s"
+  barra-carga: "<light_purple>✦ Resonancia <white>{carga}/{max}"
   etiqueta-046: "<reset><dark_gray>[<reset><light_purple>✦<reset><dark_gray>] <reset>"
   mensaje-001: "✦ Resonancia lista · Shift + minar · {left} s"
   mensaje-002: "{prefix}<reset><gray>La resonancia se ha disipado."
