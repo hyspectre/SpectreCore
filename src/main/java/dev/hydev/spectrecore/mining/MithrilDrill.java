@@ -37,6 +37,7 @@ public final class MithrilDrill {
         if (data.id(stack).isEmpty()) return false;
         ItemMeta meta = stack.getItemMeta();
         if (!(meta instanceof Damageable damageable)) return false;
+        if (meta.isUnbreakable()) return true;
         int maximum = stack.getType().getMaxDurability();
         if (maximum <= 0) return false;
         int next = damageable.getDamage() + amount;
