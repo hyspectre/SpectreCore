@@ -66,10 +66,12 @@ public final class AmethystResonanceField implements Listener {
         final World world;
         final List<Node> nodes = new ArrayList<>();
         final ItemStack reward;
+        final String mineralTool;
         BukkitTask timeout;
-        Session(Player player, String serial, ItemStack reward) {
+        Session(Player player, String serial, ItemStack reward, String mineralTool) {
             owner = player.getUniqueId(); toolSerial = serial; world = player.getWorld();
             this.reward = reward;
+            this.mineralTool = mineralTool;
         }
     }
 
@@ -167,10 +169,37 @@ public final class AmethystResonanceField implements Listener {
 
     /** No reward is scheduled or handed out before a player actually breaks a node. */
     public int summon(Player owner, String serial, Plan plan) {
+        return summon(owner,serial,plan,null,null);
+    }
+
+    public boolean revealOre(Player player, Location location, String tool) {
+        if (!location.getWorld().isChunkLoaded(location.getBlockX() >> 4, location.getBlockZ() >> 4)
+                || !location.getBlock().getType().isAir() || !regions.canBreak(player,location.getBlock())) return false;
+        int choice = java.util.concurrent.ThreadLocalRandom.current().nextInt(6);
+        Material model = switch (choice) {
+            case 0 -> Material.DIAMOND_ORE;
+            case 1 -> Material.EMERALD_ORE;
+            case 2 -> Material.GOLD_ORE;
+            case 3 -> Material.DEEPSLATE_IRON_ORE;
+            case 4 -> Material.COPPER_ORE;
+            default -> Material.DEEPSLATE_DIAMOND_ORE;
+        };
+        ItemStack reward = switch (choice) {
+            case 0 -> new ItemStack(Material.DIAMOND);
+            case 1 -> new ItemStack(Material.EMERALD);
+            case 2 -> new ItemStack(Material.RAW_GOLD);
+            case 3 -> items.build("MATERIAL","PALADIO",1);
+            case 4 -> new ItemStack(Material.RAW_COPPER);
+            default -> items.build("MATERIAL","MITRILO",1);
+        };
+        return reward != null && summon(player,tool,new Plan(List.of(location),reward),model,tool)>0;
+    }
+
+    private int summon(Player owner, String serial, Plan plan, Material oreModel, String mineralTool) {
         if (plan == null || serial == null || serial.isBlank()
                 || sessions.containsKey(owner.getUniqueId()) || sessions.size() >= amount("max-sesiones"))
             return 0;
-        Session session = new Session(owner, serial, plan.reward);
+        Session session = new Session(owner, serial, plan.reward, mineralTool);
         try {
             for (Location spot : plan.positions) {
                 if (!owner.isOnline() || owner.getWorld() != spot.getWorld()
@@ -178,7 +207,7 @@ public final class AmethystResonanceField implements Listener {
                         || !spot.getBlock().getType().isAir()
                         || occupied(spot.getWorld(), spot.getBlockX(), spot.getBlockY(), spot.getBlockZ())
                         || !regions.canBuild(owner, spot.getBlock())) continue;
-                Material model = session.nodes.size() % 2 == 0
+                Material model = oreModel != null ? oreModel : session.nodes.size() % 2 == 0
                         ? Material.BUDDING_AMETHYST : Material.AMETHYST_BLOCK;
                 BlockDisplay visual = spot.getWorld().spawn(spot, BlockDisplay.class, display -> {
                     display.setBlock(model.createBlockData());
@@ -210,7 +239,7 @@ public final class AmethystResonanceField implements Listener {
                 spot.getWorld().spawnParticle(Particle.END_ROD, spot.clone().add(.5, .6, .5),
                         7, .24, .25, .24, .015);
             }
-            if (session.nodes.size() < amount("minimo-bloques")) {
+            if (session.nodes.size() < (oreModel == null ? amount("minimo-bloques") : 1)) {
                 remove(session);
                 return 0;
             }
@@ -238,9 +267,12 @@ public final class AmethystResonanceField implements Listener {
                 || !player.getWorld().equals(node.session.world) || !node.hitbox.isValid()
                 || player.getLocation().distanceSquared(target.getLocation()) > 36) return;
         ItemStack held = player.getInventory().getItemInMainHand();
-        if (!MithrilDeviceData.AMETHYST.equals(devices.id(held))
-                || !node.session.toolSerial.equals(devices.serial(held))
-                || !regions.canBuild(player, target.getLocation().getBlock())) return;
+        if (player.getGameMode() != org.bukkit.GameMode.SURVIVAL || !regions.canBuild(player, target.getLocation().getBlock())) return;
+        if (node.session.mineralTool != null) {
+            if (!"TOOL".equals(items.type(held)) || !node.session.mineralTool.equals(items.id(held))
+                    || !regions.canBreak(player,target.getLocation().getBlock())) return;
+        } else if (!MithrilDeviceData.AMETHYST.equals(devices.id(held))
+                || !node.session.toolSerial.equals(devices.serial(held))) return;
         long now = System.currentTimeMillis();
         if (!AmethystResonanceRules.hit(now, node.lastStrike,
                 amount("intervalo-golpe-ms"), amount("golpes") - node.strikes)) return;
@@ -249,7 +281,7 @@ public final class AmethystResonanceField implements Listener {
         target.getWorld().playSound(target.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_HIT, .6f, .8f + node.strikes * .12f);
         target.getWorld().spawnParticle(Particle.ENCHANT, target.getLocation().add(0, .5, 0),
                 8, .25, .25, .25, .03);
-        if (node.strikes < amount("golpes")) return;
+        if (node.session.mineralTool == null && node.strikes < amount("golpes")) return;
 
         // One-shot claim is made before the item enters any inventory.
         node.claimed = true;
@@ -268,7 +300,7 @@ public final class AmethystResonanceField implements Listener {
             });
         }
         player.getWorld().playSound(player.getLocation(), Sound.BLOCK_AMETHYST_CLUSTER_BREAK, .65f, 1.25f);
-        player.sendMessage(Settings.message("tesoros", "AmethystField.resonante",
+        if (node.session.mineralTool == null) player.sendMessage(Settings.message("tesoros", "AmethystField.resonante",
                 "<light_purple>✦ <white>Amatista Resonante"));
         if (node.session.nodes.isEmpty()) close(node.session.owner);
     }

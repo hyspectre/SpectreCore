@@ -38,6 +38,7 @@ public final class MiningModule implements Listener {
     private final PlacedOres placed;
     private final MithrilToolModule mithrilTools;
     private final MiningLuck luck;
+    private final MiningGems gems;
     private final MiningEncounters encounters;
     private final StoneDrill drill;
     private final MiningProgression progression;
@@ -66,6 +67,7 @@ public final class MiningModule implements Listener {
         progression = new MiningProgression(plugin);
         permissionSync = new MiningPermissionSync(plugin, progression);
         mithrilTools = new MithrilToolModule(plugin, placed);
+        gems = new MiningGems(plugin,mmo,progression,mithrilTools);
     }
     public void enable() {
         reload(); loadData();
@@ -73,6 +75,7 @@ public final class MiningModule implements Listener {
         Bukkit.getPluginManager().registerEvents(placed, plugin); visuals.enable();
         mithrilTools.enable();
         encounters.enable();
+        Bukkit.getPluginManager().registerEvents(gems,plugin);
         drill.enable();
         progression.enable();
         for (String name : List.of("resonancia", "debugresonancia", "nombreitem")) {
@@ -131,6 +134,8 @@ public final class MiningModule implements Listener {
         progression.disable();
         drill.disable();
         encounters.disable();
+        HandlerList.unregisterAll(gems);
+        gems.clear();
         mithrilTools.disable();
         HandlerList.unregisterAll(this); HandlerList.unregisterAll(placed); visuals.disable(); saveData();
         states.clear();
@@ -169,12 +174,13 @@ public final class MiningModule implements Listener {
                 || player.getGameMode() != GameMode.SURVIVAL) return;
         encounters.naturalOreBroken(player, block);
         if (tier == 0) return; // Obsidian triggers a Prospector, not ore resonance or Mitrilo.
+        int veta = gems.mine(player,block,this::deliver);
         discoverGeode(player, block);
         mithrilTools.onManualOre(player, block);
         if (progression.meets(player,"resonancia")
                 && config.getBoolean("gemas.activadas", true)
                 && tool(player.getInventory().getItemInMainHand())) resonance(player, block, tier);
-        if (config.getBoolean("tesoros.activados", true)) treasure(player, block, tier);
+        if (config.getBoolean("tesoros.activados", true)) treasure(player, block, tier, veta);
     }
     // Each discoverer's player data owns its markers. Absolute deadlines survive relogs.
     private NamespacedKey marker(Block block) {
@@ -351,11 +357,11 @@ public final class MiningModule implements Listener {
             player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-009", "§7La calidad depende del mineral que elijas.")); if(config.getBoolean("visuales-resonancia.activados",true)) visuals.charged(player);
         }
     }
-    private void treasure(Player player, Block block, int tier) {
+    private void treasure(Player player, Block block, int tier, int veta) {
         if (!treasureCooldown.ready(player.getUniqueId())) return;
         // Mitrilo is exclusive with regular mining treasures for this block.
         // No new world blocks, background scanning or extra cooldown ledgers.
-        if (mithril(player, block, tier)) return;
+        if (mithril(player, block, tier, veta)) return;
         if (!progression.meets(player,"paladio")) return;
         double chance = MiningLuckRules.chance(
                 config.getDouble("probabilidades.mineria.tier" + tier, 0), luck.stat(player),
@@ -380,7 +386,7 @@ public final class MiningModule implements Listener {
         player.showTitle(Title.title(Settings.component(Settings.text("tesoros", "MiningModule.mensaje-014", "¡TESORO ENCONTRADO!"), Settings.color("tesoros", "MiningModule.color-014", NamedTextColor.GOLD)), Settings.component(Settings.text("tesoros", "MiningModule.mensaje-015", "✦ {reward-getamount} minerales raros", "reward-getamount", reward.getAmount()), Settings.color("tesoros", "MiningModule.color-015", NamedTextColor.YELLOW)), Title.Times.times(Duration.ofMillis(Settings.i("tesoros", "MiningModule.ofmillis-010-arg0", 150)), Duration.ofSeconds(Settings.i("tesoros", "MiningModule.ofseconds-011-arg0", 2)), Duration.ofMillis(Settings.i("tesoros", "MiningModule.ofmillis-012-arg0", 350)))));
         player.sendMessage(Settings.message("tesoros", "MiningModule.mensaje-016", "§f↹ §e¡Obtuviste un mineral raro!"));
     }
-    private boolean mithril(Player player, Block block, int tier) {
+    private boolean mithril(Player player, Block block, int tier, int veta) {
         if (tier < 2 || !progression.meets(player,"mitrilo")) return false;
         boolean experienced = player.hasPermission("trabajo.minero.experimentado")
                 || player.hasPermission("trabajo.minero.profesional");
@@ -399,6 +405,7 @@ public final class MiningModule implements Listener {
                     && factor.doubleValue() >= 1 && factor.doubleValue() <= 3)
                 chance *= factor.doubleValue();
         }
+        chance *= 1 + veta * .10;
         chance = MiningLuckRules.chance(Math.min(100.0, chance), luck.stat(player),
                 config.getDouble("suerte.hallazgos.incremento-relativo-por-punto", 1.5),
                 config.getDouble("suerte.hallazgos.multiplicador-maximo", 2.0));
@@ -491,7 +498,7 @@ public final class MiningModule implements Listener {
         }
         return true;
     }
-    @EventHandler public void quit(PlayerQuitEvent event) { hideBar(event.getPlayer()); if (dirty) saveData(); }
+    @EventHandler public void quit(PlayerQuitEvent event) { gems.quit(event.getPlayer().getUniqueId()); hideBar(event.getPlayer()); if (dirty) saveData(); }
     private void loadData() {
         var data = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "mining-data.yml"));
         var section = data.getConfigurationSection("players");

@@ -1,0 +1,277 @@
+GEMA_VETA_I:
+  base:
+    revision-id: 2
+    material: AMETHYST_SHARD
+    name: '<gradient:#77D1BE:#F2F1EA>Veta I</gradient>'
+    tier: COMMON
+    tooltip: COPPER
+    gem-color: '1'
+    item-type-restriction: [TOOL]
+    lore-format: gema-minera
+    success-rate: 100
+    lore:
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fHallazgo'
+    - '&f'
+    - '&e +10% ᴅᴇ ʜᴀʟʟᴀᴢɢᴏ'
+    - '&e ᴅᴇ ᴍɪᴛʀɪʟᴏ ᴀʟ ᴍɪɴᴀʀ.'
+GEMA_VETA_II:
+  base:
+    revision-id: 2
+    material: AMETHYST_SHARD
+    name: '<gradient:#77D1BE:#F2F1EA>Veta II</gradient>'
+    tier: RARE
+    tooltip: COPPER
+    gem-color: '1'
+    item-type-restriction: [TOOL]
+    lore-format: gema-minera
+    success-rate: 100
+    lore:
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fHallazgo'
+    - '&f'
+    - '&e +20% ᴅᴇ ʜᴀʟʟᴀᴢɢᴏ'
+    - '&e ᴅᴇ ᴍɪᴛʀɪʟᴏ ᴀʟ ᴍɪɴᴀʀ.'
+GEMA_VETA_III:
+  base:
+    revision-id: 2
+    material: AMETHYST_SHARD
+    name: '<gradient:#77D1BE:#F2F1EA>Veta III</gradient>'
+    tier: EPIC
+    tooltip: SILVER
+    gem-color: '1'
+    item-type-restriction: [TOOL]
+    lore-format: gema-minera
+    success-rate: 100
+    lore:
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fHallazgo'
+    - '&f'
+    - '&e +30% ᴅᴇ ʜᴀʟʟᴀᴢɢᴏ'
+    - '&e ᴅᴇ ᴍɪᴛʀɪʟᴏ ᴀʟ ᴍɪɴᴀʀ.'
+GEMA_VETA_IV:
+  base:
+    revision-id: 2
+    material: AMETHYST_SHARD
+    name: '<gradient:#77D1BE:#F2F1EA>Veta IV</gradient>'
+    tier: LEGENDARY
+    tooltip: GOLD
+    gem-color: '1'
+    item-type-restriction: [TOOL]
+    lore-format: gema-minera
+    success-rate: 100
+    lore:
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fHallazgo'
+    - '&f'
+    - '&e +40% ᴅᴇ ʜᴀʟʟᴀᴢɢᴏ'
+    - '&e ᴅᴇ ᴍɪᴛʀɪʟᴏ ᴀʟ ᴍɪɴᴀʀ.'
+GEMA_MAGNETITA_I:
+  base:
+    revision-id: 2
+    material: ECHO_SHARD
+    name: '<gradient:#A7B9CC:#F2F1EA>Magnetita I</gradient>'
+    tier: COMMON
+    tooltip: COPPER
+    gem-color: '1'
+    item-type-restriction: [TOOL]
+    lore-format: gema-minera
+    success-rate: 100
+    lore:
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fAtracción'
+    - '&f'
+    - '&e ᴀᴛʀᴀᴇ ᴛᴜ ʙᴏᴛíɴ ᴅᴇ ᴍᴇɴᴀ'
+    - '&e ʜᴀsᴛᴀ 4 ʙʟᴏǫᴜᴇs.'
+GEMA_MAGNETITA_II:
+  base:
+    revision-id: 2
+    material: ECHO_SHARD
+    name: '<gradient:#A7B9CC:#F2F1EA>Magnetita II</gradient>'
+    tier: RARE
+    tooltip: COPPER
+    gem-color: '1'
+    item-type-restriction: [TOOL]
+    lore-format: gema-minera
+    success-rate: 100
+    lore:
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fAtracción'
+    - '&f'
+    - '&e ᴀᴛʀᴀᴇ ᴛᴜ ʙᴏᴛíɴ ᴅᴇ ᴍᴇɴᴀ'
+    - '&e ʜᴀsᴛᴀ 6 ʙʟᴏǫᴜᴇs.'
+GEMA_MAGNETITA_III:
+  base:
+    revision-id: 2
+    material: ECHO_SHARD
+    name: '<gradient:#A7B9CC:#F2F1EA>Magnetita III</gradient>'
+    tier: EPIC
+    tooltip: SILVER
+    gem-color: '1'
+    item-type-restriction: [TOOL]
+    lore-format: gema-minera
+    success-rate: 100
+    lore:
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fAtracción'
+    - '&f'
+    - '&e ᴀᴛʀᴀᴇ ᴛᴜ ʙᴏᴛíɴ ᴅᴇ ᴍᴇɴᴀ'
+    - '&e ʜᴀsᴛᴀ 8 ʙʟᴏǫᴜᴇs.'
+GEMA_MAGNETITA_IV:
+  base:
+    revision-id: 2
+    material: ECHO_SHARD
+    name: '<gradient:#A7B9CC:#F2F1EA>Magnetita IV</gradient>'
+    tier: LEGENDARY
+    tooltip: GOLD
+    gem-color: '1'
+    item-type-restriction: [TOOL]
+    lore-format: gema-minera
+    success-rate: 100
+    lore:
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fAtracción'
+    - '&f'
+    - '&e ᴀᴛʀᴀᴇ ᴛᴜ ʙᴏᴛíɴ ᴅᴇ ᴍᴇɴᴀ'
+    - '&e ʜᴀsᴛᴀ 10 ʙʟᴏǫᴜᴇs.'
+GEMA_FLUORITA_I:
+  base:
+    revision-id: 2
+    material: AMETHYST_SHARD
+    name: '<gradient:#BB95E5:#F2F1EA>Fluorita I</gradient>'
+    tier: COMMON
+    tooltip: COPPER
+    gem-color: '1'
+    item-type-restriction: [TOOL]
+    lore-format: gema-minera
+    success-rate: 100
+    lore:
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fPrisa'
+    - '&f'
+    - '&e ᴘʀɪsᴀ ɪ ᴅᴜʀᴀɴᴛᴇ 3 s.'
+    - '&e ʀᴇᴄᴀʀɢᴀ ᴅᴇ 12 s.'
+GEMA_FLUORITA_II:
+  base:
+    revision-id: 2
+    material: AMETHYST_SHARD
+    name: '<gradient:#BB95E5:#F2F1EA>Fluorita II</gradient>'
+    tier: RARE
+    tooltip: COPPER
+    gem-color: '1'
+    item-type-restriction: [TOOL]
+    lore-format: gema-minera
+    success-rate: 100
+    lore:
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fPrisa'
+    - '&f'
+    - '&e ᴘʀɪsᴀ ɪ ᴅᴜʀᴀɴᴛᴇ 5 s.'
+    - '&e ʀᴇᴄᴀʀɢᴀ ᴅᴇ 12 s.'
+GEMA_FLUORITA_III:
+  base:
+    revision-id: 2
+    material: AMETHYST_SHARD
+    name: '<gradient:#BB95E5:#F2F1EA>Fluorita III</gradient>'
+    tier: EPIC
+    tooltip: SILVER
+    gem-color: '1'
+    item-type-restriction: [TOOL]
+    lore-format: gema-minera
+    success-rate: 100
+    lore:
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fPrisa'
+    - '&f'
+    - '&e ᴘʀɪsᴀ ɪ ᴅᴜʀᴀɴᴛᴇ 7 s.'
+    - '&e ʀᴇᴄᴀʀɢᴀ ᴅᴇ 12 s.'
+GEMA_FLUORITA_IV:
+  base:
+    revision-id: 2
+    material: AMETHYST_SHARD
+    name: '<gradient:#BB95E5:#F2F1EA>Fluorita IV</gradient>'
+    tier: LEGENDARY
+    tooltip: GOLD
+    gem-color: '1'
+    item-type-restriction: [TOOL]
+    lore-format: gema-minera
+    success-rate: 100
+    lore:
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fPrisa'
+    - '&f'
+    - '&e ᴘʀɪsᴀ ɪ ᴅᴜʀᴀɴᴛᴇ 9 s.'
+    - '&e ʀᴇᴄᴀʀɢᴀ ᴅᴇ 12 s.'
+GEMA_VOLCANITA:
+  base:
+    revision-id: 2
+    material: MAGMA_CREAM
+    name: '<gradient:#F09856:#F2F1EA>Volcanita</gradient>'
+    tier: EPIC
+    tooltip: SILVER
+    gem-color: '1'
+    item-type-restriction: [TOOL]
+    lore-format: gema-minera
+    success-rate: 100
+    lore:
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fCristalizar'
+    - '&f'
+    - '&e 3% ᴀʟ ᴍɪɴᴀʀ ᴜɴᴀ ᴍᴇɴᴀ'
+    - '&e ᴅᴇ ᴄʀɪsᴛᴀʟɪᴢᴀʀ ᴀᴍᴀᴛɪsᴛᴀ'
+    - '&e ʀᴇsᴏɴᴀɴᴛᴇ. ᴍɪɴᴇʀíᴀ 22.'
+GEMA_DIAMANTE_LOCO_I:
+  base:
+    revision-id: 2
+    material: DIAMOND
+    name: '<gradient:#68D8ED:#F2F1EA>Diamante Loco I</gradient>'
+    tier: COMMON
+    tooltip: COPPER
+    gem-color: '1'
+    item-type-restriction: [TOOL]
+    lore-format: gema-minera
+    success-rate: 100
+    lore:
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fMena oculta'
+    - '&f'
+    - '&e 1% ᴀʟ ᴍɪɴᴀʀ ᴅᴇ ʀᴇᴠᴇʟᴀʀ'
+    - '&e ᴜɴᴀ ᴍᴇɴᴀ ᴀʟᴇᴀᴛᴏʀɪᴀ.'
+    - '&e ɢᴏʟᴘéᴀʟᴀ ᴘᴀʀᴀ ᴇxᴛʀᴀᴇʀʟᴀ.'
+GEMA_DIAMANTE_LOCO_II:
+  base:
+    revision-id: 2
+    material: DIAMOND
+    name: '<gradient:#68D8ED:#F2F1EA>Diamante Loco II</gradient>'
+    tier: RARE
+    tooltip: COPPER
+    gem-color: '1'
+    item-type-restriction: [TOOL]
+    lore-format: gema-minera
+    success-rate: 100
+    lore:
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fMena oculta'
+    - '&f'
+    - '&e 2% ᴀʟ ᴍɪɴᴀʀ ᴅᴇ ʀᴇᴠᴇʟᴀʀ'
+    - '&e ᴜɴᴀ ᴍᴇɴᴀ ᴀʟᴇᴀᴛᴏʀɪᴀ.'
+    - '&e ɢᴏʟᴘéᴀʟᴀ ᴘᴀʀᴀ ᴇxᴛʀᴀᴇʀʟᴀ.'
+GEMA_DIAMANTE_LOCO_III:
+  base:
+    revision-id: 2
+    material: DIAMOND
+    name: '<gradient:#68D8ED:#F2F1EA>Diamante Loco III</gradient>'
+    tier: EPIC
+    tooltip: SILVER
+    gem-color: '1'
+    item-type-restriction: [TOOL]
+    lore-format: gema-minera
+    success-rate: 100
+    lore:
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fMena oculta'
+    - '&f'
+    - '&e 3% ᴀʟ ᴍɪɴᴀʀ ᴅᴇ ʀᴇᴠᴇʟᴀʀ'
+    - '&e ᴜɴᴀ ᴍᴇɴᴀ ᴀʟᴇᴀᴛᴏʀɪᴀ.'
+    - '&e ɢᴏʟᴘéᴀʟᴀ ᴘᴀʀᴀ ᴇxᴛʀᴀᴇʀʟᴀ.'
+GEMA_DIAMANTE_LOCO_IV:
+  base:
+    revision-id: 2
+    material: DIAMOND
+    name: '<gradient:#68D8ED:#F2F1EA>Diamante Loco IV</gradient>'
+    tier: LEGENDARY
+    tooltip: GOLD
+    gem-color: '1'
+    item-type-restriction: [TOOL]
+    lore-format: gema-minera
+    success-rate: 100
+    lore:
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fMena oculta'
+    - '&f'
+    - '&e 4% ᴀʟ ᴍɪɴᴀʀ ᴅᴇ ʀᴇᴠᴇʟᴀʀ'
+    - '&e ᴜɴᴀ ᴍᴇɴᴀ ᴀʟᴇᴀᴛᴏʀɪᴀ.'
+    - '&e ɢᴏʟᴘéᴀʟᴀ ᴘᴀʀᴀ ᴇxᴛʀᴀᴇʀʟᴀ.'

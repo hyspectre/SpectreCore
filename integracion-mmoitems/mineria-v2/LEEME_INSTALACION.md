@@ -69,7 +69,7 @@ Las herramientas nuevas usan ranuras de color de texto `1`. En las dos plantilla
 originales TALADRO y PICO_GEMAS añade una ranura de ese color.
 
 La estación `forja-minera` incluye las diez herramientas, el Compactador,
-la Llave Resonante, la Carga Resonante y las cinco reliquias. Si la forja anterior
+la Llave Resonante, la Carga Resonante, las cinco reliquias y nueve recetas de gemas. Si la forja anterior
 contiene recetas propias del Guante Minero o el Compactador, el instalador usa esas
 recetas. Puedes señalarla con `--forja /ruta/forja.yml`.
 
@@ -77,3 +77,18 @@ Tras arrancar, abre `/forjaminera` con Minería inicial, o usa desde consola
 `mi stations open forja-minera JUGADOR`. Prueba una herramienta recién creada y
 una gema antes de mejorar una herramienta valiosa: las recetas que consumen la
 herramienta anterior fabrican una nueva plantilla y no transfieren gemas instaladas.
+
+### Gemas de minería
+
+GEM_STONE_RAMAS_MINERAS.yml contiene las 17 plantillas nuevas. El instalador las
+fusiona por ID. El Pico Perdido conserva su botín de dungeons. El Pico de Mitrilo y
+el Templado tienen un 1 % por mena natural de encontrar Veta I, Magnetita I,
+Fluorita I o Volcanita, con la misma probabilidad dentro del grupo. La Forja
+Minera fabrica Diamante Loco I con diamantes y Amatista Resonante. También permite
+subir las cuatro ramas a II y III. Los grados IV salen de las geodas reservadas.
+Volcanita tiene un único grado.
+
+Las habilidades leen las gemas instaladas en la herramienta de la mano principal.
+Si hay varias de la misma rama cuenta el grado mayor. Para comprobar la instalación,
+genera una gema con /mi give GEM_STONE GEMA_MAGNETITA_I, arrástrala sobre una
+herramienta nueva con una ranura libre y pica una mena natural en supervivencia.

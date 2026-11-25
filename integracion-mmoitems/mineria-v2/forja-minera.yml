@@ -182,13 +182,85 @@ recipes:
     - 'vanilla{type=COPPER_INGOT,amount=24}'
     - 'mmoitem{type=MATERIAL,id=MITRILO,amount=12}'
     - 'mmoitem{type=MATERIAL,id=CHATARRA_MECANICA,amount=8}'
+  gema-veta-ii:
+    output: 'mmoitems{type=GEM_STONE,id=GEMA_VETA_II}'
+    crafting-time: 15
+    conditions:
+    - 'permission{list="hydev.mineria.mitrilo";display="Minería nivel 18"}'
+    ingredients:
+    - 'mmoitem{type=GEM_STONE,id=GEMA_VETA_I,amount=2}'
+    - 'mmoitem{type=MATERIAL,id=MITRILO,amount=8}'
+  gema-veta-iii:
+    output: 'mmoitems{type=GEM_STONE,id=GEMA_VETA_III}'
+    crafting-time: 15
+    conditions:
+    - 'permission{list="hydev.mineria.mitrilo";display="Minería nivel 18"}'
+    ingredients:
+    - 'mmoitem{type=GEM_STONE,id=GEMA_VETA_II,amount=2}'
+    - 'mmoitem{type=MATERIAL,id=MITRILO,amount=12}'
+  gema-magnetita-ii:
+    output: 'mmoitems{type=GEM_STONE,id=GEMA_MAGNETITA_II}'
+    crafting-time: 15
+    conditions:
+    - 'permission{list="hydev.mineria.mitrilo";display="Minería nivel 18"}'
+    ingredients:
+    - 'mmoitem{type=GEM_STONE,id=GEMA_MAGNETITA_I,amount=2}'
+    - 'mmoitem{type=MATERIAL,id=MITRILO,amount=8}'
+  gema-magnetita-iii:
+    output: 'mmoitems{type=GEM_STONE,id=GEMA_MAGNETITA_III}'
+    crafting-time: 15
+    conditions:
+    - 'permission{list="hydev.mineria.mitrilo";display="Minería nivel 18"}'
+    ingredients:
+    - 'mmoitem{type=GEM_STONE,id=GEMA_MAGNETITA_II,amount=2}'
+    - 'mmoitem{type=MATERIAL,id=MITRILO,amount=12}'
+  gema-fluorita-ii:
+    output: 'mmoitems{type=GEM_STONE,id=GEMA_FLUORITA_II}'
+    crafting-time: 15
+    conditions:
+    - 'permission{list="hydev.mineria.mitrilo";display="Minería nivel 18"}'
+    ingredients:
+    - 'mmoitem{type=GEM_STONE,id=GEMA_FLUORITA_I,amount=2}'
+    - 'mmoitem{type=MATERIAL,id=MITRILO,amount=8}'
+  gema-fluorita-iii:
+    output: 'mmoitems{type=GEM_STONE,id=GEMA_FLUORITA_III}'
+    crafting-time: 15
+    conditions:
+    - 'permission{list="hydev.mineria.mitrilo";display="Minería nivel 18"}'
+    ingredients:
+    - 'mmoitem{type=GEM_STONE,id=GEMA_FLUORITA_II,amount=2}'
+    - 'mmoitem{type=MATERIAL,id=MITRILO,amount=12}'
+  gema-diamante-loco-i:
+    output: 'mmoitems{type=GEM_STONE,id=GEMA_DIAMANTE_LOCO_I}'
+    crafting-time: 15
+    conditions:
+    - 'permission{list="hydev.mineria.arcana";display="Minería nivel 22"}'
+    ingredients:
+    - 'vanilla{type=DIAMOND,amount=8}'
+    - 'mmoitem{type=MATERIAL,id=AMATISTA_RESONANTE,amount=4}'
+  gema-diamante-loco-ii:
+    output: 'mmoitems{type=GEM_STONE,id=GEMA_DIAMANTE_LOCO_II}'
+    crafting-time: 15
+    conditions:
+    - 'permission{list="hydev.mineria.arcana";display="Minería nivel 22"}'
+    ingredients:
+    - 'mmoitem{type=GEM_STONE,id=GEMA_DIAMANTE_LOCO_I,amount=2}'
+    - 'mmoitem{type=MATERIAL,id=AMATISTA_RESONANTE,amount=8}'
+  gema-diamante-loco-iii:
+    output: 'mmoitems{type=GEM_STONE,id=GEMA_DIAMANTE_LOCO_III}'
+    crafting-time: 15
+    conditions:
+    - 'permission{list="hydev.mineria.arcana";display="Minería nivel 22"}'
+    ingredients:
+    - 'mmoitem{type=GEM_STONE,id=GEMA_DIAMANTE_LOCO_II,amount=2}'
+    - 'mmoitem{type=MATERIAL,id=AMATISTA_RESONANTE,amount=12}'
 gui-layout:
   name: 'Forja Minera'
   slots: 54
   enable_right_click_preview: false
   items:
     recipe:
-      slots: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34]
+      slots: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41]
       delay_format: smhdMy
       craft:
         name: '&f{name}'

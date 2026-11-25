@@ -105,13 +105,15 @@ gui-layout:
     assert station.read_bytes() == originals[station]
     definitions=yaml.safe_load(dedicated.read_text("utf-8"))
     assert module.detect_forge(plugin,None) == station
-    assert len(definitions["recipes"]) == 18
+    assert len(definitions["recipes"]) == 27
     assert len(yaml.safe_load((plugin/"item/reliquia.yml").read_text())) == 5
     for item, count in {"TALADRO":1, "TALADRO_REFORZADO":2,"TALADRO_CALIBRADO":3,"PICO_MITRILO_TEMPLADO":2}.items():
         assert tool[item]["base"]["gem-sockets"] == ["1"] * count
     assert "lingote-mitrilo" not in definitions["recipes"] and "cristal-mitrilo" not in definitions["recipes"]
     installed_gems=yaml.safe_load((plugin/"item/GEM_STONE.yml").read_text())
     assert installed_gems["GEMA_RUBI_1"]["base"]["name"] == "Rubí personalizado"
+    branches=yaml.safe_load((pack/"GEM_STONE_RAMAS_MINERAS.yml").read_text())
+    assert len(branches)==17 and all(installed_gems[k]==v and v["base"]["lore"] and v["base"]["gem-color"]=="1" for k,v in branches.items())
     assert "GEMA_ANTIGUA" in installed_gems and "GEMA_RUBI_3" in installed_gems
     assert definitions["gui-layout"]["name"]=="Forja Minera"
     assert "otro-original" not in definitions["recipes"]

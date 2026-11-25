@@ -81,6 +81,12 @@ public final class MithrilToolModule implements Listener {
         active = false;
     }
 
+    public void revealOre(Player player, org.bukkit.Location location, String tool) {
+        if (active && amethystField.revealOre(player,location,tool)) {
+            player.sendMessage("§b✦ Diamante Loco · Golpea la mena revelada.");
+        }
+    }
+
     private int capacity() { return settings.getInt("herramientas-mitrilo.resonancia.maxima", 100); }
     private int cost(String path) { return settings.getInt("herramientas-mitrilo." + path, 0); }
     private void feedback(Player player, String id, String fallback, Object... values) {

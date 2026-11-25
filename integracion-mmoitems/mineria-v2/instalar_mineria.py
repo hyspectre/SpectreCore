@@ -291,6 +291,10 @@ def install(plugin: Path, forge: Path, apply: bool):
                                           only_missing=(typ == "GEM_STONE"))
         if typ == "GEM_STONE":
             new = repair_gem_lore(new, src.read_text(encoding="utf-8"))
+            branches = (ROOT / "GEM_STONE_RAMAS_MINERAS.yml").read_text(encoding="utf-8")
+            new, changed_branches, added_branches = merge_items(new, branches, typ)
+            replaced.extend(changed_branches)
+            added.extend(added_branches)
         for item, permission in (
                 ([("COMPACTADOR", "hydev.mineria.hechizados")]
                  if typ == "MATERIAL" else
