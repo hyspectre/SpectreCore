@@ -133,7 +133,10 @@ public final class PresentationMigrations {
         new Rule("Sistema Hydev hydevportalleave", "Registrar la salida de un participante"),
         new Rule("Sistema Hydev hydevportalcleanup", "Retirar portales activos"),
         new Rule("Sistema Hydev hydevportalstatus", "Consultar el estado del portal"),
-        new Rule("Sistema Hydev hydevportaldemo", "Previsualizar el portal")
+        new Rule("Sistema Hydev hydevportaldemo", "Previsualizar el portal"),
+        new Rule("\"<gray>ᴄᴏɴᴇᴄᴛᴀ <white>{v-e-hits-required-4} ɢᴏʟᴘᴇs\\n<gray>ᴇɴ <yellow>{valor2} <gray>ᴘᴀʀᴀ ᴀᴄᴛɪᴠᴀʀ\"", "\"<gray>Encadena <white>{v-e-hits-required-4} golpes\\n<gray>Máximo <yellow>{valor2} <gray>entre golpes.\""),
+        new Rule("\"<gray>ᴀʟᴄᴀɴᴄᴇ <white>{v-e-range-8} ʙʟᴏǫᴜᴇs\"", "\"<gray>Alcance <white>{v-e-range-8} bloques\\n<gray>Un disparo cada <white>{valor2}.\\n<gray>Sin enemigo cercano, conserva almas.\""),
+        new Rule("\"<aqua>✦ Resonancia restaurada: <white>{carga}/100\"", "\"<aqua>✦ Resonancia restaurada: <white>{carga}/{max}\"")
     );
 
     private PresentationMigrations() { }
@@ -158,6 +161,10 @@ public final class PresentationMigrations {
                     "<gray>Sus condiciones cambian por armadura.",
                     "<gray>Lee señales, alcance y recarga.",
                     "<gray>Algunas exigen golpes o daño recibido.");
+            case "tesoros" -> List.of(
+                    "<gray>Minería, caza y cosechas especiales.",
+                    "<gray>Raridades y oportunidades distintas.",
+                    "<gray>Busca fuentes de botín poco comunes.");
             case "portales" -> List.of(
                     "<gray>Reúne jugadores cerca del portal.",
                     "<gray>Mantengan la formación al ingresar.",
@@ -188,7 +195,7 @@ public final class PresentationMigrations {
         String original = Files.readString(target.toPath(), StandardCharsets.UTF_8);
         String revised = rewriteKnownCopy(original);
         if (original.equals(revised)) return false;
-        File backup = new File(dataFolder, "backups/presentation-v2/" + relativePath);
+        File backup = new File(dataFolder, "backups/presentation-v3/" + relativePath);
         if (!backup.exists()) {
             Files.createDirectories(backup.toPath().getParent());
             Files.copy(target.toPath(), backup.toPath());

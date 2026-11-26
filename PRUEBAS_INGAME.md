@@ -22,3 +22,12 @@ Antes de producción: respaldar `plugins/`, probar sin los plugins o scripts de 
 - Con Furia completa y sin recarga, pulsa Shift dos veces: la barra cambia a Ímpetu y muestra el tiempo restante. El primer golpe fija al enemigo; los siguientes acumulan cargas y hasta +12% de daño con la configuración por defecto.
 - Cambia de enemigo o deja pasar más de 2,5 s entre golpes: verifica que la cadena se reinicia. Al terminar, comprueba que la barra vuelve a Furia/recarga y se oculta al quitar el conjunto, morir o desconectarte.
 - Comprueba que la brújula y el portal muestran su estado temporal en barras nativas, y que cocina, geodas y trabajos no escriben en la actionbar.
+
+## Indicadores de armaduras y herramientas (dev09)
+
+- Botania: golpea tres veces y espera a que expire la ventana; vuelve a encadenar los cuatro golpes y comprueba que se muestran las rosas activas, no una carga simultánea.
+- Corona de Ánimas: recibe un ataque hostil; observa disparos restantes y espera con y sin enemigos cercanos. Quita una pieza para limpiar la barra.
+- Último Juramento: activa con doble Shift, golpea para prolongar y usa la espada afín para comprobar el Eco pendiente, su consumo y expiración.
+- Sangre del Primer Dragón: activa con golpes o daño recibido; compara duración con y sin Dracoreliquia, incluso al cambiar de arma. La animación puede terminar antes de la bendición.
+- Golpea un enemigo con un multiplicador directo y verifica que solo el atacante ve el float; un golpe normal o cancelado no produce ese indicador. Los golpes rápidos no apilan floats.
+- Usa una herramienta de Mitrilo sin carga, en recarga y sin un sendero guardado; comprueba cada aviso y la consulta de materiales en El Mago.

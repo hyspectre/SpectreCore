@@ -96,8 +96,12 @@ public final class MithrilToolModule implements Listener {
         // Explicit literals keep every user-visible default in the audited message catalog.
         player.sendMessage(switch (id) {
             case "carga-completa" -> Settings.message("tesoros", "MithrilTools.carga-completa", "<gray>La herramienta ya está completamente cargada.", values);
-            case "cargada" -> Settings.message("tesoros", "MithrilTools.cargada", "<aqua>✦ Resonancia restaurada: <white>{carga}/100", values);
-            case "sin-carga" -> Settings.message("tesoros", "MithrilTools.sin-carga", "<yellow>Necesitas más resonancia o aguardar la recarga.", values);
+            case "cargada" -> Settings.message("tesoros", "MithrilTools.cargada", "<aqua>✦ Resonancia restaurada: <white>{carga}/{max}", values);
+            case "uso-no-disponible" -> Settings.message("tesoros", "MithrilTools.uso-no-disponible", "<yellow>Esta habilidad no está disponible.", values);
+            case "carga-insuficiente" -> Settings.message("tesoros", "MithrilTools.carga-insuficiente", "<yellow>Te faltan <white>{falta} <yellow>de resonancia.", values);
+            case "en-recarga" -> Settings.message("tesoros", "MithrilTools.en-recarga", "<yellow>Recarga: <white>{s}s", values);
+            case "ruta-no-disponible" -> Settings.message("tesoros", "MithrilTools.ruta-no-disponible", "<gray>No hay un sendero guardado en este mundo.", values);
+            case "sin-cristales-limite" -> Settings.message("tesoros", "MithrilTools.sin-cristales-limite", "<yellow>Hay demasiados campos activos. Intenta más tarde.", values);
             case "sin-veta" -> Settings.message("tesoros", "MithrilTools.sin-veta", "<gray>Mira una veta natural que puedas extraer.", values);
             case "veta" -> Settings.message("tesoros", "MithrilTools.veta", "<aqua>✦ Veta marcada. Extrae para recoger hasta tres bloques adicionales.", values);
             case "zona" -> Settings.message("tesoros", "MithrilTools.zona", "<red>La herramienta no puede utilizarse en esta zona.", values);
@@ -355,19 +359,36 @@ public final class MithrilToolModule implements Listener {
             crystal.setAmount(crystal.getAmount() - 1);
             data.update(player, EquipmentSlot.HAND, crystal);
         }
-        feedback(player, "cargada", "<aqua>✦ Resonancia restaurada: <white>{carga}/100",
-                "carga", data.energy(data.held(player, EquipmentSlot.OFF_HAND)));
+        feedback(player, "cargada", "<aqua>✦ Resonancia restaurada: <white>{carga}/{max}",
+                "carga", data.energy(data.held(player, EquipmentSlot.OFF_HAND)), "max", max);
         player.playSound(player.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_CHIME, .7f, 1.25f);
         return true;
+    }
+
+    /** Same checks as the actual spend; tells the player the first unmet requirement. */
+    private boolean ready(Player player, ItemStack stack, int price, long now) {
+        long seconds = MithrilRules.remainingSeconds(now, data.cooldown(stack));
+        if (seconds > 0) {
+            feedback(player, "en-recarga", "<yellow>Recarga: <white>{s}s", "s", seconds);
+            return false;
+        }
+        if (!charged(player, stack, price)) return false;
+        if (MithrilRules.canUse(data.energy(stack), price, now, data.cooldown(stack))) return true;
+        feedback(player, "uso-no-disponible", "<yellow>Esta habilidad no está disponible.");
+        return false;
+    }
+
+    private boolean charged(Player player, ItemStack stack, int price) {
+        int missing = Math.max(0, price - data.energy(stack));
+        if (missing == 0) return true;
+        feedback(player, "carga-insuficiente", "<yellow>Te faltan <white>{falta} <yellow>de resonancia.", "falta", missing);
+        return false;
     }
 
     private boolean spend(Player player, int energy, long cooldownMs, long activeMs) {
         ItemStack stack = data.held(player, EquipmentSlot.HAND);
         long now = System.currentTimeMillis();
-        if (!MithrilRules.canUse(data.energy(stack), energy, now, data.cooldown(stack))) {
-            feedback(player, "sin-carga", "<yellow>Necesitas más resonancia o aguardar la recarga.");
-            return false;
-        }
+        if (!ready(player, stack, energy, now)) return false;
         stack = data.changeCharge(stack, -energy, capacity());
         stack = data.cooldown(stack, now + cooldownMs);
         if (activeMs > 0) stack = data.active(stack, now + activeMs);
@@ -404,15 +425,11 @@ public final class MithrilToolModule implements Listener {
         int minimum = cost("pico-amatista.minimo-bloques");
         int maxFields = cost("pico-amatista.max-sesiones");
         if (amethystField.activeFields() >= maxFields) {
-            feedback(player, "sin-cristales",
-                    "<yellow>No hay espacio seguro para invocar cristales o sus gemas todavía no están disponibles.");
+            feedback(player, "sin-cristales-limite", "<yellow>Hay demasiados campos activos. Intenta más tarde.");
             return true;
         }
         int minimumPrice = AmethystResonanceRules.activationCost(fullPrice, minimum, totalNodes);
-        if (!MithrilRules.canUse(data.energy(held), minimumPrice, now, data.cooldown(held))) {
-            feedback(player, "sin-carga", "<yellow>Necesitas más resonancia o aguardar la recarga.");
-            return true;
-        }
+        if (!ready(player, held, minimumPrice, now)) return true;
         var plan = amethystField.prepare(player);
         if (plan == null) {
             feedback(player, "sin-cristales",
@@ -422,7 +439,9 @@ public final class MithrilToolModule implements Listener {
         int expectedCost = AmethystResonanceRules.activationCost(fullPrice, plan.positions().size(), totalNodes);
         if (!AmethystResonanceRules.available(data.energy(held), data.cooldown(held),
                 now, expectedCost, amethystField.activeFields(), maxFields)) {
-            feedback(player, "sin-carga", "<yellow>Necesitas más resonancia o aguardar la recarga.");
+            if (amethystField.activeFields() >= maxFields)
+                feedback(player, "sin-cristales-limite", "<yellow>Hay demasiados campos activos. Intenta más tarde.");
+            else ready(player, held, expectedCost, now);
             return true;
         }
         int summoned = amethystField.summon(player, data.serial(held), plan);
@@ -494,10 +513,7 @@ public final class MithrilToolModule implements Listener {
         String anchor = data.anchor(stack);
         if (anchor.isBlank()) {
             int price = cost("farol.anclar");
-            if (data.energy(stack) < price) {
-                feedback(player, "sin-carga", "<yellow>Necesitas más resonancia o aguardar la recarga.");
-                return true;
-            }
+            if (!charged(player, stack, price)) return true;
             if (lantern.anchor(player, EquipmentSlot.HAND, price, capacity()))
                 feedback(player, "anclado", "<aqua>✦ El Farol recuerda tu ubicación.");
             return true;
@@ -505,7 +521,8 @@ public final class MithrilToolModule implements Listener {
         if (lantern.route(player, EquipmentSlot.HAND, cost("farol.ruta"), capacity(),
                 cost("farol.recarga-segundos") * 1000L, cost("farol.marcas-segundos")))
             feedback(player, "ruta", "<aqua>✦ Sendero de retorno visible durante 20 segundos.");
-        else feedback(player, "sin-carga", "<yellow>Necesitas más resonancia o aguardar la recarga.");
+        else if (ready(player, stack, cost("farol.ruta"), System.currentTimeMillis()))
+            feedback(player, "ruta-no-disponible", "<gray>No hay un sendero guardado en este mundo.");
         return true;
     }
 
@@ -517,11 +534,7 @@ public final class MithrilToolModule implements Listener {
         }
         ItemStack stack = player.getInventory().getItemInMainHand();
         int price = cost("barrena.activacion");
-        if (!MithrilRules.canUse(data.energy(stack), price, System.currentTimeMillis(),
-                data.cooldown(stack))) {
-            feedback(player, "sin-carga", "<yellow>Necesitas más resonancia o aguardar la recarga.");
-            return true;
-        }
+        if (!ready(player, stack, price, System.currentTimeMillis())) return true;
         int steps = cost("barrena.pasos"), interval = cost("barrena.intervalo-ticks");
         if (!drill.start(player, steps, interval,
                 settings.getStringList("herramientas-mitrilo.barrena.bloques"))) {

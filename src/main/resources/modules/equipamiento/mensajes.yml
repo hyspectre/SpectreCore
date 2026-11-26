@@ -65,12 +65,12 @@ ArmorGuide:
   mensaje-024: "<gray>     <white>{valor1} <green>+{level-get-key}"
   mensaje-027: ""
   mensaje-028: "<gray>ʀᴇǫᴜɪᴇʀᴇ <white>4 ᴘɪᴇᴢᴀs"
-  mensaje-029: "<gray>ᴄᴏɴᴇᴄᴛᴀ <white>{v-e-hits-required-4} ɢᴏʟᴘᴇs\n<gray>ᴇɴ <yellow>{valor2} <gray>ᴘᴀʀᴀ ᴀᴄᴛɪᴠᴀʀ"
+  mensaje-029: "<gray>Encadena <white>{v-e-hits-required-4} golpes\n<gray>Máximo <yellow>{valor2} <gray>entre golpes."
   mensaje-030: "<gray>{valor1} ʟᴀᴛɪɢᴀᴢᴏs <white>ᴅᴇ {v-e-lash-damage-3} ʜᴘ\n<gray>ʟᴇɴᴛɪᴛᴜᴅ ɪ <yellow>{valor3}"
   mensaje-031: "<gray>ᴀʟᴄᴀɴᴄᴇ <white>{v-e-lash-range-7} ʙʟᴏǫᴜᴇs"
   mensaje-033: "<gray>ᴀʟ ʀᴇᴄɪʙɪʀ ᴅᴀñᴏ ʜᴏsᴛɪʟ\n<gray>ɪɴᴠᴏᴄᴀ <white>{valor1} ᴄᴀʟᴀᴠᴇʀᴀs"
   mensaje-034: "<gray>{v-e-shots-per-skull-3} ᴅɪsᴘᴀʀᴏs ᴘᴏʀ ᴄᴀʟᴀᴠᴇʀᴀ\n<gray>ᴅᴀñᴏ ᴘᴏʀ ɪᴍᴘᴀᴄᴛᴏ <white>{v-e-damage-per-shot-5} ʜᴘ"
-  mensaje-035: "<gray>ᴀʟᴄᴀɴᴄᴇ <white>{v-e-range-8} ʙʟᴏǫᴜᴇs"
+  mensaje-035: "<gray>Alcance <white>{v-e-range-8} bloques\n<gray>Un disparo cada <white>{valor2}.\n<gray>Sin enemigo cercano, conserva almas."
   mensaje-036: "<gray>ɴᴏ ᴀᴛᴀᴄᴀɴ ᴊᴜɢᴀᴅᴏʀᴇs."
   mensaje-037: "<gray>ғᴜʀɪᴀ <white>+{v-e-fury-on-hit-12} <gray>ᴘᴏʀ ɢᴏʟᴘᴇ\n<gray>      <white>+{v-e-fury-on-damage-6} <gray>ᴀʟ ʀᴇᴄɪʙɪʀ ᴅᴀñᴏ"
   mensaje-038: "<gray>{furia} ᴅᴇ ғᴜʀɪᴀ: <white>ᴅᴏʙʟᴇ sʜɪғᴛ\n<gray>ᴠᴇɴᴛᴀɴᴀ <yellow>{valor1}"
@@ -111,22 +111,36 @@ AsterionSkill:
   etiqueta-007: "/{maximo} <reset><gray>| activo: <reset><white>"
   etiqueta-008: " <reset><gray>| CD: <reset><white>"
 BotaniaSkill:
+  hud-activa: "<#E4A9B7>✿ <bold>Botania</bold> <gray>· <green>Rosas despiertas <gray>│ <white>{s}s"
+  hud-carga: "<#E4A9B7>✿ <bold>Botania</bold> <white>{golpes}/{max} <gray>│ Sigue golpeando"
   mensaje-001: "<reset><light_purple>✿ <reset><green>Botania <reset><gray>— Las Rosas Gemelas despiertan."
   etiqueta-002: "Parte de rosa inválida"
   etiqueta-003: "<reset><light_purple>✿ Botania <reset><gray>| set: <reset><white>"
   etiqueta-004: "<reset><gray> | golpes: <reset><white>"
   etiqueta-005: "<reset><gray> | CD: <reset><white>"
 CoronaSkill:
+  hud-final: "<gray>Última descarga"
+  hud-buscando: "<gray>Busca un enemigo cercano"
+  hud-disparo: "<gray>Disparo en <white>{s}s"
+  hud-almas: "<#92DADD>☠ <bold>Ánimas</bold> <white>{restantes}/{max} <gray>│ {estado} <gray>· <white>{s}s"
   mensaje-001: "<reset><dark_aqua>☠ <reset><aqua>Corona de Ánimas <reset><gray>— Tres almas responden a tu dolor."
   etiqueta-002: "<reset><dark_aqua>☠ Corona de Ánimas <reset><gray>| set: <reset><white>"
   etiqueta-003: "<reset><gray> | disparos: <reset><white>"
   etiqueta-004: "/9 <reset><gray>| CD: <reset><white>"
 PrimerDragonSkill:
+  hud-afinidad: "<gold>Dracoreliquia"
+  hud-bendicion: "<gray>Bendición activa"
+  hud-activo: "<#EBC88A>✦ <bold>Herencia dracónica</bold> <white>{s}s <gray>│ {estado}"
+  hud-carga: "<#EBC88A>✦ <bold>Herencia dracónica</bold> <white>{golpes}/{max} <gray>│ Golpea o recibe daño"
   mensaje-001: "<reset><gold>✦ <reset><yellow>Sangre del Primer Dragón <reset><gray>— La herencia despierta."
   etiqueta-002: "<reset><gold>✦ Sangre del Primer Dragón <reset><gray>| set: <reset><white>"
   etiqueta-003: " <reset><gray>| bendición: <reset><white>"
   etiqueta-004: " <reset><gray>| CD: <reset><white>"
 UltimoJuramentoSkill:
+  hud-eco: "<light_purple>Eco: +{dano}% próximo golpe <gray>({s}s)"
+  hud-limite: "<gray>Duración máxima"
+  hud-extiende: "<gray>Golpea para prolongar"
+  hud-activo: "<#C6A1E0>✦ <bold>Juramento</bold> <white>{s}s <gray>│ {estado}"
   en-recarga: "<yellow>Último Juramento · Recarga {s}s"
   mensaje-001: "<reset><dark_purple>✦ <reset><light_purple>Último Juramento <reset><gray>— El acero deja de protegerte."
   etiqueta-002: "<reset><dark_purple>✦ Último Juramento <reset><gray>| set: <reset><white>"
@@ -136,3 +150,6 @@ UltimoJuramentoSkill:
 
 # MiniMessage para Dialogs nativos (libros descontinuados).
 ArmorGuide.gui-no-disponible: "<red>El catálogo de armaduras no está disponible por ahora."
+
+CombatFeedback:
+  golpe-potenciado: "<#EBC88A>✦ +{dano}% <gray>daño de habilidad"

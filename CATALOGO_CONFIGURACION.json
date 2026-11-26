@@ -3,313 +3,313 @@
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.etiqueta-035",
     "predeterminado": "Configuración modular inválida: ",
-    "origen": "SpectreCorePlugin.java:118"
+    "origen": "SpectreCorePlugin.java:119"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-001",
     "predeterminado": "Esta función no está disponible. Revisa la consola del servidor.",
-    "origen": "SpectreCorePlugin.java:155"
+    "origen": "SpectreCorePlugin.java:156"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-002",
     "predeterminado": "Hay sistemas incompatibles activos. Consulta a administración antes de continuar.",
-    "origen": "SpectreCorePlugin.java:160"
+    "origen": "SpectreCorePlugin.java:161"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-003",
     "predeterminado": "La minería especial está desactivada.",
-    "origen": "SpectreCorePlugin.java:205"
+    "origen": "SpectreCorePlugin.java:208"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-004",
     "predeterminado": "Actividades desactivadas.",
-    "origen": "SpectreCorePlugin.java:221"
+    "origen": "SpectreCorePlugin.java:224"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-005",
     "predeterminado": "Esta función no pudo iniciarse. Revisa la consola.",
-    "origen": "SpectreCorePlugin.java:240"
+    "origen": "SpectreCorePlugin.java:243"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-006",
     "predeterminado": "Esta guía se abre dentro del juego.",
-    "origen": "SpectreCorePlugin.java:247"
+    "origen": "SpectreCorePlugin.java:250"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "MagoMenu.no-disponible",
     "predeterminado": "<red>El Mago está temporalmente desactivado.</red>",
-    "origen": "SpectreCorePlugin.java:276"
+    "origen": "SpectreCorePlugin.java:279"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-007",
     "predeterminado": "Hydev {getpluginmeta-getversion}: habilidades={skillsenabled}, cocina={cookingenabled}.",
-    "origen": "SpectreCorePlugin.java:282"
+    "origen": "SpectreCorePlugin.java:285"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-008",
     "predeterminado": "Se actualizaron ajustes anteriores; el archivo original sigue intacto.",
-    "origen": "SpectreCorePlugin.java:296"
+    "origen": "SpectreCorePlugin.java:299"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-009",
     "predeterminado": "No se pudo migrar configuración antigua: {ex-getmessage}",
-    "origen": "SpectreCorePlugin.java:298"
+    "origen": "SpectreCorePlugin.java:301"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "Modelos.sin-permiso",
     "predeterminado": "<red>Sin permiso.</red>",
-    "origen": "SpectreCorePlugin.java:432"
+    "origen": "SpectreCorePlugin.java:446"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "Integraciones.estado",
     "predeterminado": "{nombre}: {estado}",
-    "origen": "SpectreCorePlugin.java:439"
+    "origen": "SpectreCorePlugin.java:453"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "Integraciones.activo",
     "predeterminado": "<green>detectado</green>",
-    "origen": "SpectreCorePlugin.java:441"
+    "origen": "SpectreCorePlugin.java:455"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "Integraciones.inactivo",
     "predeterminado": "<gray>no activo</gray>",
-    "origen": "SpectreCorePlugin.java:442"
+    "origen": "SpectreCorePlugin.java:456"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "Modelos.sin-permiso",
     "predeterminado": "<red>Sin permiso.</red>",
-    "origen": "SpectreCorePlugin.java:460"
+    "origen": "SpectreCorePlugin.java:474"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "Diagnostico.estado",
     "predeterminado": "<gold>Hydev — diagnóstico: {estado}</gold>",
-    "origen": "SpectreCorePlugin.java:467"
+    "origen": "SpectreCorePlugin.java:481"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "Diagnostico.cocina",
     "predeterminado": "<gray>Cocina: {estado}</gray>",
-    "origen": "SpectreCorePlugin.java:469"
+    "origen": "SpectreCorePlugin.java:483"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "Diagnostico.cofres",
     "predeterminado": "<gray>Cofres: {estado}</gray>",
-    "origen": "SpectreCorePlugin.java:471"
+    "origen": "SpectreCorePlugin.java:485"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "Diagnostico.modelos",
     "predeterminado": "<gray>Modelos: {estado}</gray>",
-    "origen": "SpectreCorePlugin.java:473"
+    "origen": "SpectreCorePlugin.java:487"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "Diagnostico.metrica",
     "predeterminado": "<gray>{metrica}: eventos={eventos}, fallos={fallos}, promedio={promedio}ms</gray>",
-    "origen": "SpectreCorePlugin.java:475"
+    "origen": "SpectreCorePlugin.java:489"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "Modelos.sin-permiso",
     "predeterminado": "<red>Sin permiso.</red>",
-    "origen": "SpectreCorePlugin.java:481"
+    "origen": "SpectreCorePlugin.java:495"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "Modelos.solo-jugador",
     "predeterminado": "<red>Solo jugador.</red>",
-    "origen": "SpectreCorePlugin.java:482"
+    "origen": "SpectreCorePlugin.java:496"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "Modelos.uso",
     "predeterminado": "<gray>Uso: /spectrecore modelo vista|colocar <bold>t;id&gt; / quitar <bold>t;UUID&gt; / lista</gray>",
-    "origen": "SpectreCorePlugin.java:486"
+    "origen": "SpectreCorePlugin.java:500"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "Modelos.uso",
     "predeterminado": "<gray>Uso: /spectrecore modelo vista|colocar <bold>t;id&gt; / quitar <bold>t;UUID&gt; / lista</gray>",
-    "origen": "SpectreCorePlugin.java:493"
+    "origen": "SpectreCorePlugin.java:507"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-010",
     "predeterminado": "Agricultura desactivada.",
-    "origen": "SpectreCorePlugin.java:499"
+    "origen": "SpectreCorePlugin.java:513"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-011",
     "predeterminado": "Tesoros de combate desactivados.",
-    "origen": "SpectreCorePlugin.java:503"
+    "origen": "SpectreCorePlugin.java:517"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-012",
     "predeterminado": "Minería desactivada.",
-    "origen": "SpectreCorePlugin.java:507"
+    "origen": "SpectreCorePlugin.java:521"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-014",
     "predeterminado": "<reset><gray>Usa /mago cocina para aprender o /spectrecore cocina recetas para consultar recetas.",
-    "origen": "SpectreCorePlugin.java:515"
+    "origen": "SpectreCorePlugin.java:529"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-015",
     "predeterminado": "<reset><red>Sin permiso.",
-    "origen": "SpectreCorePlugin.java:510"
+    "origen": "SpectreCorePlugin.java:524"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-016",
     "predeterminado": "<reset><red>No se pudieron actualizar los ajustes. Se conserva la configuración anterior.",
-    "origen": "SpectreCorePlugin.java:522"
+    "origen": "SpectreCorePlugin.java:536"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "MagoMenu.reload-error",
     "predeterminado": "<red>No se pudo actualizar la guía. Se conserva la versión anterior.</red>",
-    "origen": "SpectreCorePlugin.java:532"
+    "origen": "SpectreCorePlugin.java:546"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "Modelos.settings-invalido",
     "predeterminado": "<red>No se pudieron actualizar los ajustes de modelos.</red>",
-    "origen": "SpectreCorePlugin.java:537"
+    "origen": "SpectreCorePlugin.java:551"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-017",
     "predeterminado": "<reset><green>Se actualizaron los ajustes. Todos los módulos permanecen activos.",
-    "origen": "SpectreCorePlugin.java:550"
+    "origen": "SpectreCorePlugin.java:564"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-018",
     "predeterminado": "<reset><red>Solo consola.",
-    "origen": "SpectreCorePlugin.java:555"
+    "origen": "SpectreCorePlugin.java:569"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-019",
     "predeterminado": "Uso: /spectrecore blink <jugador>",
-    "origen": "SpectreCorePlugin.java:556"
+    "origen": "SpectreCorePlugin.java:570"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-020",
     "predeterminado": "<reset><red>Jugador no conectado.",
-    "origen": "SpectreCorePlugin.java:559"
+    "origen": "SpectreCorePlugin.java:573"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-021",
     "predeterminado": "<reset><gray>Usa este comando desde el juego (salvo reload/blink).",
-    "origen": "SpectreCorePlugin.java:562"
+    "origen": "SpectreCorePlugin.java:576"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-022",
     "predeterminado": "<reset><light_purple>✦ Hydev <reset><gray>| Estado de habilidades",
-    "origen": "SpectreCorePlugin.java:565"
+    "origen": "SpectreCorePlugin.java:579"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-023",
     "predeterminado": "<reset><red>Sin permiso.",
-    "origen": "SpectreCorePlugin.java:569"
+    "origen": "SpectreCorePlugin.java:583"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-024",
     "predeterminado": "<reset><red>Módulo desconocido. Usa /spectrecore demo <nombre> (Tab).",
-    "origen": "SpectreCorePlugin.java:573"
+    "origen": "SpectreCorePlugin.java:587"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-025",
     "predeterminado": "<reset><gray>Demo desactivada.",
-    "origen": "SpectreCorePlugin.java:576"
+    "origen": "SpectreCorePlugin.java:590"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-026",
     "predeterminado": "<reset><green>Demo de {requested} activa.",
-    "origen": "SpectreCorePlugin.java:578"
+    "origen": "SpectreCorePlugin.java:592"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-027",
     "predeterminado": "<reset><green>Habilidades y tiempos de espera reiniciados.",
-    "origen": "SpectreCorePlugin.java:584"
+    "origen": "SpectreCorePlugin.java:598"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-028",
     "predeterminado": "<reset><gray>/spectrecore ayuda",
-    "origen": "SpectreCorePlugin.java:587"
+    "origen": "SpectreCorePlugin.java:601"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-029",
     "predeterminado": "<reset><red>Sin permiso.",
-    "origen": "SpectreCorePlugin.java:598"
+    "origen": "SpectreCorePlugin.java:612"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-030",
     "predeterminado": "Usa este comando dentro del juego.",
-    "origen": "SpectreCorePlugin.java:599"
+    "origen": "SpectreCorePlugin.java:613"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-031",
     "predeterminado": "<reset><red>Sostén un objeto con nombre personalizado.",
-    "origen": "SpectreCorePlugin.java:601"
+    "origen": "SpectreCorePlugin.java:615"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-032",
     "predeterminado": "Nombre: ",
-    "origen": "SpectreCorePlugin.java:604"
+    "origen": "SpectreCorePlugin.java:618"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-033",
     "predeterminado": "[COPIAR NOMBRE]",
-    "origen": "SpectreCorePlugin.java:605"
+    "origen": "SpectreCorePlugin.java:619"
   },
   {
     "archivo": "nucleo/ajustes.yml",
     "clave": "SpectreCorePlugin.color-001",
     "predeterminado": "GREEN",
-    "origen": "SpectreCorePlugin.java:605"
+    "origen": "SpectreCorePlugin.java:619"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-034",
     "predeterminado": "Nombre del item: [{valor1}]",
-    "origen": "SpectreCorePlugin.java:606"
+    "origen": "SpectreCorePlugin.java:620"
   },
   {
     "archivo": "dungeons/mensajes.yml",
@@ -2115,1963 +2115,1963 @@
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.geometria-001",
     "predeterminado": 0.3,
-    "origen": "CoronaSkill.java:89"
+    "origen": "CoronaSkill.java:94"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.material-014",
     "predeterminado": "WITHER_SKELETON_SKULL",
-    "origen": "CoronaSkill.java:90"
+    "origen": "CoronaSkill.java:95"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.geometria-002",
     "predeterminado": 0.1,
-    "origen": "CoronaSkill.java:98"
+    "origen": "CoronaSkill.java:103"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.geometria-003",
     "predeterminado": 28.0,
-    "origen": "CoronaSkill.java:100"
+    "origen": "CoronaSkill.java:105"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.geometria-004",
     "predeterminado": 1.05,
-    "origen": "CoronaSkill.java:101"
+    "origen": "CoronaSkill.java:106"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.geometria-005",
     "predeterminado": 1.05,
-    "origen": "CoronaSkill.java:101"
+    "origen": "CoronaSkill.java:106"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.particle-001",
     "predeterminado": "SOUL",
-    "origen": "CoronaSkill.java:102"
+    "origen": "CoronaSkill.java:107"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.spawnparticle-001-arg2",
     "predeterminado": 1,
-    "origen": "CoronaSkill.java:102"
+    "origen": "CoronaSkill.java:107"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.spawnparticle-002-arg3",
     "predeterminado": 0.0,
-    "origen": "CoronaSkill.java:102"
+    "origen": "CoronaSkill.java:107"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.spawnparticle-003-arg4",
     "predeterminado": 0.0,
-    "origen": "CoronaSkill.java:102"
+    "origen": "CoronaSkill.java:107"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.spawnparticle-004-arg5",
     "predeterminado": 0.0,
-    "origen": "CoronaSkill.java:102"
+    "origen": "CoronaSkill.java:107"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.spawnparticle-005-arg6",
     "predeterminado": 0.01,
-    "origen": "CoronaSkill.java:102"
+    "origen": "CoronaSkill.java:107"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.sonido-008",
     "predeterminado": "minecraft:entity.wither.ambient",
-    "origen": "CoronaSkill.java:104"
+    "origen": "CoronaSkill.java:109"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.playsound-006-arg2",
     "predeterminado": 0.85,
-    "origen": "CoronaSkill.java:104"
+    "origen": "CoronaSkill.java:109"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.playsound-007-arg3",
     "predeterminado": 1.4,
-    "origen": "CoronaSkill.java:104"
+    "origen": "CoronaSkill.java:109"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "CoronaSkill.mensaje-001",
     "predeterminado": "<reset><dark_aqua>☠ <reset><aqua>Corona de Ánimas <reset><gray>— Tres almas responden a tu dolor.",
-    "origen": "CoronaSkill.java:105"
+    "origen": "CoronaSkill.java:110"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.geometria-006",
     "predeterminado": 0.032,
-    "origen": "CoronaSkill.java:149"
+    "origen": "CoronaSkill.java:173"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.geometria-007",
     "predeterminado": 1.42,
-    "origen": "CoronaSkill.java:150"
+    "origen": "CoronaSkill.java:174"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.geometria-008",
     "predeterminado": 0.18,
-    "origen": "CoronaSkill.java:150"
+    "origen": "CoronaSkill.java:174"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.geometria-009",
     "predeterminado": 0.25,
-    "origen": "CoronaSkill.java:151"
+    "origen": "CoronaSkill.java:175"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.geometria-010",
     "predeterminado": 0.25,
-    "origen": "CoronaSkill.java:151"
+    "origen": "CoronaSkill.java:175"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.geometria-011",
     "predeterminado": 0.1,
-    "origen": "CoronaSkill.java:151"
+    "origen": "CoronaSkill.java:175"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.geometria-012",
     "predeterminado": 0.08,
-    "origen": "CoronaSkill.java:151"
+    "origen": "CoronaSkill.java:175"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.particle-002",
     "predeterminado": "SOUL_FIRE_FLAME",
-    "origen": "CoronaSkill.java:156"
+    "origen": "CoronaSkill.java:180"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.spawnparticle-008-arg2",
     "predeterminado": 1,
-    "origen": "CoronaSkill.java:156"
+    "origen": "CoronaSkill.java:180"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.spawnparticle-009-arg3",
     "predeterminado": 0.06,
-    "origen": "CoronaSkill.java:156"
+    "origen": "CoronaSkill.java:180"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.spawnparticle-010-arg4",
     "predeterminado": 0.07,
-    "origen": "CoronaSkill.java:156"
+    "origen": "CoronaSkill.java:180"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.spawnparticle-011-arg5",
     "predeterminado": 0.06,
-    "origen": "CoronaSkill.java:156"
+    "origen": "CoronaSkill.java:180"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.spawnparticle-012-arg6",
     "predeterminado": 0.002,
-    "origen": "CoronaSkill.java:156"
+    "origen": "CoronaSkill.java:180"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.sonido-009",
     "predeterminado": "minecraft:entity.allay.hurt",
-    "origen": "CoronaSkill.java:180"
+    "origen": "CoronaSkill.java:204"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.playsound-013-arg2",
     "predeterminado": 0.6,
-    "origen": "CoronaSkill.java:180"
+    "origen": "CoronaSkill.java:204"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.playsound-014-arg3",
     "predeterminado": 0.6,
-    "origen": "CoronaSkill.java:180"
+    "origen": "CoronaSkill.java:204"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.particle-003",
     "predeterminado": "SOUL",
-    "origen": "CoronaSkill.java:182"
+    "origen": "CoronaSkill.java:206"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.spawnparticle-015-arg2",
     "predeterminado": 14,
-    "origen": "CoronaSkill.java:182"
+    "origen": "CoronaSkill.java:206"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.spawnparticle-016-arg3",
     "predeterminado": 0.18,
-    "origen": "CoronaSkill.java:182"
+    "origen": "CoronaSkill.java:206"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.spawnparticle-017-arg4",
     "predeterminado": 0.17,
-    "origen": "CoronaSkill.java:182"
+    "origen": "CoronaSkill.java:206"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.spawnparticle-018-arg5",
     "predeterminado": 0.18,
-    "origen": "CoronaSkill.java:182"
+    "origen": "CoronaSkill.java:206"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.spawnparticle-019-arg6",
     "predeterminado": 0.015,
-    "origen": "CoronaSkill.java:182"
+    "origen": "CoronaSkill.java:206"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.geometria-013",
     "predeterminado": 0.14,
-    "origen": "CoronaSkill.java:197"
+    "origen": "CoronaSkill.java:221"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.particle-004",
     "predeterminado": "SOUL",
-    "origen": "CoronaSkill.java:201"
+    "origen": "CoronaSkill.java:225"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.spawnparticle-020-arg2",
     "predeterminado": 2,
-    "origen": "CoronaSkill.java:201"
+    "origen": "CoronaSkill.java:225"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.spawnparticle-021-arg3",
     "predeterminado": 0.05,
-    "origen": "CoronaSkill.java:201"
+    "origen": "CoronaSkill.java:225"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.spawnparticle-022-arg4",
     "predeterminado": 0.05,
-    "origen": "CoronaSkill.java:201"
+    "origen": "CoronaSkill.java:225"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.spawnparticle-023-arg5",
     "predeterminado": 0.05,
-    "origen": "CoronaSkill.java:201"
+    "origen": "CoronaSkill.java:225"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.spawnparticle-024-arg6",
     "predeterminado": 0.002,
-    "origen": "CoronaSkill.java:201"
+    "origen": "CoronaSkill.java:225"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.particle-005",
     "predeterminado": "DUST",
-    "origen": "CoronaSkill.java:202"
+    "origen": "CoronaSkill.java:226"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.spawnparticle-025-arg2",
     "predeterminado": 1,
-    "origen": "CoronaSkill.java:202"
+    "origen": "CoronaSkill.java:226"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.spawnparticle-026-arg3",
     "predeterminado": 0.0,
-    "origen": "CoronaSkill.java:202"
+    "origen": "CoronaSkill.java:226"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.spawnparticle-027-arg4",
     "predeterminado": 0.0,
-    "origen": "CoronaSkill.java:202"
+    "origen": "CoronaSkill.java:226"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.spawnparticle-028-arg5",
     "predeterminado": 0.0,
-    "origen": "CoronaSkill.java:202"
+    "origen": "CoronaSkill.java:226"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.spawnparticle-029-arg6",
     "predeterminado": 0.0,
-    "origen": "CoronaSkill.java:202"
+    "origen": "CoronaSkill.java:226"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.fromrgb-031-arg0",
     "predeterminado": 88,
-    "origen": "CoronaSkill.java:203"
+    "origen": "CoronaSkill.java:227"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.fromrgb-032-arg1",
     "predeterminado": 191,
-    "origen": "CoronaSkill.java:203"
+    "origen": "CoronaSkill.java:227"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.fromrgb-033-arg2",
     "predeterminado": 166,
-    "origen": "CoronaSkill.java:203"
+    "origen": "CoronaSkill.java:227"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.dustoptions-030-arg1",
     "predeterminado": 0.8,
-    "origen": "CoronaSkill.java:203"
+    "origen": "CoronaSkill.java:227"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.particle-007",
     "predeterminado": "SOUL_FIRE_FLAME",
-    "origen": "CoronaSkill.java:206"
+    "origen": "CoronaSkill.java:230"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.spawnparticle-034-arg2",
     "predeterminado": 7,
-    "origen": "CoronaSkill.java:206"
+    "origen": "CoronaSkill.java:230"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.spawnparticle-035-arg3",
     "predeterminado": 0.14,
-    "origen": "CoronaSkill.java:206"
+    "origen": "CoronaSkill.java:230"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.spawnparticle-036-arg4",
     "predeterminado": 0.14,
-    "origen": "CoronaSkill.java:206"
+    "origen": "CoronaSkill.java:230"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.spawnparticle-037-arg5",
     "predeterminado": 0.14,
-    "origen": "CoronaSkill.java:206"
+    "origen": "CoronaSkill.java:230"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "CoronaSkill.spawnparticle-038-arg6",
     "predeterminado": 0.01,
-    "origen": "CoronaSkill.java:206"
+    "origen": "CoronaSkill.java:230"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "CoronaSkill.etiqueta-002",
     "predeterminado": "<reset><dark_aqua>☠ Corona de Ánimas <reset><gray>| set: <reset><white>",
-    "origen": "CoronaSkill.java:222"
+    "origen": "CoronaSkill.java:249"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "CoronaSkill.etiqueta-003",
     "predeterminado": "<reset><gray> | disparos: <reset><white>",
-    "origen": "CoronaSkill.java:222"
+    "origen": "CoronaSkill.java:249"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "CoronaSkill.etiqueta-004",
     "predeterminado": "/9 <reset><gray>| CD: <reset><white>",
-    "origen": "CoronaSkill.java:223"
+    "origen": "CoronaSkill.java:250"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.sonido-005",
     "predeterminado": "minecraft:block.amethyst_block.chime",
-    "origen": "BotaniaSkill.java:83"
+    "origen": "BotaniaSkill.java:105"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.playsound-001-arg2",
     "predeterminado": 0.75,
-    "origen": "BotaniaSkill.java:83"
+    "origen": "BotaniaSkill.java:105"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.playsound-002-arg3",
     "predeterminado": 1.5,
-    "origen": "BotaniaSkill.java:83"
+    "origen": "BotaniaSkill.java:105"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "BotaniaSkill.mensaje-001",
     "predeterminado": "<reset><light_purple>✿ <reset><green>Botania <reset><gray>— Las Rosas Gemelas despiertan.",
-    "origen": "BotaniaSkill.java:84"
+    "origen": "BotaniaSkill.java:106"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.geometria-001",
     "predeterminado": 0.34,
-    "origen": "BotaniaSkill.java:106"
+    "origen": "BotaniaSkill.java:128"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.geometria-002",
     "predeterminado": 1.48,
-    "origen": "BotaniaSkill.java:106"
+    "origen": "BotaniaSkill.java:128"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.geometria-003",
     "predeterminado": 0.15,
-    "origen": "BotaniaSkill.java:107"
+    "origen": "BotaniaSkill.java:129"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.geometria-004",
     "predeterminado": 0.18,
-    "origen": "BotaniaSkill.java:112"
+    "origen": "BotaniaSkill.java:134"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.particle-001",
     "predeterminado": "DUST",
-    "origen": "BotaniaSkill.java:113"
+    "origen": "BotaniaSkill.java:135"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.spawnparticle-003-arg2",
     "predeterminado": 1,
-    "origen": "BotaniaSkill.java:113"
+    "origen": "BotaniaSkill.java:135"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.spawnparticle-004-arg3",
     "predeterminado": 0.0,
-    "origen": "BotaniaSkill.java:113"
+    "origen": "BotaniaSkill.java:135"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.spawnparticle-005-arg4",
     "predeterminado": 0.0,
-    "origen": "BotaniaSkill.java:113"
+    "origen": "BotaniaSkill.java:135"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.spawnparticle-006-arg5",
     "predeterminado": 0.0,
-    "origen": "BotaniaSkill.java:113"
+    "origen": "BotaniaSkill.java:135"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.spawnparticle-007-arg6",
     "predeterminado": 0.0,
-    "origen": "BotaniaSkill.java:113"
+    "origen": "BotaniaSkill.java:135"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.fromrgb-009-arg0",
     "predeterminado": 67,
-    "origen": "BotaniaSkill.java:114"
+    "origen": "BotaniaSkill.java:136"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.fromrgb-010-arg1",
     "predeterminado": 139,
-    "origen": "BotaniaSkill.java:114"
+    "origen": "BotaniaSkill.java:136"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.fromrgb-011-arg2",
     "predeterminado": 80,
-    "origen": "BotaniaSkill.java:114"
+    "origen": "BotaniaSkill.java:136"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.dustoptions-008-arg1",
     "predeterminado": 0.72,
-    "origen": "BotaniaSkill.java:114"
+    "origen": "BotaniaSkill.java:136"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.particle-003",
     "predeterminado": "DUST",
-    "origen": "BotaniaSkill.java:116"
+    "origen": "BotaniaSkill.java:138"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.spawnparticle-012-arg2",
     "predeterminado": 5,
-    "origen": "BotaniaSkill.java:116"
+    "origen": "BotaniaSkill.java:138"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.spawnparticle-013-arg3",
     "predeterminado": 0.13,
-    "origen": "BotaniaSkill.java:116"
+    "origen": "BotaniaSkill.java:138"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.spawnparticle-014-arg4",
     "predeterminado": 0.15,
-    "origen": "BotaniaSkill.java:116"
+    "origen": "BotaniaSkill.java:138"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.spawnparticle-015-arg5",
     "predeterminado": 0.13,
-    "origen": "BotaniaSkill.java:116"
+    "origen": "BotaniaSkill.java:138"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.spawnparticle-016-arg6",
     "predeterminado": 0.0,
-    "origen": "BotaniaSkill.java:116"
+    "origen": "BotaniaSkill.java:138"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.fromrgb-018-arg0",
     "predeterminado": 221,
-    "origen": "BotaniaSkill.java:117"
+    "origen": "BotaniaSkill.java:139"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.fromrgb-019-arg1",
     "predeterminado": 144,
-    "origen": "BotaniaSkill.java:117"
+    "origen": "BotaniaSkill.java:139"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.fromrgb-020-arg2",
     "predeterminado": 175,
-    "origen": "BotaniaSkill.java:117"
+    "origen": "BotaniaSkill.java:139"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.dustoptions-017-arg1",
     "predeterminado": 0.65,
-    "origen": "BotaniaSkill.java:117"
+    "origen": "BotaniaSkill.java:139"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.sonido-006",
     "predeterminado": "minecraft:block.grass.break",
-    "origen": "BotaniaSkill.java:118"
+    "origen": "BotaniaSkill.java:140"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.playsound-021-arg2",
     "predeterminado": 0.7,
-    "origen": "BotaniaSkill.java:118"
+    "origen": "BotaniaSkill.java:140"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.playsound-022-arg3",
     "predeterminado": 1.45,
-    "origen": "BotaniaSkill.java:118"
+    "origen": "BotaniaSkill.java:140"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.pocion-030",
     "predeterminado": "SLOWNESS",
-    "origen": "BotaniaSkill.java:120"
+    "origen": "BotaniaSkill.java:142"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.material-031",
     "predeterminado": "MOSS_BLOCK",
-    "origen": "BotaniaSkill.java:160"
+    "origen": "BotaniaSkill.java:183"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.material-032",
     "predeterminado": "PINK_CONCRETE",
-    "origen": "BotaniaSkill.java:161"
+    "origen": "BotaniaSkill.java:184"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.material-033",
     "predeterminado": "PINK_WOOL",
-    "origen": "BotaniaSkill.java:162"
+    "origen": "BotaniaSkill.java:185"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.material-034",
     "predeterminado": "GOLD_BLOCK",
-    "origen": "BotaniaSkill.java:163"
+    "origen": "BotaniaSkill.java:186"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.geometria-005",
     "predeterminado": 1.17,
-    "origen": "BotaniaSkill.java:177"
+    "origen": "BotaniaSkill.java:200"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.geometria-006",
     "predeterminado": 1.45,
-    "origen": "BotaniaSkill.java:177"
+    "origen": "BotaniaSkill.java:200"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.geometria-007",
     "predeterminado": 0.55,
-    "origen": "BotaniaSkill.java:178"
+    "origen": "BotaniaSkill.java:201"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.geometria-008",
     "predeterminado": 0.34,
-    "origen": "BotaniaSkill.java:181"
+    "origen": "BotaniaSkill.java:204"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.geometria-009",
     "predeterminado": 0.04,
-    "origen": "BotaniaSkill.java:182"
+    "origen": "BotaniaSkill.java:205"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.geometria-010",
     "predeterminado": 0.07,
-    "origen": "BotaniaSkill.java:183"
+    "origen": "BotaniaSkill.java:206"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.geometria-011",
     "predeterminado": 0.085,
-    "origen": "BotaniaSkill.java:186"
+    "origen": "BotaniaSkill.java:209"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.geometria-012",
     "predeterminado": 0.065,
-    "origen": "BotaniaSkill.java:186"
+    "origen": "BotaniaSkill.java:209"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.geometria-013",
     "predeterminado": 0.14,
-    "origen": "BotaniaSkill.java:186"
+    "origen": "BotaniaSkill.java:209"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.geometria-014",
     "predeterminado": 0.065,
-    "origen": "BotaniaSkill.java:186"
+    "origen": "BotaniaSkill.java:209"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.geometria-015",
     "predeterminado": 0.11,
-    "origen": "BotaniaSkill.java:187"
+    "origen": "BotaniaSkill.java:210"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.geometria-016",
     "predeterminado": 0.16,
-    "origen": "BotaniaSkill.java:187"
+    "origen": "BotaniaSkill.java:210"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.geometria-017",
     "predeterminado": 0.12,
-    "origen": "BotaniaSkill.java:187"
+    "origen": "BotaniaSkill.java:210"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.geometria-018",
     "predeterminado": 0.17,
-    "origen": "BotaniaSkill.java:187"
+    "origen": "BotaniaSkill.java:210"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.geometria-019",
     "predeterminado": 0.045,
-    "origen": "BotaniaSkill.java:188"
+    "origen": "BotaniaSkill.java:211"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.geometria-020",
     "predeterminado": 0.073,
-    "origen": "BotaniaSkill.java:188"
+    "origen": "BotaniaSkill.java:211"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.geometria-021",
     "predeterminado": 0.014,
-    "origen": "BotaniaSkill.java:188"
+    "origen": "BotaniaSkill.java:211"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.geometria-022",
     "predeterminado": 0.145,
-    "origen": "BotaniaSkill.java:191"
+    "origen": "BotaniaSkill.java:214"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.geometria-023",
     "predeterminado": 0.047,
-    "origen": "BotaniaSkill.java:191"
+    "origen": "BotaniaSkill.java:214"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.geometria-024",
     "predeterminado": 0.075,
-    "origen": "BotaniaSkill.java:194"
+    "origen": "BotaniaSkill.java:217"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.geometria-025",
     "predeterminado": 0.04,
-    "origen": "BotaniaSkill.java:194"
+    "origen": "BotaniaSkill.java:217"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.geometria-026",
     "predeterminado": 0.135,
-    "origen": "BotaniaSkill.java:195"
+    "origen": "BotaniaSkill.java:218"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.geometria-027",
     "predeterminado": 0.085,
-    "origen": "BotaniaSkill.java:195"
+    "origen": "BotaniaSkill.java:218"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.geometria-028",
     "predeterminado": 0.055,
-    "origen": "BotaniaSkill.java:196"
+    "origen": "BotaniaSkill.java:219"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "BotaniaSkill.geometria-029",
     "predeterminado": 0.085,
-    "origen": "BotaniaSkill.java:196"
+    "origen": "BotaniaSkill.java:219"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "BotaniaSkill.etiqueta-002",
     "predeterminado": "Parte de rosa inválida",
-    "origen": "BotaniaSkill.java:199"
+    "origen": "BotaniaSkill.java:222"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "BotaniaSkill.etiqueta-003",
     "predeterminado": "<reset><light_purple>✿ Botania <reset><gray>| set: <reset><white>",
-    "origen": "BotaniaSkill.java:224"
+    "origen": "BotaniaSkill.java:248"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "BotaniaSkill.etiqueta-004",
     "predeterminado": "<reset><gray> | golpes: <reset><white>",
-    "origen": "BotaniaSkill.java:224"
+    "origen": "BotaniaSkill.java:248"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "BotaniaSkill.etiqueta-005",
     "predeterminado": "<reset><gray> | CD: <reset><white>",
-    "origen": "BotaniaSkill.java:225"
+    "origen": "BotaniaSkill.java:249"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.polvo-001-arg1",
     "predeterminado": 162,
-    "origen": "AsterionSkill.java:68"
+    "origen": "AsterionSkill.java:69"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.polvo-002-arg2",
     "predeterminado": 45,
-    "origen": "AsterionSkill.java:68"
+    "origen": "AsterionSkill.java:69"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.polvo-003-arg3",
     "predeterminado": 40,
-    "origen": "AsterionSkill.java:68"
+    "origen": "AsterionSkill.java:69"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.polvo-004-arg4",
     "predeterminado": 4,
-    "origen": "AsterionSkill.java:68"
+    "origen": "AsterionSkill.java:69"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-001",
     "predeterminado": 0.75,
-    "origen": "AsterionSkill.java:68"
+    "origen": "AsterionSkill.java:69"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.sonido-002",
     "predeterminado": "minecraft:entity.ravager.roar",
-    "origen": "AsterionSkill.java:115"
+    "origen": "AsterionSkill.java:116"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.playsound-001-arg2",
     "predeterminado": 0.85,
-    "origen": "AsterionSkill.java:115"
+    "origen": "AsterionSkill.java:116"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.playsound-002-arg3",
     "predeterminado": 0.65,
-    "origen": "AsterionSkill.java:115"
+    "origen": "AsterionSkill.java:116"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.particle-001",
     "predeterminado": "LARGE_SMOKE",
-    "origen": "AsterionSkill.java:116"
+    "origen": "AsterionSkill.java:117"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-002",
     "predeterminado": 0.8,
-    "origen": "AsterionSkill.java:116"
+    "origen": "AsterionSkill.java:117"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.spawnparticle-003-arg2",
     "predeterminado": 26,
-    "origen": "AsterionSkill.java:116"
+    "origen": "AsterionSkill.java:117"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.spawnparticle-004-arg3",
     "predeterminado": 0.65,
-    "origen": "AsterionSkill.java:116"
+    "origen": "AsterionSkill.java:117"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.spawnparticle-005-arg4",
     "predeterminado": 0.45,
-    "origen": "AsterionSkill.java:116"
+    "origen": "AsterionSkill.java:117"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.spawnparticle-006-arg5",
     "predeterminado": 0.65,
-    "origen": "AsterionSkill.java:116"
+    "origen": "AsterionSkill.java:117"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.spawnparticle-007-arg6",
     "predeterminado": 0.01,
-    "origen": "AsterionSkill.java:116"
+    "origen": "AsterionSkill.java:117"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "AsterionSkill.mensaje-001",
     "predeterminado": "<reset><gold>✦ <reset><red>Asterión <reset><gray>— La bestia despierta.",
-    "origen": "AsterionSkill.java:117"
+    "origen": "AsterionSkill.java:118"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.sonido-003",
     "predeterminado": "minecraft:block.anvil.land",
-    "origen": "AsterionSkill.java:138"
+    "origen": "AsterionSkill.java:139"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.playsound-008-arg2",
     "predeterminado": 0.5,
-    "origen": "AsterionSkill.java:138"
+    "origen": "AsterionSkill.java:139"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.playsound-009-arg3",
     "predeterminado": 1.25,
-    "origen": "AsterionSkill.java:138"
+    "origen": "AsterionSkill.java:139"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.material-041",
     "predeterminado": "CALCITE",
-    "origen": "AsterionSkill.java:229"
+    "origen": "AsterionSkill.java:230"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-003",
     "predeterminado": 0.11,
-    "origen": "AsterionSkill.java:229"
+    "origen": "AsterionSkill.java:230"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-004",
     "predeterminado": 0.16,
-    "origen": "AsterionSkill.java:229"
+    "origen": "AsterionSkill.java:230"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-005",
     "predeterminado": 0.11,
-    "origen": "AsterionSkill.java:229"
+    "origen": "AsterionSkill.java:230"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.material-042",
     "predeterminado": "CUT_COPPER",
-    "origen": "AsterionSkill.java:230"
+    "origen": "AsterionSkill.java:231"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-006",
     "predeterminado": 0.19,
-    "origen": "AsterionSkill.java:230"
+    "origen": "AsterionSkill.java:231"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-007",
     "predeterminado": 0.13,
-    "origen": "AsterionSkill.java:230"
+    "origen": "AsterionSkill.java:231"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-008",
     "predeterminado": 0.22,
-    "origen": "AsterionSkill.java:230"
+    "origen": "AsterionSkill.java:231"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.material-043",
     "predeterminado": "CUT_COPPER",
-    "origen": "AsterionSkill.java:231"
+    "origen": "AsterionSkill.java:232"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-009",
     "predeterminado": 0.19,
-    "origen": "AsterionSkill.java:231"
+    "origen": "AsterionSkill.java:232"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-010",
     "predeterminado": 0.13,
-    "origen": "AsterionSkill.java:231"
+    "origen": "AsterionSkill.java:232"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-011",
     "predeterminado": 0.22,
-    "origen": "AsterionSkill.java:231"
+    "origen": "AsterionSkill.java:232"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-012",
     "predeterminado": 0.48,
-    "origen": "AsterionSkill.java:235"
+    "origen": "AsterionSkill.java:236"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-013",
     "predeterminado": 0.12,
-    "origen": "AsterionSkill.java:240"
+    "origen": "AsterionSkill.java:241"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-014",
     "predeterminado": 0.21,
-    "origen": "AsterionSkill.java:240"
+    "origen": "AsterionSkill.java:241"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-015",
     "predeterminado": 0.12,
-    "origen": "AsterionSkill.java:240"
+    "origen": "AsterionSkill.java:241"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-016",
     "predeterminado": 0.085,
-    "origen": "AsterionSkill.java:241"
+    "origen": "AsterionSkill.java:242"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-017",
     "predeterminado": 0.21,
-    "origen": "AsterionSkill.java:241"
+    "origen": "AsterionSkill.java:242"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-018",
     "predeterminado": 0.085,
-    "origen": "AsterionSkill.java:241"
+    "origen": "AsterionSkill.java:242"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-019",
     "predeterminado": 0.22,
-    "origen": "AsterionSkill.java:242"
+    "origen": "AsterionSkill.java:243"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-020",
     "predeterminado": 0.02,
-    "origen": "AsterionSkill.java:242"
+    "origen": "AsterionSkill.java:243"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-021",
     "predeterminado": 1.35,
-    "origen": "AsterionSkill.java:242"
+    "origen": "AsterionSkill.java:243"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-022",
     "predeterminado": 1.79,
-    "origen": "AsterionSkill.java:242"
+    "origen": "AsterionSkill.java:243"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-023",
     "predeterminado": 0.1,
-    "origen": "AsterionSkill.java:242"
+    "origen": "AsterionSkill.java:243"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-024",
     "predeterminado": 0.22,
-    "origen": "AsterionSkill.java:243"
+    "origen": "AsterionSkill.java:244"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-025",
     "predeterminado": 0.1,
-    "origen": "AsterionSkill.java:243"
+    "origen": "AsterionSkill.java:244"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-026",
     "predeterminado": 0.025,
-    "origen": "AsterionSkill.java:243"
+    "origen": "AsterionSkill.java:244"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-027",
     "predeterminado": 1.35,
-    "origen": "AsterionSkill.java:244"
+    "origen": "AsterionSkill.java:245"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-028",
     "predeterminado": 1.79,
-    "origen": "AsterionSkill.java:244"
+    "origen": "AsterionSkill.java:245"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-029",
     "predeterminado": 0.31,
-    "origen": "AsterionSkill.java:244"
+    "origen": "AsterionSkill.java:245"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-030",
     "predeterminado": 0.28,
-    "origen": "AsterionSkill.java:246"
+    "origen": "AsterionSkill.java:247"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-031",
     "predeterminado": 0.18,
-    "origen": "AsterionSkill.java:246"
+    "origen": "AsterionSkill.java:247"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-032",
     "predeterminado": 0.21,
-    "origen": "AsterionSkill.java:246"
+    "origen": "AsterionSkill.java:247"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-033",
     "predeterminado": 0.13,
-    "origen": "AsterionSkill.java:246"
+    "origen": "AsterionSkill.java:247"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-034",
     "predeterminado": 0.23,
-    "origen": "AsterionSkill.java:246"
+    "origen": "AsterionSkill.java:247"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-035",
     "predeterminado": 0.37,
-    "origen": "AsterionSkill.java:247"
+    "origen": "AsterionSkill.java:248"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-036",
     "predeterminado": 0.02,
-    "origen": "AsterionSkill.java:247"
+    "origen": "AsterionSkill.java:248"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-037",
     "predeterminado": 1.1,
-    "origen": "AsterionSkill.java:247"
+    "origen": "AsterionSkill.java:248"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-038",
     "predeterminado": 1.48,
-    "origen": "AsterionSkill.java:247"
+    "origen": "AsterionSkill.java:248"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-039",
     "predeterminado": 1.1,
-    "origen": "AsterionSkill.java:249"
+    "origen": "AsterionSkill.java:250"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.polvo-005-arg1",
     "predeterminado": 148,
-    "origen": "AsterionSkill.java:249"
+    "origen": "AsterionSkill.java:250"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.polvo-006-arg2",
     "predeterminado": 28,
-    "origen": "AsterionSkill.java:249"
+    "origen": "AsterionSkill.java:250"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.polvo-007-arg3",
     "predeterminado": 32,
-    "origen": "AsterionSkill.java:249"
+    "origen": "AsterionSkill.java:250"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.polvo-008-arg4",
     "predeterminado": 3,
-    "origen": "AsterionSkill.java:249"
+    "origen": "AsterionSkill.java:250"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-040",
     "predeterminado": 0.75,
-    "origen": "AsterionSkill.java:249"
+    "origen": "AsterionSkill.java:250"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "AsterionSkill.etiqueta-005",
     "predeterminado": "<reset><gold>♜ Asterión <reset><gray>| set: <reset><white>",
-    "origen": "AsterionSkill.java:265"
+    "origen": "AsterionSkill.java:266"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "AsterionSkill.etiqueta-006",
     "predeterminado": " <reset><gray>| furia: <reset><white>",
-    "origen": "AsterionSkill.java:265"
+    "origen": "AsterionSkill.java:266"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "AsterionSkill.etiqueta-007",
     "predeterminado": "/{maximo} <reset><gray>| activo: <reset><white>",
-    "origen": "AsterionSkill.java:266"
+    "origen": "AsterionSkill.java:267"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "AsterionSkill.etiqueta-008",
     "predeterminado": " <reset><gray>| CD: <reset><white>",
-    "origen": "AsterionSkill.java:266"
+    "origen": "AsterionSkill.java:267"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.sonido-005",
     "predeterminado": "minecraft:block.anvil.break",
-    "origen": "UltimoJuramentoSkill.java:71"
+    "origen": "UltimoJuramentoSkill.java:76"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.playsound-001-arg2",
     "predeterminado": 0.65,
-    "origen": "UltimoJuramentoSkill.java:71"
+    "origen": "UltimoJuramentoSkill.java:76"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.playsound-002-arg3",
     "predeterminado": 0.72,
-    "origen": "UltimoJuramentoSkill.java:71"
+    "origen": "UltimoJuramentoSkill.java:76"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.particle-001",
     "predeterminado": "REVERSE_PORTAL",
-    "origen": "UltimoJuramentoSkill.java:72"
+    "origen": "UltimoJuramentoSkill.java:77"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-003-arg2",
     "predeterminado": 26,
-    "origen": "UltimoJuramentoSkill.java:72"
+    "origen": "UltimoJuramentoSkill.java:77"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-004-arg3",
     "predeterminado": 0.5,
-    "origen": "UltimoJuramentoSkill.java:72"
+    "origen": "UltimoJuramentoSkill.java:77"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-005-arg4",
     "predeterminado": 0.7,
-    "origen": "UltimoJuramentoSkill.java:72"
+    "origen": "UltimoJuramentoSkill.java:77"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-006-arg5",
     "predeterminado": 0.5,
-    "origen": "UltimoJuramentoSkill.java:72"
+    "origen": "UltimoJuramentoSkill.java:77"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-007-arg6",
     "predeterminado": 0.02,
-    "origen": "UltimoJuramentoSkill.java:72"
+    "origen": "UltimoJuramentoSkill.java:77"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "UltimoJuramentoSkill.mensaje-001",
     "predeterminado": "<reset><dark_purple>✦ <reset><light_purple>Último Juramento <reset><gray>— El acero deja de protegerte.",
-    "origen": "UltimoJuramentoSkill.java:73"
+    "origen": "UltimoJuramentoSkill.java:78"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.particle-002",
     "predeterminado": "REVERSE_PORTAL",
-    "origen": "UltimoJuramentoSkill.java:96"
+    "origen": "UltimoJuramentoSkill.java:101"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-008-arg2",
     "predeterminado": 14,
-    "origen": "UltimoJuramentoSkill.java:96"
+    "origen": "UltimoJuramentoSkill.java:101"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-009-arg3",
     "predeterminado": 0.18,
-    "origen": "UltimoJuramentoSkill.java:96"
+    "origen": "UltimoJuramentoSkill.java:101"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-010-arg4",
     "predeterminado": 0.3,
-    "origen": "UltimoJuramentoSkill.java:96"
+    "origen": "UltimoJuramentoSkill.java:101"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-011-arg5",
     "predeterminado": 0.18,
-    "origen": "UltimoJuramentoSkill.java:96"
+    "origen": "UltimoJuramentoSkill.java:101"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-012-arg6",
     "predeterminado": 0.01,
-    "origen": "UltimoJuramentoSkill.java:96"
+    "origen": "UltimoJuramentoSkill.java:101"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-001",
     "predeterminado": 0.5,
-    "origen": "UltimoJuramentoSkill.java:111"
+    "origen": "UltimoJuramentoSkill.java:135"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-002",
     "predeterminado": 0.38,
-    "origen": "UltimoJuramentoSkill.java:125"
+    "origen": "UltimoJuramentoSkill.java:150"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-003",
     "predeterminado": 1.55,
-    "origen": "UltimoJuramentoSkill.java:125"
+    "origen": "UltimoJuramentoSkill.java:150"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.particle-003",
     "predeterminado": "REVERSE_PORTAL",
-    "origen": "UltimoJuramentoSkill.java:127"
+    "origen": "UltimoJuramentoSkill.java:152"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-013-arg2",
     "predeterminado": 12,
-    "origen": "UltimoJuramentoSkill.java:127"
+    "origen": "UltimoJuramentoSkill.java:152"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-014-arg3",
     "predeterminado": 0.27,
-    "origen": "UltimoJuramentoSkill.java:127"
+    "origen": "UltimoJuramentoSkill.java:152"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-015-arg4",
     "predeterminado": 0.18,
-    "origen": "UltimoJuramentoSkill.java:127"
+    "origen": "UltimoJuramentoSkill.java:152"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-016-arg5",
     "predeterminado": 0.25,
-    "origen": "UltimoJuramentoSkill.java:127"
+    "origen": "UltimoJuramentoSkill.java:152"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-017-arg6",
     "predeterminado": 0.01,
-    "origen": "UltimoJuramentoSkill.java:127"
+    "origen": "UltimoJuramentoSkill.java:152"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.polvo-001-arg1",
     "predeterminado": 143,
-    "origen": "UltimoJuramentoSkill.java:128"
+    "origen": "UltimoJuramentoSkill.java:153"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.polvo-002-arg2",
     "predeterminado": 124,
-    "origen": "UltimoJuramentoSkill.java:128"
+    "origen": "UltimoJuramentoSkill.java:153"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.polvo-003-arg3",
     "predeterminado": 182,
-    "origen": "UltimoJuramentoSkill.java:128"
+    "origen": "UltimoJuramentoSkill.java:153"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.polvo-004-arg4",
     "predeterminado": 5,
-    "origen": "UltimoJuramentoSkill.java:128"
+    "origen": "UltimoJuramentoSkill.java:153"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-004",
     "predeterminado": 0.9,
-    "origen": "UltimoJuramentoSkill.java:128"
+    "origen": "UltimoJuramentoSkill.java:153"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.material-034",
     "predeterminado": "AMETHYST_BLOCK",
-    "origen": "UltimoJuramentoSkill.java:133"
+    "origen": "UltimoJuramentoSkill.java:158"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.material-035",
     "predeterminado": "POLISHED_BLACKSTONE",
-    "origen": "UltimoJuramentoSkill.java:133"
+    "origen": "UltimoJuramentoSkill.java:158"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-005",
     "predeterminado": 0.39,
-    "origen": "UltimoJuramentoSkill.java:134"
+    "origen": "UltimoJuramentoSkill.java:159"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-006",
     "predeterminado": 0.27,
-    "origen": "UltimoJuramentoSkill.java:134"
+    "origen": "UltimoJuramentoSkill.java:159"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-007",
     "predeterminado": 0.46,
-    "origen": "UltimoJuramentoSkill.java:134"
+    "origen": "UltimoJuramentoSkill.java:159"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-008",
     "predeterminado": 0.25,
-    "origen": "UltimoJuramentoSkill.java:134"
+    "origen": "UltimoJuramentoSkill.java:159"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-009",
     "predeterminado": 0.18,
-    "origen": "UltimoJuramentoSkill.java:134"
+    "origen": "UltimoJuramentoSkill.java:159"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-010",
     "predeterminado": 0.38,
-    "origen": "UltimoJuramentoSkill.java:135"
+    "origen": "UltimoJuramentoSkill.java:160"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-011",
     "predeterminado": 0.57,
-    "origen": "UltimoJuramentoSkill.java:135"
+    "origen": "UltimoJuramentoSkill.java:160"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.particle-004",
     "predeterminado": "REVERSE_PORTAL",
-    "origen": "UltimoJuramentoSkill.java:162"
+    "origen": "UltimoJuramentoSkill.java:189"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-012",
     "predeterminado": 1.1,
-    "origen": "UltimoJuramentoSkill.java:162"
+    "origen": "UltimoJuramentoSkill.java:189"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-018-arg2",
     "predeterminado": 3,
-    "origen": "UltimoJuramentoSkill.java:162"
+    "origen": "UltimoJuramentoSkill.java:189"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-019-arg3",
     "predeterminado": 0.37,
-    "origen": "UltimoJuramentoSkill.java:162"
+    "origen": "UltimoJuramentoSkill.java:189"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-020-arg4",
     "predeterminado": 0.45,
-    "origen": "UltimoJuramentoSkill.java:162"
+    "origen": "UltimoJuramentoSkill.java:189"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-021-arg5",
     "predeterminado": 0.37,
-    "origen": "UltimoJuramentoSkill.java:162"
+    "origen": "UltimoJuramentoSkill.java:189"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-022-arg6",
     "predeterminado": 0.005,
-    "origen": "UltimoJuramentoSkill.java:162"
+    "origen": "UltimoJuramentoSkill.java:189"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.material-036",
     "predeterminado": "POLISHED_BLACKSTONE",
-    "origen": "UltimoJuramentoSkill.java:168"
+    "origen": "UltimoJuramentoSkill.java:195"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-013",
     "predeterminado": 0.22,
-    "origen": "UltimoJuramentoSkill.java:168"
+    "origen": "UltimoJuramentoSkill.java:195"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-014",
     "predeterminado": 0.24,
-    "origen": "UltimoJuramentoSkill.java:168"
+    "origen": "UltimoJuramentoSkill.java:195"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-015",
     "predeterminado": 0.3,
-    "origen": "UltimoJuramentoSkill.java:168"
+    "origen": "UltimoJuramentoSkill.java:195"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.material-037",
     "predeterminado": "NETHERITE_BLOCK",
-    "origen": "UltimoJuramentoSkill.java:169"
+    "origen": "UltimoJuramentoSkill.java:196"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-016",
     "predeterminado": 0.3,
-    "origen": "UltimoJuramentoSkill.java:169"
+    "origen": "UltimoJuramentoSkill.java:196"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-017",
     "predeterminado": 0.35,
-    "origen": "UltimoJuramentoSkill.java:169"
+    "origen": "UltimoJuramentoSkill.java:196"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-018",
     "predeterminado": 0.16,
-    "origen": "UltimoJuramentoSkill.java:169"
+    "origen": "UltimoJuramentoSkill.java:196"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.material-038",
     "predeterminado": "AMETHYST_BLOCK",
-    "origen": "UltimoJuramentoSkill.java:170"
+    "origen": "UltimoJuramentoSkill.java:197"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-019",
     "predeterminado": 0.16,
-    "origen": "UltimoJuramentoSkill.java:170"
+    "origen": "UltimoJuramentoSkill.java:197"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-020",
     "predeterminado": 0.15,
-    "origen": "UltimoJuramentoSkill.java:170"
+    "origen": "UltimoJuramentoSkill.java:197"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-021",
     "predeterminado": 0.12,
-    "origen": "UltimoJuramentoSkill.java:170"
+    "origen": "UltimoJuramentoSkill.java:197"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-022",
     "predeterminado": 0.13,
-    "origen": "UltimoJuramentoSkill.java:173"
+    "origen": "UltimoJuramentoSkill.java:200"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-023",
     "predeterminado": 0.045,
-    "origen": "UltimoJuramentoSkill.java:173"
+    "origen": "UltimoJuramentoSkill.java:200"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-024",
     "predeterminado": 1.1,
-    "origen": "UltimoJuramentoSkill.java:174"
+    "origen": "UltimoJuramentoSkill.java:201"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-025",
     "predeterminado": 1.45,
-    "origen": "UltimoJuramentoSkill.java:174"
+    "origen": "UltimoJuramentoSkill.java:201"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-026",
     "predeterminado": 0.45,
-    "origen": "UltimoJuramentoSkill.java:175"
+    "origen": "UltimoJuramentoSkill.java:202"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-027",
     "predeterminado": 0.06,
-    "origen": "UltimoJuramentoSkill.java:175"
+    "origen": "UltimoJuramentoSkill.java:202"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-028",
     "predeterminado": 0.45,
-    "origen": "UltimoJuramentoSkill.java:176"
+    "origen": "UltimoJuramentoSkill.java:203"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-029",
     "predeterminado": 0.06,
-    "origen": "UltimoJuramentoSkill.java:176"
+    "origen": "UltimoJuramentoSkill.java:203"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-030",
     "predeterminado": 0.24,
-    "origen": "UltimoJuramentoSkill.java:177"
+    "origen": "UltimoJuramentoSkill.java:204"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-031",
     "predeterminado": 0.3,
-    "origen": "UltimoJuramentoSkill.java:177"
+    "origen": "UltimoJuramentoSkill.java:204"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-032",
     "predeterminado": 0.3,
-    "origen": "UltimoJuramentoSkill.java:178"
+    "origen": "UltimoJuramentoSkill.java:205"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-033",
     "predeterminado": 0.32,
-    "origen": "UltimoJuramentoSkill.java:178"
+    "origen": "UltimoJuramentoSkill.java:205"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "UltimoJuramentoSkill.etiqueta-002",
     "predeterminado": "<reset><dark_purple>✦ Último Juramento <reset><gray>| set: <reset><white>",
-    "origen": "UltimoJuramentoSkill.java:195"
+    "origen": "UltimoJuramentoSkill.java:223"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "UltimoJuramentoSkill.etiqueta-003",
     "predeterminado": " <reset><gray>| activo: <reset><white>",
-    "origen": "UltimoJuramentoSkill.java:196"
+    "origen": "UltimoJuramentoSkill.java:224"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "UltimoJuramentoSkill.etiqueta-004",
     "predeterminado": " <reset><gray>| restante: <reset><white>",
-    "origen": "UltimoJuramentoSkill.java:197"
+    "origen": "UltimoJuramentoSkill.java:225"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "UltimoJuramentoSkill.etiqueta-005",
     "predeterminado": "s <reset><gray>| CD: <reset><white>",
-    "origen": "UltimoJuramentoSkill.java:198"
+    "origen": "UltimoJuramentoSkill.java:226"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.sonido-003",
     "predeterminado": "minecraft:entity.ender_dragon.flap",
-    "origen": "PrimerDragonSkill.java:94"
+    "origen": "PrimerDragonSkill.java:100"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.playsound-001-arg2",
     "predeterminado": 0.75,
-    "origen": "PrimerDragonSkill.java:94"
+    "origen": "PrimerDragonSkill.java:100"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.playsound-002-arg3",
     "predeterminado": 1.35,
-    "origen": "PrimerDragonSkill.java:94"
+    "origen": "PrimerDragonSkill.java:100"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.particle-001",
     "predeterminado": "END_ROD",
-    "origen": "PrimerDragonSkill.java:95"
+    "origen": "PrimerDragonSkill.java:101"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.geometria-001",
     "predeterminado": 0.6,
-    "origen": "PrimerDragonSkill.java:95"
+    "origen": "PrimerDragonSkill.java:101"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.spawnparticle-003-arg2",
     "predeterminado": 24,
-    "origen": "PrimerDragonSkill.java:95"
+    "origen": "PrimerDragonSkill.java:101"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.spawnparticle-004-arg3",
     "predeterminado": 0.5,
-    "origen": "PrimerDragonSkill.java:95"
+    "origen": "PrimerDragonSkill.java:101"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.spawnparticle-005-arg4",
     "predeterminado": 0.5,
-    "origen": "PrimerDragonSkill.java:95"
+    "origen": "PrimerDragonSkill.java:101"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.spawnparticle-006-arg5",
     "predeterminado": 0.5,
-    "origen": "PrimerDragonSkill.java:95"
+    "origen": "PrimerDragonSkill.java:101"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.spawnparticle-007-arg6",
     "predeterminado": 0.015,
-    "origen": "PrimerDragonSkill.java:95"
+    "origen": "PrimerDragonSkill.java:101"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "PrimerDragonSkill.mensaje-001",
     "predeterminado": "<reset><gold>✦ <reset><yellow>Sangre del Primer Dragón <reset><gray>— La herencia despierta.",
-    "origen": "PrimerDragonSkill.java:96"
+    "origen": "PrimerDragonSkill.java:102"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.material-027",
     "predeterminado": "GOLD_BLOCK",
-    "origen": "PrimerDragonSkill.java:131"
+    "origen": "PrimerDragonSkill.java:162"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.material-028",
     "predeterminado": "WAXED_CUT_COPPER",
-    "origen": "PrimerDragonSkill.java:131"
+    "origen": "PrimerDragonSkill.java:162"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.geometria-002",
     "predeterminado": 0.24,
-    "origen": "PrimerDragonSkill.java:132"
+    "origen": "PrimerDragonSkill.java:163"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.geometria-003",
     "predeterminado": 0.23,
-    "origen": "PrimerDragonSkill.java:133"
+    "origen": "PrimerDragonSkill.java:164"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.geometria-004",
     "predeterminado": 0.14,
-    "origen": "PrimerDragonSkill.java:133"
+    "origen": "PrimerDragonSkill.java:164"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.geometria-005",
     "predeterminado": 0.26,
-    "origen": "PrimerDragonSkill.java:133"
+    "origen": "PrimerDragonSkill.java:164"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.geometria-006",
     "predeterminado": 0.14,
-    "origen": "PrimerDragonSkill.java:133"
+    "origen": "PrimerDragonSkill.java:164"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.material-029",
     "predeterminado": "GOLD_BLOCK",
-    "origen": "PrimerDragonSkill.java:136"
+    "origen": "PrimerDragonSkill.java:167"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.geometria-007",
     "predeterminado": 0.34,
-    "origen": "PrimerDragonSkill.java:136"
+    "origen": "PrimerDragonSkill.java:167"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.geometria-008",
     "predeterminado": 0.08,
-    "origen": "PrimerDragonSkill.java:136"
+    "origen": "PrimerDragonSkill.java:167"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.geometria-009",
     "predeterminado": 0.21,
-    "origen": "PrimerDragonSkill.java:136"
+    "origen": "PrimerDragonSkill.java:167"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.geometria-010",
     "predeterminado": 0.65,
-    "origen": "PrimerDragonSkill.java:149"
+    "origen": "PrimerDragonSkill.java:180"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.geometria-011",
     "predeterminado": 0.55,
-    "origen": "PrimerDragonSkill.java:149"
+    "origen": "PrimerDragonSkill.java:180"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.geometria-012",
     "predeterminado": 0.22,
-    "origen": "PrimerDragonSkill.java:150"
+    "origen": "PrimerDragonSkill.java:181"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.geometria-013",
     "predeterminado": 0.23,
-    "origen": "PrimerDragonSkill.java:152"
+    "origen": "PrimerDragonSkill.java:183"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.geometria-014",
     "predeterminado": 0.35,
-    "origen": "PrimerDragonSkill.java:153"
+    "origen": "PrimerDragonSkill.java:184"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.geometria-015",
     "predeterminado": 1.42,
-    "origen": "PrimerDragonSkill.java:153"
+    "origen": "PrimerDragonSkill.java:184"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.geometria-016",
     "predeterminado": 0.09,
-    "origen": "PrimerDragonSkill.java:153"
+    "origen": "PrimerDragonSkill.java:184"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.geometria-017",
     "predeterminado": 0.12,
-    "origen": "PrimerDragonSkill.java:153"
+    "origen": "PrimerDragonSkill.java:184"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.geometria-018",
     "predeterminado": 0.25,
-    "origen": "PrimerDragonSkill.java:153"
+    "origen": "PrimerDragonSkill.java:184"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.geometria-019",
     "predeterminado": 0.1,
-    "origen": "PrimerDragonSkill.java:153"
+    "origen": "PrimerDragonSkill.java:184"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.geometria-020",
     "predeterminado": 0.4,
-    "origen": "PrimerDragonSkill.java:160"
+    "origen": "PrimerDragonSkill.java:191"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.geometria-021",
     "predeterminado": 0.08,
-    "origen": "PrimerDragonSkill.java:161"
+    "origen": "PrimerDragonSkill.java:192"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.geometria-022",
     "predeterminado": 0.42,
-    "origen": "PrimerDragonSkill.java:161"
+    "origen": "PrimerDragonSkill.java:192"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.geometria-023",
     "predeterminado": 0.12,
-    "origen": "PrimerDragonSkill.java:161"
+    "origen": "PrimerDragonSkill.java:192"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.geometria-024",
     "predeterminado": 0.4,
-    "origen": "PrimerDragonSkill.java:161"
+    "origen": "PrimerDragonSkill.java:192"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.polvo-001-arg1",
     "predeterminado": 223,
-    "origen": "PrimerDragonSkill.java:164"
+    "origen": "PrimerDragonSkill.java:195"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.polvo-002-arg2",
     "predeterminado": 186,
-    "origen": "PrimerDragonSkill.java:164"
+    "origen": "PrimerDragonSkill.java:195"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.polvo-003-arg3",
     "predeterminado": 99,
-    "origen": "PrimerDragonSkill.java:164"
+    "origen": "PrimerDragonSkill.java:195"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.polvo-004-arg4",
     "predeterminado": 5,
-    "origen": "PrimerDragonSkill.java:164"
+    "origen": "PrimerDragonSkill.java:195"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.geometria-025",
     "predeterminado": 0.95,
-    "origen": "PrimerDragonSkill.java:164"
+    "origen": "PrimerDragonSkill.java:195"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.particle-002",
     "predeterminado": "END_ROD",
-    "origen": "PrimerDragonSkill.java:165"
+    "origen": "PrimerDragonSkill.java:196"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.spawnparticle-008-arg2",
     "predeterminado": 2,
-    "origen": "PrimerDragonSkill.java:165"
+    "origen": "PrimerDragonSkill.java:196"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.spawnparticle-009-arg3",
     "predeterminado": 0.13,
-    "origen": "PrimerDragonSkill.java:165"
+    "origen": "PrimerDragonSkill.java:196"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.spawnparticle-010-arg4",
     "predeterminado": 0.1,
-    "origen": "PrimerDragonSkill.java:165"
+    "origen": "PrimerDragonSkill.java:196"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.spawnparticle-011-arg5",
     "predeterminado": 0.13,
-    "origen": "PrimerDragonSkill.java:165"
+    "origen": "PrimerDragonSkill.java:196"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.spawnparticle-012-arg6",
     "predeterminado": 0.005,
-    "origen": "PrimerDragonSkill.java:165"
+    "origen": "PrimerDragonSkill.java:196"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.polvo-005-arg1",
     "predeterminado": 230,
-    "origen": "PrimerDragonSkill.java:185"
+    "origen": "PrimerDragonSkill.java:217"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.polvo-006-arg2",
     "predeterminado": 200,
-    "origen": "PrimerDragonSkill.java:185"
+    "origen": "PrimerDragonSkill.java:217"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.polvo-007-arg3",
     "predeterminado": 134,
-    "origen": "PrimerDragonSkill.java:185"
+    "origen": "PrimerDragonSkill.java:217"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.polvo-008-arg4",
     "predeterminado": 2,
-    "origen": "PrimerDragonSkill.java:185"
+    "origen": "PrimerDragonSkill.java:217"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "PrimerDragonSkill.geometria-026",
     "predeterminado": 0.65,
-    "origen": "PrimerDragonSkill.java:185"
+    "origen": "PrimerDragonSkill.java:217"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "PrimerDragonSkill.etiqueta-002",
     "predeterminado": "<reset><gold>✦ Sangre del Primer Dragón <reset><gray>| set: <reset><white>",
-    "origen": "PrimerDragonSkill.java:202"
+    "origen": "PrimerDragonSkill.java:235"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "PrimerDragonSkill.etiqueta-003",
     "predeterminado": " <reset><gray>| bendición: <reset><white>",
-    "origen": "PrimerDragonSkill.java:203"
+    "origen": "PrimerDragonSkill.java:236"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "PrimerDragonSkill.etiqueta-004",
     "predeterminado": " <reset><gray>| CD: <reset><white>",
-    "origen": "PrimerDragonSkill.java:204"
+    "origen": "PrimerDragonSkill.java:237"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
@@ -4107,19 +4107,19 @@
     "archivo": "equipamiento/ajustes.yml",
     "clave": "Visuals.setteleportduration-001-arg0",
     "predeterminado": 2,
-    "origen": "Visuals.java:28"
+    "origen": "Visuals.java:29"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "Visuals.setinterpolationduration-002-arg0",
     "predeterminado": 2,
-    "origen": "Visuals.java:30"
+    "origen": "Visuals.java:31"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "Visuals.mensaje-001",
     "predeterminado": "Displays huérfanos eliminados: {removed}",
-    "origen": "Visuals.java:49"
+    "origen": "Visuals.java:55"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
@@ -4682,7 +4682,7 @@
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-029",
-    "predeterminado": "<gray>ᴄᴏɴᴇᴄᴛᴀ <white>{v-e-hits-required-4} ɢᴏʟᴘᴇs\n<gray>ᴇɴ <yellow>{valor2} <gray>ᴘᴀʀᴀ ᴀᴄᴛɪᴠᴀʀ",
+    "predeterminado": "<gray>Encadena <white>{v-e-hits-required-4} golpes\n<gray>Máximo <yellow>{valor2} <gray>entre golpes.",
     "origen": "ArmorGuide.java:357"
   },
   {
@@ -4712,7 +4712,7 @@
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-035",
-    "predeterminado": "<gray>ᴀʟᴄᴀɴᴄᴇ <white>{v-e-range-8} ʙʟᴏǫᴜᴇs",
+    "predeterminado": "<gray>Alcance <white>{v-e-range-8} bloques\n<gray>Un disparo cada <white>{valor2}.\n<gray>Sin enemigo cercano, conserva almas.",
     "origen": "ArmorGuide.java:364"
   },
   {
@@ -8457,49 +8457,49 @@
     "archivo": "nucleo/mensajes.yml",
     "clave": "Diagnostico.solo-consola",
     "predeterminado": "<gray>El diagnóstico administrativo se consulta desde la consola.",
-    "origen": "SpectreCorePlugin.java:463"
+    "origen": "SpectreCorePlugin.java:477"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "Integraciones.solo-consola",
     "predeterminado": "<gray>Esta revisión administrativa solo está disponible desde la consola.",
-    "origen": "SpectreCorePlugin.java:435"
+    "origen": "SpectreCorePlugin.java:449"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "SpectreCorePlugin.mensaje-015",
     "predeterminado": "<reset><red>Sin permiso.",
-    "origen": "SpectreCorePlugin.java:518"
+    "origen": "SpectreCorePlugin.java:532"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "ToastService.no-disponible",
     "predeterminado": "<reset><yellow>Esta notificación no está disponible.",
-    "origen": "SpectreCorePlugin.java:455"
+    "origen": "SpectreCorePlugin.java:469"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "ToastService.permiso",
     "predeterminado": "<reset><red>Sin permiso.",
-    "origen": "SpectreCorePlugin.java:446"
+    "origen": "SpectreCorePlugin.java:460"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "ToastService.solicitado",
     "predeterminado": "<reset><gray>Toast solicitado (puede estar filtrado por antispam).",
-    "origen": "SpectreCorePlugin.java:456"
+    "origen": "SpectreCorePlugin.java:470"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "ToastService.solo-jugador",
     "predeterminado": "<reset><gray>Prueba el toast desde el juego.",
-    "origen": "SpectreCorePlugin.java:447"
+    "origen": "SpectreCorePlugin.java:461"
   },
   {
     "archivo": "nucleo/mensajes.yml",
     "clave": "ToastService.uso",
     "predeterminado": "<reset><yellow>Uso: /spectrecore toast prueba <id>",
-    "origen": "SpectreCorePlugin.java:451"
+    "origen": "SpectreCorePlugin.java:465"
   },
   {
     "archivo": "resonancia/ajustes.yml",
@@ -8853,19 +8853,19 @@
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.ancla-limpiada",
     "predeterminado": "<gray>Se borró el sendero del Farol.",
-    "origen": "MithrilToolModule.java:109"
+    "origen": "MithrilToolModule.java:113"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.anclado",
     "predeterminado": "<aqua>✦ El Farol recuerda tu ubicación.",
-    "origen": "MithrilToolModule.java:108"
+    "origen": "MithrilToolModule.java:112"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.campo-ametista",
     "predeterminado": "<light_purple>✦ {cantidad} cristales invocados <gray>(-{costo} de resonancia). <light_purple>¡Rómpelos!",
-    "origen": "MithrilToolModule.java:114"
+    "origen": "MithrilToolModule.java:118"
   },
   {
     "archivo": "tesoros/mensajes.yml",
@@ -8876,86 +8876,80 @@
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.cargada",
-    "predeterminado": "<aqua>✦ Resonancia restaurada: <white>{carga}/100",
+    "predeterminado": "<aqua>✦ Resonancia restaurada: <white>{carga}/{max}",
     "origen": "MithrilToolModule.java:99"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.luz",
     "predeterminado": "<aqua>✦ Farol encendido.",
-    "origen": "MithrilToolModule.java:106"
+    "origen": "MithrilToolModule.java:110"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.luz-apagada",
     "predeterminado": "<gray>Farol apagado.",
-    "origen": "MithrilToolModule.java:107"
+    "origen": "MithrilToolModule.java:111"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.ruta",
     "predeterminado": "<aqua>✦ Sendero de retorno visible durante 20 segundos.",
-    "origen": "MithrilToolModule.java:110"
+    "origen": "MithrilToolModule.java:114"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.senal",
     "predeterminado": "<aqua>✦ Señal {intensidad}<gray> · {direccion} · Profundidad {profundidad}",
-    "origen": "MithrilToolModule.java:105"
+    "origen": "MithrilToolModule.java:109"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.senal",
     "predeterminado": "<aqua>✦ Señal {intensidad}<gray> · {direccion} · Profundidad {profundidad}",
-    "origen": "MithrilToolModule.java:471"
-  },
-  {
-    "archivo": "tesoros/mensajes.yml",
-    "clave": "MithrilTools.sin-carga",
-    "predeterminado": "<yellow>Necesitas más resonancia o aguardar la recarga.",
-    "origen": "MithrilToolModule.java:100"
+    "origen": "MithrilToolModule.java:490"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.sin-cristales",
     "predeterminado": "<yellow>No hay espacio seguro para invocar cristales o sus gemas todavía no están disponibles.",
-    "origen": "MithrilToolModule.java:113"
+    "origen": "MithrilToolModule.java:117"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.sin-senal",
     "predeterminado": "<gray>El pulso no detectó minerales accesibles.",
-    "origen": "MithrilToolModule.java:104"
+    "origen": "MithrilToolModule.java:108"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.sin-tunel",
     "predeterminado": "<gray>La Barrena necesita roca común y un camino permitido.",
-    "origen": "MithrilToolModule.java:111"
+    "origen": "MithrilToolModule.java:115"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.sin-veta",
     "predeterminado": "<gray>Mira una veta natural que puedas extraer.",
-    "origen": "MithrilToolModule.java:101"
+    "origen": "MithrilToolModule.java:105"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.tunel",
     "predeterminado": "<aqua>✦ Barrena activada. No extrae minerales ni concede experiencia adicional.",
-    "origen": "MithrilToolModule.java:112"
+    "origen": "MithrilToolModule.java:116"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.veta",
     "predeterminado": "<aqua>✦ Veta marcada. Extrae para recoger hasta tres bloques adicionales.",
-    "origen": "MithrilToolModule.java:102"
+    "origen": "MithrilToolModule.java:106"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.zona",
     "predeterminado": "<red>La herramienta no puede utilizarse en esta zona.",
-    "origen": "MithrilToolModule.java:103"
+    "origen": "MithrilToolModule.java:107"
   },
   {
     "archivo": "trabajos/ajustes.yml",
@@ -9093,13 +9087,13 @@
     "archivo": "trabajos/mensajes.yml",
     "clave": "MiningProgression.requisito-herramienta",
     "predeterminado": "<yellow>Necesitas Minería nivel {nivel} para utilizar esta herramienta.",
-    "origen": "MithrilToolModule.java:309"
+    "origen": "MithrilToolModule.java:313"
   },
   {
     "archivo": "trabajos/mensajes.yml",
     "clave": "MiningProgression.requisito-herramienta",
     "predeterminado": "<yellow>Necesitas Minería nivel {nivel} para utilizar esta herramienta.",
-    "origen": "MithrilToolModule.java:321"
+    "origen": "MithrilToolModule.java:325"
   },
   {
     "archivo": "trabajos/mensajes.yml",
@@ -9201,115 +9195,115 @@
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-amatista",
     "predeterminado": "Amatista",
-    "origen": "MithrilToolModule.java:157"
+    "origen": "MithrilToolModule.java:161"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-anclar",
     "predeterminado": "Fijar retorno",
-    "origen": "MithrilToolModule.java:175"
+    "origen": "MithrilToolModule.java:179"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-barra",
     "predeterminado": "<aqua>✦ Resonancia <white>{carga}/{max} <gray>· <white>{habilidad} <dark_gray>│ {estado}",
-    "origen": "MithrilToolModule.java:229"
+    "origen": "MithrilToolModule.java:233"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-barrena",
     "predeterminado": "Barrena",
-    "origen": "MithrilToolModule.java:184"
+    "origen": "MithrilToolModule.java:188"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-barrena-activa",
     "predeterminado": "<aqua>Excavando",
-    "origen": "MithrilToolModule.java:187"
+    "origen": "MithrilToolModule.java:191"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-bloqueada",
     "predeterminado": "<yellow>Desbloquea Minería {nivel}",
-    "origen": "MithrilToolModule.java:195"
+    "origen": "MithrilToolModule.java:199"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-brujula",
     "predeterminado": "Pulso",
-    "origen": "MithrilToolModule.java:169"
+    "origen": "MithrilToolModule.java:173"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-campo-activo",
     "predeterminado": "<aqua>Termina el hallazgo activo",
-    "origen": "MithrilToolModule.java:162"
+    "origen": "MithrilToolModule.java:166"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-campos-ocupados",
     "predeterminado": "<yellow>Espera un momento",
-    "origen": "MithrilToolModule.java:165"
+    "origen": "MithrilToolModule.java:169"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-control-agachado",
     "predeterminado": "<gray>Agáchate + clic der.",
-    "origen": "MithrilToolModule.java:145"
+    "origen": "MithrilToolModule.java:149"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-control-click",
     "predeterminado": "<gray>Clic der.",
-    "origen": "MithrilToolModule.java:170"
+    "origen": "MithrilToolModule.java:174"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-falta",
     "predeterminado": "<gray>Faltan <white>{falta} <gray>de carga",
-    "origen": "MithrilToolModule.java:212"
+    "origen": "MithrilToolModule.java:216"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-lista",
     "predeterminado": "<green>Carga lista <gray>· {control}",
-    "origen": "MithrilToolModule.java:222"
+    "origen": "MithrilToolModule.java:226"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-parcial",
     "predeterminado": "<yellow>Campo parcial posible <gray>· {control}",
-    "origen": "MithrilToolModule.java:217"
+    "origen": "MithrilToolModule.java:221"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-recarga",
     "predeterminado": "<yellow>Recarga {s}s",
-    "origen": "MithrilToolModule.java:207"
+    "origen": "MithrilToolModule.java:211"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-sendero",
     "predeterminado": "Sendero",
-    "origen": "MithrilToolModule.java:179"
+    "origen": "MithrilToolModule.java:183"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-supervivencia",
     "predeterminado": "<yellow>Solo en supervivencia",
-    "origen": "MithrilToolModule.java:199"
+    "origen": "MithrilToolModule.java:203"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-veta",
     "predeterminado": "Veta",
-    "origen": "MithrilToolModule.java:149"
+    "origen": "MithrilToolModule.java:153"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-veta-activa",
     "predeterminado": "<aqua>Mina la veta marcada · {s}s",
-    "origen": "MithrilToolModule.java:153"
+    "origen": "MithrilToolModule.java:157"
   },
   {
     "archivo": "cocina/mensajes.yml",
@@ -9321,19 +9315,19 @@
     "archivo": "equipamiento/mensajes.yml",
     "clave": "AsterionSkill.en-recarga",
     "predeterminado": "<yellow>Asterión · Recarga {s}s",
-    "origen": "AsterionSkill.java:105"
+    "origen": "AsterionSkill.java:106"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "AsterionSkill.furia-insuficiente",
     "predeterminado": "<yellow>Furia insuficiente: {furia}/{maximo}",
-    "origen": "AsterionSkill.java:100"
+    "origen": "AsterionSkill.java:101"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "UltimoJuramentoSkill.en-recarga",
     "predeterminado": "<yellow>Último Juramento · Recarga {s}s",
-    "origen": "UltimoJuramentoSkill.java:57"
+    "origen": "UltimoJuramentoSkill.java:61"
   },
   {
     "archivo": "slayer/mensajes.yml",
@@ -9363,48 +9357,180 @@
     "archivo": "equipamiento/mensajes.yml",
     "clave": "AsterionSkill.hud-cargando",
     "predeterminado": "<gray>Golpea o recibe daño",
-    "origen": "AsterionSkill.java:204"
+    "origen": "AsterionSkill.java:205"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "AsterionSkill.hud-dano",
     "predeterminado": "<green>+{dano}% daño <gray>· Mismo objetivo",
-    "origen": "AsterionSkill.java:192"
+    "origen": "AsterionSkill.java:193"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "AsterionSkill.hud-furia",
     "predeterminado": "<#E3BC7B>✦ <bold>Furia</bold> <white>{furia}/{maximo} <dark_gray>│ {estado}",
-    "origen": "AsterionSkill.java:205"
+    "origen": "AsterionSkill.java:206"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "AsterionSkill.hud-impetu",
     "predeterminado": "<#E3BC7B>✦ <bold>Ímpetu</bold> <white>{combo}/{maximo} <dark_gray>│ {estado} <gray>· <white>{s}s",
-    "origen": "AsterionSkill.java:195"
+    "origen": "AsterionSkill.java:196"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "AsterionSkill.hud-lista",
     "predeterminado": "<green>Doble Shift",
-    "origen": "AsterionSkill.java:203"
+    "origen": "AsterionSkill.java:204"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "AsterionSkill.hud-mismo-enemigo",
     "predeterminado": "<gray>Mantén el objetivo",
-    "origen": "AsterionSkill.java:187"
+    "origen": "AsterionSkill.java:188"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "AsterionSkill.hud-primer-golpe",
     "predeterminado": "<gray>Golpea a un enemigo",
-    "origen": "AsterionSkill.java:184"
+    "origen": "AsterionSkill.java:185"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "AsterionSkill.hud-recarga",
     "predeterminado": "<yellow>Recarga {s}s",
-    "origen": "AsterionSkill.java:202"
+    "origen": "AsterionSkill.java:203"
+  },
+  {
+    "archivo": "equipamiento/ajustes.yml",
+    "clave": "CombatFeedback.altura",
+    "predeterminado": 0.35,
+    "origen": "CombatFeedback.java:45"
+  },
+  {
+    "archivo": "equipamiento/ajustes.yml",
+    "clave": "CombatFeedback.duracion-ticks",
+    "predeterminado": 16,
+    "origen": "CombatFeedback.java:59"
+  },
+  {
+    "archivo": "equipamiento/mensajes.yml",
+    "clave": "BotaniaSkill.hud-activa",
+    "predeterminado": "<#E4A9B7>✿ <bold>Botania</bold> <gray>· <green>Rosas despiertas <gray>│ <white>{s}s",
+    "origen": "BotaniaSkill.java:86"
+  },
+  {
+    "archivo": "equipamiento/mensajes.yml",
+    "clave": "BotaniaSkill.hud-carga",
+    "predeterminado": "<#E4A9B7>✿ <bold>Botania</bold> <white>{golpes}/{max} <gray>│ Sigue golpeando",
+    "origen": "BotaniaSkill.java:93"
+  },
+  {
+    "archivo": "equipamiento/mensajes.yml",
+    "clave": "CombatFeedback.golpe-potenciado",
+    "predeterminado": "<#EBC88A>✦ +{dano}% <gray>daño de habilidad",
+    "origen": "CombatFeedback.java:42"
+  },
+  {
+    "archivo": "equipamiento/mensajes.yml",
+    "clave": "CoronaSkill.hud-almas",
+    "predeterminado": "<#92DADD>☠ <bold>Ánimas</bold> <white>{restantes}/{max} <gray>│ {estado} <gray>· <white>{s}s",
+    "origen": "CoronaSkill.java:159"
+  },
+  {
+    "archivo": "equipamiento/mensajes.yml",
+    "clave": "CoronaSkill.hud-buscando",
+    "predeterminado": "<gray>Busca un enemigo cercano",
+    "origen": "CoronaSkill.java:156"
+  },
+  {
+    "archivo": "equipamiento/mensajes.yml",
+    "clave": "CoronaSkill.hud-disparo",
+    "predeterminado": "<gray>Disparo en <white>{s}s",
+    "origen": "CoronaSkill.java:157"
+  },
+  {
+    "archivo": "equipamiento/mensajes.yml",
+    "clave": "CoronaSkill.hud-final",
+    "predeterminado": "<gray>Última descarga",
+    "origen": "CoronaSkill.java:155"
+  },
+  {
+    "archivo": "equipamiento/mensajes.yml",
+    "clave": "PrimerDragonSkill.hud-activo",
+    "predeterminado": "<#EBC88A>✦ <bold>Herencia dracónica</bold> <white>{s}s <gray>│ {estado}",
+    "origen": "PrimerDragonSkill.java:124"
+  },
+  {
+    "archivo": "equipamiento/mensajes.yml",
+    "clave": "PrimerDragonSkill.hud-afinidad",
+    "predeterminado": "<gold>Dracoreliquia",
+    "origen": "PrimerDragonSkill.java:122"
+  },
+  {
+    "archivo": "equipamiento/mensajes.yml",
+    "clave": "PrimerDragonSkill.hud-bendicion",
+    "predeterminado": "<gray>Bendición activa",
+    "origen": "PrimerDragonSkill.java:123"
+  },
+  {
+    "archivo": "equipamiento/mensajes.yml",
+    "clave": "PrimerDragonSkill.hud-carga",
+    "predeterminado": "<#EBC88A>✦ <bold>Herencia dracónica</bold> <white>{golpes}/{max} <gray>│ Golpea o recibe daño",
+    "origen": "PrimerDragonSkill.java:131"
+  },
+  {
+    "archivo": "equipamiento/mensajes.yml",
+    "clave": "UltimoJuramentoSkill.hud-activo",
+    "predeterminado": "<#C6A1E0>✦ <bold>Juramento</bold> <white>{s}s <gray>│ {estado}",
+    "origen": "UltimoJuramentoSkill.java:118"
+  },
+  {
+    "archivo": "equipamiento/mensajes.yml",
+    "clave": "UltimoJuramentoSkill.hud-eco",
+    "predeterminado": "<light_purple>Eco: +{dano}% próximo golpe <gray>({s}s)",
+    "origen": "UltimoJuramentoSkill.java:111"
+  },
+  {
+    "archivo": "equipamiento/mensajes.yml",
+    "clave": "UltimoJuramentoSkill.hud-extiende",
+    "predeterminado": "<gray>Golpea para prolongar",
+    "origen": "UltimoJuramentoSkill.java:117"
+  },
+  {
+    "archivo": "equipamiento/mensajes.yml",
+    "clave": "UltimoJuramentoSkill.hud-limite",
+    "predeterminado": "<gray>Duración máxima",
+    "origen": "UltimoJuramentoSkill.java:116"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.carga-insuficiente",
+    "predeterminado": "<yellow>Te faltan <white>{falta} <yellow>de resonancia.",
+    "origen": "MithrilToolModule.java:101"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.en-recarga",
+    "predeterminado": "<yellow>Recarga: <white>{s}s",
+    "origen": "MithrilToolModule.java:102"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.ruta-no-disponible",
+    "predeterminado": "<gray>No hay un sendero guardado en este mundo.",
+    "origen": "MithrilToolModule.java:103"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.sin-cristales-limite",
+    "predeterminado": "<yellow>Hay demasiados campos activos. Intenta más tarde.",
+    "origen": "MithrilToolModule.java:104"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.uso-no-disponible",
+    "predeterminado": "<yellow>Esta habilidad no está disponible.",
+    "origen": "MithrilToolModule.java:100"
   }
 ]

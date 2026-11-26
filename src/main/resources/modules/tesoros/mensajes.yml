@@ -28,8 +28,12 @@ TreasureCooldowns:
 
 MithrilTools:
   carga-completa: "<gray>La herramienta ya está completamente cargada."
-  cargada: "<aqua>✦ Resonancia restaurada: <white>{carga}/100"
-  sin-carga: "<yellow>Necesitas más resonancia o aguardar la recarga."
+  cargada: "<aqua>✦ Resonancia restaurada: <white>{carga}/{max}"
+  carga-insuficiente: "<yellow>Te faltan <white>{falta} <yellow>de resonancia."
+  en-recarga: "<yellow>Recarga: <white>{s}s"
+  ruta-no-disponible: "<gray>No hay un sendero guardado en este mundo."
+  sin-cristales-limite: "<yellow>Hay demasiados campos activos. Intenta más tarde."
+  uso-no-disponible: "<yellow>Esta habilidad no está disponible."
   sin-veta: "<gray>Mira una veta natural que puedas extraer."
   veta: "<aqua>✦ Veta marcada. Extrae para recoger hasta tres bloques adicionales."
   zona: "<red>La herramienta no puede utilizarse en esta zona."

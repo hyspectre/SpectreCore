@@ -13,6 +13,8 @@ public interface SkillModule {
     default void onHostileDamage(Player player, LivingEntity aggressor, long engineTick) { }
     /** Applied only to direct melee hits against hostile entities, never secondary skill damage. */
     default double outgoingMultiplier(Player player, LivingEntity target, long engineTick) { return 1.0; }
+    /** Passive damage bonuses need no repeated combat notification. */
+    default boolean showDamageFeedback(Player player, long engineTick) { return true; }
     /** Applied to incoming damage of any kind; no other event handler should modify it twice. */
     default double incomingMultiplier(Player player, long engineTick) { return 1.0; }
     /** Called only on the press, not release, of Shift. */

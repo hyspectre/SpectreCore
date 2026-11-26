@@ -103,6 +103,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
     public AuraSkillsBridge auraSkillsBridge() { return auraSkillsBridge; }
     public ToastService toasts() { return toastService; }
     private boolean applyingSkillDamage;
+    private dev.hydev.spectrecore.core.CombatFeedback combatFeedback;
     private record CombatTrace(String attacker, String enemy, double original, double requested, double factor) { }
     private final java.util.Map<EntityDamageByEntityEvent, CombatTrace> combatTraces = new java.util.WeakHashMap<>();
     private final java.util.Map<UUID, Long> combatLogLast = new HashMap<>();
@@ -169,6 +170,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
             targeting = new Targeting(this);
             visuals = new Visuals(this);
             effects = new Effects(this, visuals);
+            combatFeedback = new dev.hydev.spectrecore.core.CombatFeedback(this);
             passive = new PassiveBonuses(this);
             visuals.removeOrphans();
             modules.add(new BotaniaSkill(this));
@@ -183,6 +185,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
                 if (tick % Math.max(1, getConfig().getInt("engine.visual-update-ticks", 2)) != 0) return;
                 passive.tick();
                 for (SkillModule module : modules) module.tick(tick);
+                combatFeedback.tick(tick);
             }, 1L, 1L);
         }
         if (cookingEnabled) {
@@ -317,6 +320,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
         }
         if (auraSkillsBridge != null) { auraSkillsBridge.clearAll(); auraSkillsBridge = null; }
         if (toastService != null) { toastService.disable(); toastService = null; }
+        if (combatFeedback != null) { combatFeedback.close(); combatFeedback = null; }
         if (visuals != null) visuals.removeOrphans();
         if (displayModels != null) { displayModels.stop(); displayModels = null; }
         if (mago != null) { mago.close(); mago = null; }
@@ -340,8 +344,14 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
                 || !(event.getDamager() instanceof Player attacker)
                 || !(event.getEntity() instanceof LivingEntity target) || !targeting.isHostile(target)) return;
         double factor = 1.0;
-        for (SkillModule module : modules) factor *= module.outgoingMultiplier(attacker, target, tick);
+        boolean showFeedback = false;
+        for (SkillModule module : modules) {
+            double multiplier = module.outgoingMultiplier(attacker, target, tick);
+            factor *= multiplier;
+            if (multiplier > 1 && module.showDamageFeedback(attacker, tick)) showFeedback = true;
+        }
         double original = event.getDamage();
+        if (showFeedback && combatFeedback != null) combatFeedback.mark(event, factor);
         if (factor != 1.0) event.setDamage(Math.max(0, original * factor));
         if (getConfig().getBoolean("engine.combat.debug-multipliers", false))
             combatTraces.put(event, new CombatTrace(attacker.getName(), target.getType().name(),
@@ -367,6 +377,7 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
         if (event.getDamager() instanceof Player attacker && event.getEntity() instanceof LivingEntity target
                 && event.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK && targeting.isHostile(target)) {
             for (SkillModule module : modules) module.onMelee(attacker, target, tick);
+            if (combatFeedback != null) combatFeedback.confirm(event, attacker, target, tick);
         }
         if (event.getEntity() instanceof Player victim && victim.getHealth() > event.getFinalDamage()) {
             LivingEntity aggressor = attackerOf(event.getDamager());
@@ -413,7 +424,10 @@ public final class SpectreCorePlugin extends JavaPlugin implements Listener, Tab
         finally { applyingSkillDamage = false; }
     }
 
-    private void clear(UUID id) { for (SkillModule module : modules) module.clear(id); }
+    private void clear(UUID id) {
+        for (SkillModule module : modules) module.clear(id);
+        if (combatFeedback != null) combatFeedback.clear(id);
+    }
     @EventHandler public void onQuit(PlayerQuitEvent event) {
         UUID id = event.getPlayer().getUniqueId(); if (displayModels != null) displayModels.clear(id); if (mago != null) mago.forget(event.getPlayer()); clear(id); if (passive != null) passive.clear(event.getPlayer()); demo.remove(id);
     }

@@ -1,6 +1,9 @@
 package dev.hydev.spectrecore.skills;
 
 import dev.hydev.spectrecore.config.Settings;
+import dev.hydev.spectrecore.core.SkillHud;
+import net.kyori.adventure.bossbar.BossBar;
+import net.kyori.adventure.text.Component;
 import dev.hydev.spectrecore.SpectreCorePlugin;
 import dev.hydev.spectrecore.core.SkillModule;
 import org.bukkit.Bukkit;
@@ -40,6 +43,7 @@ public final class BotaniaSkill implements SkillModule {
         Roses(World world) { this.world = world; }
     }
     private static final class State {
+        final SkillHud hud = new SkillHud();
         int hits;
         long lastHitTick;
         long activeUntil;
@@ -72,6 +76,24 @@ public final class BotaniaSkill implements SkillModule {
             s.hits = 0;
             activate(player, s);
         }
+        updateHud(player, s, engineTick);
+    }
+
+    private void updateHud(Player player, State state, long tick) {
+        state.hud.updated(tick);
+        long remaining = state.activeUntil - System.currentTimeMillis();
+        if (remaining > 0) {
+            state.hud.show(player, Settings.message("equipamiento", "BotaniaSkill.hud-activa",
+                    "<#E4A9B7>✿ <bold>Botania</bold> <gray>· <green>Rosas despiertas <gray>│ <white>{s}s",
+                    "s", (remaining + 999) / 1000),
+                    SkillHud.progress(remaining, Math.max(1, getInt("duration-seconds", 8)) * 1000L), BossBar.Color.GREEN);
+        } else if (state.hits > 0 && tick - state.lastHitTick <= getInt("hit-window-ticks", 60)
+                && plugin.cooldowns().ready(player.getUniqueId(), id())) {
+            int max = Math.max(1, getInt("hits-required", 4));
+            state.hud.show(player, Settings.message("equipamiento", "BotaniaSkill.hud-carga",
+                    "<#E4A9B7>✿ <bold>Botania</bold> <white>{golpes}/{max} <gray>│ Sigue golpeando",
+                    "golpes", state.hits, "max", max), SkillHud.progress(state.hits, max), BossBar.Color.PINK);
+        } else state.hud.hide(player.getUniqueId());
     }
 
     private void activate(Player player, State s) {
@@ -137,6 +159,7 @@ public final class BotaniaSkill implements SkillModule {
             active.add(id);
             State state = state(id);
             boolean opened = System.currentTimeMillis() < state.activeUntil;
+            if (state.hud.due(engineTick)) updateHud(player, state, engineTick);
             if (!plugin.getConfig().getBoolean("skills.botania.show-permanent-buds", true) && !opened) {
                 Roses old = displays.remove(id);
                 if (old != null) remove(old);
@@ -215,7 +238,8 @@ public final class BotaniaSkill implements SkillModule {
     @Override public void clear(UUID playerId) {
         Roses view = displays.remove(playerId);
         if (view != null) remove(view);
-        states.remove(playerId);
+        State state = states.remove(playerId);
+        if (state != null) state.hud.hide(playerId);
         // Cooldown persists across switching the armor off/on.
     }
     @Override public String status(Player player) {

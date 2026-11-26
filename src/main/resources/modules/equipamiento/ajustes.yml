@@ -321,3 +321,7 @@ UltimoJuramentoSkill:
   geometria-031: 0.3
   geometria-032: 0.3
   geometria-033: 0.32
+
+CombatFeedback:
+  altura: 0.35
+  duracion-ticks: 16

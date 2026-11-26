@@ -15,6 +15,13 @@ public class CombatRulesSmoke {
         assert Math.abs(CombatRules.dragonMultiplier(false, false, true, .03, .06) - 1.09) < .000001;
         assert Math.abs(CombatRules.dragonMultiplier(true, true, true, .03, .06) - 1.0) < .000001;
         assert Math.abs(CombatRules.dragonMultiplier(true, false, true, .03, .06) - 1.06) < .000001;
+        assert CombatRules.bonusPercent(1.0) == 0;
+        assert CombatRules.bonusPercent(.9) == 0;
+        assert CombatRules.bonusPercent(Double.NaN) == 0;
+        assert CombatRules.bonusPercent(1.06) == 6;
+        assert CombatRules.bonusPercent(1.012345) == 1.23;
+        assert CombatRules.bonusPercent(CombatRules.oathMultiplier(true, .15, 0)) == 0;
+        assert CombatRules.bonusPercent(CombatRules.oathMultiplier(true, .15, .10)) == 10;
         assert CombatRules.extend(140, 200, 12) == 152;
         assert CombatRules.extend(197, 200, 12) == 200;
         assert CombatRules.blessingEnd(200, 240, false) == 200;

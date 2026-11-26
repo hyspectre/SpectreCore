@@ -1,6 +1,9 @@
 package dev.hydev.spectrecore.skills;
 
 import dev.hydev.spectrecore.config.Settings;
+import dev.hydev.spectrecore.core.SkillHud;
+import net.kyori.adventure.bossbar.BossBar;
+import net.kyori.adventure.text.Component;
 import dev.hydev.spectrecore.SpectreCorePlugin;
 import dev.hydev.spectrecore.core.SkillModule;
 import org.bukkit.Bukkit;
@@ -33,6 +36,7 @@ public final class CoronaSkill implements SkillModule {
         Skull(ItemDisplay visual) { this.visual = visual; }
     }
     private static final class State {
+        final SkillHud hud = new SkillHud();
         UUID activation;
         UUID lastAggressor;
         UUID lastAttacked;
@@ -71,6 +75,7 @@ public final class CoronaSkill implements SkillModule {
         state.lastAggressor = aggressor.getUniqueId();
         if (state.activation != null || !plugin.cooldowns().ready(player.getUniqueId(), id())) return;
         activate(player, state, engineTick);
+        updateHud(player, state, engineTick);
     }
 
     private void activate(Player player, State state, long engineTick) {
@@ -133,9 +138,28 @@ public final class CoronaSkill implements SkillModule {
                 if (target != null) {
                     shoot(player, state, target, engineTick);
                     state.nextShotTick = engineTick + Math.max(1, getInt("fire-interval-ticks", 60));
+                    updateHud(player, state, engineTick);
                 }
             }
+            if (state.hud.due(engineTick)) updateHud(player, state, engineTick);
         }
+    }
+
+    private void updateHud(Player player, State state, long tick) {
+        state.hud.updated(tick);
+        if (state.activation == null) { state.hud.hide(player.getUniqueId()); return; }
+        int cap = state.skulls.size() * Math.max(1, getInt("shots-per-skull", 3));
+        int remaining = Math.max(0, cap - state.shotsFired);
+        long seconds = Math.max(0, (state.activeUntilMs - System.currentTimeMillis() + 999) / 1000);
+        Component next;
+        if (remaining == 0) next = Settings.message("equipamiento", "CoronaSkill.hud-final", "<gray>Última descarga");
+        else if (tick >= state.nextShotTick) next = Settings.message("equipamiento", "CoronaSkill.hud-buscando", "<gray>Busca un enemigo cercano");
+        else next = Settings.message("equipamiento", "CoronaSkill.hud-disparo", "<gray>Disparo en <white>{s}s",
+                "s", SkillHud.seconds(state.nextShotTick - tick));
+        state.hud.show(player, Settings.message("equipamiento", "CoronaSkill.hud-almas",
+                "<#92DADD>☠ <bold>Ánimas</bold> <white>{restantes}/{max} <gray>│ {estado} <gray>· <white>{s}s",
+                "restantes", remaining, "max", cap, "estado", next, "s", seconds),
+                SkillHud.progress(remaining, cap), BossBar.Color.BLUE);
     }
 
     private void updateOrbit(Player player, State state, long engineTick) {
@@ -212,7 +236,10 @@ public final class CoronaSkill implements SkillModule {
 
     @Override public void clear(UUID playerId) {
         State state = states.remove(playerId);
-        if (state != null) for (Skull skull : state.skulls) if (skull.visual.isValid()) skull.visual.remove();
+        if (state != null) {
+            state.hud.hide(playerId);
+            for (Skull skull : state.skulls) if (skull.visual.isValid()) skull.visual.remove();
+        }
         // Cooldowns survive unequipping, death and logoff while server stays online.
     }
 

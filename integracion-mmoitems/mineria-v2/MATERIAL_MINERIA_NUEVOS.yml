@@ -11,7 +11,7 @@ CHATARRA_MECANICA:
     lore:
     - '&f  <gradient:#B69C7B:#E6D2AA>ᴍᴀᴛᴇʀɪᴀʟ · ᴛᴀʟᴀᴅʀᴏ</gradient>'
     - '&7 Un engranaje robado por los duendes.'
-    - '&8 Reforja mecanismos mineros.'
+    - '&7 Uso: <white>Taladro Reforzado.'
 
 CHATARRA_ANTIGUA:
   base:
@@ -24,7 +24,7 @@ CHATARRA_ANTIGUA:
     lore:
     - '&f  <gradient:#978F9A:#D6C1B9>ᴍᴀᴛᴇʀɪᴀʟ · ᴘʀᴏsᴘᴇᴄᴛᴏʀ</gradient>'
     - '&7 Metal ajado por siglos de silencio.'
-    - '&8 Despierta la ingeniería olvidada.'
+    - '&7 Uso: <white>Taladro Calibrado.'
 
 FRAGMENTO_PICO_PERDIDO:
   base:
@@ -37,7 +37,7 @@ FRAGMENTO_PICO_PERDIDO:
     lore:
     - '&f  <gradient:#8571A9:#D0B7ED>ғʀᴀɢᴍᴇɴᴛᴏ · ʀᴇsᴏɴᴀɴᴄɪᴀ</gradient>'
     - '&7 Una pieza vibra sin su herramienta.'
-    - '&8 Reúne cuatro para restaurar el pico.'
+    - '&7 Reúne cuatro para restaurar el Pico Perdido.'
 
 MITRILO:
   base:
@@ -50,7 +50,7 @@ MITRILO:
     lore:
     - '&f  <gradient:#71B0B7:#D4ECE3>ᴍᴇᴛᴀʟ · ᴘʀᴏғᴜɴᴅɪᴅᴀᴅ</gradient>'
     - '&7 Metal frío, ligero y resistente.'
-    - '&8 Hallazgo de las vetas profundas.'
+    - '&7 Uso: <white>Picos y herramientas de Mitrilo.'
 
 AMATISTA_RESONANTE:
   base:
@@ -59,6 +59,8 @@ AMATISTA_RESONANTE:
     tier: RARE
     tooltip: COPPER
     max-stack-size: 64
+    lore:
+    - '&7 Uso: <white>Llaves, cargas y herramientas.'
 
 LLAVE_RESONANTE:
   base:
@@ -66,6 +68,8 @@ LLAVE_RESONANTE:
     name: '<gradient:#AA77D6:#EED6FC>Llave Resonante</gradient>'
     tier: RARE
     tooltip: COPPER
+    lore:
+    - '&7 Úsala para abrir una geoda resonante.'
 
 CARGA_RESONANTE:
   base:
@@ -73,3 +77,6 @@ CARGA_RESONANTE:
     name: '<gradient:#AA77D6:#EED6FC>Carga Resonante</gradient>'
     tier: RARE
     tooltip: COPPER
+    lore:
+    - '&7 Herramienta de Mitrilo en la mano secundaria.'
+    - '&7 Clic derecho con esta carga para recargarla.'

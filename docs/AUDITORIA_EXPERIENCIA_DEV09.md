@@ -63,3 +63,16 @@ destructivas ni requisitos para que el propietario audite manualmente cada archi
 La Furia carga la habilidad y el Ímpetu representa el daño adicional por golpes consecutivos al mismo enemigo durante la transformación. La guía explica el primer golpe, el límite y las causas del reinicio según los valores configurados. Una sola barra cambia entre Furia e Ímpetu y muestra disponibilidad, cargas, porcentaje de daño y tiempo restante. No se modifican el balance ni la progresión.
 
 Se reemplazan las actionbars restantes de SpectreCore por barras nativas para estados temporales (brújula/portal), mensajes puntuales o avisos nativos existentes. Las barras se limpian al terminar o perder su contexto. La política se documenta en AGENTS y se protege con el validador de presentación. Las pruebas de cliente siguen pendientes.
+
+## Señales de combate y descubrimiento minero
+
+- **Botania:** muestra la cadena de golpes y la duración de las rosas despiertas. La ventana se mide entre golpes consecutivos, no para toda la cadena.
+- **Corona de Ánimas:** disparos restantes, espera hasta el siguiente disparo y tiempo restante de invocación. Si no hay objetivo válido, no anuncia una pérdida de munición.
+- **Último Juramento:** tiempo efectivo, posibilidad de extenderlo y Eco de Blink disponible con el arma afín.
+- **Sangre del Primer Dragón:** golpes necesarios y duración de la bendición, incluida la extensión de Dracoreliquia mientras esté equipada.
+- **Asterión:** el efecto al alcanzar el máximo de Ímpetu se reproduce al llegar al máximo, no en cada golpe posterior.
+- Los golpes válidos con multiplicador directo de SpectreCore muestran un float privado y breve. No se atribuyen críticos, estadísticas externas, daño de armadura o daño secundario a ese porcentaje; se muestra solo el multiplicador de habilidad realmente aplicado. Las bonificaciones pasivas permanentes por sí solas no generan avisos. No se apilan floats.
+- Mitrilo distingue recarga, resonancia faltante, falta de ruta y límite de campos. No cambia precios ni permisos. El Mago explica los usos de materiales según el catálogo minero.
+- Los avisos de hitos se ajustan en el archivo de recompensas de AuraSkills, que sigue siendo la autoridad de niveles, permisos y mensajes. Las pistas de uso de los ítems mineros se actualizan en el catálogo de integración. Estos dos archivos son externos al JAR: si ya están instalados, utiliza solo las modificaciones de texto, sin perder personalizaciones ni reimportar recetas o datos de jugadores.
+
+El indicador de armadura usa el tick de habilidad existente y se oculta al expirar, perder el conjunto o salir del contexto; no se añade un temporizador repetitivo por jugador. El float privado está acotado a uno por atacante y se retira desde el mismo motor. No se usan actionbars ni se cambian las reglas de combate. La apariencia y la visibilidad del cliente se comprueban ingame.

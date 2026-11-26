@@ -7,6 +7,7 @@ import org.bukkit.World;
 import org.bukkit.entity.BlockDisplay;
 import org.bukkit.entity.Display;
 import org.bukkit.entity.ItemDisplay;
+import org.bukkit.entity.TextDisplay;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -35,6 +36,11 @@ public final class Visuals {
         int removed = 0;
         for (World world : Bukkit.getWorlds()) {
             for (ItemDisplay display : world.getEntitiesByClass(ItemDisplay.class)) {
+                if (display.getPersistentDataContainer().has(marker, PersistentDataType.BYTE)) {
+                    display.remove(); removed++;
+                }
+            }
+            for (TextDisplay display : world.getEntitiesByClass(TextDisplay.class)) {
                 if (display.getPersistentDataContainer().has(marker, PersistentDataType.BYTE)) {
                     display.remove(); removed++;
                 }

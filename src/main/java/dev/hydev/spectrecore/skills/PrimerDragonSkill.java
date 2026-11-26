@@ -1,6 +1,9 @@
 package dev.hydev.spectrecore.skills;
 
 import dev.hydev.spectrecore.config.Settings;
+import dev.hydev.spectrecore.core.SkillHud;
+import net.kyori.adventure.bossbar.BossBar;
+import net.kyori.adventure.text.Component;
 import dev.hydev.spectrecore.SpectreCorePlugin;
 import dev.hydev.spectrecore.core.Effects;
 import dev.hydev.spectrecore.core.CombatRules;
@@ -28,6 +31,7 @@ public final class PrimerDragonSkill implements SkillModule {
     private static final String PASSIVE_STRENGTH_KEY = "spectrecore_dragon_passive_strength";
     private static final String ACTIVE_STRENGTH_KEY = "spectrecore_dragon_active_strength";
     private static final class State {
+        final SkillHud hud = new SkillHud();
         long start, baseEnd, extendedEnd, lastHit = -100000;
         int meleeHits;
         UUID activation;
@@ -74,6 +78,7 @@ public final class PrimerDragonSkill implements SkillModule {
         s.meleeHits = tick - s.lastHit <= i("melee-hit-window-ticks", 60) ? s.meleeHits + 1 : 1;
         s.lastHit = tick;
         if (s.meleeHits >= Math.max(1, i("melee-hits-to-activate", 2))) activate(p, s, tick);
+        updateHud(p, s, tick);
     }
     @Override public void onHostileDamage(Player p, LivingEntity aggressor, long tick) {
         if (!access(p)) return;
@@ -87,6 +92,7 @@ public final class PrimerDragonSkill implements SkillModule {
         s.extendedEnd = s.baseEnd + Math.max(0, i("weapon-duration-bonus-seconds", 2)) * 20L;
         s.activation = UUID.randomUUID();
         s.meleeHits = 0;
+        updateHud(p, s, tick);
         syncAuraStrength(p, s, tick);
         plugin.effects().setAttribute(p, Attribute.MOVEMENT_SPEED, SPEED_KEY, d("speed-bonus", .06),
                 AttributeModifier.Operation.ADD_SCALAR);
@@ -107,6 +113,28 @@ public final class PrimerDragonSkill implements SkillModule {
         }, 1L);
         spawnDragon(p, s);
     }
+    private void updateHud(Player p, State s, long tick) {
+        s.hud.updated(tick);
+        if (active(p, s, tick)) {
+            boolean affinity = withSword(p);
+            long end = CombatRules.blessingEnd(s.baseEnd, s.extendedEnd, affinity);
+            Component detail = affinity && s.extendedEnd > s.baseEnd
+                    ? Settings.message("equipamiento", "PrimerDragonSkill.hud-afinidad", "<gold>Dracoreliquia")
+                    : Settings.message("equipamiento", "PrimerDragonSkill.hud-bendicion", "<gray>Bendición activa");
+            s.hud.show(p, Settings.message("equipamiento", "PrimerDragonSkill.hud-activo",
+                    "<#EBC88A>✦ <bold>Herencia dracónica</bold> <white>{s}s <gray>│ {estado}",
+                    "s", SkillHud.seconds(end - tick), "estado", detail),
+                    SkillHud.progress(end - tick, end - s.start), BossBar.Color.YELLOW);
+        } else if (s.meleeHits > 0 && tick - s.lastHit <= i("melee-hit-window-ticks", 60)
+                && plugin.cooldowns().ready(p.getUniqueId(), id())) {
+            int max = Math.max(1, i("melee-hits-to-activate", 2));
+            s.hud.show(p, Settings.message("equipamiento", "PrimerDragonSkill.hud-carga",
+                    "<#EBC88A>✦ <bold>Herencia dracónica</bold> <white>{golpes}/{max} <gray>│ Golpea o recibe daño",
+                    "golpes", Math.min(s.meleeHits, max), "max", max),
+                    SkillHud.progress(s.meleeHits, max), BossBar.Color.YELLOW);
+        } else s.hud.hide(p.getUniqueId());
+    }
+
     @Override public double outgoingMultiplier(Player p, LivingEntity target, long tick) {
         if (!access(p)) return 1;
         var aura = plugin.auraSkillsBridge();
@@ -115,6 +143,9 @@ public final class PrimerDragonSkill implements SkillModule {
         return CombatRules.dragonMultiplier(passiveApplied, activeApplied,
                 active(p, states.get(p.getUniqueId()), tick),
                 d("passive-damage-bonus", .03), d("active-damage-bonus", .06));
+    }
+    @Override public boolean showDamageFeedback(Player p, long tick) {
+        return active(p, states.get(p.getUniqueId()), tick);
     }
     @Override public double incomingMultiplier(Player p, long tick) {
         if (!access(p)) return 1;
@@ -172,6 +203,7 @@ public final class PrimerDragonSkill implements SkillModule {
             if (!p.isValid() || p.isDead() || !access(p)) { clear(id); continue; }
             State s = state(p);
             syncAuraStrength(p, s, tick);
+            if (s.hud.due(tick)) updateHud(p, s, tick);
             if (!active(p, s, tick)) {
                 if (s.speedApplied) {
                     plugin.effects().clearAttribute(p, Attribute.MOVEMENT_SPEED, SPEED_KEY);
@@ -193,6 +225,7 @@ public final class PrimerDragonSkill implements SkillModule {
             plugin.auraSkillsBridge().remove(p, ACTIVE_STRENGTH_KEY);
         }
         if (s == null) return;
+        s.hud.hide(id);
         removeDragon(s);
         if (p != null && s.speedApplied) plugin.effects().clearAttribute(p, Attribute.MOVEMENT_SPEED, SPEED_KEY);
     }

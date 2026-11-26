@@ -248,9 +248,11 @@ pages:
     body: "<gray>Obtén tesoros mediante minería, combate y agricultura. Cada fuente tiene sus propios hallazgos y tiempos de espera.</gray>"
     resumen: "<white>La exploración tiene recompensas ocultas."
     puntos:
-      - "<gray>Minería, caza y cosechas especiales."
-      - "<gray>Raridades y oportunidades distintas."
-      - "<gray>Busca fuentes de botín poco comunes."
+      - "<gray>Chatarra: mejora el Taladro."
+      - "<gray>Fragmentos: restaura el Pico Perdido."
+      - "<gray>Paladio y Mitrilo: forja picos y herramientas."
+      - "<gray>Amatista Resonante: llaves, cargas y herramientas."
+      - "<gray>Llave: abre geodas. Carga: recarga herramientas."
     buttons:
       - label: '<gray>Guías</gray>'
         page: guias

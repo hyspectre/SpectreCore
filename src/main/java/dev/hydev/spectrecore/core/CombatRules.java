@@ -18,6 +18,11 @@ public final class CombatRules {
                                           double passiveBonus, double activeBonus) {
         return 1.0 + (passiveAura ? 0.0 : passiveBonus) + (active && !activeAura ? activeBonus : 0.0);
     }
+    /** The percentage of a known direct multiplier, not total damage or external stats. */
+    public static double bonusPercent(double multiplier) {
+        if (!Double.isFinite(multiplier) || multiplier <= 1.0) return 0;
+        return Math.round((multiplier - 1) * 10000.0) / 100.0;
+    }
     public static long extend(long currentEnd, long maximumEnd, long bonusTicks) {
         return Math.min(maximumEnd, currentEnd + Math.max(0, bonusTicks));
     }

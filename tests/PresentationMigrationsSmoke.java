@@ -24,7 +24,7 @@ public final class PresentationMigrationsSmoke {
         check(migrated.contains("Consulta tus misiones desde cualquier lugar."), "Replaces technical lore");
         check(migrated.contains("Consulta tu progreso en el apartado de niveles."), "Removes menu command");
         check(migrated.contains("Me encantan los dragones"), "Preserves custom wording");
-        Path backup = folder.resolve("backups/presentation-v2/ui/misiones.yml");
+        Path backup = folder.resolve("backups/presentation-v3/ui/misiones.yml");
         check(Files.readString(backup).equals(original), "Backup is byte-for-byte original");
         check(!PresentationMigrations.migrate(folder.toFile(), menu.toFile(), "ui/misiones.yml"),
               "Second migration idempotent");
@@ -41,6 +41,14 @@ public final class PresentationMigrationsSmoke {
                 "<gray>Agáchate para aprovecharla.")), "Recognizes exact old resonance guide");
         check(!PresentationMigrations.isLegacyGuidePoints("resonancia", java.util.List.of(
                 "<gray>Mi guía personalizada.")), "Preserves customized lists");
+        check(PresentationMigrations.isLegacyGuidePoints("tesoros", java.util.List.of(
+                "<gray>Minería, caza y cosechas especiales.",
+                "<gray>Raridades y oportunidades distintas.",
+                "<gray>Busca fuentes de botín poco comunes.")), "Recognizes old treasure guide");
+        check(!PresentationMigrations.isLegacyGuidePoints("tesoros", java.util.List.of(
+                "<gray>Mi tesoro personalizado.")), "Preserves customized treasure guide");
+        check(PresentationMigrations.rewriteKnownCopy("cargada: \"<aqua>✦ Resonancia restaurada: <white>{carga}/100\"")
+                .contains("{carga}/{max}"), "Migrates old charge capacity text");
         check(!PresentationMigrations.isLegacyGuidePoints("otra", java.util.List.of()), "Unknown pages unchanged");
         System.out.println("PASS PresentationMigrationsSmoke: " + count + " checks");
     }

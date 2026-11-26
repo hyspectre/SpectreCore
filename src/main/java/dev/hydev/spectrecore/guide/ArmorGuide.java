@@ -354,14 +354,14 @@ public void open(Player player) { openPage(player, "armaduras"); }
         t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-028", "<gray>ʀᴇǫᴜɪᴇʀᴇ <white>4 ᴘɪᴇᴢᴀs"));
         switch (e.skill) {
             case "botania" -> {
-                t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-029","<gray>ᴄᴏɴᴇᴄᴛᴀ <white>{v-e-hits-required-4} ɢᴏʟᴘᴇs\n<gray>ᴇɴ <yellow>{valor2} <gray>ᴘᴀʀᴀ ᴀᴄᴛɪᴠᴀʀ","v-e-hits-required-4", v(e, "hits-required", 4),"valor2", seconds(e, "hit-window-ticks", 60)));
+                t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-029","<gray>Encadena <white>{v-e-hits-required-4} golpes\n<gray>Máximo <yellow>{valor2} <gray>entre golpes.","v-e-hits-required-4", v(e, "hits-required", 4),"valor2", seconds(e, "hit-window-ticks", 60)));
                 t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-030","<gray>{valor1} ʟᴀᴛɪɢᴀᴢᴏs <white>ᴅᴇ {v-e-lash-damage-3} ʜᴘ\n<gray>ʟᴇɴᴛɪᴛᴜᴅ ɪ <yellow>{valor3}","valor1", value(Math.min(8, Math.max(1, n(e, "lash-count", 4)))),"v-e-lash-damage-3", v(e, "lash-damage", 3),"valor3", seconds(e, "slowness-ticks", 30)));
                 t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-031", "<gray>ᴀʟᴄᴀɴᴄᴇ <white>{v-e-lash-range-7} ʙʟᴏǫᴜᴇs", "v-e-lash-range-7", v(e, "lash-range", 7)));
             }
             case "necrotica" -> {
                 t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-033","<gray>ᴀʟ ʀᴇᴄɪʙɪʀ ᴅᴀñᴏ ʜᴏsᴛɪʟ\n<gray>ɪɴᴠᴏᴄᴀ <white>{valor1} ᴄᴀʟᴀᴠᴇʀᴀs","valor1", value(Math.min(3, Math.max(1, n(e, "skulls", 3))))));
                 t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-034", "<gray>{v-e-shots-per-skull-3} ᴅɪsᴘᴀʀᴏs ᴘᴏʀ ᴄᴀʟᴀᴠᴇʀᴀ\n<gray>ᴅᴀñᴏ ᴘᴏʀ ɪᴍᴘᴀᴄᴛᴏ <white>{v-e-damage-per-shot-5} ʜᴘ", "v-e-shots-per-skull-3", v(e, "shots-per-skull", 3), "v-e-damage-per-shot-5", v(e, "damage-per-shot", 5)));
-                t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-035","<gray>ᴀʟᴄᴀɴᴄᴇ <white>{v-e-range-8} ʙʟᴏǫᴜᴇs","v-e-range-8", v(e, "range", 8),"valor2", seconds(e, "fire-interval-ticks", 60)));
+                t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-035","<gray>Alcance <white>{v-e-range-8} bloques\n<gray>Un disparo cada <white>{valor2}.\n<gray>Sin enemigo cercano, conserva almas.","v-e-range-8", v(e, "range", 8),"valor2", seconds(e, "fire-interval-ticks", 60)));
                 t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-036", "<gray>ɴᴏ ᴀᴛᴀᴄᴀɴ ᴊᴜɢᴀᴅᴏʀᴇs."));
             }
             case "asterion" -> {

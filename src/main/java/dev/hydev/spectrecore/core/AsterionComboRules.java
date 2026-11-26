@@ -33,7 +33,7 @@ public final class AsterionComboRules {
 
     /** Percentage earned in the current streak, not a global or next-target bonus. */
     public static double earnedBonusPercent(int stacks, int cap, double perStack) {
-        return Math.round((CombatRules.comboMultiplier(stacks, cap, perStack) - 1) * 10000.0) / 100.0;
+        return CombatRules.bonusPercent(CombatRules.comboMultiplier(stacks, cap, perStack));
     }
 
     public static Combo expire(Combo previous, long tick, int gapTicks) {

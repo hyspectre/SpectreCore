@@ -1,6 +1,9 @@
 package dev.hydev.spectrecore.skills;
 
 import dev.hydev.spectrecore.config.Settings;
+import dev.hydev.spectrecore.core.SkillHud;
+import net.kyori.adventure.bossbar.BossBar;
+import net.kyori.adventure.text.Component;
 import dev.hydev.spectrecore.SpectreCorePlugin;
 import dev.hydev.spectrecore.core.Effects;
 import dev.hydev.spectrecore.core.CombatRules;
@@ -26,6 +29,7 @@ public final class UltimoJuramentoSkill implements SkillModule {
     private static final String SPEED_KEY = "ultimo_juramento_speed";
     private static final String STRENGTH_KEY = "spectrecore_ultimo_juramento_strength";
     private static final class State {
+        final SkillHud hud = new SkillHud();
         long lastTap = -100000, startTick, activeUntil, maxUntil;
         long blinkCandidate = -100000, blinkBonusUntil, lastBlink, lastNotice = -100000;
         boolean speedApplied;
@@ -68,6 +72,7 @@ public final class UltimoJuramentoSkill implements SkillModule {
                     Math.max(2, i("maximum-duration-seconds", 10) + 3));
         plugin.effects().setAttribute(p, Attribute.MOVEMENT_SPEED, SPEED_KEY, d("speed-bonus", .20), AttributeModifier.Operation.ADD_SCALAR);
         s.speedApplied = true;
+        updateHud(p, s, tick);
         p.getWorld().playSound(p.getLocation(), Settings.string("equipamiento", "UltimoJuramentoSkill.sonido-005", "minecraft:block.anvil.break"),Settings.f("equipamiento", "UltimoJuramentoSkill.playsound-001-arg2", .65f),Settings.f("equipamiento", "UltimoJuramentoSkill.playsound-002-arg3", .72f));
         p.getWorld().spawnParticle(Settings.particle("equipamiento", "UltimoJuramentoSkill.particle-001", Particle.REVERSE_PORTAL), p.getLocation().add(0, 1.0, 0),Settings.i("equipamiento", "UltimoJuramentoSkill.spawnparticle-003-arg2", 26),Settings.d("equipamiento", "UltimoJuramentoSkill.spawnparticle-004-arg3", .5),Settings.d("equipamiento", "UltimoJuramentoSkill.spawnparticle-005-arg4", .7),Settings.d("equipamiento", "UltimoJuramentoSkill.spawnparticle-006-arg5", .5),Settings.d("equipamiento", "UltimoJuramentoSkill.spawnparticle-007-arg6", .02));
         p.sendMessage(Settings.message("equipamiento", "UltimoJuramentoSkill.mensaje-001", "§5✦ §dÚltimo Juramento §7— El acero deja de protegerte."));
@@ -95,6 +100,25 @@ public final class UltimoJuramentoSkill implements SkillModule {
             s.blinkBonusUntil = 0; // one hit only, even if the target resisted damage later
             p.getWorld().spawnParticle(Settings.particle("equipamiento", "UltimoJuramentoSkill.particle-002", Particle.REVERSE_PORTAL), enemy.getLocation().add(0, 1, 0),Settings.i("equipamiento", "UltimoJuramentoSkill.spawnparticle-008-arg2", 14),Settings.d("equipamiento", "UltimoJuramentoSkill.spawnparticle-009-arg3", .18),Settings.d("equipamiento", "UltimoJuramentoSkill.spawnparticle-010-arg4", .3),Settings.d("equipamiento", "UltimoJuramentoSkill.spawnparticle-011-arg5", .18),Settings.d("equipamiento", "UltimoJuramentoSkill.spawnparticle-012-arg6", .01));
         }
+        updateHud(p, s, tick);
+    }
+
+    private void updateHud(Player p, State s, long tick) {
+        s.hud.updated(tick);
+        if (!active(s, tick)) { s.hud.hide(p.getUniqueId()); return; }
+        Component detail;
+        if (s.blinkBonusUntil >= tick && s.blinkBonusUntil > 0 && withSword(p)) {
+            detail = Settings.message("equipamiento", "UltimoJuramentoSkill.hud-eco",
+                    "<light_purple>Eco: +{dano}% próximo golpe <gray>({s}s)",
+                    "dano", Math.round(d("blink-next-hit-bonus", .10) * 10000) / 100.0,
+                    "s", SkillHud.seconds(Math.min(s.blinkBonusUntil, s.activeUntil) - tick));
+        } else if (s.activeUntil >= s.maxUntil)
+            detail = Settings.message("equipamiento", "UltimoJuramentoSkill.hud-limite", "<gray>Duración máxima");
+        else detail = Settings.message("equipamiento", "UltimoJuramentoSkill.hud-extiende", "<gray>Golpea para prolongar");
+        s.hud.show(p, Settings.message("equipamiento", "UltimoJuramentoSkill.hud-activo",
+                "<#C6A1E0>✦ <bold>Juramento</bold> <white>{s}s <gray>│ {estado}",
+                "s", SkillHud.seconds(s.activeUntil - tick), "estado", detail),
+                SkillHud.progress(s.activeUntil - tick, s.maxUntil - s.startTick), BossBar.Color.PURPLE);
     }
 
     /** Only right-clicking the real sword during the active form can arm a Blink candidate. */
@@ -119,6 +143,7 @@ public final class UltimoJuramentoSkill implements SkillModule {
         if (tick - s.lastBlink < 2) return;
         s.lastBlink = tick;
         s.blinkBonusUntil = tick + i("blink-next-hit-window-ticks", 50);
+        updateHud(p, s, tick);
         spawnEcho(p, previous);
     }
     private void spawnEcho(Player p, Location from) {
@@ -146,7 +171,9 @@ public final class UltimoJuramentoSkill implements SkillModule {
             State s = states.get(id);
             if (s == null) continue;
             if (!p.isValid() || p.isDead() || !access(p)) { clear(id); continue; }
+            if (s.hud.due(tick)) updateHud(p, s, tick);
             if (!active(s, tick)) {
+                s.hud.hide(id);
                 if (plugin.auraSkillsBridge() != null) plugin.auraSkillsBridge().remove(p, STRENGTH_KEY);
                 if (s.speedApplied) {
                     plugin.effects().clearAttribute(p, Attribute.MOVEMENT_SPEED, SPEED_KEY);
@@ -186,6 +213,7 @@ public final class UltimoJuramentoSkill implements SkillModule {
         Player p = Bukkit.getPlayer(id);
         if (p != null && plugin.auraSkillsBridge() != null) plugin.auraSkillsBridge().remove(p, STRENGTH_KEY);
         if (s == null) return;
+        s.hud.hide(id);
         removePlates(s);
         if (p != null && s.speedApplied) plugin.effects().clearAttribute(p, Attribute.MOVEMENT_SPEED, SPEED_KEY);
     }

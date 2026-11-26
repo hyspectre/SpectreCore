@@ -57,6 +57,7 @@ public final class AsterionSkill implements SkillModule {
             updateHud(player, s, tick);
             return;
         }
+        int previousCombo = s.combo;
         var combo = AsterionComboRules.landed(
                 new AsterionComboRules.Combo(s.prey, s.combo, s.lastHit),
                 target.getUniqueId(), tick, i("combo-gap-ticks", 50), i("max-combo-stacks", 4));
@@ -64,7 +65,7 @@ public final class AsterionSkill implements SkillModule {
         s.combo = combo.stacks();
         s.lastHit = combo.lastHit();
         updateHud(player, s, tick);
-        if (s.combo == i("max-combo-stacks", 4)) {
+        if (s.combo > previousCombo && s.combo == i("max-combo-stacks", 4)) {
             Effects.dust(target.getLocation().add(0, 1, 0),Settings.i("equipamiento", "AsterionSkill.polvo-001-arg1", 162),Settings.i("equipamiento", "AsterionSkill.polvo-002-arg2", 45),Settings.i("equipamiento", "AsterionSkill.polvo-003-arg3", 40),Settings.i("equipamiento", "AsterionSkill.polvo-004-arg4", 4), Settings.f("equipamiento", "AsterionSkill.geometria-001", .75f));
         }
     }

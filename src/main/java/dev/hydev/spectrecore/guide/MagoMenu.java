@@ -222,7 +222,7 @@ public final class MagoMenu implements Listener {
     }
 
     private void saveMigratedVisuals(File installed, YamlConfiguration candidate) throws IOException {
-        File backup = new File(plugin.getDataFolder(), "backups/mago-visual-v3/ui/mago.yml");
+        File backup = new File(plugin.getDataFolder(), "backups/mago-visual-v4/ui/mago.yml");
         if (!backup.exists()) {
             Files.createDirectories(backup.toPath().getParent());
             Files.copy(installed.toPath(), backup.toPath());
