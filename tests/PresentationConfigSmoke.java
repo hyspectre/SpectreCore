@@ -100,7 +100,7 @@ public final class PresentationConfigSmoke {
                 read("nucleo/comandos.yml").getString("rutas.armaduras.descripcion")),
                 "Known technical help text migrated safely");
         check(Files.isRegularFile(root.resolve(
-                "backups/presentation-v2/modules/nucleo/comandos.yml")),
+                "backups/presentation-v3/modules/nucleo/comandos.yml")),
                 "Original help catalog preserved before migration");
 
         Settings.clear();System.out.println("PASS PresentationConfigSmoke: "+assertions+" live configuration/reload assertions");
