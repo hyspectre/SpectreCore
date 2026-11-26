@@ -71,6 +71,23 @@ public final class RelicarioRules {
         return Map.copyOf(result);
     }
 
+    /** Read-only marginal bonus from one relic, using the same capped totals as the ledger. */
+    public static Map<String, Double> previewGain(Collection<Relic> catalog, Set<String> discovered,
+                                                  Map<String, Double> caps, String id) {
+        var byId = validateCatalog(catalog);
+        if (!canAbsorb(id, discovered, byId)) return Map.of();
+        var before = totals(catalog, discovered, caps);
+        var next = new java.util.HashSet<>(discovered);
+        next.add(id);
+        var after = totals(catalog, next, caps);
+        Map<String, Double> gain = new LinkedHashMap<>();
+        for (String stat : byId.get(id).bonuses().keySet()) {
+            double delta = after.getOrDefault(stat, 0.0) - before.getOrDefault(stat, 0.0);
+            gain.put(stat, Math.max(0, Math.round(delta * 10000.0) / 10000.0));
+        }
+        return Map.copyOf(gain);
+    }
+
     public static boolean canAbsorb(String id, Set<String> discovered, Map<String, Relic> catalog) {
         return id != null && catalog.containsKey(id) && !discovered.contains(id);
     }

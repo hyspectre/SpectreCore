@@ -277,6 +277,12 @@ public final class SlayerModule implements Listener {
     }
     public void retrySpawnFromMenu(Player player) {
         if (canRetrySpawn(player)) {
+            long wait = retryWaitMillis(player, System.currentTimeMillis());
+            if (wait > 0) {
+                player.sendMessage(Settings.message("slayer", "SlayerModule.reintento-espera",
+                        "<yellow>Podrás reintentar la invocación en {s}s.", "s", (wait + 999) / 1000));
+                return;
+            }
             summon(player, "revenant", mission(player.getUniqueId(), "revenant"));
             return;
         }
@@ -284,14 +290,17 @@ public final class SlayerModule implements Listener {
                 "<gray>No tienes un jefe de Monarquía pendiente de invocación.")));
     }
     public String progressLine(Player player, String category, int tier) {
-        Mission state = mission(player.getUniqueId(), category);
-        if (state.active && state.tier == tier) {
+        Map<String, Mission> current = missions.getOrDefault(player.getUniqueId(), Map.of());
+        Mission state = current.get(category);
+        if (state != null && state.active && state.tier == tier) {
             if (state.bossId != null) return Bukkit.getEntity(state.bossId) != null
                     ? "<gold>✦ Jefe activo: <white>derrota al monarca"
                     : "<yellow>✦ Jefe descargado: <gray>regresa a la zona";
+            if (state.ready()) return Settings.text("slayer", "SlayerModule.jefe-pendiente",
+                    "<yellow>✦ Jefe pendiente · Reintenta la invocación");
             return "§a✦ Activa: §f" + state.kills + "§7/§f" + state.required + " bajas";
         }
-        if (state.active) return "§cTienes otra misión activa";
+        if (current.values().stream().anyMatch(other -> other.active)) return "§cTienes otra misión activa";
         if (!accessible(player, category, tier)) return "§cNo tienes acceso a este rango";
         return "§e✦ Disponible para contratar";
     }
@@ -620,11 +629,15 @@ public final class SlayerModule implements Listener {
         }
     }
 
+    private long retryWaitMillis(Player player, long now) {
+        return ProgressRules.remaining(attempts.getOrDefault(player.getUniqueId(), -1L), now,
+                Math.max(0, config.getLong("invocacion.reintento-milisegundos", 5000)));
+    }
+
     private void summon(Player p, String category, Mission m) {
         if (m.bossId != null || !m.ready()) return; // Exactly one registered boss per contract.
         long now = System.currentTimeMillis();
-        if (now - attempts.getOrDefault(p.getUniqueId(), 0L)
-                < Math.max(0, config.getLong("invocacion.reintento-milisegundos", 5000))) return;
+        if (retryWaitMillis(p, now) > 0) return;
         attempts.put(p.getUniqueId(), now);
         String mob = config.getString("categorias." + category + ".mob", "")
                 .replace("{tier}", Integer.toString(m.tier));

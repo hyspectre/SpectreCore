@@ -18,7 +18,9 @@
 | Servidor objetivo | Paper **1.21.10**, Java **21** |
 | Certificación de release | **Pendiente**. CI verde no implica compatibilidad ni seguridad ingame |
 
-La documentación está disponible en ambas ramas; eso **no significa que sus fuentes estén sincronizadas**. Para retomar el desarrollo 0.9, comienza por `dev09` y verifica el commit remoto y cualquier cambio posterior. No derives una funcionalidad nueva de `main` por defecto. Comprueba siempre la versión real en `build.gradle.kts` y `src/main/resources/plugin.yml`.
+La [auditoría de experiencia del jugador](docs/AUDITORIA_EXPERIENCIA_DEV09.md) registra mejoras de claridad y feedback de la línea activa, separadas de la auditoría técnica.
+
+La documentación base está disponible en ambas ramas; eso **no significa que sus fuentes estén sincronizadas**. Para retomar el desarrollo 0.9, comienza por `dev09` y verifica el commit remoto y cualquier cambio posterior. No derives una funcionalidad nueva de `main` por defecto. Comprueba siempre la versión real en `build.gradle.kts` y `src/main/resources/plugin.yml`.
 
 ## 2. Principios no negociables
 

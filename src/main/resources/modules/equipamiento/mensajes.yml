@@ -98,6 +98,9 @@ AsterionSkill:
   barra-activa: "✦ ASTERIÓN | {segundos}s | Ímpetu {combo}/{maximo}"
   barra-furia: "✦ FURIA | {furia}/{maximo}{aviso}"
   furia-lista: " | DOBLE SHIFT"
+  furia-recarga: " | Recarga {s}s"
+  furia-insuficiente: "<yellow>Furia insuficiente: {furia}/{maximo}"
+  en-recarga: "<yellow>Asterión · Recarga {s}s"
   etiqueta-005: "<reset><gold>♜ Asterión <reset><gray>| set: <reset><white>"
   etiqueta-006: " <reset><gray>| furia: <reset><white>"
   etiqueta-007: "/{maximo} <reset><gray>| activo: <reset><white>"
@@ -119,6 +122,7 @@ PrimerDragonSkill:
   etiqueta-003: " <reset><gray>| bendición: <reset><white>"
   etiqueta-004: " <reset><gray>| CD: <reset><white>"
 UltimoJuramentoSkill:
+  en-recarga: "<yellow>Último Juramento · Recarga {s}s"
   mensaje-001: "<reset><dark_purple>✦ <reset><light_purple>Último Juramento <reset><gray>— El acero deja de protegerte."
   etiqueta-002: "<reset><dark_purple>✦ Último Juramento <reset><gray>| set: <reset><white>"
   etiqueta-003: " <reset><gray>| activo: <reset><white>"

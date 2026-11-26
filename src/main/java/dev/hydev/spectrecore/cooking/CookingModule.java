@@ -500,7 +500,8 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         if (ingredientIndex < 0) return;
         Material expected = recipe.ingredients().get(ingredientIndex);
         if (stack.getType() != expected) {
-            msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.etiqueta-034", "Ingrediente incorrecto. No se ha consumido."));
+            msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.etiqueta-034", "Ingrediente incorrecto. No se ha consumido.")
+                    + nextIngredient(recipe, station.accepted, portions));
             sound(station, Settings.sound("cocina", "CookingModule.sound-001", Sound.BLOCK_NOTE_BLOCK_BASS), Settings.f("cocina", "CookingModule.geometria-011", 0.7f));
             return;
         }
@@ -528,10 +529,9 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
             msg(player, ChatColor.GOLD + Settings.text("cocina", "CookingModule.etiqueta-037", "¡Preparacion de ") + portions + Settings.text("cocina", "CookingModule.etiqueta-038", " raciones iniciada! Vigila el caldero."));
         } else {
             int required = CookingBatch.requiredIngredients(portions);
-            int next = CookingBatch.ingredientIndex(station.accepted, portions);
             label(station, Settings.text("cocina", "CookingModule.etiqueta-039", "§e") + recipe.name() + Settings.text("cocina", "CookingModule.etiqueta-040", " §7| §f") + station.accepted + "/" + required + " ingredientes");
             msg(player, ChatColor.GREEN + "Ingredientes " + station.accepted + "/" + required + ". "
-                    + ChatColor.GRAY + "Siguiente: " + ChatColor.WHITE + ingredientDisplayName(recipe.ingredients().get(next)));
+                    + nextIngredient(recipe, station.accepted, portions));
         }
         if (!saveStations()) return;
         try {
@@ -767,8 +767,15 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         msg(player, ChatColor.GREEN + Settings.text("cocina", "CookingModule.etiqueta-063", "Cocina retirada con la esponja. Los bloques siguen intactos."));
     }
 
-    // Only items from the dedicated COCINA type are ever eligible as cooking rewards.
-    // Display names and lore are not used to identify or authorize them.
+    private String nextIngredient(Recipe recipe, int accepted, int portions) {
+        int index = CookingBatch.ingredientIndex(accepted, portions);
+        if (index < 0) return "";
+        int needed = CookingBatch.acceptedFromStack(accepted, portions, Integer.MAX_VALUE);
+        return Settings.text("cocina", "CookingModule.siguiente-ingrediente",
+                " <gray>Siguiente: <white>{ingrediente} <yellow>×{cantidad}",
+                "ingrediente", ingredientDisplayName(recipe.ingredients().get(index)), "cantidad", needed);
+    }
+
     private String ingredientDisplayName(Material ingredient) {
         YamlConfiguration ui = recipeBookLayout;
         String name = ui == null ? null : ui.getString("materiales." + ingredient.name());
@@ -777,6 +784,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         return Character.toUpperCase(lower.charAt(0)) + lower.substring(1);
     }
 
+    // Only the dedicated COCINA type supplies rewards; visible names never identify them.
     private ItemStack resolveMMOItem(String id) {
         if (id == null || id.isBlank()) return null;
         Plugin mmo = getServer().getPluginManager().getPlugin("MMOItems");
@@ -915,10 +923,9 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
             status = Settings.text("cocina", "CookingModule.etiqueta-080", "§eCaldero vacío §7| §fAgua: ") + waterPortions(station.blockLocation.getBlock())
                     + Settings.text("cocina", "CookingModule.etiqueta-081", "/3 §7| Arroja ingredientes");
         } else if (!station.cooking) {
-            int next = CookingBatch.ingredientIndex(station.accepted, station.portions);
             status = Settings.text("cocina", "CookingModule.etiqueta-082", "§e") + recipe.name() + Settings.text("cocina", "CookingModule.etiqueta-083", " §7| §f") + station.accepted + "/"
-                    + CookingBatch.requiredIngredients(station.portions) + Settings.text("cocina", "CookingModule.etiqueta-084", " §7| Siguiente: §f")
-                    + (next >= 0 ? recipe.ingredients().get(next) : "-");
+                    + CookingBatch.requiredIngredients(station.portions)
+                    + nextIngredient(recipe, station.accepted, station.portions);
         } else if (station.readyServings > 0) {
             status = Settings.text("cocina", "CookingModule.etiqueta-085", "§a") + recipe.name() + Settings.text("cocina", "CookingModule.etiqueta-086", " §7| §e") + station.readyServings
                     + Settings.text("cocina", "CookingModule.etiqueta-087", " raciones disponibles §7| Calidad: §f") + station.batchQuality;

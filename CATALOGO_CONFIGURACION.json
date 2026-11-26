@@ -675,85 +675,85 @@
     "archivo": "trabajos/mensajes.yml",
     "clave": "JobsModule.mensaje-006",
     "predeterminado": "Trabajos: no se pudo confirmar el pago. No se aplicó el tiempo de espera.",
-    "origen": "JobsModule.java:339"
+    "origen": "JobsModule.java:352"
   },
   {
     "archivo": "trabajos/ajustes.yml",
     "clave": "JobsModule.particle-002",
     "predeterminado": "GLOW",
-    "origen": "JobsModule.java:341"
+    "origen": "JobsModule.java:354"
   },
   {
     "archivo": "trabajos/ajustes.yml",
     "clave": "JobsModule.spawnparticle-001-arg2",
     "predeterminado": 10,
-    "origen": "JobsModule.java:341"
+    "origen": "JobsModule.java:354"
   },
   {
     "archivo": "trabajos/ajustes.yml",
     "clave": "JobsModule.spawnparticle-002-arg3",
     "predeterminado": 0.3,
-    "origen": "JobsModule.java:341"
+    "origen": "JobsModule.java:354"
   },
   {
     "archivo": "trabajos/ajustes.yml",
     "clave": "JobsModule.spawnparticle-003-arg4",
     "predeterminado": 0.3,
-    "origen": "JobsModule.java:341"
+    "origen": "JobsModule.java:354"
   },
   {
     "archivo": "trabajos/ajustes.yml",
     "clave": "JobsModule.spawnparticle-004-arg5",
     "predeterminado": 0.3,
-    "origen": "JobsModule.java:341"
+    "origen": "JobsModule.java:354"
   },
   {
     "archivo": "trabajos/ajustes.yml",
     "clave": "JobsModule.spawnparticle-005-arg6",
     "predeterminado": 0.05,
-    "origen": "JobsModule.java:341"
+    "origen": "JobsModule.java:354"
   },
   {
     "archivo": "trabajos/ajustes.yml",
     "clave": "JobsModule.sound-003",
     "predeterminado": "ENTITY_EXPERIENCE_ORB_PICKUP",
-    "origen": "JobsModule.java:348"
+    "origen": "JobsModule.java:361"
   },
   {
     "archivo": "trabajos/ajustes.yml",
     "clave": "JobsModule.playsound-006-arg2",
     "predeterminado": 0.5,
-    "origen": "JobsModule.java:348"
+    "origen": "JobsModule.java:361"
   },
   {
     "archivo": "trabajos/ajustes.yml",
     "clave": "JobsModule.playsound-007-arg3",
     "predeterminado": 1.5,
-    "origen": "JobsModule.java:348"
+    "origen": "JobsModule.java:361"
   },
   {
     "archivo": "trabajos/mensajes.yml",
     "clave": "JobsModule.mensaje-007",
     "predeterminado": "{valor1}+{amount} {prefijo} · {job}",
-    "origen": "JobsModule.java:342"
+    "origen": "JobsModule.java:355"
   },
   {
     "archivo": "trabajos/mensajes.yml",
     "clave": "JobsModule.texto-004",
     "predeterminado": "Pago solicitado: ",
-    "origen": "JobsModule.java:342"
+    "origen": "JobsModule.java:355"
   },
   {
     "archivo": "trabajos/ajustes.yml",
     "clave": "JobsModule.color-004",
     "predeterminado": "GOLD",
-    "origen": "JobsModule.java:349"
+    "origen": "JobsModule.java:362"
   },
   {
     "archivo": "trabajos/mensajes.yml",
     "clave": "JobsModule.mensaje-008",
     "predeterminado": "Trabajos: faltan o son inválidos dinero/cooldown de {job}.{level}. Esa categoría no paga hasta configurarse.",
-    "origen": "JobsModule.java:352"
+    "origen": "JobsModule.java:365"
   },
   {
     "archivo": "nucleo/ajustes.yml",
@@ -867,127 +867,127 @@
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.mensaje-013",
     "predeterminado": "<reset><gold>MISIONES <reset><yellow>{name-category} <reset><white>{m-kills}/{m-required}",
-    "origen": "SlayerModule.java:533"
+    "origen": "SlayerModule.java:542"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.mensaje-014",
     "predeterminado": "Slayer: no se pudo invocar {mob}: {error-getmessage}",
-    "origen": "SlayerModule.java:643"
+    "origen": "SlayerModule.java:656"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.mensaje-015",
     "predeterminado": "<reset><red>El jefe no pudo aparecer. Conservas el contrato y podrás reintentar la invocación.",
-    "origen": "SlayerModule.java:648"
+    "origen": "SlayerModule.java:661"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.mensaje-016",
     "predeterminado": "¡JEFE INVOCADO!",
-    "origen": "SlayerModule.java:672"
+    "origen": "SlayerModule.java:685"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.color-002",
     "predeterminado": "GOLD",
-    "origen": "SlayerModule.java:673"
+    "origen": "SlayerModule.java:686"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.mensaje-017",
     "predeterminado": "{name-category} ha aparecido. ¡Derrota al jefe!",
-    "origen": "SlayerModule.java:674"
+    "origen": "SlayerModule.java:687"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.color-003",
     "predeterminado": "YELLOW",
-    "origen": "SlayerModule.java:676"
+    "origen": "SlayerModule.java:689"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.ofmillis-003-arg0",
     "predeterminado": 150,
-    "origen": "SlayerModule.java:678"
+    "origen": "SlayerModule.java:691"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.ofseconds-004-arg0",
     "predeterminado": 3,
-    "origen": "SlayerModule.java:679"
+    "origen": "SlayerModule.java:692"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.ofmillis-005-arg0",
     "predeterminado": 400,
-    "origen": "SlayerModule.java:680"
+    "origen": "SlayerModule.java:693"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.sound-004",
     "predeterminado": "ENTITY_WITHER_SPAWN",
-    "origen": "SlayerModule.java:681"
+    "origen": "SlayerModule.java:694"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.playsound-006-arg2",
     "predeterminado": 1.0,
-    "origen": "SlayerModule.java:682"
+    "origen": "SlayerModule.java:695"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.playsound-007-arg3",
     "predeterminado": 0.8,
-    "origen": "SlayerModule.java:683"
+    "origen": "SlayerModule.java:696"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.particle-005",
     "predeterminado": "SOUL_FIRE_FLAME",
-    "origen": "SlayerModule.java:687"
+    "origen": "SlayerModule.java:700"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.spawnparticle-008-arg2",
     "predeterminado": 1,
-    "origen": "SlayerModule.java:689"
+    "origen": "SlayerModule.java:702"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.spawnparticle-009-arg3",
     "predeterminado": 0.0,
-    "origen": "SlayerModule.java:690"
+    "origen": "SlayerModule.java:703"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.spawnparticle-010-arg4",
     "predeterminado": 0.0,
-    "origen": "SlayerModule.java:691"
+    "origen": "SlayerModule.java:704"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.spawnparticle-011-arg5",
     "predeterminado": 0.0,
-    "origen": "SlayerModule.java:692"
+    "origen": "SlayerModule.java:705"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.spawnparticle-012-arg6",
     "predeterminado": 0.02,
-    "origen": "SlayerModule.java:693"
+    "origen": "SlayerModule.java:706"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.mensaje-018",
     "predeterminado": "{name-c} · {m-kills}/{m-required}",
-    "origen": "SlayerModule.java:701"
+    "origen": "SlayerModule.java:714"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.mensaje-019",
     "predeterminado": "UUID inválido en slayer-data.yml: {id}",
-    "origen": "SlayerModule.java:799"
+    "origen": "SlayerModule.java:812"
   },
   {
     "archivo": "nucleo/mensajes.yml",
@@ -2931,841 +2931,841 @@
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.sonido-002",
     "predeterminado": "minecraft:entity.ravager.roar",
-    "origen": "AsterionSkill.java:105"
+    "origen": "AsterionSkill.java:114"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.playsound-001-arg2",
     "predeterminado": 0.85,
-    "origen": "AsterionSkill.java:105"
+    "origen": "AsterionSkill.java:114"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.playsound-002-arg3",
     "predeterminado": 0.65,
-    "origen": "AsterionSkill.java:105"
+    "origen": "AsterionSkill.java:114"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.particle-001",
     "predeterminado": "LARGE_SMOKE",
-    "origen": "AsterionSkill.java:106"
+    "origen": "AsterionSkill.java:115"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-002",
     "predeterminado": 0.8,
-    "origen": "AsterionSkill.java:106"
+    "origen": "AsterionSkill.java:115"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.spawnparticle-003-arg2",
     "predeterminado": 26,
-    "origen": "AsterionSkill.java:106"
+    "origen": "AsterionSkill.java:115"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.spawnparticle-004-arg3",
     "predeterminado": 0.65,
-    "origen": "AsterionSkill.java:106"
+    "origen": "AsterionSkill.java:115"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.spawnparticle-005-arg4",
     "predeterminado": 0.45,
-    "origen": "AsterionSkill.java:106"
+    "origen": "AsterionSkill.java:115"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.spawnparticle-006-arg5",
     "predeterminado": 0.65,
-    "origen": "AsterionSkill.java:106"
+    "origen": "AsterionSkill.java:115"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.spawnparticle-007-arg6",
     "predeterminado": 0.01,
-    "origen": "AsterionSkill.java:106"
+    "origen": "AsterionSkill.java:115"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "AsterionSkill.mensaje-001",
     "predeterminado": "<reset><gold>✦ <reset><red>Asterión <reset><gray>— La bestia despierta.",
-    "origen": "AsterionSkill.java:107"
+    "origen": "AsterionSkill.java:116"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.sonido-003",
     "predeterminado": "minecraft:block.anvil.land",
-    "origen": "AsterionSkill.java:122"
+    "origen": "AsterionSkill.java:131"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.playsound-008-arg2",
     "predeterminado": 0.5,
-    "origen": "AsterionSkill.java:122"
+    "origen": "AsterionSkill.java:131"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.playsound-009-arg3",
     "predeterminado": 1.25,
-    "origen": "AsterionSkill.java:122"
+    "origen": "AsterionSkill.java:131"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "AsterionSkill.barra-activa",
     "predeterminado": "✦ ASTERIÓN | {segundos}s | Ímpetu {combo}/{maximo}",
-    "origen": "AsterionSkill.java:138"
+    "origen": "AsterionSkill.java:151"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "AsterionSkill.barra-furia",
     "predeterminado": "✦ FURIA | {furia}/{maximo}{aviso}",
-    "origen": "AsterionSkill.java:138"
+    "origen": "AsterionSkill.java:151"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "AsterionSkill.furia-lista",
     "predeterminado": " | DOBLE SHIFT",
-    "origen": "AsterionSkill.java:138"
+    "origen": "AsterionSkill.java:150"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.material-041",
     "predeterminado": "CALCITE",
-    "origen": "AsterionSkill.java:146"
+    "origen": "AsterionSkill.java:159"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-003",
     "predeterminado": 0.11,
-    "origen": "AsterionSkill.java:146"
+    "origen": "AsterionSkill.java:159"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-004",
     "predeterminado": 0.16,
-    "origen": "AsterionSkill.java:146"
+    "origen": "AsterionSkill.java:159"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-005",
     "predeterminado": 0.11,
-    "origen": "AsterionSkill.java:146"
+    "origen": "AsterionSkill.java:159"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.material-042",
     "predeterminado": "CUT_COPPER",
-    "origen": "AsterionSkill.java:147"
+    "origen": "AsterionSkill.java:160"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-006",
     "predeterminado": 0.19,
-    "origen": "AsterionSkill.java:147"
+    "origen": "AsterionSkill.java:160"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-007",
     "predeterminado": 0.13,
-    "origen": "AsterionSkill.java:147"
+    "origen": "AsterionSkill.java:160"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-008",
     "predeterminado": 0.22,
-    "origen": "AsterionSkill.java:147"
+    "origen": "AsterionSkill.java:160"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.material-043",
     "predeterminado": "CUT_COPPER",
-    "origen": "AsterionSkill.java:148"
+    "origen": "AsterionSkill.java:161"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-009",
     "predeterminado": 0.19,
-    "origen": "AsterionSkill.java:148"
+    "origen": "AsterionSkill.java:161"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-010",
     "predeterminado": 0.13,
-    "origen": "AsterionSkill.java:148"
+    "origen": "AsterionSkill.java:161"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-011",
     "predeterminado": 0.22,
-    "origen": "AsterionSkill.java:148"
+    "origen": "AsterionSkill.java:161"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-012",
     "predeterminado": 0.48,
-    "origen": "AsterionSkill.java:152"
+    "origen": "AsterionSkill.java:165"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-013",
     "predeterminado": 0.12,
-    "origen": "AsterionSkill.java:157"
+    "origen": "AsterionSkill.java:170"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-014",
     "predeterminado": 0.21,
-    "origen": "AsterionSkill.java:157"
+    "origen": "AsterionSkill.java:170"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-015",
     "predeterminado": 0.12,
-    "origen": "AsterionSkill.java:157"
+    "origen": "AsterionSkill.java:170"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-016",
     "predeterminado": 0.085,
-    "origen": "AsterionSkill.java:158"
+    "origen": "AsterionSkill.java:171"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-017",
     "predeterminado": 0.21,
-    "origen": "AsterionSkill.java:158"
+    "origen": "AsterionSkill.java:171"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-018",
     "predeterminado": 0.085,
-    "origen": "AsterionSkill.java:158"
+    "origen": "AsterionSkill.java:171"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-019",
     "predeterminado": 0.22,
-    "origen": "AsterionSkill.java:159"
+    "origen": "AsterionSkill.java:172"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-020",
     "predeterminado": 0.02,
-    "origen": "AsterionSkill.java:159"
+    "origen": "AsterionSkill.java:172"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-021",
     "predeterminado": 1.35,
-    "origen": "AsterionSkill.java:159"
+    "origen": "AsterionSkill.java:172"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-022",
     "predeterminado": 1.79,
-    "origen": "AsterionSkill.java:159"
+    "origen": "AsterionSkill.java:172"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-023",
     "predeterminado": 0.1,
-    "origen": "AsterionSkill.java:159"
+    "origen": "AsterionSkill.java:172"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-024",
     "predeterminado": 0.22,
-    "origen": "AsterionSkill.java:160"
+    "origen": "AsterionSkill.java:173"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-025",
     "predeterminado": 0.1,
-    "origen": "AsterionSkill.java:160"
+    "origen": "AsterionSkill.java:173"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-026",
     "predeterminado": 0.025,
-    "origen": "AsterionSkill.java:160"
+    "origen": "AsterionSkill.java:173"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-027",
     "predeterminado": 1.35,
-    "origen": "AsterionSkill.java:161"
+    "origen": "AsterionSkill.java:174"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-028",
     "predeterminado": 1.79,
-    "origen": "AsterionSkill.java:161"
+    "origen": "AsterionSkill.java:174"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-029",
     "predeterminado": 0.31,
-    "origen": "AsterionSkill.java:161"
+    "origen": "AsterionSkill.java:174"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-030",
     "predeterminado": 0.28,
-    "origen": "AsterionSkill.java:163"
+    "origen": "AsterionSkill.java:176"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-031",
     "predeterminado": 0.18,
-    "origen": "AsterionSkill.java:163"
+    "origen": "AsterionSkill.java:176"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-032",
     "predeterminado": 0.21,
-    "origen": "AsterionSkill.java:163"
+    "origen": "AsterionSkill.java:176"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-033",
     "predeterminado": 0.13,
-    "origen": "AsterionSkill.java:163"
+    "origen": "AsterionSkill.java:176"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-034",
     "predeterminado": 0.23,
-    "origen": "AsterionSkill.java:163"
+    "origen": "AsterionSkill.java:176"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-035",
     "predeterminado": 0.37,
-    "origen": "AsterionSkill.java:164"
+    "origen": "AsterionSkill.java:177"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-036",
     "predeterminado": 0.02,
-    "origen": "AsterionSkill.java:164"
+    "origen": "AsterionSkill.java:177"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-037",
     "predeterminado": 1.1,
-    "origen": "AsterionSkill.java:164"
+    "origen": "AsterionSkill.java:177"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-038",
     "predeterminado": 1.48,
-    "origen": "AsterionSkill.java:164"
+    "origen": "AsterionSkill.java:177"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-039",
     "predeterminado": 1.1,
-    "origen": "AsterionSkill.java:166"
+    "origen": "AsterionSkill.java:179"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.polvo-005-arg1",
     "predeterminado": 148,
-    "origen": "AsterionSkill.java:166"
+    "origen": "AsterionSkill.java:179"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.polvo-006-arg2",
     "predeterminado": 28,
-    "origen": "AsterionSkill.java:166"
+    "origen": "AsterionSkill.java:179"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.polvo-007-arg3",
     "predeterminado": 32,
-    "origen": "AsterionSkill.java:166"
+    "origen": "AsterionSkill.java:179"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.polvo-008-arg4",
     "predeterminado": 3,
-    "origen": "AsterionSkill.java:166"
+    "origen": "AsterionSkill.java:179"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "AsterionSkill.geometria-040",
     "predeterminado": 0.75,
-    "origen": "AsterionSkill.java:166"
+    "origen": "AsterionSkill.java:179"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "AsterionSkill.etiqueta-005",
     "predeterminado": "<reset><gold>♜ Asterión <reset><gray>| set: <reset><white>",
-    "origen": "AsterionSkill.java:181"
+    "origen": "AsterionSkill.java:194"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "AsterionSkill.etiqueta-006",
     "predeterminado": " <reset><gray>| furia: <reset><white>",
-    "origen": "AsterionSkill.java:181"
+    "origen": "AsterionSkill.java:194"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "AsterionSkill.etiqueta-007",
     "predeterminado": "/{maximo} <reset><gray>| activo: <reset><white>",
-    "origen": "AsterionSkill.java:182"
+    "origen": "AsterionSkill.java:195"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "AsterionSkill.etiqueta-008",
     "predeterminado": " <reset><gray>| CD: <reset><white>",
-    "origen": "AsterionSkill.java:182"
+    "origen": "AsterionSkill.java:195"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.sonido-005",
     "predeterminado": "minecraft:block.anvil.break",
-    "origen": "UltimoJuramentoSkill.java:64"
+    "origen": "UltimoJuramentoSkill.java:68"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.playsound-001-arg2",
     "predeterminado": 0.65,
-    "origen": "UltimoJuramentoSkill.java:64"
+    "origen": "UltimoJuramentoSkill.java:68"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.playsound-002-arg3",
     "predeterminado": 0.72,
-    "origen": "UltimoJuramentoSkill.java:64"
+    "origen": "UltimoJuramentoSkill.java:68"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.particle-001",
     "predeterminado": "REVERSE_PORTAL",
-    "origen": "UltimoJuramentoSkill.java:65"
+    "origen": "UltimoJuramentoSkill.java:69"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-003-arg2",
     "predeterminado": 26,
-    "origen": "UltimoJuramentoSkill.java:65"
+    "origen": "UltimoJuramentoSkill.java:69"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-004-arg3",
     "predeterminado": 0.5,
-    "origen": "UltimoJuramentoSkill.java:65"
+    "origen": "UltimoJuramentoSkill.java:69"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-005-arg4",
     "predeterminado": 0.7,
-    "origen": "UltimoJuramentoSkill.java:65"
+    "origen": "UltimoJuramentoSkill.java:69"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-006-arg5",
     "predeterminado": 0.5,
-    "origen": "UltimoJuramentoSkill.java:65"
+    "origen": "UltimoJuramentoSkill.java:69"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-007-arg6",
     "predeterminado": 0.02,
-    "origen": "UltimoJuramentoSkill.java:65"
+    "origen": "UltimoJuramentoSkill.java:69"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "UltimoJuramentoSkill.mensaje-001",
     "predeterminado": "<reset><dark_purple>✦ <reset><light_purple>Último Juramento <reset><gray>— El acero deja de protegerte.",
-    "origen": "UltimoJuramentoSkill.java:66"
+    "origen": "UltimoJuramentoSkill.java:70"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.particle-002",
     "predeterminado": "REVERSE_PORTAL",
-    "origen": "UltimoJuramentoSkill.java:89"
+    "origen": "UltimoJuramentoSkill.java:93"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-008-arg2",
     "predeterminado": 14,
-    "origen": "UltimoJuramentoSkill.java:89"
+    "origen": "UltimoJuramentoSkill.java:93"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-009-arg3",
     "predeterminado": 0.18,
-    "origen": "UltimoJuramentoSkill.java:89"
+    "origen": "UltimoJuramentoSkill.java:93"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-010-arg4",
     "predeterminado": 0.3,
-    "origen": "UltimoJuramentoSkill.java:89"
+    "origen": "UltimoJuramentoSkill.java:93"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-011-arg5",
     "predeterminado": 0.18,
-    "origen": "UltimoJuramentoSkill.java:89"
+    "origen": "UltimoJuramentoSkill.java:93"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-012-arg6",
     "predeterminado": 0.01,
-    "origen": "UltimoJuramentoSkill.java:89"
+    "origen": "UltimoJuramentoSkill.java:93"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-001",
     "predeterminado": 0.5,
-    "origen": "UltimoJuramentoSkill.java:104"
+    "origen": "UltimoJuramentoSkill.java:108"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-002",
     "predeterminado": 0.38,
-    "origen": "UltimoJuramentoSkill.java:118"
+    "origen": "UltimoJuramentoSkill.java:122"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-003",
     "predeterminado": 1.55,
-    "origen": "UltimoJuramentoSkill.java:118"
+    "origen": "UltimoJuramentoSkill.java:122"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.particle-003",
     "predeterminado": "REVERSE_PORTAL",
-    "origen": "UltimoJuramentoSkill.java:120"
+    "origen": "UltimoJuramentoSkill.java:124"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-013-arg2",
     "predeterminado": 12,
-    "origen": "UltimoJuramentoSkill.java:120"
+    "origen": "UltimoJuramentoSkill.java:124"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-014-arg3",
     "predeterminado": 0.27,
-    "origen": "UltimoJuramentoSkill.java:120"
+    "origen": "UltimoJuramentoSkill.java:124"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-015-arg4",
     "predeterminado": 0.18,
-    "origen": "UltimoJuramentoSkill.java:120"
+    "origen": "UltimoJuramentoSkill.java:124"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-016-arg5",
     "predeterminado": 0.25,
-    "origen": "UltimoJuramentoSkill.java:120"
+    "origen": "UltimoJuramentoSkill.java:124"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-017-arg6",
     "predeterminado": 0.01,
-    "origen": "UltimoJuramentoSkill.java:120"
+    "origen": "UltimoJuramentoSkill.java:124"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.polvo-001-arg1",
     "predeterminado": 143,
-    "origen": "UltimoJuramentoSkill.java:121"
+    "origen": "UltimoJuramentoSkill.java:125"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.polvo-002-arg2",
     "predeterminado": 124,
-    "origen": "UltimoJuramentoSkill.java:121"
+    "origen": "UltimoJuramentoSkill.java:125"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.polvo-003-arg3",
     "predeterminado": 182,
-    "origen": "UltimoJuramentoSkill.java:121"
+    "origen": "UltimoJuramentoSkill.java:125"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.polvo-004-arg4",
     "predeterminado": 5,
-    "origen": "UltimoJuramentoSkill.java:121"
+    "origen": "UltimoJuramentoSkill.java:125"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-004",
     "predeterminado": 0.9,
-    "origen": "UltimoJuramentoSkill.java:121"
+    "origen": "UltimoJuramentoSkill.java:125"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.material-034",
     "predeterminado": "AMETHYST_BLOCK",
-    "origen": "UltimoJuramentoSkill.java:126"
+    "origen": "UltimoJuramentoSkill.java:130"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.material-035",
     "predeterminado": "POLISHED_BLACKSTONE",
-    "origen": "UltimoJuramentoSkill.java:126"
+    "origen": "UltimoJuramentoSkill.java:130"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-005",
     "predeterminado": 0.39,
-    "origen": "UltimoJuramentoSkill.java:127"
+    "origen": "UltimoJuramentoSkill.java:131"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-006",
     "predeterminado": 0.27,
-    "origen": "UltimoJuramentoSkill.java:127"
+    "origen": "UltimoJuramentoSkill.java:131"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-007",
     "predeterminado": 0.46,
-    "origen": "UltimoJuramentoSkill.java:127"
+    "origen": "UltimoJuramentoSkill.java:131"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-008",
     "predeterminado": 0.25,
-    "origen": "UltimoJuramentoSkill.java:127"
+    "origen": "UltimoJuramentoSkill.java:131"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-009",
     "predeterminado": 0.18,
-    "origen": "UltimoJuramentoSkill.java:127"
+    "origen": "UltimoJuramentoSkill.java:131"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-010",
     "predeterminado": 0.38,
-    "origen": "UltimoJuramentoSkill.java:128"
+    "origen": "UltimoJuramentoSkill.java:132"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-011",
     "predeterminado": 0.57,
-    "origen": "UltimoJuramentoSkill.java:128"
+    "origen": "UltimoJuramentoSkill.java:132"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.particle-004",
     "predeterminado": "REVERSE_PORTAL",
-    "origen": "UltimoJuramentoSkill.java:155"
+    "origen": "UltimoJuramentoSkill.java:159"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-012",
     "predeterminado": 1.1,
-    "origen": "UltimoJuramentoSkill.java:155"
+    "origen": "UltimoJuramentoSkill.java:159"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-018-arg2",
     "predeterminado": 3,
-    "origen": "UltimoJuramentoSkill.java:155"
+    "origen": "UltimoJuramentoSkill.java:159"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-019-arg3",
     "predeterminado": 0.37,
-    "origen": "UltimoJuramentoSkill.java:155"
+    "origen": "UltimoJuramentoSkill.java:159"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-020-arg4",
     "predeterminado": 0.45,
-    "origen": "UltimoJuramentoSkill.java:155"
+    "origen": "UltimoJuramentoSkill.java:159"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-021-arg5",
     "predeterminado": 0.37,
-    "origen": "UltimoJuramentoSkill.java:155"
+    "origen": "UltimoJuramentoSkill.java:159"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.spawnparticle-022-arg6",
     "predeterminado": 0.005,
-    "origen": "UltimoJuramentoSkill.java:155"
+    "origen": "UltimoJuramentoSkill.java:159"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.material-036",
     "predeterminado": "POLISHED_BLACKSTONE",
-    "origen": "UltimoJuramentoSkill.java:161"
+    "origen": "UltimoJuramentoSkill.java:165"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-013",
     "predeterminado": 0.22,
-    "origen": "UltimoJuramentoSkill.java:161"
+    "origen": "UltimoJuramentoSkill.java:165"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-014",
     "predeterminado": 0.24,
-    "origen": "UltimoJuramentoSkill.java:161"
+    "origen": "UltimoJuramentoSkill.java:165"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-015",
     "predeterminado": 0.3,
-    "origen": "UltimoJuramentoSkill.java:161"
+    "origen": "UltimoJuramentoSkill.java:165"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.material-037",
     "predeterminado": "NETHERITE_BLOCK",
-    "origen": "UltimoJuramentoSkill.java:162"
+    "origen": "UltimoJuramentoSkill.java:166"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-016",
     "predeterminado": 0.3,
-    "origen": "UltimoJuramentoSkill.java:162"
+    "origen": "UltimoJuramentoSkill.java:166"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-017",
     "predeterminado": 0.35,
-    "origen": "UltimoJuramentoSkill.java:162"
+    "origen": "UltimoJuramentoSkill.java:166"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-018",
     "predeterminado": 0.16,
-    "origen": "UltimoJuramentoSkill.java:162"
+    "origen": "UltimoJuramentoSkill.java:166"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.material-038",
     "predeterminado": "AMETHYST_BLOCK",
-    "origen": "UltimoJuramentoSkill.java:163"
+    "origen": "UltimoJuramentoSkill.java:167"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-019",
     "predeterminado": 0.16,
-    "origen": "UltimoJuramentoSkill.java:163"
+    "origen": "UltimoJuramentoSkill.java:167"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-020",
     "predeterminado": 0.15,
-    "origen": "UltimoJuramentoSkill.java:163"
+    "origen": "UltimoJuramentoSkill.java:167"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-021",
     "predeterminado": 0.12,
-    "origen": "UltimoJuramentoSkill.java:163"
+    "origen": "UltimoJuramentoSkill.java:167"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-022",
     "predeterminado": 0.13,
-    "origen": "UltimoJuramentoSkill.java:166"
+    "origen": "UltimoJuramentoSkill.java:170"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-023",
     "predeterminado": 0.045,
-    "origen": "UltimoJuramentoSkill.java:166"
+    "origen": "UltimoJuramentoSkill.java:170"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-024",
     "predeterminado": 1.1,
-    "origen": "UltimoJuramentoSkill.java:167"
+    "origen": "UltimoJuramentoSkill.java:171"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-025",
     "predeterminado": 1.45,
-    "origen": "UltimoJuramentoSkill.java:167"
+    "origen": "UltimoJuramentoSkill.java:171"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-026",
     "predeterminado": 0.45,
-    "origen": "UltimoJuramentoSkill.java:168"
+    "origen": "UltimoJuramentoSkill.java:172"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-027",
     "predeterminado": 0.06,
-    "origen": "UltimoJuramentoSkill.java:168"
+    "origen": "UltimoJuramentoSkill.java:172"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-028",
     "predeterminado": 0.45,
-    "origen": "UltimoJuramentoSkill.java:169"
+    "origen": "UltimoJuramentoSkill.java:173"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-029",
     "predeterminado": 0.06,
-    "origen": "UltimoJuramentoSkill.java:169"
+    "origen": "UltimoJuramentoSkill.java:173"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-030",
     "predeterminado": 0.24,
-    "origen": "UltimoJuramentoSkill.java:170"
+    "origen": "UltimoJuramentoSkill.java:174"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-031",
     "predeterminado": 0.3,
-    "origen": "UltimoJuramentoSkill.java:170"
+    "origen": "UltimoJuramentoSkill.java:174"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-032",
     "predeterminado": 0.3,
-    "origen": "UltimoJuramentoSkill.java:171"
+    "origen": "UltimoJuramentoSkill.java:175"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
     "clave": "UltimoJuramentoSkill.geometria-033",
     "predeterminado": 0.32,
-    "origen": "UltimoJuramentoSkill.java:171"
+    "origen": "UltimoJuramentoSkill.java:175"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "UltimoJuramentoSkill.etiqueta-002",
     "predeterminado": "<reset><dark_purple>✦ Último Juramento <reset><gray>| set: <reset><white>",
-    "origen": "UltimoJuramentoSkill.java:188"
+    "origen": "UltimoJuramentoSkill.java:192"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "UltimoJuramentoSkill.etiqueta-003",
     "predeterminado": " <reset><gray>| activo: <reset><white>",
-    "origen": "UltimoJuramentoSkill.java:189"
+    "origen": "UltimoJuramentoSkill.java:193"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "UltimoJuramentoSkill.etiqueta-004",
     "predeterminado": " <reset><gray>| restante: <reset><white>",
-    "origen": "UltimoJuramentoSkill.java:190"
+    "origen": "UltimoJuramentoSkill.java:194"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "UltimoJuramentoSkill.etiqueta-005",
     "predeterminado": "s <reset><gray>| CD: <reset><white>",
-    "origen": "UltimoJuramentoSkill.java:191"
+    "origen": "UltimoJuramentoSkill.java:195"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
@@ -4617,217 +4617,217 @@
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-009",
     "predeterminado": "<gray>({piezas}) <white>ᴠɪᴅᴀ ᴍáx. <gold>+{vida}",
-    "origen": "ArmorGuide.java:290"
+    "origen": "ArmorGuide.java:310"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-010",
     "predeterminado": "<gray>(4) <white>ʀᴇsɪsᴛ. ᴇᴍᴘᴜᴊᴇ <gold>+{valor1}",
-    "origen": "ArmorGuide.java:291"
+    "origen": "ArmorGuide.java:311"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-011",
     "predeterminado": "<gray>({piezas}) <white>ᴠᴇʟᴏᴄɪᴅᴀᴅ <light_purple>+{velocidad}%",
-    "origen": "ArmorGuide.java:293"
+    "origen": "ArmorGuide.java:313"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-012",
     "predeterminado": "<gray>({piezas}) <white>ᴠɪᴅᴀ ᴍáx. <gold>+{vida}\n<gray>     <white>ᴠᴇʟᴏᴄɪᴅᴀᴅ <gold>+{velocidad}%",
-    "origen": "ArmorGuide.java:295"
+    "origen": "ArmorGuide.java:315"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-013",
     "predeterminado": "<gray>(4) <white>ᴅᴀñᴏ ᴄᴇʀᴄᴀɴᴏ <gold>+{valor1}\n<gray>     <white>ᴅᴀñᴏ ʀᴇᴄɪʙɪᴅᴏ <gold>-{valor2}",
-    "origen": "ArmorGuide.java:296"
+    "origen": "ArmorGuide.java:316"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-015",
     "predeterminado": "<gray>(4) <white> ʜᴀʙɪʟɪᴅᴀᴅ <gold>{e-ability}",
-    "origen": "ArmorGuide.java:300"
+    "origen": "ArmorGuide.java:320"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-016",
     "predeterminado": "<gray>⚔ <white>ᴊᴜʀᴀᴍᴇɴᴛᴏ ᴘʀᴏғᴀɴᴀᴅᴏ\n<gray>    ᴇᴄᴏ ᴅᴇ ʙʟɪɴᴋ <light_purple>+{valor1}\n<gray>    ᴘʀóx. ɢᴏʟᴘᴇ ᴇɴ {valor2}",
-    "origen": "ArmorGuide.java:301"
+    "origen": "ArmorGuide.java:321"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-017",
     "predeterminado": "<gray>⚔ <white>ᴅʀᴀᴄᴏʀᴇʟɪǫᴜɪᴀ\n<gray>    ʙᴇɴᴅɪᴄɪóɴ <gold>+{valor1} s",
-    "origen": "ArmorGuide.java:302"
+    "origen": "ArmorGuide.java:322"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-018",
     "predeterminado": "",
-    "origen": "ArmorGuide.java:303"
+    "origen": "ArmorGuide.java:323"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-019",
     "predeterminado": "<gold>ʙᴏɴᴏs ᴀᴅɪᴄɪᴏɴᴀʟᴇs",
-    "origen": "ArmorGuide.java:304"
+    "origen": "ArmorGuide.java:324"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-020",
     "predeterminado": "<gray>ᴏᴛʀᴏs ʙᴏɴᴏs ɴᴏ ᴅɪsᴘᴏɴɪʙʟᴇs.",
-    "origen": "ArmorGuide.java:306"
+    "origen": "ArmorGuide.java:326"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-022",
     "predeterminado": "<gray>({count})",
-    "origen": "ArmorGuide.java:311"
+    "origen": "ArmorGuide.java:331"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-023",
     "predeterminado": "<gray>ʜᴀʙɪʟɪᴅᴀᴅ ᴇxᴛʀᴀ <white>{valor1}",
-    "origen": "ArmorGuide.java:314"
+    "origen": "ArmorGuide.java:334"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-024",
     "predeterminado": "<gray>     <white>{valor1} <green>+{level-get-key}",
-    "origen": "ArmorGuide.java:322"
+    "origen": "ArmorGuide.java:342"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-027",
     "predeterminado": "",
-    "origen": "ArmorGuide.java:333"
+    "origen": "ArmorGuide.java:353"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-028",
     "predeterminado": "<gray>ʀᴇǫᴜɪᴇʀᴇ <white>4 ᴘɪᴇᴢᴀs",
-    "origen": "ArmorGuide.java:334"
+    "origen": "ArmorGuide.java:354"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-029",
     "predeterminado": "<gray>ᴄᴏɴᴇᴄᴛᴀ <white>{v-e-hits-required-4} ɢᴏʟᴘᴇs\n<gray>ᴇɴ <yellow>{valor2} <gray>ᴘᴀʀᴀ ᴀᴄᴛɪᴠᴀʀ",
-    "origen": "ArmorGuide.java:337"
+    "origen": "ArmorGuide.java:357"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-030",
     "predeterminado": "<gray>{valor1} ʟᴀᴛɪɢᴀᴢᴏs <white>ᴅᴇ {v-e-lash-damage-3} ʜᴘ\n<gray>ʟᴇɴᴛɪᴛᴜᴅ ɪ <yellow>{valor3}",
-    "origen": "ArmorGuide.java:338"
+    "origen": "ArmorGuide.java:358"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-031",
     "predeterminado": "<gray>ᴀʟᴄᴀɴᴄᴇ <white>{v-e-lash-range-7} ʙʟᴏǫᴜᴇs",
-    "origen": "ArmorGuide.java:339"
+    "origen": "ArmorGuide.java:359"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-033",
     "predeterminado": "<gray>ᴀʟ ʀᴇᴄɪʙɪʀ ᴅᴀñᴏ ʜᴏsᴛɪʟ\n<gray>ɪɴᴠᴏᴄᴀ <white>{valor1} ᴄᴀʟᴀᴠᴇʀᴀs",
-    "origen": "ArmorGuide.java:342"
+    "origen": "ArmorGuide.java:362"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-034",
     "predeterminado": "<gray>{v-e-shots-per-skull-3} ᴅɪsᴘᴀʀᴏs ᴘᴏʀ ᴄᴀʟᴀᴠᴇʀᴀ\n<gray>ᴅᴀñᴏ ᴘᴏʀ ɪᴍᴘᴀᴄᴛᴏ <white>{v-e-damage-per-shot-5} ʜᴘ",
-    "origen": "ArmorGuide.java:343"
+    "origen": "ArmorGuide.java:363"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-035",
     "predeterminado": "<gray>ᴀʟᴄᴀɴᴄᴇ <white>{v-e-range-8} ʙʟᴏǫᴜᴇs",
-    "origen": "ArmorGuide.java:344"
+    "origen": "ArmorGuide.java:364"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-036",
     "predeterminado": "<gray>ɴᴏ ᴀᴛᴀᴄᴀɴ ᴊᴜɢᴀᴅᴏʀᴇs.",
-    "origen": "ArmorGuide.java:345"
+    "origen": "ArmorGuide.java:365"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-037",
     "predeterminado": "<gray>ғᴜʀɪᴀ <white>+{v-e-fury-on-hit-12} <gray>ᴘᴏʀ ɢᴏʟᴘᴇ\n<gray>      <white>+{v-e-fury-on-damage-6} <gray>ᴀʟ ʀᴇᴄɪʙɪʀ ᴅᴀñᴏ",
-    "origen": "ArmorGuide.java:348"
+    "origen": "ArmorGuide.java:368"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-038",
     "predeterminado": "<gray>{furia} ᴅᴇ ғᴜʀɪᴀ: <white>ᴅᴏʙʟᴇ sʜɪғᴛ\n<gray>ᴠᴇɴᴛᴀɴᴀ <yellow>{valor1}",
-    "origen": "ArmorGuide.java:349"
+    "origen": "ArmorGuide.java:369"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-039",
     "predeterminado": "<gray>ᴄᴏᴍʙᴏ <white>+{valor1} <gray>ᴘᴏʀ ɢᴏʟᴘᴇ\n<gray>ʟíᴍɪᴛᴇ <white>+{valor2}%",
-    "origen": "ArmorGuide.java:350"
+    "origen": "ArmorGuide.java:370"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-042",
     "predeterminado": "<gray>ᴅᴏʙʟᴇ sʜɪғᴛ <white>ᴇɴ {valor1}",
-    "origen": "ArmorGuide.java:353"
+    "origen": "ArmorGuide.java:373"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-043",
     "predeterminado": "<gray>ᴠᴇʟᴏᴄɪᴅᴀᴅ <light_purple>+{pct-e-speed-bonus-20}\n<gray>ᴅᴀñᴏ ʀᴇᴄɪʙɪᴅᴏ <red>+{valor3}",
-    "origen": "ArmorGuide.java:354"
+    "origen": "ArmorGuide.java:374"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-044",
     "predeterminado": "<gray>ɢᴏʟᴘᴇs ᴘʀᴏʟᴏɴɢᴀɴ <white>{valor1}\n<gray>ʜᴀsᴛᴀ <white>{valor2} s",
-    "origen": "ArmorGuide.java:368"
+    "origen": "ArmorGuide.java:388"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-045",
     "predeterminado": "<gray>ʀᴇᴄɪʙᴇ ᴅᴀñᴏ ᴏ ᴄᴏɴᴇᴄᴛᴀ\n<gray><white>{valor1} ɢᴏʟᴘᴇs <gray>ᴇɴ {valor2}",
-    "origen": "ArmorGuide.java:371"
+    "origen": "ArmorGuide.java:391"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-046",
     "predeterminado": "<gray>ᴅᴀñᴏ ᴄᴇʀᴄᴀɴᴏ <gold>+{valor1}\n<gray>ᴅᴀñᴏ ʀᴇᴄɪʙɪᴅᴏ <gold>-{valor2}\n<gray>ᴠᴇʟᴏᴄɪᴅᴀᴅ <gold>+{pct-e-speed-bonus-06}",
-    "origen": "ArmorGuide.java:372"
+    "origen": "ArmorGuide.java:392"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-047",
     "predeterminado": "<gray>ʀᴇᴄᴜᴘᴇʀᴀ <green>{v-e-heal-on-activation-4} ʜᴘ",
-    "origen": "ArmorGuide.java:373"
+    "origen": "ArmorGuide.java:393"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-049",
     "predeterminado": "",
-    "origen": "ArmorGuide.java:377"
+    "origen": "ArmorGuide.java:397"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-050",
     "predeterminado": "<gray>ᴅᴜʀᴀᴄɪóɴ <yellow>{valor1} s",
-    "origen": "ArmorGuide.java:378"
+    "origen": "ArmorGuide.java:398"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-051",
     "predeterminado": "<gray>ᴇɴғʀɪᴀᴍɪᴇɴᴛᴏ <yellow>{valor1} s",
-    "origen": "ArmorGuide.java:379"
+    "origen": "ArmorGuide.java:399"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.mensaje-053",
     "predeterminado": "<dark_gray>Quitar una pieza termina el efecto.",
-    "origen": "ArmorGuide.java:380"
+    "origen": "ArmorGuide.java:400"
   },
   {
     "archivo": "nucleo/mensajes.yml",
@@ -5721,55 +5721,55 @@
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.sound-001",
     "predeterminado": "BLOCK_NOTE_BLOCK_BASS",
-    "origen": "CookingModule.java:504"
+    "origen": "CookingModule.java:505"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-011",
     "predeterminado": 0.7,
-    "origen": "CookingModule.java:504"
+    "origen": "CookingModule.java:505"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.mensaje-030",
     "predeterminado": "<reset><red>Esta cocina no está disponible por ahora. Avisa a administración.",
-    "origen": "CookingModule.java:514"
+    "origen": "CookingModule.java:515"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.sound-002",
     "predeterminado": "BLOCK_BREWING_STAND_BREW",
-    "origen": "CookingModule.java:524"
+    "origen": "CookingModule.java:525"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-012",
     "predeterminado": 1.25,
-    "origen": "CookingModule.java:524"
+    "origen": "CookingModule.java:525"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-035",
     "predeterminado": "<reset><gold>♨ <reset><yellow>",
-    "origen": "CookingModule.java:527"
+    "origen": "CookingModule.java:528"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-036",
     "predeterminado": " <reset><gray>| Calentando ",
-    "origen": "CookingModule.java:527"
+    "origen": "CookingModule.java:528"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-037",
     "predeterminado": "¡Preparacion de ",
-    "origen": "CookingModule.java:528"
+    "origen": "CookingModule.java:529"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-038",
     "predeterminado": " raciones iniciada! Vigila el caldero.",
-    "origen": "CookingModule.java:528"
+    "origen": "CookingModule.java:529"
   },
   {
     "archivo": "cocina/mensajes.yml",
@@ -6171,1837 +6171,1831 @@
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.mensaje-010",
     "predeterminado": "No se pudo preparar la recompensa: {valor1}: {ex-getmessage}",
-    "origen": "CookingModule.java:791"
+    "origen": "CookingModule.java:799"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-023",
     "predeterminado": 0.5,
-    "origen": "CookingModule.java:852"
+    "origen": "CookingModule.java:860"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-024",
     "predeterminado": 0.96,
-    "origen": "CookingModule.java:852"
+    "origen": "CookingModule.java:860"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-025",
     "predeterminado": 0.5,
-    "origen": "CookingModule.java:852"
+    "origen": "CookingModule.java:860"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.particle-008",
     "predeterminado": "DUST",
-    "origen": "CookingModule.java:853"
+    "origen": "CookingModule.java:861"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.spawnparticle-021-arg3",
     "predeterminado": 0.25,
-    "origen": "CookingModule.java:853"
+    "origen": "CookingModule.java:861"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.spawnparticle-022-arg4",
     "predeterminado": 0.12,
-    "origen": "CookingModule.java:853"
+    "origen": "CookingModule.java:861"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.spawnparticle-023-arg5",
     "predeterminado": 0.25,
-    "origen": "CookingModule.java:853"
+    "origen": "CookingModule.java:861"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.spawnparticle-024-arg6",
     "predeterminado": 0.0,
-    "origen": "CookingModule.java:853"
+    "origen": "CookingModule.java:861"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.dustoptions-025-arg1",
     "predeterminado": 0.9,
-    "origen": "CookingModule.java:853"
+    "origen": "CookingModule.java:861"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-026",
     "predeterminado": 0.5,
-    "origen": "CookingModule.java:860"
+    "origen": "CookingModule.java:868"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-027",
     "predeterminado": 0.99,
-    "origen": "CookingModule.java:860"
+    "origen": "CookingModule.java:868"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-028",
     "predeterminado": 0.5,
-    "origen": "CookingModule.java:860"
+    "origen": "CookingModule.java:868"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.fromrgb-026-arg0",
     "predeterminado": 255,
-    "origen": "CookingModule.java:867"
+    "origen": "CookingModule.java:875"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.fromrgb-027-arg1",
     "predeterminado": 210,
-    "origen": "CookingModule.java:867"
+    "origen": "CookingModule.java:875"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.fromrgb-028-arg2",
     "predeterminado": 72,
-    "origen": "CookingModule.java:867"
+    "origen": "CookingModule.java:875"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.fromrgb-029-arg0",
     "predeterminado": 133,
-    "origen": "CookingModule.java:867"
+    "origen": "CookingModule.java:875"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.fromrgb-030-arg1",
     "predeterminado": 224,
-    "origen": "CookingModule.java:867"
+    "origen": "CookingModule.java:875"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.fromrgb-031-arg2",
     "predeterminado": 167,
-    "origen": "CookingModule.java:867"
+    "origen": "CookingModule.java:875"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.fromrgb-032-arg0",
     "predeterminado": 115,
-    "origen": "CookingModule.java:868"
+    "origen": "CookingModule.java:876"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.fromrgb-033-arg1",
     "predeterminado": 118,
-    "origen": "CookingModule.java:868"
+    "origen": "CookingModule.java:876"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.fromrgb-034-arg2",
     "predeterminado": 125,
-    "origen": "CookingModule.java:868"
+    "origen": "CookingModule.java:876"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.fromrgb-035-arg0",
     "predeterminado": 70,
-    "origen": "CookingModule.java:869"
+    "origen": "CookingModule.java:877"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.fromrgb-036-arg1",
     "predeterminado": 70,
-    "origen": "CookingModule.java:869"
+    "origen": "CookingModule.java:877"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.fromrgb-037-arg2",
     "predeterminado": 70,
-    "origen": "CookingModule.java:869"
+    "origen": "CookingModule.java:877"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.fromrgb-038-arg0",
     "predeterminado": 207,
-    "origen": "CookingModule.java:870"
+    "origen": "CookingModule.java:878"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.fromrgb-039-arg1",
     "predeterminado": 105,
-    "origen": "CookingModule.java:870"
+    "origen": "CookingModule.java:878"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.fromrgb-040-arg2",
     "predeterminado": 55,
-    "origen": "CookingModule.java:870"
+    "origen": "CookingModule.java:878"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.fromrgb-041-arg0",
     "predeterminado": 92,
-    "origen": "CookingModule.java:871"
+    "origen": "CookingModule.java:879"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.fromrgb-042-arg1",
     "predeterminado": 227,
-    "origen": "CookingModule.java:871"
+    "origen": "CookingModule.java:879"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.fromrgb-043-arg2",
     "predeterminado": 133,
-    "origen": "CookingModule.java:871"
+    "origen": "CookingModule.java:879"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.fromrgb-044-arg0",
     "predeterminado": 247,
-    "origen": "CookingModule.java:872"
+    "origen": "CookingModule.java:880"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.fromrgb-045-arg1",
     "predeterminado": 192,
-    "origen": "CookingModule.java:872"
+    "origen": "CookingModule.java:880"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.fromrgb-046-arg2",
     "predeterminado": 69,
-    "origen": "CookingModule.java:872"
+    "origen": "CookingModule.java:880"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.fromrgb-047-arg0",
     "predeterminado": 216,
-    "origen": "CookingModule.java:873"
+    "origen": "CookingModule.java:881"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.fromrgb-048-arg1",
     "predeterminado": 199,
-    "origen": "CookingModule.java:873"
+    "origen": "CookingModule.java:881"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.fromrgb-049-arg2",
     "predeterminado": 155,
-    "origen": "CookingModule.java:873"
+    "origen": "CookingModule.java:881"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.particle-010",
     "predeterminado": "DUST",
-    "origen": "CookingModule.java:874"
+    "origen": "CookingModule.java:882"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.spawnparticle-050-arg2",
     "predeterminado": 5,
-    "origen": "CookingModule.java:874"
+    "origen": "CookingModule.java:882"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.spawnparticle-051-arg3",
     "predeterminado": 0.2,
-    "origen": "CookingModule.java:874"
+    "origen": "CookingModule.java:882"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.spawnparticle-052-arg4",
     "predeterminado": 0.03,
-    "origen": "CookingModule.java:874"
+    "origen": "CookingModule.java:882"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.spawnparticle-053-arg5",
     "predeterminado": 0.2,
-    "origen": "CookingModule.java:874"
+    "origen": "CookingModule.java:882"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.spawnparticle-054-arg6",
     "predeterminado": 0.008,
-    "origen": "CookingModule.java:874"
+    "origen": "CookingModule.java:882"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.dustoptions-055-arg1",
     "predeterminado": 0.75,
-    "origen": "CookingModule.java:874"
+    "origen": "CookingModule.java:882"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.particle-012",
     "predeterminado": "CLOUD",
-    "origen": "CookingModule.java:875"
+    "origen": "CookingModule.java:883"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-029",
     "predeterminado": 0.07,
-    "origen": "CookingModule.java:875"
+    "origen": "CookingModule.java:883"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.spawnparticle-056-arg2",
     "predeterminado": 1,
-    "origen": "CookingModule.java:875"
+    "origen": "CookingModule.java:883"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.spawnparticle-057-arg3",
     "predeterminado": 0.12,
-    "origen": "CookingModule.java:875"
+    "origen": "CookingModule.java:883"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.spawnparticle-058-arg4",
     "predeterminado": 0.05,
-    "origen": "CookingModule.java:875"
+    "origen": "CookingModule.java:883"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.spawnparticle-059-arg5",
     "predeterminado": 0.12,
-    "origen": "CookingModule.java:875"
+    "origen": "CookingModule.java:883"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.spawnparticle-060-arg6",
     "predeterminado": 0.015,
-    "origen": "CookingModule.java:875"
+    "origen": "CookingModule.java:883"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.particle-013",
     "predeterminado": "BUBBLE_POP",
-    "origen": "CookingModule.java:877"
+    "origen": "CookingModule.java:885"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-030",
     "predeterminado": 0.13,
-    "origen": "CookingModule.java:877"
+    "origen": "CookingModule.java:885"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.spawnparticle-061-arg2",
     "predeterminado": 3,
-    "origen": "CookingModule.java:877"
+    "origen": "CookingModule.java:885"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.spawnparticle-062-arg3",
     "predeterminado": 0.17,
-    "origen": "CookingModule.java:877"
+    "origen": "CookingModule.java:885"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.spawnparticle-063-arg4",
     "predeterminado": 0.025,
-    "origen": "CookingModule.java:877"
+    "origen": "CookingModule.java:885"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.spawnparticle-064-arg5",
     "predeterminado": 0.17,
-    "origen": "CookingModule.java:877"
+    "origen": "CookingModule.java:885"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.spawnparticle-065-arg6",
     "predeterminado": 0.005,
-    "origen": "CookingModule.java:877"
+    "origen": "CookingModule.java:885"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.sound-014",
     "predeterminado": "BLOCK_NOTE_BLOCK_PLING",
-    "origen": "CookingModule.java:880"
+    "origen": "CookingModule.java:888"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-031",
     "predeterminado": 1.4,
-    "origen": "CookingModule.java:880"
+    "origen": "CookingModule.java:888"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.sound-015",
     "predeterminado": "BLOCK_NOTE_BLOCK_CHIME",
-    "origen": "CookingModule.java:881"
+    "origen": "CookingModule.java:889"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-032",
     "predeterminado": 1.65,
-    "origen": "CookingModule.java:881"
+    "origen": "CookingModule.java:889"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.sound-016",
     "predeterminado": "BLOCK_FIRE_EXTINGUISH",
-    "origen": "CookingModule.java:882"
+    "origen": "CookingModule.java:890"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-033",
     "predeterminado": 0.8,
-    "origen": "CookingModule.java:882"
+    "origen": "CookingModule.java:890"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-064",
     "predeterminado": "<reset><gold>✦ Cocina Arcana <reset><gray>| <reset><white>",
-    "origen": "CookingModule.java:890"
+    "origen": "CookingModule.java:898"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-065",
     "predeterminado": "<reset><yellow>",
-    "origen": "CookingModule.java:891"
+    "origen": "CookingModule.java:899"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-066",
     "predeterminado": " <reset><gray>| <reset><white>",
-    "origen": "CookingModule.java:891"
+    "origen": "CookingModule.java:899"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-067",
     "predeterminado": "<reset><green>✦ ",
-    "origen": "CookingModule.java:894"
+    "origen": "CookingModule.java:902"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-068",
     "predeterminado": " platos <reset><gray>| <reset><white>",
-    "origen": "CookingModule.java:894"
+    "origen": "CookingModule.java:902"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-069",
     "predeterminado": " <reset><gray>| Usa cuencos",
-    "origen": "CookingModule.java:894"
+    "origen": "CookingModule.java:902"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-070",
     "predeterminado": "<reset><dark_red>✖ Quemado <reset><gray>| Usa una esponja",
-    "origen": "CookingModule.java:897"
+    "origen": "CookingModule.java:905"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.texto-001",
     "predeterminado": "<reset><gray>✖ Fogata apagada <reset><dark_gray>| Coccion pausada",
-    "origen": "CookingModule.java:898"
+    "origen": "CookingModule.java:906"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-071",
     "predeterminado": "<reset><gold>⚠ Sobrecocido: sirve ya",
-    "origen": "CookingModule.java:899"
+    "origen": "CookingModule.java:907"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-072",
     "predeterminado": "<reset><green>✦ ¡LISTO PARA SERVIR!",
-    "origen": "CookingModule.java:900"
+    "origen": "CookingModule.java:908"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-073",
     "predeterminado": "<reset><green>✦ ¡MOMENTO PERFECTO PARA REVOLVER!",
-    "origen": "CookingModule.java:904"
+    "origen": "CookingModule.java:912"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-074",
     "predeterminado": "<reset><gold>⚠ <reset><yellow>Revuelve la mezcla",
-    "origen": "CookingModule.java:904"
+    "origen": "CookingModule.java:912"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-075",
     "predeterminado": "<reset><green>✦ Mezcla precisa <reset><gray>| Esperando...",
-    "origen": "CookingModule.java:905"
+    "origen": "CookingModule.java:913"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-076",
     "predeterminado": "<reset><yellow>♨ Mezcla revuelta <reset><gray>| Esperando...",
-    "origen": "CookingModule.java:905"
+    "origen": "CookingModule.java:913"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-077",
     "predeterminado": "<reset><gold>⚠ Se paso el momento de revolver",
-    "origen": "CookingModule.java:907"
+    "origen": "CookingModule.java:915"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-078",
     "predeterminado": "<reset><gold>♨ <reset><yellow>",
-    "origen": "CookingModule.java:908"
+    "origen": "CookingModule.java:916"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-079",
     "predeterminado": " <reset><gray>| Calentando...",
-    "origen": "CookingModule.java:908"
+    "origen": "CookingModule.java:916"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-080",
     "predeterminado": "<reset><yellow>Caldero vacío <reset><gray>| <reset><white>Agua: ",
-    "origen": "CookingModule.java:915"
+    "origen": "CookingModule.java:923"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-081",
     "predeterminado": "/3 <reset><gray>| Arroja ingredientes",
-    "origen": "CookingModule.java:916"
+    "origen": "CookingModule.java:924"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-082",
     "predeterminado": "<reset><yellow>",
-    "origen": "CookingModule.java:919"
+    "origen": "CookingModule.java:926"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-083",
     "predeterminado": " <reset><gray>| <reset><white>",
-    "origen": "CookingModule.java:919"
-  },
-  {
-    "archivo": "cocina/mensajes.yml",
-    "clave": "CookingModule.etiqueta-084",
-    "predeterminado": " <reset><gray>| Siguiente: <reset><white>",
-    "origen": "CookingModule.java:920"
+    "origen": "CookingModule.java:926"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-085",
     "predeterminado": "<reset><green>",
-    "origen": "CookingModule.java:923"
+    "origen": "CookingModule.java:930"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-086",
     "predeterminado": " <reset><gray>| <reset><yellow>",
-    "origen": "CookingModule.java:923"
+    "origen": "CookingModule.java:930"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-087",
     "predeterminado": " raciones disponibles <reset><gray>| Calidad: <reset><white>",
-    "origen": "CookingModule.java:924"
+    "origen": "CookingModule.java:931"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-088",
     "predeterminado": "<reset><dark_red>✖ Preparación quemada <reset><gray>| Limpia con una esponja",
-    "origen": "CookingModule.java:926"
+    "origen": "CookingModule.java:933"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-089",
     "predeterminado": "<reset><gray>Fogata apagada <reset><dark_gray>| <reset><white>Cocción pausada, ",
-    "origen": "CookingModule.java:928"
+    "origen": "CookingModule.java:935"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-090",
     "predeterminado": "<reset><green>Sirve con un cuenco",
-    "origen": "CookingModule.java:931"
+    "origen": "CookingModule.java:938"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-091",
     "predeterminado": "<reset><yellow>Revuelve con pala",
-    "origen": "CookingModule.java:933"
+    "origen": "CookingModule.java:940"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-092",
     "predeterminado": "<reset><gray>Calentando",
-    "origen": "CookingModule.java:934"
+    "origen": "CookingModule.java:941"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-093",
     "predeterminado": "<reset><gold>",
-    "origen": "CookingModule.java:935"
+    "origen": "CookingModule.java:942"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-094",
     "predeterminado": " <reset><gray>| <reset><white>",
-    "origen": "CookingModule.java:935"
+    "origen": "CookingModule.java:942"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-095",
     "predeterminado": "% <reset><dark_gray>(",
-    "origen": "CookingModule.java:935"
+    "origen": "CookingModule.java:942"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-096",
     "predeterminado": " s) <reset><gray>| ",
-    "origen": "CookingModule.java:936"
+    "origen": "CookingModule.java:943"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.fromrgb-066-arg0",
     "predeterminado": 255,
-    "origen": "CookingModule.java:944"
+    "origen": "CookingModule.java:951"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.fromrgb-067-arg1",
     "predeterminado": 208,
-    "origen": "CookingModule.java:944"
+    "origen": "CookingModule.java:951"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.fromrgb-068-arg2",
     "predeterminado": 55,
-    "origen": "CookingModule.java:944"
+    "origen": "CookingModule.java:951"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-034",
     "predeterminado": 0.5,
-    "origen": "CookingModule.java:947"
+    "origen": "CookingModule.java:954"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-035",
     "predeterminado": 1.16,
-    "origen": "CookingModule.java:947"
+    "origen": "CookingModule.java:954"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-036",
     "predeterminado": 0.5,
-    "origen": "CookingModule.java:947"
+    "origen": "CookingModule.java:954"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.particle-017",
     "predeterminado": "END_ROD",
-    "origen": "CookingModule.java:948"
+    "origen": "CookingModule.java:955"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.spawnparticle-069-arg2",
     "predeterminado": 25,
-    "origen": "CookingModule.java:948"
+    "origen": "CookingModule.java:955"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.spawnparticle-070-arg3",
     "predeterminado": 0.38,
-    "origen": "CookingModule.java:948"
+    "origen": "CookingModule.java:955"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.spawnparticle-071-arg4",
     "predeterminado": 0.26,
-    "origen": "CookingModule.java:948"
+    "origen": "CookingModule.java:955"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.spawnparticle-072-arg5",
     "predeterminado": 0.38,
-    "origen": "CookingModule.java:948"
+    "origen": "CookingModule.java:955"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.spawnparticle-073-arg6",
     "predeterminado": 0.035,
-    "origen": "CookingModule.java:948"
+    "origen": "CookingModule.java:955"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.particle-018",
     "predeterminado": "HAPPY_VILLAGER",
-    "origen": "CookingModule.java:949"
+    "origen": "CookingModule.java:956"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.spawnparticle-074-arg2",
     "predeterminado": 15,
-    "origen": "CookingModule.java:949"
+    "origen": "CookingModule.java:956"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.spawnparticle-075-arg3",
     "predeterminado": 0.28,
-    "origen": "CookingModule.java:949"
+    "origen": "CookingModule.java:956"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.spawnparticle-076-arg4",
     "predeterminado": 0.18,
-    "origen": "CookingModule.java:949"
+    "origen": "CookingModule.java:956"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.spawnparticle-077-arg5",
     "predeterminado": 0.28,
-    "origen": "CookingModule.java:949"
+    "origen": "CookingModule.java:956"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.spawnparticle-078-arg6",
     "predeterminado": 0.02,
-    "origen": "CookingModule.java:949"
+    "origen": "CookingModule.java:956"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.mensaje-011",
     "predeterminado": "<reset><gold>✦ EXQUISITO ✦",
-    "origen": "CookingModule.java:951"
+    "origen": "CookingModule.java:958"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.texto-002",
     "predeterminado": "<reset><yellow>",
-    "origen": "CookingModule.java:951"
+    "origen": "CookingModule.java:958"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.titulo-001-arg2",
     "predeterminado": 5,
-    "origen": "CookingModule.java:951"
+    "origen": "CookingModule.java:958"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.titulo-002-arg3",
     "predeterminado": 30,
-    "origen": "CookingModule.java:951"
+    "origen": "CookingModule.java:958"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.titulo-003-arg4",
     "predeterminado": 10,
-    "origen": "CookingModule.java:951"
+    "origen": "CookingModule.java:958"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.sound-019",
     "predeterminado": "UI_TOAST_CHALLENGE_COMPLETE",
-    "origen": "CookingModule.java:953"
+    "origen": "CookingModule.java:960"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.playsound-079-arg2",
     "predeterminado": 0.75,
-    "origen": "CookingModule.java:953"
+    "origen": "CookingModule.java:960"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.playsound-080-arg3",
     "predeterminado": 1.28,
-    "origen": "CookingModule.java:953"
+    "origen": "CookingModule.java:960"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.sound-020",
     "predeterminado": "ENTITY_PLAYER_LEVELUP",
-    "origen": "CookingModule.java:955"
+    "origen": "CookingModule.java:962"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-037",
     "predeterminado": 1.7,
-    "origen": "CookingModule.java:955"
+    "origen": "CookingModule.java:962"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-038",
     "predeterminado": 0.5,
-    "origen": "CookingModule.java:983"
+    "origen": "CookingModule.java:990"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-039",
     "predeterminado": 0.5,
-    "origen": "CookingModule.java:983"
+    "origen": "CookingModule.java:990"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-040",
     "predeterminado": 0.5,
-    "origen": "CookingModule.java:983"
+    "origen": "CookingModule.java:990"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-041",
     "predeterminado": 2.4,
-    "origen": "CookingModule.java:984"
+    "origen": "CookingModule.java:991"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-042",
     "predeterminado": 2.4,
-    "origen": "CookingModule.java:984"
+    "origen": "CookingModule.java:991"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-043",
     "predeterminado": 2.4,
-    "origen": "CookingModule.java:984"
+    "origen": "CookingModule.java:991"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-044",
     "predeterminado": 0.5,
-    "origen": "CookingModule.java:1001"
+    "origen": "CookingModule.java:1008"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-045",
     "predeterminado": 0.5,
-    "origen": "CookingModule.java:1001"
+    "origen": "CookingModule.java:1008"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-046",
     "predeterminado": 0.5,
-    "origen": "CookingModule.java:1001"
+    "origen": "CookingModule.java:1008"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-047",
     "predeterminado": 2.4,
-    "origen": "CookingModule.java:1002"
+    "origen": "CookingModule.java:1009"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-048",
     "predeterminado": 2.4,
-    "origen": "CookingModule.java:1002"
+    "origen": "CookingModule.java:1009"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-049",
     "predeterminado": 2.4,
-    "origen": "CookingModule.java:1002"
+    "origen": "CookingModule.java:1009"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.material-171",
     "predeterminado": "POLISHED_BLACKSTONE",
-    "origen": "CookingModule.java:1026"
+    "origen": "CookingModule.java:1033"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-050",
     "predeterminado": 0.02,
-    "origen": "CookingModule.java:1026"
+    "origen": "CookingModule.java:1033"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-051",
     "predeterminado": 0.9,
-    "origen": "CookingModule.java:1026"
+    "origen": "CookingModule.java:1033"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-052",
     "predeterminado": 0.02,
-    "origen": "CookingModule.java:1026"
+    "origen": "CookingModule.java:1033"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-053",
     "predeterminado": 1.04,
-    "origen": "CookingModule.java:1026"
+    "origen": "CookingModule.java:1033"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-054",
     "predeterminado": 0.07,
-    "origen": "CookingModule.java:1026"
+    "origen": "CookingModule.java:1033"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-055",
     "predeterminado": 0.09,
-    "origen": "CookingModule.java:1026"
+    "origen": "CookingModule.java:1033"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.material-172",
     "predeterminado": "POLISHED_BLACKSTONE",
-    "origen": "CookingModule.java:1027"
+    "origen": "CookingModule.java:1034"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-056",
     "predeterminado": 0.02,
-    "origen": "CookingModule.java:1027"
+    "origen": "CookingModule.java:1034"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-057",
     "predeterminado": 0.9,
-    "origen": "CookingModule.java:1027"
+    "origen": "CookingModule.java:1034"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-058",
     "predeterminado": 0.93,
-    "origen": "CookingModule.java:1027"
+    "origen": "CookingModule.java:1034"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-059",
     "predeterminado": 1.04,
-    "origen": "CookingModule.java:1027"
+    "origen": "CookingModule.java:1034"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-060",
     "predeterminado": 0.07,
-    "origen": "CookingModule.java:1027"
+    "origen": "CookingModule.java:1034"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-061",
     "predeterminado": 0.09,
-    "origen": "CookingModule.java:1027"
+    "origen": "CookingModule.java:1034"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.material-173",
     "predeterminado": "POLISHED_BLACKSTONE",
-    "origen": "CookingModule.java:1028"
+    "origen": "CookingModule.java:1035"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-062",
     "predeterminado": 0.02,
-    "origen": "CookingModule.java:1028"
+    "origen": "CookingModule.java:1035"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-063",
     "predeterminado": 0.9,
-    "origen": "CookingModule.java:1028"
+    "origen": "CookingModule.java:1035"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-064",
     "predeterminado": 0.02,
-    "origen": "CookingModule.java:1028"
+    "origen": "CookingModule.java:1035"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-065",
     "predeterminado": 0.09,
-    "origen": "CookingModule.java:1028"
+    "origen": "CookingModule.java:1035"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-066",
     "predeterminado": 0.07,
-    "origen": "CookingModule.java:1028"
+    "origen": "CookingModule.java:1035"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-067",
     "predeterminado": 1.04,
-    "origen": "CookingModule.java:1028"
+    "origen": "CookingModule.java:1035"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.material-174",
     "predeterminado": "POLISHED_BLACKSTONE",
-    "origen": "CookingModule.java:1029"
+    "origen": "CookingModule.java:1036"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-068",
     "predeterminado": 0.93,
-    "origen": "CookingModule.java:1029"
+    "origen": "CookingModule.java:1036"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-069",
     "predeterminado": 0.9,
-    "origen": "CookingModule.java:1029"
+    "origen": "CookingModule.java:1036"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-070",
     "predeterminado": 0.02,
-    "origen": "CookingModule.java:1029"
+    "origen": "CookingModule.java:1036"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-071",
     "predeterminado": 0.09,
-    "origen": "CookingModule.java:1029"
+    "origen": "CookingModule.java:1036"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-072",
     "predeterminado": 0.07,
-    "origen": "CookingModule.java:1029"
+    "origen": "CookingModule.java:1036"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-073",
     "predeterminado": 1.04,
-    "origen": "CookingModule.java:1029"
+    "origen": "CookingModule.java:1036"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.material-175",
     "predeterminado": "COPPER_BLOCK",
-    "origen": "CookingModule.java:1030"
+    "origen": "CookingModule.java:1037"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-074",
     "predeterminado": 0.04,
-    "origen": "CookingModule.java:1030"
+    "origen": "CookingModule.java:1037"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-075",
     "predeterminado": 0.85,
-    "origen": "CookingModule.java:1030"
+    "origen": "CookingModule.java:1037"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-076",
     "predeterminado": 0.04,
-    "origen": "CookingModule.java:1030"
+    "origen": "CookingModule.java:1037"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-077",
     "predeterminado": 0.1,
-    "origen": "CookingModule.java:1030"
+    "origen": "CookingModule.java:1037"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-078",
     "predeterminado": 0.12,
-    "origen": "CookingModule.java:1030"
+    "origen": "CookingModule.java:1037"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-079",
     "predeterminado": 0.1,
-    "origen": "CookingModule.java:1030"
+    "origen": "CookingModule.java:1037"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.material-176",
     "predeterminado": "COPPER_BLOCK",
-    "origen": "CookingModule.java:1031"
+    "origen": "CookingModule.java:1038"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-080",
     "predeterminado": 0.94,
-    "origen": "CookingModule.java:1031"
+    "origen": "CookingModule.java:1038"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-081",
     "predeterminado": 0.85,
-    "origen": "CookingModule.java:1031"
+    "origen": "CookingModule.java:1038"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-082",
     "predeterminado": 0.04,
-    "origen": "CookingModule.java:1031"
+    "origen": "CookingModule.java:1038"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-083",
     "predeterminado": 0.1,
-    "origen": "CookingModule.java:1031"
+    "origen": "CookingModule.java:1038"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-084",
     "predeterminado": 0.12,
-    "origen": "CookingModule.java:1031"
+    "origen": "CookingModule.java:1038"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-085",
     "predeterminado": 0.1,
-    "origen": "CookingModule.java:1031"
+    "origen": "CookingModule.java:1038"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.material-177",
     "predeterminado": "COPPER_BLOCK",
-    "origen": "CookingModule.java:1032"
+    "origen": "CookingModule.java:1039"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-086",
     "predeterminado": 0.04,
-    "origen": "CookingModule.java:1032"
+    "origen": "CookingModule.java:1039"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-087",
     "predeterminado": 0.85,
-    "origen": "CookingModule.java:1032"
+    "origen": "CookingModule.java:1039"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-088",
     "predeterminado": 0.94,
-    "origen": "CookingModule.java:1032"
+    "origen": "CookingModule.java:1039"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-089",
     "predeterminado": 0.1,
-    "origen": "CookingModule.java:1032"
+    "origen": "CookingModule.java:1039"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-090",
     "predeterminado": 0.12,
-    "origen": "CookingModule.java:1032"
+    "origen": "CookingModule.java:1039"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-091",
     "predeterminado": 0.1,
-    "origen": "CookingModule.java:1032"
+    "origen": "CookingModule.java:1039"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.material-178",
     "predeterminado": "COPPER_BLOCK",
-    "origen": "CookingModule.java:1033"
+    "origen": "CookingModule.java:1040"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-092",
     "predeterminado": 0.94,
-    "origen": "CookingModule.java:1033"
+    "origen": "CookingModule.java:1040"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-093",
     "predeterminado": 0.85,
-    "origen": "CookingModule.java:1033"
+    "origen": "CookingModule.java:1040"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-094",
     "predeterminado": 0.94,
-    "origen": "CookingModule.java:1033"
+    "origen": "CookingModule.java:1040"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-095",
     "predeterminado": 0.1,
-    "origen": "CookingModule.java:1033"
+    "origen": "CookingModule.java:1040"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-096",
     "predeterminado": 0.12,
-    "origen": "CookingModule.java:1033"
+    "origen": "CookingModule.java:1040"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-097",
     "predeterminado": 0.1,
-    "origen": "CookingModule.java:1033"
+    "origen": "CookingModule.java:1040"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.material-179",
     "predeterminado": "IRON_BLOCK",
-    "origen": "CookingModule.java:1034"
+    "origen": "CookingModule.java:1041"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-098",
     "predeterminado": 0.14,
-    "origen": "CookingModule.java:1034"
+    "origen": "CookingModule.java:1041"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-099",
     "predeterminado": 0.74,
-    "origen": "CookingModule.java:1034"
+    "origen": "CookingModule.java:1041"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-100",
     "predeterminado": 0.33,
-    "origen": "CookingModule.java:1034"
+    "origen": "CookingModule.java:1041"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-101",
     "predeterminado": 0.14,
-    "origen": "CookingModule.java:1034"
+    "origen": "CookingModule.java:1041"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-102",
     "predeterminado": 0.1,
-    "origen": "CookingModule.java:1034"
+    "origen": "CookingModule.java:1041"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-103",
     "predeterminado": 0.35,
-    "origen": "CookingModule.java:1034"
+    "origen": "CookingModule.java:1041"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.material-180",
     "predeterminado": "IRON_BLOCK",
-    "origen": "CookingModule.java:1035"
+    "origen": "CookingModule.java:1042"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-104",
     "predeterminado": 0.74,
-    "origen": "CookingModule.java:1035"
+    "origen": "CookingModule.java:1042"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-105",
     "predeterminado": 0.33,
-    "origen": "CookingModule.java:1035"
+    "origen": "CookingModule.java:1042"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-106",
     "predeterminado": 0.14,
-    "origen": "CookingModule.java:1035"
+    "origen": "CookingModule.java:1042"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-107",
     "predeterminado": 0.1,
-    "origen": "CookingModule.java:1035"
+    "origen": "CookingModule.java:1042"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-108",
     "predeterminado": 0.35,
-    "origen": "CookingModule.java:1035"
+    "origen": "CookingModule.java:1042"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.material-181",
     "predeterminado": "GOLD_BLOCK",
-    "origen": "CookingModule.java:1037"
+    "origen": "CookingModule.java:1044"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-109",
     "predeterminado": 0.09,
-    "origen": "CookingModule.java:1037"
+    "origen": "CookingModule.java:1044"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-110",
     "predeterminado": 0.955,
-    "origen": "CookingModule.java:1037"
+    "origen": "CookingModule.java:1044"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-111",
     "predeterminado": 0.09,
-    "origen": "CookingModule.java:1037"
+    "origen": "CookingModule.java:1044"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-112",
     "predeterminado": 0.055,
-    "origen": "CookingModule.java:1037"
+    "origen": "CookingModule.java:1044"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-113",
     "predeterminado": 0.035,
-    "origen": "CookingModule.java:1037"
+    "origen": "CookingModule.java:1044"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-114",
     "predeterminado": 0.055,
-    "origen": "CookingModule.java:1037"
+    "origen": "CookingModule.java:1044"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.material-182",
     "predeterminado": "GOLD_BLOCK",
-    "origen": "CookingModule.java:1038"
+    "origen": "CookingModule.java:1045"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-115",
     "predeterminado": 0.86,
-    "origen": "CookingModule.java:1038"
+    "origen": "CookingModule.java:1045"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-116",
     "predeterminado": 0.955,
-    "origen": "CookingModule.java:1038"
+    "origen": "CookingModule.java:1045"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-117",
     "predeterminado": 0.09,
-    "origen": "CookingModule.java:1038"
+    "origen": "CookingModule.java:1045"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-118",
     "predeterminado": 0.055,
-    "origen": "CookingModule.java:1038"
+    "origen": "CookingModule.java:1045"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-119",
     "predeterminado": 0.035,
-    "origen": "CookingModule.java:1038"
+    "origen": "CookingModule.java:1045"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-120",
     "predeterminado": 0.055,
-    "origen": "CookingModule.java:1038"
+    "origen": "CookingModule.java:1045"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.material-183",
     "predeterminado": "GOLD_BLOCK",
-    "origen": "CookingModule.java:1039"
+    "origen": "CookingModule.java:1046"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-121",
     "predeterminado": 0.09,
-    "origen": "CookingModule.java:1039"
+    "origen": "CookingModule.java:1046"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-122",
     "predeterminado": 0.955,
-    "origen": "CookingModule.java:1039"
+    "origen": "CookingModule.java:1046"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-123",
     "predeterminado": 0.86,
-    "origen": "CookingModule.java:1039"
+    "origen": "CookingModule.java:1046"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-124",
     "predeterminado": 0.055,
-    "origen": "CookingModule.java:1039"
+    "origen": "CookingModule.java:1046"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-125",
     "predeterminado": 0.035,
-    "origen": "CookingModule.java:1039"
+    "origen": "CookingModule.java:1046"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-126",
     "predeterminado": 0.055,
-    "origen": "CookingModule.java:1039"
+    "origen": "CookingModule.java:1046"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.material-184",
     "predeterminado": "GOLD_BLOCK",
-    "origen": "CookingModule.java:1040"
+    "origen": "CookingModule.java:1047"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-127",
     "predeterminado": 0.86,
-    "origen": "CookingModule.java:1040"
+    "origen": "CookingModule.java:1047"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-128",
     "predeterminado": 0.955,
-    "origen": "CookingModule.java:1040"
+    "origen": "CookingModule.java:1047"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-129",
     "predeterminado": 0.86,
-    "origen": "CookingModule.java:1040"
+    "origen": "CookingModule.java:1047"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-130",
     "predeterminado": 0.055,
-    "origen": "CookingModule.java:1040"
+    "origen": "CookingModule.java:1047"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-131",
     "predeterminado": 0.035,
-    "origen": "CookingModule.java:1040"
+    "origen": "CookingModule.java:1047"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-132",
     "predeterminado": 0.055,
-    "origen": "CookingModule.java:1040"
+    "origen": "CookingModule.java:1047"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-133",
     "predeterminado": 0.17,
-    "origen": "CookingModule.java:1044"
+    "origen": "CookingModule.java:1051"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-134",
     "predeterminado": 0.17,
-    "origen": "CookingModule.java:1044"
+    "origen": "CookingModule.java:1051"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-135",
     "predeterminado": 0.66,
-    "origen": "CookingModule.java:1044"
+    "origen": "CookingModule.java:1051"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-136",
     "predeterminado": 0.018,
-    "origen": "CookingModule.java:1044"
+    "origen": "CookingModule.java:1051"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-137",
     "predeterminado": 0.66,
-    "origen": "CookingModule.java:1044"
+    "origen": "CookingModule.java:1051"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.setinterpolationduration-081-arg0",
     "predeterminado": 10,
-    "origen": "CookingModule.java:1046"
+    "origen": "CookingModule.java:1053"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-138",
     "predeterminado": 0.5,
-    "origen": "CookingModule.java:1049"
+    "origen": "CookingModule.java:1056"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-139",
     "predeterminado": 1.48,
-    "origen": "CookingModule.java:1049"
+    "origen": "CookingModule.java:1056"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-140",
     "predeterminado": 0.5,
-    "origen": "CookingModule.java:1049"
+    "origen": "CookingModule.java:1056"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.material-185",
     "predeterminado": "LIGHT_BLUE_STAINED_GLASS",
-    "origen": "CookingModule.java:1063"
+    "origen": "CookingModule.java:1070"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.material-186",
     "predeterminado": "BLACK_STAINED_GLASS",
-    "origen": "CookingModule.java:1066"
+    "origen": "CookingModule.java:1073"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.material-187",
     "predeterminado": "YELLOW_STAINED_GLASS",
-    "origen": "CookingModule.java:1067"
+    "origen": "CookingModule.java:1074"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.material-188",
     "predeterminado": "GREEN_STAINED_GLASS",
-    "origen": "CookingModule.java:1069"
+    "origen": "CookingModule.java:1076"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.material-189",
     "predeterminado": "ORANGE_STAINED_GLASS",
-    "origen": "CookingModule.java:1070"
+    "origen": "CookingModule.java:1077"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.material-190",
     "predeterminado": "RED_STAINED_GLASS",
-    "origen": "CookingModule.java:1071"
+    "origen": "CookingModule.java:1078"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.material-191",
     "predeterminado": "PURPLE_STAINED_GLASS",
-    "origen": "CookingModule.java:1072"
+    "origen": "CookingModule.java:1079"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.material-192",
     "predeterminado": "LIGHT_BLUE_STAINED_GLASS",
-    "origen": "CookingModule.java:1073"
+    "origen": "CookingModule.java:1080"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-141",
     "predeterminado": 0.41,
-    "origen": "CookingModule.java:1079"
+    "origen": "CookingModule.java:1086"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-142",
     "predeterminado": 0.145,
-    "origen": "CookingModule.java:1079"
+    "origen": "CookingModule.java:1086"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.setinterpolationduration-082-arg0",
     "predeterminado": 10,
-    "origen": "CookingModule.java:1118"
+    "origen": "CookingModule.java:1125"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-143",
     "predeterminado": 0.5,
-    "origen": "CookingModule.java:1119"
+    "origen": "CookingModule.java:1126"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-144",
     "predeterminado": 0.99,
-    "origen": "CookingModule.java:1119"
+    "origen": "CookingModule.java:1126"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-145",
     "predeterminado": 0.5,
-    "origen": "CookingModule.java:1119"
+    "origen": "CookingModule.java:1126"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-146",
     "predeterminado": 0.29,
-    "origen": "CookingModule.java:1119"
+    "origen": "CookingModule.java:1126"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-147",
     "predeterminado": 0.29,
-    "origen": "CookingModule.java:1119"
+    "origen": "CookingModule.java:1126"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-148",
     "predeterminado": 0.29,
-    "origen": "CookingModule.java:1119"
+    "origen": "CookingModule.java:1126"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-149",
     "predeterminado": 0.5,
-    "origen": "CookingModule.java:1132"
+    "origen": "CookingModule.java:1139"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-150",
     "predeterminado": 0.5,
-    "origen": "CookingModule.java:1132"
+    "origen": "CookingModule.java:1139"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-151",
     "predeterminado": 0.012,
-    "origen": "CookingModule.java:1139"
+    "origen": "CookingModule.java:1146"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-152",
     "predeterminado": 0.52,
-    "origen": "CookingModule.java:1139"
+    "origen": "CookingModule.java:1146"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-153",
     "predeterminado": 0.17,
-    "origen": "CookingModule.java:1141"
+    "origen": "CookingModule.java:1148"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-154",
     "predeterminado": 0.17,
-    "origen": "CookingModule.java:1141"
+    "origen": "CookingModule.java:1148"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-155",
     "predeterminado": 0.66,
-    "origen": "CookingModule.java:1141"
+    "origen": "CookingModule.java:1148"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-156",
     "predeterminado": 0.018,
-    "origen": "CookingModule.java:1141"
+    "origen": "CookingModule.java:1148"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-157",
     "predeterminado": 0.66,
-    "origen": "CookingModule.java:1141"
+    "origen": "CookingModule.java:1148"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-158",
     "predeterminado": 0.26,
-    "origen": "CookingModule.java:1150"
+    "origen": "CookingModule.java:1157"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-159",
     "predeterminado": 0.5,
-    "origen": "CookingModule.java:1151"
+    "origen": "CookingModule.java:1158"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-160",
     "predeterminado": 0.19,
-    "origen": "CookingModule.java:1151"
+    "origen": "CookingModule.java:1158"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-161",
     "predeterminado": 0.5,
-    "origen": "CookingModule.java:1152"
+    "origen": "CookingModule.java:1159"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-162",
     "predeterminado": 0.19,
-    "origen": "CookingModule.java:1152"
+    "origen": "CookingModule.java:1159"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-163",
     "predeterminado": 0.035,
-    "origen": "CookingModule.java:1153"
+    "origen": "CookingModule.java:1160"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-164",
     "predeterminado": 1.6,
-    "origen": "CookingModule.java:1153"
+    "origen": "CookingModule.java:1160"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-165",
     "predeterminado": 0.29,
-    "origen": "CookingModule.java:1157"
+    "origen": "CookingModule.java:1164"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-166",
     "predeterminado": 0.29,
-    "origen": "CookingModule.java:1157"
+    "origen": "CookingModule.java:1164"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-167",
     "predeterminado": 0.29,
-    "origen": "CookingModule.java:1157"
+    "origen": "CookingModule.java:1164"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.mensaje-012",
     "predeterminado": "UUID de cocinero invalido: {id}",
-    "origen": "CookingModule.java:1200"
+    "origen": "CookingModule.java:1207"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.mensaje-013",
     "predeterminado": "No se pudieron guardar recetas descubiertas: {ex-getmessage}",
-    "origen": "CookingModule.java:1210"
+    "origen": "CookingModule.java:1217"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-097",
     "predeterminado": "<reset><light_purple>✦ Nueva receta descubierta: <reset><yellow>",
-    "origen": "CookingModule.java:1217"
+    "origen": "CookingModule.java:1224"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-098",
     "predeterminado": " <reset><gray>| Consulta tu recetario para conocerla.",
-    "origen": "CookingModule.java:1218"
+    "origen": "CookingModule.java:1225"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.mensaje-032",
     "predeterminado": "<reset><red>No tienes permiso.",
-    "origen": "CookingModule.java:1464"
+    "origen": "CookingModule.java:1471"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.mensaje-033",
     "predeterminado": "<reset><red>Registro de transacciones ilegible; restaura claims.yml.",
-    "origen": "CookingModule.java:1465"
+    "origen": "CookingModule.java:1472"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.mensaje-034",
     "predeterminado": "<reset><gold>Transacciones pendientes: {count}",
-    "origen": "CookingModule.java:1466"
+    "origen": "CookingModule.java:1473"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.mensaje-035",
     "predeterminado": "<reset><red>La reconciliación exige un operador dentro del juego.",
-    "origen": "CookingModule.java:1473"
+    "origen": "CookingModule.java:1480"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.mensaje-036",
     "predeterminado": "<reset><red>Usa /spectrecore cocina resolver <UUID> confirmado tras auditar.",
-    "origen": "CookingModule.java:1476"
+    "origen": "CookingModule.java:1483"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.mensaje-037",
     "predeterminado": "<reset><yellow>Resultado de reconciliación: {estado}",
-    "origen": "CookingModule.java:1481"
+    "origen": "CookingModule.java:1488"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.mensaje-038",
     "predeterminado": "<reset><red>UUID inválido.",
-    "origen": "CookingModule.java:1483"
+    "origen": "CookingModule.java:1490"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.mensaje-014",
     "predeterminado": "{prefix}<reset><yellow>Mechero: crear <reset><gray>| <reset><yellow>Pala de madera: revolver <reset><gray>| <reset><yellow>Esponja: limpiar/retirar <reset><gray>| <reset><yellow>Cuenco: servir",
-    "origen": "CookingModule.java:1487"
+    "origen": "CookingModule.java:1494"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.mensaje-015",
     "predeterminado": "{prefix}<reset><yellow>/mago recetas <reset><gray>| <reset><yellow>/spectrecore cocina estado <reset><gray>| admin: reparar, recargar",
-    "origen": "CookingModule.java:1488"
+    "origen": "CookingModule.java:1495"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.mensaje-016",
     "predeterminado": "{prefix}<reset><yellow>{r-name} <reset><gray>» {r-ingredients}",
-    "origen": "CookingModule.java:1493"
+    "origen": "CookingModule.java:1500"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.mensaje-017",
     "predeterminado": "{prefix}<reset><red>No tienes permiso.",
-    "origen": "CookingModule.java:1497"
+    "origen": "CookingModule.java:1504"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.mensaje-018",
     "predeterminado": "{prefix}<reset><green>Recetas y preparaciones actualizadas.",
-    "origen": "CookingModule.java:1498"
+    "origen": "CookingModule.java:1505"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.mensaje-019",
     "predeterminado": "{prefix}<reset><red>No se pudieron actualizar las recetas. Avisa a administración.",
-    "origen": "CookingModule.java:1501"
+    "origen": "CookingModule.java:1508"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.mensaje-020",
     "predeterminado": "{prefix}Este comando requiere un jugador.",
-    "origen": "CookingModule.java:1508"
+    "origen": "CookingModule.java:1515"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.mensaje-021",
     "predeterminado": "{prefix}<reset><red>No tienes permiso.",
-    "origen": "CookingModule.java:1511"
+    "origen": "CookingModule.java:1518"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-120",
     "predeterminado": "Mira directamente a una cocina registrada.",
-    "origen": "CookingModule.java:1515"
+    "origen": "CookingModule.java:1522"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.etiqueta-121",
     "predeterminado": "Modelo de cocina reconstruido.",
-    "origen": "CookingModule.java:1521"
+    "origen": "CookingModule.java:1528"
   },
   {
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.mensaje-022",
     "predeterminado": "{prefix}<reset><yellow>/spectrecore cocina ayuda | libro | estado | reparar | recargar",
-    "origen": "CookingModule.java:1524"
+    "origen": "CookingModule.java:1531"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-168",
     "predeterminado": 0.5,
-    "origen": "CookingModule.java:1541"
+    "origen": "CookingModule.java:1548"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-169",
     "predeterminado": 0.5,
-    "origen": "CookingModule.java:1541"
+    "origen": "CookingModule.java:1548"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.geometria-170",
     "predeterminado": 0.5,
-    "origen": "CookingModule.java:1541"
+    "origen": "CookingModule.java:1548"
   },
   {
     "archivo": "cocina/ajustes.yml",
     "clave": "CookingModule.playsound-083-arg2",
     "predeterminado": 1.0,
-    "origen": "CookingModule.java:1541"
+    "origen": "CookingModule.java:1548"
   },
   {
     "archivo": "actividades/mensajes.yml",
@@ -8019,31 +8013,31 @@
     "archivo": "cocina/mensajes.yml",
     "clave": "CookingModule.recetario-no-disponible",
     "predeterminado": "<red>El recetario está cerrado por ahora.",
-    "origen": "CookingModule.java:1313"
+    "origen": "CookingModule.java:1320"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.gui-no-disponible",
     "predeterminado": "<red>El catálogo de armaduras no está disponible por ahora.",
-    "origen": "ArmorGuide.java:177"
+    "origen": "ArmorGuide.java:197"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.juramento-dano",
     "predeterminado": "<gray>ᴅᴀñᴏ ᴄᴇʀᴄᴀɴᴏ <light_purple>+{valor1}",
-    "origen": "ArmorGuide.java:364"
+    "origen": "ArmorGuide.java:384"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.juramento-fuerza",
     "predeterminado": "<gray>ғᴜᴇʀᴢᴀ <light_purple>+{valor1}",
-    "origen": "ArmorGuide.java:360"
+    "origen": "ArmorGuide.java:380"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
     "clave": "ArmorGuide.regeneracion",
     "predeterminado": "<gray>     <green>ʀᴇɢᴇɴᴇʀᴀᴄɪóɴ ɪ",
-    "origen": "ArmorGuide.java:318"
+    "origen": "ArmorGuide.java:338"
   },
   {
     "archivo": "nucleo/ajustes.yml",
@@ -8643,37 +8637,37 @@
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.contrato-aplicado",
     "predeterminado": "<reset><gold>Contrato {accion}: {categoria} · Costo {costo} ↾",
-    "origen": "SlayerModule.java:436"
+    "origen": "SlayerModule.java:445"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.contrato-categoria",
     "predeterminado": "<reset><red>Categoría inválida.",
-    "origen": "SlayerModule.java:377"
+    "origen": "SlayerModule.java:386"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.contrato-pago-fallo",
     "predeterminado": "<reset><red>No se pudo confirmar el cobro; tu contrato sigue intacto.",
-    "origen": "SlayerModule.java:402"
+    "origen": "SlayerModule.java:411"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.contrato-rechazado",
     "predeterminado": "<reset><red>Contrato rechazado: {motivo}",
-    "origen": "SlayerModule.java:397"
+    "origen": "SlayerModule.java:406"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.contrato-storage-fallo",
     "predeterminado": "<reset><red>No se pudo guardar el contrato; solicita revisión administrativa del saldo.",
-    "origen": "SlayerModule.java:426"
+    "origen": "SlayerModule.java:435"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.desbloqueos-pendientes",
     "predeterminado": "<yellow>Subiste de nivel, pero tus nuevas recetas todavía están pendientes. Avisa a administración.",
-    "origen": "SlayerModule.java:605"
+    "origen": "SlayerModule.java:614"
   },
   {
     "archivo": "slayer/mensajes.yml",
@@ -8685,13 +8679,13 @@
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.guardado-pendiente",
     "predeterminado": "<red>El estado de Slayer no pudo guardarse. Avisa a administración antes de reiniciar.",
-    "origen": "SlayerModule.java:510"
+    "origen": "SlayerModule.java:519"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.guardado-pendiente",
     "predeterminado": "<red>El estado de Slayer no pudo guardarse. Avisa a administración antes de reiniciar.",
-    "origen": "SlayerModule.java:589"
+    "origen": "SlayerModule.java:598"
   },
   {
     "archivo": "slayer/mensajes.yml",
@@ -8715,19 +8709,19 @@
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.jefe-desaparecido",
     "predeterminado": "<yellow>El jefe desapareció. Conservas el contrato y podrás volver a invocarlo.",
-    "origen": "SlayerModule.java:507"
+    "origen": "SlayerModule.java:516"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.jefe-descargado",
     "predeterminado": "<yellow>Tu jefe sigue registrado, pero no está cargado. Regresa a la zona del combate; no invoques otro.",
-    "origen": "SlayerModule.java:721"
+    "origen": "SlayerModule.java:734"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.jefe-ultima-posicion",
     "predeterminado": "<gray>Última ubicación conocida: <white>{world} {x} {y} {z}",
-    "origen": "SlayerModule.java:725"
+    "origen": "SlayerModule.java:738"
   },
   {
     "archivo": "slayer/mensajes.yml",
@@ -8757,7 +8751,7 @@
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.reintento-sin-pendientes",
     "predeterminado": "<gray>No tienes un jefe de Monarquía pendiente de invocación.",
-    "origen": "SlayerModule.java:283"
+    "origen": "SlayerModule.java:289"
   },
   {
     "archivo": "slayer/mensajes.yml",
@@ -8775,67 +8769,67 @@
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.sin-recetas-nuevas",
     "predeterminado": "Sin recetas nuevas",
-    "origen": "SlayerModule.java:612"
+    "origen": "SlayerModule.java:621"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.subida-nivel",
     "predeterminado": "<gold>✦ ¡Nivel Slayer {nivel}! <white>{recompensas}",
-    "origen": "SlayerModule.java:614"
+    "origen": "SlayerModule.java:623"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.telefono-comprado",
     "predeterminado": "<reset><green>Has comprado el Teléfono Rojo por {precio} ↾.",
-    "origen": "SlayerModule.java:361"
+    "origen": "SlayerModule.java:370"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.telefono-entrega-fallo",
     "predeterminado": "<reset><red>Error de entrega. Avisa a un administrador; no intentes pagar de nuevo.",
-    "origen": "SlayerModule.java:368"
+    "origen": "SlayerModule.java:377"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.telefono-inventario",
     "predeterminado": "<reset><red>Libera al menos una ranura de inventario antes de comprar.",
-    "origen": "SlayerModule.java:340"
+    "origen": "SlayerModule.java:349"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.telefono-item-fallo",
     "predeterminado": "<reset><red>No se pudo preparar el Teléfono Rojo. No se ha cobrado.",
-    "origen": "SlayerModule.java:335"
+    "origen": "SlayerModule.java:344"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.telefono-no-disponible",
     "predeterminado": "<reset><red>El acceso remoto no está disponible por ahora.",
-    "origen": "SlayerModule.java:315"
+    "origen": "SlayerModule.java:324"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.telefono-no-disponible",
     "predeterminado": "<reset><red>El acceso remoto no está disponible por ahora.",
-    "origen": "SlayerModule.java:329"
+    "origen": "SlayerModule.java:338"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.telefono-pago-fallo",
     "predeterminado": "<reset><red>No se confirmó el pago. No se ha entregado el objeto.",
-    "origen": "SlayerModule.java:345"
+    "origen": "SlayerModule.java:354"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.victoria-cooperativa",
     "predeterminado": "<green>¡Jefe derrotado! <gold>+{xp} XP Slayer <gray>· Nivel {nivel}",
-    "origen": "SlayerModule.java:591"
+    "origen": "SlayerModule.java:600"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.victoria-no-acreditada",
     "predeterminado": "<red>No recibiste XP Slayer: necesitas infligir al menos {porcentaje}% de la vida del jefe y estar a {radio} bloques al morir.",
-    "origen": "SlayerModule.java:594"
+    "origen": "SlayerModule.java:603"
   },
   {
     "archivo": "tesoros/ajustes.yml",
@@ -9063,7 +9057,7 @@
     "archivo": "trabajos/mensajes.yml",
     "clave": "JobsModule.prefijo-monedas",
     "predeterminado": "<reset><white>↾",
-    "origen": "JobsModule.java:342"
+    "origen": "JobsModule.java:355"
   },
   {
     "archivo": "trabajos/mensajes.yml",
@@ -9358,5 +9352,47 @@
     "clave": "MithrilTools.hud-veta-activa",
     "predeterminado": "<aqua>Mina la veta marcada · {s}s",
     "origen": "MithrilToolModule.java:152"
+  },
+  {
+    "archivo": "cocina/mensajes.yml",
+    "clave": "CookingModule.siguiente-ingrediente",
+    "predeterminado": " <gray>Siguiente: <white>{ingrediente} <yellow>×{cantidad}",
+    "origen": "CookingModule.java:774"
+  },
+  {
+    "archivo": "equipamiento/mensajes.yml",
+    "clave": "AsterionSkill.en-recarga",
+    "predeterminado": "<yellow>Asterión · Recarga {s}s",
+    "origen": "AsterionSkill.java:105"
+  },
+  {
+    "archivo": "equipamiento/mensajes.yml",
+    "clave": "AsterionSkill.furia-insuficiente",
+    "predeterminado": "<yellow>Furia insuficiente: {furia}/{maximo}",
+    "origen": "AsterionSkill.java:100"
+  },
+  {
+    "archivo": "equipamiento/mensajes.yml",
+    "clave": "AsterionSkill.furia-recarga",
+    "predeterminado": " | Recarga {s}s",
+    "origen": "AsterionSkill.java:149"
+  },
+  {
+    "archivo": "equipamiento/mensajes.yml",
+    "clave": "UltimoJuramentoSkill.en-recarga",
+    "predeterminado": "<yellow>Último Juramento · Recarga {s}s",
+    "origen": "UltimoJuramentoSkill.java:55"
+  },
+  {
+    "archivo": "slayer/mensajes.yml",
+    "clave": "SlayerModule.jefe-pendiente",
+    "predeterminado": "<yellow>✦ Jefe pendiente · Reintenta la invocación",
+    "origen": "SlayerModule.java:299"
+  },
+  {
+    "archivo": "slayer/mensajes.yml",
+    "clave": "SlayerModule.reintento-espera",
+    "predeterminado": "<yellow>Podrás reintentar la invocación en {s}s.",
+    "origen": "SlayerModule.java:282"
   }
 ]

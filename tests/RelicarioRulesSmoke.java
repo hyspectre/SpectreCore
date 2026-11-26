@@ -31,6 +31,10 @@ public final class RelicarioRulesSmoke {
         } catch (IllegalArgumentException expected) { }
         // Ranks and families are labels, not mutually exclusive equipment slots.
         ok(RelicarioRules.active(List.of(low, new RelicarioRules.Relic("OTHER_BROTE","raigambre",1,Map.of("mana",5.0))), Set.of("BROTE_MARCHITO","OTHER_BROTE")).size()==2);
+        ok(RelicarioRules.previewGain(catalog, Set.of(low.id()), caps, high.id()).get("mana") == 14.0);
+        ok(RelicarioRules.previewGain(catalog, Set.of(low.id(), high.id()), caps, flat.id()).get("mana") == 0.0);
+        ok(RelicarioRules.previewGain(catalog, Set.of(low.id()), caps, low.id()).isEmpty());
+        ok(RelicarioRules.previewGain(catalog, Set.of(), caps, doubleStat.id()).get("melee_damage") == 1.0);
         System.out.println("PASS RelicarioRulesSmoke: simultaneous bonuses, global caps, duplicate safety and deterministic recomputation");
     }
 }

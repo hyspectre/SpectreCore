@@ -138,6 +138,32 @@ public final class PresentationMigrations {
 
     private PresentationMigrations() { }
 
+    /** Replace an exact packaged list with the current default; custom guides stay untouched. */
+    public static boolean isLegacyGuidePoints(String page, List<String> current) {
+        List<String> legacy = switch (page) {
+            case "cocina" -> List.of(
+                    "<gray>Enciende una estación con un mechero.",
+                    "<gray>Usa utensilios, controla la cocción.",
+                    "<gray>Sirve porciones y limpia los restos.");
+            case "accesorios" -> List.of(
+                    "<gray>Descubre objetos de la Cripta y el mundo.",
+                    "<gray>Sus bonificaciones se acumulan.",
+                    "<gray>Todas las reliquias absorbidas aportan bonos.",
+                    "<gray>El Relicario muestra tu progreso.");
+            case "resonancia" -> List.of(
+                    "<gray>Acumula carga con la minería.",
+                    "<gray>La carga completa abre una oportunidad.",
+                    "<gray>Agáchate para aprovecharla.");
+            case "portales" -> List.of(
+                    "<gray>Reúne jugadores cerca del portal.",
+                    "<gray>Mantengan la formación al ingresar.",
+                    "<gray>Las aventuras premian la cooperación.");
+            default -> null;
+        };
+        return legacy != null && legacy.equals(current);
+    }
+
+
     /** Pure rewrite for smoke tests; IDs, technical config keys and unrelated text survive. */
     public static String rewriteKnownCopy(String input) {
         if (input == null || input.isEmpty()) return input;

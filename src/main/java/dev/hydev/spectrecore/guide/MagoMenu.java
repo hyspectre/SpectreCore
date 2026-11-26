@@ -169,9 +169,24 @@ public final class MagoMenu implements Listener {
             if (!candidate.isConfigurationSection("pages." + id)) continue;
             ConfigurationSection original = originals.getConfigurationSection(id);
             if (original == null) continue;
+            if (id.equals("portales")) {
+                for (String key : List.of("body", "resumen")) {
+                    String path = "pages.portales." + key;
+                    String old = key.equals("body")
+                            ? "<gray>Reúne al grupo junto al portal para participar. Mantente cerca de tus compañeros para entrar a la expedición.</gray>"
+                            : "<white>Coopera para explorar nuevas expediciones.";
+                    if (old.equals(candidate.getString(path))) {
+                        candidate.set(path, original.getString(key));
+                        changed = true;
+                    }
+                }
+            }
             for (String key : List.of("resumen", "puntos")) {
                 String path = "pages." + id + "." + key;
-                if (!candidate.contains(path) && original.contains(key)) {
+                boolean oldPoints = key.equals("puntos") &&
+                        dev.hydev.spectrecore.config.PresentationMigrations.isLegacyGuidePoints(
+                                id, candidate.getStringList(path));
+                if ((!candidate.contains(path) || oldPoints) && original.contains(key)) {
                     candidate.set(path, original.get(key));
                     changed = true;
                 }
@@ -192,7 +207,9 @@ public final class MagoMenu implements Listener {
                 if (id.equals("cocina") && "recetas".equals(copy.get("page"))) {
                     copy.put("page", "recetario_info"); buttonChanged = true;
                 }
-                if (!copy.containsKey("descripcion")) for (Map<?, ?> source : targets)
+                boolean oldPortalDescription = id.equals("guias") && "portales".equals(copy.get("page"))
+                        && "<gray>Entrada a expediciones en grupo".equals(copy.get("descripcion"));
+                if (!copy.containsKey("descripcion") || oldPortalDescription) for (Map<?, ?> source : targets)
                     if (source.get("page") != null && source.get("page").equals(copy.get("page"))
                             && source.get("descripcion") instanceof String description) {
                         copy.put("descripcion", description); buttonChanged = true; break;
@@ -205,7 +222,7 @@ public final class MagoMenu implements Listener {
     }
 
     private void saveMigratedVisuals(File installed, YamlConfiguration candidate) throws IOException {
-        File backup = new File(plugin.getDataFolder(), "backups/mago-visual-v1/ui/mago.yml");
+        File backup = new File(plugin.getDataFolder(), "backups/mago-visual-v2/ui/mago.yml");
         if (!backup.exists()) {
             Files.createDirectories(backup.toPath().getParent());
             Files.copy(installed.toPath(), backup.toPath());

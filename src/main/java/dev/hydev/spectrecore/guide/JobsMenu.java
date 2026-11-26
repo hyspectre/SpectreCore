@@ -249,6 +249,18 @@ public final class JobsMenu implements Listener {
                     for (String activity : activities(page, RANKS.indexOf(id) + 1)) lore.add(styled(activity));
                 else lore.add(styled(resolve(player, page, id, line)));
             }
+            // Snapshot on opening; no background actionbar or per-player refresh task.
+            if (!page.equals("trabajos") && RANKS.contains(id)) {
+                int tier = RANKS.indexOf(id) + 1;
+                if (jobs.rank(player, page) >= tier) {
+                    long wait = jobs.paymentWaitMillis(player, page, tier);
+                    String payment = wait < 0 ? label("pago-no-disponible", "<red>Pago no disponible")
+                            : wait == 0 ? label("pago-listo", "<green>Espera de pago cumplida")
+                            : label("pago-espera", "<yellow>Espera al consultar: {s}s")
+                                .replace("{s}", Long.toString((wait + 999) / 1000));
+                    lore.add(styled(payment));
+                }
+            }
             meta.lore(lore);
             item.setItemMeta(meta);
             int slot = layout.getInt(path + ".slot");

@@ -1,6 +1,9 @@
 import dev.hydev.spectrecore.cooking.CookingBatch;
 public class CookingBatchSmoke {
     public static void main(String[] args) {
+        assert CookingBatch.acceptedFromStack(1, 3, Integer.MAX_VALUE) == 2;
+        assert CookingBatch.acceptedFromStack(3, 3, Integer.MAX_VALUE) == 3;
+        assert CookingBatch.acceptedFromStack(8, 3, Integer.MAX_VALUE) == 1;
         for (int portions = 1; portions <= 3; portions++) {
             assert CookingBatch.requiredIngredients(portions) == portions * 3;
             int accepted = 0;

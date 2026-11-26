@@ -46,6 +46,7 @@ for page, payload in menu["pages"].items():
 
 indicator = menu["indicador"]
 assert "{equipadas}" in indicator["piezas"]
+assert "{s}" in indicator["recarga"]
 assert {"completo","parcial","incompleto"} <= set(indicator) and "desactivado" not in indicator
 java = (root / "src/main/java/dev/hydev/spectrecore/guide/ArmorGuide.java").read_text()
 plugin = (root / "src/main/java/dev/hydev/spectrecore/SpectreCorePlugin.java").read_text()
@@ -56,6 +57,7 @@ assert "Bukkit.createInventory(holder, 54" in java
 assert "Bukkit.getScheduler().runTask(plugin" in java
 assert "bonuses(selected, sets)" in java and "ability(selected)" in java
 assert "plugin.sets().countArmor(player" in java
+assert "plugin.cooldowns().remainingSeconds(player.getUniqueId(), entry.skill)" in java
 assert 'replace("{habilidad}", named.ability)' in java
 assert "compactLines" in java and "juramento-fuerza" in java
 assert "bonusNames().get(key)" in java

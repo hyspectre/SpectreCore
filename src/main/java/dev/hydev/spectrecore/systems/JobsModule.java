@@ -321,6 +321,19 @@ public final class JobsModule implements Listener {
         Player p = e.getEntity().getKiller(); int tier = dev.hydev.spectrecore.config.Gameplay.tier("combate", e.getEntityType().name());
         if (p != null && p.isOnline() && tier > 0) pay(p, "cazador", tier, e.getEntity().getLocation());
     }
+    /** Time until this activity tier can pay again; -1 means no configured/eligible payment. */
+    public long paymentWaitMillis(Player player, String job, int tier) {
+        if (!JobsContractRules.JOBS.contains(job) || tier < 1 || tier > 3 || rank(player, job) < tier) return -1;
+        Object raw = config.get("cooldowns." + job + "." + ProgressRules.rank(tier));
+        if (!(raw instanceof Number seconds) || !Double.isFinite(seconds.doubleValue())
+                || seconds.doubleValue() < 0) return -1;
+        return paymentWaitMillis(player.getUniqueId(), job, System.currentTimeMillis(),
+                (long) (seconds.doubleValue() * 1000));
+    }
+    private long paymentWaitMillis(UUID player, String job, long now, long cooldownMillis) {
+        return ProgressRules.remaining(last.getOrDefault(job + "." + player, -1L), now, cooldownMillis);
+    }
+
     private void pay(Player p, String job, int tier, Location location) {
         if (rank(p, job) < tier) return;
         String level = ProgressRules.rank(tier), root = job + "." + level + ".dinero", cdKey = "cooldowns." + job + "." + level;
@@ -329,7 +342,7 @@ public final class JobsModule implements Listener {
         double cooldown = config.getDouble(cdKey, -1);
         if (minimum.doubleValue()!=min || maximum.doubleValue()!=max || min < 0 || max < min || max > Integer.MAX_VALUE || !Double.isFinite(cooldown) || cooldown < 0) { missing(job, level); return; }
         String key = job + "." + p.getUniqueId(); long now = System.currentTimeMillis();
-        long remaining = ProgressRules.remaining(last.getOrDefault(key, -1L), now, (long) (cooldown * 1000));
+        long remaining = paymentWaitMillis(p.getUniqueId(), job, now, (long) (cooldown * 1000));
         // Cooldown remains enforced; it is shown in the Jobs GUI, not the actionbar.
         if (remaining > 0) return;
         long amount = ThreadLocalRandom.current().nextLong(min, max + 1);

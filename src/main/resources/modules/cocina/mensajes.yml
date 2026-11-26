@@ -74,7 +74,7 @@ CookingModule:
   etiqueta-081: "/3 <reset><gray>| Arroja ingredientes"
   etiqueta-082: "<reset><yellow>"
   etiqueta-083: " <reset><gray>| <reset><white>"
-  etiqueta-084: " <reset><gray>| Siguiente: <reset><white>"
+  siguiente-ingrediente: " <gray>Siguiente: <white>{ingrediente} <yellow>×{cantidad}"
   etiqueta-085: "<reset><green>"
   etiqueta-086: " <reset><gray>| <reset><yellow>"
   etiqueta-087: " raciones disponibles <reset><gray>| Calidad: <reset><white>"

@@ -111,7 +111,6 @@ public final class ArmorGuide implements Listener {
         }
     }
     private void mergeEquipmentLabels(File installed, YamlConfiguration candidate) throws Exception {
-        if (candidate.isConfigurationSection("indicador")) return;
         YamlConfiguration defaults = new YamlConfiguration();
         try (var stream = plugin.getResource("ui/armaduras.yml")) {
             if (stream == null) throw new IOException("No existe la plantilla de etiquetas de armaduras");
@@ -119,14 +118,27 @@ public final class ArmorGuide implements Listener {
         }
         ConfigurationSection section = defaults.getConfigurationSection("indicador");
         if (section == null) return;
-        File backup = new File(plugin.getDataFolder(), "backups/armaduras-indicador-v1/ui/armaduras.yml");
+        boolean changed = false;
+        for (String key : section.getKeys(true)) {
+            if (section.isConfigurationSection(key)) continue;
+            String path = "indicador." + key;
+            if (!candidate.contains(path)) {
+                candidate.set(path, section.get(key));
+                changed = true;
+            }
+        }
+        // Only update the shipped, misleading legacy label; preserve custom words.
+        String oldLabel = "<green>✦ ʜᴀʙɪʟɪᴅᴀᴅ ᴅɪsᴘᴏɴɪʙʟᴇ";
+        if (oldLabel.equals(candidate.getString("indicador.completo"))) {
+            candidate.set("indicador.completo", section.getString("completo"));
+            changed = true;
+        }
+        if (!changed) return;
+        File backup = new File(plugin.getDataFolder(), "backups/armaduras-indicador-v2/ui/armaduras.yml");
         if (!backup.exists()) {
             java.nio.file.Files.createDirectories(backup.toPath().getParent());
             java.nio.file.Files.copy(installed.toPath(), backup.toPath());
         }
-        for (String key : section.getKeys(true))
-            if (!section.isConfigurationSection(key))
-                candidate.set("indicador." + key, section.get(key));
         dev.hydev.spectrecore.storage.AtomicFileStore.writeUtf8(
                 installed.toPath(), candidate.saveToString());
     }
@@ -138,7 +150,15 @@ public final class ArmorGuide implements Listener {
         int pieces = Math.max(1, Math.min(4, config.getInt("pasivos.piezas", 2)));
         boolean partial = Set.of("asterion", "ultimo-juramento", "sangre-primer-dragon").contains(entry.skill);
         String status;
-        if (count == 4) status = layout.getString("indicador.completo", "<green>Habilidad del conjunto disponible");
+        if (count == 4) {
+            long remaining = plugin.cooldowns().remainingSeconds(player.getUniqueId(), entry.skill);
+            if (!plugin.hasAccess(player, entry.skill, true))
+                status = layout.getString("indicador.sin-acceso", "<yellow>Habilidad no disponible");
+            else if (remaining > 0)
+                status = layout.getString("indicador.recarga", "<yellow>Recarga: {s}s")
+                        .replace("{s}", Long.toString(remaining));
+            else status = layout.getString("indicador.completo", "<green>Conjunto completo");
+        }
         else if (partial && count >= pieces) status = layout.getString("indicador.parcial", "<yellow>Bonificación parcial activa");
         else status = layout.getString("indicador.incompleto", "<gray>Bonificaciones aún incompletas");
         String summary = layout.getString("indicador.piezas",

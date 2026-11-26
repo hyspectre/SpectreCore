@@ -35,6 +35,13 @@ public final class PresentationMigrationsSmoke {
         check(rejected, "Unsafe migration path rejected");
         check(PresentationMigrations.rewriteKnownCopy("Texto personalizado sin cambios")
               .equals("Texto personalizado sin cambios"), "Arbitrary custom text not modified");
+        check(PresentationMigrations.isLegacyGuidePoints("resonancia", java.util.List.of(
+                "<gray>Acumula carga con la minería.",
+                "<gray>La carga completa abre una oportunidad.",
+                "<gray>Agáchate para aprovecharla.")), "Recognizes exact old resonance guide");
+        check(!PresentationMigrations.isLegacyGuidePoints("resonancia", java.util.List.of(
+                "<gray>Mi guía personalizada.")), "Preserves customized lists");
+        check(!PresentationMigrations.isLegacyGuidePoints("otra", java.util.List.of()), "Unknown pages unchanged");
         System.out.println("PASS PresentationMigrationsSmoke: " + count + " checks");
     }
 }

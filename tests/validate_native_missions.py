@@ -107,6 +107,7 @@ assert "slayer.retrySpawnFromMenu(player)" in java
 assert "Bukkit.dispatchCommand(" not in java and "dispatchCommand(" not in java
 assert "contractsEconomy.withdraw" in slayer and "validateStart" in slayer
 assert "contractPriceLabel" in slayer and "objectiveForTier" in slayer
+assert "SlayerModule.jefe-pendiente" in slayer and "retryWaitMillis(player, System.currentTimeMillis())" in slayer
 assert "cancellationPriceLabel" in slayer and "phonePriceLabel" in slayer
 assert "resolveLore(player, page, id, line)" in java
 assert ".decoration(TextDecoration.ITALIC, false)" in java

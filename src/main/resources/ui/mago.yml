@@ -132,10 +132,11 @@ pages:
     body: "<gray>Absorbe reliquias antiguas y conserva su poder para siempre."
     resumen: "<white>Una colección permanente de reliquias."
     puntos:
-      - "<gray>Descubre objetos de la Cripta y el mundo."
-      - "<gray>Sus bonificaciones se acumulan."
-      - "<gray>Todas las reliquias absorbidas aportan bonos."
-      - "<gray>El Relicario muestra tu progreso."
+      - "<gray>Sostén una reliquia y haz clic derecho."
+      - "<gray>Consulta el beneficio antes de confirmar."
+      - "<gray>Absorber consume el objeto para siempre."
+      - "<gray>Los bonos se acumulan hasta sus límites."
+      - "<gray>Consulta tu colección en el Relicario."
     buttons:
       - label: '<gray>Combate</gray>'
         page: rpg
@@ -166,9 +167,11 @@ pages:
     body: "<gray>Enciende la fogata, prepara los ingredientes y sirve tus platos. Descubre qué secretos guarda cada receta.</gray>"
     resumen: "<white>Prepara platos mediante acciones breves."
     puntos:
-      - "<gray>Enciende una estación con un mechero."
-      - "<gray>Usa utensilios, controla la cocción."
-      - "<gray>Sirve porciones y limpia los restos."
+      - "<gray>Caldero con agua sobre una fogata encendida."
+      - "<gray>Clic con mechero para crear la cocina."
+      - "<gray>Clic con libro: recetas. Arroja en orden."
+      - "<gray>Pala de madera: revuelve. Cuenco: sirve."
+      - "<gray>Esponja: limpia lo quemado o retira la cocina."
     buttons:
       - label: '<yellow>Recetario</yellow>'
         page: recetario_info
@@ -196,7 +199,7 @@ pages:
         descripcion: "<gray>Carga y extracción especial"
       - label: '<aqua>Portales</aqua>'
         page: portales
-        descripcion: "<gray>Entrada a expediciones en grupo"
+        descripcion: "<gray>Salida de la expedición"
       - label: '<yellow>Actividades</yellow>'
         page: actividades
         descripcion: "<gray>Encuentros y actividades"
@@ -256,21 +259,23 @@ pages:
     body: "<gray>Acumula carga minera para activar bonificaciones. Presta atención a tu carga para aprovechar su máxima energía.</gray>"
     resumen: "<white>Canaliza energía mientras extraes minerales."
     puntos:
-      - "<gray>Acumula carga con la minería."
-      - "<gray>La carga completa abre una oportunidad."
-      - "<gray>Agáchate para aprovecharla."
+      - "<gray>Extrae menas naturales para cargar."
+      - "<gray>Pico Perdido: carga completa; agáchate y mina."
+      - "<gray>Mitrilo: mira una veta natural."
+      - "<gray>Mitrilo y Amatista: agáchate + clic derecho."
+      - "<gray>La barra muestra carga y recarga de tu pico."
     buttons:
       - label: '<gray>Guías</gray>'
         page: guias
         descripcion: "<gray>Cacerías, tesoros y expediciones"
   portales:
     title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Portales"
-    body: "<gray>Reúne al grupo junto al portal para participar. Mantente cerca de tus compañeros para entrar a la expedición.</gray>"
-    resumen: "<white>Coopera para explorar nuevas expediciones."
+    body: "<gray>Tras derrotar al Minotauro, usa el arco de extracción para regresar de la expedición.</gray>"
+    resumen: "<white>Regresa de una expedición completada."
     puntos:
-      - "<gray>Reúne jugadores cerca del portal."
-      - "<gray>Mantengan la formación al ingresar."
-      - "<gray>Las aventuras premian la cooperación."
+      - "<gray>El Minotauro abre un arco de extracción."
+      - "<gray>Recoge tu cofre antes de salir."
+      - "<gray>Permanece dentro del arco hasta salir."
     buttons:
       - label: '<gray>Guías</gray>'
         page: guias

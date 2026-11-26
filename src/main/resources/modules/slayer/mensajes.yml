@@ -39,6 +39,8 @@ SlayerModule.telefono-entrega-fallo: "<reset><red>Error de entrega. Avisa a un a
 SlayerModule.reintento-uso: "<red>Uso: /spectrecore slayer invocar [categoria]"
 SlayerModule.reintento-en-curso: "<yellow>Ya tienes un jefe activo. No se permite otra invocación."
 SlayerModule.reintento-sin-pendientes: "<gray>No tienes un jefe de Monarquía pendiente de invocación."
+SlayerModule.reintento-espera: "<yellow>Podrás reintentar la invocación en {s}s."
+SlayerModule.jefe-pendiente: "<yellow>✦ Jefe pendiente · Reintenta la invocación"
 # Encuentros persistentes y crédito cooperativo
 SlayerModule.jefe-desaparecido: "<yellow>El jefe desapareció. Conservas el contrato y podrás volver a invocarlo."
 SlayerModule.guardado-pendiente: "<red>El estado de Slayer no pudo guardarse. Avisa a administración antes de reiniciar."

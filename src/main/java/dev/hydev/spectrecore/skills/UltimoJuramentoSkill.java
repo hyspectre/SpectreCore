@@ -51,7 +51,11 @@ public final class UltimoJuramentoSkill implements SkillModule {
         boolean isDouble = tick - s.lastTap >= 1 && tick - s.lastTap <= i("double-shift-window-ticks", 9);
         s.lastTap = tick;
         if (!isDouble || active(s, tick)) return;
-        if (!plugin.cooldowns().start(p.getUniqueId(), id(), i("cooldown-seconds", 40))) return;
+        if (!plugin.cooldowns().start(p.getUniqueId(), id(), i("cooldown-seconds", 40))) {
+            p.sendActionBar(Settings.message("equipamiento", "UltimoJuramentoSkill.en-recarga",
+                    "<yellow>Último Juramento · Recarga {s}s", "s", plugin.cooldowns().remainingSeconds(p.getUniqueId(), id())));
+            return;
+        }
         s.startTick = tick;
         s.activeUntil = tick + i("duration-seconds", 7) * 20L;
         s.maxUntil = tick + i("maximum-duration-seconds", 10) * 20L;

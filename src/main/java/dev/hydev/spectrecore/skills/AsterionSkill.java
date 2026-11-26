@@ -95,8 +95,17 @@ public final class AsterionSkill implements SkillModule {
         State s = state(p);
         boolean second = tick - s.lastTap >= 1 && tick - s.lastTap <= i("double-shift-window-ticks", 9);
         s.lastTap = tick;
-        if (!second || active(s, tick) || s.fury < furyCap()) return;
-        if (!plugin.cooldowns().start(p.getUniqueId(), id(), i("cooldown-seconds", 50))) return;
+        if (!second || active(s, tick)) return;
+        if (s.fury < furyCap()) {
+            p.sendActionBar(Settings.message("equipamiento", "AsterionSkill.furia-insuficiente",
+                    "<yellow>Furia insuficiente: {furia}/{maximo}", "furia", s.fury, "maximo", furyCap()));
+            return;
+        }
+        if (!plugin.cooldowns().start(p.getUniqueId(), id(), i("cooldown-seconds", 50))) {
+            p.sendActionBar(Settings.message("equipamiento", "AsterionSkill.en-recarga",
+                    "<yellow>Asterión · Recarga {s}s", "s", plugin.cooldowns().remainingSeconds(p.getUniqueId(), id())));
+            return;
+        }
         s.fury = 0;
         s.combo = 0;
         s.prey = null;
@@ -135,7 +144,11 @@ public final class AsterionSkill implements SkillModule {
             }
             render(p, s, active(s, tick), tick);
             if (plugin.getConfig().getBoolean("skills.asterion.show-fury-actionbar", true) && tick % 20 == 0) {
-                String info = active(s,tick) ? Settings.text("equipamiento","AsterionSkill.barra-activa","✦ ASTERIÓN | {segundos}s | Ímpetu {combo}/{maximo}","segundos",Math.max(0,(s.activeUntil-tick+19)/20),"combo",s.combo,"maximo",i("max-combo-stacks",4)) : Settings.text("equipamiento","AsterionSkill.barra-furia","✦ FURIA | {furia}/{maximo}{aviso}","furia",s.fury,"maximo",furyCap(),"aviso",s.fury>=furyCap()?Settings.text("equipamiento","AsterionSkill.furia-lista"," | DOBLE SHIFT"):"");
+                long remaining = plugin.cooldowns().remainingSeconds(id, id());
+                String notice = remaining > 0
+                        ? Settings.text("equipamiento", "AsterionSkill.furia-recarga", " | Recarga {s}s", "s", remaining)
+                        : s.fury >= furyCap() ? Settings.text("equipamiento","AsterionSkill.furia-lista"," | DOBLE SHIFT") : "";
+                String info = active(s,tick) ? Settings.text("equipamiento","AsterionSkill.barra-activa","✦ ASTERIÓN | {segundos}s | Ímpetu {combo}/{maximo}","segundos",Math.max(0,(s.activeUntil-tick+19)/20),"combo",s.combo,"maximo",i("max-combo-stacks",4)) : Settings.text("equipamiento","AsterionSkill.barra-furia","✦ FURIA | {furia}/{maximo}{aviso}","furia",s.fury,"maximo",furyCap(),"aviso",notice);
                 p.sendActionBar(Settings.component(info));
             }
         }

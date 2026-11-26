@@ -74,3 +74,6 @@ assert 'route("trabajos abastecimiento","trabajo"' in routes
 for banned in ("player-command-as-op", "console-command", "type: withdraw", "%vault_eco_balance%"):
     assert banned not in (resources / "ui/trabajos.yml").read_text(encoding="utf-8")
 print("PASS Jobs GUI: index with sourcing shortcut, 3 contracts, safe tiers and route")
+
+assert "jobs.paymentWaitMillis(player, page, tier)" in java
+assert "{s}" in gui["labels"]["estados"]["pago-espera"]

@@ -380,12 +380,22 @@ public final class RelicarioModule implements Listener {
                 text(ui.getString("confirmacion.title", "<gold>Absorber reliquia")));
         holder.inventory = inv;
         Entry entry = entries.get(id);
-        put(inv, ui.getInt("confirmacion.item-slot",13), entry.icon(),
-                "<gold>" + entry.name, List.of("<gray>" + entry.origin));
+        List<String> preview = new ArrayList<>();
+        preview.add("<gray>" + entry.origin);
+        preview.add(msg("preview-title", "<gold>Aumento en tu colección:"));
+        var gain = RelicarioRules.previewGain(rules.values(), store.discovered(player.getUniqueId()), caps, id);
+        for (var bonus : gain.entrySet().stream().sorted(Map.Entry.comparingByKey()).toList()) {
+            String label = ui.getString("estadisticas.nombres." + bonus.getKey(), bonus.getKey());
+            preview.add(bonus.getValue() == 0
+                    ? msg("preview-cap", "<gray>{nombre}: <yellow>límite alcanzado").replace("{nombre}", label)
+                    : "<gray>" + label + " <green>+" + format(bonus.getValue()) + statUnit(bonus.getKey()));
+        }
+        put(inv, ui.getInt("confirmacion.item-slot",13), entry.icon(), "<gold>" + entry.name, preview);
         int yes = ui.getInt("confirmacion.confirmar-slot",11),
             no = ui.getInt("confirmacion.cancelar-slot",15);
         put(inv, yes, Material.LIME_CONCRETE, msg("confirm", "<green>✦ Confirmar absorción"),
-                List.of(msg("permanent", "<gray>Su poder quedará contigo para siempre.")));
+                List.of(msg("permanent", "<gray>Su poder quedará contigo para siempre."),
+                        msg("consume-one", "<yellow>Consume una reliquia.")));
         put(inv, no, Material.RED_CONCRETE, msg("cancel", "<red>⇜ Cancelar"),
                 List.of(msg("cancel-detail", "<gray>Conservar la reliquia.")));
         holder.actions.put(yes, "confirm");
@@ -494,7 +504,11 @@ public final class RelicarioModule implements Listener {
             }
         } else if (page.equals("estadisticas")) {
             int slot = 10;
-            for (var total : calculate(player.getUniqueId()).entrySet().stream().sorted(
+            var bonuses = calculate(player.getUniqueId());
+            if (bonuses.isEmpty())
+                put(inv, slot, Material.BOOK, msg("empty-bonuses", "<gray>Aún no tienes bonificaciones"),
+                        List.of(msg("empty-bonuses-help", "<gray>Absorbe una reliquia para empezar tu colección.")));
+            for (var total : bonuses.entrySet().stream().sorted(
                     Map.Entry.comparingByKey()).toList()) {
                 String label = ui.getString("estadisticas.nombres." + total.getKey(), total.getKey());
                 String value = format(total.getValue()) +

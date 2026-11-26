@@ -7,6 +7,9 @@ labels:
     ya-contratado: "Ya contratado"
     procesando: "Procesando"
     rango-anterior: "Requiere rango anterior"
+    pago-listo: "<green>Espera de pago cumplida"
+    pago-espera: "<yellow>Espera al consultar: {s}s"
+    pago-no-disponible: "<red>Pago no disponible"
 
 # Interfaz Java nativa; números leídos de modules/trabajos/config.yml
 material-names:

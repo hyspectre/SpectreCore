@@ -2,7 +2,9 @@
 # La estética es configurable; no se muestran comandos ni nombres internos.
 indicador:
   piezas: "<gray>ᴘɪᴇᴢᴀs ᴇǫᴜɪᴘᴀᴅᴀs <yellow>{equipadas}<gray>/4"
-  completo: "<green>✦ ʜᴀʙɪʟɪᴅᴀᴅ ᴅɪsᴘᴏɴɪʙʟᴇ"
+  completo: "<green>✦ ᴄᴏɴᴊᴜɴᴛᴏ ᴄᴏᴍᴘʟᴇᴛᴏ"
+  recarga: "<yellow>✦ Recarga: {s}s"
+  sin-acceso: "<yellow>Habilidad no disponible"
   parcial: "<yellow>✦ ʙᴏɴᴏ ᴘᴀʀᴄɪᴀʟ ᴀᴄᴛɪᴠᴏ"
   incompleto: "<gray>ᴀúɴ ɴᴏ ᴄᴏᴍᴘʟᴇᴛᴀᴅᴏ"
 
