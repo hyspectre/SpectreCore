@@ -43,7 +43,7 @@ public final class MithrilProspector {
     public List<Block> connected(Player player, Block origin, int radius, int maximum) {
         List<Block> found = new ArrayList<>();
         if (origin == null || Gameplay.tier("mineria", origin.getType().name()) == 0
-                || placed.isMarked(origin) || !regions.canBuild(player, origin)) return found;
+                || placed.isMarked(origin) || !regions.canBreak(player, origin)) return found;
         ArrayDeque<Block> queue = new ArrayDeque<>();
         Set<String> visited = new HashSet<>();
         queue.add(origin);
@@ -57,7 +57,7 @@ public final class MithrilProspector {
                     || Math.abs(block.getZ() - origin.getZ()) > radius
                     || !block.getWorld().isChunkLoaded(block.getX() >> 4, block.getZ() >> 4)
                     || !MithrilRules.sameOre(origin.getType().name(), block.getType().name())
-                    || placed.isMarked(block) || !regions.canBuild(player, block)) continue;
+                    || placed.isMarked(block) || !regions.canBreak(player, block)) continue;
             found.add(block);
             for (BlockFace face : FACES) queue.add(block.getRelative(face));
         }
@@ -114,7 +114,7 @@ public final class MithrilProspector {
                 Block block = world.getBlockAt(x,y,z);
                 if (Gameplay.tier("mineria", block.getType().name()) == 0 || placed.isMarked(block)) continue;
                 double dist2 = (double) dx * dx + (double) dy * dy + (double) dz * dz;
-                if (dist2 >= best[0] || !regions.canBuild(player, block)) continue;
+                if (dist2 >= best[0] || !regions.canBreak(player, block)) continue;
                 best[0] = dist2;
                 bestOffset[0] = dx; bestOffset[1] = dy; bestOffset[2] = dz;
             }

@@ -1,6 +1,6 @@
 # SpectreCore 0.9 — Plan de desarrollo
 
-**Estado:** en desarrollo. `0.9.0-dev7` es una entrega parcial, no una versión lista para producción.
+**Estado:** en desarrollo. `0.9.0-dev8` es una entrega parcial, no una versión lista para producción.
 
 ## Dirección jugable
 
@@ -75,6 +75,15 @@ Construir conexiones útiles entre exploración, accesorios, profesiones, fabric
 - Los contratos de Minería nuevos requieren niveles 1/6/15; se preservan los ya comprados.
 - `integracion-auraskills/rewards/mining.yml` conserva los patrones de Toughness/Luck y quita el permiso sin uso de nivel 30; **requiere instalación externa**.
 - **Pendiente:** importar configuraciones de MMOItems, MythicMobs y la Forja, configurar el NPC y validar encuentros y herramientas dentro de Paper.
+
+### 0.9.0-dev8 — Revisión de integración minera
+
+- Las ocho etapas de AuraSkills entregan permisos reales `hydev.mineria.*` y muestran un mensaje de desbloqueo en el menú y en chat; SpectreCore no duplica mensajes ni menús. El nivel debe coincidir con el permiso.
+- Duende con impulso evasivo, salto y golpe de distracción; Prospector con protección corta y terremoto anunciado antes del daño. Ambas criaturas tienen IA y objetivo inicial; las habilidades funcionan solo cuando el servidor carga correctamente sus dos YAML.
+- 20 objetos mineros de MMOItems definidos en archivos por tipo con estilo Hydev: gradientes, nombres concisos, versalitas y líneas de lore útiles; antiguos `TALADRO`, `PICO_GEMAS`, `PALADIO` y `COMPACTADOR` preservados.
+- Recetas de la Forja requieren permisos AuraSkills en cada acción; versiones Reforzado/Calibrado del Taladro requieren niveles 12/15.
+- Instalador de MMOItems con simulación sin cambios por defecto, respaldo íntegro y fusión acotada de ítems y recetas. Paquete ZIP de MM, MI y AS publicado por GitHub Actions.
+- Pendientes de servidor: probar trayectorias de mobs, skill load de MythicMobs Free, niveles retroactivos de AuraSkills/LuckPerms, interfaces MMOItems y economía.
 
 ### Próximas líneas (no implementadas)
 

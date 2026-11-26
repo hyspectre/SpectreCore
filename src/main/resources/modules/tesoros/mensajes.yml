@@ -47,7 +47,7 @@ MithrilTools:
   amatista-carga: "<light_purple>✦ Resonancia de amatista: <white>{actual}/{maxima}"
 
 AmethystField:
-  gema: "<light_purple>✦ Cristal roto: <white>Gema {calidad}."
+  resonante: "<light_purple>✦ <white>Amatista Resonante"
 MiningEncounters:
   duende: "<gold>✦ ¡Un Duende del Oro salió de las rocas!"
   prospector: "<light_purple>✦ ¡Has despertado a un Prospector Antiguo!"

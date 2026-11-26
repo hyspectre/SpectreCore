@@ -2,24 +2,27 @@
 # El TALADRO original de Cygnus se conserva: TOOL:TALADRO.
 TALADRO_REFORZADO:
   base:
-    revision-id: 1
+    revision-id: 2
     material: IRON_PICKAXE
     max-stack-size: 1
     name: '<gradient:#CFBBA1:#F2E1B7>Taladro Reforzado</gradient>'
     tier: RARE
     lore:
-      - '&7Rompe roca común rápidamente.'
-      - '&7Despeja hasta 1 bloque de piedra adicional.'
-      - '&7No funciona sobre menas ni bloques especiales.'
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fPerforar'
+    - '&f'
+    - '&e ᴘɪᴄᴀ ʀᴏᴄᴀ ᴘᴀʀᴀ ʀᴏᴍᴘᴇʀ'
+    - '&e ʜᴀsᴛᴀ 1 ʀᴏᴄᴀ ᴀᴅɪᴄɪᴏɴᴀʟ.'
+    - '&e ʟᴀs ᴍᴇɴᴀs sᴇ ᴘɪᴄᴀɴ ᴅᴇ ᴀ ᴜɴᴀ.'
 TALADRO_CALIBRADO:
   base:
-    revision-id: 1
+    revision-id: 2
     material: DIAMOND_PICKAXE
     max-stack-size: 1
     name: '<gradient:#C2D6E5:#B4F1E3>Taladro Calibrado</gradient>'
     tier: EPIC
     lore:
-      - '&7Despeja roca común con precisión.'
-      - '&7Rompe hasta 3 bloques adicionales cercanos.'
-      - '&7Las rocas adicionales no entregan recursos.'
-      - '&7No extrae menas ni atraviesa protecciones.'
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fPerforar'
+    - '&f'
+    - '&e ᴘɪᴄᴀ ʀᴏᴄᴀ ᴘᴀʀᴀ ʀᴏᴍᴘᴇʀ'
+    - '&e ʜᴀsᴛᴀ 3 ʀᴏᴄᴀs ᴍás.'
+    - '&e ʟᴀs ᴍᴇɴᴀs sᴇ ᴘɪᴄᴀɴ ᴅᴇ ᴀ ᴜɴᴀ.'

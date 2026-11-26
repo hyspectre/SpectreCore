@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * Single-purpose rock extraction: no ore blocks, no XP or loot from extra
+ * Single-block ore mining and rock extraction: no XP or loot from extra
  * clearance, no loading chunks and no protected-region changes.
  * Distinct from Mitrilo's long 1x2 tunnel Barrena.
  */
@@ -56,8 +56,13 @@ public final class StoneDrill implements Listener {
         for(int i=0;i<upgrades.size();i++)if(id.equals(upgrades.get(i)))return i+1;
         return 0;
     }
+    private boolean ore(Block block) {
+        Material material = block.getType();
+        return material.name().endsWith("_ORE") || material == Material.ANCIENT_DEBRIS;
+    }
+
     private boolean stone(Block block) {
-        return config().getStringList("taladro.bloques").contains(block.getType().name());
+        return !ore(block) && config().getStringList("taladro.bloques").contains(block.getType().name());
     }
     public void enable(){
         Bukkit.getPluginManager().registerEvents(this,plugin);
@@ -74,18 +79,21 @@ public final class StoneDrill implements Listener {
         Player player=event.getPlayer();
         int tier=tier(player.getInventory().getItemInMainHand());
         if(tier==0)return;
-        if(!progression.meets(player,"paladio")){
+        String requiredStage=tier==3?"resonancia":tier==2?"duendes":"paladio";
+        if(!progression.meets(player,requiredStage)){
             event.setCancelled(true);
             player.sendActionBar(Settings.message("trabajos","MiningProgression.requisito-herramienta",
                     "<yellow>Necesitas Minería nivel {nivel} para utilizar esta herramienta.",
-                    "nivel",progression.required("paladio")));
+                    "nivel",progression.required(requiredStage)));
             return;
         }
         if(player.getGameMode()!=GameMode.SURVIVAL
-                || !stone(event.getBlock()) || !regions.canBuild(player,event.getBlock())){
+                || !regions.canBreak(player,event.getBlock())){
             event.setCancelled(true);return;
         }
-        event.setInstaBreak(true);
+        if (ore(event.getBlock())) return;
+        if (stone(event.getBlock())) event.setInstaBreak(true);
+        else event.setCancelled(true);
     }
 
     @EventHandler(priority=EventPriority.HIGHEST,ignoreCancelled=true)
@@ -94,11 +102,14 @@ public final class StoneDrill implements Listener {
         int tier=tier(player.getInventory().getItemInMainHand());
         if(tier==0)return;
         Block rock=event.getBlock();
-        if(!progression.meets(player,"paladio")
+        String requiredStage=tier==3?"resonancia":tier==2?"duendes":"paladio";
+        if(!progression.meets(player,requiredStage)
                 || player.getGameMode()!=GameMode.SURVIVAL
-                || !stone(rock) || !regions.canBuild(player,rock)){
+                || !regions.canBreak(player,rock)){
             event.setCancelled(true);return;
         }
+        if (ore(rock)) return;
+        if (!stone(rock)) { event.setCancelled(true); return; }
         long now=System.currentTimeMillis();
         int delay=config().getInt("taladro.intervalo-milisegundos.nivel"+tier,500);
         if(now-lastBreak.getOrDefault(player.getUniqueId(),0L)<delay){
@@ -111,7 +122,8 @@ public final class StoneDrill implements Listener {
         org.bukkit.Location origin=rock.getLocation();
         String heldId=mmo.id(player.getInventory().getItemInMainHand());
         Bukkit.getScheduler().runTask(plugin,()->{
-            if(!active||!player.isOnline()||!player.getUniqueId().equals(owner)
+            if(event.isCancelled() || !origin.getBlock().getType().isAir()
+                    || !active||!player.isOnline()||!player.getUniqueId().equals(owner)
                     ||player.getWorld()!=origin.getWorld()
                     ||player.getLocation().distanceSquared(origin)>64
                     ||!heldId.equals(mmo.id(player.getInventory().getItemInMainHand())))return;
@@ -121,7 +133,7 @@ public final class StoneDrill implements Listener {
                 if(completed>=extras)break;
                 Block target=center.getRelative(face);
                 if(!target.getWorld().isChunkLoaded(target.getX()>>4,target.getZ()>>4)
-                        ||!stone(target)||!regions.canBuild(player,target))continue;
+                        ||!stone(target)||!regions.canBreak(player,target))continue;
                 // Auxiliary clearance gives no drops and no AuraSkills XP.
                 target.setType(Material.AIR,false);
                 completed++;

@@ -41,6 +41,7 @@ public final class CommandRoutes {
         routes.add(route("trabajos resolver","trabajo","trabajos",Access.ADMIN,"<uuid>","Cerrar un caso conciliado manualmente","resolver"));
         routes.add(route("resonancia","resonancia","resonancia",Access.PUBLIC,"","Carga del Pico Perdido"));
         routes.add(route("resonancia debug","debugresonancia","resonancia",Access.HYDEV_ADMIN,"","Diagnóstico de resonancia"));
+        routes.add(route("mineria permisos sincronizar","debugresonancia","resonancia",Access.HYDEV_ADMIN,"","Aplicar desbloqueos mineros por nivel","sincronizar"));
         routes.add(route("item nombre","nombreitem","",Access.HYDEV_ADMIN,"","Inspeccionar y copiar el nombre del objeto"));
         routes.add(route("misiones","misiones","slayer",Access.PUBLIC,"","Abrir el catálogo de misiones"));
         routes.add(route("misiones monarquia","misiones","slayer",Access.PUBLIC,"","Abrir los contratos de Monarquía Renacida","revenant"));

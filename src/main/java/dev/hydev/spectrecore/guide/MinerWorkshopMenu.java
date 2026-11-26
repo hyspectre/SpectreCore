@@ -122,7 +122,7 @@ public final class MinerWorkshopMenu implements Listener {
         Inventory inventory=Bukkit.createInventory(holder,54,styled(layout.getString("title"),Map.of()));
         holder.inventory=inventory;
         int level=workshop.level(player), required=workshop.minimumLevel();
-        boolean unlocked=level>=required;
+        boolean unlocked=workshop.availableFor(player);
         int have=workshop.available(player,mineral,mode);
         int perBatch=mode==MinerWorkshop.Mode.COMPACTAR?workshop.perBatch():1;
         int maximum=workshop.possible(player,mineral,mode);

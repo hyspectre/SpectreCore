@@ -1,7 +1,7 @@
-# Copiar a plugins/AuraSkills/rewards/mining.yml si corresponde a
-# la configuración actualmente instalada. Conserva los patrones originales.
-# El antiguo permiso tesoromineria1 del nivel 30 ya no se utiliza.
-# La progresión visual de Minería sigue siendo de AuraSkills.
+# Hydev / AuraSkills — recompensas de minería.
+# Una sola fuente de verdad para niveles, estadísticas, permisos y anuncios.
+# Nunca conceder permisos de contratos pagados desde aquí.
+# Los mensajes se ven también en el menú nativo de progresión.
 patterns:
   - type: stat
     stat: toughness
@@ -13,3 +13,53 @@ patterns:
     value: 1
     pattern:
       interval: 2
+
+levels:
+  1:
+    - type: permission
+      permission: hydev.mineria.inicial
+      value: true
+      menu_message: "\n&8✦ &6ᴍɪɴᴇʀíᴀ ɪɴɪᴄɪᴀʟ &8· &7Contrato Novato y primeros encargos"
+      chat_message: "\n&6✦ &fᴍɪɴᴇʀíᴀ 1 &8│ &eᴍɪɴᴇʀíᴀ ɪɴɪᴄɪᴀʟ &8· &fContrato Novato y primeros encargos"
+  3:
+    - type: permission
+      permission: hydev.mineria.hechizados
+      value: true
+      menu_message: "\n&8✦ &6ᴍɪɴᴇʀᴀʟᴜʀɢɪᴀ &8· &7Compactar y pulverizar minerales hechizados"
+      chat_message: "\n&6✦ &fᴍɪɴᴇʀíᴀ 3 &8│ &eᴍɪɴᴇʀᴀʟᴜʀɢɪᴀ &8· &fCompactar y pulverizar minerales hechizados"
+  6:
+    - type: permission
+      permission: hydev.mineria.paladio
+      value: true
+      menu_message: "\n&8✦ &6ʟᴀ ᴇʀᴀ ᴅᴇʟ ᴘᴀʟᴀᴅɪᴏ &8· &7Paladio, Taladro y contrato Experimentado"
+      chat_message: "\n&6✦ &fᴍɪɴᴇʀíᴀ 6 &8│ &eʟᴀ ᴇʀᴀ ᴅᴇʟ ᴘᴀʟᴀᴅɪᴏ &8· &fPaladio, Taladro y contrato Experimentado"
+  12:
+    - type: permission
+      permission: hydev.mineria.duendes
+      value: true
+      menu_message: "\n&8✦ &6ᴅᴜᴇɴᴅᴇs ᴅᴇʟ ᴏʀᴏ &8· &7Encuentros con Duendes y Chatarra Mecánica"
+      chat_message: "\n&6✦ &fᴍɪɴᴇʀíᴀ 12 &8│ &eᴅᴜᴇɴᴅᴇs ᴅᴇʟ ᴏʀᴏ &8· &fEncuentros con Duendes y Chatarra Mecánica"
+  15:
+    - type: permission
+      permission: hydev.mineria.resonancia
+      value: true
+      menu_message: "\n&8✦ &6ʀᴇsᴏɴᴀɴᴄɪᴀ ᴍɪɴᴇʀᴀʟ &8· &7Prospectores, Pico Perdido y contrato Profesional"
+      chat_message: "\n&6✦ &fᴍɪɴᴇʀíᴀ 15 &8│ &eʀᴇsᴏɴᴀɴᴄɪᴀ ᴍɪɴᴇʀᴀʟ &8· &fProspectores, Pico Perdido y contrato Profesional"
+  18:
+    - type: permission
+      permission: hydev.mineria.mitrilo
+      value: true
+      menu_message: "\n&8✦ &6ᴅᴇsᴄᴜʙʀɪᴍɪᴇɴᴛᴏ ᴅᴇʟ ᴍɪᴛʀɪʟᴏ &8· &7Mitrilo y Picos de Mitrilo"
+      chat_message: "\n&6✦ &fᴍɪɴᴇʀíᴀ 18 &8│ &eᴅᴇsᴄᴜʙʀɪᴍɪᴇɴᴛᴏ ᴅᴇʟ ᴍɪᴛʀɪʟᴏ &8· &fMitrilo y Picos de Mitrilo"
+  22:
+    - type: permission
+      permission: hydev.mineria.arcana
+      value: true
+      menu_message: "\n&8✦ &6ʀᴇsᴏɴᴀɴᴄɪᴀ ᴀʀᴄᴀɴᴀ &8· &7Pico de Amatista y cristales encantados"
+      chat_message: "\n&6✦ &fᴍɪɴᴇʀíᴀ 22 &8│ &eʀᴇsᴏɴᴀɴᴄɪᴀ ᴀʀᴄᴀɴᴀ &8· &fPico de Amatista y cristales encantados"
+  25:
+    - type: permission
+      permission: hydev.mineria.ingenieria
+      value: true
+      menu_message: "\n&8✦ &6ɪɴɢᴇɴɪᴇʀíᴀ ʏ ᴘʀᴏsᴘᴇᴄᴄɪóɴ &8· &7Brújula Geológica, Farol y Barrena"
+      chat_message: "\n&6✦ &fᴍɪɴᴇʀíᴀ 25 &8│ &eɪɴɢᴇɴɪᴇʀíᴀ ʏ ᴘʀᴏsᴘᴇᴄᴄɪóɴ &8· &fBrújula Geológica, Farol y Barrena"

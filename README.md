@@ -1,60 +1,127 @@
-# SpectreCore — núcleo RPG de Hydev
+# SpectreCore · núcleo RPG de Hydev
 
-**Versión en desarrollo:** `0.9.0-dev7`  
-**Servidor objetivo:** Paper 1.21.10 · Java 21  
-**Estado:** séptima entrega de 0.9; usa GitHub Actions para validar el código. **No es una versión de producción**.
+**SpectreCore** es el núcleo modular de los sistemas RPG de Hydev, un servidor Minecraft de fantasía oscura. Integra la progresión del jugador, el equipamiento, las profesiones y la exploración en un ecosistema coherente: posibilidades profundas, controles intuitivos e implementación ordenada.
 
-SpectreCore reúne cocina, accesorios consumibles, habilidades de armadura, profesiones, encargos, exploración, Slayer, herramientas de mundo y menús dentro de un único plugin modular. Los módulos forman parte permanente del sistema; no existen interruptores de configuración para desactivarlos.
+> [!IMPORTANT]
+> **Lee [AGENTS.md](AGENTS.md) antes de modificar código o configuración.** Contiene el contrato de diseño y desarrollo acordado con Hydev. Consulta también el [estado técnico y auditoría](docs/ESTADO_Y_AUDITORIA.md) para continuar desde el trabajo real, no desde supuestos.
 
-La línea 0.9 incorpora **hitos de colección en el Relicario**: progreso visible por categoría, objetivos configurables y celebración de descubrimientos. No añade monedas, estadísticas ni estructuras nuevas de persistencia. Incluye además un **Tablón de abastecimiento** para consultar los materiales realmente definidos por minería, caza y agricultura, cuánto llevas y si sus hallazgos están accesibles. No crea recetas ni altera la economía. Consulta [ROADMAP_0.9.md](ROADMAP_0.9.md) para el alcance pendiente.
+## 1. Estado del repositorio
 
-La tercera entrega agrega **Mitrilo**, hallazgo de minería avanzada y recurso para dos picos de MMOItems. El tablón incorpora el **Pedido del Herrero**, que entrega 4 Mitrilo por 180 monedas con registro de transacciones. Los fragmentos de recetas deben integrarse en la Forja ya existente, sin crear una estación duplicada. Consulta [INSTALAR_MITRILO.md](integracion-mmoitems/INSTALAR_MITRILO.md).
+Última revisión de documentación: **26 de noviembre de 2026**.
 
-La cuarta entrega añade **Brújula Geológica, Farol de Mitrilo, Barrena de Mitrilo y Cristal de Mitrilo**, además de una habilidad de extracción por vetas en el Pico existente. Todas las herramientas guardan su energía de forma persistente en cada objeto. Consulta la [guía de instalación y controles](integracion-mmoitems/INSTALAR_MITRILO.md) antes de fusionar ítems y recetas en MMOItems.
+| Referencia | Estado al auditar |
+|---|---|
+| [Rama acumulativa de desarrollo](https://github.com/hyspectre/SpectreCore/tree/fix/0-9-mineria-integraciones-hydev) | `0.9.0-dev8`, base auditada: [`73eb5c4`](https://github.com/hyspectre/SpectreCore/commit/73eb5c4dc60dce3f37743e4238e57d25ffd44c7c) |
+| [PR #11](https://github.com/hyspectre/SpectreCore/pull/11) | Borrador; integra la revisión minera sobre PR #10 |
+| `main` | Código histórico `0.7.3-m3-alpha`; no contiene aún la línea 0.9 |
+| Servidor objetivo | Paper **1.21.10**, Java **21** |
+| Certificación de release | **Pendiente**. CI verde no implica compatibilidad ni seguridad ingame |
 
-La quinta entrega introduce el **Pico de Amatista** y una resonancia amplificada: su habilidad crea bloques hechizados temporales que se rompen para obtener gemas de distintas calidades. El pico utiliza Mitrilo, Paladio y amatista en su receta. Consulta las instrucciones del [Pico de Amatista](integracion-mmoitems/INSTALAR_MITRILO.md#pico-de-amatista--resonancia-amplificada-090-dev5).
+La documentación está disponible en ambas ramas; eso **no significa que sus fuentes estén sincronizadas**. Para retomar el desarrollo 0.9, inspecciona la rama acumulativa y sus commits/PR posteriores. No derives una funcionalidad nueva de `main` por defecto. Comprueba siempre la versión real en `build.gradle.kts` y `src/main/resources/plugin.yml`.
 
-La sexta entrega añade el **Taller del Minero** dentro de SpectreCore. Desde nivel 3 de Minería de AuraSkills, los jugadores pueden compactar 64 minerales comunes en un objeto hechizado MMOItems o pulverizarlo para obtener un pago fijo. Tiene menú nativo, vista previa, confirmación, operaciones por lotes y protección de transacciones. Se abre por `/spectrecore minero`, desde Trabajos o con el Compactador Portátil. Consulta la [guía de integración del NPC Minero](integracion-mmoitems/TALLER_MINERO_NATIVO.md).
+## 2. Principios no negociables
 
-La séptima entrega desarrolla **Minería completa hasta nivel 25**: Duendes al extraer oro, Prospectores al hallar menas profundas, Chatarra, Taladro y dos mejoras, reconstrucción del Pico Perdido con su ID original `TOOL:PICO_GEMAS`, probabilidades funcionales de Paladio y gemas de resonancia. **Luck de AuraSkills** mejora encuentros, botines, cantidades y calidades con límites seguros. El menú de progreso permanece en AuraSkills; SpectreCore únicamente valida los niveles. Consulta la [guía de instalación de Minería](integracion-mmoitems/MINERIA_DEV7_INSTALACION.md).
+- **Jugador primero:** diseño intuitivo, decisiones útiles, retroalimentación clara y progresión con propósito.
+- **Rendimiento, optimización, limpieza y seguridad.** Monolito modular, permisos validados, datos persistentes y transacciones sin duplicación.
+- **Configura el juego en YAML, no la arquitectura.** Los módulos siempre forman parte del núcleo; sin interruptores para desactivarlos. Ausencias de dependencias deben diagnosticarse de manera explícita.
+- **Identidad Hydev:** el jugador no debe ver nombres de plugins, IDs internos ni instrucciones técnicas en menús, lore o NPC. MiniMessage, español latinoamericano, gradientes y versalitas legibles.
+- **Integrar antes de reinventar:** una fuente de verdad por dato, APIs públicas verificadas e IDs existentes conservados.
 
-## Comandos
+Las reglas completas, las convenciones de UX y el flujo obligatorio están en [AGENTS.md](AGENTS.md).
 
-Solo se registra `/spectrecore` como comando raíz.
+## 3. Sistemas de la línea 0.9
 
-- Jugadores: `/spectrecore mago`, `/spectrecore relicario`, `/spectrecore armaduras`, `/spectrecore cocina`, `/spectrecore trabajos`, `/spectrecore trabajos abastecimiento`, `/spectrecore misiones`.
-- Administradores: `/spectrecore integraciones`, `/spectrecore diagnostico`, `/spectrecore modelo`, `/spectrecore reload`.
-- Compras pendientes: `/spectrecore trabajos transacciones`; resolver solo después de comprobar permisos y saldos mediante `/spectrecore trabajos resolver <uuid>`.
+| Dominio | Función |
+|---|---|
+| Equipamiento | Cinco conjuntos legendarios, habilidades activas/pasivas y guía de armaduras |
+| Cocina | Calderos, actividades culinarias simplificadas, 15 recetas y 45 resultados por calidad |
+| Relicario | Accesorios consumibles de desbloqueo permanente, bonificaciones simultáneas, colecciones e hitos; el catálogo base auditado incluye 37 reliquias |
+| Trabajos y tesoros | Contratos de minero, granjero y cazador, recompensas, tablón de abastecimiento y encargos |
+| Minería | Paladio, Mitrilo, herramientas especializadas, resonancia, gemas, geodas, Duendes y Prospectores, Taller del Minero y Forja Minera |
+| Slayer | Misiones, progresión, contratos de dificultad, jefes y recompensas |
+| Mazmorras | Controladores de combate y portal de extracción dependiente del registro de expediciones |
+| El Mago | Centro de conocimiento y navegación por categorías; menús independientes y configurables |
+| Núcleo | Adaptadores, comandos, textos MiniMessage, diagnósticos, modelos y avisos visuales |
 
-La navegación del Mago usa menús del servidor configurados en `src/main/resources/ui/mago.yml`. Todas las rutas y permisos aparecen en `src/main/java/dev/hydev/spectrecore/command/CommandRoutes.java`.
+La tabla describe funcionalidades presentes en la base auditada de desarrollo, **no certificadas todas en el servidor**. Los límites, riesgos, y pruebas pendientes están documentados en [docs/ESTADO_Y_AUDITORIA.md](docs/ESTADO_Y_AUDITORIA.md). El [roadmap 0.9](https://github.com/hyspectre/SpectreCore/blob/fix/0-9-mineria-integraciones-hydev/ROADMAP_0.9.md) conserva el historial de diseño; contrástalo con el código, pues algunos detalles fueron modificados en dev8.
 
-## Configuración y recursos
+### Progresión minera acordada
 
-- `src/main/resources/modules/`: balance, recetas, mensajes, límites y presentación.
-- `src/main/resources/ui/`: menús nativos, incluido el Relicario.
-- `integracion-mmoitems/`: ítems y configuraciones de MMOItems que debe instalar la administración.
-- `src/main/resources/models/`: modelos con Display Entities, admitiendo cabezas Base64.
-- Adventure MiniMessage en textos configurables; preserva soporte para colores heredados cuando sea necesario.
+AuraSkills es la fuente de experiencia, nivel, Luck y menú de progresión. Por nivel concede permisos `hydev.mineria.*`; SpectreCore valida los hitos y mantiene por separado los contratos pagados.
 
-## Integraciones
+| Nivel | Desbloqueo |
+|---:|---|
+| 1 | Minería inicial; contrato Novato |
+| 3 | Minerales hechizados; Taller del Minero |
+| 6 | Paladio, Taladro, contrato Experimentado |
+| 12 | Duendes del Oro, Chatarra Mecánica y Taladro Reforzado |
+| 15 | Resonancia mineral, Prospectores, Pico Perdido, Taladro Calibrado y contrato Profesional |
+| 18 | Mitrilo y picos de Mitrilo |
+| 22 | Resonancia arcana, Pico de Amatista y geodas |
+| 25 | Ingeniería y prospección: Brújula, Farol y Barrena de Mitrilo |
 
-Paper, MythicLib/MMOItems, MythicMobs, ItemsAdder y AuraSkills integran el ecosistema previsto. También se detectan o utilizan, según función y versión, WorldGuard, LuckPerms, FancyNPCs, FancyHolograms, zMenu, EssentialsX, FAWE y Vault. La presencia de un plugin no garantiza que todas sus funciones estén integradas.
+No reemplaces los IDs de ítems preexistentes, ni mezcles las antiguas recetas y paquetes mineros sin verificar el catálogo efectivo.
 
-## Compilación y verificaciones
+## 4. Dónde trabajar
+
+Estas rutas corresponden a la rama 0.9; en una rama antigua algunas no existen.
+
+| Ruta | Responsabilidad |
+|---|---|
+| `src/main/java/dev/hydev/spectrecore/` | Código Java; `SpectreCorePlugin.java` es la composición y ciclo de vida |
+| `.../command/`, `.../config/`, `.../text/` | Rutas/permisos, validación/migraciones, renderizado textual |
+| `.../storage/`, `.../integration/`, `.../core/` | Persistencia y diarios, adaptadores externos, servicios compartidos |
+| `.../cooking/`, `.../relicario/`, `.../mining/` | Dominios especializados |
+| `.../systems/`, `.../skills/`, `.../activities/`, `.../treasure/` | Trabajos, Slayer, portal, equipamiento y otras actividades |
+| `.../guide/`, `.../model/`, `.../diagnostics/` | Interfaz, modelos Display y diagnóstico |
+| `src/main/resources/modules/<dominio>/` | Configuración, balance, mensajes, recetas y presentación propios |
+| `src/main/resources/ui/`, `src/main/resources/models/` | Menús nativos y modelos |
+| `integracion-auraskills/`, `integracion-mythicmobs/`, `integracion-mmoitems/` | Archivos de integración externos; no equivalen a una instalación realizada |
+| `tests/`, `.github/workflows/build.yml` | Validaciones, regresiones, compilación y empaquetado |
+| `referencias-skript/`, `integracion-zmenu/` | Referencias históricas; no desplegar automáticamente |
+
+## 5. Comandos y presentación
+
+Contrato vigente de **0.9**: todos los comandos propios se enrutan bajo `/spectrecore`. Las operaciones de jugador pueden exponerse mediante El Mago, objetos y NPC, sin revelar comandos en los iconos. La versión antigua de `main` aún tiene `/mago` registrado.
+
+- Jugadores: `/spectrecore mago`, `relicario`, `armaduras`, `cocina`, `trabajos`, `trabajos abastecimiento`, `minero`, `misiones` (todos bajo el mismo raíz).
+- Administración: `/spectrecore ayuda`, `integraciones`, `diagnostico`, `modelo`, `reload`.
+- Conciliación de operaciones: `/spectrecore trabajos transacciones` y `/spectrecore trabajos resolver <uuid>` solo tras comprobar el estado real.
+
+La autoridad de rutas concretas y permisos es `command/CommandRoutes.java`, `command/CommandRouter.java`, `modules/nucleo/comandos.yml` y `plugin.yml` de la rama seleccionada. No confíes en listados de versiones anteriores para implementar comandos nuevos.
+
+## 6. Ecosistema e instalación
+
+Base: Paper, MythicLib/MMOItems, MythicMobs **Free 5.13.0**, ItemsAdder y AuraSkills. Complementos: FancyNPCs, FancyHolograms, zMenu, WorldGuard, LuckPerms, EssentialsX, FAWE, Vault y Dungeons+ según función. Verifica versiones reales y APIs antes de modificar adaptadores: las dependencias de compilación no prueban las versiones instaladas.
+
+- La línea minera utiliza [`integracion-mmoitems/mineria-v2/`](https://github.com/hyspectre/SpectreCore/tree/fix/0-9-mineria-integraciones-hydev/integracion-mmoitems/mineria-v2), [recompensas AuraSkills](https://github.com/hyspectre/SpectreCore/blob/fix/0-9-mineria-integraciones-hydev/integracion-auraskills/rewards/mining.yml) y ambos YAML de MythicMobs.
+- El instalador minero dispone de simulación y respaldos, pero **no debe aplicarse a producción** hasta resolver el defecto de claves de YAML duplicadas y validar la Forja real.
+- El Taller del Minero compacta 64 unidades y pulveriza materiales hechizados por dinero; no requiere una estación duplicada de MMOItems. Falta verificar el enlace con el NPC real.
+- Consulta las migraciones en la rama activa antes de reemplazar el JAR. Conserva respaldos de JAR, configuraciones y datos. No instales paquetes legacy y actuales juntos.
+
+## 7. Compilar y validar
+
+Requisitos: JDK 21, Gradle 8.14.3 (la versión usada por CI), Python 3 y PyYAML; acceso a los repositorios Maven definidos en Gradle.
 
 ```bash
-gradle clean build --no-daemon
+git status --short --branch
+git log -1 --oneline
+python3 -m pip install pyyaml
+bash tests/check_java_syntax.sh
 bash tests/run_pure_java_tests.sh
-python3 tests/validate_release.py
-python3 tests/validate_relicario_catalog.py
-python3 tests/validate_supply_board.py
-python3 tests/validate_mithril.py
+gradle clean build --no-daemon
 ```
 
-El workflow `.github/workflows/build.yml` ejecuta además validadores de configuración, pruebas Java y empaqueta el JAR al completar satisfactoriamente. La compilación no sustituye pruebas reales dentro de Minecraft.
+Ejecuta además **los validadores de Python enumerados en `.github/workflows/build.yml` de tu rama**, incluidas las pruebas del instalador si existen. El workflow de 0.9 empaqueta el JAR en `build/libs/` y el ZIP de integraciones mineras. Comprueba resultados del commit exacto, no de un build anterior.
 
-## Actualización segura
+Una compilación exitosa no verifica eventos de Paper, comportamiento de mobs, compatibilidad de ítems, transacciones o rendimiento real. Consulta el checklist de certificación en [docs/ESTADO_Y_AUDITORIA.md](docs/ESTADO_Y_AUDITORIA.md).
 
-Lee [MIGRACION_0.8.2-stability-rc1.md](MIGRACION_0.8.2-stability-rc1.md), conserva copias de los archivos persistentes y actualiza las referencias antiguas a `/mago` por `/spectrecore mago`. Las transacciones de trabajos interrumpidas se dejan en cuarentena para conciliación manual.
+## 8. Continuidad de trabajo
 
-**No instalar directamente en producción sin completar las pruebas de integración y respaldar los datos.**
+1. Lee [AGENTS.md](AGENTS.md) y el [estado/auditoría](docs/ESTADO_Y_AUDITORIA.md).
+2. Inspecciona ramas, versión, archivos y pruebas antes de elegir la base.
+3. Prioriza los bloqueos de seguridad y datos antes de ampliar contenido, salvo indicación explícita del responsable.
+4. Diseña, implementa, valida y publica los cambios de código/configuración en GitHub sin forzar pushes ni fusionar a `main` sin autorización.
+5. Actualiza las notas de continuidad cuando cambie el estado de una mecánica, incluyendo commit, evidencia, tareas pendientes y riesgos.
+
+**La documentación es una guía; las fuentes de la rama y las pruebas reproducibles determinan el estado real.**

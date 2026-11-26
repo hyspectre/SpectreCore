@@ -1,6 +1,7 @@
 package dev.hydev.spectrecore.relicario;
 
 import dev.hydev.spectrecore.SpectreCorePlugin;
+import org.bukkit.plugin.java.JavaPlugin;
 import dev.hydev.spectrecore.config.ModuleConfiguration;
 import dev.hydev.spectrecore.model.CustomHeads;
 import dev.hydev.spectrecore.model.TexturePayload;
@@ -137,6 +138,9 @@ public final class RelicarioModule implements Listener {
             if (!file.isFile() || file.length() > 96_000) throw new IllegalArgumentException("UI invalid");
             YamlConfiguration nextUi = new YamlConfiguration();
             nextUi.load(file);
+            try (var reader = new InputStreamReader(plugin.getResource("ui/relicario.yml"), StandardCharsets.UTF_8)) {
+                nextUi.setDefaults(YamlConfiguration.loadConfiguration(reader));
+            }
             if (nextUi.getInt("general.size") != 54)
                 throw new IllegalArgumentException("Invalid Relicario UI geometry");
             List<Integer> nextMilestones = List.of(25, 50, 100);
@@ -249,6 +253,19 @@ public final class RelicarioModule implements Listener {
     public Map<String, Double> calculate(UUID uuid) {
         if (!ready(uuid)) return Map.of();
         return RelicarioRules.totals(rules.values(), store.discovered(uuid), caps);
+    }
+    public static double miningBonus(JavaPlugin plugin, Player player, String key) {
+        if (!(plugin instanceof SpectreCorePlugin core)) return 0;
+        RelicarioModule relics = core.relicario();
+        return relics == null || relics.stats == null || !relics.ready(player.getUniqueId())
+                ? 0 : relics.stats.amount(player.getUniqueId(), key);
+    }
+    private String statUnit(String key) {
+        return switch (key) {
+            case "health", "mana" -> "";
+            case "signal_seconds" -> " s";
+            default -> "%";
+        };
     }
     public long addJobCoins(Player player, long amount) {
         return stats == null ? amount : stats.salary(player, amount);
@@ -466,7 +483,7 @@ public final class RelicarioModule implements Listener {
                     Map.Entry.comparingByKey()).toList()) {
                 String label = ui.getString("estadisticas.nombres." + total.getKey(), total.getKey());
                 String value = format(total.getValue()) +
-                        (Set.of("health", "mana").contains(total.getKey()) ? "" : "%");
+                        statUnit(total.getKey());
                 List<String> lore = new ArrayList<>();
                 if (total.getKey().equals("mana") && !stats.manaAvailable(player))
                     lore.add(msg("mana-offline", "<yellow>La magia del mundo aún no responde."));
@@ -497,7 +514,7 @@ public final class RelicarioModule implements Listener {
                 for (var bonus : entry.relic.bonuses().entrySet()) {
                     String label = ui.getString("estadisticas.nombres." + bonus.getKey(), bonus.getKey());
                     lore.add("<gray>" + label + " <green>+" + format(bonus.getValue()) +
-                            (Set.of("health", "mana").contains(bonus.getKey()) ? "" : "%"));
+                            statUnit(bonus.getKey()));
                 }
                 lore.add("");
                 lore.add(state);

@@ -14,13 +14,13 @@ assert "modules" not in general, "No global module switch is allowed"
 assert source["mmoitems-type"] == "RELIQUIA"
 assert types["RELIQUIA"]["parent"] == "MISCELLANEOUS"
 catalog = source["accesorios"]
-assert len(catalog) == len(items) == 32
+assert len(catalog) == len(items) == 37
 assert set(catalog) == set(items)
 assert Counter(i["categoria"] for i in catalog.values()) == {
-    "cripta": 11, "superficie": 11, "exploracion": 5, "excepcionales": 5}
+    "cripta": 11, "superficie": 11, "exploracion": 10, "excepcionales": 5}
 families=defaultdict(dict)
 known_stats=set(source["caps"])
-assert len(known_stats) == 17 and all(v > 0 for v in source["caps"].values())
+assert len(known_stats) == 22 and all(v > 0 for v in source["caps"].values())
 for id, record in catalog.items():
     assert re.fullmatch(r"[A-Z][A-Z0-9_]{1,63}", id), id
     assert record["rareza"] in {"RARE","EPIC","LEGENDARY"}, id
@@ -84,5 +84,5 @@ for category,payload in ui["colecciones"].items():
     assert payload["progreso-slot"] not in payload["recipe-slots"]
 assert ui["confirmacion"]["size"] == 27
 assert len({ui["confirmacion"][key] for key in ("item-slot","confirmar-slot","cancelar-slot")})==3
-print("PASS Relicario: 32 objects, 9 families, 17 caps, 5 configured views, visible milestones, no invalid item stats")
+print("PASS Relicario: 37 objects, 9 families, 22 caps, 5 configured views, visible milestones, no invalid item stats")
 

@@ -1,5 +1,7 @@
 package dev.hydev.spectrecore.mining;
 
+import static dev.hydev.spectrecore.relicario.RelicarioModule.miningBonus;
+
 import dev.hydev.spectrecore.config.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -65,7 +67,10 @@ public final class MithrilToolModule implements Listener {
         settings = dev.hydev.spectrecore.config.ModuleConfiguration.module(plugin, "tesoros/mineria.yml");
         amethystField.configure(settings);
     }
+    private final Map<UUID, java.util.Set<org.bukkit.Location>> markedVeins = new HashMap<>();
+
     public void disable() {
+        markedVeins.clear();
         prospector.disable();
         drill.disable();
         lantern.disable();
@@ -74,6 +79,12 @@ public final class MithrilToolModule implements Listener {
         signals.clear();
         if (active) HandlerList.unregisterAll(this);
         active = false;
+    }
+
+    public void revealOre(Player player, org.bukkit.Location location, String tool) {
+        if (active && amethystField.revealOre(player,location,tool)) {
+            player.sendMessage("§b✦ Diamante Loco · Golpea la mena revelada.");
+        }
     }
 
     private int capacity() { return settings.getInt("herramientas-mitrilo.resonancia.maxima", 100); }
@@ -137,12 +148,14 @@ public final class MithrilToolModule implements Listener {
         }
         if (!MithrilDeviceData.PICK.equals(id) && !MithrilDeviceData.TEMPERED.equals(id)) return;
         if (data.activeUntil(current) <= System.currentTimeMillis()) return;
+        var marked = markedVeins.get(player.getUniqueId());
+        if (marked == null || !marked.contains(ore.getLocation())) return;
         int perBlock = cost("pico.coste-bloque-adicional");
         if (perBlock <= 0) return;
         List<Block> vein = prospector.connected(player, ore,
                 cost("pico.radio"), cost("pico.max-resaltados"));
         int limit = cost("pico.max-bloques-adicionales");
-        List<Block> extras = vein.stream().filter(extra -> !extra.equals(ore)).limit(limit).toList();
+        List<Block> extras = vein.stream().filter(extra -> !extra.equals(ore) && marked.contains(extra.getLocation())).limit(limit).toList();
         if (extras.isEmpty()) return;
         // Do not modify world blocks at MONITOR. Finish the real break first,
         // then revalidate region, item identity and provenance the following tick.
@@ -158,7 +171,7 @@ public final class MithrilToolModule implements Listener {
                             && !MithrilDeviceData.TEMPERED.equals(data.id(live)))
                         || !world.isChunkLoaded(extra.getX() >> 4, extra.getZ() >> 4)
                         || !MithrilRules.sameOre(originalOre, extra.getType().name())
-                        || placed.isMarked(extra) || !regions.canBuild(player, extra)) break;
+                        || placed.isMarked(extra) || !regions.canBreak(player, extra)) break;
                 ItemStack breaker = live;
                 if (!MithrilAutomationGuard.breakBlock(() -> extra.breakNaturally(breaker, true))) break;
                 data.update(player, EquipmentSlot.HAND, data.changeCharge(live, -perBlock, capacity()));
@@ -220,16 +233,18 @@ public final class MithrilToolModule implements Listener {
         if (used) event.setCancelled(true);
     }
 
+    private int configRecharge() { return settings.getInt("herramientas-mitrilo.carga.recupera", 30); }
+
     private boolean recharge(Player player) {
         ItemStack stack = data.held(player, EquipmentSlot.OFF_HAND);
-        if (data.id(stack).isEmpty()) return false;
+        if (data.id(stack).isEmpty() || MithrilDeviceData.AMETHYST.equals(data.id(stack))) return false;
         int max = capacity(), existing = data.energy(stack);
         if (existing >= max) {
             feedback(player, "carga-completa", "<gray>La herramienta ya está completamente cargada.");
             return true;
         }
         data.update(player, EquipmentSlot.OFF_HAND,
-                data.changeCharge(stack, cost("cristal.recupera"), max));
+                data.changeCharge(stack, configRecharge(), max));
         ItemStack crystal = data.held(player, EquipmentSlot.HAND);
         if (crystal.getAmount() <= 1) data.update(player, EquipmentSlot.HAND, new ItemStack(Material.AIR));
         else {
@@ -259,7 +274,7 @@ public final class MithrilToolModule implements Listener {
     private boolean pick(Player player) {
         Block target = player.getTargetBlockExact(6);
         if (target == null || MithrilRules.sameOre(target.getType().name(), target.getType().name()) == false
-                || placed.isMarked(target) || !regions.canBuild(player, target)) {
+                || placed.isMarked(target) || !regions.canBreak(player, target)) {
             feedback(player, "sin-veta", "<gray>Mira una veta natural que puedas extraer.");
             return true;
         }
@@ -271,6 +286,7 @@ public final class MithrilToolModule implements Listener {
         }
         if (!spend(player, cost("pico.activacion"), cost("pico.recarga-segundos") * 1000L,
                 cost("pico.duracion-segundos") * 1000L)) return true;
+        markedVeins.put(player.getUniqueId(), vein.stream().map(Block::getLocation).collect(java.util.stream.Collectors.toSet()));
         prospector.highlight(player, vein, cost("pico.resaltado-segundos"));
         feedback(player, "veta", "<aqua>✦ Veta marcada. Extrae para recoger hasta tres bloques adicionales.");
         return true;
@@ -347,7 +363,7 @@ public final class MithrilToolModule implements Listener {
             UUID uuid = player.getUniqueId();
             BukkitTask old = signals.remove(uuid);
             if (old != null) old.cancel();
-            int[] remaining = {cost("brujula.duracion-senal-segundos")};
+            int[] remaining = {cost("brujula.duracion-senal-segundos") + (int) miningBonus(plugin, player, "signal_seconds")};
             BukkitTask repeating = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
                 if (!player.isOnline() || remaining[0]-- <= 0) {
                     BukkitTask timer = signals.remove(uuid);
@@ -425,6 +441,7 @@ public final class MithrilToolModule implements Listener {
     }
     @EventHandler public void teleport(PlayerTeleportEvent event) { lantern.teleported(event.getPlayer()); }
     @EventHandler public void quit(PlayerQuitEvent event) {
+        markedVeins.remove(event.getPlayer().getUniqueId());
         var id = event.getPlayer().getUniqueId();
         prospector.quit(id);
         drill.cancel(id);

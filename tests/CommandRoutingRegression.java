@@ -24,6 +24,9 @@ public final class CommandRoutingRegression {
             check(route.usage().startsWith("/spectrecore "),"Canonical usage "+route.path());
             if(!route.target().equals("$core"))targets.add(route.target());
         }
+        var sync = CommandRoutes.resolve(new String[]{"mineria","permisos","sincronizar"});
+        check(sync.route().access()==CommandRoutes.Access.HYDEV_ADMIN && sync.route().target().equals("debugresonancia")
+                && sync.arguments().equals(List.of("sincronizar")), "Mining backfill reaches the admin handler");
         check(targets.size()==42,"All private handlers plus Relicario and Mago menus");
         check(CommandRoutes.resolve(new String[]{"resonancia","debug"}).route().target().equals("debugresonancia"),"Longest prefix wins over public resonance query");
         check(CommandRoutes.resolve(new String[]{"tesoros","mineria","3"}).arguments().equals(List.of("mineria","tesoro","3")),"Preview adapter keeps expected argument positions");

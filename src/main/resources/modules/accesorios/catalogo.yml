@@ -1,4 +1,4 @@
-# Hydev Relicario v0.1 — 32 accesorios, 9 familias de mejora.
+# Hydev Relicario v0.1 — 37 accesorios, 9 familias de mejora.
 # Todos los accesorios consumidos aportan sus bonos, incluso dentro de una misma familia.
 # Los límites se aplican sobre el resultado de la suma, no sobre cada objeto.
 mmoitems-type: RELIQUIA
@@ -20,6 +20,11 @@ caps:
   movement_speed: 5
   projectile_reduction: 6
   contract_coins: 5
+  duende_chance: 25
+  prospector_chance: 25
+  resonance_extra: 20
+  geode_chance: 30
+  signal_seconds: 4
 accesorios:
   BROTE_MARCHITO:
     nombre: "Brote Marchito"
@@ -348,3 +353,48 @@ accesorios:
     bonos:
       melee_damage: 1
       magic_damage: 1
+  MONEDA_MELLADA:
+    nombre: "Moneda Mellada"
+    categoria: exploracion
+    rareza: RARE
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDdmMjQzYTA3MmZjZmE2ZTZmZTU3OTJkZGU2YTM5NzQwNGU5M2JkZWQyMTExMGQyZGViNDc5NmUyYTA1N2UyNSJ9fX0=
+    origen: "Forja Minera"
+    bonos:
+      duende_chance: 25
+  DIAPASON_ANTIGUO:
+    nombre: "Diapasón Antiguo"
+    categoria: exploracion
+    rareza: EPIC
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTU5NWM5ZTI0NTBiZDIwYmVmZjQ2ZTZjNDQ5ZWE1M2ViYzdjZGU1NTA2ODE4Y2JjMTEyM2U1ZWI0Yjk1YTQxOSJ9fX0=
+    origen: "Forja Minera"
+    bonos:
+      prospector_chance: 25
+  ECO_CUARZO:
+    nombre: "Eco de Cuarzo"
+    categoria: exploracion
+    rareza: RARE
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2QxMTE5NjQzY2VjZmJlMDA0MTQxYTFlYTQwNjJmODMxNWNhNzhlNTAzOTU4YWM1MDUwNWU4NTkyYzQ0YTYwMSJ9fX0=
+    origen: "Forja Minera"
+    bonos:
+      resonance_extra: 20
+  LUPA_ESPATO:
+    nombre: "Lupa de Espato"
+    categoria: exploracion
+    rareza: EPIC
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmRlMWIyMzQzNGZjYmQ2MTBiNzhiZmIxZTY4MDlmNzQwZmM2ZGZlMjQwNGQ4OWI1YmJkODU2ODM1NjdjYTU0ZiJ9fX0=
+    origen: "Forja Minera"
+    bonos:
+      geode_chance: 30
+  BOBINA_COBRE:
+    nombre: "Bobina de Cobre"
+    categoria: exploracion
+    rareza: EPIC
+    material: PLAYER_HEAD
+    textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjFhOWFlOWRiMzZmNzBkNDY3MzU0MDY5ZmJiZGNjN2QyNzliYWY2NzIxNTYxMzgxZGE2MGQzMzliMjNkODgyOSJ9fX0=
+    origen: "Forja Minera"
+    bonos:
+      signal_seconds: 4

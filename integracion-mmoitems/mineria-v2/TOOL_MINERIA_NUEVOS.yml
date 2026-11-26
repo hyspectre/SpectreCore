@@ -1,0 +1,155 @@
+# Hydev · Herramientas de minería en su tipo MMOItems TOOL original.
+# Las 2 herramientas antiguas TALADRO y PICO_GEMAS se conservan; ver permisos de existentes.
+TALADRO_REFORZADO:
+  base:
+    revision-id: 5
+    gem-sockets: ['1', '1']
+    unbreakable: true
+    material: IRON_PICKAXE
+    max-stack-size: 1
+    name: '<gradient:#BFA982:#E5D1AD>Taladro Reforzado</gradient>'
+    tier: RARE
+    tooltip: COPPER
+    permission:
+    - hydev.mineria.duendes
+    lore:
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fPerforar'
+    - '&f'
+    - '&e ᴘɪᴄᴀ ʀᴏᴄᴀ ᴘᴀʀᴀ ʀᴏᴍᴘᴇʀ'
+    - '&e ʜᴀsᴛᴀ 1 ʀᴏᴄᴀ ᴀᴅɪᴄɪᴏɴᴀʟ.'
+    - '&e ʟᴀs ᴍᴇɴᴀs sᴇ ᴘɪᴄᴀɴ ᴅᴇ ᴀ ᴜɴᴀ.'
+
+TALADRO_CALIBRADO:
+  base:
+    revision-id: 5
+    gem-sockets: ['1', '1', '1']
+    unbreakable: true
+    material: DIAMOND_PICKAXE
+    max-stack-size: 1
+    name: '<gradient:#9EAFC2:#CCEADE>Taladro Calibrado</gradient>'
+    tier: EPIC
+    tooltip: SILVER
+    permission:
+    - hydev.mineria.resonancia
+    lore:
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fPerforar'
+    - '&f'
+    - '&e ᴘɪᴄᴀ ʀᴏᴄᴀ ᴘᴀʀᴀ ʀᴏᴍᴘᴇʀ'
+    - '&e ʜᴀsᴛᴀ 3 ʀᴏᴄᴀs ᴍás.'
+    - '&e ʟᴀs ᴍᴇɴᴀs sᴇ ᴘɪᴄᴀɴ ᴅᴇ ᴀ ᴜɴᴀ.'
+
+PICO_MITRILO:
+  base:
+    revision-id: 5
+    gem-sockets: ['1']
+    unbreakable: true
+    material: DIAMOND_PICKAXE
+    max-stack-size: 1
+    name: '<gradient:#70B8B9:#D1E9E0>Pico de Mitrilo</gradient>'
+    tier: RARE
+    tooltip: COPPER
+    permission:
+    - hydev.mineria.mitrilo
+    lore:
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fVeta'
+    - '&f'
+    - '&e ᴀɢáᴄʜᴀᴛᴇ ʏ ʜᴀᴢ ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ'
+    - '&e sᴏʙʀᴇ ᴜɴᴀ ᴠᴇᴛᴀ. ᴀʟ ᴘɪᴄᴀʀʟᴀ,'
+    - '&e ᴇxᴛʀᴀᴇs ʜᴀsᴛᴀ 3 ᴍᴇɴᴀs ᴍás.'
+
+PICO_MITRILO_TEMPLADO:
+  base:
+    revision-id: 5
+    gem-sockets: ['1', '1']
+    unbreakable: true
+    material: NETHERITE_PICKAXE
+    max-stack-size: 1
+    name: '<gradient:#84C4BB:#F1DFB0>Pico de Mitrilo Templado</gradient>'
+    tier: EPIC
+    tooltip: SILVER
+    permission:
+    - hydev.mineria.mitrilo
+    lore:
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fVeta'
+    - '&f'
+    - '&e ᴀɢáᴄʜᴀᴛᴇ ʏ ʜᴀᴢ ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ'
+    - '&e sᴏʙʀᴇ ᴜɴᴀ ᴠᴇᴛᴀ. ᴀʟ ᴘɪᴄᴀʀʟᴀ,'
+    - '&e ᴇxᴛʀᴀᴇs ʜᴀsᴛᴀ 3 ᴍᴇɴᴀs ᴍás.'
+
+PICO_AMATISTA:
+  base:
+    revision-id: 5
+    gem-sockets: ['1']
+    unbreakable: true
+    material: NETHERITE_PICKAXE
+    max-stack-size: 1
+    name: '<gradient:#A278D6:#E6CDF5>Pico de Amatista</gradient>'
+    tier: LEGENDARY
+    tooltip: GOLD
+    permission:
+    - hydev.mineria.arcana
+    lore:
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fCristales'
+    - '&f'
+    - '&e ᴀɢáᴄʜᴀᴛᴇ ʏ ʜᴀᴢ ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ.'
+    - '&e ɢᴏʟᴘᴇᴀ ᴄᴀᴅᴀ ᴄʀɪsᴛᴀʟ 3 ᴠᴇᴄᴇs'
+    - '&e ᴘᴀʀᴀ sᴀᴄᴀʀ ᴀᴍᴀᴛɪsᴛᴀ ʀᴇsᴏɴᴀɴᴛᴇ.'
+
+BRUJULA_GEOLOGICA:
+  base:
+    revision-id: 5
+    gem-sockets: ['1']
+    unbreakable: true
+    material: COMPASS
+    max-stack-size: 1
+    name: '<gradient:#80AFC7:#E2D7B6>Brújula Geológica</gradient>'
+    tier: RARE
+    tooltip: COPPER
+    permission:
+    - hydev.mineria.ingenieria
+    lore:
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fPulso'
+    - '&f'
+    - '&e ʜᴀᴢ ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴠᴇʀ'
+    - '&e ᴇɴ ǫᴜé ᴅɪʀᴇᴄᴄɪóɴ ʏ ᴀ ǫᴜé'
+    - '&e ᴘʀᴏғᴜɴᴅɪᴅᴀᴅ ʜᴀʏ ᴜɴᴀ ᴍᴇɴᴀ.'
+
+FAROL_MITRILO:
+  base:
+    revision-id: 5
+    gem-sockets: ['1']
+    unbreakable: true
+    material: SOUL_LANTERN
+    max-stack-size: 1
+    name: '<gradient:#74B8B5:#D0B8E9>Farol de Mitrilo</gradient>'
+    tier: UNCOMMON
+    tooltip: COPPER
+    permission:
+    - hydev.mineria.ingenieria
+    lore:
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fRetorno'
+    - '&f'
+    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ: ᴇɴᴄᴇɴᴅᴇʀ ᴏ ᴀᴘᴀɢᴀʀ.'
+    - '&e ᴀɢáᴄʜᴀᴛᴇ ʏ ʜᴀᴢ ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ'
+    - '&e ᴘᴀʀᴀ ᴍᴀʀᴄᴀʀ ᴛᴜ ᴘᴜɴᴛᴏ ᴅᴇ ᴠᴜᴇʟᴛᴀ.'
+    - '&e ʀᴇᴘíᴛᴇʟᴏ ᴘᴀʀᴀ ᴠᴇʀ ʟᴀ ʀᴜᴛᴀ.'
+    - '&e ᴀɢᴀᴄʜᴀᴅᴏ, ᴄʟɪᴄ ɪᴢǫ. ᴘᴀʀᴀ ʙᴏʀʀᴀʀ.'
+
+BARRENA_MITRILO:
+  base:
+    revision-id: 5
+    gem-sockets: ['1']
+    unbreakable: true
+    material: NETHERITE_PICKAXE
+    max-stack-size: 1
+    name: '<gradient:#73B2C4:#DBD7C0>Barrena de Mitrilo</gradient>'
+    tier: EPIC
+    tooltip: SILVER
+    permission:
+    - hydev.mineria.ingenieria
+    lore:
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fTúnel'
+    - '&f'
+    - '&e ᴍɪʀᴀ ʜᴀᴄɪᴀ ᴅᴏɴᴅᴇ ᴠᴀs ᴀ ᴄᴀᴠᴀʀ.'
+    - '&e ᴀɢáᴄʜᴀᴛᴇ ʏ ʜᴀᴢ ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ'
+    - '&e ᴘᴀʀᴀ ᴀʙʀɪʀ ᴜɴ ᴛúɴᴇʟ ᴅᴇ 1 × 2.'

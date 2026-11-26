@@ -1,8 +1,11 @@
 package dev.hydev.spectrecore.mining;
 
+import static dev.hydev.spectrecore.relicario.RelicarioModule.miningBonus;
+
 import dev.hydev.spectrecore.config.Settings;
 import dev.hydev.spectrecore.migration.MigrationRules;
 import dev.hydev.spectrecore.migration.MmoBridge;
+import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -35,6 +38,8 @@ public final class MiningModule implements Listener {
     private final PlacedOres placed;
     private final MithrilToolModule mithrilTools;
     private final MiningLuck luck;
+    private final MiningGems gems;
+    private Listener forgeUpgrades;
     private final MiningEncounters encounters;
     private final StoneDrill drill;
     private final MiningProgression progression;
@@ -43,10 +48,16 @@ public final class MiningModule implements Listener {
     private final Set<String> reported = new HashSet<>();
     private YamlConfiguration config;
     private BukkitTask timer;
+    private final String geodeNamespace;
+    private static final List<String> CORES = List.of("VETA", "MAGNETITA", "FLUORITA", "DIAMANTE_LOCO");
+    private static final List<String> CORE_NAMES = List.of("Veta", "Magnetita", "Fluorita", "Diamante Loco");
     private boolean dirty;
     private int saveClock;
+    private int barFrame;
+    private final Map<UUID, BossBar> resonanceBars = new HashMap<>();
+    private final MiningPermissionSync permissionSync;
     public MiningModule(JavaPlugin plugin, dev.hydev.spectrecore.treasure.TreasureCooldowns treasureCooldown) {
-        this.plugin = plugin; this.treasureCooldown = treasureCooldown;
+        this.plugin = plugin; geodeNamespace = new NamespacedKey(plugin, "geoda").getNamespace(); this.treasureCooldown = treasureCooldown;
         visuals = new MiningVisuals(plugin);
         // Obsidian must be marked on placement too; no recycled blocks may summon Prospectors.
         placed = new PlacedOres(plugin, "placed_ores_v1",
@@ -55,7 +66,9 @@ public final class MiningModule implements Listener {
         encounters = new MiningEncounters(plugin, luck);
         drill = new StoneDrill(plugin);
         progression = new MiningProgression(plugin);
+        permissionSync = new MiningPermissionSync(plugin, progression);
         mithrilTools = new MithrilToolModule(plugin, placed);
+        gems = new MiningGems(plugin,mmo,progression,mithrilTools);
     }
     public void enable() {
         reload(); loadData();
@@ -63,33 +76,72 @@ public final class MiningModule implements Listener {
         Bukkit.getPluginManager().registerEvents(placed, plugin); visuals.enable();
         mithrilTools.enable();
         encounters.enable();
+        if (Bukkit.getPluginManager().isPluginEnabled("MMOItems")) {
+            forgeUpgrades = new MiningForgeUpgrades(plugin);
+            Bukkit.getPluginManager().registerEvents(forgeUpgrades, plugin);
+        }
+        Bukkit.getPluginManager().registerEvents(gems,plugin);
         drill.enable();
         progression.enable();
         for (String name : List.of("resonancia", "debugresonancia", "nombreitem")) {
             var command = dev.hydev.spectrecore.command.CommandRouter.of(plugin).get(name);
             if (command != null) {
-                command.setExecutor((sender, cmd, label, args) -> command(sender, cmd.getName()));
+                command.setExecutor((sender, cmd, label, args) -> command(sender, cmd.getName(), args));
                 command.setTabCompleter((sender, cmd, label, args) -> List.of());
             }
         }
         timer = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
+            boolean second = ++barFrame % 4 == 0;
             for (Player player : Bukkit.getOnlinePlayers()) {
-                if (!config.getBoolean("gemas.activadas", true)) break;
+                if (second) showGeodes(player);
                 State state = states.get(player.getUniqueId());
-                if (state != null && expire(player, state)) continue;
-                if (state != null && state.activeUntil > 0 && tool(player.getInventory().getItemInMainHand())) {
-                    long left = Math.max(0, (state.activeUntil - System.currentTimeMillis() + 999) / 1000);
-                    player.sendActionBar(Settings.component(Settings.text("resonancia", "MiningModule.mensaje-001", "✦ Resonancia lista · Shift + minar · {left} s", "left", left), Settings.color("resonancia", "MiningModule.color-001", NamedTextColor.LIGHT_PURPLE)));
-                }
+                if (state != null && config.getBoolean("gemas.activadas", true)) expire(player, state);
+                updateBar(player, state);
             }
-            if (++saveClock >= 10) { saveClock = 0; if (dirty) saveData(); }
-        }, 20, 20);
+            if (second && ++saveClock >= 10) { saveClock = 0; if (dirty) saveData(); }
+        }, 5, 5);
+    }
+
+    private void updateBar(Player player, State state) {
+        if (state == null || state.charge <= 0 || !config.getBoolean("gemas.activadas", true)
+                || !tool(player.getInventory().getItemInMainHand())) {
+            hideBar(player);
+            return;
+        }
+        BossBar bar = resonanceBars.computeIfAbsent(player.getUniqueId(), id -> {
+            BossBar created = BossBar.bossBar(Component.empty(), 0, BossBar.Color.PURPLE, BossBar.Overlay.PROGRESS);
+            player.showBossBar(created);
+            return created;
+        });
+        if (state.activeUntil > 0) {
+            long remaining = Math.max(0, state.activeUntil - System.currentTimeMillis());
+            bar.progress(Math.min(1f, remaining / (window() * 1000f)));
+            bar.color(barFrame % 8 < 4 ? BossBar.Color.PINK : BossBar.Color.PURPLE);
+            bar.name(Settings.message("resonancia", "MiningModule.barra-lista",
+                    "<light_purple>✦ Agáchate y mina · {s} s", "s", (remaining + 999) / 1000));
+        } else {
+            float target = Math.min(1f, state.charge / (float) maximum());
+            bar.progress(Math.min(target, bar.progress() + Math.max(0.01f, (target - bar.progress()) / 2)));
+            bar.color(BossBar.Color.PURPLE);
+            bar.name(Settings.message("resonancia", "MiningModule.barra-carga",
+                    "<light_purple>✦ Resonancia <white>{carga}/{max}", "carga", state.charge, "max", maximum()));
+        }
+    }
+
+    private void hideBar(Player player) {
+        BossBar bar = resonanceBars.remove(player.getUniqueId());
+        if (bar != null) player.hideBossBar(bar);
     }
     public void disable() {
         if (timer != null) timer.cancel();
+        Bukkit.getOnlinePlayers().forEach(this::hideBar);
+        permissionSync.stop();
         progression.disable();
         drill.disable();
         encounters.disable();
+        if (forgeUpgrades != null) HandlerList.unregisterAll(forgeUpgrades);
+        HandlerList.unregisterAll(gems);
+        gems.clear();
         mithrilTools.disable();
         HandlerList.unregisterAll(this); HandlerList.unregisterAll(placed); visuals.disable(); saveData();
         states.clear();
@@ -128,12 +180,143 @@ public final class MiningModule implements Listener {
                 || player.getGameMode() != GameMode.SURVIVAL) return;
         encounters.naturalOreBroken(player, block);
         if (tier == 0) return; // Obsidian triggers a Prospector, not ore resonance or Mitrilo.
+        int veta = gems.mine(player,block,this::deliver);
+        discoverGeode(player, block);
         mithrilTools.onManualOre(player, block);
         if (progression.meets(player,"resonancia")
                 && config.getBoolean("gemas.activadas", true)
                 && tool(player.getInventory().getItemInMainHand())) resonance(player, block, tier);
-        if (config.getBoolean("tesoros.activados", true)) treasure(player, block, tier);
+        if (config.getBoolean("tesoros.activados", true)) treasure(player, block, tier, veta);
     }
+    // Each discoverer's player data owns its markers. Absolute deadlines survive relogs.
+    private NamespacedKey marker(Block block) {
+        return new NamespacedKey(plugin, "geoda/" + block.getWorld().getUID() + "/" +
+                block.getX() + "/" + block.getY() + "/" + block.getZ());
+    }
+
+    private void discoverGeode(Player player, Block ore) {
+        switch (ore.getType()) {
+            case DIAMOND_ORE, DEEPSLATE_DIAMOND_ORE, EMERALD_ORE, DEEPSLATE_EMERALD_ORE,
+                    REDSTONE_ORE, DEEPSLATE_REDSTONE_ORE -> { }
+            default -> { return; }
+        }
+        if (!progression.meets(player, "arcana") || ThreadLocalRandom.current().nextDouble() >= 0.005 * (1 + miningBonus(plugin, player, "geode_chance") / 100)) return;
+        if (mmo.build("MATERIAL", "LLAVE_RESONANTE", 1) == null) return;
+        for (String core : CORES) {
+            if (mmo.build("GEM_STONE", "GEMA_" + core + "_IV", 1) == null) return;
+        }
+        for (var face : List.of(org.bukkit.block.BlockFace.DOWN, org.bukkit.block.BlockFace.NORTH,
+                org.bukkit.block.BlockFace.SOUTH, org.bukkit.block.BlockFace.WEST, org.bukkit.block.BlockFace.EAST,
+                org.bukkit.block.BlockFace.UP)) {
+            Block anchor = ore.getRelative(face);
+            if (anchor.getType() != Material.STONE && anchor.getType() != Material.DEEPSLATE) continue;
+            var key = marker(anchor);
+            var data = player.getPersistentDataContainer();
+            var type = org.bukkit.persistence.PersistentDataType.LONG_ARRAY;
+            long now = System.currentTimeMillis();
+            long[] previous = data.get(key, type);
+            if (previous != null && previous.length == 2 && previous[0] > now) continue;
+            data.set(key, type, new long[]{now + Duration.ofMinutes(10).toMillis(), 0});
+            player.playSound(anchor.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_CHIME, 1, 1);
+            player.sendMessage("§dGeoda descubierta §7· " + anchor.getX() + ", " + anchor.getY() + ", " +
+                    anchor.getZ() + " · Reservada para ti durante 10 min.");
+            return;
+        }
+    }
+
+    private void showGeodes(Player player) {
+        var data = player.getPersistentDataContainer();
+        var type = org.bukkit.persistence.PersistentDataType.LONG_ARRAY;
+        long now = System.currentTimeMillis();
+        for (NamespacedKey key : data.getKeys()) {
+            if (!key.getNamespace().equals(geodeNamespace) || !key.getKey().startsWith("geoda/")) continue;
+            long[] state = data.get(key, type);
+            if (state == null || state.length != 2 || state[0] <= now) {
+                data.remove(key);
+                continue;
+            }
+            String[] parts = key.getKey().split("/");
+            if (parts.length != 5 || !parts[1].equals(player.getWorld().getUID().toString())) continue;
+            Location point = new Location(player.getWorld(), Integer.parseInt(parts[2]) + 0.5,
+                    Integer.parseInt(parts[3]) + 0.5, Integer.parseInt(parts[4]) + 0.5);
+            if (point.distanceSquared(player.getLocation()) <= 32 * 32)
+                player.spawnParticle(Particle.END_ROD, point, 8, 0.6, 0.6, 0.6, 0);
+        }
+    }
+
+    @EventHandler
+    public void openGeode(org.bukkit.event.player.PlayerInteractEvent event) {
+        if (event.getHand() != org.bukkit.inventory.EquipmentSlot.HAND) return;
+        var action = event.getAction();
+        if (action != org.bukkit.event.block.Action.RIGHT_CLICK_AIR
+                && action != org.bukkit.event.block.Action.RIGHT_CLICK_BLOCK) return;
+        if (action == org.bukkit.event.block.Action.RIGHT_CLICK_BLOCK && event.isCancelled()) return;
+        var player = event.getPlayer();
+        if (player.getGameMode() != GameMode.SURVIVAL) return;
+        var data = player.getPersistentDataContainer();
+        var type = org.bukkit.persistence.PersistentDataType.LONG_ARRAY;
+        var block = event.getClickedBlock();
+        NamespacedKey key = block == null ? null : marker(block);
+        long[] state = key == null ? null : data.get(key, type);
+        if (state == null) {
+            var heldKey = player.getInventory().getItemInMainHand();
+            if (!"LLAVE_RESONANTE".equals(mmo.id(heldKey)) || !"MATERIAL".equals(mmo.type(heldKey))) return;
+            // The private marker can still be pointed at after its backing rock is mined.
+            var ray = new org.bukkit.util.BlockIterator(player, 5);
+            while (ray.hasNext()) {
+                var point = ray.next();
+                key = marker(point);
+                state = data.get(key, type);
+                if (state != null || !point.isPassable()) break;
+            }
+        }
+        if (state == null || state.length != 2) return;
+        if (state[0] <= System.currentTimeMillis()) { data.remove(key); return; }
+        var held = player.getInventory().getItemInMainHand();
+        if (!"LLAVE_RESONANTE".equals(mmo.id(held)) || !"MATERIAL".equals(mmo.type(held))) {
+            player.sendActionBar(Component.text("Geoda sellada · Usa una Llave Resonante"));
+            return;
+        }
+        event.setCancelled(true);
+        int index = (int) state[1];
+        if (player.isSneaking() || index == 0) {
+            index = index % CORES.size() + 1;
+            data.set(key, type, new long[]{state[0], index});
+            player.sendMessage("§d" + CORE_NAMES.get(index - 1) +
+                    " IV §7· Agáchate y pulsa para cambiar. Pulsa de pie para abrir.");
+            return;
+        }
+        String core = CORES.get(index - 1);
+        int payment = -1;
+        if (core.equals("DIAMANTE_LOCO")) {
+            ItemStack[] inventory = player.getInventory().getStorageContents();
+            for (int i = 0; i < inventory.length; i++) {
+                ItemStack candidate = inventory[i];
+                if (candidate != null && "GEM_STONE".equals(mmo.type(candidate)) &&
+                        "GEMA_DIAMANTE_LOCO_III".equals(mmo.id(candidate))) { payment = i; break; }
+            }
+            if (payment < 0) { player.sendMessage("§eNecesitas un Diamante Loco III."); return; }
+        }
+        ItemStack reward = mmo.build("GEM_STONE", "GEMA_" + core + "_IV", 1);
+        if (reward == null || reward.getType().isAir()) {
+            player.sendMessage("§eEste núcleo aún no está disponible."); return;
+        }
+        data.remove(key);
+        held.subtract();
+        if (payment >= 0) player.getInventory().getItem(payment).subtract();
+        for (var excess : player.getInventory().addItem(reward).values()) {
+            var drop = player.getWorld().dropItem(player.getLocation(), excess);
+            drop.setOwner(player.getUniqueId());
+        }
+    }
+
+    private String gemId(String quality) {
+        String path = "gemas.ids." + quality;
+        List<String> pool = config.getStringList(path);
+        if (!pool.isEmpty()) return pool.get(ThreadLocalRandom.current().nextInt(pool.size()));
+        return config.getString(path, "");
+    }
+
     private boolean expire(Player player, State state) {
         if (MigrationRules.expired(state.activeUntil, System.currentTimeMillis())) {
             state.activeUntil = 0; state.charge = 0; dirty = true;
@@ -153,7 +336,7 @@ public final class MiningModule implements Listener {
                     config.getDouble("suerte.calidad-gemas.puntos-por-luck",0.05),
                     config.getDouble("suerte.calidad-gemas.maximo-puntos",5.0));
             String quality = dev.hydev.spectrecore.config.Gameplay.gemQuality(tier, roll);
-            String id = config.getString("gemas.ids." + quality, "");
+            String id = gemId(quality);
             ItemStack reward = mmo.build("GEM_STONE", id, 1);
             if (reward == null) { missing(player, "GEM_STONE", id); return; }
             deliver(player, reward); // Resolve before consuming resonance; no delayed award can be lost on quit.
@@ -168,7 +351,8 @@ public final class MiningModule implements Listener {
             if (config.getBoolean("visuales-resonancia.activados",true)) visuals.gem(block.getLocation().add(.5, .5, .5), reward, quality);
             return;
         }
-        state.charge = Math.min(maximum(), state.charge + Settings.module("resonancia/config.yml").getInt("reglas.carga-por-tier.tier"+tier)); dirty = true;
+        int extra = ThreadLocalRandom.current().nextDouble(100) < miningBonus(plugin, player, "resonance_extra") ? 1 : 0;
+        state.charge = Math.min(maximum(), state.charge + extra + Settings.module("resonancia/config.yml").getInt("reglas.carga-por-tier.tier"+tier)); dirty = true;
         if (state.charge >= maximum()) {
             state.activeUntil = System.currentTimeMillis() + window() * 1000L;
             boolean nativeToast = ((dev.hydev.spectrecore.SpectreCorePlugin) plugin).toasts() != null
@@ -177,19 +361,13 @@ public final class MiningModule implements Listener {
             player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-007", "{prefix}§d§lRESONANCIA COMPLETA", "prefix", Settings.component(prefix())));
             player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-008", "§7Agáchate y rompe un mineral en los próximos {window} segundos.", "window", window()));
             player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-009", "§7La calidad depende del mineral que elijas.")); if(config.getBoolean("visuales-resonancia.activados",true)) visuals.charged(player);
-        } else {
-            int filled = (int) Math.floor(12.0 * state.charge / maximum());
-            player.sendActionBar(Settings.component(Settings.text("resonancia", "MiningModule.mensaje-010", "✦ "), Settings.color("resonancia", "MiningModule.color-009", NamedTextColor.LIGHT_PURPLE))
-                .append(Settings.component(Settings.text("resonancia", "MiningModule.mensaje-011", "{repeat-filled}", "repeat-filled", "▰".repeat(filled)), Settings.color("resonancia", "MiningModule.color-010", NamedTextColor.LIGHT_PURPLE)))
-                .append(Settings.component(Settings.text("resonancia", "MiningModule.mensaje-012", "{repeat-12-filled}", "repeat-12-filled", "▱".repeat(12 - filled)), Settings.color("resonancia", "MiningModule.color-011", NamedTextColor.DARK_GRAY)))
-                .append(Settings.component(Settings.text("resonancia", "MiningModule.mensaje-013", " {state-charge}/{maximum}", "state-charge", state.charge, "maximum", maximum()), Settings.color("resonancia", "MiningModule.color-012", NamedTextColor.WHITE))));
         }
     }
-    private void treasure(Player player, Block block, int tier) {
+    private void treasure(Player player, Block block, int tier, int veta) {
         if (!treasureCooldown.ready(player.getUniqueId())) return;
         // Mitrilo is exclusive with regular mining treasures for this block.
         // No new world blocks, background scanning or extra cooldown ledgers.
-        if (mithril(player, block, tier)) return;
+        if (mithril(player, block, tier, veta)) return;
         if (!progression.meets(player,"paladio")) return;
         double chance = MiningLuckRules.chance(
                 config.getDouble("probabilidades.mineria.tier" + tier, 0), luck.stat(player),
@@ -214,7 +392,7 @@ public final class MiningModule implements Listener {
         player.showTitle(Title.title(Settings.component(Settings.text("tesoros", "MiningModule.mensaje-014", "¡TESORO ENCONTRADO!"), Settings.color("tesoros", "MiningModule.color-014", NamedTextColor.GOLD)), Settings.component(Settings.text("tesoros", "MiningModule.mensaje-015", "✦ {reward-getamount} minerales raros", "reward-getamount", reward.getAmount()), Settings.color("tesoros", "MiningModule.color-015", NamedTextColor.YELLOW)), Title.Times.times(Duration.ofMillis(Settings.i("tesoros", "MiningModule.ofmillis-010-arg0", 150)), Duration.ofSeconds(Settings.i("tesoros", "MiningModule.ofseconds-011-arg0", 2)), Duration.ofMillis(Settings.i("tesoros", "MiningModule.ofmillis-012-arg0", 350)))));
         player.sendMessage(Settings.message("tesoros", "MiningModule.mensaje-016", "§f↹ §e¡Obtuviste un mineral raro!"));
     }
-    private boolean mithril(Player player, Block block, int tier) {
+    private boolean mithril(Player player, Block block, int tier, int veta) {
         if (tier < 2 || !progression.meets(player,"mitrilo")) return false;
         boolean experienced = player.hasPermission("trabajo.minero.experimentado")
                 || player.hasPermission("trabajo.minero.profesional");
@@ -233,6 +411,7 @@ public final class MiningModule implements Listener {
                     && factor.doubleValue() >= 1 && factor.doubleValue() <= 3)
                 chance *= factor.doubleValue();
         }
+        chance *= 1 + veta * .10;
         chance = MiningLuckRules.chance(Math.min(100.0, chance), luck.stat(player),
                 config.getDouble("suerte.hallazgos.incremento-relativo-por-punto", 1.5),
                 config.getDouble("suerte.hallazgos.multiplicador-maximo", 2.0));
@@ -287,13 +466,18 @@ public final class MiningModule implements Listener {
             if(!config.getBoolean("gemas.activadas",true)){sender.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-024", "Resonancia desactivada."));return true;}
             String quality = args[2].toLowerCase(Locale.ROOT);
             if (!Set.of("basica", "intermedia", "superior").contains(quality)) { player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-025", "§cCalidad válida: basica, intermedia o superior.")); return true; }
-            ItemStack gem = mmo.build("GEM_STONE", config.getString("gemas.ids." + quality, ""), 1);
+            ItemStack gem = mmo.build("GEM_STONE", gemId(quality), 1);
             visuals.gem(at, gem == null ? new ItemStack(Material.AMETHYST_SHARD) : gem, quality);
         } else { player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-026", "§cUsa tesoro o gema.")); return true; }
         player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-027", "§7Vista previa visual: no entrega objetos ni cambia la resonancia."));
         return true;
     }
-    private boolean command(CommandSender sender, String name) {
+    private boolean command(CommandSender sender, String name, String[] args) {
+        if (name.equals("debugresonancia") && args.length == 1 && args[0].equals("sincronizar")) {
+            if (admin(sender)) permissionSync.start(sender);
+            else sender.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-019", "§cNo tienes permiso."));
+            return true;
+        }
         if (!(sender instanceof Player player)) { sender.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-028", "Usa este comando dentro del juego.")); return true; }
         if (!name.equals("resonancia") && !admin(sender)) { sender.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-029", "§cNo tienes permiso.")); return true; }
         State state = state(player); expire(player, state);
@@ -320,7 +504,7 @@ public final class MiningModule implements Listener {
         }
         return true;
     }
-    @EventHandler public void quit(PlayerQuitEvent event) { if (dirty) saveData(); }
+    @EventHandler public void quit(PlayerQuitEvent event) { gems.quit(event.getPlayer().getUniqueId()); hideBar(event.getPlayer()); if (dirty) saveData(); }
     private void loadData() {
         var data = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "mining-data.yml"));
         var section = data.getConfigurationSection("players");

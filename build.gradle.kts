@@ -1,16 +1,25 @@
 plugins { java }
 group = "dev.hydev"
-version = "0.9.0-dev7"
+version = "0.9.0-dev8"
 
 repositories {
     maven("https://repo.papermc.io/repository/maven-public/")
     mavenCentral()
+    exclusiveContent {
+        forRepository { maven("https://nexus.phoenixdevt.fr/repository/maven-public/") }
+        filter {
+            includeModule("net.Indyuce", "MMOItems-API")
+            includeModule("io.lumine", "MythicLib-dist")
+        }
+    }
 }
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.10-R0.1-SNAPSHOT")
     compileOnly("dev.aurelium:auraskills-api-bukkit:2.3.12")
     compileOnly("net.luckperms:api:5.4")
+    compileOnly("net.Indyuce:MMOItems-API:6.10.1-SNAPSHOT") { isTransitive = false }
+    compileOnly("io.lumine:MythicLib-dist:1.7.1-SNAPSHOT") { isTransitive = false }
 }
 
 java { toolchain.languageVersion.set(JavaLanguageVersion.of(21)) }

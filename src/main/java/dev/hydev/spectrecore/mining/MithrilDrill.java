@@ -37,6 +37,7 @@ public final class MithrilDrill {
         if (data.id(stack).isEmpty()) return false;
         ItemMeta meta = stack.getItemMeta();
         if (!(meta instanceof Damageable damageable)) return false;
+        if (meta.isUnbreakable()) return true;
         int maximum = stack.getType().getMaxDurability();
         if (maximum <= 0) return false;
         int next = damageable.getDamage() + amount;
@@ -67,7 +68,7 @@ public final class MithrilDrill {
         Block firstFeet = world.getBlockAt(fx, y, fz);
         Block firstHead = world.getBlockAt(fx, y + 1, fz);
         if (!allowed(firstFeet, materials) || !allowed(firstHead, materials)
-                || !regions.canBuild(player, firstFeet) || !regions.canBuild(player, firstHead))
+                || !regions.canBreak(player, firstFeet) || !regions.canBreak(player, firstHead))
             return false;
         final int[] progress = {0};
         final UUID id = player.getUniqueId();
@@ -84,7 +85,7 @@ public final class MithrilDrill {
             if (!world.isChunkLoaded(bx >> 4, bz >> 4)) { cancel(id); return; }
             Block feet = world.getBlockAt(bx, y, bz), head = world.getBlockAt(bx, y + 1, bz);
             // Check both cells before drilling either to avoid half-entering restricted terrain.
-            if (!regions.canBuild(player, feet) || !regions.canBuild(player, head)
+            if (!regions.canBreak(player, feet) || !regions.canBreak(player, head)
                     || !allowed(feet, materials) || !allowed(head, materials)) {
                 cancel(id); return;
             }
