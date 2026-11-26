@@ -16,6 +16,29 @@ public final class MithrilRules {
         return cost > 0 && stored >= cost && now >= cooldownUntil;
     }
 
+    public enum Readiness { COOLDOWN, CHARGING, PARTIAL, READY }
+    public record AbilityStatus(Readiness readiness, int missing, long seconds, float progress) { }
+
+    /** Read-only presentation of the actual charge and cooldown; no target/world checks. */
+    public static AbilityStatus abilityStatus(int stored, int capacity, int minimumCost, int fullCost,
+                                              long now, long cooldownUntil) {
+        int energy = Math.max(0, stored);
+        float progress = Math.clamp(energy / (float)Math.max(1, capacity), 0f, 1f);
+        long remaining = remainingSeconds(now, cooldownUntil);
+        if (remaining > 0) return new AbilityStatus(Readiness.COOLDOWN, 0, remaining, progress);
+        if (energy < minimumCost)
+            return new AbilityStatus(Readiness.CHARGING, minimumCost - energy, 0, progress);
+        if (energy < fullCost)
+            return new AbilityStatus(Readiness.PARTIAL, fullCost - energy, 0, progress);
+        return new AbilityStatus(Readiness.READY, 0, 0, progress);
+    }
+
+    public static long remainingSeconds(long now, long deadline) {
+        if (deadline <= now) return 0;
+        long millis = deadline - now;
+        return millis / 1000 + (millis % 1000 == 0 ? 0 : 1);
+    }
+
     public static String signal(double distance) {
         if (!Double.isFinite(distance) || distance < 0) return "ninguna";
         return distance <= 6 ? "intensa" : distance <= 12 ? "moderada" : "debil";

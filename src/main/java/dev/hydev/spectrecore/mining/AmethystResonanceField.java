@@ -106,6 +106,7 @@ public final class AmethystResonanceField implements Listener {
 
 
     public int activeFields() { return sessions.size(); }
+    public boolean hasField(UUID owner) { return sessions.containsKey(owner); }
 
     public void enable() {
         if (registered) return;

@@ -35,3 +35,20 @@ Base revisada: `1fdcf87` (primer parche de auditoría de OpenCode), descendiente
 ## Protección adicional del diario compartido
 
 `ClaimJournal` (cocina, compras de trabajos, abastecimiento y taller minero) utiliza la misma carga estricta. Una copia existente vacía, sin versión reconocida, con claves duplicadas o campos inválidos se bloquea sin permitir nuevas transacciones. Los antiguos diarios vacíos con `schema-version: 1` siguen siendo válidos; nuevos archivos guardan también `claims: {}` cuando no hay pendientes. Restaurar un diario dañado únicamente desde un respaldo verificado, nunca limpiarlo para resolver un error. Los casos se añaden a `PlayerTransactionJournalSmoke`.
+
+## Indicador de resonancia de herramientas
+
+La barra de jefe muestra la carga de la herramienta **en la mano principal**, incluso vacía.
+El Pico Perdido mantiene su carga por jugador; Mitrilo, Mitrilo Templado, Amatista,
+Brújula Geológica, Farol y Barrena muestran su carga persistente por objeto, el estado
+de recarga y el control de su habilidad. No se modifican costos, carga, permisos ni
+datos guardados. La barra desaparece al cambiar a herramientas sin resonancia.
+La Amatista distingue carga insuficiente, campo parcial posible y carga completa
+(45 y 75 con los valores iniciales); el espacio disponible determina el costo real.
+«Carga lista» no garantiza un objetivo válido ni una región permitida.
+Los taladros de piedra mantienen su excavación automática, sin carga de resonancia.
+`/spectrecore resonancia` consulta también el estado del dispositivo sostenido.
+Al instalar el JAR, los textos nuevos se cargan con los valores por defecto sin
+reemplazar la configuración personalizada. Verificación ingame: alternar entre
+dos picos con cargas distintas y un pico normal; cargar, activar y esperar
+la recarga de cada habilidad, comprobar nivel insuficiente y campo de amatista.

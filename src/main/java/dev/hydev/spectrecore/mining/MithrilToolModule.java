@@ -3,6 +3,8 @@ package dev.hydev.spectrecore.mining;
 import static dev.hydev.spectrecore.relicario.RelicarioModule.miningBonus;
 
 import dev.hydev.spectrecore.config.Settings;
+import net.kyori.adventure.bossbar.BossBar;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -125,6 +127,110 @@ public final class MithrilToolModule implements Listener {
         return progression.meets(player,stage(id));
     }
 
+    record ToolHud(Component title, float progress, BossBar.Color color) { }
+
+    /**
+     * Main-hand read-only snapshot. Reuse the actual per-item ledger, progression and costs.
+     * Ready means enough energy and no cooldown; target/region validation stays on interaction.
+     */
+    ToolHud hud(Player player, ItemStack stack, long now) {
+        if (!active || stack == null || !stack.hasItemMeta()) return null;
+        String id = data.id(stack);
+        if (id.isEmpty()) return null;
+        int energy = data.energy(stack), maximum = capacity();
+        int minimumCost, fullCost;
+        long cooldown = data.cooldown(stack);
+        Component ability;
+        Component control = Settings.message("tesoros", "MithrilTools.hud-control-agachado", "<gray>Agáchate + clic der.");
+        Component inUse = null;
+        switch (id) {
+            case MithrilDeviceData.PICK, MithrilDeviceData.TEMPERED -> {
+                ability = Settings.message("tesoros", "MithrilTools.hud-veta", "Veta");
+                minimumCost = fullCost = cost("pico.activacion");
+                long seconds = MithrilRules.remainingSeconds(now, data.activeUntil(stack));
+                if (seconds > 0 && markedVeins.containsKey(player.getUniqueId()))
+                    inUse = Settings.message("tesoros", "MithrilTools.hud-veta-activa",
+                            "<aqua>Mina la veta marcada · {s}s", "s", seconds);
+            }
+            case MithrilDeviceData.AMETHYST -> {
+                ability = Settings.message("tesoros", "MithrilTools.hud-amatista", "Amatista");
+                fullCost = cost("pico-amatista.activacion");
+                minimumCost = AmethystResonanceRules.activationCost(fullCost,
+                        cost("pico-amatista.minimo-bloques"), cost("pico-amatista.bloques"));
+                if (amethystField.hasField(player.getUniqueId()))
+                    inUse = Settings.message("tesoros", "MithrilTools.hud-campo-activo",
+                            "<aqua>Termina el hallazgo activo");
+                else if (amethystField.activeFields() >= cost("pico-amatista.max-sesiones"))
+                    inUse = Settings.message("tesoros", "MithrilTools.hud-campos-ocupados",
+                            "<yellow>Espera un momento");
+            }
+            case MithrilDeviceData.COMPASS -> {
+                ability = Settings.message("tesoros", "MithrilTools.hud-brujula", "Pulso");
+                control = Settings.message("tesoros", "MithrilTools.hud-control-click", "<gray>Clic der.");
+                minimumCost = fullCost = cost("brujula.activacion");
+            }
+            case MithrilDeviceData.LANTERN -> {
+                if (data.anchor(stack).isBlank()) {
+                    ability = Settings.message("tesoros", "MithrilTools.hud-anclar", "Fijar retorno");
+                    minimumCost = fullCost = cost("farol.anclar");
+                    cooldown = 0; // Anchor placement ignores route cooldown in the actual ability.
+                } else {
+                    ability = Settings.message("tesoros", "MithrilTools.hud-sendero", "Sendero");
+                    minimumCost = fullCost = cost("farol.ruta");
+                }
+            }
+            case MithrilDeviceData.DRILL -> {
+                ability = Settings.message("tesoros", "MithrilTools.hud-barrena", "Barrena");
+                minimumCost = fullCost = cost("barrena.activacion");
+                if (drill.running(player))
+                    inUse = Settings.message("tesoros", "MithrilTools.hud-barrena-activa", "<aqua>Excavando");
+            }
+            default -> { return null; }
+        }
+        var state = MithrilRules.abilityStatus(energy, maximum, minimumCost, fullCost, now, cooldown);
+        Component detail;
+        BossBar.Color color;
+        if (!unlocked(player, id)) {
+            detail = Settings.message("tesoros", "MithrilTools.hud-bloqueada", "<yellow>Desbloquea Minería {nivel}",
+                    "nivel", progression.required(stage(id)));
+            color = BossBar.Color.YELLOW;
+        } else if (player.getGameMode() != GameMode.SURVIVAL) {
+            detail = Settings.message("tesoros", "MithrilTools.hud-supervivencia", "<yellow>Solo en supervivencia");
+            color = BossBar.Color.YELLOW;
+        } else if (inUse != null) {
+            detail = inUse;
+            color = BossBar.Color.BLUE;
+        } else {
+            switch (state.readiness()) {
+                case COOLDOWN -> {
+                    detail = Settings.message("tesoros", "MithrilTools.hud-recarga", "<yellow>Recarga {s}s",
+                            "s", state.seconds());
+                    color = BossBar.Color.YELLOW;
+                }
+                case CHARGING -> {
+                    detail = Settings.message("tesoros", "MithrilTools.hud-falta", "<gray>Faltan <white>{falta} <gray>de carga",
+                            "falta", state.missing());
+                    color = BossBar.Color.PURPLE;
+                }
+                case PARTIAL -> {
+                    detail = Settings.message("tesoros", "MithrilTools.hud-parcial",
+                            "<yellow>Campo parcial posible <gray>· {control}", "control", control);
+                    color = BossBar.Color.YELLOW;
+                }
+                case READY -> {
+                    detail = Settings.message("tesoros", "MithrilTools.hud-lista",
+                            "<green>Carga lista <gray>· {control}", "control", control);
+                    color = BossBar.Color.GREEN;
+                }
+                default -> throw new IllegalStateException("Unexpected resonance state");
+            }
+        }
+        Component title = Settings.message("tesoros", "MithrilTools.hud-barra",
+                "<aqua>✦ Resonancia <white>{carga}/{max} <gray>· <white>{habilidad} <dark_gray>│ {estado}",
+                "carga", energy, "max", maximum, "habilidad", ability, "estado", detail);
+        return new ToolHud(title, state.progress(), color);
+    }
+
     /** Called exclusively from a genuine, uncancelled player BlockBreakEvent. */
     public void onManualOre(Player player, Block ore) {
         if (player.getGameMode() != GameMode.SURVIVAL
@@ -141,10 +247,7 @@ public final class MithrilToolModule implements Listener {
         ItemStack current = player.getInventory().getItemInMainHand();
         String id = data.id(current);
         if (MithrilDeviceData.AMETHYST.equals(id)) {
-            player.sendActionBar(Settings.message("tesoros", "MithrilTools.amatista-carga",
-                    "<light_purple>✦ Resonancia de amatista: <white>{actual}/{maxima}",
-                    "actual", data.energy(current), "maxima", capacity()));
-            return; // Amethyst rewards belong exclusively to enchanted nodes.
+            return; // Amethyst rewards belong exclusively to enchanted nodes; HUD shows charge.
         }
         if (!MithrilDeviceData.PICK.equals(id) && !MithrilDeviceData.TEMPERED.equals(id)) return;
         if (data.activeUntil(current) <= System.currentTimeMillis()) return;

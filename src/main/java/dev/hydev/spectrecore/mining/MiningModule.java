@@ -101,36 +101,59 @@ public final class MiningModule implements Listener {
                 if (second) showGeodes(player);
                 State state = storageHealthy ? states.get(player.getUniqueId()) : null;
                 if (state != null && config.getBoolean("gemas.activadas", true)) expire(player, state);
-                updateBar(player, state);
+                if (barFrame % 2 == 0) updateBar(player, state);
             }
             if (second && ++saveClock >= 10) { saveClock = 0; if (dirty) saveData(); }
         }, 5, 5);
     }
 
     private void updateBar(Player player, State state) {
-        if (state == null || state.charge <= 0 || !config.getBoolean("gemas.activadas", true)
-                || !tool(player.getInventory().getItemInMainHand())) {
+        ItemStack held = player.getInventory().getItemInMainHand();
+        long now = System.currentTimeMillis();
+        var portable = mithrilTools.hud(player, held, now);
+        if (portable != null) {
+            var bar = bar(player);
+            bar.progress(portable.progress());
+            bar.color(portable.color());
+            bar.name(portable.title());
+            return;
+        }
+        if (!config.getBoolean("gemas.activadas", true) || !tool(held)) {
             hideBar(player);
             return;
         }
-        BossBar bar = resonanceBars.computeIfAbsent(player.getUniqueId(), id -> {
+        var bar = bar(player);
+        int charge = state == null ? 0 : state.charge;
+        bar.progress(Math.clamp(charge / (float)maximum(), 0f, 1f));
+        if (!storageHealthy) {
+            bar.color(BossBar.Color.RED);
+            bar.name(Settings.message("resonancia", "MiningModule.barra-no-disponible", "<red>Resonancia no disponible"));
+        } else if (!progression.meets(player, "resonancia")) {
+            bar.color(BossBar.Color.YELLOW);
+            bar.name(Settings.message("resonancia", "MiningModule.barra-bloqueada", "<yellow>Resonancia · Desbloquea Minería {nivel}",
+                    "nivel", progression.required("resonancia")));
+        } else if (player.getGameMode() != GameMode.SURVIVAL) {
+            bar.color(BossBar.Color.YELLOW);
+            bar.name(Settings.message("resonancia", "MiningModule.barra-supervivencia", "<yellow>Resonancia · Solo en supervivencia"));
+        } else if (state != null && state.activeUntil > now) {
+            long remaining = state.activeUntil - now;
+            bar.progress(Math.min(1f, remaining / (window() * 1000f)));
+            bar.color(barFrame % 8 < 4 ? BossBar.Color.PINK : BossBar.Color.PURPLE);
+            bar.name(Settings.message("resonancia", "MiningModule.barra-lista",
+                    "<light_purple>✦ Agáchate y mina · {s} s", "s", MithrilRules.remainingSeconds(now, state.activeUntil)));
+        } else {
+            bar.color(BossBar.Color.PURPLE);
+            bar.name(Settings.message("resonancia", "MiningModule.barra-carga",
+                    "<light_purple>✦ Resonancia <white>{carga}/{max}", "carga", charge, "max", maximum()));
+        }
+    }
+
+    private BossBar bar(Player player) {
+        return resonanceBars.computeIfAbsent(player.getUniqueId(), id -> {
             BossBar created = BossBar.bossBar(Component.empty(), 0, BossBar.Color.PURPLE, BossBar.Overlay.PROGRESS);
             player.showBossBar(created);
             return created;
         });
-        if (state.activeUntil > 0) {
-            long remaining = Math.max(0, state.activeUntil - System.currentTimeMillis());
-            bar.progress(Math.min(1f, remaining / (window() * 1000f)));
-            bar.color(barFrame % 8 < 4 ? BossBar.Color.PINK : BossBar.Color.PURPLE);
-            bar.name(Settings.message("resonancia", "MiningModule.barra-lista",
-                    "<light_purple>✦ Agáchate y mina · {s} s", "s", (remaining + 999) / 1000));
-        } else {
-            float target = Math.min(1f, state.charge / (float) maximum());
-            bar.progress(Math.min(target, bar.progress() + Math.max(0.01f, (target - bar.progress()) / 2)));
-            bar.color(BossBar.Color.PURPLE);
-            bar.name(Settings.message("resonancia", "MiningModule.barra-carga",
-                    "<light_purple>✦ Resonancia <white>{carga}/{max}", "carga", state.charge, "max", maximum()));
-        }
     }
 
     private void hideBar(Player player) {
@@ -527,6 +550,10 @@ public final class MiningModule implements Listener {
         }
         if (!(sender instanceof Player player)) { sender.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-028", "Usa este comando dentro del juego.")); return true; }
         if (!name.equals("resonancia") && !admin(sender)) { sender.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-029", "§cNo tienes permiso.")); return true; }
+        if (name.equals("resonancia")) {
+            var portable = mithrilTools.hud(player, player.getInventory().getItemInMainHand(), System.currentTimeMillis());
+            if (portable != null) { player.sendMessage(portable.title()); return true; }
+        }
         if (!storageHealthy) {
             sender.sendMessage(Settings.message("resonancia", "MiningModule.datos-no-disponibles", "<red>La resonancia no está disponible. Avisa a administración."));
             return true;

@@ -1719,409 +1719,409 @@
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-002",
     "predeterminado": "{prefix}<reset><gray>La resonancia se ha disipado.",
-    "origen": "MiningModule.java:370"
+    "origen": "MiningModule.java:393"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-003",
     "predeterminado": "✦ Resonancia completa · Agáchate y mina",
-    "origen": "MiningModule.java:379"
+    "origen": "MiningModule.java:402"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.color-002",
     "predeterminado": "LIGHT_PURPLE",
-    "origen": "MiningModule.java:379"
+    "origen": "MiningModule.java:402"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.texto-001",
     "predeterminado": "Superior",
-    "origen": "MiningModule.java:391"
+    "origen": "MiningModule.java:414"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.texto-002",
     "predeterminado": "Intermedia",
-    "origen": "MiningModule.java:391"
+    "origen": "MiningModule.java:414"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.etiqueta-047",
     "predeterminado": "Básica",
-    "origen": "MiningModule.java:391"
+    "origen": "MiningModule.java:414"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.color-003",
     "predeterminado": "DARK_PURPLE",
-    "origen": "MiningModule.java:392"
+    "origen": "MiningModule.java:415"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.color-004",
     "predeterminado": "BLUE",
-    "origen": "MiningModule.java:392"
+    "origen": "MiningModule.java:415"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.color-005",
     "predeterminado": "GREEN",
-    "origen": "MiningModule.java:392"
+    "origen": "MiningModule.java:415"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-004",
     "predeterminado": "✦ GEMA EXTRAÍDA",
-    "origen": "MiningModule.java:395"
+    "origen": "MiningModule.java:418"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.color-006",
     "predeterminado": "LIGHT_PURPLE",
-    "origen": "MiningModule.java:395"
+    "origen": "MiningModule.java:418"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-005",
     "predeterminado": "Calidad: {label}",
-    "origen": "MiningModule.java:395"
+    "origen": "MiningModule.java:418"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.ofmillis-001-arg0",
     "predeterminado": 150,
-    "origen": "MiningModule.java:395"
+    "origen": "MiningModule.java:418"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.ofseconds-002-arg0",
     "predeterminado": 2,
-    "origen": "MiningModule.java:395"
+    "origen": "MiningModule.java:418"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.ofmillis-003-arg0",
     "predeterminado": 350,
-    "origen": "MiningModule.java:395"
+    "origen": "MiningModule.java:418"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.sound-007",
     "predeterminado": "BLOCK_AMETHYST_BLOCK_CHIME",
-    "origen": "MiningModule.java:396"
+    "origen": "MiningModule.java:419"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.playsound-004-arg2",
     "predeterminado": 1.0,
-    "origen": "MiningModule.java:396"
+    "origen": "MiningModule.java:419"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.playsound-005-arg3",
     "predeterminado": 1.2,
-    "origen": "MiningModule.java:396"
+    "origen": "MiningModule.java:419"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-006",
     "predeterminado": "{prefix}<reset><white>Has extraído una gema de calidad {label}.",
-    "origen": "MiningModule.java:397"
+    "origen": "MiningModule.java:420"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.sound-008",
     "predeterminado": "BLOCK_AMETHYST_BLOCK_RESONATE",
-    "origen": "MiningModule.java:407"
+    "origen": "MiningModule.java:430"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.playsound-006-arg2",
     "predeterminado": 1.0,
-    "origen": "MiningModule.java:407"
+    "origen": "MiningModule.java:430"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.playsound-007-arg3",
     "predeterminado": 1.4,
-    "origen": "MiningModule.java:407"
+    "origen": "MiningModule.java:430"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-007",
     "predeterminado": "{prefix}<reset><light_purple><bold>RESONANCIA COMPLETA",
-    "origen": "MiningModule.java:408"
+    "origen": "MiningModule.java:431"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-008",
     "predeterminado": "<reset><gray>Agáchate y rompe un mineral en los próximos {window} segundos.",
-    "origen": "MiningModule.java:409"
+    "origen": "MiningModule.java:432"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-009",
     "predeterminado": "<reset><gray>La calidad depende del mineral que elijas.",
-    "origen": "MiningModule.java:410"
+    "origen": "MiningModule.java:433"
   },
   {
     "archivo": "tesoros/ajustes.yml",
     "clave": "MiningModule.sound-013",
     "predeterminado": "ENTITY_EXPERIENCE_ORB_PICKUP",
-    "origen": "MiningModule.java:438"
+    "origen": "MiningModule.java:461"
   },
   {
     "archivo": "tesoros/ajustes.yml",
     "clave": "MiningModule.playsound-008-arg2",
     "predeterminado": 1.0,
-    "origen": "MiningModule.java:438"
+    "origen": "MiningModule.java:461"
   },
   {
     "archivo": "tesoros/ajustes.yml",
     "clave": "MiningModule.playsound-009-arg3",
     "predeterminado": 1.5,
-    "origen": "MiningModule.java:438"
+    "origen": "MiningModule.java:461"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MiningModule.mensaje-014",
     "predeterminado": "¡TESORO ENCONTRADO!",
-    "origen": "MiningModule.java:439"
+    "origen": "MiningModule.java:462"
   },
   {
     "archivo": "tesoros/ajustes.yml",
     "clave": "MiningModule.color-014",
     "predeterminado": "GOLD",
-    "origen": "MiningModule.java:439"
+    "origen": "MiningModule.java:462"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MiningModule.mensaje-015",
     "predeterminado": "✦ {reward-getamount} minerales raros",
-    "origen": "MiningModule.java:439"
+    "origen": "MiningModule.java:462"
   },
   {
     "archivo": "tesoros/ajustes.yml",
     "clave": "MiningModule.color-015",
     "predeterminado": "YELLOW",
-    "origen": "MiningModule.java:439"
+    "origen": "MiningModule.java:462"
   },
   {
     "archivo": "tesoros/ajustes.yml",
     "clave": "MiningModule.ofmillis-010-arg0",
     "predeterminado": 150,
-    "origen": "MiningModule.java:439"
+    "origen": "MiningModule.java:462"
   },
   {
     "archivo": "tesoros/ajustes.yml",
     "clave": "MiningModule.ofseconds-011-arg0",
     "predeterminado": 2,
-    "origen": "MiningModule.java:439"
+    "origen": "MiningModule.java:462"
   },
   {
     "archivo": "tesoros/ajustes.yml",
     "clave": "MiningModule.ofmillis-012-arg0",
     "predeterminado": 350,
-    "origen": "MiningModule.java:439"
+    "origen": "MiningModule.java:462"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MiningModule.mensaje-016",
     "predeterminado": "<reset><white>↹ <reset><yellow>¡Obtuviste un mineral raro!",
-    "origen": "MiningModule.java:440"
+    "origen": "MiningModule.java:463"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-017",
     "predeterminado": "{prefix}<reset><red>La recompensa no está disponible. Avisa a administración.",
-    "origen": "MiningModule.java:491"
+    "origen": "MiningModule.java:514"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-018",
     "predeterminado": "No se pudo generar el hallazgo minero ({type}:{id}).",
-    "origen": "MiningModule.java:492"
+    "origen": "MiningModule.java:515"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-019",
     "predeterminado": "<reset><red>No tienes permiso.",
-    "origen": "MiningModule.java:501"
+    "origen": "MiningModule.java:524"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-020",
     "predeterminado": "Usa la demostración dentro del juego.",
-    "origen": "MiningModule.java:502"
+    "origen": "MiningModule.java:525"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-021",
     "predeterminado": "/spectrecore tesoros mineria <1|2|3> o /spectrecore tesoros gema <basica|intermedia|superior>",
-    "origen": "MiningModule.java:503"
+    "origen": "MiningModule.java:526"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-022",
     "predeterminado": "Tesoros mineros desactivados.",
-    "origen": "MiningModule.java:507"
+    "origen": "MiningModule.java:530"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-023",
     "predeterminado": "<reset><red>Nivel válido: 1, 2 o 3.",
-    "origen": "MiningModule.java:510"
+    "origen": "MiningModule.java:533"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-024",
     "predeterminado": "Resonancia desactivada.",
-    "origen": "MiningModule.java:513"
+    "origen": "MiningModule.java:536"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-025",
     "predeterminado": "<reset><red>Calidad válida: basica, intermedia o superior.",
-    "origen": "MiningModule.java:515"
+    "origen": "MiningModule.java:538"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-026",
     "predeterminado": "<reset><red>Usa tesoro o gema.",
-    "origen": "MiningModule.java:518"
+    "origen": "MiningModule.java:541"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-027",
     "predeterminado": "<reset><gray>Vista previa visual: no entrega objetos ni cambia la resonancia.",
-    "origen": "MiningModule.java:519"
+    "origen": "MiningModule.java:542"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-028",
     "predeterminado": "Usa este comando dentro del juego.",
-    "origen": "MiningModule.java:528"
+    "origen": "MiningModule.java:551"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-029",
     "predeterminado": "<reset><red>No tienes permiso.",
-    "origen": "MiningModule.java:529"
+    "origen": "MiningModule.java:552"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-030",
     "predeterminado": "Resonancia desactivada.",
-    "origen": "MiningModule.java:536"
+    "origen": "MiningModule.java:563"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-031",
     "predeterminado": "{prefix}<reset><white>Pico Perdido: <reset><light_purple>{state-charge}<reset><gray>/<reset><light_purple>{maximum}",
-    "origen": "MiningModule.java:537"
+    "origen": "MiningModule.java:564"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-032",
     "predeterminado": "<reset><gray>Lista para extraer: {valor1} s.",
-    "origen": "MiningModule.java:538"
+    "origen": "MiningModule.java:565"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-033",
     "predeterminado": "<reset><red>Debes sostener un objeto con nombre personalizado.",
-    "origen": "MiningModule.java:543"
+    "origen": "MiningModule.java:570"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-034",
     "predeterminado": "Nombre original: ",
-    "origen": "MiningModule.java:544"
+    "origen": "MiningModule.java:571"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.color-016",
     "predeterminado": "GRAY",
-    "origen": "MiningModule.java:544"
+    "origen": "MiningModule.java:571"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-035",
     "predeterminado": "Nombre sin colores: [{plain}]",
-    "origen": "MiningModule.java:545"
+    "origen": "MiningModule.java:572"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.color-017",
     "predeterminado": "WHITE",
-    "origen": "MiningModule.java:545"
+    "origen": "MiningModule.java:572"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-036",
     "predeterminado": "[COPIAR NOMBRE]",
-    "origen": "MiningModule.java:546"
+    "origen": "MiningModule.java:573"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.color-018",
     "predeterminado": "GREEN",
-    "origen": "MiningModule.java:546"
+    "origen": "MiningModule.java:573"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-037",
     "predeterminado": "Nombre del item: [{valor1}]",
-    "origen": "MiningModule.java:547"
+    "origen": "MiningModule.java:574"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-038",
     "predeterminado": "<reset><light_purple>HYDEV · DIAGNÓSTICO MINERO",
-    "origen": "MiningModule.java:549"
+    "origen": "MiningModule.java:576"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-039",
     "predeterminado": "<reset><gray>Herramienta: <reset><white>{held-gettype} <reset><gray>| Nombre: <reset><white>{plain}",
-    "origen": "MiningModule.java:550"
+    "origen": "MiningModule.java:577"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-040",
     "predeterminado": "<gray>Herramienta inspeccionada.",
-    "origen": "MiningModule.java:551"
+    "origen": "MiningModule.java:578"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-041",
     "predeterminado": "<gray>Condiciones de extracción verificadas.",
-    "origen": "MiningModule.java:552"
+    "origen": "MiningModule.java:579"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-042",
     "predeterminado": "<reset><gray>Herramienta válida: <reset><white>{tool-held} <reset><gray>| Carga: <reset><white>{state-charge}/{maximum}",
-    "origen": "MiningModule.java:553"
+    "origen": "MiningModule.java:580"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-043",
     "predeterminado": "<reset><gray>Probabilidades T1/T2/T3: <reset><white>{valor1}/{valor2}/{valor3}",
-    "origen": "MiningModule.java:554"
+    "origen": "MiningModule.java:581"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-044",
     "predeterminado": "UUID inválido en mining-data.yml: {key}",
-    "origen": "MiningModule.java:569"
+    "origen": "MiningModule.java:596"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-045",
     "predeterminado": "No se pudo guardar la minería: {error-getmessage}",
-    "origen": "MiningModule.java:606"
+    "origen": "MiningModule.java:633"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
@@ -8547,25 +8547,25 @@
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.geoda-sonido",
     "predeterminado": "BLOCK_AMETHYST_BLOCK_CHIME",
-    "origen": "MiningModule.java:229"
+    "origen": "MiningModule.java:252"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.barra-carga",
     "predeterminado": "<light_purple>✦ Resonancia <white>{carga}/{max}",
-    "origen": "MiningModule.java:131"
+    "origen": "MiningModule.java:146"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.barra-lista",
     "predeterminado": "<light_purple>✦ Agáchate y mina · {s} s",
-    "origen": "MiningModule.java:125"
+    "origen": "MiningModule.java:142"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.datos-no-disponibles",
     "predeterminado": "<red>La resonancia no está disponible. Avisa a administración.",
-    "origen": "MiningModule.java:531"
+    "origen": "MiningModule.java:558"
   },
   {
     "archivo": "resonancia/mensajes.yml",
@@ -8577,61 +8577,61 @@
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.geoda-abierta",
     "predeterminado": "<green>✦ Geoda abierta: <white>{gema} IV",
-    "origen": "MiningModule.java:351"
+    "origen": "MiningModule.java:374"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.geoda-descubierta",
     "predeterminado": "<light_purple>Geoda descubierta <gray>· {x}, {y}, {z} · Reservada para ti durante {minutos} min.",
-    "origen": "MiningModule.java:230"
+    "origen": "MiningModule.java:253"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.geoda-diamante",
     "predeterminado": "<yellow>Necesitas un Diamante Loco III.",
-    "origen": "MiningModule.java:318"
+    "origen": "MiningModule.java:341"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.geoda-inventario",
     "predeterminado": "<red>Libera espacio para la gema antes de abrir la geoda.",
-    "origen": "MiningModule.java:346"
+    "origen": "MiningModule.java:369"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.geoda-no-disponible",
     "predeterminado": "<yellow>Este núcleo aún no está disponible.",
-    "origen": "MiningModule.java:322"
+    "origen": "MiningModule.java:345"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.geoda-protegida",
     "predeterminado": "<red>No puedes abrir una geoda aquí.",
-    "origen": "MiningModule.java:293"
+    "origen": "MiningModule.java:316"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.geoda-requisito",
     "predeterminado": "<red>Necesitas Resonancia Arcana para abrir geodas.",
-    "origen": "MiningModule.java:289"
+    "origen": "MiningModule.java:312"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.geoda-seleccion",
     "predeterminado": "<light_purple>{gema} IV <gray>· Agáchate y pulsa para cambiar. Pulsa de pie para abrir.",
-    "origen": "MiningModule.java:306"
+    "origen": "MiningModule.java:329"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.geoda-sellada",
     "predeterminado": "<gray>Geoda sellada · Usa una Llave Resonante",
-    "origen": "MiningModule.java:298"
+    "origen": "MiningModule.java:321"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-019",
     "predeterminado": "<reset><red>No tienes permiso.",
-    "origen": "MiningModule.java:525"
+    "origen": "MiningModule.java:548"
   },
   {
     "archivo": "resonancia/mensajes.yml",
@@ -8865,7 +8865,7 @@
     "archivo": "tesoros/mensajes.yml",
     "clave": "AmethystField.resonante",
     "predeterminado": "<light_purple>✦ <white>Amatista Resonante",
-    "origen": "AmethystResonanceField.java:303"
+    "origen": "AmethystResonanceField.java:304"
   },
   {
     "archivo": "tesoros/mensajes.yml",
@@ -8889,121 +8889,115 @@
     "archivo": "tesoros/mensajes.yml",
     "clave": "MiningModule.mitrilo",
     "predeterminado": "<aqua>✦ Encontraste <white>{cantidad} <aqua>Mitrilo.",
-    "origen": "MiningModule.java:483"
-  },
-  {
-    "archivo": "tesoros/mensajes.yml",
-    "clave": "MithrilTools.amatista-carga",
-    "predeterminado": "<light_purple>✦ Resonancia de amatista: <white>{actual}/{maxima}",
-    "origen": "MithrilToolModule.java:144"
+    "origen": "MiningModule.java:506"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.ancla-limpiada",
     "predeterminado": "<gray>Se borró el sendero del Farol.",
-    "origen": "MithrilToolModule.java:106"
+    "origen": "MithrilToolModule.java:108"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.anclado",
     "predeterminado": "<aqua>✦ El Farol recuerda tu ubicación.",
-    "origen": "MithrilToolModule.java:105"
+    "origen": "MithrilToolModule.java:107"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.campo-ametista",
     "predeterminado": "<light_purple>✦ {cantidad} cristales invocados <gray>(-{costo} de resonancia). <light_purple>¡Rómpelos!",
-    "origen": "MithrilToolModule.java:111"
+    "origen": "MithrilToolModule.java:113"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.carga-completa",
     "predeterminado": "<gray>La herramienta ya está completamente cargada.",
-    "origen": "MithrilToolModule.java:95"
+    "origen": "MithrilToolModule.java:97"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.cargada",
     "predeterminado": "<aqua>✦ Resonancia restaurada: <white>{carga}/100",
-    "origen": "MithrilToolModule.java:96"
+    "origen": "MithrilToolModule.java:98"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.luz",
     "predeterminado": "<aqua>✦ Farol encendido.",
-    "origen": "MithrilToolModule.java:103"
+    "origen": "MithrilToolModule.java:105"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.luz-apagada",
     "predeterminado": "<gray>Farol apagado.",
-    "origen": "MithrilToolModule.java:104"
+    "origen": "MithrilToolModule.java:106"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.ruta",
     "predeterminado": "<aqua>✦ Sendero de retorno visible durante 20 segundos.",
-    "origen": "MithrilToolModule.java:107"
+    "origen": "MithrilToolModule.java:109"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.senal",
     "predeterminado": "<aqua>✦ Señal {intensidad}<gray> · {direccion} · Profundidad {profundidad}",
-    "origen": "MithrilToolModule.java:102"
+    "origen": "MithrilToolModule.java:104"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.senal",
     "predeterminado": "<aqua>✦ Señal {intensidad}<gray> · {direccion} · Profundidad {profundidad}",
-    "origen": "MithrilToolModule.java:373"
+    "origen": "MithrilToolModule.java:476"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.sin-carga",
     "predeterminado": "<yellow>Necesitas más resonancia o aguardar la recarga.",
-    "origen": "MithrilToolModule.java:97"
+    "origen": "MithrilToolModule.java:99"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.sin-cristales",
     "predeterminado": "<yellow>No hay espacio seguro para invocar cristales o sus gemas todavía no están disponibles.",
-    "origen": "MithrilToolModule.java:110"
+    "origen": "MithrilToolModule.java:112"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.sin-senal",
     "predeterminado": "<gray>El pulso no detectó minerales accesibles.",
-    "origen": "MithrilToolModule.java:101"
+    "origen": "MithrilToolModule.java:103"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.sin-tunel",
     "predeterminado": "<gray>La Barrena necesita roca común y un camino permitido.",
-    "origen": "MithrilToolModule.java:108"
+    "origen": "MithrilToolModule.java:110"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.sin-veta",
     "predeterminado": "<gray>Mira una veta natural que puedas extraer.",
-    "origen": "MithrilToolModule.java:98"
+    "origen": "MithrilToolModule.java:100"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.tunel",
     "predeterminado": "<aqua>✦ Barrena activada. No extrae minerales ni concede experiencia adicional.",
-    "origen": "MithrilToolModule.java:109"
+    "origen": "MithrilToolModule.java:111"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.veta",
     "predeterminado": "<aqua>✦ Veta marcada. Extrae para recoger hasta tres bloques adicionales.",
-    "origen": "MithrilToolModule.java:99"
+    "origen": "MithrilToolModule.java:101"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.zona",
     "predeterminado": "<red>La herramienta no puede utilizarse en esta zona.",
-    "origen": "MithrilToolModule.java:100"
+    "origen": "MithrilToolModule.java:102"
   },
   {
     "archivo": "trabajos/ajustes.yml",
@@ -9147,13 +9141,13 @@
     "archivo": "trabajos/mensajes.yml",
     "clave": "MiningProgression.requisito-herramienta",
     "predeterminado": "<yellow>Necesitas Minería nivel {nivel} para utilizar esta herramienta.",
-    "origen": "MithrilToolModule.java:205"
+    "origen": "MithrilToolModule.java:308"
   },
   {
     "archivo": "trabajos/mensajes.yml",
     "clave": "MiningProgression.requisito-herramienta",
     "predeterminado": "<yellow>Necesitas Minería nivel {nivel} para utilizar esta herramienta.",
-    "origen": "MithrilToolModule.java:217"
+    "origen": "MithrilToolModule.java:320"
   },
   {
     "archivo": "trabajos/mensajes.yml",
@@ -9232,5 +9226,137 @@
     "clave": "SupplyOrders.revision",
     "predeterminado": "<red>El pedido requiere revisión. Avisa a administración.",
     "origen": "SupplyOrders.java:142"
+  },
+  {
+    "archivo": "resonancia/mensajes.yml",
+    "clave": "MiningModule.barra-bloqueada",
+    "predeterminado": "<yellow>Resonancia · Desbloquea Minería {nivel}",
+    "origen": "MiningModule.java:133"
+  },
+  {
+    "archivo": "resonancia/mensajes.yml",
+    "clave": "MiningModule.barra-no-disponible",
+    "predeterminado": "<red>Resonancia no disponible",
+    "origen": "MiningModule.java:130"
+  },
+  {
+    "archivo": "resonancia/mensajes.yml",
+    "clave": "MiningModule.barra-supervivencia",
+    "predeterminado": "<yellow>Resonancia · Solo en supervivencia",
+    "origen": "MiningModule.java:137"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.hud-amatista",
+    "predeterminado": "Amatista",
+    "origen": "MithrilToolModule.java:156"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.hud-anclar",
+    "predeterminado": "Fijar retorno",
+    "origen": "MithrilToolModule.java:174"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.hud-barra",
+    "predeterminado": "<aqua>✦ Resonancia <white>{carga}/{max} <gray>· <white>{habilidad} <dark_gray>│ {estado}",
+    "origen": "MithrilToolModule.java:228"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.hud-barrena",
+    "predeterminado": "Barrena",
+    "origen": "MithrilToolModule.java:183"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.hud-barrena-activa",
+    "predeterminado": "<aqua>Excavando",
+    "origen": "MithrilToolModule.java:186"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.hud-bloqueada",
+    "predeterminado": "<yellow>Desbloquea Minería {nivel}",
+    "origen": "MithrilToolModule.java:194"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.hud-brujula",
+    "predeterminado": "Pulso",
+    "origen": "MithrilToolModule.java:168"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.hud-campo-activo",
+    "predeterminado": "<aqua>Termina el hallazgo activo",
+    "origen": "MithrilToolModule.java:161"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.hud-campos-ocupados",
+    "predeterminado": "<yellow>Espera un momento",
+    "origen": "MithrilToolModule.java:164"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.hud-control-agachado",
+    "predeterminado": "<gray>Agáchate + clic der.",
+    "origen": "MithrilToolModule.java:144"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.hud-control-click",
+    "predeterminado": "<gray>Clic der.",
+    "origen": "MithrilToolModule.java:169"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.hud-falta",
+    "predeterminado": "<gray>Faltan <white>{falta} <gray>de carga",
+    "origen": "MithrilToolModule.java:211"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.hud-lista",
+    "predeterminado": "<green>Carga lista <gray>· {control}",
+    "origen": "MithrilToolModule.java:221"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.hud-parcial",
+    "predeterminado": "<yellow>Campo parcial posible <gray>· {control}",
+    "origen": "MithrilToolModule.java:216"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.hud-recarga",
+    "predeterminado": "<yellow>Recarga {s}s",
+    "origen": "MithrilToolModule.java:206"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.hud-sendero",
+    "predeterminado": "Sendero",
+    "origen": "MithrilToolModule.java:178"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.hud-supervivencia",
+    "predeterminado": "<yellow>Solo en supervivencia",
+    "origen": "MithrilToolModule.java:198"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.hud-veta",
+    "predeterminado": "Veta",
+    "origen": "MithrilToolModule.java:148"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.hud-veta-activa",
+    "predeterminado": "<aqua>Mina la veta marcada · {s}s",
+    "origen": "MithrilToolModule.java:152"
   }
 ]

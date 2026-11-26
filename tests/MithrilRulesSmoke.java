@@ -1,5 +1,6 @@
 import dev.hydev.spectrecore.mining.MithrilRules;
 import java.util.List;
+import static dev.hydev.spectrecore.mining.MithrilRules.Readiness.*;
 
 public final class MithrilRulesSmoke {
     private static void ok(boolean valid) { if (!valid) throw new AssertionError("Mithril tool rules"); }
@@ -10,6 +11,22 @@ public final class MithrilRulesSmoke {
         ok(MithrilRules.canUse(50, 30, 8000, 4000));
         ok(!MithrilRules.canUse(20, 30, 8000, 4000));
         ok(!MithrilRules.canUse(50, 30, 8000, 9000));
+        // HUD shares the activation threshold; zero charge and cooldown boundaries are explicit.
+        var empty = MithrilRules.abilityStatus(0, 100, 25, 25, 8000, 0);
+        ok(empty.readiness() == CHARGING && empty.missing() == 25 && empty.progress() == 0f);
+        ok(MithrilRules.abilityStatus(24, 100, 25, 25, 8000, 0).missing() == 1);
+        var ready = MithrilRules.abilityStatus(25, 100, 25, 25, 8000, 8000);
+        ok(ready.readiness() == READY && ready.progress() == .25f);
+        var cooling = MithrilRules.abilityStatus(100, 100, 25, 25, 8000, 8001);
+        ok(cooling.readiness() == COOLDOWN && cooling.seconds() == 1);
+        ok(MithrilRules.remainingSeconds(8000, 10001) == 3);
+        int partialCost = dev.hydev.spectrecore.mining.AmethystResonanceRules.activationCost(75, 3, 5);
+        ok(partialCost == 45);
+        ok(MithrilRules.abilityStatus(44, 100, partialCost, 75, 0, 0).readiness() == CHARGING);
+        ok(MithrilRules.abilityStatus(45, 100, partialCost, 75, 0, 0).readiness() == PARTIAL);
+        ok(MithrilRules.abilityStatus(74, 100, partialCost, 75, 0, 0).missing() == 1);
+        ok(MithrilRules.abilityStatus(75, 100, partialCost, 75, 0, 0).readiness() == READY);
+        ok(MithrilRules.abilityStatus(120, 100, 25, 25, 0, 0).progress() == 1f);
         ok("intensa".equals(MithrilRules.signal(5.0)));
         ok("moderada".equals(MithrilRules.signal(8.0)));
         ok("debil".equals(MithrilRules.signal(15.0)));
