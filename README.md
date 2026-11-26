@@ -11,13 +11,14 @@
 
 | Referencia | Estado al auditar |
 |---|---|
+| [Rama activa de estabilización](https://github.com/hyspectre/SpectreCore/tree/dev09) | `0.9.0-dev8`; recuperación del parche `1fdcf87`, consulta [estado y migración](docs/ESTABILIZACION_DEV09.md) |
 | [Rama acumulativa de desarrollo](https://github.com/hyspectre/SpectreCore/tree/fix/0-9-mineria-integraciones-hydev) | `0.9.0-dev8`, base auditada: [`73eb5c4`](https://github.com/hyspectre/SpectreCore/commit/73eb5c4dc60dce3f37743e4238e57d25ffd44c7c) |
 | [PR #11](https://github.com/hyspectre/SpectreCore/pull/11) | Borrador; integra la revisión minera sobre PR #10 |
 | `main` | Código histórico `0.7.3-m3-alpha`; no contiene aún la línea 0.9 |
 | Servidor objetivo | Paper **1.21.10**, Java **21** |
 | Certificación de release | **Pendiente**. CI verde no implica compatibilidad ni seguridad ingame |
 
-La documentación está disponible en ambas ramas; eso **no significa que sus fuentes estén sincronizadas**. Para retomar el desarrollo 0.9, inspecciona la rama acumulativa y sus commits/PR posteriores. No derives una funcionalidad nueva de `main` por defecto. Comprueba siempre la versión real en `build.gradle.kts` y `src/main/resources/plugin.yml`.
+La documentación está disponible en ambas ramas; eso **no significa que sus fuentes estén sincronizadas**. Para retomar el desarrollo 0.9, comienza por `dev09` y verifica el commit remoto y cualquier cambio posterior. No derives una funcionalidad nueva de `main` por defecto. Comprueba siempre la versión real en `build.gradle.kts` y `src/main/resources/plugin.yml`.
 
 ## 2. Principios no negociables
 
@@ -95,7 +96,7 @@ La autoridad de rutas concretas y permisos es `command/CommandRoutes.java`, `com
 Base: Paper, MythicLib/MMOItems, MythicMobs **Free 5.13.0**, ItemsAdder y AuraSkills. Complementos: FancyNPCs, FancyHolograms, zMenu, WorldGuard, LuckPerms, EssentialsX, FAWE, Vault y Dungeons+ según función. Verifica versiones reales y APIs antes de modificar adaptadores: las dependencias de compilación no prueban las versiones instaladas.
 
 - La línea minera utiliza [`integracion-mmoitems/mineria-v2/`](https://github.com/hyspectre/SpectreCore/tree/fix/0-9-mineria-integraciones-hydev/integracion-mmoitems/mineria-v2), [recompensas AuraSkills](https://github.com/hyspectre/SpectreCore/blob/fix/0-9-mineria-integraciones-hydev/integracion-auraskills/rewards/mining.yml) y ambos YAML de MythicMobs.
-- El instalador minero dispone de simulación y respaldos, pero **no debe aplicarse a producción** hasta resolver el defecto de claves de YAML duplicadas y validar la Forja real.
+- El instalador minero dispone de simulación y respaldos, y valida claves YAML duplicadas antes de escribir. Requiere PyYAML. **No lo apliques aún a producción** sin validar la Forja e integraciones en un servidor de pruebas.
 - El Taller del Minero compacta 64 unidades y pulveriza materiales hechizados por dinero; no requiere una estación duplicada de MMOItems. Falta verificar el enlace con el NPC real.
 - Consulta las migraciones en la rama activa antes de reemplazar el JAR. Conserva respaldos de JAR, configuraciones y datos. No instales paquetes legacy y actuales juntos.
 

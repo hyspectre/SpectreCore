@@ -93,12 +93,7 @@ public final class MithrilDrill {
             if (!target.getType().isAir()) {
                 current = player.getInventory().getItemInMainHand();
                 ItemStack breaker = current;
-                if (!MithrilAutomationGuard.breakBlock(() -> {
-                    // AUD-06: validación WorldGuard antes de romper bloque
-                    WorldGuardBridge wg = new WorldGuardBridge(plugin.getLogger());
-                    if (!wg.canBuild(player, target.getLocation())) return false;
-                    return true;
-                }) {
+                if (!MithrilAutomationGuard.breakBlock(() -> target.breakNaturally(breaker, true))) {
                     cancel(id); return;
                 }
                 if (!wear(player, data, 1)) { cancel(id); return; }

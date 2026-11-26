@@ -2,6 +2,7 @@ package dev.hydev.spectrecore.guide;
 
 import dev.hydev.spectrecore.SpectreCorePlugin;
 import dev.hydev.spectrecore.model.CustomHeads;
+import dev.hydev.spectrecore.model.TexturePayload;
 import dev.hydev.spectrecore.text.TextService;
 import dev.hydev.spectrecore.storage.AtomicFileStore;
 import net.kyori.adventure.text.Component;
@@ -84,7 +85,9 @@ public final class MagoMenu implements Listener {
                 plugin.getDataFolder(), installed, "ui/mago.yml");
         YamlConfiguration candidate = new YamlConfiguration();
         candidate.load(installed);
-        mergeVisuals(installed, candidate);
+        if (!candidate.isConfigurationSection("pages") && candidate.isConfigurationSection("mago.sections"))
+            throw new IOException("El formato experimental mago.sections está incompleto; conserva el archivo y migra a pages según docs/ESTABILIZACION_DEV09.md");
+        boolean migrated = mergeVisuals(installed, candidate);
         // Old player-facing guidance contradicted the always-stacking Relicario.
         // Correct only the exact packaged legacy text in memory; keep custom edits intact.
         String oldRelicAdvice = "<gray>Solo cuenta la reliquia superior de cada familia.";
@@ -127,13 +130,18 @@ public final class MagoMenu implements Listener {
             throw new IOException("El Mago: recursos visuales ausentes");
         for (String icon : icons.getKeys(false))
             if (!ID.matcher(icon).matches() || !icons.isString(icon)
-                    || icons.getString(icon, "").length() > 1024)
+                    || !validIcon(icons.getString(icon, "")))
                 throw new IOException("El Mago: icono inválido " + icon);
+
+        for (String path : List.of("visual.portada", "visual.volver", "visual.cerrar", "visual.guia"))
+            if (candidate.contains(path) && !validIcon(candidate.getString(path)))
+                throw new IOException("El Mago: icono inválido " + path);
+        if (migrated) saveMigratedVisuals(installed, candidate);
         pages = candidate;  // Only publish a completely validated catalogue.
     }
 
     /** Merge additive, user-editable content into legacy files; preserve every edited field. */
-    private void mergeVisuals(File installed, YamlConfiguration candidate) throws IOException, InvalidConfigurationException {
+    private boolean mergeVisuals(File installed, YamlConfiguration candidate) throws IOException, InvalidConfigurationException {
         YamlConfiguration defaults = new YamlConfiguration();
         try (InputStream stream = plugin.getResource("ui/mago.yml")) {
             if (stream == null) throw new IOException("Falta la plantilla visual de El Mago");
@@ -193,7 +201,10 @@ public final class MagoMenu implements Listener {
             }
             if (buttonChanged) { candidate.set(base, amended); changed = true; }
         }
-        if (!changed) return;
+        return changed;
+    }
+
+    private void saveMigratedVisuals(File installed, YamlConfiguration candidate) throws IOException {
         File backup = new File(plugin.getDataFolder(), "backups/mago-visual-v1/ui/mago.yml");
         if (!backup.exists()) {
             Files.createDirectories(backup.toPath().getParent());
@@ -224,46 +235,7 @@ public final class MagoMenu implements Listener {
                     "<red>El catálogo de armaduras está desactivado.")));
             return true;
         }
-        // Support both "sections." and "pages." formats
-        String effectiveFormat = "pages";  // default
-        ConfigurationSection root = null;
-        
-        if (pages.isConfigurationSection("sections")) {
-            root = pages.getConfigurationSection("sections");
-            effectiveFormat = "sections";
-        } else if (pages.isConfigurationSection("pages")) {
-            root = pages.getConfigurationSection("pages");
-            effectiveFormat = "pages";
-        }
-        
-        if (root == null || !root.containsKey("title")) {
-            player.sendMessage(styled(pages.getString("invalid-page",
-                    "<red>El Mago no conoce esa sección.</red>")));
-            return;
-        }
-        
-        // Get section ID respecting both formats
-        String sectionId;
-        if ("sections".equals(effectiveFormat) && root.containsKey(section)) {
-            sectionId = section;
-        } else {
-            sectionId = requested != null && !requested.isEmpty() ? requested : "inicio";
-        }
-        
-        ConfigurationSection page = root.getConfigurationSection(sectionId);
-        if (page == null) {
-            player.sendMessage(styled(pages.getString("invalid-page",
-                    "<red>El Mago no conoce esa sección.</red>")));
-            return;
-        }
-        
-        // Get section IDs list respecting format
-        List<String> ids;
-        if ("sections".equals(effectiveFormat)) {
-            ids = new ArrayList<>(root.getKeys(false));
-        } else {
-            ids = new ArrayList<>(pages.getConfigurationSection("pages").getKeys(false));
-        } {
+        if (!ID.matcher(section).matches() || !pages.isConfigurationSection("pages." + section)) {
             player.sendMessage(styled(pages.getString("invalid-page",
                     "<red>El Mago no conoce esa sección.")));
             return true;
@@ -312,30 +284,8 @@ public final class MagoMenu implements Listener {
             Map<?, ?> option = links.get(i);
             String dest = String.valueOf(option.get("page"));
             String label = String.valueOf(option.get("label"));
-            // Get icon - supports both new "icons.material" and old "visual.iconos" format
-        String icon;
-        if ("sections".equals(effectiveFormat) && root != null && root.containsKey("icons")) {
-            // New format: sections.icons.material
-            icon = root.getString("icons." + dest, "");
-            if (icon.isEmpty()) icon = root.getString("icons.guia", "");
-        } else {
-            // Old format: visual.iconos.material
-            icon = pages.getString("visual.iconos." + dest,
+            String icon = pages.getString("visual.iconos." + dest,
                     pages.getString("visual.iconos.guia", ""));
-        }
-        
-        // Translate material name to ItemStack if valid, otherwise use default
-        if (!icon.isEmpty()) {
-            try {
-                Material mat = Material.valueOf(icon.toUpperCase().replace(" ", "_"));
-                itemStack = mat.parseItem();
-            } catch (Exception e) {
-                // Not a valid material name - use as custom item name or default
-                itemStack = new ItemStack(Material.BOOK);
-            }
-        } else {
-            itemStack = new ItemStack(Material.BOOK);
-        }
             String desc = option.get("descripcion") instanceof String value ? value
                     : pages.getString("pages." + dest + ".resumen",
                             pages.getString("pages." + dest + ".body", ""));
@@ -358,11 +308,26 @@ public final class MagoMenu implements Listener {
         player.openInventory(inventory);
     }
 
+    private static Material iconMaterial(String value) {
+        if (value == null || !value.matches("[A-Z][A-Z0-9_]*")) return null;
+        Material material = Material.getMaterial(value);
+        return material != null && material.isItem() && !material.isAir() ? material : null;
+    }
+    private static boolean validIcon(String value) {
+        if (value == null) return false;
+        if (value.isBlank() || iconMaterial(value) != null) return true;
+        try { TexturePayload.checked(value); return true; }
+        catch (IllegalArgumentException invalid) { return false; }
+    }
+
     private void place(Inventory inventory, int slot, String encoded, Material fallback,
                        String title, List<String> lore) {
         ItemStack item;
-        try { item = encoded == null || encoded.isBlank()
-                ? new ItemStack(fallback) : CustomHeads.fromBase64(encoded); }
+        try {
+            Material material = iconMaterial(encoded);
+            item = encoded == null || encoded.isBlank() ? new ItemStack(fallback)
+                    : material != null ? new ItemStack(material) : CustomHeads.fromBase64(encoded);
+        }
         catch (RuntimeException error) { item = new ItemStack(fallback); }
         ItemMeta meta = item.getItemMeta();
         if (meta == null) return;

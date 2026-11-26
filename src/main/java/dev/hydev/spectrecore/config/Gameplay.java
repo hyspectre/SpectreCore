@@ -153,6 +153,8 @@ public final class Gameplay {
                     throw new java.io.IOException("tesoros/mineria.yml: el Paladio debe conservar su ID");
             }
         }
+        bounded(ores, "geodas.probabilidad-porcentaje", 0, 100, false);
+        bounded(ores, "geodas.duracion-minutos", 1, 1440, true);
         bounded(ores, "mitrilo.cantidad-minima", 1, 64, true);
         bounded(ores, "mitrilo.cantidad-maxima", 1, 64, true);
         if (ores.getInt("mitrilo.cantidad-maxima") < ores.getInt("mitrilo.cantidad-minima"))

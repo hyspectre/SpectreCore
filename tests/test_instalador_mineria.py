@@ -147,3 +147,23 @@ for existing in ("", "    permission: [original]\n"):
     updated, changed = module.patch_permission(old, "TALADRO", "hydev.mineria.paladio")
     assert changed and "item-permissions:" not in updated
     assert set(yaml.safe_load(updated)["TALADRO"]["base"]["permission"]) == ({"original"} if existing else set()) | {"hydev.mineria.paladio"}
+
+# AUD-02: same semantic ID in all supported spelling variants; retain server-specific model.
+for quoted in ('MITRILO', '"MITRILO"', "'MITRILO'"):
+    before = f"{quoted}:\n  base:\n    material: STONE\n    custom-model-data: 123\nOTHER:\n  base:\n    material: DIRT\n"
+    incoming = "MITRILO:\n  base:\n    material: DIAMOND\n"
+    merged, updated, added = module.merge_items(before, incoming, "MATERIAL")
+    assert updated == ["MITRILO"] and not added
+    assert module.strict_yaml(merged)["MITRILO"]["base"] == {"material": "DIAMOND", "custom-model-data": 123}
+    assert "OTHER:\n  base:\n    material: DIRT\n" in merged
+    assert module.merge_items(merged, incoming, "MATERIAL")[0] == merged
+for malformed in ('MITRILO:\n  base: {}\n"MITRILO":\n  base: {}\n',
+                  "MITRILO:\n  base:\n    material: STONE\n    material: DIRT\n",
+                  "MITRILO: {base: {material: STONE}}\n"):
+    try:
+        module.merge_items(malformed, incoming, "MATERIAL")
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("Unsafe YAML accepted")
+print("PASS AUD-02: quoted IDs, preserved custom model, duplicate and unsupported YAML rejection")

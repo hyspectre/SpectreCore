@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Hydev Miner integration installer: edits only whitelisted MMOItems IDs.
 
-Built-in Python only, no PyYAML requirement on the Minecraft machine.
+Requires Python 3 and PyYAML for strict validation before any write.
 Dry run by default. --aplicar creates backups, preserves unrelated lines,
 and atomically updates the original MMOItems type and station YAML files.
 """
@@ -14,6 +14,7 @@ import re
 import shutil
 import sys
 import tempfile
+import yaml
 
 ROOT = Path(__file__).resolve().parent
 TYPES = {
@@ -24,14 +25,41 @@ TYPES = {
 }
 RECIPE_SOURCE = ROOT / "RECETAS_FORJA_MINERIA.yml"
 LOST_SOURCE = ROOT / "RECETA_PICO_PERDIDO_REEMPLAZO.yml"
-TOP_ITEM = re.compile(r"^(?:\"([A-Z][A-Z0-9_]*\")|([A-Z][A-Z0-9_]*)):[ \t]*(?:#.*)?$")
-TOP_RECIPE = re.compile(r"^  ([a-z0-9-]+):[ \t]*(?:#.*)?$")
-ROOT_KEY = re.compile(r"^(?:\"[^ \t#][^:\n]*\"|[^ \t#][^:\n]*):[ \t]*(?:#.*)?$")
+TOP_ITEM = re.compile(r"""^("[A-Z][A-Z0-9_]*"|'[A-Z][A-Z0-9_]*'|[A-Z][A-Z0-9_]*):[ 	]*(?:#.*)?$""")
+TOP_RECIPE = re.compile(r"""^  ("[a-z0-9-]+"|'[a-z0-9-]+'|[a-z0-9-]+):[ 	]*(?:#.*)?$""")
+ROOT_KEY = re.compile(r"^[^ 	#][^:\n]*:[ 	]*(?:#.*)?$")
+
+class StrictLoader(yaml.SafeLoader):
+    def construct_mapping(self, node, deep=False):
+        self.flatten_mapping(node)
+        result = {}
+        for key_node, value_node in node.value:
+            key = self.construct_object(key_node, deep=deep)
+            if not isinstance(key, (str, int, float, bool)) or key in result:
+                raise ValueError(f"Clave YAML duplicada o no admitida: {key!r}")
+            result[key] = self.construct_object(value_node, deep=deep)
+        return result
+
+def strict_yaml(text):
+    try:
+        value = yaml.load(text, Loader=StrictLoader)
+    except yaml.YAMLError as error:
+        raise ValueError(f"YAML inválido: {error}") from error
+    if value is None and not any(x.strip() and not x.lstrip().startswith("#") for x in text.splitlines()):
+        return {}
+    if not isinstance(value, dict):
+        raise ValueError("Se esperaba un mapa YAML")
+    return value
+
+def overlay(old, new):
+    if not isinstance(old, dict) or not isinstance(new, dict):
+        return new
+    return {**old, **{k: overlay(old.get(k), v) for k, v in new.items()}}
 
 def lines_and_sections(text: str, matcher: re.Pattern, stop_at_root=False):
     lines = text.splitlines(keepends=True)
     spans = {}
-    positions = [(i, (m.group(1) or m.group(2)).strip('"')) for i, line in enumerate(lines)
+    positions = [(i, m.group(1).strip(chr(34) + chr(39))) for i, line in enumerate(lines)
                  if (m := matcher.fullmatch(line.rstrip("\r\n")))]
     if len({name for _, name in positions}) != len(positions):
         raise ValueError("IDs duplicados en archivo de origen o destino")
@@ -48,6 +76,9 @@ def lines_and_sections(text: str, matcher: re.Pattern, stop_at_root=False):
 def merge_items(original: str, incoming: str, label: str, *, only_missing=False):
     old_lines, old_spans = lines_and_sections(original, TOP_ITEM)
     source_lines, new_spans = lines_and_sections(incoming, TOP_ITEM)
+    old_data, new_data = strict_yaml(original), strict_yaml(incoming)
+    if set(old_spans) != set(old_data) or set(new_spans) != set(new_data):
+        raise ValueError(f"{label}: formato de IDs no admitido; no se modifica")
     if not new_spans:
         raise ValueError(f"{label}: no se encontraron entradas MMOItems")
     updates = {}
@@ -59,8 +90,10 @@ def merge_items(original: str, incoming: str, label: str, *, only_missing=False)
                 continue
             a, b = old_spans[key]
             previous = "".join(old_lines[a:b]).rstrip() + "\n"
-            if previous != block:
-                updates[key] = block
+            combined = overlay(old_data[key], new_data[key])
+            if combined != old_data[key]:
+                updates[key] = (block if combined == new_data[key] else
+                                yaml.safe_dump({key: combined}, allow_unicode=True, sort_keys=False))
         else:
             additions.append(block)
     merged = old_lines[:]
@@ -71,6 +104,9 @@ def merge_items(original: str, incoming: str, label: str, *, only_missing=False)
     result = "".join(merged).rstrip() + "\n"
     if additions:
         result += "\n".join(additions)
+    if strict_yaml(result) != {**old_data, **{k: (old_data[k] if only_missing and k in old_data else
+                                                   overlay(old_data.get(k), v)) for k, v in new_data.items()}}:
+        raise ValueError(f"{label}: la fusión no conserva los datos esperados")
     return result, sorted(updates), sorted(new_spans.keys() - old_spans.keys())
 
 def patch_permission(text: str, name: str, permission: str) -> tuple[str, bool]:
@@ -189,10 +225,13 @@ def make_unbreakable(text: str, item: str) -> str:
     raise ValueError(f"{item}: entrada sin base")
 
 def recipe_area(text: str):
+    data = strict_yaml(text)
+    if not isinstance(data.get("recipes"), dict):
+        raise ValueError("La Forja no contiene un mapa de recetas")
     rows = text.splitlines(keepends=True)
     roots = [i for i, line in enumerate(rows)
              if ROOT_KEY.fullmatch(line.rstrip("\r\n"))]
-    begin = next((i for i in roots if rows[i].strip() == "recipes:"), None)
+    begin = next((i for i in roots if rows[i].split("#", 1)[0].strip().rstrip(":").strip(chr(34) + chr(39)) == "recipes"), None)
     if begin is None:
         raise ValueError("La Forja no contiene sección recipes:")
     end = next((i for i in roots if i > begin), len(rows))
@@ -202,8 +241,8 @@ def read_recipes(source: Path):
     rows, start, end = recipe_area(source.read_text(encoding="utf-8"))
     local = "".join(rows[start + 1:end])
     content, spans = lines_and_sections(local, TOP_RECIPE)
-    if not spans:
-        raise ValueError(f"Sin recetas: {source.name}")
+    if not spans or set(spans) != set(strict_yaml(source.read_text(encoding="utf-8"))["recipes"]):
+        raise ValueError(f"Recetas ausentes o formato no admitido: {source.name}")
     return {name: "".join(content[a:b]).rstrip() + "\n"
             for name, (a,b) in spans.items()}
 
@@ -232,6 +271,8 @@ def merge_recipes(original: str, additions: dict, lost: dict):
     old_lines = rows[start + 1:end]
     old_text = "".join(old_lines)
     lines, spans = lines_and_sections(old_text, TOP_RECIPE, stop_at_root=True)
+    if set(spans) != set(strict_yaml(original)["recipes"]):
+        raise ValueError("Formato de IDs de recetas no admitido")
     to_add = []
     to_replace = {}
     obsolete, old_spans = lines_and_sections(RETIRED_RECIPES, TOP_RECIPE)
@@ -355,6 +396,10 @@ def install(plugin: Path, forge: Path, apply: bool):
         target = plugin / "language/lore-formats" / (fmt + ".yml")
         if fmt == "gema-minera" or not target.exists():
             changes[target] = (ROOT / (fmt + ".yml")).read_text(encoding="utf-8")
+    for path, new in changes.items():
+        if path.exists():
+            strict_yaml(path.read_text(encoding="utf-8"))
+        strict_yaml(new)
     modified = {path: new for path, new in changes.items()
                 if not path.exists() or path.read_text(encoding="utf-8") != new}
     if not modified:

@@ -26,6 +26,8 @@ for name, page in data["pages"].items():
 
 assert len(visual["iconos"]) >= 15
 for icon in [visual["portada"],visual["volver"],visual["cerrar"],*visual["iconos"].values()]:
+    if re.fullmatch(r"[A-Z][A-Z0-9_]*", icon or ""):
+        continue  # Material validity is checked by MagoMenu against Paper at load.
     if icon:
         url = json.loads(base64.b64decode(icon,validate=True))["textures"]["SKIN"]["url"]
         assert re.fullmatch(r"https?://textures\.minecraft\.net/texture/[a-fA-F0-9]{32,128}",url),url
@@ -34,10 +36,12 @@ java = (root / "src/main/java/dev/hydev/spectrecore/guide/MagoMenu.java").read_t
 assert "implements Listener" in java
 assert "Bukkit.createInventory(holder, 54" in java
 assert "CustomHeads.fromBase64(encoded)" in java
+assert "material.isItem()" in java and "TexturePayload.checked(value)" in java
+assert visual["iconos"]["mascotas"] == "BONE"
 assert "event.setCancelled(true)" in java
 assert "Bukkit.getScheduler().runTask(plugin" in java
 assert "holder.history" in java
 assert "mergeVisuals(installed, candidate)" in java
 assert "player.showDialog" not in java and "DialogAction" not in java
 assert "plugin.armors()" in java  # Preserved explicit legacy command access.
-print("PASS Native El Mago: independent pages, accessible tips, Base64 icons and secure 54-slot navigation")
+print("PASS Native El Mago: independent pages, accessible tips, Material/Base64 icons and secure 54-slot navigation")

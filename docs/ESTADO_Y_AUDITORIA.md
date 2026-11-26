@@ -113,3 +113,7 @@ Añade una entrada al cerrar cambios sustanciales; conserva los resultados hist�
 | 26/11/2026 | `main` y rama de desarrollo | Documentación de onboarding | README, AGENTS y este registro. No modifica código, balance, versión ni estado de certificación. |
 
 **Para la siguiente IA:** elige la base correcta, lee las reglas en AGENTS, comprueba el estado remoto y trabaja con evidencia. Actualiza aquí los cambios y pendientes reales; no reinicies proyectos ni supongas que un historial completo equivale a una release.
+
+### Continuidad — estabilización de dev09
+
+El parche de `1fdcf87` fue revisado y corregido conservando su rama `dev09` y versión. Los estados actuales de los hallazgos, los cambios de persistencia y los procedimientos de pruebas y recuperación están en [ESTABILIZACION_DEV09.md](ESTABILIZACION_DEV09.md). Las tablas anteriores son evidencia histórica, no certificación de la revisión nueva. No se integra a `main` ni se despliega sin autorización.

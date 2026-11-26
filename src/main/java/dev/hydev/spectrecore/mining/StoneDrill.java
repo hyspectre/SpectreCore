@@ -135,13 +135,7 @@ public final class StoneDrill implements Listener {
                 if(!target.getWorld().isChunkLoaded(target.getX()>>4,target.getZ()>>4)
                         ||!stone(target)||!regions.canBreak(player,target))continue;
                 // Auxiliary clearance gives no drops and no AuraSkills XP.
-                // AUD-06: validación WorldGuard antes de establecer tipo de bloque
-WorldGuardBridge wg = new WorldGuardBridge(plugin.getLogger());
-if (!wg.canBuild(player, target.getLocation())) {
-    player.sendMessage(Settings.message("mineria", "StoneDrill.mensaje-001", "§cNo puedes modificar bloques en regiones protegidas."));
-} else {
-    target.setType(Material.AIR,false);
-}
+                target.setType(Material.AIR,false);
                 completed++;
             }
             if(completed>0)player.playSound(origin,Sound.BLOCK_DEEPSLATE_BREAK,0.45f,1.4f);

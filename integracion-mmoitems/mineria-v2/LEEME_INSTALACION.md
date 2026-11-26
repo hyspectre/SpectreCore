@@ -56,9 +56,13 @@ y abre una terminal en `MMOItems/mineria-v2/`. El primer comando simula y el seg
 guarda los cambios con respaldo bajo `.hydev-backups/`.
 
 ```bash
+python3 -m pip install pyyaml
 python3 instalar_mineria.py /ruta/servidor/plugins/MMOItems
 python3 instalar_mineria.py /ruta/servidor/plugins/MMOItems --aplicar
 ```
+
+El instalador requiere Python 3 con PyYAML (usa un entorno virtual si tu sistema lo exige).
+Rechaza claves duplicadas, incluso si una está entre comillas, antes de escribir.
 
 El tipo personalizado RELIQUIA debe estar registrado como en la instalación del Relicario.
 El instalador fusiona las cinco reliquias, actualiza las herramientas y el lore de

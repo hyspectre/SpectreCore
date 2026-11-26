@@ -92,13 +92,14 @@ final class MiningPermissionSync {
                     for (var reward : milestones.entrySet()) {
                         if (current < reward.getValue()) continue;
                         String grantKey = reward.getKey();
-                        // Verificar si el usuario ya tiene este grant: si ya lo tiene, no vuelva a otorgarlo
-                        // pero tampoco remueva denegaciones administrativas ajenas.
-                        boolean hasGrant = user.data().toCollection().contains(Node.builder(grantKey).build());
-                        if (hasGrant) continue; // Ya concedido; saltar a siguiente hito
-                        // Solo intentamos otorgar si no tenía el grant previamente.
-                        // No removemos denegaciones explícitas (pueden ser de LuckPerms/admin).
+                        // A direct denial (including contextual nodes) is deliberate.
+                        // Do not turn it into an unconditional grant; also respect inherited denials.
+                        if (user.data().toCollection().stream().anyMatch(node ->
+                                node.getKey().equals(grantKey) && !node.getValue())) continue;
+                        if (user.getCachedData().getPermissionData().checkPermission(grantKey)
+                                == net.luckperms.api.util.Tristate.FALSE) continue;
                         Node grant = Node.builder(grantKey).build();
+                        if (user.data().toCollection().contains(grant)) continue;
                         if (user.data().add(grant).wasSuccessful()) changed.set(true);
                     }
                 }).join();

@@ -1,5 +1,7 @@
 package dev.hydev.spectrecore.mining;
 
+import dev.hydev.spectrecore.config.Settings;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonElement;
@@ -66,7 +68,7 @@ final class MiningForgeUpgrades implements Listener {
                 throw new IllegalStateException("No se pudo preparar el resultado");
         } catch (RuntimeException | LinkageError failure) {
             event.setCancelled(true);
-            event.getPlayer().sendMessage("§cNo se pudo conservar la configuración de ranuras. Conservas los ingredientes.");
+            event.getPlayer().sendMessage(Settings.message("resonancia", "MiningModule.forja-error-ranuras", "<red>No se pudo conservar la configuración de ranuras. Conservas los ingredientes."));
             plugin.getLogger().log(Level.WARNING,"Mejora minera rechazada: " + event.getRecipe().getId(),failure);
         }
     }

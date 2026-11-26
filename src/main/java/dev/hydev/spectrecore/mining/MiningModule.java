@@ -28,11 +28,12 @@ import java.io.IOException;
 import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
-import dev.hydev.spectrecore.integration.WorldGuardBridge;
+import dev.hydev.spectrecore.storage.AtomicFileStore;
+import dev.hydev.spectrecore.storage.StateYaml;
 
 public final class MiningModule implements Listener {
     private static String prefix() { return Settings.text("resonancia", "MiningModule.etiqueta-046", "§8[§d✦§8] §r"); }
-    private static final class State { int charge; long activeUntil; }
+    private static final class State { int charge; long activeUntil; Long legacyTreasureUntil; }
     private final JavaPlugin plugin;
     private final MmoBridge mmo = new MmoBridge();
     private final MiningVisuals visuals;
@@ -53,6 +54,8 @@ public final class MiningModule implements Listener {
     private static final List<String> CORES = List.of("VETA", "MAGNETITA", "FLUORITA", "DIAMANTE_LOCO");
     private static final List<String> CORE_NAMES = List.of("Veta", "Magnetita", "Fluorita", "Diamante Loco");
     private boolean dirty;
+    private boolean storageHealthy;
+    private final MithrilRegionAccess geodeRegions;
     private int saveClock;
     private int barFrame;
     private final Map<UUID, BossBar> resonanceBars = new HashMap<>();
@@ -60,6 +63,7 @@ public final class MiningModule implements Listener {
     public MiningModule(JavaPlugin plugin, dev.hydev.spectrecore.treasure.TreasureCooldowns treasureCooldown) {
         this.plugin = plugin; geodeNamespace = new NamespacedKey(plugin, "geoda").getNamespace(); this.treasureCooldown = treasureCooldown;
         visuals = new MiningVisuals(plugin);
+        geodeRegions = new MithrilRegionAccess(plugin);
         // Obsidian must be marked on placement too; no recycled blocks may summon Prospectors.
         placed = new PlacedOres(plugin, "placed_ores_v1",
                 material -> MiningModule.tier(material) > 0 || material == Material.OBSIDIAN);
@@ -95,7 +99,7 @@ public final class MiningModule implements Listener {
             boolean second = ++barFrame % 4 == 0;
             for (Player player : Bukkit.getOnlinePlayers()) {
                 if (second) showGeodes(player);
-                State state = states.get(player.getUniqueId());
+                State state = storageHealthy ? states.get(player.getUniqueId()) : null;
                 if (state != null && config.getBoolean("gemas.activadas", true)) expire(player, state);
                 updateBar(player, state);
             }
@@ -184,7 +188,7 @@ public final class MiningModule implements Listener {
         int veta = gems.mine(player,block,this::deliver);
         discoverGeode(player, block);
         mithrilTools.onManualOre(player, block);
-        if (progression.meets(player,"resonancia")
+        if (storageHealthy && progression.meets(player,"resonancia")
                 && config.getBoolean("gemas.activadas", true)
                 && tool(player.getInventory().getItemInMainHand())) resonance(player, block, tier);
         if (config.getBoolean("tesoros.activados", true)) treasure(player, block, tier, veta);
@@ -201,7 +205,10 @@ public final class MiningModule implements Listener {
                     REDSTONE_ORE, DEEPSLATE_REDSTONE_ORE -> { }
             default -> { return; }
         }
-        if (!progression.meets(player, "arcana") || ThreadLocalRandom.current().nextDouble() >= 0.005 * (1 + miningBonus(plugin, player, "geode_chance") / 100)) return;
+        double chance = config.getDouble("geodas.probabilidad-porcentaje", 0.5) / 100.0;
+        if (!Double.isFinite(chance) || !progression.meets(player, "arcana")
+                || ThreadLocalRandom.current().nextDouble() >= Math.clamp(chance * (1 + miningBonus(plugin, player, "geode_chance") / 100), 0, 1)) return;
+        int duration = Math.clamp(config.getInt("geodas.duracion-minutos", 10), 1, 1440);
         if (mmo.build("MATERIAL", "LLAVE_RESONANTE", 1) == null) return;
         for (String core : CORES) {
             if (mmo.build("GEM_STONE", "GEMA_" + core + "_IV", 1) == null) return;
@@ -210,6 +217,7 @@ public final class MiningModule implements Listener {
                 org.bukkit.block.BlockFace.SOUTH, org.bukkit.block.BlockFace.WEST, org.bukkit.block.BlockFace.EAST,
                 org.bukkit.block.BlockFace.UP)) {
             Block anchor = ore.getRelative(face);
+            if (!geodeRegions.canBuild(player, anchor)) continue;
             if (anchor.getType() != Material.STONE && anchor.getType() != Material.DEEPSLATE) continue;
             var key = marker(anchor);
             var data = player.getPersistentDataContainer();
@@ -217,10 +225,10 @@ public final class MiningModule implements Listener {
             long now = System.currentTimeMillis();
             long[] previous = data.get(key, type);
             if (previous != null && previous.length == 2 && previous[0] > now) continue;
-            data.set(key, type, new long[]{now + Duration.ofMinutes(10).toMillis(), 0});
-            player.playSound(anchor.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_CHIME, 1, 1);
-            player.sendMessage("§dGeoda descubierta §7· " + anchor.getX() + ", " + anchor.getY() + ", " +
-                    anchor.getZ() + " · Reservada para ti durante 10 min.");
+            data.set(key, type, new long[]{now + Duration.ofMinutes(duration).toMillis(), 0});
+            player.playSound(anchor.getLocation(), Settings.sound("resonancia", "MiningModule.geoda-sonido", Sound.BLOCK_AMETHYST_BLOCK_CHIME), 1, 1);
+            player.sendMessage(Settings.message("resonancia", "MiningModule.geoda-descubierta", "<light_purple>Geoda descubierta <gray>· {x}, {y}, {z} · Reservada para ti durante {minutos} min.",
+                    "x", anchor.getX(), "y", anchor.getY(), "z", anchor.getZ(), "minutos", duration));
             return;
         }
     }
@@ -238,8 +246,10 @@ public final class MiningModule implements Listener {
             }
             String[] parts = key.getKey().split("/");
             if (parts.length != 5 || !parts[1].equals(player.getWorld().getUID().toString())) continue;
-            Location point = new Location(player.getWorld(), Integer.parseInt(parts[2]) + 0.5,
-                    Integer.parseInt(parts[3]) + 0.5, Integer.parseInt(parts[4]) + 0.5);
+            Location point;
+            try { point = new Location(player.getWorld(), Integer.parseInt(parts[2]) + 0.5,
+                    Integer.parseInt(parts[3]) + 0.5, Integer.parseInt(parts[4]) + 0.5); }
+            catch (NumberFormatException malformed) { data.remove(key); continue; }
             if (point.distanceSquared(player.getLocation()) <= 32 * 32)
                 player.spawnParticle(Particle.END_ROD, point, 8, 0.6, 0.6, 0.6, 0);
         }
@@ -268,27 +278,24 @@ public final class MiningModule implements Listener {
                 var point = ray.next();
                 key = marker(point);
                 state = data.get(key, type);
-                if (state != null || !point.isPassable()) break;
+                if (state != null) { block = point; break; }
+                if (!point.isPassable()) break;
             }
         }
         if (state == null || state.length != 2) return;
         if (state[0] <= System.currentTimeMillis()) { data.remove(key); return; }
-        // --- AUD-05: validaciones nuevas ---
-        // 1. Validar hito "arcana"
+        if (state[1] < 0 || state[1] > CORES.size()) return;
         if (!progression.meets(player, "arcana")) {
-            player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-045", "§cNecesitas el arcana §7nivel para abrir geodas."));
+            player.sendMessage(Settings.message("resonancia", "MiningModule.geoda-requisito", "<red>Necesitas Resonancia Arcana para abrir geodas."));
             return;
         }
-        // 2. Validar protección de región (WorldGuard) si está disponible
-        WorldGuardBridge wg = new WorldGuardBridge(plugin.getLogger());
-        if (!wg.canBuild(player, block.getLocation())) {
-            player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-046", "§cNo puedes abrir geodas en regiones protegidas."));
+        if (block == null || !geodeRegions.canBuild(player, block)) {
+            player.sendMessage(Settings.message("resonancia", "MiningModule.geoda-protegida", "<red>No puedes abrir una geoda aquí."));
             return;
         }
-        // --------------------------------
         var held = player.getInventory().getItemInMainHand();
         if (!"LLAVE_RESONANTE".equals(mmo.id(held)) || !"MATERIAL".equals(mmo.type(held))) {
-            player.sendActionBar(Component.text("Geoda sellada · Usa una Llave Resonante"));
+            player.sendActionBar(Settings.message("resonancia", "MiningModule.geoda-sellada", "<gray>Geoda sellada · Usa una Llave Resonante"));
             return;
         }
         event.setCancelled(true);
@@ -296,8 +303,7 @@ public final class MiningModule implements Listener {
         if (player.isSneaking() || index == 0) {
             index = index % CORES.size() + 1;
             data.set(key, type, new long[]{state[0], index});
-            player.sendMessage("§d" + CORE_NAMES.get(index - 1) +
-                    " IV §7· Agáchate y pulsa para cambiar. Pulsa de pie para abrir.");
+            player.sendMessage(Settings.message("resonancia", "MiningModule.geoda-seleccion", "<light_purple>{gema} IV <gray>· Agáchate y pulsa para cambiar. Pulsa de pie para abrir.", "gema", CORE_NAMES.get(index - 1)));
             return;
         }
         String core = CORES.get(index - 1);
@@ -309,19 +315,46 @@ public final class MiningModule implements Listener {
                 if (candidate != null && "GEM_STONE".equals(mmo.type(candidate)) &&
                         "GEMA_DIAMANTE_LOCO_III".equals(mmo.id(candidate))) { payment = i; break; }
             }
-            if (payment < 0) { player.sendMessage("§eNecesitas un Diamante Loco III."); return; }
+            if (payment < 0) { player.sendMessage(Settings.message("resonancia", "MiningModule.geoda-diamante", "<yellow>Necesitas un Diamante Loco III.")); return; }
         }
         ItemStack reward = mmo.build("GEM_STONE", "GEMA_" + core + "_IV", 1);
         if (reward == null || reward.getType().isAir()) {
-            player.sendMessage("§eEste núcleo aún no está disponible."); return;
+            player.sendMessage(Settings.message("resonancia", "MiningModule.geoda-no-disponible", "<yellow>Este núcleo aún no está disponible.")); return;
         }
+        // Plan the entire exchange in storage slots, then apply once. A full inventory
+        // leaves the key, extra gem, and marker intact (no persistent world drop).
+        var inventory = player.getInventory();
+        ItemStack[] next = inventory.getStorageContents();
+        for (int i = 0; i < next.length; i++) if (next[i] != null) next[i] = next[i].clone();
+        int keySlot = inventory.getHeldItemSlot();
+        if (next[keySlot] == null || next[keySlot].getAmount() < 1) return;
+        next[keySlot] = minusOne(next[keySlot]);
+        if (payment >= 0) next[payment] = minusOne(next[payment]);
+        int remaining = reward.getAmount();
+        int max = reward.getMaxStackSize();
+        for (int i = 0; i < next.length && remaining > 0; i++) {
+            if (next[i] == null || !next[i].isSimilar(reward)) continue;
+            int amount = Math.min(remaining, Math.max(0, max - next[i].getAmount()));
+            next[i].setAmount(next[i].getAmount() + amount); remaining -= amount;
+        }
+        for (int i = 0; i < next.length && remaining > 0; i++) {
+            if (next[i] != null && !next[i].getType().isAir()) continue;
+            int amount = Math.min(remaining, max);
+            next[i] = reward.clone(); next[i].setAmount(amount); remaining -= amount;
+        }
+        if (remaining != 0) {
+            player.sendMessage(Settings.message("resonancia", "MiningModule.geoda-inventario", "<red>Libera espacio para la gema antes de abrir la geoda."));
+            return;
+        }
+        inventory.setStorageContents(next);
         data.remove(key);
-        held.subtract();
-        if (payment >= 0) player.getInventory().getItem(payment).subtract();
-        for (var excess : player.getInventory().addItem(reward).values()) {
-            var drop = player.getWorld().dropItem(player.getLocation(), excess);
-            drop.setOwner(player.getUniqueId());
-        }
+        player.sendMessage(Settings.message("resonancia", "MiningModule.geoda-abierta", "<green>✦ Geoda abierta: <white>{gema} IV", "gema", CORE_NAMES.get(index - 1)));
+    }
+
+    private static ItemStack minusOne(ItemStack stack) {
+        if (stack.getAmount() <= 1) return null;
+        stack.setAmount(stack.getAmount() - 1);
+        return stack;
     }
 
     private String gemId(String quality) {
@@ -494,6 +527,10 @@ public final class MiningModule implements Listener {
         }
         if (!(sender instanceof Player player)) { sender.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-028", "Usa este comando dentro del juego.")); return true; }
         if (!name.equals("resonancia") && !admin(sender)) { sender.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-029", "§cNo tienes permiso.")); return true; }
+        if (!storageHealthy) {
+            sender.sendMessage(Settings.message("resonancia", "MiningModule.datos-no-disponibles", "<red>La resonancia no está disponible. Avisa a administración."));
+            return true;
+        }
         State state = state(player); expire(player, state);
         if (name.equals("resonancia")) {
             if(!config.getBoolean("gemas.activadas",true)){sender.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-030", "Resonancia desactivada."));return true;}
@@ -520,40 +557,54 @@ public final class MiningModule implements Listener {
     }
     @EventHandler public void quit(PlayerQuitEvent event) { gems.quit(event.getPlayer().getUniqueId()); hideBar(event.getPlayer()); if (dirty) saveData(); }
     private void loadData() {
+        storageHealthy = false;
         File file = new File(plugin.getDataFolder(), "mining-data.yml");
-        if (!file.exists() || file.length() == 0) {
-            plugin.getLogger().info(Settings.plain("resonancia", "MiningModule.mensaje-046", "Archivo de datos de minería ausente o vacío; se conservará la progresión existente."));
-            return;
+        Map<UUID, State> loaded = new HashMap<>();
+        try {
+            var section = StateYaml.read(file, "players");
+            for (String key : section.getKeys(false)) {
+                UUID id;
+                try { id = StateYaml.uuid(key); }
+                catch (IOException error) {
+                    throw new IOException(Settings.plain("resonancia", "MiningModule.mensaje-044", "UUID inválido en mining-data.yml: {key}", "key", key), error);
+                }
+                var row = section.getConfigurationSection(key);
+                if (row == null) throw new IOException("Invalid mining record: " + key);
+                State state = new State();
+                state.charge = (int)Math.min(maximum(), StateYaml.nonNegative(row, "charge"));
+                state.activeUntil = StateYaml.nonNegative(row, "active-until");
+                if (row.contains("treasure-until")) state.legacyTreasureUntil = StateYaml.nonNegative(row, "treasure-until");
+                if (state.activeUntil > 0 && state.activeUntil <= System.currentTimeMillis()) {
+                    state.charge = 0; state.activeUntil = 0;
+                }
+                loaded.put(id, state);
+            }
+            states.clear();
+            states.putAll(loaded);
+            storageHealthy = true;
+        } catch (IOException | org.bukkit.configuration.InvalidConfigurationException | RuntimeException error) {
+            plugin.getLogger().log(java.util.logging.Level.SEVERE,
+                    "Mining: mining-data.yml inválido; resonancia bloqueada, archivo conservado.", error);
         }
-        var data = YamlConfiguration.loadConfiguration(file);
-        var section = data.getConfigurationSection("players");
-        if (section == null) {
-            plugin.getLogger().warning(Settings.plain("resonancia", "MiningModule.mensaje-047", "Sección «players» inexistente en mining-data.yml; se conservará la progresión existente."));
-            return;
-        }
-        for (String key : section.getKeys(false)) try {
-            UUID id = UUID.fromString(key); State state = new State();
-            state.charge = Math.max(0, Math.min(maximum(), section.getInt(key + ".charge")));
-            state.activeUntil = section.getLong(key + ".active-until");
-            if (state.activeUntil > 0 && state.activeUntil <= System.currentTimeMillis()) { state.charge = 0; state.activeUntil = 0; }
-            states.put(id, state);
-        } catch (IllegalArgumentException invalid) { plugin.getLogger().warning(Settings.plain("resonancia", "MiningModule.mensaje-044", "UUID inválido en mining-data.yml: {key}", "key", key)); }
     }
     private void saveData() {
+        if (!storageHealthy || !dirty) return;
         var data = new YamlConfiguration();
-        Set<UUID> all = new HashSet<>(states.keySet());
-        for (UUID id : all) {
-            State state = states.getOrDefault(id, new State()); String root = "players." + id;
+        data.createSection("players");
+        for (var entry : states.entrySet()) {
+            State state = entry.getValue(); String root = "players." + entry.getKey();
             data.set(root + ".charge", state.charge); data.set(root + ".active-until", state.activeUntil);
+            if (state.legacyTreasureUntil != null && !treasureCooldown.healthy())
+                data.set(root + ".treasure-until", state.legacyTreasureUntil);
         }
         try {
-            var target = new File(plugin.getDataFolder(), "mining-data.yml").toPath();
-            var temporary = new File(plugin.getDataFolder(), "mining-data.yml.tmp").toPath();
-            java.nio.file.Files.writeString(temporary, data.saveToString(), java.nio.charset.StandardCharsets.UTF_8);
-            try { java.nio.file.Files.move(temporary, target, java.nio.file.StandardCopyOption.REPLACE_EXISTING, java.nio.file.StandardCopyOption.ATOMIC_MOVE); }
-            catch (java.nio.file.AtomicMoveNotSupportedException unsupported) { java.nio.file.Files.move(temporary, target, java.nio.file.StandardCopyOption.REPLACE_EXISTING); }
+            AtomicFileStore.writeUtf8(new File(plugin.getDataFolder(), "mining-data.yml").toPath(), data.saveToString());
             dirty = false;
+        } catch (IOException error) {
+            storageHealthy = false;
+            plugin.getLogger().log(java.util.logging.Level.SEVERE,
+                    Settings.plain("resonancia", "MiningModule.mensaje-045", "No se pudo guardar la minería: {error-getmessage}", "error-getmessage", error.getMessage())
+                            + "; resonancia bloqueada hasta recuperación.", error);
         }
-        catch (IOException error) { plugin.getLogger().severe(Settings.plain("resonancia", "MiningModule.mensaje-045", "No se pudo guardar la minería: {error-getmessage}", "error-getmessage", error.getMessage())); }
     }
 }

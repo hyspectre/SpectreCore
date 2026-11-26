@@ -23,8 +23,8 @@ public final class PassiveBonuses {
         return plugin.getConfig().getBoolean("skills." + id + ".enabled", false)
                 && plugin.sets().countArmor(p, plugin.getConfig().getConfigurationSection("skills." + id + ".armor")) >= Settings.module("equipamiento/config.yml").getInt("pasivos.piezas",2);
     }
-    private void apply(Player p, String id, Attribute attr, String key, double amount, AttributeModifier.Operation op) {
-        if (eligible(p, id)) {
+    private void apply(Player p, boolean eligible, Attribute attr, String key, double amount, AttributeModifier.Operation op) {
+        if (eligible) {
             var values=amounts.computeIfAbsent(p.getUniqueId(),unused->new HashMap<>());
             if (active.computeIfAbsent(p.getUniqueId(), k -> new HashSet<>()).add(key)||!Double.valueOf(amount).equals(values.get(key))) {
                 plugin.effects().setAttribute(p, attr, key, amount, op);
@@ -37,29 +37,17 @@ public final class PassiveBonuses {
     }
     private int tickCounter;
     public void tick() {
-        tickCounter = (tickCounter + 1) % 10;
-        if (tickCounter != 0) { quickTick(); return; }
+        // Full reconciliation at a bounded cadence, including removal. No duplicate modifiers.
+        if (++tickCounter < 5) return;
+        tickCounter = 0;
         for (Player p : Bukkit.getOnlinePlayers()) {
             if (!p.isValid() || p.isDead()) { clear(p); continue; }
             var config=Settings.module("equipamiento/config.yml");
-            apply(p, "asterion", Attribute.MAX_HEALTH, "set_laberinto_health", config.getDouble("pasivos.laberinto-vida",6), AttributeModifier.Operation.ADD_NUMBER);
-            apply(p, "ultimo-juramento", Attribute.MOVEMENT_SPEED, "set_voto_speed", config.getDouble("pasivos.voto-velocidad",.04), AttributeModifier.Operation.ADD_SCALAR);
-            apply(p, "sangre-primer-dragon", Attribute.MAX_HEALTH, "set_dragon_health", config.getDouble("pasivos.dragon-vida",4), AttributeModifier.Operation.ADD_NUMBER);
-            apply(p, "sangre-primer-dragon", Attribute.MOVEMENT_SPEED, "set_dragon_speed", config.getDouble("pasivos.dragon-velocidad",.02), AttributeModifier.Operation.ADD_SCALAR);
-        }
-    }
-    /** Executed on 9 out of every 10 ticks – lightweight eligibility-only pass. */
-    private void quickTick() {
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            if (!p.isValid() || p.isDead()) { clear(p); continue; }
-            // Only re-apply if the set eligibility may have changed; otherwise skip.
-            var config = Settings.module("equipamiento/config.yml");
-            if (eligible(p, "asterion")) apply(p, "asterion", Attribute.MAX_HEALTH, "set_laberinto_health", config.getDouble("pasivos.laberinto-vida",6), AttributeModifier.Operation.ADD_NUMBER);
-            if (eligible(p, "ultimo-juramento")) apply(p, "ultimo-juramento", Attribute.MOVEMENT_SPEED, "set_voto_speed", config.getDouble("pasivos.voto-velocidad",.04), AttributeModifier.Operation.ADD_SCALAR);
-            if (eligible(p, "sangre-primer-dragon")) {
-                apply(p, "sangre-primer-dragon", Attribute.MAX_HEALTH, "set_dragon_vida", config.getDouble("pasivos.dragon-vida",4), AttributeModifier.Operation.ADD_NUMBER);
-                apply(p, "sangre-primer-dragon", Attribute.MOVEMENT_SPEED, "set_dragon_velocidad", config.getDouble("pasivos.dragon-velocidad",.02), AttributeModifier.Operation.ADD_SCALAR);
-            }
+            apply(p, eligible(p, "asterion"), Attribute.MAX_HEALTH, "set_laberinto_health", config.getDouble("pasivos.laberinto-vida",6), AttributeModifier.Operation.ADD_NUMBER);
+            apply(p, eligible(p, "ultimo-juramento"), Attribute.MOVEMENT_SPEED, "set_voto_speed", config.getDouble("pasivos.voto-velocidad",.04), AttributeModifier.Operation.ADD_SCALAR);
+            boolean dragon = eligible(p, "sangre-primer-dragon");
+            apply(p, dragon, Attribute.MAX_HEALTH, "set_dragon_health", config.getDouble("pasivos.dragon-vida",4), AttributeModifier.Operation.ADD_NUMBER);
+            apply(p, dragon, Attribute.MOVEMENT_SPEED, "set_dragon_speed", config.getDouble("pasivos.dragon-velocidad",.02), AttributeModifier.Operation.ADD_SCALAR);
         }
     }
     public void clear(Player p) {

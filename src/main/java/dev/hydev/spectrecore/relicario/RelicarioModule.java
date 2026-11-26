@@ -8,6 +8,8 @@ import dev.hydev.spectrecore.model.TexturePayload;
 import dev.hydev.spectrecore.text.TextService;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.Sound;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -281,6 +283,19 @@ public final class RelicarioModule implements Listener {
             player.sendMessage(text(msg("storage-error", "<red>No se pudo abrir tu Relicario. Avisa a administración.")));
             return;
         }
+        UUID uuid = player.getUniqueId();
+        NamespacedKey receiptKey = new NamespacedKey(plugin, "relicario_recibo");
+        var data = player.getPersistentDataContainer();
+        String receipt = data.get(receiptKey, PersistentDataType.STRING);
+        if (store.pending(uuid) != null && receipt != null && store.confirm(uuid, receipt)) {
+            data.remove(receiptKey);
+        } else if (!store.blocked(uuid)) {
+            data.remove(receiptKey);
+        }
+        if (store.blocked(uuid)) {
+            plugin.getLogger().warning("Relicario: transacción pendiente de revisión para " + uuid);
+            player.sendMessage(text(msg("storage-error", "<red>Tu Relicario requiere revisión.")));
+        }
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             if (player.isOnline() && ready(player.getUniqueId())) stats.refresh(player);
         }, 10L);
@@ -339,7 +354,7 @@ public final class RelicarioModule implements Listener {
         String id = relicId(item);
         if (id == null) return;
         event.setCancelled(true);
-        if (!ready(player.getUniqueId())) {
+        if (!ready(player.getUniqueId()) || store.blocked(player.getUniqueId())) {
             player.sendMessage(text(msg("storage-error", "<red>Tu Relicario no está disponible.")));
             return;
         }
@@ -573,7 +588,7 @@ public final class RelicarioModule implements Listener {
     }
 
     private void absorb(Player player, Holder holder) {
-        if (!ready(player.getUniqueId()) || !rules.containsKey(holder.id)) {
+        if (!ready(player.getUniqueId()) || store.blocked(player.getUniqueId()) || !rules.containsKey(holder.id)) {
             player.closeInventory();
             player.sendMessage(text(msg("storage-error", "<red>Tu Relicario no está disponible.")));
             return;
@@ -593,14 +608,32 @@ public final class RelicarioModule implements Listener {
         }
         Entry entry = entries.get(holder.id);
         CollectionMilestones.Progress before = collectionProgress(entry.category, store.discovered(player.getUniqueId()));
-        if (!store.discover(player.getUniqueId(), holder.id)) {
+        var transaction = store.begin(player.getUniqueId(), holder.id);
+        if (transaction == null) {
             player.closeInventory();
             player.sendMessage(text(msg("storage-error", "<red>No se pudo guardar tu Relicario.")));
             return;
         }
-        // Ledger committed: only now consume exactly one item.
+        // Reservation committed: consume one and save a receipt with player inventory.
         if (held.getAmount() == 1) player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
         else { held.setAmount(held.getAmount() - 1); player.getInventory().setItemInMainHand(held); }
+        NamespacedKey receiptKey = new NamespacedKey(plugin, "relicario_recibo");
+        try {
+            player.getPersistentDataContainer().set(receiptKey, PersistentDataType.STRING, transaction.token());
+            player.saveData();
+        } catch (RuntimeException error) {
+            plugin.getLogger().log(java.util.logging.Level.SEVERE, "Relicario: pago pendiente para " + player.getUniqueId(), error);
+            player.closeInventory();
+            player.sendMessage(text(msg("storage-error", "<red>No se pudo guardar tu Relicario.")));
+            return;
+        }
+        if (!store.confirm(player.getUniqueId(), transaction.token())) {
+            plugin.getLogger().severe("Relicario: confirmación pendiente para " + player.getUniqueId());
+            player.closeInventory();
+            player.sendMessage(text(msg("storage-error", "<red>No se pudo guardar tu Relicario.")));
+            return;
+        }
+        player.getPersistentDataContainer().remove(receiptKey);
         stats.refresh(player);
         player.closeInventory();
         player.sendMessage(text(msg("absorbed", "<green>✦ Reliquia absorbida: <white>{nombre}")

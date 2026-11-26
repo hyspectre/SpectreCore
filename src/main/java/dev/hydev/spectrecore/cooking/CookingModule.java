@@ -112,6 +112,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
     private File recipesFile;
     private File discoveriesFile;
     private int saveCounter;
+    private boolean stationClockDirty;
     private ClaimJournal claimJournal;
     private final dev.hydev.spectrecore.integration.WorldGuardBridge worldGuard;
     private boolean discoveriesStorageReady = true;
@@ -402,6 +403,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         long start = plugin instanceof dev.hydev.spectrecore.SpectreCorePlugin core ? core.diagnostics().start() : 0L;
         try {
             AtomicFileStore.writeUtf8(stationsFile.toPath(), yaml.saveToString());
+            stationClockDirty = false;
             if (plugin instanceof dev.hydev.spectrecore.SpectreCorePlugin core) core.diagnostics().record("cocina.save", start, true);
             return true;
         }
@@ -811,8 +813,11 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
             // Burned food remains until manually cleaned with a sponge.
             updateLabel(station);
         }
-        // Disk writes every 5 seconds while running, and immediately after a reset.
-        if (dirty || ++saveCounter >= 5) { saveCounter = 0; saveStations(); }
+        // Checkpoint changed clocks every five seconds; resets immediately.
+        if (dirty || ++saveCounter >= 5) {
+            saveCounter = 0;
+            if (dirty || stationClockDirty) saveStations();
+        }
     }
     /** Keep the interaction clock precise even between 1-second scheduler ticks. */
     private void accrue(Station station, long now) {
@@ -826,9 +831,14 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
                 if (chef != null && chef.isOnline() && plugin.relicario() != null)
                     multiplier += Math.min(10, plugin.relicario().cookingSpeed(chef)) / 100.0;
             }
-            station.elapsedMs += Math.round(delta * multiplier);
+            long elapsed = Math.round(delta * multiplier);
+            station.elapsedMs += elapsed;
+            stationClockDirty |= elapsed > 0;
         }
-        else if (station.recipeId != null) station.idleMs += delta;
+        else if (station.recipeId != null) {
+            station.idleMs += delta;
+            stationClockDirty |= delta > 0;
+        }
     }
     private boolean isHeated(Station station) {
         if (!chunkLoaded(station.blockLocation)) return false;

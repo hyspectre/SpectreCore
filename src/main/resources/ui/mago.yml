@@ -1,64 +1,301 @@
-# New Magomenu UI configuration - simplified & editable
-# Replace old ui/mago.yml with this; supports both new "sections:" format and old "pages:" for backwards compatibility
+# Los iconos admiten Material de Minecraft (ej. "BOOK"), Base64 validado o "" (predeterminado).
+# Iconografía personalizable de El Mago; únicamente navegación interna.
+visual:
+  portada: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjE1ZjM1MTdmMjg3NDA0NzBlOGY1MWI0ZDc1NWJlMTU5ZWU2NTg2MWMwNWUyZjc0NGZiNjFiZmRjY2Q1YzBlMSJ9fX0="
+  volver: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2VkMWFiYTczZjYzOWY0YmM0MmJkNDgxOTZjNzE1MTk3YmUyNzEyYzNiOTYyYzk3ZWJmOWU5ZWQ4ZWZhMDI1In19fQ=="
+  cerrar: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWE2MmI3YzBhYzhhNjI2NDNkNzkzZmEwZWYwN2ZmMWY4ZDJiMWQzOTQ2YjU1YmM3N2VmOGQ3YTQ2ODcxYzEwIn19fQ=="
+  accion: "<#FFCC55>► Clic para consultar"
+  nombre-volver: "<white>⇜ <gold>Regresar"
+  descripcion-volver: "<gray>Volver a la lectura anterior"
+  nombre-cerrar: "<white>⇜ <gray>Cerrar guía"
+  descripcion-cerrar: "<gray>Terminar la consulta"
+  iconos:
+    guia: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjE1ZjM1MTdmMjg3NDA0NzBlOGY1MWI0ZDc1NWJlMTU5ZWU2NTg2MWMwNWUyZjc0NGZiNjFiZmRjY2Q1YzBlMSJ9fX0="
+    inicio: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjE1ZjM1MTdmMjg3NDA0NzBlOGY1MWI0ZDc1NWJlMTU5ZWU2NTg2MWMwNWUyZjc0NGZiNjFiZmRjY2Q1YzBlMSJ9fX0="
+    rpg: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjM3YjZmNTAxNTRkMTkyZDhjM2E3MmQxM2ZhNDRjOTUzYjQxMTM4NThjOWQyZWRmMjE4ZjUxNzk5OGQ3MzM2YyJ9fX0="
+    armaduras_info: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjQwYTRiMjJkZGRkODA2YWU3NGRjYjRkNzljYjllMzFhZmY3ZTk3NGUzODUyZGMwMDM3MzMzMGMzNzdmYTEwMyJ9fX0="
+    habilidades: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2VkMWFiYTczZjYzOWY0YmM0MmJkNDgxOTZjNzE1MTk3YmUyNzEyYzNiOTYyYzk3ZWJmOWU5ZWQ4ZWZhMDI1In19fQ=="
+    mascotas: "BONE"
+    encantamientos: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2VkMWFiYTczZjYzOWY0YmM0MmJkNDgxOTZjNzE1MTk3YmUyNzEyYzNiOTYyYzk3ZWJmOWU5ZWQ4ZWZhMDI1In19fQ=="
+    accesorios: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWE2MmI3YzBhYzhhNjI2NDNkNzkzZmEwZWYwN2ZmMWY4ZDJiMWQzOTQ2YjU1YmM3N2VmOGQ3YTQ2ODcxYzEwIn19fQ=="
+    profesiones: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjE1ZjM1MTdmMjg3NDA0NzBlOGY1MWI0ZDc1NWJlMTU5ZWU2NTg2MWMwNWUyZjc0NGZiNjFiZmRjY2Q1YzBlMSJ9fX0="
+    cocina: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjM3YjZmNTAxNTRkMTkyZDhjM2E3MmQxM2ZhNDRjOTUzYjQxMTM4NThjOWQyZWRmMjE4ZjUxNzk5OGQ3MzM2YyJ9fX0="
+    recetario_info: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjQwYTRiMjJkZGRkODA2YWU3NGRjYjRkNzljYjllMzFhZmY3ZTk3NGUzODUyZGMwMDM3MzMzMGMzNzdmYTEwMyJ9fX0="
+    guias: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2VkMWFiYTczZjYzOWY0YmM0MmJkNDgxOTZjNzE1MTk3YmUyNzEyYzNiOTYyYzk3ZWJmOWU5ZWQ4ZWZhMDI1In19fQ=="
+    trabajos: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2VkMWFiYTczZjYzOWY0YmM0MmJkNDgxOTZjNzE1MTk3YmUyNzEyYzNiOTYyYzk3ZWJmOWU5ZWQ4ZWZhMDI1In19fQ=="
+    agricultura: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2VkMWFiYTczZjYzOWY0YmM0MmJkNDgxOTZjNzE1MTk3YmUyNzEyYzNiOTYyYzk3ZWJmOWU5ZWQ4ZWZhMDI1In19fQ=="
+    slayer: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWE2MmI3YzBhYzhhNjI2NDNkNzkzZmEwZWYwN2ZmMWY4ZDJiMWQzOTQ2YjU1YmM3N2VmOGQ3YTQ2ODcxYzEwIn19fQ=="
+    tesoros: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjE1ZjM1MTdmMjg3NDA0NzBlOGY1MWI0ZDc1NWJlMTU5ZWU2NTg2MWMwNWUyZjc0NGZiNjFiZmRjY2Q1YzBlMSJ9fX0="
+    resonancia: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjM3YjZmNTAxNTRkMTkyZDhjM2E3MmQxM2ZhNDRjOTUzYjQxMTM4NThjOWQyZWRmMjE4ZjUxNzk5OGQ3MzM2YyJ9fX0="
+    portales: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjQwYTRiMjJkZGRkODA2YWU3NGRjYjRkNzljYjllMzFhZmY3ZTk3NGUzODUyZGMwMDM3MzMzMGMzNzdmYTEwMyJ9fX0="
+    actividades: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2VkMWFiYTczZjYzOWY0YmM0MmJkNDgxOTZjNzE1MTk3YmUyNzEyYzNiOTYyYzk3ZWJmOWU5ZWQ4ZWZhMDI1In19fQ=="
 
-mago:
-  title: "&7§lEl Mago"
-  # Icons use Minecraft material names - NO Base64 required!
-  # If missing, plugin generates default icons automatically
-  icons:
-    portada: "BOOK"
-    volver: "ARROW"
-    cerrar: "BARRIERA"
-  
-  # Navigation sections - FREE-FORM, no rigid page IDs
-  # Add as many as you want without touching Java!
-  sections:
-    inicio:
-      title: "&6El Mago"
-      lore: "Bienvenido a la biblioteca Hydev"
-      items:
-        - material: "DIAMOND_SWORD"
-          label: "&6Combate"
-          target: "combate"
-        - material: "EMERALD"
-          label: "&6Profesiones"
-          target: "profesiones"
-        - material: "NETHER_STAR"
-          label: "&6Tesoros"
-          target: "tesoros"
-    combate:
-      title: "&6Combate"
-      lore: "Conjuntos y habilidades"
-      items:
-        - material: "DIAMOND_SWORD"
-          label: "&6Armaduras"
-          target: "armaduras"
-        - material: "BOOK"
-          label: "&6Habilidades"
-          target: "habilidades"
-    profesiones:
-      title: "&6Profesiones"
-      lore: "Minería, Agricultura y Coba"
-      items:
-        - material: "IRON_PICKAXE"
-          label: "&6Mineria"
-          target: "mineria"
-        - material: "WHEAT"
-          label: "&6Agricultura"
-          target: "agricultura"
-    tesoros:
-      title: "&6Tesoros"
-      lore: "Obtén recompensas por minería y caza"
-      items:
-        - material: "GOLD_INGOT"
-          label: "&6Mineria"
-          target: "mineria_tesoros"
-        - material: "COOKED_BEEF"
-          label: "&6Caza"
-          target: "caza_tesoros"
-    # Add more sections anytime! No Java changes needed.
-  
-  # Optional global messages
-  messages:
-    invalid_page: "&c§lPágina inválida"
-    closing: "&7§lHasta luego!"
+# Edítalo sin recompilar. Solo destinos de página, no comandos arbitrarios.
+# El Mago usa una biblioteca GUI de 54 espacios, con navegación interna.
+invalid-page: "<red>El Mago no conoce esa sección.</red>"
+close: "<gray>Cerrar</gray>"
+console-message: "<gray>Consulta al Mago dentro del juego.</gray>"
+pages:
+  inicio:
+    title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Biblioteca"
+    body: "<gray>He reunido los conocimientos de Hydev. ¿Qué buscas, aventurero?</gray>"
+    resumen: "<white>Descubre los conocimientos esenciales de Hydev."
+    puntos:
+      - "<gray>Elige un tema para empezar."
+      - "<gray>Consejos prácticos para tu camino."
+      - "<dark_gray>Los contratos te esperan en sus tablones."
+    buttons:
+      - label: '<aqua>⚔ Combate</aqua>'
+        page: rpg
+        descripcion: "<gray>Conjuntos, habilidades y combate"
+      - label: '<gold>✦ Profesiones</gold>'
+        page: profesiones
+        descripcion: "<gray>Oficios, contratos y cocina"
+      - label: '<green>Exploración y aventuras</green>'
+        page: guias
+        descripcion: "<gray>Cacerías, tesoros y expediciones"
+  rpg:
+    title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Combate"
+    body: "<gray>Conjuntos de armaduras, habilidades, accesorios, mascotas y encantamientos.</gray>"
+    resumen: "<white>Domina los conjuntos, habilidades y equipo."
+    puntos:
+      - "<gray>Armaduras con habilidades especiales."
+      - "<gray>Bonos parciales y conjuntos completos."
+      - "<gray>Combina equipo según tu estilo."
+    buttons:
+      - label: '<yellow>Armaduras</yellow>'
+        page: armaduras_info
+        descripcion: "<gray>Conoce los conjuntos de equipo"
+      - label: '<yellow>Habilidades</yellow>'
+        page: habilidades
+        descripcion: "<gray>Activación y recarga de habilidades"
+      - label: '<aqua>Mascotas (próximamente)</aqua>'
+        page: mascotas
+        descripcion: "<dark_gray>Contenido en preparación"
+      - label: '<aqua>Encantamientos (próximamente)</aqua>'
+        page: encantamientos
+        descripcion: "<dark_gray>Contenido en preparación"
+      - label: '<light_purple>Relicario</light_purple>'
+        page: accesorios
+        descripcion: "<gray>Reliquias, absorción y estadísticas"
+      - label: '<gray>Regresar</gray>'
+        page: inicio
+        descripcion: "<gray>Regresar a la portada"
+  armaduras_info:
+    title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Conjuntos"
+    body: "<gray>Consulta los cinco conjuntos y sus bonificaciones en Armaduras.</gray>"
+    resumen: "<white>Cinco conjuntos con identidades distintas."
+    puntos:
+      - "<gray>Con dos piezas, algunos dan pasivos."
+      - "<gray>Con cuatro piezas, habilidad especial."
+      - "<gray>Consulta Armaduras para ver tus bonos."
+    buttons:
+      - label: '<gray>Combate</gray>'
+        page: rpg
+        descripcion: "<gray>Conjuntos, habilidades y combate"
+  habilidades:
+    title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Habilidades"
+    body: "<gray>Cada armadura encierra un poder distinto: aprende cuándo y cómo despertarlo.</gray>"
+    resumen: "<white>Aprende cómo activar tus habilidades de conjunto."
+    puntos:
+      - "<gray>Sus condiciones cambian por armadura."
+      - "<gray>Lee señales, alcance y recarga."
+      - "<gray>Algunas exigen golpes o daño recibido."
+    buttons:
+      - label: '<gray>Combate</gray>'
+        page: rpg
+        descripcion: "<gray>Conjuntos, habilidades y combate"
+  mascotas:
+    title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Mascotas"
+    body: "<gray>Aún no he encontrado compañeros que quieran acompañarte en tus aventuras.</gray>"
+    resumen: "<white>Algunas criaturas aún desconfían de los aventureros."
+    puntos:
+      - "<gray>Este capítulo aún guarda páginas en blanco."
+      - "<dark_gray>Todavía no hay mascotas que puedas adoptar."
+    buttons:
+      - label: '<gray>Combate</gray>'
+        page: rpg
+        descripcion: "<gray>Conjuntos, habilidades y combate"
+  encantamientos:
+    title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Encantamientos"
+    body: "<gray>Los nuevos encantamientos permanecen ocultos por ahora.</gray>"
+    resumen: "<white>Hay encantamientos que aún esperan ser descubiertos."
+    puntos:
+      - "<gray>Este capítulo aún guarda páginas en blanco."
+      - "<dark_gray>Permanece atento a futuros hallazgos."
+    buttons:
+      - label: '<gray>Combate</gray>'
+        page: rpg
+        descripcion: "<gray>Conjuntos, habilidades y combate"
+  accesorios:
+    title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Relicario"
+    body: "<gray>Absorbe reliquias antiguas y conserva su poder para siempre."
+    resumen: "<white>Una colección permanente de reliquias."
+    puntos:
+      - "<gray>Descubre objetos de la Cripta y el mundo."
+      - "<gray>Sus bonificaciones se acumulan."
+      - "<gray>Todas las reliquias absorbidas aportan bonos."
+      - "<gray>El Relicario muestra tu progreso."
+    buttons:
+      - label: '<gray>Combate</gray>'
+        page: rpg
+        descripcion: "<gray>Conjuntos, habilidades y combate"
+  profesiones:
+    title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Profesiones"
+    body: "<gray>Minería, Agricultura y Caza ofrecen desafíos, rangos y recompensas. También puedes perfeccionar tu cocina.</gray>"
+    resumen: "<white>Descubre tareas, contratos y cocina."
+    puntos:
+      - "<gray>Minería, Agricultura y Caza."
+      - "<gray>Contratos con rangos y recompensas."
+      - "<gray>Cocina con estaciones y recetas."
+    buttons:
+      - label: '<gold>Cocina</gold>'
+        page: cocina
+        descripcion: "<gray>Estaciones, utensilios y cocción"
+      - label: '<yellow>Trabajos</yellow>'
+        page: trabajos
+        descripcion: "<gray>Minería, Agricultura y Caza"
+      - label: '<green>Agricultura</green>'
+        page: agricultura
+        descripcion: "<gray>Cosechas y hallazgos raros"
+      - label: '<gray>Inicio</gray>'
+        page: inicio
+        descripcion: "<gray>Regresar a la portada"
+  cocina:
+    title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Cocina"
+    body: "<gray>Enciende la fogata, prepara los ingredientes y sirve tus platos. Descubre qué secretos guarda cada receta.</gray>"
+    resumen: "<white>Prepara platos mediante acciones breves."
+    puntos:
+      - "<gray>Enciende una estación con un mechero."
+      - "<gray>Usa utensilios, controla la cocción."
+      - "<gray>Sirve porciones y limpia los restos."
+    buttons:
+      - label: '<yellow>Recetario</yellow>'
+        page: recetario_info
+        descripcion: "<gray>Ingredientes y calidad de platos"
+      - label: '<gray>Profesiones</gray>'
+        page: profesiones
+        descripcion: "<gray>Oficios, contratos y cocina"
+  guias:
+    title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Guías"
+    body: "<gray>Descubre los secretos, desafíos y oportunidades de Hydev.</gray>"
+    resumen: "<white>Explora los secretos y actividades de Hydev."
+    puntos:
+      - "<gray>Cacerías, tesoros y resonancia."
+      - "<gray>Portales para aventuras cooperativas."
+      - "<gray>Encuentros y actividades especiales."
+    buttons:
+      - label: '<red>Cacerías de la Monarquía</red>'
+        page: slayer
+        descripcion: "<gray>Contratos, jefes y recetas"
+      - label: '<gold>Tesoros</gold>'
+        page: tesoros
+        descripcion: "<gray>Hallazgos de tres actividades"
+      - label: '<light_purple>Resonancia minera</light_purple>'
+        page: resonancia
+        descripcion: "<gray>Carga y extracción especial"
+      - label: '<aqua>Portales</aqua>'
+        page: portales
+        descripcion: "<gray>Entrada a expediciones en grupo"
+      - label: '<yellow>Actividades</yellow>'
+        page: actividades
+        descripcion: "<gray>Encuentros y actividades"
+      - label: '<gray>Inicio</gray>'
+        page: inicio
+        descripcion: "<gray>Regresar a la portada"
+  trabajos:
+    title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Trabajos"
+    body: "<gray>Los oficios de Hydev ofrecen objetivos y progresión. Explora los contratos de Minería, Agricultura y Caza.</gray>"
+    resumen: "<white>Tres oficios con contratos y recompensas."
+    puntos:
+      - "<gray>Minería: extrae minerales naturales."
+      - "<gray>Agricultura: recolecta cultivos."
+      - "<gray>Caza: derrota criaturas."
+    buttons:
+      - label: '<gray>Profesiones</gray>'
+        page: profesiones
+        descripcion: "<gray>Oficios, contratos y cocina"
+  agricultura:
+    title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Agricultura"
+    body: "<gray>La cosecha puede revelar tesoros especiales. Descubre qué cultivos son más valiosos.</gray>"
+    resumen: "<white>Los cultivos también pueden esconder tesoros."
+    puntos:
+      - "<gray>Algunas cosechas otorgan hallazgos."
+      - "<gray>Los recursos tienen rarezas distintas."
+      - "<gray>Explora más allá de los cultivos comunes."
+    buttons:
+      - label: '<gray>Profesiones</gray>'
+        page: profesiones
+        descripcion: "<gray>Oficios, contratos y cocina"
+  slayer:
+    title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Cacerías"
+    body: "<gray>Acepta contratos, derrota criaturas y avanza en los rangos de cacería. Cada cacería tiene objetivos, dificultades y recompensas distintas.</gray>"
+    resumen: "<white>Cumple contratos y derrota jefes poderosos."
+    puntos:
+      - "<gray>Elimina enemigos para atraer al jefe."
+      - "<gray>Obtén experiencia de cacería al derrotarlo."
+      - "<gray>Los niveles conceden recetas de forja."
+    buttons:
+      - label: '<gray>Guías</gray>'
+        page: guias
+        descripcion: "<gray>Cacerías, tesoros y expediciones"
+  tesoros:
+    title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Tesoros"
+    body: "<gray>Obtén tesoros mediante minería, combate y agricultura. Cada fuente tiene sus propios hallazgos y tiempos de espera.</gray>"
+    resumen: "<white>La exploración tiene recompensas ocultas."
+    puntos:
+      - "<gray>Minería, caza y cosechas especiales."
+      - "<gray>Raridades y oportunidades distintas."
+      - "<gray>Busca fuentes de botín poco comunes."
+    buttons:
+      - label: '<gray>Guías</gray>'
+        page: guias
+        descripcion: "<gray>Cacerías, tesoros y expediciones"
+  resonancia:
+    title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Resonancia"
+    body: "<gray>Acumula carga minera para activar bonificaciones. Presta atención a tu carga para aprovechar su máxima energía.</gray>"
+    resumen: "<white>Canaliza energía mientras extraes minerales."
+    puntos:
+      - "<gray>Acumula carga con la minería."
+      - "<gray>La carga completa abre una oportunidad."
+      - "<gray>Agáchate para aprovecharla."
+    buttons:
+      - label: '<gray>Guías</gray>'
+        page: guias
+        descripcion: "<gray>Cacerías, tesoros y expediciones"
+  portales:
+    title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Portales"
+    body: "<gray>Reúne al grupo junto al portal para participar. Mantente cerca de tus compañeros para entrar a la expedición.</gray>"
+    resumen: "<white>Coopera para explorar nuevas expediciones."
+    puntos:
+      - "<gray>Reúne jugadores cerca del portal."
+      - "<gray>Mantengan la formación al ingresar."
+      - "<gray>Las aventuras premian la cooperación."
+    buttons:
+      - label: '<gray>Guías</gray>'
+        page: guias
+        descripcion: "<gray>Cacerías, tesoros y expediciones"
+  actividades:
+    title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Actividades"
+    body: "<gray>Consulta encuentros, recompensas, desbloqueos y actividades especiales. Explora los acontecimientos y oportunidades que ofrece Hydev.</gray>"
+    resumen: "<white>Encuentra aventuras breves fuera de las mazmorras."
+    puntos:
+      - "<gray>Eventos, recompensas y desafíos."
+      - "<gray>Conoce los encuentros disponibles."
+      - "<gray>Explora Hydev a tu ritmo."
+    buttons:
+      - label: '<gray>Guías</gray>'
+        page: guias
+        descripcion: "<gray>Cacerías, tesoros y expediciones"
+  recetario_info:
+    title: "<dark_gray>⧇ <gold>El Mago <dark_gray>│ <white>Recetario"
+    body: "<gray>Ingredientes, cocción y calidades de los platos de Hydev.</gray>"
+    resumen: "<white>Cada receta tiene pasos y resultados."
+    puntos:
+      - "<gray>Combina ingredientes adecuados."
+      - "<gray>Presta atención a la temperatura."
+      - "<gray>Las preparaciones exquisitas destacan."
+    buttons:
+      - label: "<white>⇜ <gold>Cocina"
+        page: cocina
+        descripcion: "<gray>Volver a las estaciones"

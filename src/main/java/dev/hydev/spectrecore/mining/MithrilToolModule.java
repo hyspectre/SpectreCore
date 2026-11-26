@@ -173,12 +173,7 @@ public final class MithrilToolModule implements Listener {
                         || !MithrilRules.sameOre(originalOre, extra.getType().name())
                         || placed.isMarked(extra) || !regions.canBreak(player, extra)) break;
                 ItemStack breaker = live;
-                if (!MithrilAutomationGuard.breakBlock(() -> {
-                    // AUD-06: WorldGuard region validation
-                    WorldGuardBridge wg = new WorldGuardBridge(plugin.getLogger());
-                    if (!wg.canBuild(player, extra.getLocation())) return false;
-                    return true;
-                }) break;
+                if (!MithrilAutomationGuard.breakBlock(() -> extra.breakNaturally(breaker, true))) break;
                 data.update(player, EquipmentSlot.HAND, data.changeCharge(live, -perBlock, capacity()));
                 if (!MithrilDrill.wear(player, data, 1)) break;
             }
