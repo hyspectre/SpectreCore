@@ -6,6 +6,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Files;
 import java.time.Instant;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -27,32 +28,39 @@ public final class ClaimJournal {
 
     public ClaimJournal(Path file) { this.file = file; }
     public boolean load() {
-        claims.clear(); ready = false;
+        ready = false;
         File source = file.toFile();
-        if (source.exists() && !source.isFile()) return false;
+        Map<UUID, Claim> loaded = new LinkedHashMap<>();
         try {
-            YamlConfiguration yaml = new YamlConfiguration();
-            if (source.exists()) yaml.load(source);
-            ConfigurationSection section = yaml.getConfigurationSection("claims");
-            if (yaml.contains("claims") && section == null) return false;
-            if (section != null) {
-                if (section.getKeys(false).size() > MAX_CLAIMS) return false;
-                for (String raw : section.getKeys(false)) {
-                    UUID id = UUID.fromString(raw);
-                    ConfigurationSection value = section.getConfigurationSection(raw);
-                    if (value == null) return false;
-                    String station = require(value.getString("station"), 240);
-                    UUID player = UUID.fromString(require(value.getString("player"), 36));
-                    String operation = require(value.getString("operation"), 32);
-                    String subject = require(value.getString("subject"), 128);
-                    int count = value.getInt("count", 0);
-                    long created = value.getLong("created-at", 0L);
-                    if (count < 1 || count > 1024 || created < 1) return false;
-                    claims.put(id, new Claim(id, station, player, operation, subject, count, created));
+            if (!Files.notExists(file)) {
+                var yaml = StateYaml.load(source);
+                if (!yaml.isInt("schema-version") || yaml.getInt("schema-version") != 1) return false;
+                ConfigurationSection section = yaml.getConfigurationSection("claims");
+                if (yaml.contains("claims") && section == null) return false;
+                // Historical empty journals have schema-version: 1 without the claims section.
+                if (section != null) {
+                    if (section.getKeys(false).size() > MAX_CLAIMS) return false;
+                    for (String raw : section.getKeys(false)) {
+                        UUID id = StateYaml.uuid(raw);
+                        ConfigurationSection value = section.getConfigurationSection(raw);
+                        if (value == null) return false;
+                        for (String field : List.of("station", "player", "operation", "subject"))
+                            if (!value.isString(field)) return false;
+                        String station = require(value.getString("station"), 240);
+                        UUID player = StateYaml.uuid(require(value.getString("player"), 36));
+                        String operation = require(value.getString("operation"), 32);
+                        String subject = require(value.getString("subject"), 128);
+                        long count = StateYaml.nonNegative(value, "count");
+                        long created = StateYaml.nonNegative(value, "created-at");
+                        if (count < 1 || count > 1024 || created < 1) return false;
+                        loaded.put(id, new Claim(id, station, player, operation, subject, (int)count, created));
+                    }
                 }
             }
+            claims.clear();
+            claims.putAll(loaded);
             ready = true; return true;
-        } catch (IOException | InvalidConfigurationException | IllegalArgumentException ex) {
+        } catch (IOException | InvalidConfigurationException | RuntimeException ex) {
             return false;
         }
     }
@@ -89,6 +97,7 @@ public final class ClaimJournal {
     private boolean persist() {
         YamlConfiguration yaml = new YamlConfiguration();
         yaml.set("schema-version", 1);
+        yaml.createSection("claims");
         for (Claim c : claims.values()) {
             String root = "claims." + c.id();
             yaml.set(root + ".station", c.station());

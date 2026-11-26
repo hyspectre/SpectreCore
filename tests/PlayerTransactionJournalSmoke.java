@@ -28,13 +28,17 @@ public final class PlayerTransactionJournalSmoke {
         ClaimJournal cleared = new ClaimJournal(file);
         check(cleared.load() && !cleared.blocked(station), "Resolved claims stay resolved across restart");
 
-        String invalid = "claims: [";
-        Files.writeString(file, invalid, StandardCharsets.UTF_8);
-        ClaimJournal damaged = new ClaimJournal(file);
-        check(!damaged.load() && !damaged.ready(), "Corrupt YAML fails closed");
-        check(damaged.begin(station, player, "JOB_PURCHASE", "granjero:novato:50", 1) == null,
-                "Broken storage must not accept a new transaction");
-        check(Files.readString(file).equals(invalid), "Fail-closed never overwrites corrupt progress");
+        for (String invalid : new String[]{"claims: [", "", "{}", "schema-version: 2\n",
+                "schema-version: 1\nclaims: {}\nclaims: {}\n", "schema-version: 1\nclaims: []\n"}) {
+            Files.writeString(file, invalid, StandardCharsets.UTF_8);
+            ClaimJournal damaged = new ClaimJournal(file);
+            check(!damaged.load() && !damaged.ready(), "Corrupt or unrecognized state fails closed");
+            check(damaged.begin(station, player, "JOB_PURCHASE", "granjero:novato:50", 1) == null,
+                    "Broken storage must not accept a new transaction");
+            check(Files.readString(file).equals(invalid), "Fail-closed never overwrites corrupt progress");
+        }
+        Files.writeString(file, "schema-version: 1\n", StandardCharsets.UTF_8);
+        check(new ClaimJournal(file).load(), "Recognized legacy empty journal remains valid");
         System.out.println("PASS PlayerTransactionJournalSmoke: restart, duplicate guard, manual reconciliation and corruption");
     }
 }

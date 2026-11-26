@@ -30,3 +30,8 @@ Base revisada: `1fdcf87` (primer parche de auditoría de OpenCode), descendiente
 - `tests/StateRecoverySmoke.java`: invocado por `gradle check`; prueba ausencia, corrupción, duplicados, transacción pendiente, reinicio, recibo incorrecto/valido, legado en cuarentena.
 - `tests/validate_native_mago.py`: catálogo completo, enlaces y soporte de materiales y texturas.
 - Pruebas ingame pendientes: crear geoda con hito y sin hito, región negada y permitida, selección agachado, pago especial e inventario lleno; taladros en límite de región y chunks; apagar Paper antes/después de cada fase de absorción; confirmar que bonos se aplican exactamente una vez; recargar con datos corruptos y verificar integridad byte por byte.
+
+
+## Protección adicional del diario compartido
+
+`ClaimJournal` (cocina, compras de trabajos, abastecimiento y taller minero) utiliza la misma carga estricta. Una copia existente vacía, sin versión reconocida, con claves duplicadas o campos inválidos se bloquea sin permitir nuevas transacciones. Los antiguos diarios vacíos con `schema-version: 1` siguen siendo válidos; nuevos archivos guardan también `claims: {}` cuando no hay pendientes. Restaurar un diario dañado únicamente desde un respaldo verificado, nunca limpiarlo para resolver un error. Los casos se añaden a `PlayerTransactionJournalSmoke`.
