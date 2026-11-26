@@ -202,6 +202,27 @@ public final class JobsModule implements Listener {
                 + player.getUniqueId() + " monto=" + price + " (" + context + "); requiere conciliación.");
     }
 
+    private Component contractRefusal(JobsContractRules.Refusal refusal, String level) {
+        return switch (refusal) {
+            case DISABLED -> Settings.message("trabajos", "JobsModule.contrato-no-disponible",
+                    "<yellow>Este oficio no está disponible por ahora.");
+            case INVALID_JOB -> Settings.message("trabajos", "JobsModule.contrato-oficio-invalido",
+                    "<red>Elige un oficio válido en Trabajos.");
+            case INVALID_RANK -> Settings.message("trabajos", "JobsModule.contrato-rango-invalido",
+                    "<red>Elige un rango válido en Trabajos.");
+            case ALREADY_OWNED -> Settings.message("trabajos", "JobsModule.contrato-ya-adquirido",
+                    "<yellow>Ya tienes este rango o uno superior.");
+            case PREVIOUS_RANK_REQUIRED -> Settings.message("trabajos", "JobsModule.contrato-rango-anterior",
+                    "<yellow>Primero firma el contrato de rango <white>{rango}<yellow>.",
+                    "rango", displayRank(ProgressRules.rank(JobsContractRules.tier(level) - 1)));
+            case INVALID_PRICE -> Settings.message("trabajos", "JobsModule.contrato-precio-no-disponible",
+                    "<red>Este contrato no está disponible por ahora. No se ha cobrado.");
+            case IN_PROGRESS -> Settings.message("trabajos", "JobsModule.contrato-en-curso",
+                    "<yellow>Tu contrato se está confirmando. Espera un momento.");
+            case NONE -> Component.empty();
+        };
+    }
+
     /** Main-thread purchase entry point, shared by native UI and command routes. */
     public void purchase(Player player, String job, String level) {
         String priceKey = "contratos.precios." + level;
@@ -219,7 +240,7 @@ public final class JobsModule implements Listener {
             result = JobsContractRules.Refusal.ALREADY_OWNED;
         if (result != JobsContractRules.Refusal.NONE) {
             player.sendMessage(Settings.message("trabajos", "JobsModule.contrato-rechazado",
-                    "§cNo puedes firmar este contrato: {motivo}", "motivo", result.name()));
+                    "<red>{motivo}", "motivo", contractRefusal(result, level)));
             player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 0.6f, 1f);
             return;
         }

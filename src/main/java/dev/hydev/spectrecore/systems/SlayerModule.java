@@ -380,6 +380,33 @@ public final class SlayerModule implements Listener {
         return true;
     }
 
+    /** Translate internal decisions without leaking identifiers or inventing unlock requirements. */
+    private Component contractRefusal(SlayerContractRules.Refusal refusal, boolean start, String category, int tier) {
+        return switch (refusal) {
+            case DISABLED -> Settings.message("slayer", "SlayerModule.contrato-no-disponible",
+                    "<yellow>Las cacerías no están disponibles por ahora.");
+            case INVALID_TIER -> Settings.message("slayer", "SlayerModule.contrato-rango-invalido",
+                    "<red>Elige un rango válido en Misiones.");
+            case ALREADY_ACTIVE -> start
+                    ? Settings.message("slayer", "SlayerModule.contrato-ya-activo",
+                        "<yellow>Ya tienes una cacería activa. Termínala o abandónala antes de aceptar otra.")
+                    : Settings.message("slayer", "SlayerModule.contrato-sin-activo",
+                        "<yellow>No tienes una cacería activa de esa categoría.");
+            case NO_PERMISSION -> {
+                int required = SlayerProgressionRules.minimumRevenantLevel(category, tier);
+                yield required > 0
+                    ? Settings.message("slayer", "SlayerModule.contrato-nivel-requerido",
+                        "<yellow>Alcanza el nivel <white>{nivel} <yellow>de {caceria} para desbloquear este contrato.",
+                        "nivel", required, "caceria", name("revenant"))
+                    : Settings.message("slayer", "SlayerModule.contrato-bloqueado",
+                        "<yellow>Esta cacería aún no está disponible para ti. Consulta las misiones desbloqueadas.");
+            }
+            case BAD_PRICE -> Settings.message("slayer", "SlayerModule.contrato-precio-no-disponible",
+                    "<red>Este contrato no está disponible por ahora. No se ha cobrado.");
+            case NONE -> Component.empty();
+        };
+    }
+
     /** Player contracts are opt-in until zMenu stops doing its own payments/OP dispatch. */
     private boolean playerContract(Player p, String command, String[] args) {
         if (args.length < 1 || !CATEGORIES.contains(args[0].toLowerCase(Locale.ROOT))) {
@@ -404,7 +431,7 @@ public final class SlayerModule implements Listener {
                 : SlayerContractRules.validateCancel(enabled, m.active, cost);
         if (refusal != SlayerContractRules.Refusal.NONE) {
             p.sendMessage(Settings.message("slayer", "SlayerModule.contrato-rechazado",
-                    "§cContrato rechazado: {motivo}", "motivo", refusal.name()));
+                    "<red>{motivo}", "motivo", contractRefusal(refusal, start, category, tier)));
             return true;
         }
         if (contractsEconomy.withdraw(p, cost) != EconomyBridge.Result.CONFIRMED) {

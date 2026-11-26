@@ -76,3 +76,7 @@ Se reemplazan las actionbars restantes de SpectreCore por barras nativas para es
 - Los avisos de hitos se ajustan en el archivo de recompensas de AuraSkills, que sigue siendo la autoridad de niveles, permisos y mensajes. Las pistas de uso de los ítems mineros se actualizan en el catálogo de integración. Estos dos archivos son externos al JAR: si ya están instalados, utiliza solo las modificaciones de texto, sin perder personalizaciones ni reimportar recetas o datos de jugadores.
 
 El indicador de armadura usa el tick de habilidad existente y se oculta al expirar, perder el conjunto o salir del contexto; no se añade un temporizador repetitivo por jugador. El float privado está acotado a uno por atacante y se retira desde el mismo motor. No se usan actionbars ni se cambian las reglas de combate. La apariencia y la visibilidad del cliente se comprueban ingame.
+
+## Rechazos de contratos sin códigos internos
+
+Las cacerías y los trabajos traducen exhaustivamente sus motivos de rechazo antes de mostrarlos. Si existe un requisito numérico de Monarquía Renacida, el mensaje utiliza el mismo umbral que el control de acceso; los desbloqueos externos no inventan un nivel. Firmar un contrato no disponible, volver a comprar un rango, saltar un rango, abandonar sin misión y una compra pendiente tienen explicaciones distintas. Los mensajes son configurables y los textos personalizados conservan el marcador de motivo. No se modifican permisos, precios, transacciones ni progresión.

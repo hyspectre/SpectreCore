@@ -23,7 +23,14 @@ SlayerModule:
 
 # Contratos Slayer de jugador (Vault; activación opt-in)
 SlayerModule.contrato-categoria: "<reset><red>Categoría inválida."
-SlayerModule.contrato-rechazado: "<reset><red>Contrato rechazado: {motivo}"
+SlayerModule.contrato-rechazado: "<red>{motivo}"
+SlayerModule.contrato-no-disponible: "<yellow>Las cacerías no están disponibles por ahora."
+SlayerModule.contrato-rango-invalido: "<red>Elige un rango válido en Misiones."
+SlayerModule.contrato-ya-activo: "<yellow>Ya tienes una cacería activa. Termínala o abandónala antes de aceptar otra."
+SlayerModule.contrato-sin-activo: "<yellow>No tienes una cacería activa de esa categoría."
+SlayerModule.contrato-nivel-requerido: "<yellow>Alcanza el nivel <white>{nivel} <yellow>de {caceria} para desbloquear este contrato."
+SlayerModule.contrato-bloqueado: "<yellow>Esta cacería aún no está disponible para ti. Consulta las misiones desbloqueadas."
+SlayerModule.contrato-precio-no-disponible: "<red>Este contrato no está disponible por ahora. No se ha cobrado."
 SlayerModule.contrato-pago-fallo: "<reset><red>No se pudo confirmar el cobro; tu contrato sigue intacto."
 SlayerModule.contrato-storage-fallo: "<reset><red>No se pudo guardar el contrato; solicita revisión administrativa del saldo."
 SlayerModule.contrato-aplicado: "<reset><gold>Contrato {accion}: {categoria} · Costo {costo} ↾"

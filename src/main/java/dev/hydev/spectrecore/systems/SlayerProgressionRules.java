@@ -64,12 +64,20 @@ public final class SlayerProgressionRules {
         return Set.copyOf(nodes);
     }
 
+    /** -1 means the category/rank uses an external unlock, not a numerical level. */
+    public static int minimumRevenantLevel(String category, int tier) {
+        if (tier < 1 || tier > 3) return -1;
+        return switch (category) {
+            case "revenant" -> switch (tier) { case 1 -> 0; case 2 -> 5; case 3 -> 10; default -> -1; };
+            case "necromancer" -> tier == 1 ? 3 : -1;
+            default -> -1;
+        };
+    }
+
     public static boolean accessible(String category, int tier, int revenantLevel, boolean legacyPermission) {
         if (tier < 1 || tier > 3) return false;
-        return switch (category) {
-            case "revenant" -> tier == 1 || (tier == 2 && revenantLevel >= 5) || (tier == 3 && revenantLevel >= 10);
-            case "necromancer" -> tier == 1 ? revenantLevel >= 3 : legacyPermission;
-            default -> legacyPermission;
-        };
+        int minimum = minimumRevenantLevel(category, tier);
+        // Rank one of the Monarquía is accessible even without prior progression.
+        return minimum == 0 || (minimum > 0 ? revenantLevel >= minimum : legacyPermission);
     }
 }

@@ -30,6 +30,25 @@ public final class SlayerProgressionSmoke {
         check(SlayerProgressionRules.accessible("revenant",1,0,false), "tier 1 free to start");
         check(!SlayerProgressionRules.accessible("revenant",3,9,true), "tier 3 level gated");
         check(SlayerProgressionRules.accessible("necromancer",1,3,false), "necromancer unlocked");
+        check(SlayerProgressionRules.minimumRevenantLevel("revenant", 2) == 5, "rank 2 hint matches gate");
+        check(SlayerProgressionRules.minimumRevenantLevel("revenant", 3) == 10, "rank 3 hint matches gate");
+        check(SlayerProgressionRules.minimumRevenantLevel("necromancer", 1) == 3, "second category hint matches gate");
+        check(SlayerProgressionRules.minimumRevenantLevel("spider", 1) == -1, "no fabricated level for external unlock");
+        for (String category : java.util.List.of("revenant", "necromancer", "spider")) {
+            for (int tier = 0; tier <= 4; tier++) {
+                for (int level = 0; level <= 11; level++) {
+                    for (boolean permission : new boolean[]{false, true}) {
+                        boolean original = tier >= 1 && tier <= 3 && switch (category) {
+                            case "revenant" -> tier == 1 || tier == 2 && level >= 5 || tier == 3 && level >= 10;
+                            case "necromancer" -> tier == 1 ? level >= 3 : permission;
+                            default -> permission;
+                        };
+                        check(SlayerProgressionRules.accessible(category, tier, level, permission) == original,
+                                "Access rule unchanged: " + category + "/" + tier + "/" + level + "/" + permission);
+                    }
+                }
+            }
+        }
         System.out.println("PASS SlayerProgressionSmoke: " + checks + " checks");
     }
 }

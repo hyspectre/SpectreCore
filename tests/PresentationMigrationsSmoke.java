@@ -50,6 +50,12 @@ public final class PresentationMigrationsSmoke {
         check(PresentationMigrations.rewriteKnownCopy("cargada: \"<aqua>✦ Resonancia restaurada: <white>{carga}/100\"")
                 .contains("{carga}/{max}"), "Migrates old charge capacity text");
         check(!PresentationMigrations.isLegacyGuidePoints("otra", java.util.List.of()), "Unknown pages unchanged");
+        check(PresentationMigrations.rewriteKnownCopy("\"<reset><red>Contrato rechazado: {motivo}\"")
+              .equals("\"<red>{motivo}\""), "Migrates the old Slayer refusal wrapper");
+        check(PresentationMigrations.rewriteKnownCopy("\"<reset><red>No puedes firmar este contrato: {motivo}\"")
+              .equals("\"<red>{motivo}\""), "Migrates the old Jobs refusal wrapper");
+        check(PresentationMigrations.rewriteKnownCopy("\"<gold>Mi contrato: {motivo}\"")
+              .equals("\"<gold>Mi contrato: {motivo}\""), "Custom contract wrapper retained");
         System.out.println("PASS PresentationMigrationsSmoke: " + count + " checks");
     }
 }

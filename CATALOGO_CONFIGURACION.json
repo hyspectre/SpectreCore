@@ -675,85 +675,85 @@
     "archivo": "trabajos/mensajes.yml",
     "clave": "JobsModule.mensaje-006",
     "predeterminado": "Trabajos: no se pudo confirmar el pago. No se aplicó el tiempo de espera.",
-    "origen": "JobsModule.java:352"
+    "origen": "JobsModule.java:373"
   },
   {
     "archivo": "trabajos/ajustes.yml",
     "clave": "JobsModule.particle-002",
     "predeterminado": "GLOW",
-    "origen": "JobsModule.java:354"
+    "origen": "JobsModule.java:375"
   },
   {
     "archivo": "trabajos/ajustes.yml",
     "clave": "JobsModule.spawnparticle-001-arg2",
     "predeterminado": 10,
-    "origen": "JobsModule.java:354"
+    "origen": "JobsModule.java:375"
   },
   {
     "archivo": "trabajos/ajustes.yml",
     "clave": "JobsModule.spawnparticle-002-arg3",
     "predeterminado": 0.3,
-    "origen": "JobsModule.java:354"
+    "origen": "JobsModule.java:375"
   },
   {
     "archivo": "trabajos/ajustes.yml",
     "clave": "JobsModule.spawnparticle-003-arg4",
     "predeterminado": 0.3,
-    "origen": "JobsModule.java:354"
+    "origen": "JobsModule.java:375"
   },
   {
     "archivo": "trabajos/ajustes.yml",
     "clave": "JobsModule.spawnparticle-004-arg5",
     "predeterminado": 0.3,
-    "origen": "JobsModule.java:354"
+    "origen": "JobsModule.java:375"
   },
   {
     "archivo": "trabajos/ajustes.yml",
     "clave": "JobsModule.spawnparticle-005-arg6",
     "predeterminado": 0.05,
-    "origen": "JobsModule.java:354"
+    "origen": "JobsModule.java:375"
   },
   {
     "archivo": "trabajos/ajustes.yml",
     "clave": "JobsModule.sound-003",
     "predeterminado": "ENTITY_EXPERIENCE_ORB_PICKUP",
-    "origen": "JobsModule.java:361"
+    "origen": "JobsModule.java:382"
   },
   {
     "archivo": "trabajos/ajustes.yml",
     "clave": "JobsModule.playsound-006-arg2",
     "predeterminado": 0.5,
-    "origen": "JobsModule.java:361"
+    "origen": "JobsModule.java:382"
   },
   {
     "archivo": "trabajos/ajustes.yml",
     "clave": "JobsModule.playsound-007-arg3",
     "predeterminado": 1.5,
-    "origen": "JobsModule.java:361"
+    "origen": "JobsModule.java:382"
   },
   {
     "archivo": "trabajos/mensajes.yml",
     "clave": "JobsModule.mensaje-007",
     "predeterminado": "{valor1}+{amount} {prefijo} · {job}",
-    "origen": "JobsModule.java:355"
+    "origen": "JobsModule.java:376"
   },
   {
     "archivo": "trabajos/mensajes.yml",
     "clave": "JobsModule.texto-004",
     "predeterminado": "Pago solicitado: ",
-    "origen": "JobsModule.java:355"
+    "origen": "JobsModule.java:376"
   },
   {
     "archivo": "trabajos/ajustes.yml",
     "clave": "JobsModule.color-004",
     "predeterminado": "GOLD",
-    "origen": "JobsModule.java:362"
+    "origen": "JobsModule.java:383"
   },
   {
     "archivo": "trabajos/mensajes.yml",
     "clave": "JobsModule.mensaje-008",
     "predeterminado": "Trabajos: faltan o son inválidos dinero/cooldown de {job}.{level}. Esa categoría no paga hasta configurarse.",
-    "origen": "JobsModule.java:365"
+    "origen": "JobsModule.java:386"
   },
   {
     "archivo": "nucleo/ajustes.yml",
@@ -867,127 +867,127 @@
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.mensaje-013",
     "predeterminado": "<reset><gold>MISIONES <reset><yellow>{name-category} <reset><white>{m-kills}/{m-required}",
-    "origen": "SlayerModule.java:542"
+    "origen": "SlayerModule.java:569"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.mensaje-014",
     "predeterminado": "Slayer: no se pudo invocar {mob}: {error-getmessage}",
-    "origen": "SlayerModule.java:656"
+    "origen": "SlayerModule.java:683"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.mensaje-015",
     "predeterminado": "<reset><red>El jefe no pudo aparecer. Conservas el contrato y podrás reintentar la invocación.",
-    "origen": "SlayerModule.java:661"
+    "origen": "SlayerModule.java:688"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.mensaje-016",
     "predeterminado": "¡JEFE INVOCADO!",
-    "origen": "SlayerModule.java:685"
+    "origen": "SlayerModule.java:712"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.color-002",
     "predeterminado": "GOLD",
-    "origen": "SlayerModule.java:686"
+    "origen": "SlayerModule.java:713"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.mensaje-017",
     "predeterminado": "{name-category} ha aparecido. ¡Derrota al jefe!",
-    "origen": "SlayerModule.java:687"
+    "origen": "SlayerModule.java:714"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.color-003",
     "predeterminado": "YELLOW",
-    "origen": "SlayerModule.java:689"
+    "origen": "SlayerModule.java:716"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.ofmillis-003-arg0",
     "predeterminado": 150,
-    "origen": "SlayerModule.java:691"
+    "origen": "SlayerModule.java:718"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.ofseconds-004-arg0",
     "predeterminado": 3,
-    "origen": "SlayerModule.java:692"
+    "origen": "SlayerModule.java:719"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.ofmillis-005-arg0",
     "predeterminado": 400,
-    "origen": "SlayerModule.java:693"
+    "origen": "SlayerModule.java:720"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.sound-004",
     "predeterminado": "ENTITY_WITHER_SPAWN",
-    "origen": "SlayerModule.java:694"
+    "origen": "SlayerModule.java:721"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.playsound-006-arg2",
     "predeterminado": 1.0,
-    "origen": "SlayerModule.java:695"
+    "origen": "SlayerModule.java:722"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.playsound-007-arg3",
     "predeterminado": 0.8,
-    "origen": "SlayerModule.java:696"
+    "origen": "SlayerModule.java:723"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.particle-005",
     "predeterminado": "SOUL_FIRE_FLAME",
-    "origen": "SlayerModule.java:700"
+    "origen": "SlayerModule.java:727"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.spawnparticle-008-arg2",
     "predeterminado": 1,
-    "origen": "SlayerModule.java:702"
+    "origen": "SlayerModule.java:729"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.spawnparticle-009-arg3",
     "predeterminado": 0.0,
-    "origen": "SlayerModule.java:703"
+    "origen": "SlayerModule.java:730"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.spawnparticle-010-arg4",
     "predeterminado": 0.0,
-    "origen": "SlayerModule.java:704"
+    "origen": "SlayerModule.java:731"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.spawnparticle-011-arg5",
     "predeterminado": 0.0,
-    "origen": "SlayerModule.java:705"
+    "origen": "SlayerModule.java:732"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.spawnparticle-012-arg6",
     "predeterminado": 0.02,
-    "origen": "SlayerModule.java:706"
+    "origen": "SlayerModule.java:733"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.mensaje-018",
     "predeterminado": "{name-c} · {m-kills}/{m-required}",
-    "origen": "SlayerModule.java:714"
+    "origen": "SlayerModule.java:741"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.mensaje-019",
     "predeterminado": "UUID inválido en slayer-data.yml: {id}",
-    "origen": "SlayerModule.java:812"
+    "origen": "SlayerModule.java:839"
   },
   {
     "archivo": "nucleo/mensajes.yml",
@@ -8601,37 +8601,37 @@
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.contrato-aplicado",
     "predeterminado": "<reset><gold>Contrato {accion}: {categoria} · Costo {costo} ↾",
-    "origen": "SlayerModule.java:445"
+    "origen": "SlayerModule.java:472"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.contrato-categoria",
     "predeterminado": "<reset><red>Categoría inválida.",
-    "origen": "SlayerModule.java:386"
+    "origen": "SlayerModule.java:413"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.contrato-pago-fallo",
     "predeterminado": "<reset><red>No se pudo confirmar el cobro; tu contrato sigue intacto.",
-    "origen": "SlayerModule.java:411"
+    "origen": "SlayerModule.java:438"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.contrato-rechazado",
-    "predeterminado": "<reset><red>Contrato rechazado: {motivo}",
-    "origen": "SlayerModule.java:406"
+    "predeterminado": "<red>{motivo}",
+    "origen": "SlayerModule.java:433"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.contrato-storage-fallo",
     "predeterminado": "<reset><red>No se pudo guardar el contrato; solicita revisión administrativa del saldo.",
-    "origen": "SlayerModule.java:435"
+    "origen": "SlayerModule.java:462"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.desbloqueos-pendientes",
     "predeterminado": "<yellow>Subiste de nivel, pero tus nuevas recetas todavía están pendientes. Avisa a administración.",
-    "origen": "SlayerModule.java:614"
+    "origen": "SlayerModule.java:641"
   },
   {
     "archivo": "slayer/mensajes.yml",
@@ -8643,13 +8643,13 @@
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.guardado-pendiente",
     "predeterminado": "<red>El estado de Slayer no pudo guardarse. Avisa a administración antes de reiniciar.",
-    "origen": "SlayerModule.java:519"
+    "origen": "SlayerModule.java:546"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.guardado-pendiente",
     "predeterminado": "<red>El estado de Slayer no pudo guardarse. Avisa a administración antes de reiniciar.",
-    "origen": "SlayerModule.java:598"
+    "origen": "SlayerModule.java:625"
   },
   {
     "archivo": "slayer/mensajes.yml",
@@ -8673,19 +8673,19 @@
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.jefe-desaparecido",
     "predeterminado": "<yellow>El jefe desapareció. Conservas el contrato y podrás volver a invocarlo.",
-    "origen": "SlayerModule.java:516"
+    "origen": "SlayerModule.java:543"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.jefe-descargado",
     "predeterminado": "<yellow>Tu jefe sigue registrado, pero no está cargado. Regresa a la zona del combate; no invoques otro.",
-    "origen": "SlayerModule.java:734"
+    "origen": "SlayerModule.java:761"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.jefe-ultima-posicion",
     "predeterminado": "<gray>Última ubicación conocida: <white>{world} {x} {y} {z}",
-    "origen": "SlayerModule.java:738"
+    "origen": "SlayerModule.java:765"
   },
   {
     "archivo": "slayer/mensajes.yml",
@@ -8733,13 +8733,13 @@
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.sin-recetas-nuevas",
     "predeterminado": "Sin recetas nuevas",
-    "origen": "SlayerModule.java:621"
+    "origen": "SlayerModule.java:648"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.subida-nivel",
     "predeterminado": "<gold>✦ ¡Nivel Slayer {nivel}! <white>{recompensas}",
-    "origen": "SlayerModule.java:623"
+    "origen": "SlayerModule.java:650"
   },
   {
     "archivo": "slayer/mensajes.yml",
@@ -8787,13 +8787,13 @@
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.victoria-cooperativa",
     "predeterminado": "<green>¡Jefe derrotado! <gold>+{xp} XP Slayer <gray>· Nivel {nivel}",
-    "origen": "SlayerModule.java:600"
+    "origen": "SlayerModule.java:627"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.victoria-no-acreditada",
     "predeterminado": "<red>No recibiste XP Slayer: necesitas infligir al menos {porcentaje}% de la vida del jefe y estar a {radio} bloques al morir.",
-    "origen": "SlayerModule.java:603"
+    "origen": "SlayerModule.java:630"
   },
   {
     "archivo": "tesoros/ajustes.yml",
@@ -8985,37 +8985,37 @@
     "archivo": "trabajos/mensajes.yml",
     "clave": "JobsModule.contrato-exito",
     "predeterminado": "<reset><green>Contrato firmado: {trabajo} {rango}. Precio: {precio} ↾.",
-    "origen": "JobsModule.java:296"
+    "origen": "JobsModule.java:317"
   },
   {
     "archivo": "trabajos/mensajes.yml",
     "clave": "JobsModule.contrato-fallo",
     "predeterminado": "<reset><red>No se pudo guardar el contrato. Se intentó devolver el pago.",
-    "origen": "JobsModule.java:286"
+    "origen": "JobsModule.java:307"
   },
   {
     "archivo": "trabajos/mensajes.yml",
     "clave": "JobsModule.contrato-rechazado",
-    "predeterminado": "<reset><red>No puedes firmar este contrato: {motivo}",
-    "origen": "JobsModule.java:221"
+    "predeterminado": "<red>{motivo}",
+    "origen": "JobsModule.java:242"
   },
   {
     "archivo": "trabajos/mensajes.yml",
     "clave": "JobsModule.contrato-sin-luckperms",
     "predeterminado": "<reset><red>No se pudo registrar el contrato. No se ha cobrado.",
-    "origen": "JobsModule.java:242"
+    "origen": "JobsModule.java:263"
   },
   {
     "archivo": "trabajos/mensajes.yml",
     "clave": "JobsModule.contrato-sin-saldo",
     "predeterminado": "<reset><red>No se pudo confirmar el pago.",
-    "origen": "JobsModule.java:262"
+    "origen": "JobsModule.java:283"
   },
   {
     "archivo": "trabajos/mensajes.yml",
     "clave": "JobsModule.prefijo-monedas",
     "predeterminado": "<reset><white>↾",
-    "origen": "JobsModule.java:355"
+    "origen": "JobsModule.java:376"
   },
   {
     "archivo": "trabajos/mensajes.yml",
@@ -9081,7 +9081,7 @@
     "archivo": "trabajos/mensajes.yml",
     "clave": "MiningProgression.requisito-contrato",
     "predeterminado": "<yellow>Necesitas Minería nivel {nivel} para firmar este contrato.",
-    "origen": "JobsModule.java:235"
+    "origen": "JobsModule.java:256"
   },
   {
     "archivo": "trabajos/mensajes.yml",
@@ -9532,5 +9532,89 @@
     "clave": "MithrilTools.uso-no-disponible",
     "predeterminado": "<yellow>Esta habilidad no está disponible.",
     "origen": "MithrilToolModule.java:100"
+  },
+  {
+    "archivo": "slayer/mensajes.yml",
+    "clave": "SlayerModule.contrato-bloqueado",
+    "predeterminado": "<yellow>Esta cacería aún no está disponible para ti. Consulta las misiones desbloqueadas.",
+    "origen": "SlayerModule.java:401"
+  },
+  {
+    "archivo": "slayer/mensajes.yml",
+    "clave": "SlayerModule.contrato-nivel-requerido",
+    "predeterminado": "<yellow>Alcanza el nivel <white>{nivel} <yellow>de {caceria} para desbloquear este contrato.",
+    "origen": "SlayerModule.java:398"
+  },
+  {
+    "archivo": "slayer/mensajes.yml",
+    "clave": "SlayerModule.contrato-no-disponible",
+    "predeterminado": "<yellow>Las cacerías no están disponibles por ahora.",
+    "origen": "SlayerModule.java:386"
+  },
+  {
+    "archivo": "slayer/mensajes.yml",
+    "clave": "SlayerModule.contrato-precio-no-disponible",
+    "predeterminado": "<red>Este contrato no está disponible por ahora. No se ha cobrado.",
+    "origen": "SlayerModule.java:404"
+  },
+  {
+    "archivo": "slayer/mensajes.yml",
+    "clave": "SlayerModule.contrato-rango-invalido",
+    "predeterminado": "<red>Elige un rango válido en Misiones.",
+    "origen": "SlayerModule.java:388"
+  },
+  {
+    "archivo": "slayer/mensajes.yml",
+    "clave": "SlayerModule.contrato-sin-activo",
+    "predeterminado": "<yellow>No tienes una cacería activa de esa categoría.",
+    "origen": "SlayerModule.java:393"
+  },
+  {
+    "archivo": "slayer/mensajes.yml",
+    "clave": "SlayerModule.contrato-ya-activo",
+    "predeterminado": "<yellow>Ya tienes una cacería activa. Termínala o abandónala antes de aceptar otra.",
+    "origen": "SlayerModule.java:391"
+  },
+  {
+    "archivo": "trabajos/mensajes.yml",
+    "clave": "JobsModule.contrato-en-curso",
+    "predeterminado": "<yellow>Tu contrato se está confirmando. Espera un momento.",
+    "origen": "JobsModule.java:220"
+  },
+  {
+    "archivo": "trabajos/mensajes.yml",
+    "clave": "JobsModule.contrato-no-disponible",
+    "predeterminado": "<yellow>Este oficio no está disponible por ahora.",
+    "origen": "JobsModule.java:207"
+  },
+  {
+    "archivo": "trabajos/mensajes.yml",
+    "clave": "JobsModule.contrato-oficio-invalido",
+    "predeterminado": "<red>Elige un oficio válido en Trabajos.",
+    "origen": "JobsModule.java:209"
+  },
+  {
+    "archivo": "trabajos/mensajes.yml",
+    "clave": "JobsModule.contrato-precio-no-disponible",
+    "predeterminado": "<red>Este contrato no está disponible por ahora. No se ha cobrado.",
+    "origen": "JobsModule.java:218"
+  },
+  {
+    "archivo": "trabajos/mensajes.yml",
+    "clave": "JobsModule.contrato-rango-anterior",
+    "predeterminado": "<yellow>Primero firma el contrato de rango <white>{rango}<yellow>.",
+    "origen": "JobsModule.java:215"
+  },
+  {
+    "archivo": "trabajos/mensajes.yml",
+    "clave": "JobsModule.contrato-rango-invalido",
+    "predeterminado": "<red>Elige un rango válido en Trabajos.",
+    "origen": "JobsModule.java:211"
+  },
+  {
+    "archivo": "trabajos/mensajes.yml",
+    "clave": "JobsModule.contrato-ya-adquirido",
+    "predeterminado": "<yellow>Ya tienes este rango o uno superior.",
+    "origen": "JobsModule.java:213"
   }
 ]

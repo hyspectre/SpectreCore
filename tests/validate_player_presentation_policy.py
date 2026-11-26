@@ -105,3 +105,10 @@ java_root = root / "src/main/java"
 for source in java_root.rglob("*.java"):
     assert not re.search(r"\bsendActionBar\s*\(", source.read_text(encoding="utf8")), f"Actionbar in {source}"
 assert "show-fury-actionbar" not in (resources / "modules/equipamiento/config.yml").read_text()
+
+# Refusal codes are engine decisions, never human-readable player messages.
+# Each contract handler must translate the decision before binding its reason.
+for module in ("SlayerModule", "JobsModule"):
+    source = (java_root / "dev/hydev/spectrecore/systems" / (module + ".java")).read_text(encoding="utf8")
+    assert not re.search(r'"motivo"\s*,\s*\w+\.name\s*\(\s*\)', source), f"Raw refusal code in {module}"
+    assert re.search(r'"motivo"\s*,\s*contractRefusal\(', source), f"Missing refusal translation in {module}"

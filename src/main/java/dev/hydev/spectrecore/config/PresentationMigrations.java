@@ -136,7 +136,9 @@ public final class PresentationMigrations {
         new Rule("Sistema Hydev hydevportaldemo", "Previsualizar el portal"),
         new Rule("\"<gray>ᴄᴏɴᴇᴄᴛᴀ <white>{v-e-hits-required-4} ɢᴏʟᴘᴇs\\n<gray>ᴇɴ <yellow>{valor2} <gray>ᴘᴀʀᴀ ᴀᴄᴛɪᴠᴀʀ\"", "\"<gray>Encadena <white>{v-e-hits-required-4} golpes\\n<gray>Máximo <yellow>{valor2} <gray>entre golpes.\""),
         new Rule("\"<gray>ᴀʟᴄᴀɴᴄᴇ <white>{v-e-range-8} ʙʟᴏǫᴜᴇs\"", "\"<gray>Alcance <white>{v-e-range-8} bloques\\n<gray>Un disparo cada <white>{valor2}.\\n<gray>Sin enemigo cercano, conserva almas.\""),
-        new Rule("\"<aqua>✦ Resonancia restaurada: <white>{carga}/100\"", "\"<aqua>✦ Resonancia restaurada: <white>{carga}/{max}\"")
+        new Rule("\"<aqua>✦ Resonancia restaurada: <white>{carga}/100\"", "\"<aqua>✦ Resonancia restaurada: <white>{carga}/{max}\""),
+        new Rule("\"<reset><red>Contrato rechazado: {motivo}\"", "\"<red>{motivo}\""),
+        new Rule("\"<reset><red>No puedes firmar este contrato: {motivo}\"", "\"<red>{motivo}\"")
     );
 
     private PresentationMigrations() { }
