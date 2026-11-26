@@ -52,7 +52,7 @@ final class MiningForgeUpgrades implements Listener {
             if (action == PlayerUseCraftingStationEvent.StationAction.INTERACT_WITH_RECIPE) {
                 if (!installed.isEmpty() || dedicated) {
                     event.setCancelled(true);
-                    event.getPlayer().sendMessage("§eMejora esta herramienta en la Forja Minera actualizada.");
+                    event.getPlayer().sendMessage(Settings.message("resonancia", "MiningModule.mensaje-050", "§eMejora esta herramienta en la Forja Minera actualizada."));
                 }
                 return;
             }

@@ -132,3 +132,6 @@ probabilidades:
 visuales:
   activados: true
   max-animaciones: 32
+
+# Messages for mining forge upgrades
+forge-upgrade-improved: "&eMejora esta herramienta en la Forja Minera actualizada."

@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
+import dev.hydev.spectrecore.integration.WorldGuardBridge;
 
 public final class MiningModule implements Listener {
     private static String prefix() { return Settings.text("resonancia", "MiningModule.etiqueta-046", "§8[§d✦§8] §r"); }
@@ -272,6 +273,19 @@ public final class MiningModule implements Listener {
         }
         if (state == null || state.length != 2) return;
         if (state[0] <= System.currentTimeMillis()) { data.remove(key); return; }
+        // --- AUD-05: validaciones nuevas ---
+        // 1. Validar hito "arcana"
+        if (!progression.meets(player, "arcana")) {
+            player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-045", "§cNecesitas el arcana §7nivel para abrir geodas."));
+            return;
+        }
+        // 2. Validar protección de región (WorldGuard) si está disponible
+        WorldGuardBridge wg = new WorldGuardBridge(plugin.getLogger());
+        if (!wg.canBuild(player, block.getLocation())) {
+            player.sendMessage(Settings.message("resonancia", "MiningModule.mensaje-046", "§cNo puedes abrir geodas en regiones protegidas."));
+            return;
+        }
+        // --------------------------------
         var held = player.getInventory().getItemInMainHand();
         if (!"LLAVE_RESONANTE".equals(mmo.id(held)) || !"MATERIAL".equals(mmo.type(held))) {
             player.sendActionBar(Component.text("Geoda sellada · Usa una Llave Resonante"));
@@ -506,9 +520,17 @@ public final class MiningModule implements Listener {
     }
     @EventHandler public void quit(PlayerQuitEvent event) { gems.quit(event.getPlayer().getUniqueId()); hideBar(event.getPlayer()); if (dirty) saveData(); }
     private void loadData() {
-        var data = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "mining-data.yml"));
+        File file = new File(plugin.getDataFolder(), "mining-data.yml");
+        if (!file.exists() || file.length() == 0) {
+            plugin.getLogger().info(Settings.plain("resonancia", "MiningModule.mensaje-046", "Archivo de datos de minería ausente o vacío; se conservará la progresión existente."));
+            return;
+        }
+        var data = YamlConfiguration.loadConfiguration(file);
         var section = data.getConfigurationSection("players");
-        if (section == null) return;
+        if (section == null) {
+            plugin.getLogger().warning(Settings.plain("resonancia", "MiningModule.mensaje-047", "Sección «players» inexistente en mining-data.yml; se conservará la progresión existente."));
+            return;
+        }
         for (String key : section.getKeys(false)) try {
             UUID id = UUID.fromString(key); State state = new State();
             state.charge = Math.max(0, Math.min(maximum(), section.getInt(key + ".charge")));

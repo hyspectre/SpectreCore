@@ -24,14 +24,14 @@ TYPES = {
 }
 RECIPE_SOURCE = ROOT / "RECETAS_FORJA_MINERIA.yml"
 LOST_SOURCE = ROOT / "RECETA_PICO_PERDIDO_REEMPLAZO.yml"
-TOP_ITEM = re.compile(r"^([A-Z][A-Z0-9_]*):[ \t]*(?:#.*)?$")
+TOP_ITEM = re.compile(r"^(?:\"([A-Z][A-Z0-9_]*\")|([A-Z][A-Z0-9_]*)):[ \t]*(?:#.*)?$")
 TOP_RECIPE = re.compile(r"^  ([a-z0-9-]+):[ \t]*(?:#.*)?$")
-ROOT_KEY = re.compile(r"^[^ \t#][^:\n]*:[ \t]*(?:#.*)?$")
+ROOT_KEY = re.compile(r"^(?:\"[^ \t#][^:\n]*\"|[^ \t#][^:\n]*):[ \t]*(?:#.*)?$")
 
 def lines_and_sections(text: str, matcher: re.Pattern, stop_at_root=False):
     lines = text.splitlines(keepends=True)
     spans = {}
-    positions = [(i, m.group(1)) for i, line in enumerate(lines)
+    positions = [(i, (m.group(1) or m.group(2)).strip('"')) for i, line in enumerate(lines)
                  if (m := matcher.fullmatch(line.rstrip("\r\n")))]
     if len({name for _, name in positions}) != len(positions):
         raise ValueError("IDs duplicados en archivo de origen o destino")

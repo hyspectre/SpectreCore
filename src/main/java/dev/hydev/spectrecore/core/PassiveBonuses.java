@@ -35,7 +35,10 @@ public final class PassiveBonuses {
             if (keys != null && keys.remove(key)) plugin.effects().clearAttribute(p, attr, key);
         }
     }
+    private int tickCounter;
     public void tick() {
+        tickCounter = (tickCounter + 1) % 10;
+        if (tickCounter != 0) { quickTick(); return; }
         for (Player p : Bukkit.getOnlinePlayers()) {
             if (!p.isValid() || p.isDead()) { clear(p); continue; }
             var config=Settings.module("equipamiento/config.yml");
@@ -43,6 +46,20 @@ public final class PassiveBonuses {
             apply(p, "ultimo-juramento", Attribute.MOVEMENT_SPEED, "set_voto_speed", config.getDouble("pasivos.voto-velocidad",.04), AttributeModifier.Operation.ADD_SCALAR);
             apply(p, "sangre-primer-dragon", Attribute.MAX_HEALTH, "set_dragon_health", config.getDouble("pasivos.dragon-vida",4), AttributeModifier.Operation.ADD_NUMBER);
             apply(p, "sangre-primer-dragon", Attribute.MOVEMENT_SPEED, "set_dragon_speed", config.getDouble("pasivos.dragon-velocidad",.02), AttributeModifier.Operation.ADD_SCALAR);
+        }
+    }
+    /** Executed on 9 out of every 10 ticks – lightweight eligibility-only pass. */
+    private void quickTick() {
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            if (!p.isValid() || p.isDead()) { clear(p); continue; }
+            // Only re-apply if the set eligibility may have changed; otherwise skip.
+            var config = Settings.module("equipamiento/config.yml");
+            if (eligible(p, "asterion")) apply(p, "asterion", Attribute.MAX_HEALTH, "set_laberinto_health", config.getDouble("pasivos.laberinto-vida",6), AttributeModifier.Operation.ADD_NUMBER);
+            if (eligible(p, "ultimo-juramento")) apply(p, "ultimo-juramento", Attribute.MOVEMENT_SPEED, "set_voto_speed", config.getDouble("pasivos.voto-velocidad",.04), AttributeModifier.Operation.ADD_SCALAR);
+            if (eligible(p, "sangre-primer-dragon")) {
+                apply(p, "sangre-primer-dragon", Attribute.MAX_HEALTH, "set_dragon_vida", config.getDouble("pasivos.dragon-vida",4), AttributeModifier.Operation.ADD_NUMBER);
+                apply(p, "sangre-primer-dragon", Attribute.MOVEMENT_SPEED, "set_dragon_velocidad", config.getDouble("pasivos.dragon-velocidad",.02), AttributeModifier.Operation.ADD_SCALAR);
+            }
         }
     }
     public void clear(Player p) {

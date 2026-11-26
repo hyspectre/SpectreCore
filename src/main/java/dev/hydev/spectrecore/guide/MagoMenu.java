@@ -224,7 +224,46 @@ public final class MagoMenu implements Listener {
                     "<red>El catálogo de armaduras está desactivado.")));
             return true;
         }
-        if (!ID.matcher(section).matches() || !pages.isConfigurationSection("pages." + section)) {
+        // Support both "sections." and "pages." formats
+        String effectiveFormat = "pages";  // default
+        ConfigurationSection root = null;
+        
+        if (pages.isConfigurationSection("sections")) {
+            root = pages.getConfigurationSection("sections");
+            effectiveFormat = "sections";
+        } else if (pages.isConfigurationSection("pages")) {
+            root = pages.getConfigurationSection("pages");
+            effectiveFormat = "pages";
+        }
+        
+        if (root == null || !root.containsKey("title")) {
+            player.sendMessage(styled(pages.getString("invalid-page",
+                    "<red>El Mago no conoce esa sección.</red>")));
+            return;
+        }
+        
+        // Get section ID respecting both formats
+        String sectionId;
+        if ("sections".equals(effectiveFormat) && root.containsKey(section)) {
+            sectionId = section;
+        } else {
+            sectionId = requested != null && !requested.isEmpty() ? requested : "inicio";
+        }
+        
+        ConfigurationSection page = root.getConfigurationSection(sectionId);
+        if (page == null) {
+            player.sendMessage(styled(pages.getString("invalid-page",
+                    "<red>El Mago no conoce esa sección.</red>")));
+            return;
+        }
+        
+        // Get section IDs list respecting format
+        List<String> ids;
+        if ("sections".equals(effectiveFormat)) {
+            ids = new ArrayList<>(root.getKeys(false));
+        } else {
+            ids = new ArrayList<>(pages.getConfigurationSection("pages").getKeys(false));
+        } {
             player.sendMessage(styled(pages.getString("invalid-page",
                     "<red>El Mago no conoce esa sección.")));
             return true;
@@ -273,8 +312,30 @@ public final class MagoMenu implements Listener {
             Map<?, ?> option = links.get(i);
             String dest = String.valueOf(option.get("page"));
             String label = String.valueOf(option.get("label"));
-            String icon = pages.getString("visual.iconos." + dest,
+            // Get icon - supports both new "icons.material" and old "visual.iconos" format
+        String icon;
+        if ("sections".equals(effectiveFormat) && root != null && root.containsKey("icons")) {
+            // New format: sections.icons.material
+            icon = root.getString("icons." + dest, "");
+            if (icon.isEmpty()) icon = root.getString("icons.guia", "");
+        } else {
+            // Old format: visual.iconos.material
+            icon = pages.getString("visual.iconos." + dest,
                     pages.getString("visual.iconos.guia", ""));
+        }
+        
+        // Translate material name to ItemStack if valid, otherwise use default
+        if (!icon.isEmpty()) {
+            try {
+                Material mat = Material.valueOf(icon.toUpperCase().replace(" ", "_"));
+                itemStack = mat.parseItem();
+            } catch (Exception e) {
+                // Not a valid material name - use as custom item name or default
+                itemStack = new ItemStack(Material.BOOK);
+            }
+        } else {
+            itemStack = new ItemStack(Material.BOOK);
+        }
             String desc = option.get("descripcion") instanceof String value ? value
                     : pages.getString("pages." + dest + ".resumen",
                             pages.getString("pages." + dest + ".body", ""));

@@ -91,12 +91,14 @@ final class MiningPermissionSync {
                 users.modifyUser(id, user -> {
                     for (var reward : milestones.entrySet()) {
                         if (current < reward.getValue()) continue;
-                        Node grant = Node.builder(reward.getKey()).build();
-                        Node denial = grant.toBuilder().value(false).build();
-                        if (user.data().toCollection().contains(denial)) {
-                            user.data().remove(denial);
-                            changed.set(true);
-                        }
+                        String grantKey = reward.getKey();
+                        // Verificar si el usuario ya tiene este grant: si ya lo tiene, no vuelva a otorgarlo
+                        // pero tampoco remueva denegaciones administrativas ajenas.
+                        boolean hasGrant = user.data().toCollection().contains(Node.builder(grantKey).build());
+                        if (hasGrant) continue; // Ya concedido; saltar a siguiente hito
+                        // Solo intentamos otorgar si no tenía el grant previamente.
+                        // No removemos denegaciones explícitas (pueden ser de LuckPerms/admin).
+                        Node grant = Node.builder(grantKey).build();
                         if (user.data().add(grant).wasSuccessful()) changed.set(true);
                     }
                 }).join();
