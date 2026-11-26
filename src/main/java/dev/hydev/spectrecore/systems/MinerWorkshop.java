@@ -228,8 +228,6 @@ public final class MinerWorkshop {
         player.spawnParticle(Settings.particle("trabajos", "MinerWorkshop.particula", org.bukkit.Particle.ENCHANT),
                 player.getLocation().add(0, 1.1, 0),
                 Settings.i("trabajos", "MinerWorkshop.particulas", 12), .32, .35, .32, .02);
-        player.sendActionBar(Settings.message("trabajos", "MinerWorkshop.resultado-breve",
-                "<gold>✦ Mineralurgia completada."));
         return true;
     }
     private void unavailable(Player player) {

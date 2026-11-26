@@ -67,7 +67,6 @@ skills:
     damage-per-stack: 0.03
     max-combo-stacks: 4
     passive-knockback-resistance: 0.1
-    show-fury-actionbar: true
   ultimo-juramento:
     armor:
       type: ARMOR

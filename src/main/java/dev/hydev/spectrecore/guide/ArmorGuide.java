@@ -367,7 +367,13 @@ public void open(Player player) { openPage(player, "armaduras"); }
             case "asterion" -> {
                 t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-037", "<gray>ғᴜʀɪᴀ <white>+{v-e-fury-on-hit-12} <gray>ᴘᴏʀ ɢᴏʟᴘᴇ\n<gray>      <white>+{v-e-fury-on-damage-6} <gray>ᴀʟ ʀᴇᴄɪʙɪʀ ᴅᴀñᴏ", "v-e-fury-on-hit-12", v(e, "fury-on-hit", 12), "v-e-fury-on-damage-6", v(e, "fury-on-damage", 6)));
                 t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-038","<gray>{furia} ᴅᴇ ғᴜʀɪᴀ: <white>ᴅᴏʙʟᴇ sʜɪғᴛ\n<gray>ᴠᴇɴᴛᴀɴᴀ <yellow>{valor1}","furia",Settings.module("equipamiento/config.yml").getInt("furia-maxima",100),"valor1", seconds(e, "double-shift-window-ticks", 9)));
-                t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-039","<gray>ᴄᴏᴍʙᴏ <white>+{valor1} <gray>ᴘᴏʀ ɢᴏʟᴘᴇ\n<gray>ʟíᴍɪᴛᴇ <white>+{valor2}%","valor1", pct(e, "damage-per-stack", .03),"valor2", value(n(e, "max-combo-stacks", 4) * n(e, "damage-per-stack", .03) * 100)));
+                t.add(Settings.text("equipamiento", "ArmorGuide.impetu-como",
+                        "<#E3BC7B>Ímpetu <gray>· Asterión activo\n<gray>Primer golpe: fija el objetivo.\n<gray>Golpes al mismo enemigo:\n<green>+{valor1} daño por carga.\n<gray>Hasta <white>{cargas} cargas (+{valor2}%).",
+                        "valor1", pct(e, "damage-per-stack", .03),
+                        "cargas", v(e, "max-combo-stacks", 4),
+                        "valor2", value(n(e, "max-combo-stacks", 4) * n(e, "damage-per-stack", .03) * 100)));
+                t.add(Settings.text("equipamiento", "ArmorGuide.impetu-reinicio",
+                        "<gray>Se reinicia al cambiar de enemigo\n<gray>o dejar pasar más de <white>{segundos}\n<gray>entre golpes.", "segundos", seconds(e, "combo-gap-ticks", 50)));
             }
             case "ultimo-juramento" -> {
                 t.add(Settings.text("equipamiento", "ArmorGuide.mensaje-042","<gray>ᴅᴏʙʟᴇ sʜɪғᴛ <white>ᴇɴ {valor1}","valor1", seconds(e, "double-shift-window-ticks", 9)));

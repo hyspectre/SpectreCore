@@ -57,3 +57,9 @@ alternar dos herramientas, probar una habilidad en recarga, abrir Trabajos tras
 cobrar, cocinar tres raciones, examinar una reliquia antes de absorber y consultar
 un contrato pendiente. Son comprobaciones breves de experiencia, no pruebas
 destructivas ni requisitos para que el propietario audite manualmente cada archivo.
+
+## Asterión y política sin actionbar
+
+La Furia carga la habilidad y el Ímpetu representa el daño adicional por golpes consecutivos al mismo enemigo durante la transformación. La guía explica el primer golpe, el límite y las causas del reinicio según los valores configurados. Una sola barra cambia entre Furia e Ímpetu y muestra disponibilidad, cargas, porcentaje de daño y tiempo restante. No se modifican el balance ni la progresión.
+
+Se reemplazan las actionbars restantes de SpectreCore por barras nativas para estados temporales (brújula/portal), mensajes puntuales o avisos nativos existentes. Las barras se limpian al terminar o perder su contexto. La política se documenta en AGENTS y se protege con el validador de presentación. Las pruebas de cliente siguen pendientes.

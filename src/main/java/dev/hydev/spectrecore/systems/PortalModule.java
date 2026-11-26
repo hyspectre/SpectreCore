@@ -2,6 +2,7 @@ package dev.hydev.spectrecore.systems;
 
 import dev.hydev.spectrecore.config.Settings;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.*;
 import org.bukkit.command.CommandSender;
@@ -33,6 +34,7 @@ public final class PortalModule implements Listener {
     private final JavaPlugin plugin; private final NamespacedKey key; private YamlConfiguration config;
     private final Map<UUID,String> sessions = new HashMap<>(); private final Map<UUID,UUID> eligible = new HashMap<>();
     private final Map<UUID,Gate> gates = new HashMap<>(); private final Map<UUID,Long> since = new HashMap<>(), pending = new HashMap<>();
+    private final Map<UUID,BossBar> countdownBars = new HashMap<>();
     private BukkitTask timer; private int tick;
     public PortalModule(JavaPlugin plugin) { this.plugin=plugin; key=new NamespacedKey(plugin,"exit_portal_visual"); }
     public void enable() {
@@ -47,7 +49,7 @@ public final class PortalModule implements Listener {
     public void reload() {
         config = dev.hydev.spectrecore.config.ModuleConfiguration.module(plugin, "dungeons/portal.yml");
     }
-    public void disable() { if(timer!=null)timer.cancel(); HandlerList.unregisterAll(this); new ArrayList<>(gates.keySet()).forEach(this::clear); sessions.clear(); since.clear(); pending.clear(); }
+    public void disable() { if(timer!=null)timer.cancel(); HandlerList.unregisterAll(this); new ArrayList<>(gates.keySet()).forEach(this::clear); sessions.clear(); since.clear(); pending.clear(); new ArrayList<>(countdownBars.keySet()).forEach(this::hideCountdown); }
     private boolean admin(CommandSender s) { return s.hasPermission("hydev.admin")||s.hasPermission("spectrecore.admin"); }
     private boolean command(CommandSender sender,String command,String[] args) {
         if(command.equals("hydevportaljoin")||command.equals("hydevportalleave")) {
@@ -107,38 +109,51 @@ public final class PortalModule implements Listener {
                 Player p=Bukkit.getPlayer(id);
                 if(p==null||!p.isOnline()||!gate.session.equals(sessions.get(id))){reset(id);continue;}
                 if(!p.getWorld().equals(gate.center.getWorld())||p.getLocation().distanceSquared(gate.center)>128*128){reset(id);sessions.remove(id);continue;}
-                if(p.getGameMode()==GameMode.SPECTATOR||p.isDead()||!inside(p,gate)){since.remove(id);pending.remove(id);continue;}
+                if(p.getGameMode()==GameMode.SPECTATOR||p.isDead()||!inside(p,gate)){since.remove(id);pending.remove(id);hideCountdown(id);continue;}
                 Long until=pending.get(id);
                 if(until!=null){if(now<until)continue;pending.remove(id);since.remove(id);p.sendMessage(Settings.message("dungeons", "PortalModule.mensaje-017", "§cNo se confirmó tu salida. Intenta nuevamente o avisa a administración."));}
                 long started=since.computeIfAbsent(id,unused->now), wait=Math.max(1,config.getInt("tiempo-dentro-segundos",5))*1000L;
                 if(now-started>=wait){request(p,gate);continue;}
-                p.sendActionBar(Settings.component(Settings.text("dungeons", "PortalModule.mensaje-018","Salida en {valor1} s · Permanece en el arco","valor1", ((wait-(now-started)+999)/1000)),Settings.color("dungeons", "PortalModule.color-003", NamedTextColor.GOLD)));
+                Component name = Settings.component(Settings.text("dungeons", "PortalModule.mensaje-018","Salida en {valor1} s · Permanece en el arco","valor1", ((wait-(now-started)+999)/1000)),Settings.color("dungeons", "PortalModule.color-003", NamedTextColor.GOLD));
+                float progress = Math.clamp((now-started)/(float)wait, 0f, 1f);
+                BossBar bar = countdownBars.get(id);
+                if (bar == null) {
+                    bar = BossBar.bossBar(name, progress, BossBar.Color.YELLOW, BossBar.Overlay.PROGRESS);
+                    countdownBars.put(id, bar);
+                    p.showBossBar(bar);
+                } else { bar.name(name); bar.progress(progress); }
             }
         }
     }
+    private void hideCountdown(UUID id) {
+        BossBar bar = countdownBars.remove(id);
+        Player player = Bukkit.getPlayer(id);
+        if (bar != null && player != null) player.hideBossBar(bar);
+    }
     private void request(Player p,Gate gate){
+        hideCountdown(p.getUniqueId());
         String template=config.getString("salida.comando","");
         pending.put(p.getUniqueId(),System.currentTimeMillis()+Math.max(1,config.getInt("salida.confirmacion-segundos",10))*1000L);
         if(template.isBlank()){p.sendMessage(Settings.message("dungeons", "PortalModule.mensaje-019", "§cEl comando de salida no está configurado. Avisa a administración."));return;}
         String command=template.replace("{player}",p.getName()).replace("{session}",gate.session);
         try{
             boolean accepted=Bukkit.dispatchCommand(Bukkit.getConsoleSender(),command);
-            p.sendActionBar(Settings.component(Settings.text("dungeons", "PortalModule.mensaje-020","{valor1}","valor1", accepted?Settings.text("dungeons", "PortalModule.texto-001", "Finalizando tu expedición..."):Settings.text("dungeons", "PortalModule.texto-002", "La expedición rechazó la solicitud de salida")),Settings.color("dungeons", "PortalModule.color-004", NamedTextColor.GOLD)));
+            p.sendMessage(Settings.component(Settings.text("dungeons", "PortalModule.mensaje-020","{valor1}","valor1", accepted?Settings.text("dungeons", "PortalModule.texto-001", "Finalizando tu expedición..."):Settings.text("dungeons", "PortalModule.texto-002", "La expedición rechazó la solicitud de salida")),Settings.color("dungeons", "PortalModule.color-004", NamedTextColor.GOLD)));
         }catch(RuntimeException e){plugin.getLogger().warning(Settings.plain("dungeons", "PortalModule.mensaje-021", "Falló salida de portal: {e-getmessage}", "e-getmessage", e.getMessage()));}
         // Never assume dispatch=true means the dungeon accepted or ended the run.
     }
     private void reset(UUID id){
-        UUID portal=eligible.remove(id);since.remove(id);pending.remove(id);
+        UUID portal=eligible.remove(id);since.remove(id);pending.remove(id);hideCountdown(id);
         Gate gate=gates.get(portal);if(gate!=null){gate.members.remove(id);if(gate.members.isEmpty())clear(gate.id);}
     }
     private void clear(UUID id){
         Gate gate=gates.remove(id);if(gate==null)return;
         gate.displays.forEach(Entity::remove);gate.displays.clear();
-        for(UUID member:gate.members){eligible.remove(member,id);since.remove(member);pending.remove(member);}gate.members.clear();
+        for(UUID member:gate.members){eligible.remove(member,id);since.remove(member);pending.remove(member);hideCountdown(member);}gate.members.clear();
     }
     @EventHandler public void quit(PlayerQuitEvent e){reset(e.getPlayer().getUniqueId());sessions.remove(e.getPlayer().getUniqueId());}
-    @EventHandler public void dead(PlayerDeathEvent e){since.remove(e.getEntity().getUniqueId());pending.remove(e.getEntity().getUniqueId());}
-    @EventHandler(priority=EventPriority.MONITOR,ignoreCancelled=true) public void teleport(PlayerTeleportEvent e){since.remove(e.getPlayer().getUniqueId());pending.remove(e.getPlayer().getUniqueId());}
+    @EventHandler public void dead(PlayerDeathEvent e){since.remove(e.getEntity().getUniqueId());pending.remove(e.getEntity().getUniqueId());hideCountdown(e.getEntity().getUniqueId());}
+    @EventHandler(priority=EventPriority.MONITOR,ignoreCancelled=true) public void teleport(PlayerTeleportEvent e){since.remove(e.getPlayer().getUniqueId());pending.remove(e.getPlayer().getUniqueId());hideCountdown(e.getPlayer().getUniqueId());}
     @EventHandler public void chunk(ChunkLoadEvent e){cleanupChunk(e.getChunk());for(Gate gate:new ArrayList<>(gates.values()))if(gate.center.getWorld().equals(e.getWorld())&&Math.abs((gate.center.getBlockX()>>4)-e.getChunk().getX())<=1&&Math.abs((gate.center.getBlockZ()>>4)-e.getChunk().getZ())<=1)draw(gate);}
     private void cleanupChunk(Chunk c){for(Entity e:c.getEntities())if(e.getPersistentDataContainer().has(key,PersistentDataType.BYTE))e.remove();}
     private void mark(Display display){display.setPersistent(false);display.setInvulnerable(true);display.setGravity(false);display.getPersistentDataContainer().set(key,PersistentDataType.BYTE,(byte)1);display.setBrightness(new Display.Brightness(Settings.i("dungeons", "PortalModule.brillo-001-arg0", 15),Settings.i("dungeons", "PortalModule.brillo-002-arg1", 15)));display.setViewRange(Settings.f("dungeons", "PortalModule.setviewrange-008-arg0", .8f));}

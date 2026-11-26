@@ -597,7 +597,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         // Station right-click never triggers vanilla cauldron behavior (water changes etc.).
         event.setCancelled(true);
         if (held.getType() == Material.AIR) {
-            inspectStation(player, station, player.isSneaking());
+            inspectStation(player, station);
             return;
         }
         if (held.getType() == Material.BOOK) {
@@ -916,7 +916,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         else label(station, Settings.text("cocina", "CookingModule.etiqueta-078", "§6♨ §e") + recipe.name() + Settings.text("cocina", "CookingModule.etiqueta-079", " §7| Calentando..."));
     }
 
-    private void inspectStation(Player player, Station station, boolean verbose) {
+    private void inspectStation(Player player, Station station) {
         Recipe recipe = station.recipeId == null ? null : recipes.get(station.recipeId);
         String status;
         if (recipe == null) {
@@ -942,8 +942,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
             status = Settings.text("cocina", "CookingModule.etiqueta-093", "§6") + recipe.name() + Settings.text("cocina", "CookingModule.etiqueta-094", " §7| §f") + progress + Settings.text("cocina", "CookingModule.etiqueta-095", "% §8(") + station.elapsedMs / 1000L
                     + Settings.text("cocina", "CookingModule.etiqueta-096", " s) §7| ") + action;
         }
-        player.sendActionBar(TextService.component(status));
-        if (verbose) msg(player, status);
+        msg(player, status);
     }
 
     private void exquisiteCelebration(Station station, Player player, Recipe recipe) {
@@ -1527,7 +1526,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
                 removeVisual(station); repairVisual(station);
                 msg(player, ChatColor.GREEN + Settings.text("cocina", "CookingModule.etiqueta-121", "Modelo de cocina reconstruido."));
             }
-            case "estado" -> { accrue(station, System.currentTimeMillis()); inspectStation(player, station, true); }
+            case "estado" -> { accrue(station, System.currentTimeMillis()); inspectStation(player, station); }
             default -> sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-022", "{prefix}§e/spectrecore cocina ayuda | libro | estado | reparar | recargar", "prefix", Settings.component(prefix())));
         }
         return true;

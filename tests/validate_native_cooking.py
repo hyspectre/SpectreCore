@@ -135,9 +135,9 @@ assert "Bukkit.getScheduler().runTask(plugin" in java
 assert "openRecipeDetail(player," in java
 assert "claimJournal.begin" in java and "resolveMMOItem(rewardId)" in java
 # All cooking labels share the Adventure renderer; otherwise MiniMessage tags
-# like <reset><gold> leak visibly into TextDisplay holograms and the action bar.
+# like <reset><gold> leak visibly into TextDisplay holograms and inspection chat.
 assert "display.text(TextService.component(text))" in java
-assert "player.sendActionBar(TextService.component(status))" in java
+assert "msg(player, status);" in java and "inspectStation(player, station)" in java
 assert "LegacyComponentSerializer.legacySection().deserialize(text)" not in java
 assert "LegacyComponentSerializer.legacySection().deserialize(status)" not in java
 assert 'private static final String COOKING_ITEM_TYPE = "COCINA";' in java

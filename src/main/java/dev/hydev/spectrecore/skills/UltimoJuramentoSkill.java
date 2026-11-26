@@ -27,7 +27,7 @@ public final class UltimoJuramentoSkill implements SkillModule {
     private static final String STRENGTH_KEY = "spectrecore_ultimo_juramento_strength";
     private static final class State {
         long lastTap = -100000, startTick, activeUntil, maxUntil;
-        long blinkCandidate = -100000, blinkBonusUntil, lastBlink;
+        long blinkCandidate = -100000, blinkBonusUntil, lastBlink, lastNotice = -100000;
         boolean speedApplied;
         final List<BlockDisplay> plates = new ArrayList<>();
     }
@@ -52,8 +52,11 @@ public final class UltimoJuramentoSkill implements SkillModule {
         s.lastTap = tick;
         if (!isDouble || active(s, tick)) return;
         if (!plugin.cooldowns().start(p.getUniqueId(), id(), i("cooldown-seconds", 40))) {
-            p.sendActionBar(Settings.message("equipamiento", "UltimoJuramentoSkill.en-recarga",
-                    "<yellow>Último Juramento · Recarga {s}s", "s", plugin.cooldowns().remainingSeconds(p.getUniqueId(), id())));
+            if (tick - s.lastNotice >= 40) {
+                s.lastNotice = tick;
+                p.sendMessage(Settings.message("equipamiento", "UltimoJuramentoSkill.en-recarga",
+                        "<yellow>Último Juramento · Recarga {s}s", "s", plugin.cooldowns().remainingSeconds(p.getUniqueId(), id())));
+            }
             return;
         }
         s.startTick = tick;

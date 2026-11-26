@@ -99,3 +99,9 @@ for id, preset in presets.items():
     for field in ("icon", "titulo", "descripcion", "sonido", "volumen", "tono", "intervalo-segundos"):
         assert field in preset, (id, field)
 print("PASS Hydev presentation: no plugin names in messages or GUI, no commands in menu items, configurable toast presets")
+
+# Hydev uses native bars, contextual text and toasts, never the actionbar.
+java_root = root / "src/main/java"
+for source in java_root.rglob("*.java"):
+    assert not re.search(r"\bsendActionBar\s*\(", source.read_text(encoding="utf8")), f"Actionbar in {source}"
+assert "show-fury-actionbar" not in (resources / "modules/equipamiento/config.yml").read_text()

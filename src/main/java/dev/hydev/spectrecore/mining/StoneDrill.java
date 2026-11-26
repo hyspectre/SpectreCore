@@ -37,7 +37,7 @@ public final class StoneDrill implements Listener {
     private final MmoBridge mmo = new MmoBridge();
     private final MithrilRegionAccess regions;
     private final MiningProgression progression;
-    private final Map<UUID, Long> lastBreak = new HashMap<>();
+    private final Map<UUID, Long> lastBreak = new HashMap<>(), lastRequirement = new HashMap<>();
     private boolean active;
 
     public StoneDrill(JavaPlugin plugin) {
@@ -72,6 +72,7 @@ public final class StoneDrill implements Listener {
         if(active)HandlerList.unregisterAll(this);
         active=false;
         lastBreak.clear();
+        lastRequirement.clear();
     }
 
     @EventHandler(priority=EventPriority.HIGHEST,ignoreCancelled=true)
@@ -82,9 +83,13 @@ public final class StoneDrill implements Listener {
         String requiredStage=tier==3?"resonancia":tier==2?"duendes":"paladio";
         if(!progression.meets(player,requiredStage)){
             event.setCancelled(true);
-            player.sendActionBar(Settings.message("trabajos","MiningProgression.requisito-herramienta",
-                    "<yellow>Necesitas Minería nivel {nivel} para utilizar esta herramienta.",
-                    "nivel",progression.required(requiredStage)));
+            long now = System.currentTimeMillis();
+            if (now - lastRequirement.getOrDefault(player.getUniqueId(), 0L) >= 2500L) {
+                lastRequirement.put(player.getUniqueId(), now);
+                player.sendMessage(Settings.message("trabajos","MiningProgression.requisito-herramienta",
+                        "<yellow>Necesitas Minería nivel {nivel} para utilizar esta herramienta.",
+                        "nivel",progression.required(requiredStage)));
+            }
             return;
         }
         if(player.getGameMode()!=GameMode.SURVIVAL
@@ -144,5 +149,6 @@ public final class StoneDrill implements Listener {
 
     @EventHandler public void quit(PlayerQuitEvent event){
         lastBreak.remove(event.getPlayer().getUniqueId());
+        lastRequirement.remove(event.getPlayer().getUniqueId());
     }
 }

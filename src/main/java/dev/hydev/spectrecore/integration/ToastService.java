@@ -32,7 +32,7 @@ import java.util.logging.Level;
  * no player-specific/dynamic advancements, no rewards or chat announcements, and
  * revoke the granted criterion shortly afterward. No calls to reloadData().
  *
- * If registration fails, callers keep their previous actionbar/message fallback.
+ * If registration fails, callers keep their previous chat/visual fallback.
  */
 @SuppressWarnings("deprecation")
 public final class ToastService implements Listener {

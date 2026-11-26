@@ -318,7 +318,7 @@ public final class MiningModule implements Listener {
         }
         var held = player.getInventory().getItemInMainHand();
         if (!"LLAVE_RESONANTE".equals(mmo.id(held)) || !"MATERIAL".equals(mmo.type(held))) {
-            player.sendActionBar(Settings.message("resonancia", "MiningModule.geoda-sellada", "<gray>Geoda sellada · Usa una Llave Resonante"));
+            player.sendMessage(Settings.message("resonancia", "MiningModule.geoda-sellada", "<gray>Geoda sellada · Usa una Llave Resonante"));
             return;
         }
         event.setCancelled(true);
@@ -398,9 +398,7 @@ public final class MiningModule implements Listener {
         State state = state(player);
         if (expire(player, state)) return;
         if (state.activeUntil > 0) {
-            if (!player.isSneaking()) {
-                player.sendActionBar(Settings.component(Settings.text("resonancia", "MiningModule.mensaje-003", "✦ Resonancia completa · Agáchate y mina"), Settings.color("resonancia", "MiningModule.color-002", NamedTextColor.LIGHT_PURPLE))); return;
-            }
+            if (!player.isSneaking()) return; // The resonance bar already explains the required action.
             double roll = MiningLuckRules.qualityRoll(ThreadLocalRandom.current().nextDouble(100),
                     luck.stat(player),
                     config.getDouble("suerte.calidad-gemas.puntos-por-luck",0.05),

@@ -356,10 +356,10 @@ public final class JobsModule implements Listener {
         boolean toasted = result == EconomyBridge.Result.CONFIRMED
                 && ((dev.hydev.spectrecore.SpectreCorePlugin) plugin).toasts() != null
                 && ((dev.hydev.spectrecore.SpectreCorePlugin) plugin).toasts().show(p, "trabajo-" + job);
-        if (toasted) p.sendMessage(Settings.component(paymentMessage)); // Preserve exact amount without another actionbar.
+        if (toasted) p.sendMessage(Settings.component(paymentMessage)); // Preserve the exact amount.
         else {
             p.playSound(p.getLocation(), Settings.sound("trabajos", "JobsModule.sound-003", Sound.ENTITY_EXPERIENCE_ORB_PICKUP),Settings.f("trabajos", "JobsModule.playsound-006-arg2", .5f),Settings.f("trabajos", "JobsModule.playsound-007-arg3", 1.5f));
-            p.sendActionBar(Settings.component(paymentMessage, Settings.color("trabajos", "JobsModule.color-004", NamedTextColor.GOLD)));
+            p.sendMessage(Settings.component(paymentMessage, Settings.color("trabajos", "JobsModule.color-004", NamedTextColor.GOLD)));
         }
     }
     private void missing(String job, String level) { if (warned.add(job + "." + level)) plugin.getLogger().warning(Settings.plain("trabajos", "JobsModule.mensaje-008", "Trabajos: faltan o son inválidos dinero/cooldown de {job}.{level}. Esa categoría no paga hasta configurarse.", "job", job, "level", level)); }

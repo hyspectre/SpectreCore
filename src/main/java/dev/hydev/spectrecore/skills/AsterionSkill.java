@@ -7,6 +7,7 @@ import dev.hydev.spectrecore.core.CombatRules;
 import dev.hydev.spectrecore.core.AsterionComboRules;
 import dev.hydev.spectrecore.core.SkillModule;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.bossbar.BossBar;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -30,7 +31,9 @@ public final class AsterionSkill implements SkillModule {
         int fury, combo;
         long lastCombat = -100000, lastTap = -100000, lastHit = -100000, activeUntil;
         UUID prey;
-        boolean resistant;
+        boolean resistant, readyNotice;
+        long nextHudTick, lastNotice = -100000;
+        BossBar hud;
         final List<BlockDisplay> parts = new ArrayList<>();
     }
     private final SpectreCorePlugin plugin;
@@ -50,10 +53,8 @@ public final class AsterionSkill implements SkillModule {
         State s = state(player);
         s.lastCombat = tick;
         if (!active(s, tick)) {
-            int before = s.fury;
             s.fury = Math.min(furyCap(),Math.max(0,s.fury+Math.max(0,i("fury-on-hit",12))));
-            if (before < furyCap() && s.fury >= furyCap() && plugin.toasts() != null)
-                plugin.toasts().show(player, "furia");
+            updateHud(player, s, tick);
             return;
         }
         var combo = AsterionComboRules.landed(
@@ -62,6 +63,7 @@ public final class AsterionSkill implements SkillModule {
         s.prey = combo.prey();
         s.combo = combo.stacks();
         s.lastHit = combo.lastHit();
+        updateHud(player, s, tick);
         if (s.combo == i("max-combo-stacks", 4)) {
             Effects.dust(target.getLocation().add(0, 1, 0),Settings.i("equipamiento", "AsterionSkill.polvo-001-arg1", 162),Settings.i("equipamiento", "AsterionSkill.polvo-002-arg2", 45),Settings.i("equipamiento", "AsterionSkill.polvo-003-arg3", 40),Settings.i("equipamiento", "AsterionSkill.polvo-004-arg4", 4), Settings.f("equipamiento", "AsterionSkill.geometria-001", .75f));
         }
@@ -72,10 +74,8 @@ public final class AsterionSkill implements SkillModule {
         State s = state(player);
         s.lastCombat = tick;
         if (!active(s, tick)) {
-            int before = s.fury;
             s.fury = Math.min(furyCap(),Math.max(0,s.fury+Math.max(0,i("fury-on-damage",6))));
-            if (before < furyCap() && s.fury >= furyCap() && plugin.toasts() != null)
-                plugin.toasts().show(player, "furia");
+            updateHud(player, s, tick);
         }
     }
 
@@ -97,12 +97,12 @@ public final class AsterionSkill implements SkillModule {
         s.lastTap = tick;
         if (!second || active(s, tick)) return;
         if (s.fury < furyCap()) {
-            p.sendActionBar(Settings.message("equipamiento", "AsterionSkill.furia-insuficiente",
+            notice(p, s, tick, Settings.message("equipamiento", "AsterionSkill.furia-insuficiente",
                     "<yellow>Furia insuficiente: {furia}/{maximo}", "furia", s.fury, "maximo", furyCap()));
             return;
         }
         if (!plugin.cooldowns().start(p.getUniqueId(), id(), i("cooldown-seconds", 50))) {
-            p.sendActionBar(Settings.message("equipamiento", "AsterionSkill.en-recarga",
+            notice(p, s, tick, Settings.message("equipamiento", "AsterionSkill.en-recarga",
                     "<yellow>Asterión · Recarga {s}s", "s", plugin.cooldowns().remainingSeconds(p.getUniqueId(), id())));
             return;
         }
@@ -111,9 +111,16 @@ public final class AsterionSkill implements SkillModule {
         s.prey = null;
         s.lastHit = -100000;
         s.activeUntil = tick + Math.max(1, i("duration-seconds", 10)) * 20L;
+        updateHud(p, s, tick);
         p.getWorld().playSound(p.getLocation(), Settings.string("equipamiento", "AsterionSkill.sonido-002", "minecraft:entity.ravager.roar"),Settings.f("equipamiento", "AsterionSkill.playsound-001-arg2", 0.85f),Settings.f("equipamiento", "AsterionSkill.playsound-002-arg3", 0.65f));
         p.getWorld().spawnParticle(Settings.particle("equipamiento", "AsterionSkill.particle-001", Particle.LARGE_SMOKE), p.getLocation().add(0, Settings.d("equipamiento", "AsterionSkill.geometria-002", .8), 0),Settings.i("equipamiento", "AsterionSkill.spawnparticle-003-arg2", 26),Settings.d("equipamiento", "AsterionSkill.spawnparticle-004-arg3", .65),Settings.d("equipamiento", "AsterionSkill.spawnparticle-005-arg4", .45),Settings.d("equipamiento", "AsterionSkill.spawnparticle-006-arg5", .65),Settings.d("equipamiento", "AsterionSkill.spawnparticle-007-arg6", .01));
         p.sendMessage(Settings.message("equipamiento", "AsterionSkill.mensaje-001", "§6✦ §cAsterión §7— La bestia despierta."));
+    }
+
+    private void notice(Player p, State s, long tick, Component message) {
+        if (tick - s.lastNotice < 40) return;
+        s.lastNotice = tick;
+        p.sendMessage(message);
     }
 
     @Override public void tick(long tick) {
@@ -143,15 +150,78 @@ public final class AsterionSkill implements SkillModule {
                 removeParts(s); spawnParts(p, s);
             }
             render(p, s, active(s, tick), tick);
-            if (plugin.getConfig().getBoolean("skills.asterion.show-fury-actionbar", true) && tick % 20 == 0) {
-                long remaining = plugin.cooldowns().remainingSeconds(id, id());
-                String notice = remaining > 0
-                        ? Settings.text("equipamiento", "AsterionSkill.furia-recarga", " | Recarga {s}s", "s", remaining)
-                        : s.fury >= furyCap() ? Settings.text("equipamiento","AsterionSkill.furia-lista"," | DOBLE SHIFT") : "";
-                String info = active(s,tick) ? Settings.text("equipamiento","AsterionSkill.barra-activa","✦ ASTERIÓN | {segundos}s | Ímpetu {combo}/{maximo}","segundos",Math.max(0,(s.activeUntil-tick+19)/20),"combo",s.combo,"maximo",i("max-combo-stacks",4)) : Settings.text("equipamiento","AsterionSkill.barra-furia","✦ FURIA | {furia}/{maximo}{aviso}","furia",s.fury,"maximo",furyCap(),"aviso",notice);
-                p.sendActionBar(Settings.component(info));
-            }
+            if (tick >= s.nextHudTick) updateHud(p, s, tick);
         }
+    }
+
+    /**
+     * A single compact native bar: fury before transformation, actual combo
+     * during it. No actionbar, extra repeating task or per-hit display entity.
+     */
+    private void updateHud(Player player, State s, long tick) {
+        s.nextHudTick = tick + 10;
+        boolean transformed = active(s, tick);
+        int furyMax = Math.max(1, furyCap());
+        long cooldown = plugin.cooldowns().remainingSeconds(player.getUniqueId(), id());
+        boolean ready = !transformed && s.fury >= furyMax && cooldown == 0;
+        if (ready && !s.readyNotice && plugin.toasts() != null)
+            plugin.toasts().show(player, "furia");
+        s.readyNotice = ready;
+        if (!transformed && s.fury == 0 && cooldown == 0) {
+            hideHud(player, s);
+            return;
+        }
+
+        Component title;
+        float progress;
+        BossBar.Color color;
+        if (transformed) {
+            int max = Math.max(0, i("max-combo-stacks", 4));
+            int combo = Math.clamp(s.combo, 0, max);
+            long seconds = Math.max(0, (s.activeUntil - tick + 19) / 20);
+            Component detail;
+            if (s.prey == null)
+                detail = Settings.message("equipamiento", "AsterionSkill.hud-primer-golpe",
+                        "<gray>Golpea a un enemigo");
+            else if (combo == 0)
+                detail = Settings.message("equipamiento", "AsterionSkill.hud-mismo-enemigo",
+                        "<gray>Mantén el objetivo");
+            else {
+                double percent = AsterionComboRules.earnedBonusPercent(combo, max, d("damage-per-stack", .03));
+                String bonus = java.math.BigDecimal.valueOf(percent).stripTrailingZeros().toPlainString();
+                detail = Settings.message("equipamiento", "AsterionSkill.hud-dano",
+                        "<green>+{dano}% daño <gray>· Mismo objetivo", "dano", bonus);
+            }
+            title = Settings.message("equipamiento", "AsterionSkill.hud-impetu",
+                    "<#E3BC7B>✦ <bold>Ímpetu</bold> <white>{combo}/{maximo} <dark_gray>│ {estado} <gray>· <white>{s}s",
+                    "combo", combo, "maximo", max, "estado", detail, "s", seconds);
+            progress = combo / (float) Math.max(1, max);
+            color = BossBar.Color.RED;
+        } else {
+            Component detail = cooldown > 0
+                    ? Settings.message("equipamiento", "AsterionSkill.hud-recarga", "<yellow>Recarga {s}s", "s", cooldown)
+                    : ready ? Settings.message("equipamiento", "AsterionSkill.hud-lista", "<green>Doble Shift")
+                    : Settings.message("equipamiento", "AsterionSkill.hud-cargando", "<gray>Golpea o recibe daño");
+            title = Settings.message("equipamiento", "AsterionSkill.hud-furia",
+                    "<#E3BC7B>✦ <bold>Furia</bold> <white>{furia}/{maximo} <dark_gray>│ {estado}",
+                    "furia", s.fury, "maximo", furyMax, "estado", detail);
+            progress = Math.clamp(s.fury / (float) furyMax, 0f, 1f);
+            color = ready ? BossBar.Color.YELLOW : BossBar.Color.RED;
+        }
+        if (s.hud == null) {
+            s.hud = BossBar.bossBar(title, progress, color, BossBar.Overlay.PROGRESS);
+            player.showBossBar(s.hud);
+        } else {
+            s.hud.name(title);
+            s.hud.progress(progress);
+            s.hud.color(color);
+        }
+    }
+
+    private void hideHud(Player player, State s) {
+        if (s.hud == null) return;
+        if (player != null) player.hideBossBar(s.hud);
+        s.hud = null;
     }
 
     private void spawnParts(Player p, State s) {
@@ -187,6 +257,7 @@ public final class AsterionSkill implements SkillModule {
         if (s == null) return;
         removeParts(s);
         Player p = Bukkit.getPlayer(id);
+        hideHud(p, s);
         if (p != null && s.resistant) plugin.effects().clearAttribute(p, Attribute.KNOCKBACK_RESISTANCE, RESISTANCE_KEY);
     }
     @Override public String status(Player p) {

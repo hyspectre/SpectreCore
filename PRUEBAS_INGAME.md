@@ -12,6 +12,13 @@ Antes de producción: respaldar `plugins/`, probar sin los plugins o scripts de 
 8. **Quemados**: deja la mezcla después de `quemado` antes del primer servicio: no admite cuencos; la esponja la limpia (sin desinstalar estación). Comprueba que no se limpia automáticamente.
 9. **Precisión**: revuelve en medio de la ventana y sirve antes de `listo-hasta` para exquisito. Se debe ver título dorado, destellos y sonido especial solo al servir primer plato. Sin revolver, debe entregar calidad normal; tarde, calidad pasada.
 10. **Libro**: sin haber cocinado, `/cocina libro` muestra cuatro siluetas y pistas. Completa una receta: se desbloquea solo para el jugador que sirvió. Otro jugador mantiene su libro independiente. Tras reinicio se conserva en `discoveries.yml`. Abrirlo con BOOK sobre caldero, comprobar que no es posible introducir/sacar ítems del inventario del libro.
-11. **Inspección**: mano principal vacía sobre el caldero: ActionBar debe mostrar progreso y acción requerida; Shift+clic debe mostrar también chat; `/cocina estado` debe coincidir.
+11. **Inspección**: mano principal vacía sobre el caldero: el chat debe mostrar progreso y acción requerida en un único aviso; Shift+clic debe mostrar el mismo estado; `/cocina estado` debe coincidir.
 12. **MMOItems faltantes y seguridad**: deshabilita temporalmente MMOItems en un servidor de pruebas; la recompensa debe fallar sin consumir cuenco ni reiniciar el lote. Prueba ingredientes personalizados con metadata; no deben consumirse.
 13. **Mundos, regiones y rendimiento**: cargar/descargar chunks y mundos; proteger zonas con tus plugins de claims; vigilar TPS y recuento de displays con varias estaciones simultáneas. Confirmar que no crean displays en chunks descargados.
+
+## Asterión · Furia e Ímpetu (dev09)
+
+- Con el conjunto completo, golpea o recibe ataques hostiles: la barra de Furia indica progreso y disponibilidad real (sin actionbar).
+- Con Furia completa y sin recarga, pulsa Shift dos veces: la barra cambia a Ímpetu y muestra el tiempo restante. El primer golpe fija al enemigo; los siguientes acumulan cargas y hasta +12% de daño con la configuración por defecto.
+- Cambia de enemigo o deja pasar más de 2,5 s entre golpes: verifica que la cadena se reinicia. Al terminar, comprueba que la barra vuelve a Furia/recarga y se oculta al quitar el conjunto, morir o desconectarte.
+- Comprueba que la brújula y el portal muestran su estado temporal en barras nativas, y que cocina, geodas y trabajos no escriben en la actionbar.

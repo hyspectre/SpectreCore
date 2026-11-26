@@ -101,6 +101,7 @@ pages:
       - "<gray>Sus condiciones cambian por armadura."
       - "<gray>Lee señales, alcance y recarga."
       - "<gray>Algunas exigen golpes o daño recibido."
+      - "<gray>Asterión: Ímpetu encadena golpes al mismo enemigo."
     buttons:
       - label: '<gray>Combate</gray>'
         page: rpg

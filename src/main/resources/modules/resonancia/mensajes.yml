@@ -6,7 +6,6 @@ MiningModule:
   barra-carga: "<light_purple>✦ Resonancia <white>{carga}/{max}"
   etiqueta-046: "<reset><dark_gray>[<reset><light_purple>✦<reset><dark_gray>] <reset>"
   mensaje-002: "{prefix}<reset><gray>La resonancia se ha disipado."
-  mensaje-003: "✦ Resonancia completa · Agáchate y mina"
   texto-001: "Superior"
   texto-002: "Intermedia"
   etiqueta-047: "Básica"

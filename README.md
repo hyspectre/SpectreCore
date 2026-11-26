@@ -28,6 +28,7 @@ La documentación base está disponible en ambas ramas; eso **no significa que s
 - **Rendimiento, optimización, limpieza y seguridad.** Monolito modular, permisos validados, datos persistentes y transacciones sin duplicación.
 - **Configura el juego en YAML, no la arquitectura.** Los módulos siempre forman parte del núcleo; sin interruptores para desactivarlos. Ausencias de dependencias deben diagnosticarse de manera explícita.
 - **Identidad Hydev:** el jugador no debe ver nombres de plugins, IDs internos ni instrucciones técnicas en menús, lore o NPC. MiniMessage, español latinoamericano, gradientes y versalitas legibles.
+- **Feedback sin actionbar:** estados continuos mediante barras nativas discretas, hitos mediante toasts o floats y mensajes puntuales sin saturar el chat.
 - **Integrar antes de reinventar:** una fuente de verdad por dato, APIs públicas verificadas e IDs existentes conservados.
 
 Las reglas completas, las convenciones de UX y el flujo obligatorio están en [AGENTS.md](AGENTS.md).

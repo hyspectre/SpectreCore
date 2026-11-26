@@ -154,6 +154,10 @@ public final class PresentationMigrations {
                     "<gray>Acumula carga con la minería.",
                     "<gray>La carga completa abre una oportunidad.",
                     "<gray>Agáchate para aprovecharla.");
+            case "habilidades" -> List.of(
+                    "<gray>Sus condiciones cambian por armadura.",
+                    "<gray>Lee señales, alcance y recarga.",
+                    "<gray>Algunas exigen golpes o daño recibido.");
             case "portales" -> List.of(
                     "<gray>Reúne jugadores cerca del portal.",
                     "<gray>Mantengan la formación al ingresar.",

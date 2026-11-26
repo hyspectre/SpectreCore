@@ -4,7 +4,7 @@ Este documento se aplica a **todas las nuevas funciones y a las ya existentes**.
 
 ## Inmersión y traducción
 
-1. Ningún texto visible para jugadores (chat, lore, menús, guías, actionbar,
+1. Ningún texto visible para jugadores (chat, lore, menús, guías, barras de jefe,
    títulos o notificaciones) menciona motores, plugins, APIs, proveedores ni
    detalles del desarrollo. Los diagnósticos estrictamente internos en consola
    pueden conservar nombres técnicos cuando sean necesarios para soporte.
@@ -23,6 +23,8 @@ Este documento se aplica a **todas las nuevas funciones y a las ya existentes**.
    conservar cualquier cambio propio y guardar una copia exacta antes de escribir.
 
 ## Avisos y notificaciones
+
+- **No usar actionbar en SpectreCore.** Los estados continuos usan barras nativas discretas que desaparecen al terminar; los hitos usan toasts o floats, y los resultados y errores puntuales usan chat sin spam.
 
 - Cada toast define por separado `icon`, `titulo`, `descripcion`,
   `sonido`, `volumen`, `tono` e `intervalo-segundos`.

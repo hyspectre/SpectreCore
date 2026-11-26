@@ -31,6 +31,10 @@ public class AsterionComboSmoke {
         check(state.stacks() == 1, "Exactly 50 ticks keeps combo");
         check(AsterionComboRules.multiplier(state, b, 237, 50, 4, .03) > 1, "Immediate subsequent hit keeps same target");
         check(AsterionComboRules.multiplier(state, b, 236, 50, 4, .03) == 1, "Backwards ticks cannot trigger bonus");
+        check(AsterionComboRules.earnedBonusPercent(0, 4, .03) == 0, "No claimed bonus at first hit");
+        check(AsterionComboRules.earnedBonusPercent(2, 4, .03) == 6, "Two charges: six percent");
+        check(AsterionComboRules.earnedBonusPercent(8, 4, .03) == 12, "HUD obeys configured cap");
+        check(AsterionComboRules.earnedBonusPercent(1, 4, .025) == 2.5, "Non-integer bonus shown exactly");
         System.out.println("PASS AsterionComboSmoke: " + count + " assertions");
     }
 }

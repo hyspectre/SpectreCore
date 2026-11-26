@@ -19,6 +19,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.EquipmentSlot;
@@ -43,7 +44,8 @@ public final class MithrilToolModule implements Listener {
     private final MithrilDrill drill;
     private final AmethystResonanceField amethystField;
     private YamlConfiguration settings;
-    private final Map<UUID, BukkitTask> signals = new HashMap<>();
+    private record Signal(BossBar bar, BukkitTask expiry) { }
+    private final Map<UUID, Signal> signals = new HashMap<>();
     private boolean active;
 
     public MithrilToolModule(JavaPlugin plugin, PlacedOres placed) {
@@ -77,8 +79,7 @@ public final class MithrilToolModule implements Listener {
         drill.disable();
         lantern.disable();
         amethystField.disable();
-        signals.values().forEach(BukkitTask::cancel);
-        signals.clear();
+        for (UUID id : List.copyOf(signals.keySet())) clearSignal(id);
         if (active) HandlerList.unregisterAll(this);
         active = false;
     }
@@ -305,7 +306,7 @@ public final class MithrilToolModule implements Listener {
             String heldTool=data.id(data.held(player,EquipmentSlot.OFF_HAND));
             if (!heldTool.isEmpty() && !unlocked(player,heldTool)) {
                 event.setCancelled(true);
-                player.sendActionBar(Settings.message("trabajos","MiningProgression.requisito-herramienta",
+                player.sendMessage(Settings.message("trabajos","MiningProgression.requisito-herramienta",
                         "<yellow>Necesitas Minería nivel {nivel} para utilizar esta herramienta.",
                         "nivel", progression.required(stage(heldTool))));
                 return;
@@ -317,7 +318,7 @@ public final class MithrilToolModule implements Listener {
         if (id.isEmpty()) return;
         if(!unlocked(player,id)){
             event.setCancelled(true);
-            player.sendActionBar(Settings.message("trabajos","MiningProgression.requisito-herramienta",
+            player.sendMessage(Settings.message("trabajos","MiningProgression.requisito-herramienta",
                     "<yellow>Necesitas Minería nivel {nivel} para utilizar esta herramienta.",
                     "nivel", progression.required(stage(id))));
             return;
@@ -464,20 +465,17 @@ public final class MithrilToolModule implements Listener {
                     "<aqua>✦ Señal {intensidad}<gray> · {direccion} · Profundidad {profundidad}",
                     "intensidad", intensity, "direccion", direction, "profundidad", depth);
             UUID uuid = player.getUniqueId();
-            BukkitTask old = signals.remove(uuid);
-            if (old != null) old.cancel();
-            int[] remaining = {cost("brujula.duracion-senal-segundos") + (int) miningBonus(plugin, player, "signal_seconds")};
-            BukkitTask repeating = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
-                if (!player.isOnline() || remaining[0]-- <= 0) {
-                    BukkitTask timer = signals.remove(uuid);
-                    if (timer != null) timer.cancel();
-                    return;
-                }
-                player.sendActionBar(Settings.message("tesoros", "MithrilTools.senal",
+            clearSignal(uuid);
+            long duration = cost("brujula.duracion-senal-segundos") + (long) miningBonus(plugin, player, "signal_seconds");
+            if (duration > 0 && player.isOnline()) {
+                BossBar bar = BossBar.bossBar(Settings.message("tesoros", "MithrilTools.senal",
                         "<aqua>✦ Señal {intensidad}<gray> · {direccion} · Profundidad {profundidad}",
-                        "intensidad", intensity, "direccion", direction, "profundidad", depth));
-            }, 0, 20);
-            signals.put(uuid, repeating);
+                        "intensidad", intensity, "direccion", direction, "profundidad", depth),
+                        1f, BossBar.Color.BLUE, BossBar.Overlay.PROGRESS);
+                BukkitTask expiry = Bukkit.getScheduler().runTaskLater(plugin, () -> clearSignal(uuid), duration * 20L);
+                signals.put(uuid, new Signal(bar, expiry));
+                player.showBossBar(bar);
+            }
             player.playSound(player.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_CHIME, .5f, 1f);
         });
         return true;
@@ -542,14 +540,24 @@ public final class MithrilToolModule implements Listener {
         if (event.getTo() != null) lantern.moved(event.getPlayer(), event.getFrom(), event.getTo(),
                 cost("farol.distancia-maxima"));
     }
-    @EventHandler public void teleport(PlayerTeleportEvent event) { lantern.teleported(event.getPlayer()); }
+    private void clearSignal(UUID id) {
+        Signal signal = signals.remove(id);
+        if (signal == null) return;
+        signal.expiry().cancel();
+        Player player = Bukkit.getPlayer(id);
+        if (player != null) player.hideBossBar(signal.bar());
+    }
+    @EventHandler(ignoreCancelled = true) public void teleport(PlayerTeleportEvent event) {
+        lantern.teleported(event.getPlayer());
+        clearSignal(event.getPlayer().getUniqueId());
+    }
+    @EventHandler public void onDeath(PlayerDeathEvent event) { clearSignal(event.getEntity().getUniqueId()); }
     @EventHandler public void quit(PlayerQuitEvent event) {
         markedVeins.remove(event.getPlayer().getUniqueId());
         var id = event.getPlayer().getUniqueId();
         prospector.quit(id);
         drill.cancel(id);
         lantern.cancel(id);
-        BukkitTask signal = signals.remove(id);
-        if (signal != null) signal.cancel();
+        clearSignal(id);
     }
 }
