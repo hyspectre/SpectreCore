@@ -299,6 +299,41 @@ def merge_recipes(original: str, additions: dict, lost: dict):
     rows[start + 1:end] = [result_text]
     return "".join(rows), sorted(to_replace), sorted((set(additions) | set(lost)) - set(spans))
 
+def repair_recipe_view(station: str, template: str) -> str:
+    """Repair the missing MMOItems upgrade view without replacing custom layouts."""
+    installed = strict_yaml(station)
+    keys = ("gui-layout", "items", "recipe")
+    recipe = installed
+    for key in keys:
+        if not isinstance(recipe, dict) or key not in recipe:
+            return station
+        recipe = recipe[key]
+    if not isinstance(recipe, dict) or "upgrade" in recipe:
+        return station
+    default = strict_yaml(template)["gui-layout"]["items"]["recipe"]["upgrade"]
+
+    # Locate the node with YAML's parser rather than matching similarly named
+    # sections in recipes, preview inventories or comments.
+    node = yaml.compose(station, Loader=yaml.SafeLoader)
+    for key in keys:
+        node = next(value for name, value in node.value if name.value == key)
+    if node.flow_style:
+        replacement = yaml.safe_dump({**recipe, "upgrade": default}, allow_unicode=True,
+                                     default_flow_style=True, sort_keys=False, width=1000000).strip()
+        repaired = station[:node.start_mark.index] + replacement + station[node.end_mark.index:]
+    else:
+        indent = node.start_mark.column
+        start = node.start_mark.index - indent
+        block = yaml.safe_dump({"upgrade": default}, allow_unicode=True, sort_keys=False)
+        if station[start:node.start_mark.index] != " " * indent:
+            raise ValueError("Forja Minera: formato de la vista de recetas no admitido")
+        insertion = "".join(" " * indent + line + "\n" for line in block.splitlines())
+        repaired = station[:start] + insertion + station[start:]
+    recipe["upgrade"] = default
+    if strict_yaml(repaired) != installed:
+        raise ValueError("Forja Minera: la reparación alteraría la configuración existente")
+    return repaired
+
 def detect_forge(plugin: Path, requested: str | None):
     if requested:
         target = Path(requested).expanduser().resolve()
@@ -378,7 +413,8 @@ def install(plugin: Path, forge: Path, apply: bool):
         print(f"{typ}: nuevos {len(added)}, actualizados {len(replaced)}; "
               f"objetos originales preservados")
     dedicated = plugin / "crafting-stations" / "forja-minera.yml"
-    station = (ROOT / "forja-minera.yml").read_text(encoding="utf-8")
+    template = (ROOT / "forja-minera.yml").read_text(encoding="utf-8")
+    station = template
     if forge and forge != dedicated:
         for block in read_recipes(forge).values():
             for item, key in (("TALADRO", "guante-minero"), ("COMPACTADOR", "compactador")):
@@ -391,7 +427,7 @@ def install(plugin: Path, forge: Path, apply: bool):
         recipe_rows, spans = lines_and_sections("".join(rows[begin+1:end]), TOP_RECIPE)
         managed = {key: "".join(recipe_rows[a:b]) for key,(a,b) in spans.items()}
         station = merge_recipes(dedicated.read_text(encoding="utf-8"), managed, {})[0]
-    changes[dedicated] = station
+    changes[dedicated] = repair_recipe_view(station, template)
     for fmt in ("gema-minera", "reliquia-compacta"):
         target = plugin / "language/lore-formats" / (fmt + ".yml")
         if fmt == "gema-minera" or not target.exists():

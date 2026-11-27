@@ -116,6 +116,10 @@ gui-layout:
     assert len(branches)==17 and all(installed_gems[k]==v and v["base"]["lore"] and v["base"]["gem-color"]=="1" for k,v in branches.items())
     assert "GEMA_ANTIGUA" in installed_gems and "GEMA_RUBI_3" in installed_gems
     assert definitions["gui-layout"]["name"]=="Forja Minera"
+    recipe_ui = definitions["gui-layout"]["items"]["recipe"]
+    assert recipe_ui["upgrade"]["name"] and recipe_ui["upgrade"]["lore"]
+    assert recipe_ui["craft"]["name"] and recipe_ui["craft"]["name_multiple"]
+    assert isinstance(recipe_ui["craft"]["lore"], list)
     assert "otro-original" not in definitions["recipes"]
     assert installed_gems["GEMA_RUBI_1"]["base"]["lore"] and installed_gems["GEMA_RUBI_1"]["base"]["lore-format"] == "gema-minera"
     assert "FRAGMENTO_PICO_PERDIDO" in str(definitions["recipes"]["picoperdido"])
@@ -125,6 +129,30 @@ gui-layout:
     assert "hydev.mineria.resonancia" in str(definitions["recipes"]["taladro-calibrado"])
     upgrades = {"taladro-reforzado", "taladro-calibrado", "pico-mitrilo-templado"}
     assert {key for key, recipe in definitions["recipes"].items() if recipe["crafting-time"] == 0} == upgrades
+    # Existing installs with the dev8 layout lacked the mandatory upgrade view.
+    custom = dedicated.read_text().replace("name: 'Forja Minera'", "name: 'Mi Forja'")
+    upgrade = definitions["gui-layout"]["items"]["recipe"]["upgrade"]
+    legacy_data = yaml.safe_load(custom)
+    legacy_data["gui-layout"]["items"]["recipe"].pop("upgrade")
+    legacy = "# Comentario del servidor\n" + yaml.safe_dump(legacy_data, allow_unicode=True, sort_keys=False)
+    repaired = module.repair_recipe_view(legacy, custom)
+    legacy_data["gui-layout"]["items"]["recipe"]["upgrade"] = upgrade
+    assert yaml.safe_load(repaired) == legacy_data
+    assert "# Comentario del servidor" in repaired
+    assert module.repair_recipe_view(repaired, custom) == repaired
+    assert module.repair_recipe_view(custom, dedicated.read_text()) == custom
+    # Verify the installer also repairs an existing station, preserving its layout.
+    # Keep the original line-oriented recipe formatting required by the installer.
+    legacy = custom.replace(
+        "      upgrade:\n        name: '&f{name}'\n        lore: ['{conditions}', '{ingredients}', '{lore}', '&eClic para mejorar']\n", "")
+    assert "upgrade" not in yaml.safe_load(legacy)["gui-layout"]["items"]["recipe"]
+    dedicated.write_text(legacy)
+    module.install(plugin, station, True)
+    repaired = yaml.safe_load(dedicated.read_text())
+    assert repaired["gui-layout"]["name"] == "Mi Forja"
+    assert repaired["gui-layout"]["items"]["recipe"]["upgrade"] == upgrade
+    assert repaired["recipes"] == definitions["recipes"]
+    dedicated.write_text(dedicated.read_text().replace("name: 'Mi Forja'", "name: 'Forja Minera'"))
     before = dedicated.read_text()
     dedicated.write_text(before.replace("crafting-time: 0", "crafting-time: 20"))
     module.install(plugin,station,True)
@@ -133,6 +161,17 @@ gui-layout:
     snapshot={p:p.read_bytes() for p in [*originals, dedicated, plugin/"item/reliquia.yml"]}
     module.install(plugin,station,True)
     assert all(p.read_bytes()==data for p,data in snapshot.items()),"second install changed YAML"
+template=(pack/"forja-minera.yml").read_text("utf-8")
+for legacy in (
+        "gui-layout:\n  items:\n    recipe: {slots: [10], craft: {name: Custom}} # conserva\n",
+        "gui-layout:\n  items:\n    recipe:\n      craft: {name: Personalizado}\n      slots: [10]"):
+    expected=module.strict_yaml(legacy)
+    expected["gui-layout"]["items"]["recipe"]["upgrade"]=module.strict_yaml(template)["gui-layout"]["items"]["recipe"]["upgrade"]
+    fixed=module.repair_recipe_view(legacy, template)
+    assert module.strict_yaml(fixed)==expected
+    assert module.repair_recipe_view(fixed, template)==fixed
+custom_upgrade="gui-layout:\n  items:\n    recipe:\n      upgrade: {name: Personalizado, lore: [custom]}\n"
+assert module.repair_recipe_view(custom_upgrade, template)==custom_upgrade
 print("PASS Hydev mining integration: live reward nodes, 7 MM skills and idempotent backed-up MMOItems install")
 
 for permissions in ("    permission: [otra] # permiso original", "    permission: # original\n      - otra"):

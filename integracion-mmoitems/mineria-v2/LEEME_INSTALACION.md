@@ -97,3 +97,5 @@ Las habilidades leen las gemas instaladas en la herramienta de la mano principal
 Si hay varias de la misma rama cuenta el grado mayor. Para comprobar la instalación,
 genera una gema con /mi give GEM_STONE GEMA_MAGNETITA_I, arrástrala sobre una
 herramienta nueva con una ranura libre y pica una mena natural en supervivencia.
+
+Si una Forja Minera anterior muestra un aviso al cargar la vista de recetas, actualiza el YAML o ejecuta el instalador corregido. Este incorpora la sección de presentación `gui-layout.items.recipe.upgrade` que MMOItems requiere incluso al usar solo recetas de fabricación, conservando la configuración personalizada.

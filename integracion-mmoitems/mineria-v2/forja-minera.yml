@@ -266,6 +266,9 @@ gui-layout:
         name: '&f{name}'
         name_multiple: '&f{amount} × {name}'
         lore: ['{conditions}', '{ingredients}', '{crafting_time}&7Tiempo: {crafting_time}', '&eClic para forjar']
+      upgrade:
+        name: '&f{name}'
+        lore: ['{conditions}', '{ingredients}', '{lore}', '&eClic para mejorar']
       none: {item: AIR}
     queued_item:
       slots: [44, 45, 46, 47, 48, 49, 50, 51, 52, 53]
