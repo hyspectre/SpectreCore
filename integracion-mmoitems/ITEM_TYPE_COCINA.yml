@@ -1,0 +1,5 @@
+# Fusionar esta entrada con plugins/MMOItems/item-types.yml.
+COCINA:
+  display: 'MUSHROOM_STEW:0'
+  name: 'ᴄᴏᴄɪɴᴀ'
+  parent: CONSUMABLE

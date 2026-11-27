@@ -147,3 +147,30 @@ assert "firstIngredients.add(ingredients.getFirst())" in java
 assert "loadRecipeBookLayout()" in java
 assert "discoveries.getOrDefault(player.getUniqueId(), Set.of())" in java
 print("PASS native cooking: 15 distinct starters, 45 tiered quality outputs, safe discovery book and ingredient costs")
+
+# Repair only the old HC potion effect level keys; do not remove old templates
+# or touch unrelated consumables and metadata.
+import importlib.util
+migration_path=root/"integracion-mmoitems/reparar_cocina_legacy.py"
+spec=importlib.util.spec_from_file_location("repair_cooking",migration_path)
+repair_module=importlib.util.module_from_spec(spec)
+spec.loader.exec_module(repair_module)
+assert repair_module.KNOWN==set(outputs)
+legacy={k:v for k,v in outputs.items() if k.rsplit("_",1)[0] in
+        {"HC_GUARDIAN","HC_ALBA","HC_CARMESI","HC_ESPECTRAL"}}
+assert len(legacy)==12
+import copy
+old=copy.deepcopy(legacy)
+for item in old.values():
+    for effect in item["base"]["effects"].values():
+        effect["level"]=effect.pop("amplifier")
+old["OTHER"]={"base":{"effects":{"SPEED":{"duration":20,"level":4}}}}
+source="# Conservar este comentario\n"+yaml.safe_dump(old,allow_unicode=True,sort_keys=False)
+fixed, affected, count=repair_module.repair(source)
+assert set(affected)==set(legacy) and count==12
+assert fixed.count("# Conservar este comentario")==1
+assert yaml.safe_load(fixed)=={**legacy,"OTHER":old["OTHER"]}
+assert repair_module.repair(fixed)==(fixed,[],0)
+assert repair_module.repair((root/"integracion-mmoitems/COCINA.yml").read_text())[2]==0
+assert yaml.safe_load((root/"integracion-mmoitems/ITEM_TYPE_COCINA.yml").read_text())["COCINA"]["parent"]=="CONSUMABLE"
+print("PASS legacy cooking repair: twelve old consumables, unchanged unrelated items and idempotence")
