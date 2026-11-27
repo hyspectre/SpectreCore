@@ -85,6 +85,7 @@ for tier, slot, price, required in ((1, 21, 200, 20), (2, 23, 500, 50), (3, 25, 
     assert item["slot"] == slot
     assert "{precio}" in " ".join(item["lore"])
     assert "{objetivo}" in " ".join(item["lore"])
+    assert "{estado-contrato}" in item["lore"]
     assert config["contratos"]["precios"]["revenant"][f"tier{tier}"] == price
     assert config["objetivos"][f"tier{tier}"] == required
 
@@ -106,6 +107,8 @@ assert "slayer.buyPhoneFromMenu(player)" in java
 assert "slayer.retrySpawnFromMenu(player)" in java
 assert "Bukkit.dispatchCommand(" not in java and "dispatchCommand(" not in java
 assert "contractsEconomy.withdraw" in slayer and "validateStart" in slayer
+assert "gui-nivel-requerido" in slayer
+assert "{estado-contrato}" in java and "progressLine(" in java
 assert "contractPriceLabel" in slayer and "objectiveForTier" in slayer
 assert "SlayerModule.jefe-pendiente" in slayer and "retryWaitMillis(player, System.currentTimeMillis())" in slayer
 assert "cancellationPriceLabel" in slayer and "phonePriceLabel" in slayer

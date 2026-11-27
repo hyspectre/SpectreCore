@@ -675,85 +675,85 @@
     "archivo": "trabajos/mensajes.yml",
     "clave": "JobsModule.mensaje-006",
     "predeterminado": "Trabajos: no se pudo confirmar el pago. No se aplicó el tiempo de espera.",
-    "origen": "JobsModule.java:373"
+    "origen": "JobsModule.java:370"
   },
   {
     "archivo": "trabajos/ajustes.yml",
     "clave": "JobsModule.particle-002",
     "predeterminado": "GLOW",
-    "origen": "JobsModule.java:375"
+    "origen": "JobsModule.java:372"
   },
   {
     "archivo": "trabajos/ajustes.yml",
     "clave": "JobsModule.spawnparticle-001-arg2",
     "predeterminado": 10,
-    "origen": "JobsModule.java:375"
+    "origen": "JobsModule.java:372"
   },
   {
     "archivo": "trabajos/ajustes.yml",
     "clave": "JobsModule.spawnparticle-002-arg3",
     "predeterminado": 0.3,
-    "origen": "JobsModule.java:375"
+    "origen": "JobsModule.java:372"
   },
   {
     "archivo": "trabajos/ajustes.yml",
     "clave": "JobsModule.spawnparticle-003-arg4",
     "predeterminado": 0.3,
-    "origen": "JobsModule.java:375"
+    "origen": "JobsModule.java:372"
   },
   {
     "archivo": "trabajos/ajustes.yml",
     "clave": "JobsModule.spawnparticle-004-arg5",
     "predeterminado": 0.3,
-    "origen": "JobsModule.java:375"
+    "origen": "JobsModule.java:372"
   },
   {
     "archivo": "trabajos/ajustes.yml",
     "clave": "JobsModule.spawnparticle-005-arg6",
     "predeterminado": 0.05,
-    "origen": "JobsModule.java:375"
+    "origen": "JobsModule.java:372"
   },
   {
     "archivo": "trabajos/ajustes.yml",
     "clave": "JobsModule.sound-003",
     "predeterminado": "ENTITY_EXPERIENCE_ORB_PICKUP",
-    "origen": "JobsModule.java:382"
+    "origen": "JobsModule.java:379"
   },
   {
     "archivo": "trabajos/ajustes.yml",
     "clave": "JobsModule.playsound-006-arg2",
     "predeterminado": 0.5,
-    "origen": "JobsModule.java:382"
+    "origen": "JobsModule.java:379"
   },
   {
     "archivo": "trabajos/ajustes.yml",
     "clave": "JobsModule.playsound-007-arg3",
     "predeterminado": 1.5,
-    "origen": "JobsModule.java:382"
+    "origen": "JobsModule.java:379"
   },
   {
     "archivo": "trabajos/mensajes.yml",
     "clave": "JobsModule.mensaje-007",
     "predeterminado": "{valor1}+{amount} {prefijo} · {job}",
-    "origen": "JobsModule.java:376"
+    "origen": "JobsModule.java:373"
   },
   {
     "archivo": "trabajos/mensajes.yml",
     "clave": "JobsModule.texto-004",
     "predeterminado": "Pago solicitado: ",
-    "origen": "JobsModule.java:376"
+    "origen": "JobsModule.java:373"
   },
   {
     "archivo": "trabajos/ajustes.yml",
     "clave": "JobsModule.color-004",
     "predeterminado": "GOLD",
-    "origen": "JobsModule.java:383"
+    "origen": "JobsModule.java:380"
   },
   {
     "archivo": "trabajos/mensajes.yml",
     "clave": "JobsModule.mensaje-008",
     "predeterminado": "Trabajos: faltan o son inválidos dinero/cooldown de {job}.{level}. Esa categoría no paga hasta configurarse.",
-    "origen": "JobsModule.java:386"
+    "origen": "JobsModule.java:383"
   },
   {
     "archivo": "nucleo/ajustes.yml",
@@ -867,127 +867,127 @@
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.mensaje-013",
     "predeterminado": "<reset><gold>MISIONES <reset><yellow>{name-category} <reset><white>{m-kills}/{m-required}",
-    "origen": "SlayerModule.java:569"
+    "origen": "SlayerModule.java:581"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.mensaje-014",
     "predeterminado": "Slayer: no se pudo invocar {mob}: {error-getmessage}",
-    "origen": "SlayerModule.java:683"
+    "origen": "SlayerModule.java:695"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.mensaje-015",
     "predeterminado": "<reset><red>El jefe no pudo aparecer. Conservas el contrato y podrás reintentar la invocación.",
-    "origen": "SlayerModule.java:688"
+    "origen": "SlayerModule.java:700"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.mensaje-016",
     "predeterminado": "¡JEFE INVOCADO!",
-    "origen": "SlayerModule.java:712"
+    "origen": "SlayerModule.java:724"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.color-002",
     "predeterminado": "GOLD",
-    "origen": "SlayerModule.java:713"
+    "origen": "SlayerModule.java:725"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.mensaje-017",
     "predeterminado": "{name-category} ha aparecido. ¡Derrota al jefe!",
-    "origen": "SlayerModule.java:714"
+    "origen": "SlayerModule.java:726"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.color-003",
     "predeterminado": "YELLOW",
-    "origen": "SlayerModule.java:716"
+    "origen": "SlayerModule.java:728"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.ofmillis-003-arg0",
     "predeterminado": 150,
-    "origen": "SlayerModule.java:718"
+    "origen": "SlayerModule.java:730"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.ofseconds-004-arg0",
     "predeterminado": 3,
-    "origen": "SlayerModule.java:719"
+    "origen": "SlayerModule.java:731"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.ofmillis-005-arg0",
     "predeterminado": 400,
-    "origen": "SlayerModule.java:720"
+    "origen": "SlayerModule.java:732"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.sound-004",
     "predeterminado": "ENTITY_WITHER_SPAWN",
-    "origen": "SlayerModule.java:721"
+    "origen": "SlayerModule.java:733"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.playsound-006-arg2",
     "predeterminado": 1.0,
-    "origen": "SlayerModule.java:722"
+    "origen": "SlayerModule.java:734"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.playsound-007-arg3",
     "predeterminado": 0.8,
-    "origen": "SlayerModule.java:723"
+    "origen": "SlayerModule.java:735"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.particle-005",
     "predeterminado": "SOUL_FIRE_FLAME",
-    "origen": "SlayerModule.java:727"
+    "origen": "SlayerModule.java:739"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.spawnparticle-008-arg2",
     "predeterminado": 1,
-    "origen": "SlayerModule.java:729"
+    "origen": "SlayerModule.java:741"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.spawnparticle-009-arg3",
     "predeterminado": 0.0,
-    "origen": "SlayerModule.java:730"
+    "origen": "SlayerModule.java:742"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.spawnparticle-010-arg4",
     "predeterminado": 0.0,
-    "origen": "SlayerModule.java:731"
+    "origen": "SlayerModule.java:743"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.spawnparticle-011-arg5",
     "predeterminado": 0.0,
-    "origen": "SlayerModule.java:732"
+    "origen": "SlayerModule.java:744"
   },
   {
     "archivo": "slayer/ajustes.yml",
     "clave": "SlayerModule.spawnparticle-012-arg6",
     "predeterminado": 0.02,
-    "origen": "SlayerModule.java:733"
+    "origen": "SlayerModule.java:745"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.mensaje-018",
     "predeterminado": "{name-c} · {m-kills}/{m-required}",
-    "origen": "SlayerModule.java:741"
+    "origen": "SlayerModule.java:753"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.mensaje-019",
     "predeterminado": "UUID inválido en slayer-data.yml: {id}",
-    "origen": "SlayerModule.java:839"
+    "origen": "SlayerModule.java:851"
   },
   {
     "archivo": "nucleo/mensajes.yml",
@@ -1719,397 +1719,397 @@
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-002",
     "predeterminado": "{prefix}<reset><gray>La resonancia se ha disipado.",
-    "origen": "MiningModule.java:393"
+    "origen": "MiningModule.java:395"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.texto-001",
     "predeterminado": "Superior",
-    "origen": "MiningModule.java:412"
+    "origen": "MiningModule.java:414"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.texto-002",
     "predeterminado": "Intermedia",
-    "origen": "MiningModule.java:412"
+    "origen": "MiningModule.java:414"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.etiqueta-047",
     "predeterminado": "Básica",
-    "origen": "MiningModule.java:412"
+    "origen": "MiningModule.java:414"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.color-003",
     "predeterminado": "DARK_PURPLE",
-    "origen": "MiningModule.java:413"
+    "origen": "MiningModule.java:415"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.color-004",
     "predeterminado": "BLUE",
-    "origen": "MiningModule.java:413"
+    "origen": "MiningModule.java:415"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.color-005",
     "predeterminado": "GREEN",
-    "origen": "MiningModule.java:413"
+    "origen": "MiningModule.java:415"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-004",
     "predeterminado": "✦ GEMA EXTRAÍDA",
-    "origen": "MiningModule.java:416"
+    "origen": "MiningModule.java:418"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.color-006",
     "predeterminado": "LIGHT_PURPLE",
-    "origen": "MiningModule.java:416"
+    "origen": "MiningModule.java:418"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-005",
     "predeterminado": "Calidad: {label}",
-    "origen": "MiningModule.java:416"
+    "origen": "MiningModule.java:418"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.ofmillis-001-arg0",
     "predeterminado": 150,
-    "origen": "MiningModule.java:416"
+    "origen": "MiningModule.java:418"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.ofseconds-002-arg0",
     "predeterminado": 2,
-    "origen": "MiningModule.java:416"
+    "origen": "MiningModule.java:418"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.ofmillis-003-arg0",
     "predeterminado": 350,
-    "origen": "MiningModule.java:416"
+    "origen": "MiningModule.java:418"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.sound-007",
     "predeterminado": "BLOCK_AMETHYST_BLOCK_CHIME",
-    "origen": "MiningModule.java:417"
+    "origen": "MiningModule.java:419"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.playsound-004-arg2",
     "predeterminado": 1.0,
-    "origen": "MiningModule.java:417"
+    "origen": "MiningModule.java:419"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.playsound-005-arg3",
     "predeterminado": 1.2,
-    "origen": "MiningModule.java:417"
+    "origen": "MiningModule.java:419"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-006",
     "predeterminado": "{prefix}<reset><white>Has extraído una gema de calidad {label}.",
-    "origen": "MiningModule.java:418"
+    "origen": "MiningModule.java:420"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.sound-008",
     "predeterminado": "BLOCK_AMETHYST_BLOCK_RESONATE",
-    "origen": "MiningModule.java:428"
+    "origen": "MiningModule.java:430"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.playsound-006-arg2",
     "predeterminado": 1.0,
-    "origen": "MiningModule.java:428"
+    "origen": "MiningModule.java:430"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.playsound-007-arg3",
     "predeterminado": 1.4,
-    "origen": "MiningModule.java:428"
+    "origen": "MiningModule.java:430"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-007",
     "predeterminado": "{prefix}<reset><light_purple><bold>RESONANCIA COMPLETA",
-    "origen": "MiningModule.java:429"
+    "origen": "MiningModule.java:431"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-008",
     "predeterminado": "<reset><gray>Agáchate y rompe un mineral en los próximos {window} segundos.",
-    "origen": "MiningModule.java:430"
+    "origen": "MiningModule.java:432"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-009",
     "predeterminado": "<reset><gray>La calidad depende del mineral que elijas.",
-    "origen": "MiningModule.java:431"
+    "origen": "MiningModule.java:433"
   },
   {
     "archivo": "tesoros/ajustes.yml",
     "clave": "MiningModule.sound-013",
     "predeterminado": "ENTITY_EXPERIENCE_ORB_PICKUP",
-    "origen": "MiningModule.java:459"
+    "origen": "MiningModule.java:461"
   },
   {
     "archivo": "tesoros/ajustes.yml",
     "clave": "MiningModule.playsound-008-arg2",
     "predeterminado": 1.0,
-    "origen": "MiningModule.java:459"
+    "origen": "MiningModule.java:461"
   },
   {
     "archivo": "tesoros/ajustes.yml",
     "clave": "MiningModule.playsound-009-arg3",
     "predeterminado": 1.5,
-    "origen": "MiningModule.java:459"
+    "origen": "MiningModule.java:461"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MiningModule.mensaje-014",
     "predeterminado": "¡TESORO ENCONTRADO!",
-    "origen": "MiningModule.java:460"
+    "origen": "MiningModule.java:462"
   },
   {
     "archivo": "tesoros/ajustes.yml",
     "clave": "MiningModule.color-014",
     "predeterminado": "GOLD",
-    "origen": "MiningModule.java:460"
+    "origen": "MiningModule.java:462"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MiningModule.mensaje-015",
     "predeterminado": "✦ {reward-getamount} minerales raros",
-    "origen": "MiningModule.java:460"
+    "origen": "MiningModule.java:462"
   },
   {
     "archivo": "tesoros/ajustes.yml",
     "clave": "MiningModule.color-015",
     "predeterminado": "YELLOW",
-    "origen": "MiningModule.java:460"
+    "origen": "MiningModule.java:462"
   },
   {
     "archivo": "tesoros/ajustes.yml",
     "clave": "MiningModule.ofmillis-010-arg0",
     "predeterminado": 150,
-    "origen": "MiningModule.java:460"
+    "origen": "MiningModule.java:462"
   },
   {
     "archivo": "tesoros/ajustes.yml",
     "clave": "MiningModule.ofseconds-011-arg0",
     "predeterminado": 2,
-    "origen": "MiningModule.java:460"
+    "origen": "MiningModule.java:462"
   },
   {
     "archivo": "tesoros/ajustes.yml",
     "clave": "MiningModule.ofmillis-012-arg0",
     "predeterminado": 350,
-    "origen": "MiningModule.java:460"
+    "origen": "MiningModule.java:462"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MiningModule.mensaje-016",
     "predeterminado": "<reset><white>↹ <reset><yellow>¡Obtuviste un mineral raro!",
-    "origen": "MiningModule.java:461"
+    "origen": "MiningModule.java:463"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-017",
     "predeterminado": "{prefix}<reset><red>La recompensa no está disponible. Avisa a administración.",
-    "origen": "MiningModule.java:512"
+    "origen": "MiningModule.java:514"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-018",
     "predeterminado": "No se pudo generar el hallazgo minero ({type}:{id}).",
-    "origen": "MiningModule.java:513"
+    "origen": "MiningModule.java:515"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-019",
     "predeterminado": "<reset><red>No tienes permiso.",
-    "origen": "MiningModule.java:522"
+    "origen": "MiningModule.java:524"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-020",
     "predeterminado": "Usa la demostración dentro del juego.",
-    "origen": "MiningModule.java:523"
+    "origen": "MiningModule.java:525"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-021",
     "predeterminado": "/spectrecore tesoros mineria <1|2|3> o /spectrecore tesoros gema <basica|intermedia|superior>",
-    "origen": "MiningModule.java:524"
+    "origen": "MiningModule.java:526"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-022",
     "predeterminado": "Tesoros mineros desactivados.",
-    "origen": "MiningModule.java:528"
+    "origen": "MiningModule.java:530"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-023",
     "predeterminado": "<reset><red>Nivel válido: 1, 2 o 3.",
-    "origen": "MiningModule.java:531"
+    "origen": "MiningModule.java:533"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-024",
     "predeterminado": "Resonancia desactivada.",
-    "origen": "MiningModule.java:534"
+    "origen": "MiningModule.java:536"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-025",
     "predeterminado": "<reset><red>Calidad válida: basica, intermedia o superior.",
-    "origen": "MiningModule.java:536"
+    "origen": "MiningModule.java:538"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-026",
     "predeterminado": "<reset><red>Usa tesoro o gema.",
-    "origen": "MiningModule.java:539"
+    "origen": "MiningModule.java:541"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-027",
     "predeterminado": "<reset><gray>Vista previa visual: no entrega objetos ni cambia la resonancia.",
-    "origen": "MiningModule.java:540"
+    "origen": "MiningModule.java:542"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-028",
     "predeterminado": "Usa este comando dentro del juego.",
-    "origen": "MiningModule.java:549"
+    "origen": "MiningModule.java:551"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-029",
     "predeterminado": "<reset><red>No tienes permiso.",
-    "origen": "MiningModule.java:550"
+    "origen": "MiningModule.java:552"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-030",
     "predeterminado": "Resonancia desactivada.",
-    "origen": "MiningModule.java:561"
+    "origen": "MiningModule.java:563"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-031",
     "predeterminado": "{prefix}<reset><white>Pico Perdido: <reset><light_purple>{state-charge}<reset><gray>/<reset><light_purple>{maximum}",
-    "origen": "MiningModule.java:562"
+    "origen": "MiningModule.java:564"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-032",
     "predeterminado": "<reset><gray>Lista para extraer: {valor1} s.",
-    "origen": "MiningModule.java:563"
+    "origen": "MiningModule.java:565"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-033",
     "predeterminado": "<reset><red>Debes sostener un objeto con nombre personalizado.",
-    "origen": "MiningModule.java:568"
+    "origen": "MiningModule.java:570"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-034",
     "predeterminado": "Nombre original: ",
-    "origen": "MiningModule.java:569"
+    "origen": "MiningModule.java:571"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.color-016",
     "predeterminado": "GRAY",
-    "origen": "MiningModule.java:569"
+    "origen": "MiningModule.java:571"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-035",
     "predeterminado": "Nombre sin colores: [{plain}]",
-    "origen": "MiningModule.java:570"
+    "origen": "MiningModule.java:572"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.color-017",
     "predeterminado": "WHITE",
-    "origen": "MiningModule.java:570"
+    "origen": "MiningModule.java:572"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-036",
     "predeterminado": "[COPIAR NOMBRE]",
-    "origen": "MiningModule.java:571"
+    "origen": "MiningModule.java:573"
   },
   {
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.color-018",
     "predeterminado": "GREEN",
-    "origen": "MiningModule.java:571"
+    "origen": "MiningModule.java:573"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-037",
     "predeterminado": "Nombre del item: [{valor1}]",
-    "origen": "MiningModule.java:572"
+    "origen": "MiningModule.java:574"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-038",
     "predeterminado": "<reset><light_purple>HYDEV · DIAGNÓSTICO MINERO",
-    "origen": "MiningModule.java:574"
+    "origen": "MiningModule.java:576"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-039",
     "predeterminado": "<reset><gray>Herramienta: <reset><white>{held-gettype} <reset><gray>| Nombre: <reset><white>{plain}",
-    "origen": "MiningModule.java:575"
+    "origen": "MiningModule.java:577"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-040",
     "predeterminado": "<gray>Herramienta inspeccionada.",
-    "origen": "MiningModule.java:576"
+    "origen": "MiningModule.java:578"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-041",
     "predeterminado": "<gray>Condiciones de extracción verificadas.",
-    "origen": "MiningModule.java:577"
+    "origen": "MiningModule.java:579"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-042",
     "predeterminado": "<reset><gray>Herramienta válida: <reset><white>{tool-held} <reset><gray>| Carga: <reset><white>{state-charge}/{maximum}",
-    "origen": "MiningModule.java:578"
+    "origen": "MiningModule.java:580"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-043",
     "predeterminado": "<reset><gray>Probabilidades T1/T2/T3: <reset><white>{valor1}/{valor2}/{valor3}",
-    "origen": "MiningModule.java:579"
+    "origen": "MiningModule.java:581"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-044",
     "predeterminado": "UUID inválido en mining-data.yml: {key}",
-    "origen": "MiningModule.java:594"
+    "origen": "MiningModule.java:596"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-045",
     "predeterminado": "No se pudo guardar la minería: {error-getmessage}",
-    "origen": "MiningModule.java:631"
+    "origen": "MiningModule.java:633"
   },
   {
     "archivo": "equipamiento/ajustes.yml",
@@ -8505,25 +8505,25 @@
     "archivo": "resonancia/ajustes.yml",
     "clave": "MiningModule.geoda-sonido",
     "predeterminado": "BLOCK_AMETHYST_BLOCK_CHIME",
-    "origen": "MiningModule.java:252"
+    "origen": "MiningModule.java:254"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.barra-carga",
     "predeterminado": "<light_purple>✦ Resonancia <white>{carga}/{max}",
-    "origen": "MiningModule.java:146"
+    "origen": "MiningModule.java:148"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.barra-lista",
     "predeterminado": "<light_purple>✦ Agáchate y mina · {s} s",
-    "origen": "MiningModule.java:142"
+    "origen": "MiningModule.java:144"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.datos-no-disponibles",
     "predeterminado": "<red>La resonancia no está disponible. Avisa a administración.",
-    "origen": "MiningModule.java:556"
+    "origen": "MiningModule.java:558"
   },
   {
     "archivo": "resonancia/mensajes.yml",
@@ -8535,61 +8535,61 @@
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.geoda-abierta",
     "predeterminado": "<green>✦ Geoda abierta: <white>{gema} IV",
-    "origen": "MiningModule.java:374"
+    "origen": "MiningModule.java:376"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.geoda-descubierta",
     "predeterminado": "<light_purple>Geoda descubierta <gray>· {x}, {y}, {z} · Reservada para ti durante {minutos} min.",
-    "origen": "MiningModule.java:253"
+    "origen": "MiningModule.java:255"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.geoda-diamante",
     "predeterminado": "<yellow>Necesitas un Diamante Loco III.",
-    "origen": "MiningModule.java:341"
+    "origen": "MiningModule.java:343"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.geoda-inventario",
     "predeterminado": "<red>Libera espacio para la gema antes de abrir la geoda.",
-    "origen": "MiningModule.java:369"
+    "origen": "MiningModule.java:371"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.geoda-no-disponible",
     "predeterminado": "<yellow>Este núcleo aún no está disponible.",
-    "origen": "MiningModule.java:345"
+    "origen": "MiningModule.java:347"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.geoda-protegida",
     "predeterminado": "<red>No puedes abrir una geoda aquí.",
-    "origen": "MiningModule.java:316"
+    "origen": "MiningModule.java:318"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.geoda-requisito",
     "predeterminado": "<red>Necesitas Resonancia Arcana para abrir geodas.",
-    "origen": "MiningModule.java:312"
+    "origen": "MiningModule.java:314"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.geoda-seleccion",
     "predeterminado": "<light_purple>{gema} IV <gray>· Agáchate y pulsa para cambiar. Pulsa de pie para abrir.",
-    "origen": "MiningModule.java:329"
+    "origen": "MiningModule.java:331"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.geoda-sellada",
     "predeterminado": "<gray>Geoda sellada · Usa una Llave Resonante",
-    "origen": "MiningModule.java:321"
+    "origen": "MiningModule.java:323"
   },
   {
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.mensaje-019",
     "predeterminado": "<reset><red>No tienes permiso.",
-    "origen": "MiningModule.java:546"
+    "origen": "MiningModule.java:548"
   },
   {
     "archivo": "resonancia/mensajes.yml",
@@ -8601,37 +8601,37 @@
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.contrato-aplicado",
     "predeterminado": "<reset><gold>Contrato {accion}: {categoria} · Costo {costo} ↾",
-    "origen": "SlayerModule.java:472"
+    "origen": "SlayerModule.java:484"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.contrato-categoria",
     "predeterminado": "<reset><red>Categoría inválida.",
-    "origen": "SlayerModule.java:413"
+    "origen": "SlayerModule.java:427"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.contrato-pago-fallo",
     "predeterminado": "<reset><red>No se pudo confirmar el cobro; tu contrato sigue intacto.",
-    "origen": "SlayerModule.java:438"
+    "origen": "SlayerModule.java:450"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.contrato-rechazado",
     "predeterminado": "<red>{motivo}",
-    "origen": "SlayerModule.java:433"
+    "origen": "SlayerModule.java:445"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.contrato-storage-fallo",
     "predeterminado": "<reset><red>No se pudo guardar el contrato; solicita revisión administrativa del saldo.",
-    "origen": "SlayerModule.java:462"
+    "origen": "SlayerModule.java:474"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.desbloqueos-pendientes",
     "predeterminado": "<yellow>Subiste de nivel, pero tus nuevas recetas todavía están pendientes. Avisa a administración.",
-    "origen": "SlayerModule.java:641"
+    "origen": "SlayerModule.java:653"
   },
   {
     "archivo": "slayer/mensajes.yml",
@@ -8643,49 +8643,49 @@
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.guardado-pendiente",
     "predeterminado": "<red>El estado de Slayer no pudo guardarse. Avisa a administración antes de reiniciar.",
-    "origen": "SlayerModule.java:546"
+    "origen": "SlayerModule.java:558"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.guardado-pendiente",
     "predeterminado": "<red>El estado de Slayer no pudo guardarse. Avisa a administración antes de reiniciar.",
-    "origen": "SlayerModule.java:625"
+    "origen": "SlayerModule.java:637"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.gui-nivel",
     "predeterminado": "<gold>Tu nivel: <white>{nivel} <dark_gray>/ <white>11",
-    "origen": "MissionsMenu.java:212"
+    "origen": "MissionsMenu.java:219"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.gui-progreso",
     "predeterminado": "<gold>Progreso actual: <yellow>{nivel}<gray>/11",
-    "origen": "MissionsMenu.java:222"
+    "origen": "MissionsMenu.java:229"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.gui-xp",
     "predeterminado": "<gray>XP: <yellow>{xp} <dark_gray>/ <yellow>{siguiente}",
-    "origen": "MissionsMenu.java:215"
+    "origen": "MissionsMenu.java:222"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.jefe-desaparecido",
     "predeterminado": "<yellow>El jefe desapareció. Conservas el contrato y podrás volver a invocarlo.",
-    "origen": "SlayerModule.java:543"
+    "origen": "SlayerModule.java:555"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.jefe-descargado",
     "predeterminado": "<yellow>Tu jefe sigue registrado, pero no está cargado. Regresa a la zona del combate; no invoques otro.",
-    "origen": "SlayerModule.java:761"
+    "origen": "SlayerModule.java:773"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.jefe-ultima-posicion",
     "predeterminado": "<gray>Última ubicación conocida: <white>{world} {x} {y} {z}",
-    "origen": "SlayerModule.java:765"
+    "origen": "SlayerModule.java:777"
   },
   {
     "archivo": "slayer/mensajes.yml",
@@ -8715,7 +8715,7 @@
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.reintento-sin-pendientes",
     "predeterminado": "<gray>No tienes un jefe de Monarquía pendiente de invocación.",
-    "origen": "SlayerModule.java:289"
+    "origen": "SlayerModule.java:290"
   },
   {
     "archivo": "slayer/mensajes.yml",
@@ -8733,43 +8733,37 @@
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.sin-recetas-nuevas",
     "predeterminado": "Sin recetas nuevas",
-    "origen": "SlayerModule.java:648"
+    "origen": "SlayerModule.java:660"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.subida-nivel",
     "predeterminado": "<gold>✦ ¡Nivel Slayer {nivel}! <white>{recompensas}",
-    "origen": "SlayerModule.java:650"
+    "origen": "SlayerModule.java:662"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.telefono-comprado",
     "predeterminado": "<reset><green>Has comprado el Teléfono Rojo por {precio} ↾.",
-    "origen": "SlayerModule.java:370"
+    "origen": "SlayerModule.java:384"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.telefono-entrega-fallo",
     "predeterminado": "<reset><red>Error de entrega. Avisa a un administrador; no intentes pagar de nuevo.",
-    "origen": "SlayerModule.java:377"
+    "origen": "SlayerModule.java:391"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.telefono-inventario",
     "predeterminado": "<reset><red>Libera al menos una ranura de inventario antes de comprar.",
-    "origen": "SlayerModule.java:349"
+    "origen": "SlayerModule.java:363"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.telefono-item-fallo",
     "predeterminado": "<reset><red>No se pudo preparar el Teléfono Rojo. No se ha cobrado.",
-    "origen": "SlayerModule.java:344"
-  },
-  {
-    "archivo": "slayer/mensajes.yml",
-    "clave": "SlayerModule.telefono-no-disponible",
-    "predeterminado": "<reset><red>El acceso remoto no está disponible por ahora.",
-    "origen": "SlayerModule.java:324"
+    "origen": "SlayerModule.java:358"
   },
   {
     "archivo": "slayer/mensajes.yml",
@@ -8779,21 +8773,27 @@
   },
   {
     "archivo": "slayer/mensajes.yml",
+    "clave": "SlayerModule.telefono-no-disponible",
+    "predeterminado": "<reset><red>El acceso remoto no está disponible por ahora.",
+    "origen": "SlayerModule.java:352"
+  },
+  {
+    "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.telefono-pago-fallo",
     "predeterminado": "<reset><red>No se confirmó el pago. No se ha entregado el objeto.",
-    "origen": "SlayerModule.java:354"
+    "origen": "SlayerModule.java:368"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.victoria-cooperativa",
     "predeterminado": "<green>¡Jefe derrotado! <gold>+{xp} XP Slayer <gray>· Nivel {nivel}",
-    "origen": "SlayerModule.java:627"
+    "origen": "SlayerModule.java:639"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.victoria-no-acreditada",
     "predeterminado": "<red>No recibiste XP Slayer: necesitas infligir al menos {porcentaje}% de la vida del jefe y estar a {radio} bloques al morir.",
-    "origen": "SlayerModule.java:630"
+    "origen": "SlayerModule.java:642"
   },
   {
     "archivo": "tesoros/ajustes.yml",
@@ -8847,7 +8847,7 @@
     "archivo": "tesoros/mensajes.yml",
     "clave": "MiningModule.mitrilo",
     "predeterminado": "<aqua>✦ Encontraste <white>{cantidad} <aqua>Mitrilo.",
-    "origen": "MiningModule.java:504"
+    "origen": "MiningModule.java:506"
   },
   {
     "archivo": "tesoros/mensajes.yml",
@@ -8907,7 +8907,7 @@
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.senal",
     "predeterminado": "<aqua>✦ Señal {intensidad}<gray> · {direccion} · Profundidad {profundidad}",
-    "origen": "MithrilToolModule.java:490"
+    "origen": "MithrilToolModule.java:496"
   },
   {
     "archivo": "tesoros/mensajes.yml",
@@ -8985,13 +8985,13 @@
     "archivo": "trabajos/mensajes.yml",
     "clave": "JobsModule.contrato-exito",
     "predeterminado": "<reset><green>Contrato firmado: {trabajo} {rango}. Precio: {precio} ↾.",
-    "origen": "JobsModule.java:317"
+    "origen": "JobsModule.java:314"
   },
   {
     "archivo": "trabajos/mensajes.yml",
     "clave": "JobsModule.contrato-fallo",
     "predeterminado": "<reset><red>No se pudo guardar el contrato. Se intentó devolver el pago.",
-    "origen": "JobsModule.java:307"
+    "origen": "JobsModule.java:304"
   },
   {
     "archivo": "trabajos/mensajes.yml",
@@ -9003,19 +9003,19 @@
     "archivo": "trabajos/mensajes.yml",
     "clave": "JobsModule.contrato-sin-luckperms",
     "predeterminado": "<reset><red>No se pudo registrar el contrato. No se ha cobrado.",
-    "origen": "JobsModule.java:263"
+    "origen": "JobsModule.java:260"
   },
   {
     "archivo": "trabajos/mensajes.yml",
     "clave": "JobsModule.contrato-sin-saldo",
     "predeterminado": "<reset><red>No se pudo confirmar el pago.",
-    "origen": "JobsModule.java:283"
+    "origen": "JobsModule.java:280"
   },
   {
     "archivo": "trabajos/mensajes.yml",
     "clave": "JobsModule.prefijo-monedas",
     "predeterminado": "<reset><white>↾",
-    "origen": "JobsModule.java:376"
+    "origen": "JobsModule.java:373"
   },
   {
     "archivo": "trabajos/mensajes.yml",
@@ -9081,25 +9081,25 @@
     "archivo": "trabajos/mensajes.yml",
     "clave": "MiningProgression.requisito-contrato",
     "predeterminado": "<yellow>Necesitas Minería nivel {nivel} para firmar este contrato.",
-    "origen": "JobsModule.java:256"
+    "origen": "JobsModule.java:252"
   },
   {
     "archivo": "trabajos/mensajes.yml",
     "clave": "MiningProgression.requisito-herramienta",
     "predeterminado": "<yellow>Necesitas Minería nivel {nivel} para utilizar esta herramienta.",
-    "origen": "MithrilToolModule.java:313"
+    "origen": "MithrilToolModule.java:316"
   },
   {
     "archivo": "trabajos/mensajes.yml",
     "clave": "MiningProgression.requisito-herramienta",
     "predeterminado": "<yellow>Necesitas Minería nivel {nivel} para utilizar esta herramienta.",
-    "origen": "MithrilToolModule.java:325"
+    "origen": "MithrilToolModule.java:330"
   },
   {
     "archivo": "trabajos/mensajes.yml",
     "clave": "MiningProgression.requisito-herramienta",
     "predeterminado": "<yellow>Necesitas Minería nivel {nivel} para utilizar esta herramienta.",
-    "origen": "StoneDrill.java:89"
+    "origen": "StoneDrill.java:90"
   },
   {
     "archivo": "trabajos/mensajes.yml",
@@ -9177,7 +9177,7 @@
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.barra-bloqueada",
     "predeterminado": "<yellow>Resonancia · Desbloquea Minería {nivel}",
-    "origen": "MiningModule.java:133"
+    "origen": "MiningModule.java:134"
   },
   {
     "archivo": "resonancia/mensajes.yml",
@@ -9189,7 +9189,7 @@
     "archivo": "resonancia/mensajes.yml",
     "clave": "MiningModule.barra-supervivencia",
     "predeterminado": "<yellow>Resonancia · Solo en supervivencia",
-    "origen": "MiningModule.java:137"
+    "origen": "MiningModule.java:139"
   },
   {
     "archivo": "tesoros/mensajes.yml",
@@ -9207,7 +9207,7 @@
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-barra",
     "predeterminado": "<aqua>✦ Resonancia <white>{carga}/{max} <gray>· <white>{habilidad} <dark_gray>│ {estado}",
-    "origen": "MithrilToolModule.java:233"
+    "origen": "MithrilToolModule.java:235"
   },
   {
     "archivo": "tesoros/mensajes.yml",
@@ -9225,7 +9225,7 @@
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-bloqueada",
     "predeterminado": "<yellow>Desbloquea Minería {nivel}",
-    "origen": "MithrilToolModule.java:199"
+    "origen": "MithrilToolModule.java:200"
   },
   {
     "archivo": "tesoros/mensajes.yml",
@@ -9261,25 +9261,25 @@
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-falta",
     "predeterminado": "<gray>Faltan <white>{falta} <gray>de carga",
-    "origen": "MithrilToolModule.java:216"
+    "origen": "MithrilToolModule.java:218"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-lista",
     "predeterminado": "<green>Carga lista <gray>· {control}",
-    "origen": "MithrilToolModule.java:226"
+    "origen": "MithrilToolModule.java:228"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-parcial",
     "predeterminado": "<yellow>Campo parcial posible <gray>· {control}",
-    "origen": "MithrilToolModule.java:221"
+    "origen": "MithrilToolModule.java:223"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-recarga",
     "predeterminado": "<yellow>Recarga {s}s",
-    "origen": "MithrilToolModule.java:211"
+    "origen": "MithrilToolModule.java:213"
   },
   {
     "archivo": "tesoros/mensajes.yml",
@@ -9291,7 +9291,7 @@
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-supervivencia",
     "predeterminado": "<yellow>Solo en supervivencia",
-    "origen": "MithrilToolModule.java:203"
+    "origen": "MithrilToolModule.java:205"
   },
   {
     "archivo": "tesoros/mensajes.yml",
@@ -9333,13 +9333,13 @@
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.jefe-pendiente",
     "predeterminado": "<yellow>✦ Jefe pendiente · Reintenta la invocación",
-    "origen": "SlayerModule.java:299"
+    "origen": "SlayerModule.java:300"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.reintento-espera",
     "predeterminado": "<yellow>Podrás reintentar la invocación en {s}s.",
-    "origen": "SlayerModule.java:282"
+    "origen": "SlayerModule.java:283"
   },
   {
     "archivo": "equipamiento/mensajes.yml",
@@ -9537,43 +9537,43 @@
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.contrato-bloqueado",
     "predeterminado": "<yellow>Esta cacería aún no está disponible para ti. Consulta las misiones desbloqueadas.",
-    "origen": "SlayerModule.java:401"
+    "origen": "SlayerModule.java:415"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.contrato-nivel-requerido",
     "predeterminado": "<yellow>Alcanza el nivel <white>{nivel} <yellow>de {caceria} para desbloquear este contrato.",
-    "origen": "SlayerModule.java:398"
+    "origen": "SlayerModule.java:412"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.contrato-no-disponible",
     "predeterminado": "<yellow>Las cacerías no están disponibles por ahora.",
-    "origen": "SlayerModule.java:386"
+    "origen": "SlayerModule.java:400"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.contrato-precio-no-disponible",
     "predeterminado": "<red>Este contrato no está disponible por ahora. No se ha cobrado.",
-    "origen": "SlayerModule.java:404"
+    "origen": "SlayerModule.java:418"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.contrato-rango-invalido",
     "predeterminado": "<red>Elige un rango válido en Misiones.",
-    "origen": "SlayerModule.java:388"
+    "origen": "SlayerModule.java:402"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.contrato-sin-activo",
     "predeterminado": "<yellow>No tienes una cacería activa de esa categoría.",
-    "origen": "SlayerModule.java:393"
+    "origen": "SlayerModule.java:407"
   },
   {
     "archivo": "slayer/mensajes.yml",
     "clave": "SlayerModule.contrato-ya-activo",
     "predeterminado": "<yellow>Ya tienes una cacería activa. Termínala o abandónala antes de aceptar otra.",
-    "origen": "SlayerModule.java:391"
+    "origen": "SlayerModule.java:405"
   },
   {
     "archivo": "trabajos/mensajes.yml",
@@ -9616,5 +9616,89 @@
     "clave": "JobsModule.contrato-ya-adquirido",
     "predeterminado": "<yellow>Ya tienes este rango o uno superior.",
     "origen": "JobsModule.java:213"
+  },
+  {
+    "archivo": "slayer/mensajes.yml",
+    "clave": "SlayerModule.gui-bloqueada",
+    "predeterminado": "<yellow>Cacería aún bloqueada",
+    "origen": "SlayerModule.java:316"
+  },
+  {
+    "archivo": "slayer/mensajes.yml",
+    "clave": "SlayerModule.gui-caceria-activa",
+    "predeterminado": "<green>✦ Activa: <white>{bajas}/{total} <gray>bajas",
+    "origen": "SlayerModule.java:302"
+  },
+  {
+    "archivo": "slayer/mensajes.yml",
+    "clave": "SlayerModule.gui-contratar",
+    "predeterminado": "<gold>► Clic para contratar",
+    "origen": "SlayerModule.java:309"
+  },
+  {
+    "archivo": "slayer/mensajes.yml",
+    "clave": "SlayerModule.gui-jefe-activo",
+    "predeterminado": "<gold>✦ Jefe activo: <white>derrota al monarca",
+    "origen": "SlayerModule.java:298"
+  },
+  {
+    "archivo": "slayer/mensajes.yml",
+    "clave": "SlayerModule.gui-jefe-lejos",
+    "predeterminado": "<yellow>✦ Tu jefe te espera en la zona",
+    "origen": "SlayerModule.java:299"
+  },
+  {
+    "archivo": "slayer/mensajes.yml",
+    "clave": "SlayerModule.gui-nivel-requerido",
+    "predeterminado": "<yellow>Requiere nivel <white>{nivel} <yellow>de {caceria}",
+    "origen": "SlayerModule.java:314"
+  },
+  {
+    "archivo": "slayer/mensajes.yml",
+    "clave": "SlayerModule.gui-no-disponible",
+    "predeterminado": "<red>Contrato no disponible",
+    "origen": "SlayerModule.java:318"
+  },
+  {
+    "archivo": "slayer/mensajes.yml",
+    "clave": "SlayerModule.gui-otra-activa",
+    "predeterminado": "<yellow>Termina tu cacería actual",
+    "origen": "SlayerModule.java:310"
+  },
+  {
+    "archivo": "trabajos/mensajes.yml",
+    "clave": "JobsMenu.contrato-no-disponible",
+    "predeterminado": "<red>Contrato no disponible",
+    "origen": "JobsMenu.java:344"
+  },
+  {
+    "archivo": "trabajos/mensajes.yml",
+    "clave": "JobsMenu.requisito-mineria",
+    "predeterminado": "<gold>Requisito: <white>Minería {nivel}",
+    "origen": "JobsMenu.java:311"
+  },
+  {
+    "archivo": "trabajos/mensajes.yml",
+    "clave": "JobsMenu.requisito-mineria-rango",
+    "predeterminado": "<gold>Requisito: <white>{rango} · Minería {nivel}",
+    "origen": "JobsMenu.java:313"
+  },
+  {
+    "archivo": "trabajos/mensajes.yml",
+    "clave": "MiningProgression.desbloqueo-pendiente",
+    "predeterminado": "<yellow>Desbloqueo pendiente · Consulta al Minero",
+    "origen": "MiningProgression.java:55"
+  },
+  {
+    "archivo": "trabajos/mensajes.yml",
+    "clave": "MiningProgression.nivel-requerido",
+    "predeterminado": "<yellow>Requiere Minería nivel {nivel}",
+    "origen": "MiningProgression.java:53"
+  },
+  {
+    "archivo": "trabajos/mensajes.yml",
+    "clave": "MiningProgression.progreso-no-disponible",
+    "predeterminado": "<yellow>Progreso minero no disponible",
+    "origen": "MiningProgression.java:50"
   }
 ]

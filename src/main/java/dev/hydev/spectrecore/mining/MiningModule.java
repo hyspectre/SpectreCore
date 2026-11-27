@@ -130,8 +130,10 @@ public final class MiningModule implements Listener {
             bar.name(Settings.message("resonancia", "MiningModule.barra-no-disponible", "<red>Resonancia no disponible"));
         } else if (!progression.meets(player, "resonancia")) {
             bar.color(BossBar.Color.YELLOW);
-            bar.name(Settings.message("resonancia", "MiningModule.barra-bloqueada", "<yellow>Resonancia · Desbloquea Minería {nivel}",
-                    "nivel", progression.required("resonancia")));
+            bar.name(progression.missingLevel(player,"resonancia")
+                    ? Settings.message("resonancia", "MiningModule.barra-bloqueada", "<yellow>Resonancia · Desbloquea Minería {nivel}",
+                        "nivel", progression.required("resonancia"))
+                    : Settings.component(progression.lockDetail(player,"resonancia")));
         } else if (player.getGameMode() != GameMode.SURVIVAL) {
             bar.color(BossBar.Color.YELLOW);
             bar.name(Settings.message("resonancia", "MiningModule.barra-supervivencia", "<yellow>Resonancia · Solo en supervivencia"));

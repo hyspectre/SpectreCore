@@ -221,13 +221,14 @@ public final class SlayerModule implements Listener {
     }
     public void buyPhoneFromMenu(Player player) { purchasePhone(player, new String[0]); }
     /** Read-only values for native GUI. Never use YAML lore as a source of prices. */
-    private String costLabel(String key) {
+    private long contractCost(String key) {
         Object raw = config.get(key);
-        if (!(raw instanceof Number number) || !Double.isFinite(number.doubleValue())
-                || number.doubleValue() != Math.rint(number.doubleValue())
-                || number.longValue() < 0 || number.longValue() > 1_000_000_000L)
-            return "Sin configurar";
-        return Long.toString(number.longValue());
+        return raw instanceof Number n && Double.isFinite(n.doubleValue())
+                && n.doubleValue() == Math.rint(n.doubleValue()) ? n.longValue() : -1;
+    }
+    private String costLabel(String key) {
+        long cost = contractCost(key);
+        return cost < 0 || cost > 1_000_000_000L ? "—" : Long.toString(cost);
     }
     public String contractPriceLabel(String category, int tier) {
         return costLabel("contratos.precios." + category + ".tier" + tier);
@@ -294,15 +295,28 @@ public final class SlayerModule implements Listener {
         Mission state = current.get(category);
         if (state != null && state.active && state.tier == tier) {
             if (state.bossId != null) return Bukkit.getEntity(state.bossId) != null
-                    ? "<gold>✦ Jefe activo: <white>derrota al monarca"
-                    : "<yellow>✦ Jefe descargado: <gray>regresa a la zona";
+                    ? Settings.text("slayer", "SlayerModule.gui-jefe-activo", "<gold>✦ Jefe activo: <white>derrota al monarca")
+                    : Settings.text("slayer", "SlayerModule.gui-jefe-lejos", "<yellow>✦ Tu jefe te espera en la zona");
             if (state.ready()) return Settings.text("slayer", "SlayerModule.jefe-pendiente",
                     "<yellow>✦ Jefe pendiente · Reintenta la invocación");
-            return "§a✦ Activa: §f" + state.kills + "§7/§f" + state.required + " bajas";
+            return Settings.text("slayer", "SlayerModule.gui-caceria-activa",
+                    "<green>✦ Activa: <white>{bajas}/{total} <gray>bajas", "bajas", state.kills, "total", state.required);
         }
-        if (current.values().stream().anyMatch(other -> other.active)) return "§cTienes otra misión activa";
-        if (!accessible(player, category, tier)) return "§cNo tienes acceso a este rango";
-        return "§e✦ Disponible para contratar";
+        var refusal = SlayerContractRules.validateStart(config.getBoolean("contratos.habilitados", false), tier,
+                current.values().stream().anyMatch(other -> other.active), accessible(player, category, tier),
+                contractCost("contratos.precios." + category + ".tier" + tier));
+        return switch (refusal) {
+            case NONE -> Settings.text("slayer", "SlayerModule.gui-contratar", "<gold>► Clic para contratar");
+            case ALREADY_ACTIVE -> Settings.text("slayer", "SlayerModule.gui-otra-activa", "<yellow>Termina tu cacería actual");
+            case NO_PERMISSION -> {
+                int required = SlayerProgressionRules.minimumRevenantLevel(category, tier);
+                yield required > 0
+                        ? Settings.text("slayer", "SlayerModule.gui-nivel-requerido",
+                            "<yellow>Requiere nivel <white>{nivel} <yellow>de {caceria}", "nivel", required, "caceria", name("revenant"))
+                        : Settings.text("slayer", "SlayerModule.gui-bloqueada", "<yellow>Cacería aún bloqueada");
+            }
+            default -> Settings.text("slayer", "SlayerModule.gui-no-disponible", "<red>Contrato no disponible");
+        };
     }
 
     /**
@@ -421,9 +435,7 @@ public final class SlayerModule implements Listener {
         catch (NumberFormatException ignored) { tier = 0; }
         String key = start ? "contratos.precios." + category + ".tier" + tier
                            : "contratos.cancelacion." + category;
-        Object priceValue = config.get(key);
-        long cost = priceValue instanceof Number n && Double.isFinite(n.doubleValue())
-                && n.doubleValue() == Math.rint(n.doubleValue()) ? n.longValue() : -1;
+        long cost = contractCost(key);
         SlayerContractRules.Refusal refusal = start
                 ? SlayerContractRules.validateStart(enabled, tier,
                     CATEGORIES.stream().anyMatch(c -> mission(id, c).active),

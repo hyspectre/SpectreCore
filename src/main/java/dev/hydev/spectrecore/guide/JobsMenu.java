@@ -297,7 +297,25 @@ public final class JobsMenu implements Listener {
     }
 
     private String resolve(Player player, String page, String id, String line) {
-        if (line == null || !line.contains("{")) return line;
+        if (line == null) return null;
+        if (page.equals("minero") && RANKS.contains(id)) {
+            int requested = RANKS.indexOf(id) + 1;
+            String old = switch (requested) {
+                case 1 -> "<gold>Requisito: <white>Ninguno";
+                case 2 -> "<gold>Requisito: <white>Novato";
+                default -> "<gold>Requisito: <white>Experimentado";
+            };
+            if (line.equals("{requisito-mineria}") || line.equals(old)) {
+                int minimum = new MiningProgression(plugin).contract(id);
+                return requested == 1
+                        ? Settings.text("trabajos", "JobsMenu.requisito-mineria",
+                            "<gold>Requisito: <white>Minería {nivel}", "nivel", minimum)
+                        : Settings.text("trabajos", "JobsMenu.requisito-mineria-rango",
+                            "<gold>Requisito: <white>{rango} · Minería {nivel}",
+                            "rango", jobs.displayRank(ProgressRules.rank(requested - 1)), "nivel", minimum);
+            }
+        }
+        if (!line.contains("{")) return line;
         String job = page.equals("trabajos") ? id : page;
         if (!JobsContractRules.JOBS.contains(job)) return line;
         int current = jobs.rank(player, job);
@@ -320,15 +338,15 @@ public final class JobsMenu implements Listener {
         else state = current == tier - 1
                 ? label("disponible", "Disponible")
                 : label("rango-anterior", "Requiere rango anterior");
-        if (job.equals("minero") && current < tier && current == tier-1) {
+        Object configuredPrice = config.get("contratos.precios." + level);
+        if (current < tier && (!(configuredPrice instanceof Number n) || !Double.isFinite(n.doubleValue())
+                || n.doubleValue() != Math.rint(n.doubleValue()) || n.longValue() < 0 || n.longValue() > 1_000_000_000L)) {
+            state = Settings.text("trabajos", "JobsMenu.contrato-no-disponible", "<red>Contrato no disponible");
+        } else if (job.equals("minero") && current < tier && current == tier-1 && !jobs.isPending(player)) {
             var progression=new MiningProgression(plugin);
-            String milestone=switch(level) {
-                case "novato" -> "inicial";
-                case "experimentado" -> "paladio";
-                default -> "resonancia";
-            };
+            String milestone=MiningProgression.contractStage(level);
             if(!progression.meets(player,milestone))
-                state="<yellow>Minería nivel "+progression.required(milestone)+" requerida";
+                state=progression.lockDetail(player,milestone);
         }
         return line.replace("{rango}", currentRank).replace("{minimo}", min)
                 .replace("{maximo}", max).replace("{espera}", cooldown)

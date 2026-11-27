@@ -205,8 +205,15 @@ public final class MissionsMenu implements Listener {
             ItemMeta meta = item.getItemMeta();
             meta.displayName(styled(layout.getString(path + ".name", "Misiones")));
             List<Component> lore = new ArrayList<>();
-            for (String line : layout.getStringList(path + ".lore"))
-                lore.add(styled(resolveLore(player, page, id, line)));
+            boolean tierCard = page.equals("revenant") && Set.of("1", "2", "3").contains(id);
+            boolean statePlaced = false;
+            for (String line : layout.getStringList(path + ".lore")) {
+                // Old default cards promised a purchase even when the gate would reject it.
+                if (tierCard && (line.equals("{estado-contrato}") || line.equals("&#FFCC55  ► Clic para contratar"))) {
+                    if (!statePlaced) lore.add(styled(slayer.progressLine(player, "revenant", Integer.parseInt(id))));
+                    statePlaced = true;
+                } else lore.add(styled(resolveLore(player, page, id, line)));
+            }
             if (page.equals("misiones") && id.equals("progresion")) {
                 lore.add(styled(""));
                 lore.add(Settings.message("slayer", "SlayerModule.gui-nivel",
@@ -223,7 +230,7 @@ public final class MissionsMenu implements Listener {
                         "<gold>Progreso actual: <yellow>{nivel}<gray>/11",
                         "nivel", slayer.slayerLevel(player)).decoration(TextDecoration.ITALIC, false));
             }
-            if (page.equals("revenant") && Set.of("1", "2", "3").contains(id)) {
+            if (tierCard && !statePlaced) {
                 int tier = Integer.parseInt(id);
                 lore.add(styled(""));
                 lore.add(styled(slayer.progressLine(player, "revenant", tier)));

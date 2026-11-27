@@ -2,6 +2,7 @@ package dev.hydev.spectrecore.mining;
 
 import dev.hydev.spectrecore.SpectreCorePlugin;
 import dev.hydev.spectrecore.config.ModuleConfiguration;
+import dev.hydev.spectrecore.config.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -38,14 +39,31 @@ public final class MiningProgression {
         return current>=0 && minimum>=1 && current>=minimum
                 && player.hasPermission(permission(stage));
     }
-    public int contract(String rank) {
-        return required(switch(rank){
+    /** Read-only presentation, never a second access check or permission grant. */
+    public boolean missingLevel(Player player, String stage) {
+        int current = level(player), minimum = required(stage);
+        return current >= 0 && minimum >= 1 && current < minimum;
+    }
+    public String lockDetail(Player player, String stage) {
+        int current = level(player), minimum = required(stage);
+        if (current < 0 || minimum < 1)
+            return Settings.text("trabajos", "MiningProgression.progreso-no-disponible",
+                    "<yellow>Progreso minero no disponible");
+        if (current < minimum)
+            return Settings.text("trabajos", "MiningProgression.nivel-requerido",
+                    "<yellow>Requiere Minería nivel {nivel}", "nivel", minimum);
+        return Settings.text("trabajos", "MiningProgression.desbloqueo-pendiente",
+                "<yellow>Desbloqueo pendiente · Consulta al Minero");
+    }
+    public static String contractStage(String rank) {
+        return switch(rank){
             case "novato" -> "inicial";
             case "experimentado" -> "paladio";
             case "profesional" -> "resonancia";
             default -> throw new IllegalArgumentException("Contrato minero desconocido");
-        });
+        };
     }
+    public int contract(String rank) { return required(contractStage(rank)); }
     public void enable() {
         if(!Bukkit.getPluginManager().isPluginEnabled("AuraSkills"))
             plugin.getLogger().severe("Minería: AuraSkills ausente. Los hitos se mantendrán bloqueados.");

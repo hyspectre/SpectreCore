@@ -49,6 +49,8 @@ for job, rows in expected.items():
         assert jobs[job][level]["dinero"] == {"minimo": min_amount, "maximo": max_amount}
         assert treasures["clasificacion"][domain][f"tier{tier}"]
         lore = " ".join(page[level]["lore"])
+        if job == "minero":
+            assert "{requisito-mineria}" in lore
         for token in ("{actividades}", "{minimo}", "{maximo}", "{espera}", "{precio}", "{estado}"):
             assert token in lore, (job, level, token)
 
@@ -64,6 +66,8 @@ assert "ModuleConfiguration.module(plugin, \"trabajos/config.yml\")" in java
 assert "ModuleConfiguration.module(plugin, \"tesoros/config.yml\")" in java
 assert "jobs.purchase(player, job, rank)" in java
 assert "economy.withdraw(player, price)" in module
+assert "MiningProgression.contractStage" in module and "MiningProgression.contractStage" in java
+assert "lockDetail" in module and "lockDetail" in java
 assert "JobsContractRules.validate" in module and "purchasesInProgress" in module
 assert "LuckPermsProvider.get()" in bridge and "saveUser(user)" in bridge
 assert "Bukkit.dispatchCommand" not in java and "dispatchCommand" not in module

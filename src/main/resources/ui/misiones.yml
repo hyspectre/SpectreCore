@@ -186,7 +186,7 @@ pages:
         - '&7• {xp-slayer} XP de Monarquía'
         - ''
         - '&8Contrato: &e{precio} ↾'
-        - '&#FFCC55  ► Clic para contratar'
+        - "{estado-contrato}"
       
       '2':
         slot: 23
@@ -212,7 +212,7 @@ pages:
         - '&7• Corazón Podrido x1 &8(50%)'
         - ''
         - '&8Contrato: &e{precio} ↾'
-        - '&#FFCC55  ► Clic para contratar'
+        - "{estado-contrato}"
       
       '3':
         slot: 25
@@ -238,7 +238,7 @@ pages:
         - '&7• Corazón Podrido x1 &8(40%)'
         - ''
         - '&8Contrato: &e{precio} ↾'
-        - '&#FFCC55  ► Clic para contratar'
+        - "{estado-contrato}"
       
       reintentar:
         slot: 51

@@ -80,3 +80,7 @@ El indicador de armadura usa el tick de habilidad existente y se oculta al expir
 ## Rechazos de contratos sin códigos internos
 
 Las cacerías y los trabajos traducen exhaustivamente sus motivos de rechazo antes de mostrarlos. Si existe un requisito numérico de Monarquía Renacida, el mensaje utiliza el mismo umbral que el control de acceso; los desbloqueos externos no inventan un nivel. Firmar un contrato no disponible, volver a comprar un rango, saltar un rango, abandonar sin misión y una compra pendiente tienen explicaciones distintas. Los mensajes son configurables y los textos personalizados conservan el marcador de motivo. No se modifican permisos, precios, transacciones ni progresión.
+
+## Revisión previa al reinicio
+
+Los contratos de Monarquía Renacida muestran su estado real antes de contratar, con el nivel exigido por las mismas reglas de acceso, la cacería en curso o la disponibilidad de la oferta. El menú reconoce también la línea de acción de la configuración anterior. Los contratos mineros muestran el nivel y el rango previo necesarios; si el nivel ya se alcanzó pero el hito no está concedido, distinguen el desbloqueo pendiente de un nivel insuficiente. El mismo diagnóstico se utiliza en las herramientas y geodas. Los textos nuevos son configurables; no se alteran los permisos ni el coste de las compras. La revisión de presentación no sustituye una prueba en el cliente.

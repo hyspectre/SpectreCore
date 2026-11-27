@@ -196,8 +196,10 @@ public final class MithrilToolModule implements Listener {
         Component detail;
         BossBar.Color color;
         if (!unlocked(player, id)) {
-            detail = Settings.message("tesoros", "MithrilTools.hud-bloqueada", "<yellow>Desbloquea Minería {nivel}",
-                    "nivel", progression.required(stage(id)));
+            detail = progression.missingLevel(player,stage(id))
+                    ? Settings.message("tesoros", "MithrilTools.hud-bloqueada", "<yellow>Desbloquea Minería {nivel}",
+                        "nivel", progression.required(stage(id)))
+                    : Settings.component(progression.lockDetail(player,stage(id)));
             color = BossBar.Color.YELLOW;
         } else if (player.getGameMode() != GameMode.SURVIVAL) {
             detail = Settings.message("tesoros", "MithrilTools.hud-supervivencia", "<yellow>Solo en supervivencia");
@@ -310,9 +312,11 @@ public final class MithrilToolModule implements Listener {
             String heldTool=data.id(data.held(player,EquipmentSlot.OFF_HAND));
             if (!heldTool.isEmpty() && !unlocked(player,heldTool)) {
                 event.setCancelled(true);
-                player.sendMessage(Settings.message("trabajos","MiningProgression.requisito-herramienta",
-                        "<yellow>Necesitas Minería nivel {nivel} para utilizar esta herramienta.",
-                        "nivel", progression.required(stage(heldTool))));
+                player.sendMessage(progression.missingLevel(player,stage(heldTool))
+                        ? Settings.message("trabajos","MiningProgression.requisito-herramienta",
+                            "<yellow>Necesitas Minería nivel {nivel} para utilizar esta herramienta.",
+                            "nivel", progression.required(stage(heldTool)))
+                        : Settings.component(progression.lockDetail(player,stage(heldTool))));
                 return;
             }
             if (recharge(player)) event.setCancelled(true);
@@ -322,9 +326,11 @@ public final class MithrilToolModule implements Listener {
         if (id.isEmpty()) return;
         if(!unlocked(player,id)){
             event.setCancelled(true);
-            player.sendMessage(Settings.message("trabajos","MiningProgression.requisito-herramienta",
-                    "<yellow>Necesitas Minería nivel {nivel} para utilizar esta herramienta.",
-                    "nivel", progression.required(stage(id))));
+            player.sendMessage(progression.missingLevel(player,stage(id))
+                        ? Settings.message("trabajos","MiningProgression.requisito-herramienta",
+                            "<yellow>Necesitas Minería nivel {nivel} para utilizar esta herramienta.",
+                            "nivel", progression.required(stage(id)))
+                        : Settings.component(progression.lockDetail(player,stage(id))));
             return;
         }
         // Exactly one interaction per main hand; offhand dispatch cannot double-charge.

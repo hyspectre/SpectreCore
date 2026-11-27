@@ -246,16 +246,13 @@ public final class JobsModule implements Listener {
         }
         if ("minero".equals(job)) {
             MiningProgression progression=new MiningProgression(plugin);
-            String milestone=switch(level) {
-                case "novato" -> "inicial";
-                case "experimentado" -> "paladio";
-                case "profesional" -> "resonancia";
-                default -> null;
-            };
-            if (milestone == null || !progression.meets(player,milestone)) {
-                player.sendMessage(Settings.message("trabajos","MiningProgression.requisito-contrato",
-                        "<yellow>Necesitas Minería nivel {nivel} para firmar este contrato.",
-                        "nivel",milestone==null?"—":progression.required(milestone)));
+            String milestone=MiningProgression.contractStage(level);
+            if (!progression.meets(player,milestone)) {
+                player.sendMessage(progression.missingLevel(player,milestone)
+                        ? Settings.message("trabajos","MiningProgression.requisito-contrato",
+                            "<yellow>Necesitas Minería nivel {nivel} para firmar este contrato.",
+                            "nivel",progression.required(milestone))
+                        : Settings.component(progression.lockDetail(player,milestone)));
                 return;
             }
         }

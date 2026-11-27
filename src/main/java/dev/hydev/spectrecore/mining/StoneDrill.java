@@ -86,9 +86,11 @@ public final class StoneDrill implements Listener {
             long now = System.currentTimeMillis();
             if (now - lastRequirement.getOrDefault(player.getUniqueId(), 0L) >= 2500L) {
                 lastRequirement.put(player.getUniqueId(), now);
-                player.sendMessage(Settings.message("trabajos","MiningProgression.requisito-herramienta",
-                        "<yellow>Necesitas Minería nivel {nivel} para utilizar esta herramienta.",
-                        "nivel",progression.required(requiredStage)));
+                player.sendMessage(progression.missingLevel(player,requiredStage)
+                        ? Settings.message("trabajos","MiningProgression.requisito-herramienta",
+                            "<yellow>Necesitas Minería nivel {nivel} para utilizar esta herramienta.",
+                            "nivel",progression.required(requiredStage))
+                        : Settings.component(progression.lockDetail(player,requiredStage)));
             }
             return;
         }
