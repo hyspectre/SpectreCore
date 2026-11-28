@@ -7,8 +7,7 @@ ya existentes, sin cambiar sus tipos ni IDs. AuraSkills es la fuente de verdad d
 ## Flujo del jugador
 
 1. Al llegar a **Minería nivel 3 en AuraSkills**, se habilita el taller.
-2. Habla con el **NPC Minero**, usa `/spectrecore minero` o abre el acceso **Taller del Minero**
-   en el índice de Trabajos. El Compactador Portátil existente de Cygnus
+2. Habla con el **NPC Minero** o usa `/spectrecore minero`. El Compactador Portátil existente de Cygnus
    (`MATERIAL:COMPACTADOR`) también abre el taller con clic derecho.
 3. Elige entre **Compactar** y **Pulverizar** y selecciona Cobre, Hierro, Oro, Lapislázuli,
    Redstone o Diamante.

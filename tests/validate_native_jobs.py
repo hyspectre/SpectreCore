@@ -23,7 +23,7 @@ assert len(gui["material-names"]) >= 30
 for page, payload in gui["pages"].items():
     assert payload["size"] == 54 and payload["title"].startswith("<dark_gray>⧇ <gold>Trabajos")
     items = payload["items"]
-    assert len(items) == (7 if page == "trabajos" else 6)
+    assert len(items) == (5 if page == "trabajos" else 6)
     slots = [entry["slot"] for entry in items.values()]
     assert len(set(slots)) == len(slots) and all(0 <= slot < 54 for slot in slots)
     for entry in items.values():
@@ -35,8 +35,7 @@ for page, payload in gui["pages"].items():
         assert re.fullmatch(r"https?://textures\.minecraft\.net/texture/[a-fA-F0-9]{32,128}", skin), skin
 
 assert [gui["pages"]["trabajos"]["items"][key]["slot"] for key in expected] == [20, 22, 24]
-assert gui["pages"]["trabajos"]["items"]["abastecimiento"]["slot"] == 31
-assert gui["pages"]["trabajos"]["items"]["taller"]["slot"] == 33
+assert set(gui["pages"]["trabajos"]["items"]) == {*expected, "info", "cerrar"}
 for job, rows in expected.items():
     page = gui["pages"][job]["items"]
     assert [page[key]["slot"] for key in ("novato", "experimentado", "profesional")] == [19, 22, 25]
@@ -61,6 +60,10 @@ routes = (resources.parent / "java/dev/hydev/spectrecore/command/CommandRoutes.j
 assert "InventoryClickEvent" in java and "InventoryDragEvent" in java
 assert "event.setCancelled(true)" in java and "Bukkit.getScheduler().runTask(plugin" in java
 assert "CustomHeads.fromBase64" in java
+for shortcut in ("abastecimiento", "taller"):
+    assert f'candidate.set("pages.trabajos.items.{shortcut}", null);' in java
+    assert f'clicked.equals("{shortcut}")' not in java
+assert "provideSupplyShortcut" not in java and "provideWorkshopShortcut" not in java
 assert "TextService.component(source)" in java and ".decoration(TextDecoration.ITALIC, false)" in java
 assert "ModuleConfiguration.module(plugin, \"trabajos/config.yml\")" in java
 assert "ModuleConfiguration.module(plugin, \"tesoros/config.yml\")" in java
@@ -77,7 +80,7 @@ assert 'route("trabajos caza","trabajo"' in routes
 assert 'route("trabajos abastecimiento","trabajo"' in routes
 for banned in ("player-command-as-op", "console-command", "type: withdraw", "%vault_eco_balance%"):
     assert banned not in (resources / "ui/trabajos.yml").read_text(encoding="utf-8")
-print("PASS Jobs GUI: index with sourcing shortcut, 3 contracts, safe tiers and route")
+print("PASS Jobs GUI: contract-only index, 3 contracts, safe tiers and route")
 
 assert "jobs.paymentWaitMillis(player, page, tier)" in java
 assert "{s}" in gui["labels"]["estados"]["pago-espera"]

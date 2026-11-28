@@ -18,11 +18,11 @@ Construir conexiones útiles entre exploración, accesorios, profesiones, fabric
 
 ### 0.9.0-dev2 — Tablón de abastecimiento (implementado en esta rama)
 
-- Accesible desde Trabajos o mediante `/spectrecore trabajos abastecimiento`.
+- Accesible mediante `/spectrecore trabajos abastecimiento`.
 - Consulta en vivo recursos existentes de minería, combate y tres niveles agrícolas. Su tipo e ID proceden de los YAML de tesoros, no de una segunda tabla de objetos.
 - Cuenta los materiales MMOItems de la mochila sin retirarlos. Presenta el rango de oficio, el estado de probabilidades y los permisos para obtener hallazgos.
 - No crea recetas, recompensas, créditos de profesión ni operaciones económicas. Los hallazgos sin probabilidades configuradas aparecen como no disponibles.
-- El menú es de consulta, configurable en `ui/abastecimiento.yml`. Los menús de Trabajos personalizados antiguos pueden mostrar un acceso en una casilla libre sin modificar el archivo original; el comando sigue funcionando si el menú está lleno.
+- El menú es de consulta, configurable en `ui/abastecimiento.yml`. El índice de Trabajos se reserva para contratos; las configuraciones antiguas ya no muestran accesos a Abastecimiento ni al Taller.
 - Pruebas de contrato en `tests/validate_supply_board.py` y el pipeline de compilación.
 
 ### 0.9.0-dev3 — Mitrilo y Pedido del Herrero (implementado en esta rama)

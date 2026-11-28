@@ -31,7 +31,7 @@ for item in layout["items"].values():
     assert isinstance(item["lore"], list) and len(item["lore"]) <= 16
     assert all(isinstance(line, str) and len(line) <= 256 for line in item["lore"])
 
-assert jobs["pages"]["trabajos"]["items"]["abastecimiento"]["slot"] == 31
+assert "abastecimiento" not in jobs["pages"]["trabajos"]["items"]
 assert "tesoros.id" in source and "tesoros.tipo" in source
 assert "botin.id" in source and "botin.tipo" in source
 assert "botin.tier" in source and "probabilidades." in source
@@ -45,7 +45,7 @@ assert "hasPermission(\"tesoros.\"" in source
 assert "Bukkit.getScheduler().runTask(plugin" in source
 assert "event.setCancelled(true)" in source
 assert "jobs.openOverview(player)" in source
-assert "provideSupplyShortcut(candidate)" in (
+assert 'candidate.set("pages.trabajos.items.abastecimiento", null);' in (
     root / "src/main/java/dev/hydev/spectrecore/guide/JobsMenu.java"
 ).read_text(encoding="utf-8")
 assert "supplyGuide" not in module or "supplies.enable()" in module

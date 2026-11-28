@@ -91,8 +91,9 @@ public final class JobsMenu implements Listener {
             var candidate = new YamlConfiguration();
             candidate.load(file);
             mergeMissingLocalization(file, candidate);
-            provideSupplyShortcut(candidate); // In-memory fallback for existing customized job menus.
-            provideWorkshopShortcut(candidate);
+            // Ignore obsolete shortcuts in existing layouts without rewriting their YAML.
+            candidate.set("pages.trabajos.items.abastecimiento", null);
+            candidate.set("pages.trabajos.items.taller", null);
             for (String page : PAGES) {
                 String path = "pages." + page;
                 var items = candidate.getConfigurationSection(path + ".items");
@@ -148,75 +149,6 @@ public final class JobsMenu implements Listener {
             Files.copy(file.toPath(), backup.toPath());
         }
         AtomicFileStore.writeUtf8(file.toPath(), candidate.saveToString());
-    }
-
-    /**
-     * Legacy layouts did not have the supply board. Offer it without rewriting
-     * administrator menus, and never replace an occupied custom slot.
-     */
-    private void provideSupplyShortcut(YamlConfiguration candidate) throws IOException {
-        String root = "pages.trabajos.items";
-        if (candidate.contains(root + ".abastecimiento")) return;
-        ConfigurationSection current = candidate.getConfigurationSection(root);
-        if (current == null) return;
-        YamlConfiguration defaults = new YamlConfiguration();
-        try (InputStream stream = plugin.getResource("ui/trabajos.yml")) {
-            if (stream == null) throw new IOException("No hay diseño de Trabajos incluido");
-            defaults.load(new InputStreamReader(stream, StandardCharsets.UTF_8));
-        } catch (org.bukkit.configuration.InvalidConfigurationException malformed) {
-            throw new IOException("El diseño incluido de Trabajos es inválido", malformed);
-        }
-        String newItem = root + ".abastecimiento";
-        if (!defaults.isConfigurationSection(newItem)) throw new IOException("Falta el acceso a abastecimiento");
-        Set<Integer> occupied = new HashSet<>();
-        for (String id : current.getKeys(false)) {
-            int index = candidate.getInt(root + "." + id + ".slot", -1);
-            if (index >= 0 && index < 54) occupied.add(index);
-        }
-        int slot = defaults.getInt(newItem + ".slot", 31);
-        if (occupied.contains(slot)) {
-            slot = -1;
-            for (int candidateSlot = 27; candidateSlot <= 44; candidateSlot++)
-                if (!occupied.contains(candidateSlot)) { slot = candidateSlot; break; }
-        }
-        if (slot < 0) {
-            plugin.getLogger().info("Trabajos: índice personalizado sin espacio libre; el abastecimiento sigue accesible por comando.");
-            return;
-        }
-        candidate.set(newItem + ".slot", slot);
-        for (String field : List.of("texture", "name", "lore"))
-            candidate.set(newItem + "." + field, defaults.get(newItem + "." + field));
-    }
-
-    /** Existing customized Jobs menus get the workshop without destructive rewrites. */
-    private void provideWorkshopShortcut(YamlConfiguration candidate) throws IOException {
-        String root="pages.trabajos.items", key=root+".taller";
-        if(candidate.contains(key))return;
-        ConfigurationSection current=candidate.getConfigurationSection(root);
-        if(current==null)return;
-        YamlConfiguration defaults=new YamlConfiguration();
-        try(InputStream stream=plugin.getResource("ui/trabajos.yml")) {
-            if(stream==null)throw new IOException("Falta el menú de Minería");
-            defaults.load(new InputStreamReader(stream,StandardCharsets.UTF_8));
-        } catch(org.bukkit.configuration.InvalidConfigurationException malformed) {
-            throw new IOException("La plantilla de Minería es inválida",malformed);
-        }
-        Set<Integer> occupied=new HashSet<>();
-        for(String item:current.getKeys(false))occupied.add(candidate.getInt(root+"."+item+".slot",-1));
-        int slot=defaults.getInt(key+".slot",33);
-        if(occupied.contains(slot)){
-            slot=-1;
-            for(int alternative=27;alternative<=44;alternative++)if(!occupied.contains(alternative)){
-                slot=alternative;break;
-            }
-        }
-        if(slot<0){
-            plugin.getLogger().info("Trabajos: menú sin lugar para el taller; usa /spectrecore minero.");
-            return;
-        }
-        candidate.set(key+".slot",slot);
-        for(String field:List.of("texture","name","lore"))
-            candidate.set(key+"."+field,defaults.get(key+"."+field));
     }
 
     public boolean open(Player player, String page) {
@@ -381,8 +313,6 @@ public final class JobsMenu implements Listener {
         clickTimes.put(player.getUniqueId(), now);
         if (holder.page.equals("trabajos")) {
             if (JobsContractRules.JOBS.contains(clicked)) defer(player, holder, () -> open(player, clicked));
-            else if (clicked.equals("abastecimiento")) defer(player, holder, () -> jobs.openSupplies(player));
-            else if (clicked.equals("taller")) defer(player, holder, () -> jobs.openMinerWorkshop(player));
             else if (clicked.equals("cerrar")) defer(player, holder, player::closeInventory);
             return;
         }

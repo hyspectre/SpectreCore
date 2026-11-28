@@ -8979,7 +8979,7 @@
     "archivo": "trabajos/mensajes.yml",
     "clave": "JobsMenu.desactivado",
     "predeterminado": "<reset><red>El catálogo de trabajos no está disponible por ahora.",
-    "origen": "JobsMenu.java:225"
+    "origen": "JobsMenu.java:157"
   },
   {
     "archivo": "trabajos/mensajes.yml",
@@ -9669,19 +9669,19 @@
     "archivo": "trabajos/mensajes.yml",
     "clave": "JobsMenu.contrato-no-disponible",
     "predeterminado": "<red>Contrato no disponible",
-    "origen": "JobsMenu.java:344"
+    "origen": "JobsMenu.java:276"
   },
   {
     "archivo": "trabajos/mensajes.yml",
     "clave": "JobsMenu.requisito-mineria",
     "predeterminado": "<gold>Requisito: <white>Minería {nivel}",
-    "origen": "JobsMenu.java:311"
+    "origen": "JobsMenu.java:243"
   },
   {
     "archivo": "trabajos/mensajes.yml",
     "clave": "JobsMenu.requisito-mineria-rango",
     "predeterminado": "<gold>Requisito: <white>{rango} · Minería {nivel}",
-    "origen": "JobsMenu.java:313"
+    "origen": "JobsMenu.java:245"
   },
   {
     "archivo": "trabajos/mensajes.yml",

@@ -24,7 +24,7 @@ all_items={**layout["items"],**layout["minerales"]}
 slots=[v["slot"] for v in all_items.values()]
 assert len(set(slots))==len(slots)
 assert all(0<=slot<54 and isinstance(data["lore"],list) for slot,data in zip(slots,all_items.values()))
-assert "taller" in contracts["pages"]["trabajos"]["items"]
+assert "taller" not in contracts["pages"]["trabajos"]["items"]
 java=root/"src/main/java/dev/hydev/spectrecore"
 server=(java/"systems/MinerWorkshop.java").read_text(encoding="utf-8")
 gui=(java/"guide/MinerWorkshopMenu.java").read_text(encoding="utf-8")
