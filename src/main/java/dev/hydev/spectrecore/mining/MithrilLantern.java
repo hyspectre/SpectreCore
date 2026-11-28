@@ -1,170 +1,180 @@
 package dev.hydev.spectrecore.mining;
 
+import dev.hydev.spectrecore.SpectreCorePlugin;
+import dev.hydev.spectrecore.config.Settings;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Particle;
+import org.bukkit.NamespacedKey;
 import org.bukkit.World;
+import org.bukkit.block.Block;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.BlockDisplay;
+import org.bukkit.entity.Display;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.EquipmentSlot;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-/** Portable lantern: basic light, per-item anchor and a short-lived breadcrumb trail. */
-public final class MithrilLantern {
-    private final JavaPlugin plugin;
-    private final MithrilDeviceData data;
-    private final MiningProgression progression;
-    private final Map<UUID,BukkitTask> routes = new HashMap<>();
-    private BukkitTask lightTask;
+import static dev.hydev.spectrecore.relicario.RelicarioModule.miningBonus;
 
-    public MithrilLantern(JavaPlugin plugin, MithrilDeviceData data) {
-        this.plugin = plugin; this.data = data;
-        this.progression = new MiningProgression(plugin);
+/** Renewable night vision and private, temporary outlines of nearby natural ores. */
+public final class MithrilLantern {
+    private static final String ROOT = "herramientas-mitrilo.linterna.";
+    private final JavaPlugin plugin;
+    private final PlacedOres placed;
+    private final MithrilRegionAccess regions;
+    private final MiningProgression progression;
+    private final NamespacedKey cooldown;
+    private final Map<UUID, Pulse> pulses = new HashMap<>();
+    private YamlConfiguration settings;
+    private record Pulse(List<BlockDisplay> displays, BukkitTask expiry) { }
+    private record Candidate(Block block, int distanceSquared) { }
+
+    public MithrilLantern(JavaPlugin plugin, PlacedOres placed, MithrilRegionAccess regions) {
+        this.plugin = plugin;
+        this.placed = placed;
+        this.regions = regions;
+        progression = new MiningProgression(plugin);
+        cooldown = new NamespacedKey(plugin, "linterna_pulso_hasta");
     }
 
-    public void enable() {
-        // Ten-second cadence, not a per-tick scan. Long enough to avoid Night Vision flicker.
-        lightTask = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                if(!progression.meets(player,"ingenieria"))continue;
-                for (EquipmentSlot hand : List.of(EquipmentSlot.HAND, EquipmentSlot.OFF_HAND)) {
-                    ItemStack stack = data.held(player, hand);
-                    if (!MithrilDeviceData.LANTERN.equals(data.id(stack)) || !data.lit(stack)) continue;
-                    light(player);
-                    break;
-                }
-            }
-        }, 20, 200);
+    public void configure(YamlConfiguration settings) {
+        disable();
+        this.settings = settings;
+    }
+
+    private int config(String key) { return settings.getInt(ROOT + key); }
+
+    public long remaining(Player player, long now) {
+        return MithrilRules.remainingSeconds(now, player.getPersistentDataContainer()
+                .getOrDefault(cooldown, PersistentDataType.LONG, 0L));
+    }
+
+    public float progress(Player player, long now) {
+        return Math.clamp(1f - remaining(player, now) / (float) config("recarga-segundos"), 0f, 1f);
     }
 
     public void light(Player player) {
-        if(!progression.meets(player,"ingenieria"))return;
+        if (!progression.meets(player,"ingenieria")) return;
+        int ticks = config("vision-segundos") * 20;
         PotionEffect current = player.getPotionEffect(PotionEffectType.NIGHT_VISION);
-        if (current != null && (current.getAmplifier() > 0 || current.getDuration() > 500)) return;
-        player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 500, 0, true, false, false));
+        if (current != null && (current.isInfinite() || current.getAmplifier() > 0
+                || current.getDuration() >= ticks)) return;
+        player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, ticks, 0, true, false, false));
+        player.sendMessage(Settings.message("tesoros", "MithrilTools.linterna-luz",
+                "<aqua>✦ Visión nocturna <gray>· <white>{s}s", "s", config("vision-segundos")));
     }
 
-    public boolean anchor(Player player, EquipmentSlot hand, int cost, int capacity) {
-        if(!progression.meets(player,"ingenieria"))return false;
-        ItemStack stack = data.held(player, hand);
-        if (!MithrilDeviceData.LANTERN.equals(data.id(stack)) || data.energy(stack) < cost) return false;
-        Location at = player.getLocation();
-        String start = at.getBlockX() + "," + at.getBlockY() + "," + at.getBlockZ();
-        stack = data.changeCharge(stack, -cost, capacity);
-        stack = data.anchor(stack, player.getWorld().getUID() + ":" + start);
-        stack = data.path(stack, start);
-        stack = data.lit(stack, true);
-        data.update(player, hand, stack);
-        light(player);
-        return true;
-    }
-
-    public boolean route(Player player, EquipmentSlot hand, int cost, int capacity, long cooldownMs,
-                         int seconds) {
-        if(!progression.meets(player,"ingenieria"))return false;
-        ItemStack stack = data.held(player, hand);
-        if (!MithrilDeviceData.LANTERN.equals(data.id(stack)) || data.anchor(stack).isBlank()
-                || data.energy(stack) < cost || data.cooldown(stack) > System.currentTimeMillis()) return false;
-        String prefix = player.getWorld().getUID() + ":";
-        if (!data.anchor(stack).startsWith(prefix)) return false;
-        List<Location> stops = parse(player.getWorld(), data.path(stack));
-        if (stops.isEmpty()) return false;
-        stack = data.cooldown(data.changeCharge(stack, -cost, capacity),
-                System.currentTimeMillis() + cooldownMs);
-        data.update(player, hand, stack);
-        cancel(player.getUniqueId());
-        final UUID id = player.getUniqueId();
-        final World world = player.getWorld();
-        final int[] remaining = {Math.min(seconds,20)};
-        BukkitTask task = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
-            if (!player.isOnline() || player.getWorld() != world || remaining[0]-- <= 0) {
-                cancel(id); return;
+    public void reveal(Player player) {
+        if (!progression.meets(player,"ingenieria")) return;
+        long now = System.currentTimeMillis();
+        long wait = remaining(player, now);
+        if (wait > 0) {
+            player.sendMessage(Settings.message("tesoros", "MithrilTools.en-recarga",
+                    "<yellow>Recarga: <white>{s}s", "s", wait));
+            return;
+        }
+        UUID id = player.getUniqueId();
+        if (pulses.containsKey(id) || pulses.size() >= config("max-pulsos")) {
+            player.sendMessage(Settings.message("tesoros", "MithrilTools.linterna-ocupada",
+                    "<yellow>Espera un momento para usar el pulso."));
+            return;
+        }
+        if (!regions.canBuild(player, player.getLocation().getBlock())) {
+            player.sendMessage(Settings.message("tesoros", "MithrilTools.zona",
+                    "<red>La herramienta no puede utilizarse en esta zona."));
+            return;
+        }
+        // The old compass relic now extends range, never the three-second glow.
+        int radius = Math.min(16, config("radio") + (int) Math.max(0, miningBonus(plugin, player, "lantern_radius")));
+        // An empty search is still a pulse: do not allow continuous scans of empty terrain.
+        player.getPersistentDataContainer().set(cooldown, PersistentDataType.LONG,
+                now + config("recarga-segundos") * 1000L);
+        List<BlockDisplay> displays = new ArrayList<>();
+        try {
+            for (Block block : nearby(player, radius)) {
+                if (displays.size() >= config("max-menas")) break;
+                BlockDisplay display = block.getWorld().spawn(block.getLocation(), BlockDisplay.class, e -> {
+                    if (plugin instanceof SpectreCorePlugin core) core.visuals().mark(e);
+                    e.setPersistent(false);
+                    e.setInvulnerable(true);
+                    e.setGravity(false);
+                    e.setVisibleByDefault(false);
+                    e.setBlock(block.getBlockData());
+                    e.setBrightness(new Display.Brightness(15, 15));
+                    e.setViewRange(1f);
+                    e.setGlowing(true);
+                });
+                displays.add(display);
+                player.showEntity(plugin, display);
             }
-            int stride = Math.max(1, (stops.size() + 15) / 16);
-            for (int i = 0; i < stops.size(); i += stride) {
-                Location where = stops.get(i);
-                if (!world.isChunkLoaded(where.getBlockX() >> 4, where.getBlockZ() >> 4)) continue;
-                player.spawnParticle(Particle.END_ROD, where.clone().add(.5,.6,.5),
-                        2, .08,.1,.08, .01);
+            if (displays.isEmpty()) {
+                player.sendMessage(Settings.message("tesoros", "MithrilTools.linterna-sin-menas",
+                        "<gray>El pulso no detectó minerales accesibles."));
+                return;
             }
-        }, 0, 20);
-        routes.put(id, task);
-        return true;
-    }
-
-    public void moved(Player player, Location from, Location to, int maximumDistance) {
-        if(!progression.meets(player,"ingenieria"))return;
-        if (to == null || from.getBlockX() == to.getBlockX()
-                && from.getBlockY() == to.getBlockY() && from.getBlockZ() == to.getBlockZ()) return;
-        for (EquipmentSlot hand : List.of(EquipmentSlot.HAND, EquipmentSlot.OFF_HAND)) {
-            ItemStack stack = data.held(player, hand);
-            if (stack.getType() != org.bukkit.Material.SOUL_LANTERN
-                    || !MithrilDeviceData.LANTERN.equals(data.id(stack)) || !data.lit(stack)) continue;
-            String origin = data.anchor(stack);
-            if (origin.isBlank()) continue;
-            if (!origin.startsWith(player.getWorld().getUID() + ":")) {
-                clear(player, hand, stack); continue;
-            }
-            List<Location> stops = parse(player.getWorld(), data.path(stack));
-            if (stops.isEmpty()) continue;
-            Location last = stops.getLast();
-            if (last.distanceSquared(to) < 16 || stops.size() >= 64) continue;
-            String rawAnchor = origin.substring(origin.indexOf(':') + 1);
-            List<Location> beginnings = parse(player.getWorld(), rawAnchor);
-            if (beginnings.isEmpty() || beginnings.getFirst().distanceSquared(to)
-                    > maximumDistance * maximumDistance) continue;
-            String point = to.getBlockX() + "," + to.getBlockY() + "," + to.getBlockZ();
-            String path = data.path(stack) + ";" + point;
-            if (path.length() <= 4096) data.update(player, hand, data.path(stack, path));
+            BukkitTask expiry = Bukkit.getScheduler().runTaskLater(plugin, () -> cancel(id),
+                    config("resaltado-segundos") * 20L);
+            pulses.put(id, new Pulse(displays, expiry));
+            player.sendMessage(Settings.message("tesoros", "MithrilTools.linterna-pulso",
+                    "<aqua>✦ {cantidad} menas reveladas", "cantidad", displays.size()));
+        } catch (RuntimeException failure) {
+            cancel(id);
+            displays.forEach(BlockDisplay::remove);
+            player.getPersistentDataContainer().remove(cooldown);
+            plugin.getLogger().warning("Linterna: no se pudo mostrar el pulso: " + failure.getMessage());
+            player.sendMessage(Settings.message("tesoros", "MithrilTools.uso-no-disponible",
+                    "<yellow>Esta habilidad no está disponible."));
         }
     }
 
-    private List<Location> parse(World world, String path) {
-        List<Location> list = new ArrayList<>();
-        if (path == null || path.isBlank() || path.length() > 4096) return list;
-        for (String tuple : path.split(";")) {
-            String[] parts = tuple.split(",");
-            if (parts.length != 3) return List.of();
-            try {
-                int x = Integer.parseInt(parts[0]), y = Integer.parseInt(parts[1]),
-                        z = Integer.parseInt(parts[2]);
-                if (y < world.getMinHeight() || y >= world.getMaxHeight()) return List.of();
-                list.add(new Location(world, x, y, z));
-            } catch (NumberFormatException invalid) { return List.of(); }
-            if (list.size() > 64) return List.of();
+    private List<Block> nearby(Player player, int radius) {
+        World world = player.getWorld();
+        var center = player.getLocation();
+        // Read configured ore classification once, not 3 YAML lists per block.
+        Set<String> ores = new HashSet<>();
+        var treasure = Settings.module("tesoros/config.yml");
+        for (int tier = 1; tier <= 3; tier++)
+            ores.addAll(treasure.getStringList("clasificacion.mineria.tier" + tier));
+        List<Candidate> found = new ArrayList<>();
+        for (int dx = -radius; dx <= radius; dx++) for (int dz = -radius; dz <= radius; dz++) {
+            int x = center.getBlockX() + dx, z = center.getBlockZ() + dz;
+            if (!world.isChunkLoaded(x >> 4, z >> 4)) continue;
+            for (int dy = -radius; dy <= radius; dy++) {
+                int y = center.getBlockY() + dy;
+                if (y < world.getMinHeight() || y >= world.getMaxHeight()
+                        || !MithrilRules.withinPulse(dx, dy, dz, radius)) continue;
+                Block block = world.getBlockAt(x, y, z);
+                if (!ores.contains(block.getType().name()) || placed.isMarked(block)) continue;
+                found.add(new Candidate(block, dx * dx + dy * dy + dz * dz));
+            }
         }
-        return list;
-    }
-
-    private void clear(Player player, EquipmentSlot hand, ItemStack stack) {
-        data.update(player, hand, data.path(data.anchor(stack, ""), ""));
-    }
-
-    public void teleported(Player player) {
-        cancel(player.getUniqueId());
-        for (EquipmentSlot hand : List.of(EquipmentSlot.HAND, EquipmentSlot.OFF_HAND)) {
-            ItemStack stack = data.held(player, hand);
-            if (MithrilDeviceData.LANTERN.equals(data.id(stack))) clear(player, hand, stack);
+        found.sort(Comparator.comparingInt(Candidate::distanceSquared));
+        List<Block> allowed = new ArrayList<>();
+        for (Candidate candidate : found) {
+            if (!regions.canBreak(player, candidate.block())) continue;
+            allowed.add(candidate.block());
+            if (allowed.size() >= config("max-menas")) break;
         }
+        return allowed;
     }
 
     public void cancel(UUID id) {
-        BukkitTask task = routes.remove(id);
-        if (task != null) task.cancel();
+        Pulse pulse = pulses.remove(id);
+        if (pulse == null) return;
+        pulse.expiry().cancel();
+        pulse.displays().forEach(BlockDisplay::remove);
     }
 
-    public void disable() {
-        if (lightTask != null) lightTask.cancel();
-        routes.values().forEach(BukkitTask::cancel);
-        routes.clear();
-    }
+    public void disable() { List.copyOf(pulses.keySet()).forEach(this::cancel); }
 }

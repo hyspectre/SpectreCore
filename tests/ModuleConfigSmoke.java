@@ -107,6 +107,20 @@ public final class ModuleConfigSmoke {
                 && manager.mining().getBoolean("tesoros.activados"),
                 "Even explicitly disabled services remain active in compatibility views");
 
+        var relicFile = root.resolve("modules/accesorios/catalogo.yml");
+        var oldRelics = yaml(relicFile);
+        oldRelics.set("caps.lantern_radius", null);
+        oldRelics.set("caps.signal_seconds", 4);
+        oldRelics.set("accesorios.BOBINA_COBRE.bonos.lantern_radius", null);
+        oldRelics.set("accesorios.BOBINA_COBRE.bonos.signal_seconds", 3);
+        oldRelics.save(relicFile.toFile());
+        manager.reload();
+        var newRelics = manager.read("accesorios/catalogo.yml");
+        check(newRelics.getInt("accesorios.BOBINA_COBRE.bonos.lantern_radius") == 3
+                && !newRelics.contains("accesorios.BOBINA_COBRE.bonos.signal_seconds"),
+                "Preserve custom relic bonus when migrating the compass to lantern");
+        check(Files.isRegularFile(root.resolve("backups/linterna-v1/modules/accesorios/catalogo.yml")),
+                "Back up previous relic configuration");
         var restarted=new ModuleConfiguration(root.toFile(),ModuleConfigSmoke.class.getClassLoader());
         restarted.reload();alwaysOn(restarted);
         write(root,"mining.yml","INVALID OLD YAML [");restarted.reload();

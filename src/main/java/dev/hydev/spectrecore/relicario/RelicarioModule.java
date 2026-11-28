@@ -265,7 +265,7 @@ public final class RelicarioModule implements Listener {
     private String statUnit(String key) {
         return switch (key) {
             case "health", "mana" -> "";
-            case "signal_seconds" -> " s";
+            case "lantern_radius" -> " bloques";
             default -> "%";
         };
     }

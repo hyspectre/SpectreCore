@@ -8851,105 +8851,57 @@
   },
   {
     "archivo": "tesoros/mensajes.yml",
-    "clave": "MithrilTools.ancla-limpiada",
-    "predeterminado": "<gray>Se borró el sendero del Farol.",
-    "origen": "MithrilToolModule.java:113"
-  },
-  {
-    "archivo": "tesoros/mensajes.yml",
-    "clave": "MithrilTools.anclado",
-    "predeterminado": "<aqua>✦ El Farol recuerda tu ubicación.",
-    "origen": "MithrilToolModule.java:112"
-  },
-  {
-    "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.campo-ametista",
     "predeterminado": "<light_purple>✦ {cantidad} cristales invocados <gray>(-{costo} de resonancia). <light_purple>¡Rómpelos!",
-    "origen": "MithrilToolModule.java:118"
+    "origen": "MithrilToolModule.java:103"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.carga-completa",
     "predeterminado": "<gray>La herramienta ya está completamente cargada.",
-    "origen": "MithrilToolModule.java:98"
+    "origen": "MithrilToolModule.java:91"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.cargada",
     "predeterminado": "<aqua>✦ Resonancia restaurada: <white>{carga}/{max}",
-    "origen": "MithrilToolModule.java:99"
-  },
-  {
-    "archivo": "tesoros/mensajes.yml",
-    "clave": "MithrilTools.luz",
-    "predeterminado": "<aqua>✦ Farol encendido.",
-    "origen": "MithrilToolModule.java:110"
-  },
-  {
-    "archivo": "tesoros/mensajes.yml",
-    "clave": "MithrilTools.luz-apagada",
-    "predeterminado": "<gray>Farol apagado.",
-    "origen": "MithrilToolModule.java:111"
-  },
-  {
-    "archivo": "tesoros/mensajes.yml",
-    "clave": "MithrilTools.ruta",
-    "predeterminado": "<aqua>✦ Sendero de retorno visible durante 20 segundos.",
-    "origen": "MithrilToolModule.java:114"
-  },
-  {
-    "archivo": "tesoros/mensajes.yml",
-    "clave": "MithrilTools.senal",
-    "predeterminado": "<aqua>✦ Señal {intensidad}<gray> · {direccion} · Profundidad {profundidad}",
-    "origen": "MithrilToolModule.java:109"
-  },
-  {
-    "archivo": "tesoros/mensajes.yml",
-    "clave": "MithrilTools.senal",
-    "predeterminado": "<aqua>✦ Señal {intensidad}<gray> · {direccion} · Profundidad {profundidad}",
-    "origen": "MithrilToolModule.java:496"
+    "origen": "MithrilToolModule.java:92"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.sin-cristales",
     "predeterminado": "<yellow>No hay espacio seguro para invocar cristales o sus gemas todavía no están disponibles.",
-    "origen": "MithrilToolModule.java:117"
-  },
-  {
-    "archivo": "tesoros/mensajes.yml",
-    "clave": "MithrilTools.sin-senal",
-    "predeterminado": "<gray>El pulso no detectó minerales accesibles.",
-    "origen": "MithrilToolModule.java:108"
+    "origen": "MithrilToolModule.java:102"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.sin-tunel",
     "predeterminado": "<gray>La Barrena necesita roca común y un camino permitido.",
-    "origen": "MithrilToolModule.java:115"
+    "origen": "MithrilToolModule.java:100"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.sin-veta",
     "predeterminado": "<gray>Mira una veta natural que puedas extraer.",
-    "origen": "MithrilToolModule.java:105"
+    "origen": "MithrilToolModule.java:97"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.tunel",
     "predeterminado": "<aqua>✦ Barrena activada. No extrae minerales ni concede experiencia adicional.",
-    "origen": "MithrilToolModule.java:116"
+    "origen": "MithrilToolModule.java:101"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.veta",
     "predeterminado": "<aqua>✦ Veta marcada. Extrae para recoger hasta tres bloques adicionales.",
-    "origen": "MithrilToolModule.java:106"
+    "origen": "MithrilToolModule.java:98"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.zona",
     "predeterminado": "<red>La herramienta no puede utilizarse en esta zona.",
-    "origen": "MithrilToolModule.java:107"
+    "origen": "MithrilToolModule.java:99"
   },
   {
     "archivo": "trabajos/ajustes.yml",
@@ -9087,13 +9039,13 @@
     "archivo": "trabajos/mensajes.yml",
     "clave": "MiningProgression.requisito-herramienta",
     "predeterminado": "<yellow>Necesitas Minería nivel {nivel} para utilizar esta herramienta.",
-    "origen": "MithrilToolModule.java:316"
+    "origen": "MithrilToolModule.java:309"
   },
   {
     "archivo": "trabajos/mensajes.yml",
     "clave": "MiningProgression.requisito-herramienta",
     "predeterminado": "<yellow>Necesitas Minería nivel {nivel} para utilizar esta herramienta.",
-    "origen": "MithrilToolModule.java:330"
+    "origen": "MithrilToolModule.java:323"
   },
   {
     "archivo": "trabajos/mensajes.yml",
@@ -9195,115 +9147,91 @@
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-amatista",
     "predeterminado": "Amatista",
-    "origen": "MithrilToolModule.java:161"
-  },
-  {
-    "archivo": "tesoros/mensajes.yml",
-    "clave": "MithrilTools.hud-anclar",
-    "predeterminado": "Fijar retorno",
-    "origen": "MithrilToolModule.java:179"
+    "origen": "MithrilToolModule.java:147"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-barra",
     "predeterminado": "<aqua>✦ Resonancia <white>{carga}/{max} <gray>· <white>{habilidad} <dark_gray>│ {estado}",
-    "origen": "MithrilToolModule.java:235"
+    "origen": "MithrilToolModule.java:206"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-barrena",
     "predeterminado": "Barrena",
-    "origen": "MithrilToolModule.java:188"
+    "origen": "MithrilToolModule.java:159"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-barrena-activa",
     "predeterminado": "<aqua>Excavando",
-    "origen": "MithrilToolModule.java:191"
+    "origen": "MithrilToolModule.java:162"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-bloqueada",
     "predeterminado": "<yellow>Desbloquea Minería {nivel}",
-    "origen": "MithrilToolModule.java:200"
-  },
-  {
-    "archivo": "tesoros/mensajes.yml",
-    "clave": "MithrilTools.hud-brujula",
-    "predeterminado": "Pulso",
-    "origen": "MithrilToolModule.java:173"
+    "origen": "MithrilToolModule.java:171"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-campo-activo",
     "predeterminado": "<aqua>Termina el hallazgo activo",
-    "origen": "MithrilToolModule.java:166"
+    "origen": "MithrilToolModule.java:152"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-campos-ocupados",
     "predeterminado": "<yellow>Espera un momento",
-    "origen": "MithrilToolModule.java:169"
+    "origen": "MithrilToolModule.java:155"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-control-agachado",
     "predeterminado": "<gray>Agáchate + clic der.",
-    "origen": "MithrilToolModule.java:149"
-  },
-  {
-    "archivo": "tesoros/mensajes.yml",
-    "clave": "MithrilTools.hud-control-click",
-    "predeterminado": "<gray>Clic der.",
-    "origen": "MithrilToolModule.java:174"
+    "origen": "MithrilToolModule.java:135"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-falta",
     "predeterminado": "<gray>Faltan <white>{falta} <gray>de carga",
-    "origen": "MithrilToolModule.java:218"
+    "origen": "MithrilToolModule.java:189"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-lista",
     "predeterminado": "<green>Carga lista <gray>· {control}",
-    "origen": "MithrilToolModule.java:228"
+    "origen": "MithrilToolModule.java:199"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-parcial",
     "predeterminado": "<yellow>Campo parcial posible <gray>· {control}",
-    "origen": "MithrilToolModule.java:223"
+    "origen": "MithrilToolModule.java:194"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-recarga",
     "predeterminado": "<yellow>Recarga {s}s",
-    "origen": "MithrilToolModule.java:213"
-  },
-  {
-    "archivo": "tesoros/mensajes.yml",
-    "clave": "MithrilTools.hud-sendero",
-    "predeterminado": "Sendero",
-    "origen": "MithrilToolModule.java:183"
+    "origen": "MithrilToolModule.java:184"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-supervivencia",
     "predeterminado": "<yellow>Solo en supervivencia",
-    "origen": "MithrilToolModule.java:205"
+    "origen": "MithrilToolModule.java:176"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-veta",
     "predeterminado": "Veta",
-    "origen": "MithrilToolModule.java:153"
+    "origen": "MithrilToolModule.java:139"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.hud-veta-activa",
     "predeterminado": "<aqua>Mina la veta marcada · {s}s",
-    "origen": "MithrilToolModule.java:157"
+    "origen": "MithrilToolModule.java:143"
   },
   {
     "archivo": "cocina/mensajes.yml",
@@ -9507,31 +9435,25 @@
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.carga-insuficiente",
     "predeterminado": "<yellow>Te faltan <white>{falta} <yellow>de resonancia.",
-    "origen": "MithrilToolModule.java:101"
+    "origen": "MithrilToolModule.java:94"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.en-recarga",
     "predeterminado": "<yellow>Recarga: <white>{s}s",
-    "origen": "MithrilToolModule.java:102"
-  },
-  {
-    "archivo": "tesoros/mensajes.yml",
-    "clave": "MithrilTools.ruta-no-disponible",
-    "predeterminado": "<gray>No hay un sendero guardado en este mundo.",
-    "origen": "MithrilToolModule.java:103"
+    "origen": "MithrilToolModule.java:95"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.sin-cristales-limite",
     "predeterminado": "<yellow>Hay demasiados campos activos. Intenta más tarde.",
-    "origen": "MithrilToolModule.java:104"
+    "origen": "MithrilToolModule.java:96"
   },
   {
     "archivo": "tesoros/mensajes.yml",
     "clave": "MithrilTools.uso-no-disponible",
     "predeterminado": "<yellow>Esta habilidad no está disponible.",
-    "origen": "MithrilToolModule.java:100"
+    "origen": "MithrilToolModule.java:93"
   },
   {
     "archivo": "slayer/mensajes.yml",
@@ -9700,5 +9622,77 @@
     "clave": "MiningProgression.progreso-no-disponible",
     "predeterminado": "<yellow>Progreso minero no disponible",
     "origen": "MiningProgression.java:50"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.en-recarga",
+    "predeterminado": "<yellow>Recarga: <white>{s}s",
+    "origen": "MithrilLantern.java:83"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.hud-bloqueada",
+    "predeterminado": "<yellow>Desbloquea Minería {nivel}",
+    "origen": "MithrilToolModule.java:218"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.hud-linterna",
+    "predeterminado": "<aqua>✦ Linterna <dark_gray>│ <white>Pulso <dark_gray>│ {estado}",
+    "origen": "MithrilToolModule.java:232"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.hud-linterna-lista",
+    "predeterminado": "<green>Lista <gray>· Agáchate + clic der.",
+    "origen": "MithrilToolModule.java:229"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.hud-recarga",
+    "predeterminado": "<yellow>Recarga {s}s",
+    "origen": "MithrilToolModule.java:226"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.hud-supervivencia",
+    "predeterminado": "<yellow>Solo en supervivencia",
+    "origen": "MithrilToolModule.java:223"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.linterna-luz",
+    "predeterminado": "<aqua>✦ Visión nocturna <gray>· <white>{s}s",
+    "origen": "MithrilLantern.java:74"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.linterna-ocupada",
+    "predeterminado": "<yellow>Espera un momento para usar el pulso.",
+    "origen": "MithrilLantern.java:89"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.linterna-pulso",
+    "predeterminado": "<aqua>✦ {cantidad} menas reveladas",
+    "origen": "MithrilLantern.java:129"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.linterna-sin-menas",
+    "predeterminado": "<gray>El pulso no detectó minerales accesibles.",
+    "origen": "MithrilLantern.java:122"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.uso-no-disponible",
+    "predeterminado": "<yellow>Esta habilidad no está disponible.",
+    "origen": "MithrilLantern.java:136"
+  },
+  {
+    "archivo": "tesoros/mensajes.yml",
+    "clave": "MithrilTools.zona",
+    "predeterminado": "<red>La herramienta no puede utilizarse en esta zona.",
+    "origen": "MithrilLantern.java:94"
   }
 ]

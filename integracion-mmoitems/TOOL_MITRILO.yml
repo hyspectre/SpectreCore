@@ -27,34 +27,23 @@ PICO_MITRILO_TEMPLADO:
 
 # Controles: clic derecho; agacharse + clic derecho para los modos avanzados.
 # La resonancia es del objeto, se conserva en su PDC y nunca se simula con lore.
-BRUJULA_GEOLOGICA:
-  base:
-    revision-id: 2
-    material: COMPASS
-    max-stack-size: 1
-    name: '<gradient:#74B8CE:#E7E3BD>Brújula Geológica</gradient>'
-    tier: RARE
-    lore:
-    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fPulso'
-    - '&f'
-    - '&e ʜᴀᴢ ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴠᴇʀ'
-    - '&e ᴇɴ ǫᴜé ᴅɪʀᴇᴄᴄɪóɴ ʏ ᴀ ǫᴜé'
-    - '&e ᴘʀᴏғᴜɴᴅɪᴅᴀᴅ ʜᴀʏ ᴜɴᴀ ᴍᴇɴᴀ.'
+# ID conservado para actualizar los faroles existentes sin perderlos.
 FAROL_MITRILO:
   base:
-    revision-id: 2
+    revision-id: 6
     material: SOUL_LANTERN
     max-stack-size: 1
-    name: '<gradient:#8EDCCF:#BDA9E9>Farol de Mitrilo</gradient>'
+    name: '<gradient:#8EDCCF:#BDA9E9>Linterna de Mitrilo</gradient>'
     tier: RARE
+    permission:
+    - hydev.mineria.ingenieria
     lore:
-    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fRetorno'
-    - '&f'
-    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ: ᴇɴᴄᴇɴᴅᴇʀ ᴏ ᴀᴘᴀɢᴀʀ.'
-    - '&e ᴀɢáᴄʜᴀᴛᴇ ʏ ʜᴀᴢ ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ'
-    - '&e ᴘᴀʀᴀ ᴍᴀʀᴄᴀʀ ᴛᴜ ᴘᴜɴᴛᴏ ᴅᴇ ᴠᴜᴇʟᴛᴀ.'
-    - '&e ʀᴇᴘíᴛᴇʟᴏ ᴘᴀʀᴀ ᴠᴇʀ ʟᴀ ʀᴜᴛᴀ.'
-    - '&e ᴀɢᴀᴄʜᴀᴅᴏ, ᴄʟɪᴄ ɪᴢǫ. ᴘᴀʀᴀ ʙᴏʀʀᴀʀ.'
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fLuz'
+    - '&e Clic derecho: Visión nocturna (60 s).'
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fPulso'
+    - '&e Agáchate + clic derecho para revelar menas.'
+    - '&7 Duración: &f3 s &8│ &7Recarga: &f140 s'
+
 BARRENA_MITRILO:
   base:
     revision-id: 2

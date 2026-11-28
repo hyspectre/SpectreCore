@@ -39,25 +39,9 @@ public final class MithrilRules {
         return millis / 1000 + (millis % 1000 == 0 ? 0 : 1);
     }
 
-    public static String signal(double distance) {
-        if (!Double.isFinite(distance) || distance < 0) return "ninguna";
-        return distance <= 6 ? "intensa" : distance <= 12 ? "moderada" : "debil";
-    }
-
-    public static String direction(double dx, double dz) {
-        if (!Double.isFinite(dx) || !Double.isFinite(dz)) return "desconocida";
-        double angle = Math.atan2(dx, -dz);
-        String[] sectors = {"N", "NE", "E", "SE", "S", "SO", "O", "NO"};
-        int index = Math.floorMod((int) Math.round(angle / (Math.PI / 4)), 8);
-        return sectors[index];
-    }
-
-    public static String depth(int delta) {
-        return delta > 4 ? "arriba" : delta < -4 ? "abajo" : "similar";
-    }
-
-    public static boolean within(int dx, int dy, int dz, int radius, int vertical) {
-        return Math.abs(dy) <= vertical && (long) dx * dx + (long) dz * dz <= (long) radius * radius;
+    /** Spherical pulse centered on the player's block, not a full cube. */
+    public static boolean withinPulse(int dx, int dy, int dz, int radius) {
+        return (long) dx * dx + (long) dy * dy + (long) dz * dz <= (long) radius * radius;
     }
 
     public static boolean sameOre(String a, String b) {

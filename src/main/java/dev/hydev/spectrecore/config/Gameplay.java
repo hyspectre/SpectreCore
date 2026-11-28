@@ -165,11 +165,7 @@ public final class Gameplay {
                 "cristal.recupera","pico.activacion","pico.duracion-segundos",
                 "pico.radio","pico.max-resaltados","pico.resaltado-segundos",
                 "pico.max-bloques-adicionales","pico.coste-bloque-adicional",
-                "pico.recarga-segundos","brujula.activacion",
-                "brujula.radio-horizontal","brujula.radio-vertical",
-                "brujula.duracion-senal-segundos","brujula.recarga-segundos",
-                "farol.anclar","farol.ruta","farol.marcas-segundos",
-                "farol.recarga-segundos","farol.distancia-maxima",
+                "pico.recarga-segundos",
                 "barrena.activacion","barrena.pasos","barrena.intervalo-ticks",
                 "barrena.recarga-segundos"))
             bounded(ores, root+item, 1, 256, true);
@@ -177,13 +173,17 @@ public final class Gameplay {
                 || ores.getInt(root+"pico.radio") > 6
                 || ores.getInt(root+"pico.max-resaltados") > 8
                 || ores.getInt(root+"pico.max-bloques-adicionales") > 3
-                || ores.getInt(root+"brujula.radio-horizontal") > 20
-                || ores.getInt(root+"brujula.radio-vertical") > 16
                 || ores.getInt(root+"barrena.pasos") > 8
                 || ores.getInt(root+"barrena.intervalo-ticks") < 4
-                || ores.getInt(root+"barrena.intervalo-ticks") > 20
-                || ores.getInt(root+"farol.distancia-maxima") > 256)
+                || ores.getInt(root+"barrena.intervalo-ticks") > 20)
             throw new java.io.IOException("tesoros/mineria.yml: límites de rendimiento de Mitrilo fuera de rango");
+        String lantern = root + "linterna.";
+        bounded(ores, lantern+"vision-segundos", 15, 600, true);
+        bounded(ores, lantern+"radio", 1, 16, true);
+        bounded(ores, lantern+"resaltado-segundos", 1, 5, true);
+        bounded(ores, lantern+"recarga-segundos", 30, 600, true);
+        bounded(ores, lantern+"max-menas", 1, 32, true);
+        bounded(ores, lantern+"max-pulsos", 1, 8, true);
         String field = root + "pico-amatista.";
         for (String number : List.of("activacion","recarga-segundos","duracion-segundos",
                 "bloques","minimo-bloques","max-sesiones","golpes","intervalo-golpe-ms"))

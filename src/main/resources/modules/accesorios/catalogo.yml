@@ -24,7 +24,7 @@ caps:
   prospector_chance: 25
   resonance_extra: 20
   geode_chance: 30
-  signal_seconds: 4
+  lantern_radius: 4
 accesorios:
   BROTE_MARCHITO:
     nombre: "Brote Marchito"
@@ -397,4 +397,4 @@ accesorios:
     textura: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjFhOWFlOWRiMzZmNzBkNDY3MzU0MDY5ZmJiZGNjN2QyNzliYWY2NzIxNTYxMzgxZGE2MGQzMzliMjNkODgyOSJ9fX0=
     origen: "Forja Minera"
     bonos:
-      signal_seconds: 4
+      lantern_radius: 4

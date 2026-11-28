@@ -50,19 +50,7 @@ recipes:
     - 'mmoitem{type=TOOL,id=PICO_MITRILO,amount=1}'
     - 'vanilla{type=DIAMOND,amount=8}'
 
-  brujula-geologica:
-    output: 'mmoitems{type=TOOL,id=BRUJULA_GEOLOGICA}'
-    crafting-time: 15
-    conditions:
-    - 'permission{list="hydev.mineria.ingenieria";display="Minería nivel 25"}'
-    ingredients:
-    - 'mmoitem{type=MATERIAL,id=AMATISTA_RESONANTE,amount=2}'
-    - 'mmoitem{type=MATERIAL,id=MITRILO,amount=12}'
-    - 'vanilla{type=COMPASS,amount=1}'
-    - 'vanilla{type=REDSTONE,amount=4}'
-    - 'vanilla{type=AMETHYST_SHARD,amount=2}'
-
-  farol-mitrilo:
+  linterna-mitrilo:
     output: 'mmoitems{type=TOOL,id=FAROL_MITRILO}'
     crafting-time: 15
     conditions:

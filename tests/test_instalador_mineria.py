@@ -13,7 +13,7 @@ spec.loader.exec_module(module)
 perms=yaml.safe_load((root/"integracion-auraskills/rewards/mining.yml").read_text("utf-8"))
 assert perms["patterns"][0]["stat"]=="toughness"
 assert perms["patterns"][1]["stat"]=="luck"
-grants={level:entry[0]["permission"] for level,entry in perms["levels"].items()}
+grants={level:entry[0]["permission"] for level,entry in perms["levels"].items() if entry[0]["type"] == "permission"}
 expected={1:"inicial",3:"hechizados",6:"paladio",12:"duendes",15:"resonancia",
           18:"mitrilo",22:"arcana",25:"ingenieria"}
 assert grants=={n:"hydev.mineria."+s for n,s in expected.items()}
@@ -105,8 +105,12 @@ gui-layout:
     assert station.read_bytes() == originals[station]
     definitions=yaml.safe_load(dedicated.read_text("utf-8"))
     assert module.detect_forge(plugin,None) == station
-    assert len(definitions["recipes"]) == 27
+    assert len(definitions["recipes"]) == 26
     assert len(yaml.safe_load((plugin/"item/reliquia.yml").read_text())) == 5
+    assert "BRUJULA_GEOLOGICA" not in tool
+    assert "Linterna de Mitrilo" in tool["FAROL_MITRILO"]["base"]["name"]
+    assert "brujula-geologica" not in definitions["recipes"] and "farol-mitrilo" not in definitions["recipes"]
+
     for item, count in {"TALADRO":1, "TALADRO_REFORZADO":2,"TALADRO_CALIBRADO":3,"PICO_MITRILO_TEMPLADO":2}.items():
         assert tool[item]["base"]["gem-sockets"] == ["1"] * count
     assert "lingote-mitrilo" not in definitions["recipes"] and "cristal-mitrilo" not in definitions["recipes"]
@@ -124,7 +128,7 @@ gui-layout:
     assert installed_gems["GEMA_RUBI_1"]["base"]["lore"] and installed_gems["GEMA_RUBI_1"]["base"]["lore-format"] == "gema-minera"
     assert "FRAGMENTO_PICO_PERDIDO" in str(definitions["recipes"]["picoperdido"])
     assert "hydev.mineria.resonancia" in str(definitions["recipes"]["picoperdido"])
-    assert "hydev.mineria.ingenieria" in str(definitions["recipes"]["brujula-geologica"])
+    assert "hydev.mineria.ingenieria" in str(definitions["recipes"]["linterna-mitrilo"])
     assert "hydev.mineria.duendes" in str(definitions["recipes"]["taladro-reforzado"])
     assert "hydev.mineria.resonancia" in str(definitions["recipes"]["taladro-calibrado"])
     upgrades = {"taladro-reforzado", "taladro-calibrado", "pico-mitrilo-templado"}
@@ -146,8 +150,20 @@ gui-layout:
     legacy = custom.replace(
         "      upgrade:\n        name: '&f{name}'\n        lore: ['{conditions}', '{ingredients}', '{lore}', '&eClic para mejorar']\n", "")
     assert "upgrade" not in yaml.safe_load(legacy)["gui-layout"]["items"]["recipe"]
+    retired = """  brujula-geologica:
+    output: 'mmoitems{type=TOOL,id=BRUJULA_GEOLOGICA}'
+    crafting-time: 15
+  farol-mitrilo:
+    output: 'mmoitems{type=TOOL,id=FAROL_MITRILO}'
+    crafting-time: 15
+"""
+    legacy = legacy.replace("recipes:\n", "recipes:\n" + retired, 1)
     dedicated.write_text(legacy)
+    # Known retired offers are removed in other stations, preserving everything else.
+    extra_station = station.with_name("legacy-mining.yml")
+    extra_station.write_text("recipes:\n" + retired + "  otro:\n    output: 'vanilla{type=STONE}'\n")
     module.install(plugin, station, True)
+    assert set(yaml.safe_load(extra_station.read_text())["recipes"]) == {"otro"}
     repaired = yaml.safe_load(dedicated.read_text())
     assert repaired["gui-layout"]["name"] == "Mi Forja"
     assert repaired["gui-layout"]["items"]["recipe"]["upgrade"] == upgrade

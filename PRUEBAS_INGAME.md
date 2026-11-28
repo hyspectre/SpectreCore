@@ -21,7 +21,7 @@ Antes de producción: respaldar `plugins/`, probar sin los plugins o scripts de 
 - Con el conjunto completo, golpea o recibe ataques hostiles: la barra de Furia indica progreso y disponibilidad real (sin actionbar).
 - Con Furia completa y sin recarga, pulsa Shift dos veces: la barra cambia a Ímpetu y muestra el tiempo restante. El primer golpe fija al enemigo; los siguientes acumulan cargas y hasta +12% de daño con la configuración por defecto.
 - Cambia de enemigo o deja pasar más de 2,5 s entre golpes: verifica que la cadena se reinicia. Al terminar, comprueba que la barra vuelve a Furia/recarga y se oculta al quitar el conjunto, morir o desconectarte.
-- Comprueba que la brújula y el portal muestran su estado temporal en barras nativas, y que cocina, geodas y trabajos no escriben en la actionbar.
+- Comprueba que la Linterna y el portal muestran su estado temporal en barras nativas, y que cocina, geodas y trabajos no escriben en la actionbar.
 
 ## Indicadores de armaduras y herramientas (dev09)
 
@@ -31,3 +31,11 @@ Antes de producción: respaldar `plugins/`, probar sin los plugins o scripts de 
 - Sangre del Primer Dragón: activa con golpes o daño recibido; compara duración con y sin Dracoreliquia, incluso al cambiar de arma. La animación puede terminar antes de la bendición.
 - Golpea un enemigo con un multiplicador directo y verifica que solo el atacante ve el float; un golpe normal o cancelado no produce ese indicador. Los golpes rápidos no apilan floats.
 - Usa una herramienta de Mitrilo sin carga, en recarga y sin un sendero guardado; comprueba cada aviso y la consulta de materiales en El Mago.
+
+
+## Linterna de Mitrilo (dev09)
+- Minería 25: clic derecho con la Linterna en mano principal da Visión nocturna (60 s); repetir renueva sin reemplazar un efecto mayor.
+- Agáchate + clic derecho: verifica contornos de menas tras roca durante 3 s, visibles solo para quien activa, sin cambiar bloques. Otro jugador no debe verlos.
+- Comprueba radio 10, máximo 24 menas, recarga 140 s incluso al cambiar de Linterna, relog o pulso sin menas.
+- Menas colocadas o protegidas no se revelan; sin WorldGuard se rechaza el pulso. Al salir, morir, teletransportarse o recargar, se limpian los contornos.
+- Bobina de Cobre: +4 bloques de alcance, duración y recarga intactas. Los Faroles existentes adquieren la nueva habilidad con su ID original.

@@ -37,8 +37,7 @@ Construir conexiones útiles entre exploración, accesorios, profesiones, fabric
 ### 0.9.0-dev4 — Herramientas especializadas de Mitrilo (implementadas en esta rama)
 
 - **Pico de Mitrilo:** mantiene la bonificación pasiva para hallar Mitrilo y añade una habilidad de vetas conectadas, con hasta tres bloques adicionales por extracción y consumo de energía/durabilidad.
-- **Brújula Geológica:** pulso regional limitado, señales de intensidad y orientación durante 8 segundos. No revela coordenadas exactas ni carga chunks.
-- **Farol de Mitrilo:** visión nocturna básica gratuita y sendero de retorno anclado en el ítem, con límite espacial y marcas temporales.
+- **Linterna de Mitrilo:** reemplaza Brújula y Farol. Clic derecho: visión nocturna renovable (60 s); agachado + clic derecho: contornos brillantes de hasta 24 menas naturales en radio 10 durante 3 s, recarga por jugador de 140 s. No consume resonancia ni carga chunks. Conserva el ID del Farol.
 - **Barrena de Mitrilo:** túnel 1×2 de hasta 16 bloques, un bloque cada 0,25 segundos, solo en roca de lista blanca.
 - **Cristal de Mitrilo:** recarga 50 de los 100 puntos máximos de resonancia almacenados individualmente en cada herramienta.
 - Las habilidades respetan la protección WorldGuard verificada; sin ella, las lecturas y excavaciones sensibles se bloquean. La minería automática no incrementa botines ni pagos por extracción manual.
@@ -66,11 +65,11 @@ Construir conexiones útiles entre exploración, accesorios, profesiones, fabric
 
 ### 0.9.0-dev7 — Minería: encuentros, herramientas, Luck y progresión
 
-- Desbloqueos a nivel 1/3/6/12/15/18/22/25 usando exclusivamente los niveles y el menú de AuraSkills; no se duplica progreso.
+- Desbloqueos a nivel 1/3/6/10/12/15/18/22/25 usando exclusivamente los niveles y el menú de AuraSkills; no se duplica progreso.
 - Duendes al romper oro natural desde nivel 12 y Prospectores al extraer diamante, esmeralda y obsidiana natural desde nivel 15. Tipos MythicMobs Free, origen de spawn seguro, cooldown y población limitados; botines materiales MMOItems entregados por SpectreCore.
 - Taladro original `TOOL:TALADRO` desde nivel 6, con dos mejoras mediante Chatarra Mecánica y Antigua. Solo perfora piedra y las rocas adicionales no producen recursos ni experiencia.
 - Receta original del Pico Perdido encontrada y conservada con `TOOL:PICO_GEMAS`, ahora reconstruible con fragmentos de Prospectores; tres objetos `GEM_STONE` completan sus recompensas originales.
-- Paladio ya tiene probabilidades predeterminadas reales. El Mitrilo se desbloquea a nivel 18, el Pico de Amatista a 22 y la Brújula/Farol/Barrena a 25.
+- Paladio ya tiene probabilidades predeterminadas reales. El Mitrilo se desbloquea a nivel 18, el Pico de Amatista a 22 y la Linterna/Barrena a 25.
 - Luck de AuraSkills interviene en encuentros, probabilidades de Paladio/Mitrilo, cantidad extra, botines de monstruos y calidad de gemas. Límites globales configurables; la experiencia de AuraSkills no se altera.
 - Los contratos de Minería nuevos requieren niveles 1/6/15; se preservan los ya comprados.
 - `integracion-auraskills/rewards/mining.yml` conserva los patrones de Toughness/Luck y quita el permiso sin uso de nivel 30; **requiere instalación externa**.
@@ -102,3 +101,8 @@ Construir conexiones útiles entre exploración, accesorios, profesiones, fabric
 ## Publicación
 
 Cada cambio de código o configuración se publica y verifica en GitHub. Las nuevas funciones se desarrollan en ramas independientes; no fusionar a `main` sin revisión ni sustituir una instalación en producción sin respaldo.
+
+### dev09 — Linterna y Cénit
+
+- Linterna de Mitrilo (ID conservado `FAROL_MITRILO`): visión nocturna renovable y contornos de menas durante 3 s. Recarga por jugador 140 s; sin resonancia. Retira las recetas de la Brújula y el Farol anterior.
+- AuraSkills: al alcanzar Minería 10, recompensa de un Cénit existente (`CONSUMABLE:MEJORA_ARMA1`); sin nueva plantilla ni entrega retroactiva.

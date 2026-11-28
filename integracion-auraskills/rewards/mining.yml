@@ -33,6 +33,12 @@ levels:
       value: true
       menu_message: "\n&8✦ &6ʟᴀ ᴇʀᴀ ᴅᴇʟ ᴘᴀʟᴀᴅɪᴏ &8· &7Paladio, Taladro y contrato Experimentado"
       chat_message: "\n&6✦ &fᴍɪɴᴇʀíᴀ 6 &8│ &eʟᴀ ᴇʀᴀ ᴅᴇʟ ᴘᴀʟᴀᴅɪᴏ &8· &fBusca Paladio, fabrica el Taladro y contrata el rango Experimentado"
+  10:
+    - type: command
+      executor: console
+      command: "mi give CONSUMABLE MEJORA_ARMA1 {player} 1"
+      menu_message: "\n&8✦ &6ᴄéɴɪᴛ &8· &7Recompensa: Cénit ×1"
+      chat_message: "\n&6✦ &fᴍɪɴᴇʀíᴀ 10 &8│ &eᴄéɴɪᴛ &8· &fHito de mejora de armas"
   12:
     - type: permission
       permission: hydev.mineria.duendes
@@ -61,5 +67,5 @@ levels:
     - type: permission
       permission: hydev.mineria.ingenieria
       value: true
-      menu_message: "\n&8✦ &6ɪɴɢᴇɴɪᴇʀíᴀ ʏ ᴘʀᴏsᴘᴇᴄᴄɪóɴ &8· &7Brújula, Farol y Barrena"
-      chat_message: "\n&6✦ &fᴍɪɴᴇʀíᴀ 25 &8│ &eɪɴɢᴇɴɪᴇʀíᴀ ʏ ᴘʀᴏsᴘᴇᴄᴄɪóɴ &8· &fBrújula: busca vetas; Farol: recuerda tu camino; Barrena: excava roca"
+      menu_message: "\n&8✦ &6ɪɴɢᴇɴɪᴇʀíᴀ ʏ ᴘʀᴏsᴘᴇᴄᴄɪóɴ &8· &7Linterna y Barrena"
+      chat_message: "\n&6✦ &fᴍɪɴᴇʀíᴀ 25 &8│ &eɪɴɢᴇɴɪᴇʀíᴀ ʏ ᴘʀᴏsᴘᴇᴄᴄɪóɴ &8· &fLinterna: revela menas; Barrena: excava roca"

@@ -95,45 +95,25 @@ PICO_AMATISTA:
     - '&e ɢᴏʟᴘᴇᴀ ᴄᴀᴅᴀ ᴄʀɪsᴛᴀʟ 3 ᴠᴇᴄᴇs'
     - '&e ᴘᴀʀᴀ sᴀᴄᴀʀ ᴀᴍᴀᴛɪsᴛᴀ ʀᴇsᴏɴᴀɴᴛᴇ.'
 
-BRUJULA_GEOLOGICA:
+# ID conservado para actualizar los faroles existentes sin perderlos.
+FAROL_MITRILO:
   base:
-    revision-id: 5
+    revision-id: 6
     gem-sockets: ['1']
     unbreakable: true
-    material: COMPASS
+    material: SOUL_LANTERN
     max-stack-size: 1
-    name: '<gradient:#80AFC7:#E2D7B6>Brújula Geológica</gradient>'
+    name: '<gradient:#74B8B5:#D0B8E9>Linterna de Mitrilo</gradient>'
     tier: RARE
     tooltip: COPPER
     permission:
     - hydev.mineria.ingenieria
     lore:
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fLuz'
+    - '&e Clic derecho: Visión nocturna (60 s).'
     - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fPulso'
-    - '&f'
-    - '&e ʜᴀᴢ ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴠᴇʀ'
-    - '&e ᴇɴ ǫᴜé ᴅɪʀᴇᴄᴄɪóɴ ʏ ᴀ ǫᴜé'
-    - '&e ᴘʀᴏғᴜɴᴅɪᴅᴀᴅ ʜᴀʏ ᴜɴᴀ ᴍᴇɴᴀ.'
-
-FAROL_MITRILO:
-  base:
-    revision-id: 5
-    gem-sockets: ['1']
-    unbreakable: true
-    material: SOUL_LANTERN
-    max-stack-size: 1
-    name: '<gradient:#74B8B5:#D0B8E9>Farol de Mitrilo</gradient>'
-    tier: UNCOMMON
-    tooltip: COPPER
-    permission:
-    - hydev.mineria.ingenieria
-    lore:
-    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fRetorno'
-    - '&f'
-    - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ: ᴇɴᴄᴇɴᴅᴇʀ ᴏ ᴀᴘᴀɢᴀʀ.'
-    - '&e ᴀɢáᴄʜᴀᴛᴇ ʏ ʜᴀᴢ ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ'
-    - '&e ᴘᴀʀᴀ ᴍᴀʀᴄᴀʀ ᴛᴜ ᴘᴜɴᴛᴏ ᴅᴇ ᴠᴜᴇʟᴛᴀ.'
-    - '&e ʀᴇᴘíᴛᴇʟᴏ ᴘᴀʀᴀ ᴠᴇʀ ʟᴀ ʀᴜᴛᴀ.'
-    - '&e ᴀɢᴀᴄʜᴀᴅᴏ, ᴄʟɪᴄ ɪᴢǫ. ᴘᴀʀᴀ ʙᴏʀʀᴀʀ.'
+    - '&e Agáchate + clic derecho para revelar menas.'
+    - '&7 Duración: &f3 s &8│ &7Recarga: &f140 s'
 
 BARRENA_MITRILO:
   base:

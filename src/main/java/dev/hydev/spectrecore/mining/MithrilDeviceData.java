@@ -12,26 +12,23 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Set;
 
-/** All charge, cooldown, anchors and paths travel with the physical MMOItems item. */
+/** Charge and cooldown travel with the physical MMOItems item. */
 public final class MithrilDeviceData {
     public static final String PICK = "PICO_MITRILO";
     public static final String TEMPERED = "PICO_MITRILO_TEMPLADO";
     public static final String AMETHYST = "PICO_AMATISTA";
-    public static final String COMPASS = "BRUJULA_GEOLOGICA";
+    // Stable MMOItems ID: existing Faroles become Linternas without losing the item.
     public static final String LANTERN = "FAROL_MITRILO";
     public static final String DRILL = "BARRENA_MITRILO";
     public static final String CHARGE = "CARGA_RESONANTE";
-    private static final Set<String> TOOLS = Set.of(PICK, TEMPERED, AMETHYST, COMPASS, LANTERN, DRILL);
+    private static final Set<String> TOOLS = Set.of(PICK, TEMPERED, AMETHYST, LANTERN, DRILL);
     private final MmoBridge mmo = new MmoBridge();
-    private final NamespacedKey charge, cooldown, active, lit, anchor, path, serial;
+    private final NamespacedKey charge, cooldown, active, serial;
 
     public MithrilDeviceData(JavaPlugin plugin) {
         charge = new NamespacedKey(plugin, "mitrilo_resonancia");
         cooldown = new NamespacedKey(plugin, "mitrilo_recarga_hasta");
         active = new NamespacedKey(plugin, "mitrilo_activo_hasta");
-        lit = new NamespacedKey(plugin, "mitrilo_luz");
-        anchor = new NamespacedKey(plugin, "mitrilo_ancla");
-        path = new NamespacedKey(plugin, "mitrilo_ruta");
         serial = new NamespacedKey(plugin, "mitrilo_serial");
     }
 
@@ -61,14 +58,9 @@ public final class MithrilDeviceData {
 
     public long cooldown(ItemStack stack) { return number(stack, cooldown); }
     public long activeUntil(ItemStack stack) { return number(stack, active); }
-    public boolean lit(ItemStack stack) { return number(stack, lit) == 1; }
-    public String anchor(ItemStack stack) { return string(stack, anchor); }
-    public String path(ItemStack stack) { return string(stack, path); }
-
     private long number(ItemStack stack, NamespacedKey key) {
         PersistentDataContainer data = read(stack);
         if (data == null) return 0;
-        if (key.equals(lit)) return data.getOrDefault(key, PersistentDataType.BYTE, (byte) 0);
         return data.getOrDefault(key, PersistentDataType.LONG, 0L);
     }
 
@@ -96,22 +88,6 @@ public final class MithrilDeviceData {
     public ItemStack active(ItemStack stack, long until) {
         return modify(stack, data -> data.set(active, PersistentDataType.LONG, until));
     }
-    public ItemStack lit(ItemStack stack, boolean value) {
-        return modify(stack, data -> data.set(lit, PersistentDataType.BYTE, value ? (byte) 1 : (byte) 0));
-    }
-    public ItemStack anchor(ItemStack stack, String value) {
-        return modify(stack, data -> {
-            if (value == null || value.isEmpty()) data.remove(anchor);
-            else data.set(anchor, PersistentDataType.STRING, value);
-        });
-    }
-    public ItemStack path(ItemStack stack, String value) {
-        return modify(stack, data -> {
-            if (value == null || value.isEmpty()) data.remove(path);
-            else data.set(path, PersistentDataType.STRING, value);
-        });
-    }
-
     private ItemStack modify(ItemStack original, java.util.function.Consumer<PersistentDataContainer> change) {
         if (id(original).isEmpty()) return original;
         ItemStack stack = original.clone();

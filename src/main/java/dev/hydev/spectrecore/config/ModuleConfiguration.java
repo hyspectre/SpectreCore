@@ -46,6 +46,23 @@ public final class ModuleConfiguration {
             }
         }return changed;
     }
+    private static boolean migrateLanternBonuses(YamlConfiguration yaml) {
+        boolean changed = false;
+        List<String> groups = new ArrayList<>();
+        groups.add("caps.");
+        var relics = yaml.getConfigurationSection("accesorios");
+        if (relics != null) for (String id : relics.getKeys(false))
+            groups.add("accesorios." + id + ".bonos.");
+        for (String group : groups) {
+            String old = group + "signal_seconds", next = group + "lantern_radius";
+            if (!yaml.contains(old)) continue;
+            if (!yaml.contains(next)) yaml.set(next, yaml.get(old));
+            yaml.set(old, null);
+            changed = true;
+        }
+        return changed;
+    }
+
     private void save(File file,YamlConfiguration yaml)throws Exception{
         dev.hydev.spectrecore.storage.AtomicFileStore.writeUtf8(file.toPath(), yaml.saveToString());
     }
@@ -122,6 +139,14 @@ public final class ModuleConfiguration {
                                 yaml.set("gemas.ids."+quality,defaults.get("gemas.ids."+quality));
                         changed=true;
                     }
+                }
+                if (path.equals("accesorios/catalogo.yml") && migrateLanternBonuses(yaml)) {
+                    File backup = new File(folder, "backups/linterna-v1/modules/" + path);
+                    if (!backup.exists()) {
+                        Files.createDirectories(backup.toPath().getParent());
+                        Files.copy(destination.toPath(), backup.toPath());
+                    }
+                    changed = true;
                 }
                 for (String key : defaults.getKeys(true)) {
                     if (!defaults.isConfigurationSection(key) && !yaml.contains(key)) {

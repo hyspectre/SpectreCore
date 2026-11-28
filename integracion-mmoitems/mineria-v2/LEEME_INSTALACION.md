@@ -15,11 +15,12 @@ estos permisos:
 | 1 | `hydev.mineria.inicial` | Minería inicial, contrato Novato |
 | 3 | `hydev.mineria.hechizados` | Taller del Minero |
 | 6 | `hydev.mineria.paladio` | Paladio, Taladro, segundo contrato |
+| 10 | — | Recompensa: 1 Cénit (`CONSUMABLE:MEJORA_ARMA1`) |
 | 12 | `hydev.mineria.duendes` | Duendes, Taladro Reforzado |
 | 15 | `hydev.mineria.resonancia` | Prospectores, Pico Perdido, tercer contrato y Taladro Calibrado |
 | 18 | `hydev.mineria.mitrilo` | Mitrilo y picos |
 | 22 | `hydev.mineria.arcana` | Pico de Amatista |
-| 25 | `hydev.mineria.ingenieria` | Brújula, Farol y Barrena |
+| 25 | `hydev.mineria.ingenieria` | Linterna y Barrena |
 
 Cada recompensa trae `menu_message` y `chat_message` coloreados,
 con título en versalitas y descripción. **No se crea otro menú** ni un mensaje
@@ -99,3 +100,9 @@ genera una gema con /mi give GEM_STONE GEMA_MAGNETITA_I, arrástrala sobre una
 herramienta nueva con una ranura libre y pica una mena natural en supervivencia.
 
 Si una Forja Minera anterior muestra un aviso al cargar la vista de recetas, actualiza el YAML o ejecuta el instalador corregido. Este incorpora la sección de presentación `gui-layout.items.recipe.upgrade` que MMOItems requiere incluso al usar solo recetas de fabricación, conservando la configuración personalizada.
+
+
+### Linterna de Mitrilo — actualización dev09
+El objeto conserva el ID `TOOL:FAROL_MITRILO` (revisión 6); actualizar la plantilla y las recetas mediante el instalador. Se retiran las ofertas antiguas de brújula y farol, no los objetos poseídos. Las brújulas ya existentes quedan sin habilidad; comprueba las recetas personalizadas que hagan referencia a ellas. La receta `linterna-mitrilo` conserva el costo del farol. Actualiza también `rewards/mining.yml`, reinicia y verifica la revisión de los ítems en Minecraft. El JAR agrega automáticamente los nuevos ajustes y migra la bonificación de Bobina de Cobre con respaldo.
+
+Al alcanzar Minería 10, AuraSkills ejecuta la entrega de un Cénit existente (`CONSUMABLE:MEJORA_ARMA1`). Verifica que el ID exista en el servidor antes de instalar las recompensas. No es retroactivo para niveles alcanzados antes de la instalación.

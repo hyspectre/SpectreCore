@@ -1,7 +1,5 @@
 package dev.hydev.spectrecore.mining;
 
-import static dev.hydev.spectrecore.relicario.RelicarioModule.miningBonus;
-
 import dev.hydev.spectrecore.config.Settings;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
@@ -18,13 +16,11 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitTask;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -44,8 +40,6 @@ public final class MithrilToolModule implements Listener {
     private final MithrilDrill drill;
     private final AmethystResonanceField amethystField;
     private YamlConfiguration settings;
-    private record Signal(BossBar bar, BukkitTask expiry) { }
-    private final Map<UUID, Signal> signals = new HashMap<>();
     private boolean active;
 
     public MithrilToolModule(JavaPlugin plugin, PlacedOres placed) {
@@ -55,7 +49,7 @@ public final class MithrilToolModule implements Listener {
         progression = new MiningProgression(plugin);
         regions = new MithrilRegionAccess(plugin);
         prospector = new MithrilProspector(plugin, placed, regions);
-        lantern = new MithrilLantern(plugin, data);
+        lantern = new MithrilLantern(plugin, placed, regions);
         drill = new MithrilDrill(plugin, data, regions);
         amethystField = new AmethystResonanceField(plugin, data, regions);
     }
@@ -63,13 +57,13 @@ public final class MithrilToolModule implements Listener {
     public void enable() {
         reload();
         Bukkit.getPluginManager().registerEvents(this, plugin);
-        lantern.enable();
         amethystField.enable();
         active = true;
     }
     public void reload() {
         settings = dev.hydev.spectrecore.config.ModuleConfiguration.module(plugin, "tesoros/mineria.yml");
         amethystField.configure(settings);
+        lantern.configure(settings);
     }
     private final Map<UUID, java.util.Set<org.bukkit.Location>> markedVeins = new HashMap<>();
 
@@ -79,7 +73,6 @@ public final class MithrilToolModule implements Listener {
         drill.disable();
         lantern.disable();
         amethystField.disable();
-        for (UUID id : List.copyOf(signals.keySet())) clearSignal(id);
         if (active) HandlerList.unregisterAll(this);
         active = false;
     }
@@ -100,18 +93,10 @@ public final class MithrilToolModule implements Listener {
             case "uso-no-disponible" -> Settings.message("tesoros", "MithrilTools.uso-no-disponible", "<yellow>Esta habilidad no está disponible.", values);
             case "carga-insuficiente" -> Settings.message("tesoros", "MithrilTools.carga-insuficiente", "<yellow>Te faltan <white>{falta} <yellow>de resonancia.", values);
             case "en-recarga" -> Settings.message("tesoros", "MithrilTools.en-recarga", "<yellow>Recarga: <white>{s}s", values);
-            case "ruta-no-disponible" -> Settings.message("tesoros", "MithrilTools.ruta-no-disponible", "<gray>No hay un sendero guardado en este mundo.", values);
             case "sin-cristales-limite" -> Settings.message("tesoros", "MithrilTools.sin-cristales-limite", "<yellow>Hay demasiados campos activos. Intenta más tarde.", values);
             case "sin-veta" -> Settings.message("tesoros", "MithrilTools.sin-veta", "<gray>Mira una veta natural que puedas extraer.", values);
             case "veta" -> Settings.message("tesoros", "MithrilTools.veta", "<aqua>✦ Veta marcada. Extrae para recoger hasta tres bloques adicionales.", values);
             case "zona" -> Settings.message("tesoros", "MithrilTools.zona", "<red>La herramienta no puede utilizarse en esta zona.", values);
-            case "sin-senal" -> Settings.message("tesoros", "MithrilTools.sin-senal", "<gray>El pulso no detectó minerales accesibles.", values);
-            case "senal" -> Settings.message("tesoros", "MithrilTools.senal", "<aqua>✦ Señal {intensidad}<gray> · {direccion} · Profundidad {profundidad}", values);
-            case "luz" -> Settings.message("tesoros", "MithrilTools.luz", "<aqua>✦ Farol encendido.", values);
-            case "luz-apagada" -> Settings.message("tesoros", "MithrilTools.luz-apagada", "<gray>Farol apagado.", values);
-            case "anclado" -> Settings.message("tesoros", "MithrilTools.anclado", "<aqua>✦ El Farol recuerda tu ubicación.", values);
-            case "ancla-limpiada" -> Settings.message("tesoros", "MithrilTools.ancla-limpiada", "<gray>Se borró el sendero del Farol.", values);
-            case "ruta" -> Settings.message("tesoros", "MithrilTools.ruta", "<aqua>✦ Sendero de retorno visible durante 20 segundos.", values);
             case "sin-tunel" -> Settings.message("tesoros", "MithrilTools.sin-tunel", "<gray>La Barrena necesita roca común y un camino permitido.", values);
             case "tunel" -> Settings.message("tesoros", "MithrilTools.tunel", "<aqua>✦ Barrena activada. No extrae minerales ni concede experiencia adicional.", values);
             case "sin-cristales" -> Settings.message("tesoros", "MithrilTools.sin-cristales", "<yellow>No hay espacio seguro para invocar cristales o sus gemas todavía no están disponibles.", values);
@@ -123,7 +108,7 @@ public final class MithrilToolModule implements Listener {
     private String stage(String id) {
         return switch (id) {
             case MithrilDeviceData.AMETHYST -> "arcana";
-            case MithrilDeviceData.COMPASS, MithrilDeviceData.LANTERN,
+            case MithrilDeviceData.LANTERN,
                  MithrilDeviceData.DRILL -> "ingenieria";
             default -> "mitrilo";
         };
@@ -142,6 +127,7 @@ public final class MithrilToolModule implements Listener {
         if (!active || stack == null || !stack.hasItemMeta()) return null;
         String id = data.id(stack);
         if (id.isEmpty()) return null;
+        if (MithrilDeviceData.LANTERN.equals(id)) return lanternHud(player, now);
         int energy = data.energy(stack), maximum = capacity();
         int minimumCost, fullCost;
         long cooldown = data.cooldown(stack);
@@ -168,21 +154,6 @@ public final class MithrilToolModule implements Listener {
                 else if (amethystField.activeFields() >= cost("pico-amatista.max-sesiones"))
                     inUse = Settings.message("tesoros", "MithrilTools.hud-campos-ocupados",
                             "<yellow>Espera un momento");
-            }
-            case MithrilDeviceData.COMPASS -> {
-                ability = Settings.message("tesoros", "MithrilTools.hud-brujula", "Pulso");
-                control = Settings.message("tesoros", "MithrilTools.hud-control-click", "<gray>Clic der.");
-                minimumCost = fullCost = cost("brujula.activacion");
-            }
-            case MithrilDeviceData.LANTERN -> {
-                if (data.anchor(stack).isBlank()) {
-                    ability = Settings.message("tesoros", "MithrilTools.hud-anclar", "Fijar retorno");
-                    minimumCost = fullCost = cost("farol.anclar");
-                    cooldown = 0; // Anchor placement ignores route cooldown in the actual ability.
-                } else {
-                    ability = Settings.message("tesoros", "MithrilTools.hud-sendero", "Sendero");
-                    minimumCost = fullCost = cost("farol.ruta");
-                }
             }
             case MithrilDeviceData.DRILL -> {
                 ability = Settings.message("tesoros", "MithrilTools.hud-barrena", "Barrena");
@@ -238,6 +209,31 @@ public final class MithrilToolModule implements Listener {
         return new ToolHud(title, state.progress(), color);
     }
 
+    private ToolHud lanternHud(Player player, long now) {
+        long wait = lantern.remaining(player, now);
+        Component detail;
+        BossBar.Color color;
+        if (!unlocked(player, MithrilDeviceData.LANTERN)) {
+            detail = progression.missingLevel(player, "ingenieria")
+                    ? Settings.message("tesoros", "MithrilTools.hud-bloqueada", "<yellow>Desbloquea Minería {nivel}",
+                        "nivel", progression.required("ingenieria"))
+                    : Settings.component(progression.lockDetail(player, "ingenieria"));
+            color = BossBar.Color.YELLOW;
+        } else if (player.getGameMode() != GameMode.SURVIVAL) {
+            detail = Settings.message("tesoros", "MithrilTools.hud-supervivencia", "<yellow>Solo en supervivencia");
+            color = BossBar.Color.YELLOW;
+        } else if (wait > 0) {
+            detail = Settings.message("tesoros", "MithrilTools.hud-recarga", "<yellow>Recarga {s}s", "s", wait);
+            color = BossBar.Color.YELLOW;
+        } else {
+            detail = Settings.message("tesoros", "MithrilTools.hud-linterna-lista", "<green>Lista <gray>· Agáchate + clic der.");
+            color = BossBar.Color.GREEN;
+        }
+        return new ToolHud(Settings.message("tesoros", "MithrilTools.hud-linterna",
+                "<aqua>✦ Linterna <dark_gray>│ <white>Pulso <dark_gray>│ {estado}", "estado", detail),
+                lantern.progress(player, now), color);
+    }
+
     /** Called exclusively from a genuine, uncancelled player BlockBreakEvent. */
     public void onManualOre(Player player, Block ore) {
         if (player.getGameMode() != GameMode.SURVIVAL
@@ -248,7 +244,8 @@ public final class MithrilToolModule implements Listener {
         if (amount <= 0) return;
         for (EquipmentSlot hand : List.of(EquipmentSlot.HAND, EquipmentSlot.OFF_HAND)) {
             ItemStack stack = data.held(player, hand);
-            if (data.id(stack).isEmpty() || !unlocked(player,data.id(stack))) continue;
+            if (data.id(stack).isEmpty() || MithrilDeviceData.LANTERN.equals(data.id(stack))
+                    || !unlocked(player,data.id(stack))) continue;
             data.update(player, hand, data.changeCharge(stack, amount, capacity()));
         }
         ItemStack current = player.getInventory().getItemInMainHand();
@@ -292,21 +289,17 @@ public final class MithrilToolModule implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void interact(PlayerInteractEvent event) {
-        if (event.getHand() != EquipmentSlot.HAND
-                || event.getPlayer().getGameMode() != GameMode.SURVIVAL) return;
-        if (event.getPlayer().isSneaking()
-                && (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK)
-                && unlocked(event.getPlayer(),MithrilDeviceData.LANTERN)
-                && MithrilDeviceData.LANTERN.equals(
-                    data.id(event.getPlayer().getInventory().getItemInMainHand()))) {
-            lantern.teleported(event.getPlayer()); // Clear the anchor, not the light.
-            feedback(event.getPlayer(), "ancla-limpiada", "<gray>Se borró el sendero del Farol.");
-            event.setCancelled(true);
-            return;
-        }
-        if ((event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK)
+        if (event.getPlayer().getGameMode() != GameMode.SURVIVAL
+                || (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK)
                 || (event.getAction() == Action.RIGHT_CLICK_BLOCK && event.isCancelled())) return;
         Player player = event.getPlayer();
+        if (event.getHand() != EquipmentSlot.HAND) {
+            // Never place the special lantern when it happens to be in the offhand.
+            if (event.getHand() == EquipmentSlot.OFF_HAND
+                    && MithrilDeviceData.LANTERN.equals(data.id(data.held(player, EquipmentSlot.OFF_HAND))))
+                event.setCancelled(true);
+            return;
+        }
         ItemStack main = data.held(player, EquipmentSlot.HAND);
         if (data.crystal(main)) {
             String heldTool=data.id(data.held(player,EquipmentSlot.OFF_HAND));
@@ -333,14 +326,18 @@ public final class MithrilToolModule implements Listener {
                         : Settings.component(progression.lockDetail(player,stage(id))));
             return;
         }
+        if (MithrilDeviceData.LANTERN.equals(id)) {
+            if (player.isSneaking()) lantern.reveal(player);
+            else lantern.light(player);
+            event.setCancelled(true);
+            return;
+        }
         // Exactly one interaction per main hand; offhand dispatch cannot double-charge.
         main = data.identify(main);
         data.update(player, EquipmentSlot.HAND, main);
         boolean used = switch (id) {
             case MithrilDeviceData.PICK, MithrilDeviceData.TEMPERED -> player.isSneaking() && pick(player);
             case MithrilDeviceData.AMETHYST -> player.isSneaking() && amethyst(player);
-            case MithrilDeviceData.COMPASS -> compass(player);
-            case MithrilDeviceData.LANTERN -> light(player);
             case MithrilDeviceData.DRILL -> player.isSneaking() && drill(player);
             default -> false;
         };
@@ -351,7 +348,8 @@ public final class MithrilToolModule implements Listener {
 
     private boolean recharge(Player player) {
         ItemStack stack = data.held(player, EquipmentSlot.OFF_HAND);
-        if (data.id(stack).isEmpty() || MithrilDeviceData.AMETHYST.equals(data.id(stack))) return false;
+        if (data.id(stack).isEmpty() || MithrilDeviceData.AMETHYST.equals(data.id(stack))
+                || MithrilDeviceData.LANTERN.equals(data.id(stack))) return false;
         int max = capacity(), existing = data.energy(stack);
         if (existing >= max) {
             feedback(player, "carga-completa", "<gray>La herramienta ya está completamente cargada.");
@@ -467,71 +465,6 @@ public final class MithrilToolModule implements Listener {
         return true;
     }
 
-    private boolean compass(Player player) {
-        if (!regions.canBuild(player, player.getLocation().getBlock())) {
-            feedback(player, "zona", "<red>La herramienta no puede utilizarse en esta zona.");
-            return true;
-        }
-        if (!prospector.scanSlotAvailable(player.getUniqueId())) {
-            feedback(player, "sin-senal", "<gray>El pulso no detectó minerales accesibles.");
-            return true; // Do not charge while the bounded scanner is at capacity.
-        }
-        if (!spend(player, cost("brujula.activacion"),
-                cost("brujula.recarga-segundos") * 1000L, 0)) return true;
-        prospector.scan(player, cost("brujula.radio-horizontal"), cost("brujula.radio-vertical"), result -> {
-            if (result == null) {
-                feedback(player, "sin-senal", "<gray>El pulso no detectó minerales accesibles.");
-                return;
-            }
-            String intensity = MithrilRules.signal(result.distance());
-            String direction = MithrilRules.direction(result.dx(), result.dz());
-            String depth = MithrilRules.depth(result.dy());
-            feedback(player, "senal",
-                    "<aqua>✦ Señal {intensidad}<gray> · {direccion} · Profundidad {profundidad}",
-                    "intensidad", intensity, "direccion", direction, "profundidad", depth);
-            UUID uuid = player.getUniqueId();
-            clearSignal(uuid);
-            long duration = cost("brujula.duracion-senal-segundos") + (long) miningBonus(plugin, player, "signal_seconds");
-            if (duration > 0 && player.isOnline()) {
-                BossBar bar = BossBar.bossBar(Settings.message("tesoros", "MithrilTools.senal",
-                        "<aqua>✦ Señal {intensidad}<gray> · {direccion} · Profundidad {profundidad}",
-                        "intensidad", intensity, "direccion", direction, "profundidad", depth),
-                        1f, BossBar.Color.BLUE, BossBar.Overlay.PROGRESS);
-                BukkitTask expiry = Bukkit.getScheduler().runTaskLater(plugin, () -> clearSignal(uuid), duration * 20L);
-                signals.put(uuid, new Signal(bar, expiry));
-                player.showBossBar(bar);
-            }
-            player.playSound(player.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_CHIME, .5f, 1f);
-        });
-        return true;
-    }
-
-    private boolean light(Player player) {
-        ItemStack stack = data.held(player, EquipmentSlot.HAND);
-        if (!player.isSneaking()) {
-            boolean lit = !data.lit(stack);
-            data.update(player, EquipmentSlot.HAND, data.lit(stack, lit));
-            if (lit) lantern.light(player);
-            feedback(player, lit ? "luz" : "luz-apagada",
-                    lit ? "<aqua>✦ Farol encendido." : "<gray>Farol apagado.");
-            return true;
-        }
-        String anchor = data.anchor(stack);
-        if (anchor.isBlank()) {
-            int price = cost("farol.anclar");
-            if (!charged(player, stack, price)) return true;
-            if (lantern.anchor(player, EquipmentSlot.HAND, price, capacity()))
-                feedback(player, "anclado", "<aqua>✦ El Farol recuerda tu ubicación.");
-            return true;
-        }
-        if (lantern.route(player, EquipmentSlot.HAND, cost("farol.ruta"), capacity(),
-                cost("farol.recarga-segundos") * 1000L, cost("farol.marcas-segundos")))
-            feedback(player, "ruta", "<aqua>✦ Sendero de retorno visible durante 20 segundos.");
-        else if (ready(player, stack, cost("farol.ruta"), System.currentTimeMillis()))
-            feedback(player, "ruta-no-disponible", "<gray>No hay un sendero guardado en este mundo.");
-        return true;
-    }
-
     private boolean drill(Player player) {
         if (drill.running(player)) return true;
         if (!regions.canBuild(player, player.getLocation().getBlock())) {
@@ -555,28 +488,15 @@ public final class MithrilToolModule implements Listener {
         return true;
     }
 
-    @EventHandler public void move(PlayerMoveEvent event) {
-        if (event.getTo() != null) lantern.moved(event.getPlayer(), event.getFrom(), event.getTo(),
-                cost("farol.distancia-maxima"));
-    }
-    private void clearSignal(UUID id) {
-        Signal signal = signals.remove(id);
-        if (signal == null) return;
-        signal.expiry().cancel();
-        Player player = Bukkit.getPlayer(id);
-        if (player != null) player.hideBossBar(signal.bar());
-    }
     @EventHandler(ignoreCancelled = true) public void teleport(PlayerTeleportEvent event) {
-        lantern.teleported(event.getPlayer());
-        clearSignal(event.getPlayer().getUniqueId());
+        lantern.cancel(event.getPlayer().getUniqueId());
     }
-    @EventHandler public void onDeath(PlayerDeathEvent event) { clearSignal(event.getEntity().getUniqueId()); }
+    @EventHandler public void onDeath(PlayerDeathEvent event) { lantern.cancel(event.getEntity().getUniqueId()); }
     @EventHandler public void quit(PlayerQuitEvent event) {
         markedVeins.remove(event.getPlayer().getUniqueId());
         var id = event.getPlayer().getUniqueId();
         prospector.quit(id);
         drill.cancel(id);
         lantern.cancel(id);
-        clearSignal(id);
     }
 }

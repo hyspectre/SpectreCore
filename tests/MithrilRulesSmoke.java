@@ -27,23 +27,19 @@ public final class MithrilRulesSmoke {
         ok(MithrilRules.abilityStatus(74, 100, partialCost, 75, 0, 0).missing() == 1);
         ok(MithrilRules.abilityStatus(75, 100, partialCost, 75, 0, 0).readiness() == READY);
         ok(MithrilRules.abilityStatus(120, 100, 25, 25, 0, 0).progress() == 1f);
-        ok("intensa".equals(MithrilRules.signal(5.0)));
-        ok("moderada".equals(MithrilRules.signal(8.0)));
-        ok("debil".equals(MithrilRules.signal(15.0)));
-        ok("ninguna".equals(MithrilRules.signal(Double.NaN)));
-        ok("N".equals(MithrilRules.direction(0, -3)));
-        ok("E".equals(MithrilRules.direction(4, 0)));
-        ok("SO".equals(MithrilRules.direction(-5, 5)));
-        ok("abajo".equals(MithrilRules.depth(-5)));
-        ok("similar".equals(MithrilRules.depth(4)));
-        ok("arriba".equals(MithrilRules.depth(8)));
-        ok(MithrilRules.within(16, 12, 0, 16, 12));
-        ok(!MithrilRules.within(16, 0, 5, 16, 12));
+        ok(MithrilRules.withinPulse(10, 0, 0, 10));
+        ok(MithrilRules.withinPulse(0, -10, 0, 10));
+        ok(MithrilRules.withinPulse(6, 8, 0, 10));
+        ok(!MithrilRules.withinPulse(6, 8, 1, 10));
+        ok(!MithrilRules.withinPulse(10, 10, 0, 10));
+        ok(MithrilRules.remainingSeconds(0, 140_000) == 140);
+        ok(MithrilRules.remainingSeconds(139_999, 140_000) == 1);
+        ok(MithrilRules.remainingSeconds(140_000, 140_000) == 0);
         ok(MithrilRules.sameOre("DIAMOND_ORE", "DEEPSLATE_DIAMOND_ORE"));
         ok(!MithrilRules.sameOre("IRON_ORE", "DIAMOND_ORE"));
         ok(!MithrilRules.sameOre("STONE", "STONE"));
         ok(MithrilRules.drillable("STONE", List.of("STONE","DEEPSLATE")));
         ok(!MithrilRules.drillable("DIAMOND_ORE", List.of("STONE","DEEPSLATE")));
-        System.out.println("PASS MithrilRulesSmoke: portable charge, scan guidance and protected drill rock");
+        System.out.println("PASS MithrilRulesSmoke: portable charge, spherical pulse and cooldown and protected drill rock");
     }
 }

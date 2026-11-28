@@ -58,11 +58,12 @@ AuraSkills es la fuente de experiencia, nivel, Luck y menú de progresión. Por 
 | 1 | Minería inicial; contrato Novato |
 | 3 | Minerales hechizados; Taller del Minero |
 | 6 | Paladio, Taladro, contrato Experimentado |
+| 10 | Recompensa: 1 Cénit |
 | 12 | Duendes del Oro, Chatarra Mecánica y Taladro Reforzado |
 | 15 | Resonancia mineral, Prospectores, Pico Perdido, Taladro Calibrado y contrato Profesional |
 | 18 | Mitrilo y picos de Mitrilo |
 | 22 | Resonancia arcana, Pico de Amatista y geodas |
-| 25 | Ingeniería y prospección: Brújula, Farol y Barrena de Mitrilo |
+| 25 | Ingeniería y prospección: Linterna y Barrena de Mitrilo |
 
 No reemplaces los IDs de ítems preexistentes, ni mezcles las antiguas recetas y paquetes mineros sin verificar el catálogo efectivo.
 

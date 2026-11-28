@@ -70,20 +70,24 @@ progress_java=(src/"mining/MiningProgression.java").read_text(encoding="utf-8")
 assert "SkillLevelUpEvent" not in progress_java
 assert 'player.hasPermission(permission(stage))' in progress_java
 assert 'return "hydev.mineria."+stage;' in progress_java
-assert sorted(rewards["levels"])==[1,3,6,12,15,18,22,25]
+assert sorted(rewards["levels"])==[1,3,6,10,12,15,18,22,25]
 for level, stage in [(1,"inicial"),(3,"hechizados"),(6,"paladio"),(12,"duendes"),
                      (15,"resonancia"),(18,"mitrilo"),(22,"arcana"),(25,"ingenieria")]:
     prize=rewards["levels"][level][0]
     assert prize["type"]=="permission" and prize["value"] is True
     assert prize["permission"]=="hydev.mineria."+stage
     assert prize["menu_message"] and prize["chat_message"]
+cenit = rewards["levels"][10][0]
+assert cenit["type"] == "command" and cenit["executor"] == "console"
+assert cenit["command"] == "mi give CONSUMABLE MEJORA_ARMA1 {player} 1"
+assert "Cénit" in cenit["menu_message"]
 assert "hydev.mineria.hechizados" in (src/"systems/MinerWorkshop.java").read_text(encoding="utf-8")
 assets=root/"integracion-mmoitems/mineria-v2"
 newtypes={name:yaml.safe_load((assets/name).read_text(encoding="utf-8")) for name in
         ("MATERIAL_MINERIA_NUEVOS.yml","GEM_STONE_MINERIA_NUEVOS.yml","TOOL_MINERIA_NUEVOS.yml")}
 assert "AMATISTA_RESONANTE" in newtypes["MATERIAL_MINERIA_NUEVOS.yml"]
 assert newtypes["GEM_STONE_MINERIA_NUEVOS.yml"] == gem_items
-assert len(newtypes["TOOL_MINERIA_NUEVOS.yml"])==8
+assert len(newtypes["TOOL_MINERIA_NUEVOS.yml"])==7
 assert "PICO_GEMAS" not in newtypes["TOOL_MINERIA_NUEVOS.yml"]
 assert "TALADRO" not in newtypes["TOOL_MINERIA_NUEVOS.yml"]
 assert "PALADIO" not in newtypes["MATERIAL_MINERIA_NUEVOS.yml"]
@@ -100,4 +104,4 @@ assert "progression.meets(player,\"ingenieria\")" in (src/"mining/MithrilLantern
 drill_src=(src/"mining/StoneDrill.java").read_text(encoding="utf-8")
 assert 'tier==3?"resonancia":tier==2?"duendes":"paladio"' in drill_src
 assert "progression.meets(player,requiredStage)" in drill_src
-print("PASS AuraSkills Luck: levels 1/3/6/12/15/18/22/25, old Pico identity, native encounters and stone drill")
+print("PASS AuraSkills Luck: levels 1/3/6/10/12/15/18/22/25, old Pico identity, native encounters and stone drill")

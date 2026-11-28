@@ -56,18 +56,14 @@ herramientas-mitrilo:
     max-bloques-adicionales: 3
     coste-bloque-adicional: 5
     recarga-segundos: 20
-  brujula:
-    activacion: 30
-    radio-horizontal: 16
-    radio-vertical: 12
-    duracion-senal-segundos: 8
-    recarga-segundos: 35
-  farol:
-    anclar: 10
-    ruta: 20
-    marcas-segundos: 20
-    recarga-segundos: 30
-    distancia-maxima: 256
+  # Linterna: visión gratuita y pulso sin consumir resonancia.
+  linterna:
+    vision-segundos: 60
+    radio: 10
+    resaltado-segundos: 3
+    recarga-segundos: 140
+    max-menas: 24
+    max-pulsos: 8
   barrena:
     activacion: 50
     pasos: 8

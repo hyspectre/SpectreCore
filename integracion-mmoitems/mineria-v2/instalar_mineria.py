@@ -266,6 +266,33 @@ RETIRED_RECIPES = '''  lingote-mitrilo:
 
 '''
 
+def retire_lantern_recipes(original: str) -> str:
+    """Remove the two previous forge offers, not any owned items or custom recipes."""
+    if not re.search(r"(?m)^  [\"']?(?:brujula-geologica|farol-mitrilo)[\"']?:", original):
+        return original
+    rows, start, end = recipe_area(original)
+    lines, spans = lines_and_sections("".join(rows[start+1:end]), TOP_RECIPE)
+    data = strict_yaml(original)
+    expected = {"brujula-geologica": "mmoitems{type=TOOL,id=BRUJULA_GEOLOGICA}",
+                "farol-mitrilo": "mmoitems{type=TOOL,id=FAROL_MITRILO}"}
+    removed = {key for key, output in expected.items() if key in spans
+               and data["recipes"][key].get("output") == output}
+    for a, b in sorted((spans[key] for key in removed), reverse=True):
+        del lines[a:b]
+    if not removed:
+        return original
+    # Preserve a valid empty recipe map when a station only had retired offers.
+    if set(data["recipes"]) == removed:
+        rows[start:end] = ["recipes: {}\n"]
+    else:
+        rows[start+1:end] = lines
+    result = "".join(rows)
+    for key in removed:
+        del data["recipes"][key]
+    if strict_yaml(result) != data:
+        raise ValueError("Retiro de recetas: se alteraría una receta ajena")
+    return result
+
 def merge_recipes(original: str, additions: dict, lost: dict):
     rows, start, end = recipe_area(original)
     old_lines = rows[start + 1:end]
@@ -427,7 +454,15 @@ def install(plugin: Path, forge: Path, apply: bool):
         recipe_rows, spans = lines_and_sections("".join(rows[begin+1:end]), TOP_RECIPE)
         managed = {key: "".join(recipe_rows[a:b]) for key,(a,b) in spans.items()}
         station = merge_recipes(dedicated.read_text(encoding="utf-8"), managed, {})[0]
+        station = retire_lantern_recipes(station)
     changes[dedicated] = repair_recipe_view(station, template)
+    for path in (plugin / "crafting-stations").glob("*.yml"):
+        if path == dedicated:
+            continue
+        original = path.read_text(encoding="utf-8")
+        retired = retire_lantern_recipes(original)
+        if retired != original:
+            changes[path] = retired
     for fmt in ("gema-minera", "reliquia-compacta"):
         target = plugin / "language/lore-formats" / (fmt + ".yml")
         if fmt == "gema-minera" or not target.exists():

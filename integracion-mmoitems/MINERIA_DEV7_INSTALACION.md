@@ -11,11 +11,12 @@ no crea una segunda barra ni un menú de niveles.
 | 1 | Minería Inicial y contrato Novato |
 | 3 | Compactación y pulverización nativas (64:1, NPC Minero) |
 | 6 | Paladio, contrato Experimentado y Taladro |
+| 10 | Recompensa: 1 Cénit |
 | 12 | Duendes al extraer oro natural y Chatarra Mecánica |
 | 15 | Prospectores al extraer diamante, esmeralda u obsidiana; Pico Perdido y contrato Profesional |
 | 18 | Mitrilo y Picos de Mitrilo |
 | 22 | Pico de Amatista y Resonancia Arcana |
-| 25 | Brújula Geológica, Farol de Mitrilo y Barrena |
+| 25 | Linterna de Mitrilo y Barrena |
 
 **Los contratos antiguos adquiridos se conservan**. Firmar uno nuevo exige nivel,
 contrato anterior y el importe ya existente; los niveles no se consumen.
