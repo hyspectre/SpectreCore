@@ -86,7 +86,7 @@ public final class JobsModule implements Listener {
         menu.enable();
         supplies = new SupplyGuide(plugin, this);
         supplies.enable();
-        minerWorkshopMenu = new MinerWorkshopMenu(plugin, this, minerWorkshop);
+        minerWorkshopMenu = new MinerWorkshopMenu(plugin, minerWorkshop);
         minerWorkshopMenu.enable();
         if (dev.hydev.spectrecore.command.CommandRouter.of(plugin).get("trabajo") != null) dev.hydev.spectrecore.command.CommandRouter.of(plugin).get("trabajo").setExecutor((sender, cmd, label, args) -> {
             if (args.length > 0 && (args[0].equalsIgnoreCase("transacciones") || args[0].equalsIgnoreCase("resolver"))) {

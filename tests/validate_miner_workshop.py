@@ -19,7 +19,7 @@ for name,(origin,id,payout) in expected.items():
     assert item["origen"]==origin and item["resultado-id"]==id and item["pago"]==payout
 assert layout["size"]==54
 assert set(layout["minerales"])==set(expected)
-assert {"compactar","pulverizar","vista-previa","una","cuatro","maximo","confirmar","volver","cerrar"}<=set(layout["items"])
+assert {"compactar","pulverizar","vista-previa","una","cuatro","maximo","confirmar","cerrar"}<=set(layout["items"])
 all_items={**layout["items"],**layout["minerales"]}
 slots=[v["slot"] for v in all_items.values()]
 assert len(set(slots))==len(slots)
@@ -35,7 +35,9 @@ routes=(java/"command/CommandRoutes.java").read_text(encoding="utf-8")
 assert "getSkillLevel(Skills.MINING)" in aura
 assert 'route("minero","trabajo","trabajos",Access.PUBLIC' in routes
 assert 'route("trabajos taller","trabajo","trabajos",Access.PUBLIC' in routes
-assert "MinerWorkshopMenu(plugin, this, minerWorkshop)" in jobs
+assert "MinerWorkshopMenu(plugin, minerWorkshop)" in jobs
+assert "volver" not in layout["items"] and '"volver"' not in gui
+assert "jobs.openOverview" not in gui
 assert "MinerWorkshopRules.selected" in server and "MinerWorkshopRules.payout" in server
 assert "journal.begin(" in server and "journal.finish(token)" in server
 assert "journal.blocked(\"job:\"" in server

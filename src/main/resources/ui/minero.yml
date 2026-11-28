@@ -70,12 +70,6 @@ items:
     - "<gray>Recibirás: <gold>{salida}"
     - "<gray>Estado: {estado}"
     - "<yellow>► Clic para transformar"
-  volver:
-    slot: 48
-    material: ARROW
-    nombre: "<gold>⇜ Volver a Trabajos"
-    lore:
-    - "<gray>Consultar contratos y progreso."
   cerrar:
     slot: 50
     material: BARRIER

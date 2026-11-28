@@ -9051,7 +9051,7 @@
     "archivo": "trabajos/mensajes.yml",
     "clave": "MinerWorkshop.no-disponible",
     "predeterminado": "<red>El taller no puede procesar esta operación. Avisa a administración.",
-    "origen": "MinerWorkshopMenu.java:117"
+    "origen": "MinerWorkshopMenu.java:115"
   },
   {
     "archivo": "trabajos/mensajes.yml",

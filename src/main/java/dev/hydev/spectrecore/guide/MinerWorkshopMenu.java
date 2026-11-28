@@ -2,7 +2,6 @@ package dev.hydev.spectrecore.guide;
 
 import dev.hydev.spectrecore.config.Settings;
 import dev.hydev.spectrecore.migration.MmoBridge;
-import dev.hydev.spectrecore.systems.JobsModule;
 import dev.hydev.spectrecore.systems.MinerWorkshop;
 import dev.hydev.spectrecore.systems.MinerWorkshopRules;
 import dev.hydev.spectrecore.text.TextService;
@@ -39,7 +38,7 @@ import java.util.Set;
 /** Native, read-only preview and bounded two-mode player interaction. */
 public final class MinerWorkshopMenu implements Listener {
     private static final List<String> CONTROLS = List.of("informacion", "compactar", "pulverizar",
-            "vista-previa", "una", "cuatro", "maximo", "confirmar", "volver", "cerrar");
+            "vista-previa", "una", "cuatro", "maximo", "confirmar", "cerrar");
     private static final class Holder implements InventoryHolder {
         final MinerWorkshop.Mode mode;
         final String mineral;
@@ -53,14 +52,13 @@ public final class MinerWorkshopMenu implements Listener {
     }
 
     private final JavaPlugin plugin;
-    private final JobsModule jobs;
     private final MinerWorkshop workshop;
     private final MmoBridge mmo = new MmoBridge();
     private YamlConfiguration layout;
     private boolean listening;
 
-    public MinerWorkshopMenu(JavaPlugin plugin, JobsModule jobs, MinerWorkshop workshop) {
-        this.plugin = plugin; this.jobs=jobs; this.workshop=workshop;
+    public MinerWorkshopMenu(JavaPlugin plugin, MinerWorkshop workshop) {
+        this.plugin = plugin; this.workshop=workshop;
     }
     public void enable() {
         reload();
@@ -205,7 +203,6 @@ public final class MinerWorkshopMenu implements Listener {
             if(!plugin.isEnabled()||!player.isOnline()
                     ||player.getOpenInventory().getTopInventory().getHolder()!=holder)return;
             if(choice.equals("cerrar")){player.closeInventory();return;}
-            if(choice.equals("volver")){jobs.openOverview(player);return;}
             if(choice.equals("confirmar")){
                 if(workshop.process(player,holder.mineral,holder.mode,holder.wanted))
                     open(player,holder.mode,holder.mineral,holder.wanted);
