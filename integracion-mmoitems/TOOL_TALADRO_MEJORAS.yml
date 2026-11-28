@@ -2,27 +2,34 @@
 # El TALADRO original de Cygnus se conserva: TOOL:TALADRO.
 TALADRO_REFORZADO:
   base:
-    revision-id: 2
+    revision-id: 7
+    gem-sockets: ['1', '1']
     material: IRON_PICKAXE
     max-stack-size: 1
     name: '<gradient:#CFBBA1:#F2E1B7>Taladro Reforzado</gradient>'
     tier: RARE
+    lore-format: herramienta-minera
     lore:
+    - '&f  <gradient:#74B8B5:#D0B8E9>ᴇsᴛᴀᴅísᴛɪᴄᴀs</gradient>'
+    - '&7 Rocas adicionales: &fHasta 1'
+    - '&7 Intervalo: &f0,35 s'
     - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fPerforar'
-    - '&f'
-    - '&e ᴘɪᴄᴀ ʀᴏᴄᴀ ᴘᴀʀᴀ ʀᴏᴍᴘᴇʀ'
-    - '&e ʜᴀsᴛᴀ 1 ʀᴏᴄᴀ ᴀᴅɪᴄɪᴏɴᴀʟ.'
-    - '&e ʟᴀs ᴍᴇɴᴀs sᴇ ᴘɪᴄᴀɴ ᴅᴇ ᴀ ᴜɴᴀ.'
+    - '&e Pica roca para despejar bloques cercanos.'
+    - '&e Las menas se pican de una a una.'
+
 TALADRO_CALIBRADO:
   base:
-    revision-id: 2
+    revision-id: 7
+    gem-sockets: ['1', '1', '1']
     material: DIAMOND_PICKAXE
     max-stack-size: 1
     name: '<gradient:#C2D6E5:#B4F1E3>Taladro Calibrado</gradient>'
     tier: EPIC
+    lore-format: herramienta-minera
     lore:
+    - '&f  <gradient:#74B8B5:#D0B8E9>ᴇsᴛᴀᴅísᴛɪᴄᴀs</gradient>'
+    - '&7 Rocas adicionales: &fHasta 3'
+    - '&7 Intervalo: &f0,25 s'
     - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fPerforar'
-    - '&f'
-    - '&e ᴘɪᴄᴀ ʀᴏᴄᴀ ᴘᴀʀᴀ ʀᴏᴍᴘᴇʀ'
-    - '&e ʜᴀsᴛᴀ 3 ʀᴏᴄᴀs ᴍás.'
-    - '&e ʟᴀs ᴍᴇɴᴀs sᴇ ᴘɪᴄᴀɴ ᴅᴇ ᴀ ᴜɴᴀ.'
+    - '&e Pica roca para despejar bloques cercanos.'
+    - '&e Las menas se pican de una a una.'

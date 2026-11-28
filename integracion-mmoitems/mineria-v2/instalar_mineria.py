@@ -380,6 +380,46 @@ def detect_forge(plugin: Path, requested: str | None):
                          "indica --forja <archivo.yml>.")
     return candidates[0]
 
+def prepare_tool_definitions(original: str, incoming: str, legacy: str) -> str:
+    """Minimum real sockets of color '1', preserving existing colors and custom original lore."""
+    existing, definitions, patches = strict_yaml(original), strict_yaml(incoming), strict_yaml(legacy)
+    for item, patch in patches.items():
+        if item not in existing:
+            continue  # Never create incomplete legacy items.
+        previous = existing[item]["base"]
+        current_lore = previous.get("lore", [])
+        if not isinstance(current_lore, list) or not all(isinstance(line, str) for line in current_lore):
+            raise ValueError(f"{item}: revisar el lore original")
+        wanted = patch["base"]["lore"]
+        # Retain unrelated lines; do not duplicate our own statistics on reinstallation.
+        if wanted[0] in current_lore:
+            lore = current_lore
+        else:
+            lore = [*current_lore, *wanted]
+        definitions[item] = {"base": {**patch["base"], "lore": lore, "revision-id": 7}}
+    for item, definition in definitions.items():
+        prior = existing.get(item, {}).get("base", {})
+        base = definition["base"]
+        old_slots = prior.get("gem-sockets", [])
+        if old_slots is None:
+            old_slots = []
+        if not isinstance(old_slots, list) or not all(
+                isinstance(slot, str) or type(slot) is int for slot in old_slots):
+            raise ValueError(f"{item}: las ranuras deben ser una lista de colores")
+        # Numeric 1 in older YAML means the exact string color "1" in MMOItems.
+        old_slots = [str(slot) for slot in old_slots]
+        count = base["gem-sockets"].count("1")
+        base["gem-sockets"] = old_slots + ["1"] * max(0, count - old_slots.count("1"))
+        # Never downgrade a customized revision; advance only when actual content changes.
+        old_revision = prior.get("revision-id", 0)
+        if type(old_revision) not in (int, float) or old_revision < 0 or int(old_revision) != old_revision:
+            raise ValueError(f"{item}: revisar revision-id")
+        old_revision = int(old_revision)
+        previous_revision = base.pop("revision-id")
+        changed = any(prior.get(key) != value for key, value in base.items())
+        base["revision-id"] = max(previous_revision, old_revision + int(changed))
+    return yaml.safe_dump(definitions, allow_unicode=True, sort_keys=False, width=1000000)
+
 def install(plugin: Path, forge: Path, apply: bool):
     changes: dict[Path, str] = {}
     for typ, src in TYPES.items():
@@ -390,7 +430,11 @@ def install(plugin: Path, forge: Path, apply: bool):
         if not dest.is_file() and typ != "RELIQUIA":
             raise ValueError(f"Falta el tipo original {dest}; no se creará otro tipo.")
         old = dest.read_text(encoding="utf-8") if dest.exists() else ""
-        new, replaced, added = merge_items(old, src.read_text(encoding="utf-8"), typ,
+        incoming = src.read_text(encoding="utf-8")
+        if typ == "TOOL":
+            incoming = prepare_tool_definitions(old, incoming,
+                (ROOT / "TOOL_EXISTENTES_PRESENTACION.yml").read_text(encoding="utf-8"))
+        new, replaced, added = merge_items(old, incoming, typ,
                                           only_missing=(typ == "GEM_STONE"))
         if typ == "GEM_STONE":
             new = repair_gem_lore(new, src.read_text(encoding="utf-8"))
@@ -407,35 +451,6 @@ def install(plugin: Path, forge: Path, apply: bool):
             new, _ = patch_permission(new, item, permission)
             if typ == "TOOL":
                 new = make_unbreakable(new, item)
-                rows, spans = lines_and_sections(new, TOP_ITEM)
-                if item in spans:
-                    first, last = spans[item]
-                    socket = next((n for n in range(first,last) if rows[n].startswith("    gem-sockets:")), None)
-                    if socket is None:
-                        new = replace_base_field(new, item, "gem-sockets", "    gem-sockets: ['1']\n")
-                    else:
-                        value = rows[socket].split(":",1)[1].partition("#")[0].strip()
-                        if value:
-                            if not (value.startswith("[") and value.endswith("]")):
-                                raise ValueError(f"{item}: revisar la lista de ranuras")
-                            entries = [s.strip() for s in value[1:-1].split(",") if s.strip()]
-                            if not any(s.strip(chr(34) + chr(39)) == "1" for s in entries):
-                                entries.append("'1'")
-                                rows[socket] = "    gem-sockets: [" + ", ".join(entries) + "]\n"
-                        else:
-                            entries = []
-                            for row in rows[socket+1:last]:
-                                if not row.strip() or row.lstrip().startswith("#"):
-                                    continue
-                                match = re.match(r"^ {4,}- (.+)", row)
-                                if not match:
-                                    break
-                                entries.append(match[1].partition("#")[0].strip().strip(chr(34) + chr(39)))
-                            if "1" not in entries:
-                                indent = next((re.match(r"^ +", row)[0] for row in rows[socket+1:last]
-                                               if re.match(r"^ {4,}- ",row)), "    ") if entries else "    "
-                                rows.insert(socket+1, indent + "- '1'\n")
-                        new = "".join(rows)
         changes[dest] = new
         print(f"{typ}: nuevos {len(added)}, actualizados {len(replaced)}; "
               f"objetos originales preservados")
@@ -463,9 +478,9 @@ def install(plugin: Path, forge: Path, apply: bool):
         retired = retire_lantern_recipes(original)
         if retired != original:
             changes[path] = retired
-    for fmt in ("gema-minera", "reliquia-compacta"):
+    for fmt in ("gema-minera", "reliquia-compacta", "herramienta-minera"):
         target = plugin / "language/lore-formats" / (fmt + ".yml")
-        if fmt == "gema-minera" or not target.exists():
+        if fmt in ("gema-minera", "herramienta-minera") or not target.exists():
             changes[target] = (ROOT / (fmt + ".yml")).read_text(encoding="utf-8")
     for path, new in changes.items():
         if path.exists():

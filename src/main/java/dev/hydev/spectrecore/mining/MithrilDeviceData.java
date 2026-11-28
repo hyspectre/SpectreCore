@@ -88,6 +88,26 @@ public final class MithrilDeviceData {
     public ItemStack active(ItemStack stack, long until) {
         return modify(stack, data -> data.set(active, PersistentDataType.LONG, until));
     }
+    /** A template lore/revision update must not reset a physical tool's progression. */
+    public ItemStack preserveRevision(ItemStack original, ItemStack result) {
+        String sourceId = id(original);
+        if (sourceId.isEmpty() || !sourceId.equals(id(result))) return result;
+        var old = read(original);
+        if (old == null) return result;
+        return modify(result, updated -> {
+            copy(old, updated, charge, PersistentDataType.INTEGER);
+            copy(old, updated, cooldown, PersistentDataType.LONG);
+            copy(old, updated, active, PersistentDataType.LONG);
+            copy(old, updated, serial, PersistentDataType.STRING);
+        });
+    }
+
+    private static <T, Z> void copy(PersistentDataContainer from, PersistentDataContainer to,
+                                    NamespacedKey key, PersistentDataType<T,Z> type) {
+        Z value = from.get(key, type);
+        if (value != null) to.set(key, type, value);
+    }
+
     private ItemStack modify(ItemStack original, java.util.function.Consumer<PersistentDataContainer> change) {
         if (id(original).isEmpty()) return original;
         ItemStack stack = original.clone();

@@ -2,7 +2,7 @@
 # Las 2 herramientas antiguas TALADRO y PICO_GEMAS se conservan; ver permisos de existentes.
 TALADRO_REFORZADO:
   base:
-    revision-id: 5
+    revision-id: 7
     gem-sockets: ['1', '1']
     unbreakable: true
     material: IRON_PICKAXE
@@ -12,16 +12,18 @@ TALADRO_REFORZADO:
     tooltip: COPPER
     permission:
     - hydev.mineria.duendes
+    lore-format: herramienta-minera
     lore:
+    - '&f  <gradient:#74B8B5:#D0B8E9>ᴇsᴛᴀᴅísᴛɪᴄᴀs</gradient>'
+    - '&7 Rocas adicionales: &fHasta 1'
+    - '&7 Intervalo: &f0,35 s'
     - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fPerforar'
-    - '&f'
-    - '&e ᴘɪᴄᴀ ʀᴏᴄᴀ ᴘᴀʀᴀ ʀᴏᴍᴘᴇʀ'
-    - '&e ʜᴀsᴛᴀ 1 ʀᴏᴄᴀ ᴀᴅɪᴄɪᴏɴᴀʟ.'
-    - '&e ʟᴀs ᴍᴇɴᴀs sᴇ ᴘɪᴄᴀɴ ᴅᴇ ᴀ ᴜɴᴀ.'
+    - '&e Pica roca para despejar bloques cercanos.'
+    - '&e Las menas se pican de una a una.'
 
 TALADRO_CALIBRADO:
   base:
-    revision-id: 5
+    revision-id: 7
     gem-sockets: ['1', '1', '1']
     unbreakable: true
     material: DIAMOND_PICKAXE
@@ -31,16 +33,18 @@ TALADRO_CALIBRADO:
     tooltip: SILVER
     permission:
     - hydev.mineria.resonancia
+    lore-format: herramienta-minera
     lore:
+    - '&f  <gradient:#74B8B5:#D0B8E9>ᴇsᴛᴀᴅísᴛɪᴄᴀs</gradient>'
+    - '&7 Rocas adicionales: &fHasta 3'
+    - '&7 Intervalo: &f0,25 s'
     - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fPerforar'
-    - '&f'
-    - '&e ᴘɪᴄᴀ ʀᴏᴄᴀ ᴘᴀʀᴀ ʀᴏᴍᴘᴇʀ'
-    - '&e ʜᴀsᴛᴀ 3 ʀᴏᴄᴀs ᴍás.'
-    - '&e ʟᴀs ᴍᴇɴᴀs sᴇ ᴘɪᴄᴀɴ ᴅᴇ ᴀ ᴜɴᴀ.'
+    - '&e Pica roca para despejar bloques cercanos.'
+    - '&e Las menas se pican de una a una.'
 
 PICO_MITRILO:
   base:
-    revision-id: 5
+    revision-id: 7
     gem-sockets: ['1']
     unbreakable: true
     material: DIAMOND_PICKAXE
@@ -50,16 +54,21 @@ PICO_MITRILO:
     tooltip: COPPER
     permission:
     - hydev.mineria.mitrilo
+    lore-format: herramienta-minera
     lore:
+    - '&f  <gradient:#74B8B5:#D0B8E9>ᴇsᴛᴀᴅísᴛɪᴄᴀs</gradient>'
+    - '&7 Hallazgo de Mitrilo: &a+25%'
+    - '&7 Hallazgo de gemas: &f1%'
+    - '&7 Menas adicionales: &fHasta 3'
+    - '&7 Resonancia: &f25 + 5 por mena extra'
+    - '&7 Duración: &f15 s &8│ &7Recarga: &f20 s'
     - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fVeta'
-    - '&f'
-    - '&e ᴀɢáᴄʜᴀᴛᴇ ʏ ʜᴀᴢ ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ'
-    - '&e sᴏʙʀᴇ ᴜɴᴀ ᴠᴇᴛᴀ. ᴀʟ ᴘɪᴄᴀʀʟᴀ,'
-    - '&e ᴇxᴛʀᴀᴇs ʜᴀsᴛᴀ 3 ᴍᴇɴᴀs ᴍás.'
+    - '&e Agáchate + clic derecho sobre una mena.'
+    - '&e Extrae la veta marcada.'
 
 PICO_MITRILO_TEMPLADO:
   base:
-    revision-id: 5
+    revision-id: 7
     gem-sockets: ['1', '1']
     unbreakable: true
     material: NETHERITE_PICKAXE
@@ -69,16 +78,21 @@ PICO_MITRILO_TEMPLADO:
     tooltip: SILVER
     permission:
     - hydev.mineria.mitrilo
+    lore-format: herramienta-minera
     lore:
+    - '&f  <gradient:#74B8B5:#D0B8E9>ᴇsᴛᴀᴅísᴛɪᴄᴀs</gradient>'
+    - '&7 Hallazgo de Mitrilo: &a+60%'
+    - '&7 Hallazgo de gemas: &f1%'
+    - '&7 Menas adicionales: &fHasta 3'
+    - '&7 Resonancia: &f25 + 5 por mena extra'
+    - '&7 Duración: &f15 s &8│ &7Recarga: &f20 s'
     - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fVeta'
-    - '&f'
-    - '&e ᴀɢáᴄʜᴀᴛᴇ ʏ ʜᴀᴢ ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ'
-    - '&e sᴏʙʀᴇ ᴜɴᴀ ᴠᴇᴛᴀ. ᴀʟ ᴘɪᴄᴀʀʟᴀ,'
-    - '&e ᴇxᴛʀᴀᴇs ʜᴀsᴛᴀ 3 ᴍᴇɴᴀs ᴍás.'
+    - '&e Agáchate + clic derecho sobre una mena.'
+    - '&e Extrae la veta marcada.'
 
 PICO_AMATISTA:
   base:
-    revision-id: 5
+    revision-id: 7
     gem-sockets: ['1']
     unbreakable: true
     material: NETHERITE_PICKAXE
@@ -88,17 +102,21 @@ PICO_AMATISTA:
     tooltip: GOLD
     permission:
     - hydev.mineria.arcana
+    lore-format: herramienta-minera
     lore:
+    - '&f  <gradient:#74B8B5:#D0B8E9>ᴇsᴛᴀᴅísᴛɪᴄᴀs</gradient>'
+    - '&7 Cristales invocados: &f3–5'
+    - '&7 Golpes por cristal: &f3'
+    - '&7 Resonancia: &f45–75'
+    - '&7 Duración: &f30 s &8│ &7Recarga: &f120 s'
     - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fCristales'
-    - '&f'
-    - '&e ᴀɢáᴄʜᴀᴛᴇ ʏ ʜᴀᴢ ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ.'
-    - '&e ɢᴏʟᴘᴇᴀ ᴄᴀᴅᴀ ᴄʀɪsᴛᴀʟ 3 ᴠᴇᴄᴇs'
-    - '&e ᴘᴀʀᴀ sᴀᴄᴀʀ ᴀᴍᴀᴛɪsᴛᴀ ʀᴇsᴏɴᴀɴᴛᴇ.'
+    - '&e Agáchate + clic derecho para invocarlos.'
+    - '&e Golpéalos para obtener gemas.'
 
 # ID conservado para actualizar los faroles existentes sin perderlos.
 FAROL_MITRILO:
   base:
-    revision-id: 6
+    revision-id: 7
     gem-sockets: ['1']
     unbreakable: true
     material: SOUL_LANTERN
@@ -108,16 +126,20 @@ FAROL_MITRILO:
     tooltip: COPPER
     permission:
     - hydev.mineria.ingenieria
+    lore-format: herramienta-minera
     lore:
-    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fLuz'
-    - '&e Clic derecho: Visión nocturna (60 s).'
-    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fPulso'
-    - '&e Agáchate + clic derecho para revelar menas.'
+    - '&f  <gradient:#74B8B5:#D0B8E9>ᴇsᴛᴀᴅísᴛɪᴄᴀs</gradient>'
+    - '&7 Visión nocturna: &f60 s'
+    - '&7 Alcance: &f10 bloques'
+    - '&7 Menas reveladas: &fHasta 24'
     - '&7 Duración: &f3 s &8│ &7Recarga: &f140 s'
+    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fLuz y pulso'
+    - '&e Clic derecho: ilumina tu visión.'
+    - '&e Agáchate + clic derecho: revela menas.'
 
 BARRENA_MITRILO:
   base:
-    revision-id: 5
+    revision-id: 7
     gem-sockets: ['1']
     unbreakable: true
     material: NETHERITE_PICKAXE
@@ -127,9 +149,13 @@ BARRENA_MITRILO:
     tooltip: SILVER
     permission:
     - hydev.mineria.ingenieria
+    lore-format: herramienta-minera
     lore:
+    - '&f  <gradient:#74B8B5:#D0B8E9>ᴇsᴛᴀᴅísᴛɪᴄᴀs</gradient>'
+    - '&7 Túnel: &f8 × 1 × 2 bloques'
+    - '&7 Intervalo: &f0,25 s por bloque'
+    - '&7 Resonancia: &f50'
+    - '&7 Recarga: &f45 s'
     - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fTúnel'
-    - '&f'
-    - '&e ᴍɪʀᴀ ʜᴀᴄɪᴀ ᴅᴏɴᴅᴇ ᴠᴀs ᴀ ᴄᴀᴠᴀʀ.'
-    - '&e ᴀɢáᴄʜᴀᴛᴇ ʏ ʜᴀᴢ ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ'
-    - '&e ᴘᴀʀᴀ ᴀʙʀɪʀ ᴜɴ ᴛúɴᴇʟ ᴅᴇ 1 × 2.'
+    - '&e Agáchate + clic derecho mirando la roca.'
+    - '&e Excava sin extraer minerales.'

@@ -1,0 +1,20 @@
+# Fragmentos para TALADRO y PICO_GEMAS existentes; no son plantillas completas.
+# El instalador añade estas líneas sin reemplazar su lore original.
+TALADRO:
+  base:
+    lore-format: herramienta-minera
+    gem-sockets: ['1']
+    lore:
+    - '&f  <gradient:#74B8B5:#D0B8E9>ᴇsᴛᴀᴅísᴛɪᴄᴀs</gradient>'
+    - '&7 Minería: &fBloques de roca'
+    - '&7 Intervalo: &f0,50 s'
+    - '&7 Rocas adicionales: &f0'
+PICO_GEMAS:
+  base:
+    lore-format: herramienta-minera
+    gem-sockets: ['1']
+    lore:
+    - '&f  <gradient:#74B8B5:#D0B8E9>ᴇsᴛᴀᴅísᴛɪᴄᴀs</gradient>'
+    - '&7 Resonancia máxima: &f50'
+    - '&7 Ventana de activación: &f30 s'
+    - '&7 Carga por mena: &f1 / 2 / 4'

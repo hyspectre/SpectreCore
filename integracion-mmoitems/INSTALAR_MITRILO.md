@@ -72,7 +72,7 @@ Los valores se configuran en `modules/tesoros/mineria.yml`, sección `herramient
 
 1. Fusiona las entradas nuevas en los **archivos existentes** `plugins/MMOItems/item/MATERIAL.yml` y `TOOL.yml`, conservando todos los IDs previos.
 2. Retira las recetas antiguas `brujula-geologica` y `farol-mitrilo`. Añade los fragmentos de recetas de linterna, barrena y carga resonante a la estación **real** de MMOItems que utiliza el NPC Forja. Su archivo no está en este repositorio, por lo que **no se han instalado ni verificado en el servidor**. Revisa el formato de recetas con tu versión exacta de la estación.
-3. Conserva el ID `FAROL_MITRILO` para actualizar los Faroles existentes con revisión 6. La Brújula anterior deja de tener habilidad y receta; no se borran objetos de inventarios. El instalador v2 retira las recetas conocidas con respaldo. Verifica que WorldGuard esté presente y que las funciones de prospección y excavación respeten las regiones; si la API no está disponible, dichas habilidades se bloquean.
+3. Conserva el ID `FAROL_MITRILO` para actualizar los Faroles existentes con revisión 7. La Brújula anterior deja de tener habilidad y receta; no se borran objetos de inventarios. El instalador v2 retira las recetas conocidas con respaldo. Verifica que WorldGuard esté presente y que las funciones de prospección y excavación respeten las regiones; si la API no está disponible, dichas habilidades se bloquean.
 4. Prueba en Paper el guardado de PDC al guardar/transferir los ítems, desconexiones, compatibilidad de durabilidad con MMOItems, tiempos, drops y configuración de ItemsAdder antes de desplegar.
 
 La carga de energía y la minería automática no alteran el progreso de AuraSkills por diseño ni generan pagos de trabajo adicionales; no se prometen comportamientos externos de terceros sin prueba ingame.
@@ -106,3 +106,5 @@ Los ajustes de energía, duración, número de cristales, golpes y calidades est
 Esta entrega se prueba mediante GitHub Actions (sintaxis, Java, YAML, reglas y código de transacciones). Permanecen aplazadas las pruebas completas dentro de Paper, fallos simulados Vault/LuckPerms y daño mágico MythicMobs/MMOItems, según el acuerdo para cerrar 0.9.
 
 **No instalar directamente en producción ni fusionar sobre archivos existentes sin respaldo.**
+
+Las plantillas de herramientas usan ranuras reales de color `'1'` y el formato `herramienta-minera`. Usa el instalador v2 para actualizar las herramientas existentes conservando sus ranuras, y el archivo `mineria-v2/herramienta-minera.yml` en `MMOItems/language/lore-formats/`. Consulta `mineria-v2/LEEME_INSTALACION.md` antes de revisar objetos con gemas.

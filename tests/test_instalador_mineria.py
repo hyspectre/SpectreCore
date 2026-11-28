@@ -111,8 +111,15 @@ gui-layout:
     assert "Linterna de Mitrilo" in tool["FAROL_MITRILO"]["base"]["name"]
     assert "brujula-geologica" not in definitions["recipes"] and "farol-mitrilo" not in definitions["recipes"]
 
-    for item, count in {"TALADRO":1, "TALADRO_REFORZADO":2,"TALADRO_CALIBRADO":3,"PICO_MITRILO_TEMPLADO":2}.items():
-        assert tool[item]["base"]["gem-sockets"] == ["1"] * count
+    for item, count in {"TALADRO":1, "TALADRO_REFORZADO":2, "TALADRO_CALIBRADO":3,
+                        "PICO_GEMAS":1, "PICO_MITRILO":1, "PICO_MITRILO_TEMPLADO":2,
+                        "PICO_AMATISTA":1, "FAROL_MITRILO":1, "BARRENA_MITRILO":1}.items():
+        base = tool[item]["base"]
+        assert base["gem-sockets"] == ["1"] * count
+        assert base["lore-format"] == "herramienta-minera"
+        assert base["revision-id"] >= 7 and any("ᴇsᴛᴀᴅí" in line for line in base["lore"])
+    fmt = yaml.safe_load((plugin/"language/lore-formats/herramienta-minera.yml").read_text())["lore-format"]
+    assert {"#gem-stones#", "#lore#", "#attack-damage#", "#pickaxe-power#"} <= set(fmt)
     assert "lingote-mitrilo" not in definitions["recipes"] and "cristal-mitrilo" not in definitions["recipes"]
     installed_gems=yaml.safe_load((plugin/"item/GEM_STONE.yml").read_text())
     assert installed_gems["GEMA_RUBI_1"]["base"]["name"] == "Rubí personalizado"
@@ -222,3 +229,39 @@ for malformed in ('MITRILO:\n  base: {}\n"MITRILO":\n  base: {}\n',
     else:
         raise AssertionError("Unsafe YAML accepted")
 print("PASS AUD-02: quoted IDs, preserved custom model, duplicate and unsupported YAML rejection")
+
+# Update previous tools without losing socket capacity, original colors or unrelated data.
+original = """PICO_GEMAS:
+  base:
+    material: DIAMOND_PICKAXE
+    revision-id: 14
+    gem-sockets: [Red, 1, '1']
+    custom-model-data: 123
+    lore: ['Mi lore']
+PICO_MITRILO_TEMPLADO:
+  base:
+    material: NETHERITE_PICKAXE
+    revision-id: 11
+    gem-sockets: [Blue, '1']
+    custom-model-data: 456
+OTHER:
+  base:
+    material: STICK
+"""
+incoming = (pack/"TOOL_MINERIA_NUEVOS.yml").read_text()
+legacy = (pack/"TOOL_EXISTENTES_PRESENTACION.yml").read_text()
+prepared = module.prepare_tool_definitions(original, incoming, legacy)
+updated = module.merge_items(original, prepared, "TOOL")[0]
+data = module.strict_yaml(updated)
+assert data["PICO_GEMAS"]["base"]["gem-sockets"] == ["Red", "1", "1"]
+assert data["PICO_GEMAS"]["base"]["revision-id"] == 15
+assert data["PICO_GEMAS"]["base"]["custom-model-data"] == 123
+assert "Mi lore" in data["PICO_GEMAS"]["base"]["lore"]
+assert data["PICO_MITRILO_TEMPLADO"]["base"]["gem-sockets"] == ["Blue", "1", "1"]
+assert data["PICO_MITRILO_TEMPLADO"]["base"]["revision-id"] == 12
+assert data["PICO_MITRILO_TEMPLADO"]["base"]["custom-model-data"] == 456
+assert data["OTHER"] == module.strict_yaml(original)["OTHER"]
+assert "TALADRO" not in data
+prepared_again = module.prepare_tool_definitions(updated, incoming, legacy)
+assert module.merge_items(updated, prepared_again, "TOOL")[0] == updated
+print("PASS mining tool presentation: real string-color sockets, native lore and safe revision migration")

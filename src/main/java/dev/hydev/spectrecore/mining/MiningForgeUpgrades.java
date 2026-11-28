@@ -10,6 +10,7 @@ import net.Indyuce.mmoitems.ItemStats;
 import net.Indyuce.mmoitems.MMOItems;
 import net.Indyuce.mmoitems.api.crafting.ingredient.CheckedIngredient;
 import net.Indyuce.mmoitems.api.event.PlayerUseCraftingStationEvent;
+import net.Indyuce.mmoitems.api.event.MMOItemReforgeFinishEvent;
 import net.Indyuce.mmoitems.api.item.mmoitem.LiveMMOItem;
 import net.Indyuce.mmoitems.stat.data.GemSocketsData;
 import net.Indyuce.mmoitems.stat.data.GemstoneData;
@@ -33,8 +34,24 @@ final class MiningForgeUpgrades implements Listener {
             "taladro-calibrado", new Upgrade("TALADRO_REFORZADO", "TALADRO_CALIBRADO"),
             "pico-mitrilo-templado", new Upgrade("PICO_MITRILO", "PICO_MITRILO_TEMPLADO"));
     private final JavaPlugin plugin;
+    private final MithrilDeviceData deviceData;
 
-    MiningForgeUpgrades(JavaPlugin plugin) { this.plugin = plugin; }
+    MiningForgeUpgrades(JavaPlugin plugin) {
+        this.plugin = plugin;
+        deviceData = new MithrilDeviceData(plugin);
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void revision(MMOItemReforgeFinishEvent event) {
+        ItemStack original = event.getReforger().getStack();
+        if (deviceData.id(original).isEmpty()) return;
+        try {
+            event.setFinishedItem(deviceData.preserveRevision(original, event.getFinishedItem()));
+        } catch (RuntimeException | LinkageError failure) {
+            event.setCancelled(true);
+            plugin.getLogger().log(Level.WARNING, "No se pudo conservar la resonancia al actualizar una herramienta.", failure);
+        }
+    }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void craft(PlayerUseCraftingStationEvent event) {
