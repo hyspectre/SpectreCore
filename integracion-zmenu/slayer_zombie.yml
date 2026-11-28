@@ -1,0 +1,219 @@
+# STAGING: no reemplazar menús hasta actualizar SpectreCore y activar sus contratos.
+name: '&8⧇ &6Misiones &8• &cMonarquía Renacida'
+size: 54
+items:
+  cancelar:
+    slot: 53
+    actions:
+      - type: player_command
+        commands:
+          - spectrecore slayer abandonar revenant
+    sound: ENTITY_VILLAGER_NO
+    item:
+      url: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzFlMDhkNTQ3Zjk5Mjk0OWYwMTNhMWUyYzdlM2NkMjI2YWI0ODVlM2JjOGMwYzBjMzljMTVkNWI3YzllODIwIn19fQ==
+      glow: true
+      name: "&f⧇ &c&lᴀʙᴀɴᴅᴏɴᴀʀ ᴄᴏɴᴛʀᴀᴛᴏ"
+      lore:
+        - ""
+        - "&7Abandona tu misión actual de la Monarquía."
+        - "&7SpectreCore comprobará que siga activa"
+        - "&7antes de cobrar la tarifa de cancelación."
+        - ""
+        - "#5F5851 ■ &fᴘʀᴇᴄɪᴏ: &6200 &f↾"
+        - ""
+        - "&#FFCC55  ► ᴄʟɪᴄ ᴘᴀʀᴀ ᴀʙᴀɴᴅᴏɴᴀʀ"
+  1:
+    slot: 21
+    actions:
+      - type: player_command
+        commands:
+          - spectrecore slayer contratar revenant 1
+    sound: ENTITY_VILLAGER_YES
+    item:
+      url: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjE1ZjM1MTdmMjg3NDA0NzBlOGY1MWI0ZDc1NWJlMTU5ZWU2NTg2MWMwNWUyZjc0NGZiNjFiZmRjY2Q1YzBlMSJ9fX0=
+      glow: true
+      name: '&f⧇ &c&lᴘʀɪɴᴄɪᴘᴇ ʀᴇɴᴀᴄɪᴅᴏ'
+      lore:
+        - ''
+        - '&f Un príncipe caprichoso viene a reclamar'
+        - '&f su trono ya olvidado...'
+        - ''
+        - '&e ʀᴇǫᴜɪᴇʀᴇ ɴɪᴠᴇʟ 7 ᴇɴ ᴄᴏᴍʙᴀᴛᴇ'
+        - ''
+        - '  &7▸ &fVida: &a150'
+        - '  &7▸ &fDaño: &a8'
+        - ''
+        - '  &7▸ &6ᴅᴇᴄᴀᴅᴇɴᴄɪᴀ ʀᴇᴀʟ'
+        - '&f    ɪɴғʟɪɴɢᴇ ᴅᴀñᴏ ᴀ sᴜ ᴀʟʀᴇᴅᴇᴅᴏʀ.'
+        - ''
+        - '  &7▸ &6ʟʟᴀᴍᴀᴅᴀ ʀᴇᴀʟ'
+        - '&f    ɪɴᴠᴏᴄᴀ ᴀ ɢᴜᴇʀʀᴇʀᴏs ᴢᴏᴍʙɪs.'
+        - ''
+        - '&6&l sᴜᴇʟᴛᴀ&r&f: &aCarne Rara &7x2-10 &8(100%)'
+        - '&6       &f      &a500 XP de Combate &8(100%)'
+        - ''
+        - '&e&l ᴍɪsɪóɴ: &r&fDerrota &a20 &fZombis.'
+        - '#5F5851 ■ &fᴘʀᴇᴄɪᴏ: &6200 &f↾'
+        - ''
+        - '&#FFCC55  ► ᴄʟɪᴄ ᴘᴀʀᴀ ᴄᴏɴᴛʀᴀᴛᴀʀ'
+  2:
+    slot: 23
+    actions:
+      - type: player_command
+        commands:
+          - spectrecore slayer contratar revenant 2
+    sound: ENTITY_VILLAGER_YES
+    item:
+      url: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjE1ZjM1MTdmMjg3NDA0NzBlOGY1MWI0ZDc1NWJlMTU5ZWU2NTg2MWMwNWUyZjc0NGZiNjFiZmRjY2Q1YzBlMSJ9fX0=
+      glow: true
+      name: '&f⧇ &c&lʀᴇʏ ʀᴇɴᴀᴄɪᴅᴏ'
+      lore:
+        - ''
+        - '&f Un rey devastado viene a reclamar'
+        - '&f su trono ya olvidado...'
+        - ''
+        - '&e ʀᴇǫᴜɪᴇʀᴇ ɴɪᴠᴇʟ 10 ᴇɴ ᴄᴏᴍʙᴀᴛᴇ'
+        - ''
+        - '  &7▸ &fVida: &a300'
+        - '  &7▸ &fDaño: &a20'
+        - ''
+        - '  &7▸ &6ᴅᴇᴄᴀᴅᴇɴᴄɪᴀ ʀᴇᴀʟ'
+        - '&f    ɪɴғʟɪɴɢᴇ ᴅᴀñᴏ ᴀ sᴜ ᴀʟʀᴇᴅᴇᴅᴏʀ.'
+        - ''
+        - '  &7▸ &6ʟʟᴀᴍᴀᴅᴀ ʀᴇᴀʟ 2'
+        - '&f    ɪɴᴠᴏᴄᴀ ᴀ ɢᴜᴇʀʀᴇʀᴏs ʏ ᴠᴇʀᴅᴜɢᴏs ᴢᴏᴍʙɪ.'
+        - ''
+        - '&6&l sᴜᴇʟᴛᴀ&r&f: &aCarne Rara &7x10-20 &8(100%)'
+        - '&6       &f      &a700 XP de Combate &8(100%)'
+        - '&6       &f      &aCorazón Podrido &7x1 &8(40%)'
+        - ''
+        - '&e&l ᴍɪsɪóɴ: &r&fDerrota &a50 &fZombis.'
+        - '#5F5851 ■ &fᴘʀᴇᴄɪᴏ: &6500 &f↾'
+        - ''
+        - '&#FFCC55  ► ᴄʟɪᴄ ᴘᴀʀᴀ ᴄᴏɴᴛʀᴀᴛᴀʀ'
+  3:
+    slot: 25
+    actions:
+      - type: player_command
+        commands:
+          - spectrecore slayer contratar revenant 3
+    sound: ENTITY_VILLAGER_YES
+    item:
+      url: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjE1ZjM1MTdmMjg3NDA0NzBlOGY1MWI0ZDc1NWJlMTU5ZWU2NTg2MWMwNWUyZjc0NGZiNjFiZmRjY2Q1YzBlMSJ9fX0=
+      glow: true
+      name: '&f⧇ &c&lᴇᴍᴘᴇʀᴀᴅᴏʀ ʀᴇɴᴀᴄɪᴅᴏ'
+      lore:
+        - ''
+        - '&f Un emperador despota viene a reclamar'
+        - '&f su trono ya olvidado...'
+        - ''
+        - '&e ʀᴇǫᴜɪᴇʀᴇ ɴɪᴠᴇʟ 14 ᴇɴ ᴄᴏᴍʙᴀᴛᴇ'
+        - ''
+        - '  &7▸ &fVida: &a600'
+        - '  &7▸ &fDaño: &a50'
+        - ''
+        - '  &7▸ &6ᴅᴇᴄᴀᴅᴇɴᴄɪᴀ ʀᴇᴀʟ'
+        - '&f    ɪɴғʟɪɴɢᴇ ᴅᴀñᴏ ᴀ sᴜ ᴀʟʀᴇᴅᴇᴅᴏʀ.'
+        - ''
+        - '  &7▸ &6ʟʟᴀᴍᴀᴅᴀ ʀᴇᴀʟ 3'
+        - '&f    ɪɴᴠᴏᴄᴀ ᴀ ɢᴜᴇʀʀᴇʀᴏs, ᴠᴇʀᴅᴜɢᴏs ᴢᴏᴍʙɪ'
+        - '&f    ʏ ᴀ ᴜɴᴀ ᴛᴇᴍɪʙʟᴇ ᴀʙᴏᴍɪɴᴀᴄɪᴏɴ.'
+        - ''
+        - '&6&l sᴜᴇʟᴛᴀ&r&f: &aCarne Rara &7x20-40 &8(100%)'
+        - '&6       &f      &a1000 XP de Combate &8(100%)'
+        - '&6       &f      &aCorazón Podrido &7x1 &8(50%)'
+        - ''
+        - '&e&l ᴍɪsɪóɴ: &r&fDerrota &a90 &fZombis.'
+        - '#5F5851 ■ &fᴘʀᴇᴄɪᴏ: &6950 &f↾'
+        - ''
+        - '&#FFCC55  ► ᴄʟɪᴄ ᴘᴀʀᴀ ᴄᴏɴᴛʀᴀᴛᴀʀ'
+  ComoCrear:
+    slot: 10
+    sound: entity.villager.yes
+    item:
+      url: 'eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWE2MmI3YzBhYzhhNjI2NDNkNzkzZmEwZWYwN2ZmMWY4ZDJiMWQzOTQ2YjU1YmM3N2VmOGQ3YTQ2ODcxYzEwIn19fQ=='
+      name: "&f⧇ &eGuía · El sistema"
+      lore:
+        - ""
+        - "&7La &cMonarquía Renacida &7tiene tres contratos."
+        - "&7Cada rango exige derrotar cierta cantidad"
+        - "&7de zombis para atraer a su monarca."
+        - ""
+        - "&7Sólo puedes mantener &funa misión activa&7."
+        - "&7El cobro se hace dentro de SpectreCore."
+        - ""
+        - "&#FFCC55  ► ᴇʟɪɢᴇ ᴜɴ ʀᴀɴɢᴏ ᴘᴀʀᴀ ᴄᴏɴᴛʀᴀᴛᴀʀ"
+  kamisitooo:
+    slot: 19
+    sound: entity.villager.yes
+    item:
+      url: 'eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTk2Yzg3OWJkOWE3YzExMWZlYmQ0NTM4NGU3MjdhZjdjZDE2MGZjOGQ5YTZkMjlhNTFhYjU3NTRiNzlmMzJkZiJ9fX0='
+      name: "&f⧇ &eGuía · Apariciones"
+      lore:
+        - ""
+        - "&7No necesitas altares ni coordenadas fijas."
+        - "&7Al completar las bajas, el jefe se manifiesta"
+        - "&7cerca del jugador que inició la misión."
+        - ""
+        - "&7Si la invocación falla, tu progreso"
+        - "&7permanece disponible para reintentar."
+        - ""
+        - "&#FFCC55  ► ᴄᴏɴsᴜʟᴛᴀ ᴛᴜ ᴘʀᴏɢʀᴇsᴏ"
+  hydevspectre:
+    slot: 28
+    sound: entity.villager.yes
+    item:
+      url: 'eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzhmYzE3ZGQwYTdmNGI5ZjZjODg3NDhlZjllZDExYmQyY2M0ODliODk2NzhmM2JiY2FmY2MxNDVhZjBkMTZjZSJ9fX0='
+      name: "&f⧇ &eGuía · Recompensas"
+      lore:
+        - ""
+        - "&7Los monarcas pueden otorgar &aCarne Rara,"
+        - "&aCorazón Podrido &7y experiencia de combate."
+        - "&7La cantidad y probabilidad exactas dependen"
+        - "&7del rango; revísalas en cada contrato."
+        - ""
+        - "&#FFCC55  ► ʙᴏᴛíɴ ᴘᴏʀ ʀᴀɴɢᴏ"
+  descripcion:
+    slot: 49
+    sound: minecraft:entity.villager.yes
+    item:
+      url: 'eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGUxNTU5NDhjYTg1YjA1MTM3ZDJkM2E1YjA4MmY1N2U3NmM2ODFiZmNkZjRmMGRjZjg2ZWFmZjY4MWI5MzY3OCJ9fX0='
+      name: "&f⧇ &cMisiones · Monarquía Renacida"
+      lore:
+        - ""
+        - "&7Elige un contrato para desafiar a los"
+        - "&7antiguos gobernantes de los zombis."
+        - ""
+        - "&7Rango I: &fPríncipe Renacido &8· &e200 ↾"
+        - "&7Rango II: &fRey Renacido &8· &e500 ↾"
+        - "&7Rango III: &fEmperador Renacido &8· &e950 ↾"
+        - ""
+        - "&7Progreso: &f/spectrecore slayer estado"
+        - ""
+        - "&#FFCC55  ► ᴄᴇɴᴛʀᴀʟ ᴅᴇ ʟᴀ ᴍᴏɴᴀʀǫᴜíᴀ"
+  cerrar:
+    slot: 48
+    type: INVENTORY
+    inventory: misiones
+    plugin: zMenu
+    sound: item.book.page_turn
+    item:
+      url: 'eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGExZDU1YjNmOTg5NDEwYTM0NzUyNjUwZTI0OGM5YjZjMTc4M2E3ZWMyYWEzZmQ3Nzg3YmRjNGQwZTYzN2QzOSJ9fX0='
+      name: "&f⇜ &6Volver a Misiones"
+      lore:
+        - ""
+        - "&7Regresar al índice de misiones."
+        - ""
+        - "&#FFCC55  ► ᴄʟɪᴄ ᴘᴀʀᴀ ᴠᴏʟᴠᴇʀ"
+  cerrar_menu:
+    slot: 50
+    sound: item.book.page_turn
+    close-inventory: true
+    item:
+      url: 'eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGExZDU1YjNmOTg5NDEwYTM0NzUyNjUwZTI0OGM5YjZjMTc4M2E3ZWMyYWEzZmQ3Nzg3YmRjNGQwZTYzN2QzOSJ9fX0='
+      name: "&f⇜ &7Cerrar menú"
+      lore:
+        - ""
+        - "&7Salir de la central de misiones."
+        - ""
+        - "&#FFCC55  ► ᴄʟɪᴄ ᴘᴀʀᴀ ᴄᴇʀʀᴀʀ"

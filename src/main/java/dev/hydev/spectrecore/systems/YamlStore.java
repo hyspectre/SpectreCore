@@ -15,6 +15,6 @@ public final class YamlStore {
         try {
             AtomicFileStore.writeUtf8(target, yaml.saveToString());
             return true;
-        } catch (IOException e) { plugin.getLogger().severe(Settings.text("nucleo", "YamlStore.texto-001", "No se pudo guardar ") + filename + ": " + e.getMessage()); return false; }
+        } catch (IOException e) { plugin.getLogger().severe(Settings.plain("nucleo", "YamlStore.texto-001", "No se pudo guardar ") + filename + ": " + e.getMessage()); return false; }
     }
 }

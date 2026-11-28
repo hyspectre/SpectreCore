@@ -4,6 +4,9 @@ engine:
     hostile-scoreboard-tags:
     - HYDEV_HOSTILE
     require-line-of-sight: true
+    # Diagnostico de staging: registra original, esperado, evento y daño final.
+    debug-multipliers: false
+    debug-rate-millis: 1000
   visuals:
     view-range: 0.75
 skills:
@@ -85,6 +88,9 @@ skills:
     extension-per-hit-ticks: 12
     cooldown-seconds: 40
     melee-damage-bonus: 0.15
+    auraskills:
+      enabled: true
+      strength-bonus: 45.0
     speed-bonus: 0.2
     damage-taken-increase: 0.2
     blink-next-hit-bonus: 0.1
@@ -108,6 +114,10 @@ skills:
     melee-hit-window-ticks: 60
     heal-on-activation: 4.0
     passive-damage-bonus: 0.03
+    auraskills:
+      enabled: false # Opt-in tras calibración en staging; no se cambia el daño actual por defecto.
+      passive-strength: 9.0
+      active-extra-strength: 18.0
     passive-damage-reduction: 0.03
     active-damage-bonus: 0.06
     active-damage-reduction: 0.06

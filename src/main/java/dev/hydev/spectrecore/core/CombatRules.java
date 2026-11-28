@@ -9,6 +9,15 @@ public final class CombatRules {
     public static double comboMultiplier(int stacks, int cap, double bonusPerStack) {
         return 1.0 + Math.max(0, Math.min(cap, stacks)) * Math.max(0, bonusPerStack);
     }
+    /** When AuraSkills already supplies Strength, the legacy base bonus must not be applied again. */
+    public static double oathMultiplier(boolean auraStrengthApplied, double baseBonus, double blinkBonus) {
+        return 1.0 + (auraStrengthApplied ? 0.0 : baseBonus) + blinkBonus;
+    }
+    /** Suppress only those legacy Dragon bonuses already represented by AuraSkills Strength. */
+    public static double dragonMultiplier(boolean passiveAura, boolean activeAura, boolean active,
+                                          double passiveBonus, double activeBonus) {
+        return 1.0 + (passiveAura ? 0.0 : passiveBonus) + (active && !activeAura ? activeBonus : 0.0);
+    }
     public static long extend(long currentEnd, long maximumEnd, long bonusTicks) {
         return Math.min(maximumEnd, currentEnd + Math.max(0, bonusTicks));
     }

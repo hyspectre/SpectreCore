@@ -1,6 +1,6 @@
 plugins { java }
 group = "dev.hydev"
-version = "0.7.3-m3-alpha"
+version = "0.7.6-aura-alpha"
 
 repositories {
     maven("https://repo.papermc.io/repository/maven-public/")
@@ -9,6 +9,8 @@ repositories {
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.10-R0.1-SNAPSHOT")
+    compileOnly("dev.aurelium:auraskills-api-bukkit:2.3.12")
+    compileOnly("net.luckperms:api:5.4")
 }
 
 java { toolchain.languageVersion.set(JavaLanguageVersion.of(21)) }
@@ -73,3 +75,29 @@ val presentationConfigTest = tasks.register<JavaExec>("presentationConfigTest") 
     javaLauncher.set(javaToolchains.launcherFor { languageVersion.set(JavaLanguageVersion.of(21)) })
 }
 tasks.check { dependsOn(presentationConfigTest) }
+
+val slayerTestDirectory = layout.buildDirectory.dir("slayer-progression-tests")
+val compileSlayerProgressionSmoke = tasks.register<JavaCompile>("compileSlayerProgressionSmoke") {
+    dependsOn(tasks.classes)
+    source("tests/SlayerContractSmoke.java", "tests/SlayerProgressionSmoke.java", "tests/SlayerCombatSmoke.java")
+    classpath = sourceSets.main.get().output + configurations.compileClasspath.get()
+    destinationDirectory.set(slayerTestDirectory)
+    options.encoding = "UTF-8"
+    options.release.set(21)
+    javaCompiler.set(javaToolchains.compilerFor { languageVersion.set(JavaLanguageVersion.of(21)) })
+}
+val slayerProgressionSmoke = tasks.register<JavaExec>("slayerProgressionSmoke") {
+    dependsOn(compileSlayerProgressionSmoke)
+    classpath = files(slayerTestDirectory, sourceSets.main.get().output, configurations.compileClasspath)
+    mainClass.set("SlayerProgressionSmoke")
+    javaLauncher.set(javaToolchains.launcherFor { languageVersion.set(JavaLanguageVersion.of(21)) })
+}
+tasks.check { dependsOn(slayerProgressionSmoke) }
+
+val slayerCombatSmoke = tasks.register<JavaExec>("slayerCombatSmoke") {
+    dependsOn(compileSlayerProgressionSmoke)
+    classpath = files(slayerTestDirectory, sourceSets.main.get().output, configurations.compileClasspath)
+    mainClass.set("SlayerCombatSmoke")
+    javaLauncher.set(javaToolchains.launcherFor { languageVersion.set(JavaLanguageVersion.of(21)) })
+}
+tasks.check { dependsOn(slayerCombatSmoke) }

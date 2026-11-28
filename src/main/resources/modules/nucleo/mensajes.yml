@@ -1,88 +1,97 @@
 SpectreCorePlugin:
-  etiqueta-035: 'Configuración modular inválida: '
-  mensaje-001: Ese módulo está desactivado en SpectreCore.
-  mensaje-002: No se puede activar SpectreCore junto con {obsolete}. Retira su JAR para evitar habilidades/cocinas duplicadas.
-  mensaje-003: Minería desactivada en SpectreCore.
-  mensaje-004: Actividades desactivadas.
-  mensaje-005: Ese módulo está desactivado.
-  mensaje-006: Esta guía se abre dentro del juego.
-  mensaje-007: 'SpectreCore {getpluginmeta-getversion}: habilidades={skillsenabled}, cocina={cookingenabled}.'
-  mensaje-008: Se migraron ajustes de SpectreSkills/config.yml (original intacto).
-  mensaje-009: 'No se pudo migrar configuración antigua: {ex-getmessage}'
-  mensaje-010: Agricultura desactivada.
-  mensaje-011: Tesoros de combate desactivados.
-  mensaje-012: Minería desactivada.
-  mensaje-013: '§6{name}§7: {valor2}{valor3}'
-  texto-001: §aACTIVO
-  texto-002: §cINACTIVO
-  texto-003: ' §e(cambio pendiente: reiniciar)'
-  mensaje-014: §7Usa /mago cocina para aprender o /spectrecore cocina recetas para consultar recetas.
-  mensaje-015: §cSin permiso.
-  mensaje-016: §c{error-getmessage}. Se conserva la última configuración válida.
-  mensaje-017: '§aSpectreCore: parámetros de habilidades y recetas recargados. Para cambiar módulos activos, reinicia el servidor.'
-  mensaje-018: §cSolo consola.
-  mensaje-019: 'Uso: /spectrecore blink <jugador>'
-  mensaje-020: §cJugador no conectado.
-  mensaje-021: §7Usa este comando desde el juego (salvo reload/blink).
-  mensaje-022: '§d✦ SpectreCore {getpluginmeta-getversion} §7| demo: §f{valor2}'
-  mensaje-023: §cSin permiso.
-  mensaje-024: §cMódulo desconocido. Usa /spectrecore demo <nombre> (Tab).
-  mensaje-025: §7Demo desactivada.
-  mensaje-026: §aDemo de {requested} activa.
-  mensaje-027: §aHabilidades y cooldowns reiniciados.
-  mensaje-028: §7/spectrecore ayuda
-  mensaje-029: §cSin permiso.
-  mensaje-030: Usa este comando dentro del juego.
-  mensaje-031: §cSostén un objeto con nombre personalizado.
-  mensaje-032: 'Nombre: '
-  mensaje-033: '[COPIAR NOMBRE]'
-  mensaje-034: 'Nombre del item: [{valor1}]'
+  etiqueta-035: "Configuración modular inválida: "
+  mensaje-001: "Esta función está desactivada."
+  mensaje-002: "Hay sistemas incompatibles activos. Consulta a administración antes de continuar."
+  mensaje-003: "La minería especial está desactivada."
+  mensaje-004: "Actividades desactivadas."
+  mensaje-005: "Esta función está desactivada."
+  mensaje-006: "Esta guía se abre dentro del juego."
+  mensaje-007: "Hydev {getpluginmeta-getversion}: habilidades={skillsenabled}, cocina={cookingenabled}."
+  mensaje-008: "Se actualizaron ajustes anteriores; el archivo original sigue intacto."
+  mensaje-009: "No se pudo migrar configuración antigua: {ex-getmessage}"
+  mensaje-010: "Agricultura desactivada."
+  mensaje-011: "Tesoros de combate desactivados."
+  mensaje-012: "Minería desactivada."
+  mensaje-013: "<reset><gold>{name}<reset><gray>: {valor2}{valor3}"
+  texto-001: "<reset><green>ACTIVO"
+  texto-002: "<reset><red>INACTIVO"
+  texto-003: " <reset><yellow>(cambio pendiente: reiniciar)"
+  mensaje-014: "<reset><gray>Usa /mago cocina para aprender o /spectrecore cocina recetas para consultar recetas."
+  mensaje-015: "<reset><red>Sin permiso."
+  mensaje-016: "<reset><red>No se pudieron actualizar los ajustes. Se conserva la configuración anterior."
+  mensaje-017: "<reset><green>Se actualizaron habilidades y recetas. Para cambiar módulos activos, reinicia el servidor."
+  mensaje-018: "<reset><red>Solo consola."
+  mensaje-019: "Uso: /spectrecore blink <jugador>"
+  mensaje-020: "<reset><red>Jugador no conectado."
+  mensaje-021: "<reset><gray>Usa este comando desde el juego (salvo reload/blink)."
+  mensaje-022: "<reset><light_purple>✦ Hydev <reset><gray>| Estado de habilidades"
+  mensaje-023: "<reset><red>Sin permiso."
+  mensaje-024: "<reset><red>Módulo desconocido. Usa /spectrecore demo <nombre> (Tab)."
+  mensaje-025: "<reset><gray>Demo desactivada."
+  mensaje-026: "<reset><green>Demo de {requested} activa."
+  mensaje-027: "<reset><green>Habilidades y tiempos de espera reiniciados."
+  mensaje-028: "<reset><gray>/spectrecore ayuda"
+  mensaje-029: "<reset><red>Sin permiso."
+  mensaje-030: "Usa este comando dentro del juego."
+  mensaje-031: "<reset><red>Sostén un objeto con nombre personalizado."
+  mensaje-032: "Nombre: "
+  mensaje-033: "[COPIAR NOMBRE]"
+  mensaje-034: "Nombre del item: [{valor1}]"
 MmoBridge:
-  etiqueta-001: MMOItems absent
+  etiqueta-001: "Sistema de equipamiento no disponible"
 MiningVisuals:
-  mensaje-001: 'No se pudo mostrar la animación minera: {error-getmessage}'
+  mensaje-001: "No se pudo mostrar la animación minera: {error-getmessage}"
 YamlStore:
-  texto-001: 'No se pudo guardar '
+  texto-001: "No se pudo guardar "
 CommandRouter:
-  sin-permiso: '&cNo tienes permiso para este comando.'
-  desactivado: '&cEste módulo está desactivado.'
-  uso: '&eUso: {uso}'
-  cabecera: '&6✦ SpectreCore &7— comandos'
-  categorias: '&eCategorías: &f{categorias}'
-  ayuda: '&7Consulta &f/spectrecore ayuda <categoria>&7. Usa Tab para completar.'
-  entrada: '&e{uso} &8— &7{descripcion}'
-  cocina: '&7Ayuda, recetas y estado son consultas. Reparar y recargar requieren permiso administrativo.'
-  sin-rutas: '&7No hay comandos disponibles para esa categoría.'
+  sin-permiso: "<reset><red>No tienes permiso para este comando."
+  desactivado: "<reset><red>Esta función está desactivada."
+  uso: "<reset><yellow>Uso: {uso}"
+  cabecera: "<reset><gold>✦ Hydev <reset><gray>— comandos"
+  categorias: "<reset><yellow>Categorías: <reset><white>{categorias}"
+  ayuda: "<reset><gray>Consulta <reset><white>/spectrecore ayuda <categoria><reset><gray>. Usa Tab para completar."
+  entrada: "<reset><yellow>{uso} <reset><dark_gray>— <reset><gray>{descripcion}"
+  cocina: "<reset><gray>Ayuda, recetas y estado son consultas. Reparar y recargar requieren permiso administrativo."
+  sin-rutas: "<reset><gray>No hay comandos disponibles para esa categoría."
 
 # Migración M2 - MiniMessage, El Mago y vistas previas 3D.
-MagoMenu.no-disponible: '<red>El Mago está temporalmente desactivado.</red>'
-MagoMenu.reload-error: '<red>Menú inválido: {error}; se conserva la última versión válida.</red>'
-Integraciones.estado: '{nombre}: {estado}'
-Integraciones.activo: '<green>detectado</green>'
-Integraciones.inactivo: '<gray>no activo</gray>'
-Modelos.sin-permiso: '<red>Sin permiso.</red>'
-Modelos.solo-jugador: '<red>Solo jugador.</red>'
-Modelos.uso: '<gray>Uso: /spectrecore modelo vista|colocar &lt;id&gt; / quitar &lt;UUID&gt; / lista</gray>'
-Modelos.id-invalido: '<red>ID de modelo inválido.</red>'
-Modelos.capacidad: '<yellow>Demasiadas vistas previas simultáneas.</yellow>'
-Modelos.invalido: '<red>Modelo inválido: {error}</red>'
-Modelos.fallo: '<red>No se pudo visualizar el modelo; no se conservaron entidades.</red>'
-Modelos.creado: '<green>Vista previa de {id}: {partes} piezas.</green>'
+MagoMenu.no-disponible: "<red>El Mago está temporalmente desactivado.</red>"
+MagoMenu.reload-error: "<red>No se pudo actualizar la guía. Se conserva la versión anterior.</red>"
+Integraciones.solo-consola: "<gray>Esta revisión administrativa solo está disponible desde la consola."
+Integraciones.estado: "{nombre}: {estado}"
+Integraciones.activo: "<green>detectado</green>"
+Integraciones.inactivo: "<gray>no activo</gray>"
+Modelos.sin-permiso: "<red>Sin permiso.</red>"
+Modelos.solo-jugador: "<red>Solo jugador.</red>"
+Modelos.uso: "<gray>Uso: /spectrecore modelo vista|colocar <bold>t;id&gt; / quitar <bold>t;UUID&gt; / lista</gray>"
+Modelos.id-invalido: "<red>ID de modelo inválido.</red>"
+Modelos.capacidad: "<yellow>Demasiadas vistas previas simultáneas.</yellow>"
+Modelos.invalido: "<red>No se pudo preparar ese modelo. Avisa a administración.</red>"
+Modelos.fallo: "<red>No se pudo visualizar el modelo; no se conservaron entidades.</red>"
+Modelos.creado: "<green>Vista previa de {id}: {partes} piezas.</green>"
 
 # Migración m3: diagnósticos y modelos persistentes
-Diagnostico.estado: '<gold>SpectreCore — telemetría: {estado}</gold>'
-Modelos.settings-invalido: '<red>models/settings.yml inválido; se conservan límites anteriores.</red>'
-Modelos.storage: '<red>Almacenamiento de modelos bloqueado. Recupera placements.yml.</red>'
-Modelos.limite: '<red>Se alcanzó el límite de modelos persistentes.</red>'
-Modelos.colocado: '<green>Modelo colocado: {id}. Para retirarlo usa /spectrecore modelo quitar {id}</green>'
-Modelos.no-existe: '<red>No existe esa instancia.</red>'
-Modelos.retirado: '<green>Modelo retirado.</green>'
-Modelos.listado: '<gold>Modelos colocados: {cantidad}</gold>'
-Modelos.uuid-invalido: '<red>UUID inválido.</red>'
-Modelos.worldguard: '<red>WorldGuard: esta región no permite colocar o retirar modelos.</red>'
+Diagnostico.solo-consola: "<gray>El diagnóstico administrativo se consulta desde la consola."
+Diagnostico.estado: "<gold>Hydev — diagnóstico: {estado}</gold>"
+Modelos.settings-invalido: "<red>No se pudieron actualizar los ajustes de modelos.</red>"
+Modelos.storage: "<red>Almacenamiento de modelos bloqueado. Recupera placements.yml.</red>"
+Modelos.limite: "<red>Se alcanzó el límite de modelos persistentes.</red>"
+Modelos.colocado: "<green>Modelo colocado: {id}. Para retirarlo usa /spectrecore modelo quitar {id}</green>"
+Modelos.no-existe: "<red>No existe esa instancia.</red>"
+Modelos.retirado: "<green>Modelo retirado.</green>"
+Modelos.listado: "<gold>Modelos colocados: {cantidad}</gold>"
+Modelos.uuid-invalido: "<red>UUID inválido.</red>"
+Modelos.worldguard: "<red>Esta región no permite colocar ni retirar modelos.</red>"
 
-Modelos.entrada: '<gray>{model} · {id}</gray>'
-Diagnostico.cocina: '<gray>Cocina: {estado}</gray>'
-Diagnostico.cofres: '<gray>Cofres: {estado}</gray>'
-Diagnostico.modelos: '<gray>Modelos: {estado}</gray>'
-Diagnostico.metrica: '<gray>{metrica}: eventos={eventos}, fallos={fallos}, promedio={promedio}ms</gray>'
+Modelos.entrada: "<gray>{model} · {id}</gray>"
+Diagnostico.cocina: "<gray>Cocina: {estado}</gray>"
+Diagnostico.cofres: "<gray>Cofres: {estado}</gray>"
+Diagnostico.modelos: "<gray>Modelos: {estado}</gray>"
+Diagnostico.metrica: "<gray>{metrica}: eventos={eventos}, fallos={fallos}, promedio={promedio}ms</gray>"
+
+# Control administrativo de toasts nativos
+ToastService.permiso: "<reset><red>Sin permiso."
+ToastService.solo-jugador: "<reset><gray>Prueba el toast desde el juego."
+ToastService.uso: "<reset><yellow>Uso: /spectrecore toast prueba <id>"
+ToastService.no-disponible: "<reset><yellow>Esta notificación no está disponible."
+ToastService.solicitado: "<reset><gray>Toast solicitado (puede estar filtrado por antispam)."

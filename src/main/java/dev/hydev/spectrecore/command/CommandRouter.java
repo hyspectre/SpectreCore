@@ -35,7 +35,7 @@ public final class CommandRouter {
     private boolean enabled(CommandRoutes.Route route){return route.module().isEmpty()||plugin.moduleConfigs().active(route.module());}
     private String usage(CommandRoutes.Route route){return Settings.module("nucleo/comandos.yml").getString("rutas."+route.key()+".uso",route.usage());}
     private String description(CommandRoutes.Route route){return Settings.module("nucleo/comandos.yml").getString("rutas."+route.key()+".descripcion",route.description());}
-    private void say(CommandSender sender,String key,String fallback,Object... bindings){sender.sendMessage(Settings.text("nucleo","CommandRouter."+key,fallback,bindings));}
+    private void say(CommandSender sender,String key,String fallback,Object... bindings){sender.sendMessage(Settings.message("nucleo","CommandRouter."+key,fallback,bindings));}
     public boolean dispatch(CommandSender sender,String[] args) {
         if(args.length==0||args[0].equalsIgnoreCase("ayuda")||args[0].equalsIgnoreCase("help")){help(sender,args.length>1?args[1]:"");return true;}
         var match=CommandRoutes.resolve(args);
@@ -46,17 +46,17 @@ public final class CommandRouter {
         }
         var route=match.route();
         if(!access(sender,route)){say(sender,"sin-permiso","&cNo tienes permiso para este comando.");return true;}
-        if(!enabled(route)){say(sender,"desactivado","&cEste módulo está desactivado.");return true;}
+        if(!enabled(route)){say(sender,"desactivado","&cEsta función está desactivada.");return true;}
         if(route.parameters().isEmpty()&&args.length>route.words().size()){say(sender,"uso","&eUso: {uso}","uso",usage(route));return true;}
         String[] forwarded=match.arguments().toArray(String[]::new);
         if(route.target().equals("$core"))return core.apply(sender,forwarded);
         Handler handler=handlers.get(route.target());
-        if(handler==null||handler.executor==null){say(sender,"desactivado","&cEste módulo está desactivado.");return true;}
+        if(handler==null||handler.executor==null){say(sender,"desactivado","&cEsta función está desactivada.");return true;}
         return handler.execute(sender,"spectrecore "+route.path(),forwarded);
     }
     private void help(CommandSender sender,String group) {
-        say(sender,"cabecera","&6✦ SpectreCore &7— comandos");
-        if (sender.hasPermission("spectrecore.admin")) sender.sendMessage("§7Herramientas de staging: /spectrecore integraciones | /spectrecore modelo vista|colocar|quitar|lista · /spectrecore diagnostico");
+        say(sender,"cabecera","&6✦ Hydev &7— comandos");
+        if (sender.hasPermission("spectrecore.admin")) sender.sendMessage("§7Controles de administración: /spectrecore integraciones | /spectrecore modelo vista|colocar|quitar|lista · /spectrecore diagnostico");
         if(group.isEmpty()) {
             var groups=new TreeSet<String>();for(var route:CommandRoutes.ALL)if(access(sender,route)&&enabled(route))groups.add(route.words().getFirst());
             say(sender,"categorias","&eCategorías: &f{categorias}","categorias",String.join(", ",groups));
@@ -87,7 +87,7 @@ public final class CommandRouter {
                         for(String skill:List.of("botania","necrotica","asterion","ultimo-juramento","sangre-primer-dragon"))if(plugin.moduleConfigs().active("equipamiento."+skill))result.add(skill);
                     } else if(route.path().startsWith("slayer ")&&!route.target().equals("slayerstats")) {
                         if(remaining==1)result.addAll(List.of("revenant","necromancer","spider"));
-                        else if(remaining==2&&route.target().equals("activarslayer"))result.addAll(List.of("1","2","3"));
+                        else if(remaining==2&&(route.target().equals("activarslayer")||route.target().equals("contratarslayer")))result.addAll(List.of("1","2","3"));
                     } else if(route.path().equals("tesoros gema")&&remaining==1)result.addAll(List.of("basica","intermedia","superior"));
                     else if(route.path().startsWith("tesoros ")&&!route.path().equals("tesoros abrir")&&remaining==1)result.addAll(List.of("1","2","3"));
                     else if((route.path().startsWith("portal ")&&!route.path().equals("portal limpiar")||route.path().equals("blink"))&&remaining==1)plugin.getServer().getOnlinePlayers().forEach(p->result.add(p.getName()));

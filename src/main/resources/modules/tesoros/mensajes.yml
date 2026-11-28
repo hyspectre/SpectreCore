@@ -1,26 +1,26 @@
 AgricultureTreasures:
-  mensaje-001: 'Agricultura: falta CONSUMABLE:{id} o MMOItems no pudo generarlo.'
-  mensaje-002: §6§l[Tesoro Agricultura] §cRecompensa no disponible; avisa a administración.
-  mensaje-003: ¡TESORO ENCONTRADO!
-  mensaje-004: '[Tesoro Agricultura] ¡Obtuviste '
-  mensaje-005: '!'
-  mensaje-006: Sin permiso.
-  mensaje-007: Usa la demo dentro del juego.
-  mensaje-008: /spectrecore tesoros agricultura <1|2|3>
-  mensaje-009: §7Demostración sin recompensa ni cooldown.
+  mensaje-001: "No se pudo generar el hallazgo agrícola ({id})."
+  mensaje-002: "<reset><gold><bold>[Tesoro Agricultura] <reset><red>Recompensa no disponible; avisa a administración."
+  mensaje-003: "¡TESORO ENCONTRADO!"
+  mensaje-004: "[Tesoro Agricultura] ¡Obtuviste "
+  mensaje-005: "!"
+  mensaje-006: "Sin permiso."
+  mensaje-007: "Usa la demo dentro del juego."
+  mensaje-008: "/spectrecore tesoros agricultura <1|2|3>"
+  mensaje-009: "<reset><gray>Demostración sin recompensa ni cooldown."
 MiningModule:
-  mensaje-014: ¡TESORO ENCONTRADO!
-  mensaje-015: ✦ {reward-getamount} minerales raros
-  mensaje-016: §f↹ §e¡Obtuviste un mineral raro!
+  mensaje-014: "¡TESORO ENCONTRADO!"
+  mensaje-015: "✦ {reward-getamount} minerales raros"
+  mensaje-016: "<reset><white>↹ <reset><yellow>¡Obtuviste un mineral raro!"
 CombatTreasures:
-  mensaje-001: 'Almas: no se pudo generar {type}:{id}. Revisa MMOItems y el ID.'
-  mensaje-002: §f⧇ §9§lALMAS §cLa recompensa no está disponible; avisa a administración.
-  mensaje-003: ¡ALMA RECOLECTADA!
-  mensaje-004: ⧇
-  mensaje-005: §cNo tienes permiso.
-  mensaje-006: Usa la demostración dentro del juego.
-  mensaje-007: /spectrecore tesoros combate <1|2|3>
-  mensaje-008: '§7Vista previa de alma: no entrega objetos ni consume cooldown.'
+  mensaje-001: "No se pudo generar el hallazgo de combate ({type}:{id})."
+  mensaje-002: "<reset><white>⧇ <reset><blue><bold>ALMAS <reset><red>La recompensa no está disponible; avisa a administración."
+  mensaje-003: "¡ALMA RECOLECTADA!"
+  mensaje-004: "⧇"
+  mensaje-005: "<reset><red>No tienes permiso."
+  mensaje-006: "Usa la demostración dentro del juego."
+  mensaje-007: "/spectrecore tesoros combate <1|2|3>"
+  mensaje-008: "<reset><gray>Vista previa de alma: no entrega objetos ni consume cooldown."
 TreasureCooldowns:
-  mensaje-001: 'UUID inválido en treasure-data.yml: {id}'
-  mensaje-002: 'No se pudo guardar cooldown de tesoros: {error-getmessage}'
+  mensaje-001: "UUID inválido en treasure-data.yml: {id}"
+  mensaje-002: "No se pudo guardar cooldown de tesoros: {error-getmessage}"

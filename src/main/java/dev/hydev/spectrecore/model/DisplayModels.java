@@ -125,7 +125,9 @@ public final class DisplayModels implements Listener {
             if (duration < 20 || duration > 1200) throw new IllegalArgumentException("duration-ticks fuera de rango");
             parts = parseParts(yaml);
         } catch (IOException | InvalidConfigurationException | IllegalArgumentException ex) {
-            player.sendMessage(TextService.component(Settings.text("nucleo", "Modelos.invalido", "<red>Modelo inválido: {error}</red>", "error", sanitize(ex.getMessage()))));
+            plugin.getLogger().warning("Modelo: vista previa rechazada: " + ex.getMessage());
+            message(player, "Modelos.invalido",
+                    "<red>No se pudo preparar ese modelo. Avisa a administración.</red>");
             return true;
         }
         clear(player.getUniqueId());
@@ -156,7 +158,7 @@ public final class DisplayModels implements Listener {
             parseParts(definition(modelId)); // Validate before writing anything.
             Location point = admin.getEyeLocation().add(admin.getEyeLocation().getDirection().normalize().multiply(2.5));
             if (!worldGuard.canBuild(admin, point)) {
-                message(admin, "Modelos.worldguard", "<red>WorldGuard: esta región no permite colocar o retirar modelos.</red>");
+                message(admin, "Modelos.worldguard", "<red>Esta región no permite colocar ni retirar modelos.</red>");
                 return true;
             }
             UUID id = UUID.randomUUID();
@@ -170,8 +172,9 @@ public final class DisplayModels implements Listener {
             admin.sendMessage(TextService.component(Settings.text("nucleo", "Modelos.colocado",
                     "<green>Modelo colocado: {id}. Para retirarlo usa /spectrecore modelo quitar {id}</green>", "id", id)));
         } catch (IOException | InvalidConfigurationException | IllegalArgumentException ex) {
-            admin.sendMessage(TextService.component(Settings.text("nucleo", "Modelos.invalido",
-                    "<red>Modelo inválido: {error}</red>", "error", sanitize(ex.getMessage()))));
+            plugin.getLogger().warning("Modelo: colocación rechazada: " + ex.getMessage());
+            message(admin, "Modelos.invalido",
+                    "<red>No se pudo preparar ese modelo. Avisa a administración.</red>");
         }
         return true;
     }
@@ -184,7 +187,7 @@ public final class DisplayModels implements Listener {
             World anchorWorld = Bukkit.getWorld(anchor.world());
             if (anchorWorld == null || !worldGuard.canBuild(admin, anchor.location(anchorWorld))) {
                 anchors.put(id, anchor);
-                message(admin, "Modelos.worldguard", "<red>WorldGuard: esta región no permite colocar o retirar modelos.</red>"); return true;
+                message(admin, "Modelos.worldguard", "<red>Esta región no permite colocar ni retirar modelos.</red>"); return true;
             }
             if (!savePlacements()) { anchors.put(id, anchor); storageReady = false; message(admin, "Modelos.storage", "<red>Almacenamiento de modelos bloqueado. Recupera placements.yml.</red>"); return true; }
             despawn(id);

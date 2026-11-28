@@ -64,8 +64,8 @@ public final class AgricultureTreasures implements Listener {
         String id = config.getString("botin.tier" + tier, "AGRICULTURA_T" + tier);
         var reward = mmo.build(config.getString("tipo","CONSUMABLE"), id, config.getInt("cantidad",1));
         if (reward == null) {
-            if (reported.add(id)) plugin.getLogger().warning(Settings.text("tesoros", "AgricultureTreasures.mensaje-001", "Agricultura: falta CONSUMABLE:{id} o MMOItems no pudo generarlo.", "id", id));
-            player.sendMessage(Settings.text("tesoros", "AgricultureTreasures.mensaje-002", "§6§l[Tesoro Agricultura] §cRecompensa no disponible; avisa a administración.")); return;
+            if (reported.add(id)) plugin.getLogger().warning(Settings.plain("tesoros", "AgricultureTreasures.mensaje-001", "No se pudo generar el hallazgo agrícola ({id}).", "id", id));
+            player.sendMessage(Settings.message("tesoros", "AgricultureTreasures.mensaje-002", "§6§l[Tesoro Agricultura] §cRecompensa no disponible; avisa a administración.")); return;
         }
         player.getInventory().addItem(reward.clone()).values().forEach(item -> player.getWorld().dropItem(player.getLocation(), item, drop -> { drop.setOwner(player.getUniqueId()); drop.setPickupDelay(0); }));
         cooldowns.awarded(player.getUniqueId()); visuals.harvest(block.getLocation().add(.5, .5, .5), tier);
@@ -75,12 +75,12 @@ public final class AgricultureTreasures implements Listener {
         player.sendMessage(Settings.component(Settings.text("tesoros", "AgricultureTreasures.mensaje-004", "[Tesoro Agricultura] ¡Obtuviste "), Settings.color("tesoros", "AgricultureTreasures.color-004", NamedTextColor.GOLD)).append(name).append(Settings.component(Settings.text("tesoros", "AgricultureTreasures.mensaje-005", "!"))));
     }
     public boolean preview(CommandSender sender, String[] args) {
-        if (!sender.hasPermission("spectrecore.admin") && !sender.hasPermission("hydev.admin")) { sender.sendMessage(Settings.text("tesoros", "AgricultureTreasures.mensaje-006", "Sin permiso.")); return true; }
-        if (!(sender instanceof Player player)) { sender.sendMessage(Settings.text("tesoros", "AgricultureTreasures.mensaje-007", "Usa la demo dentro del juego.")); return true; }
+        if (!sender.hasPermission("spectrecore.admin") && !sender.hasPermission("hydev.admin")) { sender.sendMessage(Settings.message("tesoros", "AgricultureTreasures.mensaje-006", "Sin permiso.")); return true; }
+        if (!(sender instanceof Player player)) { sender.sendMessage(Settings.message("tesoros", "AgricultureTreasures.mensaje-007", "Usa la demo dentro del juego.")); return true; }
         int tier = 0; if (args.length >= 2) try { tier = Integer.parseInt(args[1]); } catch (NumberFormatException ignored) { }
-        if (tier < 1 || tier > 3) { sender.sendMessage(Settings.text("tesoros", "AgricultureTreasures.mensaje-008", "/spectrecore tesoros agricultura <1|2|3>")); return true; }
+        if (tier < 1 || tier > 3) { sender.sendMessage(Settings.message("tesoros", "AgricultureTreasures.mensaje-008", "/spectrecore tesoros agricultura <1|2|3>")); return true; }
         var block = player.getTargetBlockExact(6);
         visuals.harvest(block == null ? player.getLocation() : block.getLocation().add(.5, .5, .5), tier);
-        sender.sendMessage(Settings.text("tesoros", "AgricultureTreasures.mensaje-009", "§7Demostración sin recompensa ni cooldown.")); return true;
+        sender.sendMessage(Settings.message("tesoros", "AgricultureTreasures.mensaje-009", "§7Demostración sin recompensa ni cooldown.")); return true;
     }
 }

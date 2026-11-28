@@ -1,22 +1,58 @@
 SlayerModule:
-  mensaje-001: 'Conserva el uso del Skript: ejecuta estos comandos como jugador.'
-  mensaje-002: §6✦ ESTADÍSTICAS DE MISIONES
-  mensaje-003: '§e{name-c}§7: §f{m-kills}/{m-required} §7| Tier {m-tier} | {valor5}'
-  texto-001: §aActiva
-  texto-002: §7Inactiva
-  mensaje-004: §cNo tienes permiso.
-  mensaje-005: '§cCategoría: revenant, necromancer o spider.'
-  mensaje-006: §cTier inválido. Usa 1, 2 o 3.
-  mensaje-007: §cYa tienes una misión activa. Complétala o cancélala.
-  mensaje-008: §cNo tienes permiso para ese tier.
-  mensaje-009: '§6MISIONES §e{name-category} · Tier {tier} · Objetivo: {m-required}'
-  mensaje-010: §cTodavía no has completado ese objetivo.
-  mensaje-011: §cNo tienes esa misión activa.
-  mensaje-012: §7Misión {name-category}{valor2}
-  mensaje-013: §6MISIONES §e{name-category} §f{m-kills}/{m-required}
-  mensaje-014: 'Slayer: no se pudo invocar {mob}: {error-getmessage}'
-  mensaje-015: §cNo se pudo invocar {mob}. Tu objetivo se conserva. Reintenta con /spectrecore slayer invocar {category}
-  mensaje-016: ¡MISIÓN COMPLETADA!
-  mensaje-017: '{name-category} ha sido invocado'
-  mensaje-018: '{name-c} · {m-kills}/{m-required}'
-  mensaje-019: 'UUID inválido en slayer-data.yml: {id}'
+  mensaje-001: "Esta acción solo puede realizarse dentro del juego."
+  mensaje-002: "<reset><gold>✦ ESTADÍSTICAS DE MISIONES"
+  mensaje-003: "<reset><yellow>{name-c}<reset><gray>: <reset><white>{m-kills}/{m-required} <reset><gray>| Rango {m-tier} | {valor5}"
+  texto-001: "<reset><green>Activa"
+  texto-002: "<reset><gray>Inactiva"
+  mensaje-004: "<reset><red>No tienes permiso."
+  mensaje-005: "<reset><red>Esta cacería no existe."
+  mensaje-006: "<reset><red>Elige un rango del 1 al 3."
+  mensaje-007: "<reset><red>Ya tienes una misión activa. Complétala o cancélala."
+  mensaje-008: "<reset><red>Todavía no puedes acceder a ese rango."
+  mensaje-009: "<reset><gold>MISIONES <reset><yellow>{name-category} · Rango {tier} · Objetivo: {m-required}"
+  mensaje-010: "<reset><red>Todavía no has completado ese objetivo."
+  mensaje-011: "<reset><red>No tienes esa misión activa."
+  mensaje-012: "<reset><gray>Misión {name-category}{valor2}"
+  mensaje-013: "<reset><gold>MISIONES <reset><yellow>{name-category} <reset><white>{m-kills}/{m-required}"
+  mensaje-014: "Slayer: no se pudo invocar {mob}: {error-getmessage}"
+  mensaje-015: "<reset><red>El jefe no pudo aparecer. Conservas el contrato y podrás reintentar la invocación."
+  mensaje-016: "¡JEFE INVOCADO!"
+  mensaje-017: "{name-category} ha aparecido. ¡Derrota al jefe!"
+  mensaje-018: "{name-c} · {m-kills}/{m-required}"
+  mensaje-019: "UUID inválido en slayer-data.yml: {id}"
+
+# Contratos Slayer de jugador (Vault; activación opt-in)
+SlayerModule.contrato-categoria: "<reset><red>Categoría inválida."
+SlayerModule.contrato-rechazado: "<reset><red>Contrato rechazado: {motivo}"
+SlayerModule.contrato-pago-fallo: "<reset><red>No se pudo confirmar el cobro; tu contrato sigue intacto."
+SlayerModule.contrato-storage-fallo: "<reset><red>No se pudo guardar el contrato; solicita revisión administrativa del saldo."
+SlayerModule.contrato-aplicado: "<reset><gold>Contrato {accion}: {categoria} · Costo {costo} ↾"
+
+# Acceso remoto: compra del Teléfono Rojo con Vault y MMOItems
+SlayerModule.telefono-no-disponible: "<reset><red>El acceso remoto no está disponible por ahora."
+SlayerModule.telefono-item-fallo: "<reset><red>No se pudo preparar el Teléfono Rojo. No se ha cobrado."
+SlayerModule.telefono-inventario: "<reset><red>Libera al menos una ranura de inventario antes de comprar."
+SlayerModule.telefono-pago-fallo: "<reset><red>No se confirmó el pago. No se ha entregado el objeto."
+SlayerModule.telefono-comprado: "<reset><green>Has comprado el Teléfono Rojo por {precio} ↾."
+SlayerModule.telefono-entrega-fallo: "<reset><red>Error de entrega. Avisa a un administrador; no intentes pagar de nuevo."
+# Reintento seguro de los contratos que completaron su cuota sin jefe activo.
+SlayerModule.reintento-uso: "<red>Uso: /spectrecore slayer invocar [categoria]"
+SlayerModule.reintento-en-curso: "<yellow>Ya tienes un jefe activo. No se permite otra invocación."
+SlayerModule.reintento-sin-pendientes: "<gray>No tienes un jefe de Monarquía pendiente de invocación."
+# Encuentros persistentes y crédito cooperativo
+SlayerModule.jefe-desaparecido: "<yellow>El jefe desapareció. Conservas el contrato y podrás volver a invocarlo."
+SlayerModule.guardado-pendiente: "<red>El estado de Slayer no pudo guardarse. Avisa a administración antes de reiniciar."
+SlayerModule.victoria-cooperativa: "<green>¡Jefe derrotado! <gold>+{xp} XP Slayer <gray>· Nivel {nivel}"
+SlayerModule.victoria-no-acreditada: "<red>No recibiste XP Slayer: necesitas infligir al menos {porcentaje}% de la vida del jefe y estar a {radio} bloques al morir."
+SlayerModule.jefe-descargado: "<yellow>Tu jefe sigue registrado, pero no está cargado. Regresa a la zona del combate; no invoques otro."
+SlayerModule.jefe-ultima-posicion: "<gray>Última ubicación conocida: <white>{world} {x} {y} {z}"
+SlayerModule.nivel-desbloqueado: "<green>DESBLOQUEADO"
+SlayerModule.nivel-bloqueado: "<dark_gray>BLOQUEADO"
+SlayerModule.estadisticas-nivel: "<gold>Monarquía Renacida <white>Nivel {nivel} <gray>· <yellow>{xp}/{siguiente} XP <gray>· Victorias: <white>{victorias}"
+SlayerModule.gui-nivel: "<gold>Tu nivel: <white>{nivel} <dark_gray>/ <white>11"
+SlayerModule.gui-xp: "<gray>XP: <yellow>{xp} <dark_gray>/ <yellow>{siguiente}"
+SlayerModule.gui-progreso: "<gold>Progreso actual: <yellow>{nivel}<gray>/11"
+SlayerModule.nivel-maximo: "<gold>Nivel máximo alcanzado"
+SlayerModule.sin-recetas-nuevas: "Sin recetas nuevas"
+SlayerModule.subida-nivel: "<gold>✦ ¡Nivel Slayer {nivel}! <white>{recompensas}"
+SlayerModule.desbloqueos-pendientes: "<yellow>Subiste de nivel, pero tus nuevas recetas todavía están pendientes. Avisa a administración."

@@ -51,30 +51,30 @@ public final class PortalModule implements Listener {
     private boolean admin(CommandSender s) { return s.hasPermission("hydev.admin")||s.hasPermission("spectrecore.admin"); }
     private boolean command(CommandSender sender,String command,String[] args) {
         if(command.equals("hydevportaljoin")||command.equals("hydevportalleave")) {
-            if(!(sender instanceof ConsoleCommandSender)){sender.sendMessage(Settings.text("dungeons", "PortalModule.mensaje-001", "Este callback es solo de consola."));return true;}
-            if(args.length<(command.equals("hydevportaljoin")?2:1)){sender.sendMessage(Settings.text("dungeons", "PortalModule.mensaje-002","Uso: /{command} <jugador>{valor2}","command", "spectrecore "+dev.hydev.spectrecore.command.CommandRoutes.newPath(command),"valor2", (command.equals("hydevportaljoin")?" <sesion>":"")));return true;}
-            Player p=Bukkit.getPlayerExact(args[0]);if(p==null){sender.sendMessage(Settings.text("dungeons", "PortalModule.mensaje-003", "Jugador no conectado."));return true;}
+            if(!(sender instanceof ConsoleCommandSender)){sender.sendMessage(Settings.message("dungeons", "PortalModule.mensaje-001", "Este callback es solo de consola."));return true;}
+            if(args.length<(command.equals("hydevportaljoin")?2:1)){sender.sendMessage(Settings.message("dungeons", "PortalModule.mensaje-002","Uso: /{command} <jugador>{valor2}","command", "spectrecore "+dev.hydev.spectrecore.command.CommandRoutes.newPath(command),"valor2", (command.equals("hydevportaljoin")?" <sesion>":"")));return true;}
+            Player p=Bukkit.getPlayerExact(args[0]);if(p==null){sender.sendMessage(Settings.message("dungeons", "PortalModule.mensaje-003", "Jugador no conectado."));return true;}
             String session=String.join(" ",Arrays.copyOfRange(args,1,args.length));
-            if(command.equals("hydevportaljoin")&&(session.isBlank()||session.contains("<")||session.contains(">"))){sender.sendMessage(Settings.text("dungeons", "PortalModule.mensaje-004", "Identificador de sesión vacío o sin resolver."));return true;}
+            if(command.equals("hydevportaljoin")&&(session.isBlank()||session.contains("<")||session.contains(">"))){sender.sendMessage(Settings.message("dungeons", "PortalModule.mensaje-004", "Identificador de sesión vacío o sin resolver."));return true;}
             reset(p.getUniqueId());
-            if(command.equals("hydevportaljoin")){sessions.put(p.getUniqueId(),session);plugin.getLogger().info(Settings.text("dungeons", "PortalModule.mensaje-005", "Portal JOIN: {p-getname} | {session}", "p-getname", p.getName(), "session", session));}
+            if(command.equals("hydevportaljoin")){sessions.put(p.getUniqueId(),session);plugin.getLogger().info(Settings.plain("dungeons", "PortalModule.mensaje-005", "Portal JOIN: {p-getname} | {session}", "p-getname", p.getName(), "session", session));}
             else sessions.remove(p.getUniqueId());
             return true;
         }
-        if(!admin(sender)){sender.sendMessage(Settings.text("dungeons", "PortalModule.mensaje-006", "Sin permiso."));return true;}
-        if(command.equals("hydevportalcleanup")){new ArrayList<>(gates.keySet()).forEach(this::clear);sender.sendMessage(Settings.text("dungeons", "PortalModule.mensaje-007", "Portales retirados."));return true;}
+        if(!admin(sender)){sender.sendMessage(Settings.message("dungeons", "PortalModule.mensaje-006", "Sin permiso."));return true;}
+        if(command.equals("hydevportalcleanup")){new ArrayList<>(gates.keySet()).forEach(this::clear);sender.sendMessage(Settings.message("dungeons", "PortalModule.mensaje-007", "Portales retirados."));return true;}
         Player p=sender instanceof Player player?player:args.length>0?Bukkit.getPlayerExact(args[0]):null;
-        if(p==null){sender.sendMessage(Settings.text("dungeons", "PortalModule.mensaje-008", "Indica un jugador conectado."));return true;}
+        if(p==null){sender.sendMessage(Settings.message("dungeons", "PortalModule.mensaje-008", "Indica un jugador conectado."));return true;}
         if(command.equals("hydevportaldemo")) {
-            if(gates.size()>=limit()){sender.sendMessage(Settings.text("dungeons", "PortalModule.mensaje-009", "Límite de portales alcanzado."));return true;}
+            if(gates.size()>=limit()){sender.sendMessage(Settings.message("dungeons", "PortalModule.mensaje-009", "Límite de portales alcanzado."));return true;}
             Location center=p.getLocation().add(p.getLocation().getDirection().setY(0).normalize().multiply(3));
             Gate gate=new Gate(UUID.randomUUID(),"demo",center,System.currentTimeMillis()+15000,true);gates.put(gate.id,gate);draw(gate);
-            sender.sendMessage(Settings.text("dungeons", "PortalModule.mensaje-010", "§7Vista previa por 15 s: no finaliza ninguna expedición."));return true;
+            sender.sendMessage(Settings.message("dungeons", "PortalModule.mensaje-010", "§7Vista previa por 15 s: no finaliza ninguna expedición."));return true;
         }
         UUID id=p.getUniqueId();Gate g=gates.get(eligible.get(id));
-        sender.sendMessage(Settings.text("dungeons", "PortalModule.mensaje-011", "Sesión: {sessions-get-id} | Portal: {eligible-get-id}", "sessions-get-id", sessions.get(id), "eligible-get-id", eligible.get(id)));
-        sender.sendMessage(Settings.text("dungeons", "PortalModule.mensaje-012", "Inicio: {since-get-id} | Pendiente hasta: {pending-get-id}", "since-get-id", since.get(id), "pending-get-id", pending.get(id)));
-        if(g!=null)sender.sendMessage(Settings.text("dungeons", "PortalModule.mensaje-013","Dentro: {inside-p-g} | Restantes: {g-members-size} | Expira en {valor3} s","inside-p-g", inside(p,g),"g-members-size", g.members.size(),"valor3", Math.max(0,(g.expires-System.currentTimeMillis())/1000)));
+        sender.sendMessage(Settings.message("dungeons", "PortalModule.mensaje-011", "Sesión: {sessions-get-id} | Portal: {eligible-get-id}", "sessions-get-id", sessions.get(id), "eligible-get-id", eligible.get(id)));
+        sender.sendMessage(Settings.message("dungeons", "PortalModule.mensaje-012", "Inicio: {since-get-id} | Pendiente hasta: {pending-get-id}", "since-get-id", since.get(id), "pending-get-id", pending.get(id)));
+        if(g!=null)sender.sendMessage(Settings.message("dungeons", "PortalModule.mensaje-013","Dentro: {inside-p-g} | Restantes: {g-members-size} | Expira en {valor3} s","inside-p-g", inside(p,g),"g-members-size", g.members.size(),"valor3", Math.max(0,(g.expires-System.currentTimeMillis())/1000)));
         return true;
     }
     private int limit(){return Math.max(1,Math.min(64,config.getInt("visuales.max-portales",16)));}
@@ -84,7 +84,7 @@ public final class PortalModule implements Listener {
         UUID id=event.getEntity().getUniqueId();if(gates.containsKey(id)||gates.size()>=limit())return;
         Location death=event.getEntity().getLocation();double radius=Math.max(1,config.getDouble("radio-participantes",64));
         List<Player> nearby=death.getWorld().getPlayers().stream().filter(p->p.getGameMode()!=GameMode.SPECTATOR&&p.getLocation().distanceSquared(death)<=radius*radius&&sessions.containsKey(p.getUniqueId())).sorted(Comparator.comparingDouble(p->p.getLocation().distanceSquared(death))).toList();
-        if(nearby.isEmpty()){plugin.getLogger().warning(Settings.text("dungeons", "PortalModule.mensaje-014", "Minotauro muerto sin sesiones registradas. Configura callbacks /spectrecore portal registrar y /spectrecore portal salir en Dungeons+."));return;}
+        if(nearby.isEmpty()){plugin.getLogger().warning(Settings.plain("dungeons", "PortalModule.mensaje-014", "El Minotauro fue derrotado sin participantes registrados. Revisa la gestión de la expedición."));return;}
         String session=sessions.get(nearby.getFirst().getUniqueId());
         Location center=new Location(death.getWorld(),death.getBlockX()+Settings.d("dungeons", "PortalModule.geometria-001", .5),death.getBlockY(),death.getBlockZ()+Settings.d("dungeons", "PortalModule.geometria-002", .5));
         Gate gate=new Gate(id,session,center,System.currentTimeMillis()+Math.max(1,config.getLong("duracion-segundos",900))*1000,false);
@@ -92,7 +92,7 @@ public final class PortalModule implements Listener {
             reset(p.getUniqueId());gate.members.add(p.getUniqueId());eligible.put(p.getUniqueId(),id);
         }
         gates.put(id,gate);draw(gate);
-        for(UUID member:gate.members){Player p=Bukkit.getPlayer(member);if(p!=null){p.sendMessage(Settings.text("dungeons", "PortalModule.mensaje-015", "§6✦ EL MINOTAURO HA CAÍDO ✦"));p.sendMessage(Settings.text("dungeons", "PortalModule.mensaje-016","§7Recoge tu cofre y permanece {valor1} segundos dentro del arco para salir.","valor1", config.getInt("tiempo-dentro-segundos",5)));p.playSound(center,Settings.sound("dungeons", "PortalModule.sound-001", Sound.BLOCK_END_PORTAL_SPAWN),Settings.f("dungeons", "PortalModule.playsound-001-arg2", .6f),Settings.f("dungeons", "PortalModule.playsound-002-arg3", 1.2f));}}
+        for(UUID member:gate.members){Player p=Bukkit.getPlayer(member);if(p!=null){p.sendMessage(Settings.message("dungeons", "PortalModule.mensaje-015", "§6✦ EL MINOTAURO HA CAÍDO ✦"));p.sendMessage(Settings.message("dungeons", "PortalModule.mensaje-016","§7Recoge tu cofre y permanece {valor1} segundos dentro del arco para salir.","valor1", config.getInt("tiempo-dentro-segundos",5)));p.playSound(center,Settings.sound("dungeons", "PortalModule.sound-001", Sound.BLOCK_END_PORTAL_SPAWN),Settings.f("dungeons", "PortalModule.playsound-001-arg2", .6f),Settings.f("dungeons", "PortalModule.playsound-002-arg3", 1.2f));}}
     }
     private boolean inside(Player p,Gate gate){return p.getWorld().equals(gate.center.getWorld())&&Math.abs(p.getX()-gate.center.getX())<=config.getDouble("zona-extraccion.radio-horizontal",1.75)&&Math.abs(p.getZ()-gate.center.getZ())<=config.getDouble("zona-extraccion.radio-horizontal",1.75)&&p.getY()-gate.center.getY()>=config.getDouble("zona-extraccion.altura-inferior",-2)&&p.getY()-gate.center.getY()<=config.getDouble("zona-extraccion.altura-superior",4.5);}
     private void tick(){
@@ -109,7 +109,7 @@ public final class PortalModule implements Listener {
                 if(!p.getWorld().equals(gate.center.getWorld())||p.getLocation().distanceSquared(gate.center)>128*128){reset(id);sessions.remove(id);continue;}
                 if(p.getGameMode()==GameMode.SPECTATOR||p.isDead()||!inside(p,gate)){since.remove(id);pending.remove(id);continue;}
                 Long until=pending.get(id);
-                if(until!=null){if(now<until)continue;pending.remove(id);since.remove(id);p.sendMessage(Settings.text("dungeons", "PortalModule.mensaje-017", "§cNo se confirmó tu salida. Puedes reintentar; revisa Dungeons+ con administración."));}
+                if(until!=null){if(now<until)continue;pending.remove(id);since.remove(id);p.sendMessage(Settings.message("dungeons", "PortalModule.mensaje-017", "§cNo se confirmó tu salida. Intenta nuevamente o avisa a administración."));}
                 long started=since.computeIfAbsent(id,unused->now), wait=Math.max(1,config.getInt("tiempo-dentro-segundos",5))*1000L;
                 if(now-started>=wait){request(p,gate);continue;}
                 p.sendActionBar(Settings.component(Settings.text("dungeons", "PortalModule.mensaje-018","Salida en {valor1} s · Permanece en el arco","valor1", ((wait-(now-started)+999)/1000)),Settings.color("dungeons", "PortalModule.color-003", NamedTextColor.GOLD)));
@@ -119,12 +119,12 @@ public final class PortalModule implements Listener {
     private void request(Player p,Gate gate){
         String template=config.getString("salida.comando","");
         pending.put(p.getUniqueId(),System.currentTimeMillis()+Math.max(1,config.getInt("salida.confirmacion-segundos",10))*1000L);
-        if(template.isBlank()){p.sendMessage(Settings.text("dungeons", "PortalModule.mensaje-019", "§cEl comando de salida no está configurado. Avisa a administración."));return;}
+        if(template.isBlank()){p.sendMessage(Settings.message("dungeons", "PortalModule.mensaje-019", "§cEl comando de salida no está configurado. Avisa a administración."));return;}
         String command=template.replace("{player}",p.getName()).replace("{session}",gate.session);
         try{
             boolean accepted=Bukkit.dispatchCommand(Bukkit.getConsoleSender(),command);
-            p.sendActionBar(Settings.component(Settings.text("dungeons", "PortalModule.mensaje-020","{valor1}","valor1", accepted?Settings.text("dungeons", "PortalModule.texto-001", "Finalizando tu expedición..."):Settings.text("dungeons", "PortalModule.texto-002", "Dungeons+ rechazó el comando de salida")),Settings.color("dungeons", "PortalModule.color-004", NamedTextColor.GOLD)));
-        }catch(RuntimeException e){plugin.getLogger().warning(Settings.text("dungeons", "PortalModule.mensaje-021", "Falló salida de portal: {e-getmessage}", "e-getmessage", e.getMessage()));}
+            p.sendActionBar(Settings.component(Settings.text("dungeons", "PortalModule.mensaje-020","{valor1}","valor1", accepted?Settings.text("dungeons", "PortalModule.texto-001", "Finalizando tu expedición..."):Settings.text("dungeons", "PortalModule.texto-002", "La expedición rechazó la solicitud de salida")),Settings.color("dungeons", "PortalModule.color-004", NamedTextColor.GOLD)));
+        }catch(RuntimeException e){plugin.getLogger().warning(Settings.plain("dungeons", "PortalModule.mensaje-021", "Falló salida de portal: {e-getmessage}", "e-getmessage", e.getMessage()));}
         // Never assume dispatch=true means the dungeon accepted or ended the run.
     }
     private void reset(UUID id){

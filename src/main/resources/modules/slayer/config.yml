@@ -5,20 +5,95 @@ objetivos:
   tier3: 90
 categorias:
   revenant:
-    nombre: Monarquía Renacida
-    entidad: ZOMBIE
-    mob: ReyZombie{tier}
+    nombre: "Monarquía Renacida"
+    entidad: "ZOMBIE"
+    mob: "ReyZombie{tier}"
   necromancer:
-    nombre: Nigromante
-    entidad: SKELETON
-    mob: Nigromante{tier}
+    nombre: "Nigromante"
+    entidad: "SKELETON"
+    mob: "Nigromante{tier}"
   spider:
-    nombre: Madre Araña
-    entidad: SPIDER
-    mob: MadreArana{tier}
+    nombre: "Madre Araña"
+    entidad: "SPIDER"
+    mob: "MadreArana{tier}"
 
 avisos:
   cada-bajas: 10
 invocacion:
   reintento-milisegundos: 5000
   nivel-mob: 1
+
+# Crédito cooperativo: el último golpe puede darlo otro jugador.
+# El contratante debe haber causado daño real y permanecer cerca al morir el jefe.
+participacion:
+  minimo-porcentaje-vida: 10
+  radio-bloques: 48
+
+# Contratos desde la interfaz nativa de SpectreCore.
+# Activados por defecto en NUEVAS instalaciones de 0.7.4; requieren el nuevo JAR.
+# Antes de desplegar, retirar accesos/cobros antiguos de zMenu y respaldar el servidor.
+# Los precios de Revenant replican el menú Hordas; otros rangos quedan sin precio,
+# así que se rechazan hasta configurarse explícitamente.
+acceso-remoto:
+  habilitado: true
+  precio: 500
+  tipo: "MATERIAL"
+  id: "TELEFONO1"
+
+contratos:
+  habilitados: true
+  precios:
+    revenant:
+      tier1: 200
+      tier2: 500
+      tier3: 950
+  cancelacion:
+    revenant: 200
+
+# Experiencia Slayer independiente de AuraSkills. Recompensas por victoria del
+# jefe REGISTRADO de Monarquía, y XP acumulada para alcanzar cada nivel.
+progresion:
+  revenant:
+    xp-jefes:
+      tier1: 25
+      tier2: 100
+      tier3: 250
+    niveles:
+      "1": 100
+      "2": 250
+      "3": 450
+      "4": 700
+      "5": 1000
+      "6": 1400
+      "7": 1850
+      "8": 2350
+      "9": 3000
+      "10": 3800
+      "11": 5000
+    # Nombres solo de presentación; los permisos permanecen definidos en Java.
+    recompensas:
+      "1": ["Receta: Osespina"]
+      "2": ["Recetas: Armadura Renacida I y II"]
+      "3": ["Recetas: Armadura Renacida III y IV","Acceso al Liche I"]
+      "4": []
+      "5": ["Receta: Mordisco","Cacería Monarquía II"]
+      "6": ["Recetas: Armadura Espeluznante I y II"]
+      "7": ["Recetas: Armadura Espeluznante III y IV"]
+      "8": ["Receta: Umbría"]
+      "9": ["Recetas: Armadura Necrótica I y II"]
+      "10": ["Recetas: Armadura Necrótica III y IV","Cacería Monarquía III"]
+      "11": ["Receta: Necroespada"]
+
+# Datos mostrados en el menú (no modifican los YAML de MythicMobs).
+# Mantener sincronizados con los mobs de Monarquía Renacida v2.
+presentacion:
+  revenant:
+    tier1:
+      vida: 1600
+      dano: 32
+    tier2:
+      vida: 3800
+      dano: 48
+    tier3:
+      vida: 7800
+      dano: 62

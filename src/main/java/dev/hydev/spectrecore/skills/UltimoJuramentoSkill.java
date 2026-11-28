@@ -24,6 +24,7 @@ import java.util.UUID;
 /** Último Juramento: temporary glass-cannon with mobile floating plates and verified Blink synergy. */
 public final class UltimoJuramentoSkill implements SkillModule {
     private static final String SPEED_KEY = "ultimo_juramento_speed";
+    private static final String STRENGTH_KEY = "spectrecore_ultimo_juramento_strength";
     private static final class State {
         long lastTap = -100000, startTick, activeUntil, maxUntil;
         long blinkCandidate = -100000, blinkBonusUntil, lastBlink;
@@ -54,20 +55,25 @@ public final class UltimoJuramentoSkill implements SkillModule {
         s.startTick = tick;
         s.activeUntil = tick + i("duration-seconds", 7) * 20L;
         s.maxUntil = tick + i("maximum-duration-seconds", 10) * 20L;
+        var aura = plugin.auraSkillsBridge();
+        if (aura != null && plugin.getConfig().getBoolean("skills.ultimo-juramento.auraskills.enabled", true))
+            aura.applyStrength(p, STRENGTH_KEY, d("auraskills.strength-bonus", 45.0),
+                    Math.max(2, i("maximum-duration-seconds", 10) + 3));
         plugin.effects().setAttribute(p, Attribute.MOVEMENT_SPEED, SPEED_KEY, d("speed-bonus", .20), AttributeModifier.Operation.ADD_SCALAR);
         s.speedApplied = true;
         p.getWorld().playSound(p.getLocation(), Settings.string("equipamiento", "UltimoJuramentoSkill.sonido-005", "minecraft:block.anvil.break"),Settings.f("equipamiento", "UltimoJuramentoSkill.playsound-001-arg2", .65f),Settings.f("equipamiento", "UltimoJuramentoSkill.playsound-002-arg3", .72f));
         p.getWorld().spawnParticle(Settings.particle("equipamiento", "UltimoJuramentoSkill.particle-001", Particle.REVERSE_PORTAL), p.getLocation().add(0, 1.0, 0),Settings.i("equipamiento", "UltimoJuramentoSkill.spawnparticle-003-arg2", 26),Settings.d("equipamiento", "UltimoJuramentoSkill.spawnparticle-004-arg3", .5),Settings.d("equipamiento", "UltimoJuramentoSkill.spawnparticle-005-arg4", .7),Settings.d("equipamiento", "UltimoJuramentoSkill.spawnparticle-006-arg5", .5),Settings.d("equipamiento", "UltimoJuramentoSkill.spawnparticle-007-arg6", .02));
-        p.sendMessage(Settings.text("equipamiento", "UltimoJuramentoSkill.mensaje-001", "§5✦ §dÚltimo Juramento §7— El acero deja de protegerte."));
+        p.sendMessage(Settings.message("equipamiento", "UltimoJuramentoSkill.mensaje-001", "§5✦ §dÚltimo Juramento §7— El acero deja de protegerte."));
     }
 
     @Override public double outgoingMultiplier(Player p, LivingEntity target, long tick) {
         if (!access(p)) return 1;
         State s = states.get(p.getUniqueId());
         if (s == null || !active(s, tick)) return 1;
-        double factor = 1 + d("melee-damage-bonus", .15);
-        if (s.blinkBonusUntil >= tick && withSword(p)) factor += d("blink-next-hit-bonus", .10);
-        return factor;
+        var aura = plugin.auraSkillsBridge();
+        boolean strengthApplied = aura != null && aura.isApplied(p, STRENGTH_KEY);
+        double blinkBonus = s.blinkBonusUntil >= tick && withSword(p) ? d("blink-next-hit-bonus", .10) : 0;
+        return CombatRules.oathMultiplier(strengthApplied, d("melee-damage-bonus", .15), blinkBonus);
     }
     @Override public double incomingMultiplier(Player p, long tick) {
         State s = states.get(p.getUniqueId());
@@ -134,6 +140,7 @@ public final class UltimoJuramentoSkill implements SkillModule {
             if (s == null) continue;
             if (!p.isValid() || p.isDead() || !access(p)) { clear(id); continue; }
             if (!active(s, tick)) {
+                if (plugin.auraSkillsBridge() != null) plugin.auraSkillsBridge().remove(p, STRENGTH_KEY);
                 if (s.speedApplied) {
                     plugin.effects().clearAttribute(p, Attribute.MOVEMENT_SPEED, SPEED_KEY);
                     s.speedApplied = false;
@@ -169,9 +176,10 @@ public final class UltimoJuramentoSkill implements SkillModule {
     }
     @Override public void clear(UUID id) {
         State s = states.remove(id);
+        Player p = Bukkit.getPlayer(id);
+        if (p != null && plugin.auraSkillsBridge() != null) plugin.auraSkillsBridge().remove(p, STRENGTH_KEY);
         if (s == null) return;
         removePlates(s);
-        Player p = Bukkit.getPlayer(id);
         if (p != null && s.speedApplied) plugin.effects().clearAttribute(p, Attribute.MOVEMENT_SPEED, SPEED_KEY);
     }
     @Override public String status(Player p) {

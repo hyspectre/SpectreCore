@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
 public final class MmoBridge {
     private Class<?> api() throws ClassNotFoundException {
         Plugin plugin = Bukkit.getPluginManager().getPlugin("MMOItems");
-        if (plugin == null || !plugin.isEnabled()) throw new ClassNotFoundException(Settings.text("nucleo", "MmoBridge.etiqueta-001", "MMOItems absent"));
+        if (plugin == null || !plugin.isEnabled()) throw new ClassNotFoundException(Settings.text("nucleo", "MmoBridge.etiqueta-001", "Sistema de equipamiento no disponible"));
         return Class.forName("net.Indyuce.mmoitems.MMOItems", true, plugin.getClass().getClassLoader());
     }
     public ItemStack build(String type, String id, int amount) {

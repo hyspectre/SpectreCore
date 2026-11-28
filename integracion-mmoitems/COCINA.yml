@@ -1,0 +1,858 @@
+# Instalación: plugins/MMOItems/item/COCINA.yml
+# Requiere registrar el tipo COCINA (parent: CONSUMABLE) en item-types.yml.
+# Conserva las 45 variantes originales; no copies estos mismos IDs dos veces en el mismo tipo.
+HC_GUARDIAN_NORMAL:
+  base:
+    revision-id: 1
+    material: MUSHROOM_STEW
+    name: '&6Guiso del Guardian &fNormal'
+    tier: RARE
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 6
+    item-cooldown: 3
+    lore:
+    - '&7Calidad: &fNormal'
+    - '&7Efecto: &fResistencia I &8(120s)'
+    effects:
+      RESISTANCE:
+        duration: 120
+        amplifier: 1
+HC_GUARDIAN_EXQUISITO:
+  base:
+    revision-id: 1
+    material: MUSHROOM_STEW
+    name: '&6Guiso del Guardian &aExquisito'
+    tier: RARE
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 6
+    item-cooldown: 3
+    lore:
+    - '&7Calidad: &aExquisito'
+    - '&7Efecto: &fResistencia I &8(150s)'
+    effects:
+      RESISTANCE:
+        duration: 150
+        amplifier: 1
+HC_GUARDIAN_PASADO:
+  base:
+    revision-id: 1
+    material: MUSHROOM_STEW
+    name: '&6Guiso del Guardian &6Sobrecocido'
+    tier: COMMON
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 4
+    item-cooldown: 3
+    lore:
+    - '&7Calidad: &6Sobrecocido'
+    - '&7Efecto: &fResistencia I &8(72s)'
+    effects:
+      RESISTANCE:
+        duration: 72
+        amplifier: 1
+HC_ALBA_NORMAL:
+  base:
+    revision-id: 1
+    material: RABBIT_STEW
+    name: '&eCaldo del Alba &fNormal'
+    tier: RARE
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 6
+    item-cooldown: 3
+    lore:
+    - '&7Calidad: &fNormal'
+    - '&7Efecto: &fVelocidad I &8(180s)'
+    effects:
+      SPEED:
+        duration: 180
+        amplifier: 1
+HC_ALBA_EXQUISITO:
+  base:
+    revision-id: 1
+    material: RABBIT_STEW
+    name: '&eCaldo del Alba &aExquisito'
+    tier: RARE
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 6
+    item-cooldown: 3
+    lore:
+    - '&7Calidad: &aExquisito'
+    - '&7Efecto: &fVelocidad I &8(225s)'
+    effects:
+      SPEED:
+        duration: 225
+        amplifier: 1
+HC_ALBA_PASADO:
+  base:
+    revision-id: 1
+    material: RABBIT_STEW
+    name: '&eCaldo del Alba &6Sobrecocido'
+    tier: COMMON
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 4
+    item-cooldown: 3
+    lore:
+    - '&7Calidad: &6Sobrecocido'
+    - '&7Efecto: &fVelocidad I &8(108s)'
+    effects:
+      SPEED:
+        duration: 108
+        amplifier: 1
+HC_CARMESI_NORMAL:
+  base:
+    revision-id: 1
+    material: BEETROOT_SOUP
+    name: '&cEstofado Carmesi &fNormal'
+    tier: RARE
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 6
+    item-cooldown: 3
+    lore:
+    - '&7Calidad: &fNormal'
+    - '&7Efecto: &fFuerza I &8(90s)'
+    effects:
+      STRENGTH:
+        duration: 90
+        amplifier: 1
+HC_CARMESI_EXQUISITO:
+  base:
+    revision-id: 1
+    material: BEETROOT_SOUP
+    name: '&cEstofado Carmesi &aExquisito'
+    tier: RARE
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 6
+    item-cooldown: 3
+    lore:
+    - '&7Calidad: &aExquisito'
+    - '&7Efecto: &fFuerza I &8(112s)'
+    effects:
+      STRENGTH:
+        duration: 112
+        amplifier: 1
+HC_CARMESI_PASADO:
+  base:
+    revision-id: 1
+    material: BEETROOT_SOUP
+    name: '&cEstofado Carmesi &6Sobrecocido'
+    tier: COMMON
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 4
+    item-cooldown: 3
+    lore:
+    - '&7Calidad: &6Sobrecocido'
+    - '&7Efecto: &fFuerza I &8(54s)'
+    effects:
+      STRENGTH:
+        duration: 54
+        amplifier: 1
+HC_ESPECTRAL_NORMAL:
+  base:
+    revision-id: 1
+    material: MUSHROOM_STEW
+    name: '&dConsome Espectral &fNormal'
+    tier: RARE
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 6
+    item-cooldown: 3
+    lore:
+    - '&7Calidad: &fNormal'
+    - '&7Efecto: &fRegeneración I &8(20s)'
+    effects:
+      REGENERATION:
+        duration: 20
+        amplifier: 1
+HC_ESPECTRAL_EXQUISITO:
+  base:
+    revision-id: 1
+    material: MUSHROOM_STEW
+    name: '&dConsome Espectral &aExquisito'
+    tier: RARE
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 6
+    item-cooldown: 3
+    lore:
+    - '&7Calidad: &aExquisito'
+    - '&7Efecto: &fRegeneración I &8(25s)'
+    effects:
+      REGENERATION:
+        duration: 25
+        amplifier: 1
+HC_ESPECTRAL_PASADO:
+  base:
+    revision-id: 1
+    material: MUSHROOM_STEW
+    name: '&dConsome Espectral &6Sobrecocido'
+    tier: COMMON
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 4
+    item-cooldown: 3
+    lore:
+    - '&7Calidad: &6Sobrecocido'
+    - '&7Efecto: &fRegeneración I &8(12s)'
+    effects:
+      REGENERATION:
+        duration: 12
+        amplifier: 1
+HC_MINERO_NORMAL:
+  base:
+    revision-id: 1
+    material: RABBIT_STEW
+    name: '&6Caldo Minero &fNormal'
+    tier: RARE
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 6
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &fNormal'
+    - '&7Ingredientes: &fGrado 2/5'
+    - '&7Efecto: &fPrisa minera I &8(180s)'
+    effects:
+      HASTE:
+        duration: 180
+        amplifier: 1
+HC_MINERO_EXQUISITO:
+  base:
+    revision-id: 1
+    material: RABBIT_STEW
+    name: '&6Caldo Minero &aExquisito'
+    tier: RARE
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 7
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &aExquisito'
+    - '&7Ingredientes: &fGrado 2/5'
+    - '&7Efecto: &fPrisa minera I &8(225s)'
+    effects:
+      HASTE:
+        duration: 225
+        amplifier: 1
+HC_MINERO_PASADO:
+  base:
+    revision-id: 1
+    material: RABBIT_STEW
+    name: '&6Caldo Minero &6Sobrecocido'
+    tier: COMMON
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 4
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &6Sobrecocido'
+    - '&7Ingredientes: &fGrado 2/5'
+    - '&7Efecto: &fPrisa minera I &8(108s)'
+    effects:
+      HASTE:
+        duration: 108
+        amplifier: 1
+HC_VELOCIDAD_NORMAL:
+  base:
+    revision-id: 1
+    material: RABBIT_STEW
+    name: '&6Caldo de Velocidad &fNormal'
+    tier: RARE
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 6
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &fNormal'
+    - '&7Ingredientes: &fGrado 3/5'
+    - '&7Efecto: &fVelocidad II &8(90s)'
+    effects:
+      SPEED:
+        duration: 90
+        amplifier: 2
+HC_VELOCIDAD_EXQUISITO:
+  base:
+    revision-id: 1
+    material: RABBIT_STEW
+    name: '&6Caldo de Velocidad &aExquisito'
+    tier: RARE
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 7
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &aExquisito'
+    - '&7Ingredientes: &fGrado 3/5'
+    - '&7Efecto: &fVelocidad II &8(113s)'
+    effects:
+      SPEED:
+        duration: 113
+        amplifier: 2
+HC_VELOCIDAD_PASADO:
+  base:
+    revision-id: 1
+    material: RABBIT_STEW
+    name: '&6Caldo de Velocidad &6Sobrecocido'
+    tier: COMMON
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 4
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &6Sobrecocido'
+    - '&7Ingredientes: &fGrado 3/5'
+    - '&7Efecto: &fVelocidad II &8(54s)'
+    effects:
+      SPEED:
+        duration: 54
+        amplifier: 2
+HC_ESPELEOLOGO_NORMAL:
+  base:
+    revision-id: 1
+    material: MUSHROOM_STEW
+    name: '&6Sopa del Espeleólogo &fNormal'
+    tier: RARE
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 6
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &fNormal'
+    - '&7Ingredientes: &fGrado 1/5'
+    - '&7Efecto: &fVisión nocturna I &8(180s)'
+    effects:
+      NIGHT_VISION:
+        duration: 180
+        amplifier: 1
+HC_ESPELEOLOGO_EXQUISITO:
+  base:
+    revision-id: 1
+    material: MUSHROOM_STEW
+    name: '&6Sopa del Espeleólogo &aExquisito'
+    tier: RARE
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 7
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &aExquisito'
+    - '&7Ingredientes: &fGrado 1/5'
+    - '&7Efecto: &fVisión nocturna I &8(225s)'
+    effects:
+      NIGHT_VISION:
+        duration: 225
+        amplifier: 1
+HC_ESPELEOLOGO_PASADO:
+  base:
+    revision-id: 1
+    material: MUSHROOM_STEW
+    name: '&6Sopa del Espeleólogo &6Sobrecocido'
+    tier: COMMON
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 4
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &6Sobrecocido'
+    - '&7Ingredientes: &fGrado 1/5'
+    - '&7Efecto: &fVisión nocturna I &8(108s)'
+    effects:
+      NIGHT_VISION:
+        duration: 108
+        amplifier: 1
+HC_MAREAS_NORMAL:
+  base:
+    revision-id: 1
+    material: BEETROOT_SOUP
+    name: '&6Caldo de las Mareas &fNormal'
+    tier: RARE
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 6
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &fNormal'
+    - '&7Ingredientes: &fGrado 2/5'
+    - '&7Efecto: &fRespiración I &8(240s)'
+    effects:
+      WATER_BREATHING:
+        duration: 240
+        amplifier: 1
+HC_MAREAS_EXQUISITO:
+  base:
+    revision-id: 1
+    material: BEETROOT_SOUP
+    name: '&6Caldo de las Mareas &aExquisito'
+    tier: RARE
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 7
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &aExquisito'
+    - '&7Ingredientes: &fGrado 2/5'
+    - '&7Efecto: &fRespiración I &8(300s)'
+    effects:
+      WATER_BREATHING:
+        duration: 300
+        amplifier: 1
+HC_MAREAS_PASADO:
+  base:
+    revision-id: 1
+    material: BEETROOT_SOUP
+    name: '&6Caldo de las Mareas &6Sobrecocido'
+    tier: COMMON
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 4
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &6Sobrecocido'
+    - '&7Ingredientes: &fGrado 2/5'
+    - '&7Efecto: &fRespiración I &8(144s)'
+    effects:
+      WATER_BREATHING:
+        duration: 144
+        amplifier: 1
+HC_SALTADOR_NORMAL:
+  base:
+    revision-id: 1
+    material: RABBIT_STEW
+    name: '&6Estofado del Saltador &fNormal'
+    tier: RARE
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 6
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &fNormal'
+    - '&7Ingredientes: &fGrado 3/5'
+    - '&7Efecto: &fSupersalto II &8(120s)'
+    effects:
+      JUMP_BOOST:
+        duration: 120
+        amplifier: 2
+HC_SALTADOR_EXQUISITO:
+  base:
+    revision-id: 1
+    material: RABBIT_STEW
+    name: '&6Estofado del Saltador &aExquisito'
+    tier: RARE
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 7
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &aExquisito'
+    - '&7Ingredientes: &fGrado 3/5'
+    - '&7Efecto: &fSupersalto II &8(150s)'
+    effects:
+      JUMP_BOOST:
+        duration: 150
+        amplifier: 2
+HC_SALTADOR_PASADO:
+  base:
+    revision-id: 1
+    material: RABBIT_STEW
+    name: '&6Estofado del Saltador &6Sobrecocido'
+    tier: COMMON
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 4
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &6Sobrecocido'
+    - '&7Ingredientes: &fGrado 3/5'
+    - '&7Efecto: &fSupersalto II &8(72s)'
+    effects:
+      JUMP_BOOST:
+        duration: 72
+        amplifier: 2
+HC_ESCUDERO_NORMAL:
+  base:
+    revision-id: 1
+    material: MUSHROOM_STEW
+    name: '&6Potaje del Escudero &fNormal'
+    tier: RARE
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 6
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &fNormal'
+    - '&7Ingredientes: &fGrado 2/5'
+    - '&7Efecto: &fResistencia I &8(180s)'
+    effects:
+      RESISTANCE:
+        duration: 180
+        amplifier: 1
+HC_ESCUDERO_EXQUISITO:
+  base:
+    revision-id: 1
+    material: MUSHROOM_STEW
+    name: '&6Potaje del Escudero &aExquisito'
+    tier: RARE
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 7
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &aExquisito'
+    - '&7Ingredientes: &fGrado 2/5'
+    - '&7Efecto: &fResistencia I &8(225s)'
+    effects:
+      RESISTANCE:
+        duration: 225
+        amplifier: 1
+HC_ESCUDERO_PASADO:
+  base:
+    revision-id: 1
+    material: MUSHROOM_STEW
+    name: '&6Potaje del Escudero &6Sobrecocido'
+    tier: COMMON
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 4
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &6Sobrecocido'
+    - '&7Ingredientes: &fGrado 2/5'
+    - '&7Efecto: &fResistencia I &8(108s)'
+    effects:
+      RESISTANCE:
+        duration: 108
+        amplifier: 1
+HC_BRASA_NORMAL:
+  base:
+    revision-id: 1
+    material: BEETROOT_SOUP
+    name: '&6Caldo de la Brasa &fNormal'
+    tier: RARE
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 6
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &fNormal'
+    - '&7Ingredientes: &fGrado 3/5'
+    - '&7Efecto: &fResis. al fuego I &8(240s)'
+    effects:
+      FIRE_RESISTANCE:
+        duration: 240
+        amplifier: 1
+HC_BRASA_EXQUISITO:
+  base:
+    revision-id: 1
+    material: BEETROOT_SOUP
+    name: '&6Caldo de la Brasa &aExquisito'
+    tier: RARE
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 7
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &aExquisito'
+    - '&7Ingredientes: &fGrado 3/5'
+    - '&7Efecto: &fResis. al fuego I &8(300s)'
+    effects:
+      FIRE_RESISTANCE:
+        duration: 300
+        amplifier: 1
+HC_BRASA_PASADO:
+  base:
+    revision-id: 1
+    material: BEETROOT_SOUP
+    name: '&6Caldo de la Brasa &6Sobrecocido'
+    tier: COMMON
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 4
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &6Sobrecocido'
+    - '&7Ingredientes: &fGrado 3/5'
+    - '&7Efecto: &fResis. al fuego I &8(144s)'
+    effects:
+      FIRE_RESISTANCE:
+        duration: 144
+        amplifier: 1
+HC_VIGOR_NORMAL:
+  base:
+    revision-id: 1
+    material: MUSHROOM_STEW
+    name: '&6Consomé de Vitalidad &fNormal'
+    tier: RARE
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 6
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &fNormal'
+    - '&7Ingredientes: &fGrado 4/5'
+    - '&7Efecto: &fRegeneración II &8(16s)'
+    effects:
+      REGENERATION:
+        duration: 16
+        amplifier: 2
+HC_VIGOR_EXQUISITO:
+  base:
+    revision-id: 1
+    material: MUSHROOM_STEW
+    name: '&6Consomé de Vitalidad &aExquisito'
+    tier: RARE
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 7
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &aExquisito'
+    - '&7Ingredientes: &fGrado 4/5'
+    - '&7Efecto: &fRegeneración II &8(20s)'
+    effects:
+      REGENERATION:
+        duration: 20
+        amplifier: 2
+HC_VIGOR_PASADO:
+  base:
+    revision-id: 1
+    material: MUSHROOM_STEW
+    name: '&6Consomé de Vitalidad &6Sobrecocido'
+    tier: COMMON
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 4
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &6Sobrecocido'
+    - '&7Ingredientes: &fGrado 4/5'
+    - '&7Efecto: &fRegeneración II &8(10s)'
+    effects:
+      REGENERATION:
+        duration: 10
+        amplifier: 2
+HC_SOMBRA_NORMAL:
+  base:
+    revision-id: 1
+    material: BEETROOT_SOUP
+    name: '&6Sopa de las Sombras &fNormal'
+    tier: RARE
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 6
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &fNormal'
+    - '&7Ingredientes: &fGrado 3/5'
+    - '&7Efecto: &fInvisibilidad I &8(150s)'
+    effects:
+      INVISIBILITY:
+        duration: 150
+        amplifier: 1
+HC_SOMBRA_EXQUISITO:
+  base:
+    revision-id: 1
+    material: BEETROOT_SOUP
+    name: '&6Sopa de las Sombras &aExquisito'
+    tier: RARE
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 7
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &aExquisito'
+    - '&7Ingredientes: &fGrado 3/5'
+    - '&7Efecto: &fInvisibilidad I &8(188s)'
+    effects:
+      INVISIBILITY:
+        duration: 188
+        amplifier: 1
+HC_SOMBRA_PASADO:
+  base:
+    revision-id: 1
+    material: BEETROOT_SOUP
+    name: '&6Sopa de las Sombras &6Sobrecocido'
+    tier: COMMON
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 4
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &6Sobrecocido'
+    - '&7Ingredientes: &fGrado 3/5'
+    - '&7Efecto: &fInvisibilidad I &8(90s)'
+    effects:
+      INVISIBILITY:
+        duration: 90
+        amplifier: 1
+HC_MARATON_NORMAL:
+  base:
+    revision-id: 1
+    material: RABBIT_STEW
+    name: '&6Caldo del Maratón &fNormal'
+    tier: RARE
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 6
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &fNormal'
+    - '&7Ingredientes: &fGrado 4/5'
+    - '&7Efecto: &fVelocidad II &8(180s)'
+    - '&7Efecto: &fSupersalto I &8(180s)'
+    effects:
+      SPEED:
+        duration: 180
+        amplifier: 2
+      JUMP_BOOST:
+        duration: 180
+        amplifier: 1
+HC_MARATON_EXQUISITO:
+  base:
+    revision-id: 1
+    material: RABBIT_STEW
+    name: '&6Caldo del Maratón &aExquisito'
+    tier: RARE
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 7
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &aExquisito'
+    - '&7Ingredientes: &fGrado 4/5'
+    - '&7Efecto: &fVelocidad II &8(225s)'
+    - '&7Efecto: &fSupersalto I &8(225s)'
+    effects:
+      SPEED:
+        duration: 225
+        amplifier: 2
+      JUMP_BOOST:
+        duration: 225
+        amplifier: 1
+HC_MARATON_PASADO:
+  base:
+    revision-id: 1
+    material: RABBIT_STEW
+    name: '&6Caldo del Maratón &6Sobrecocido'
+    tier: COMMON
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 4
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &6Sobrecocido'
+    - '&7Ingredientes: &fGrado 4/5'
+    - '&7Efecto: &fVelocidad II &8(108s)'
+    - '&7Efecto: &fSupersalto I &8(108s)'
+    effects:
+      SPEED:
+        duration: 108
+        amplifier: 2
+      JUMP_BOOST:
+        duration: 108
+        amplifier: 1
+HC_LEYENDA_NORMAL:
+  base:
+    revision-id: 1
+    material: MUSHROOM_STEW
+    name: '&6Banquete del Eco &fNormal'
+    tier: RARE
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 6
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &fNormal'
+    - '&7Ingredientes: &fGrado 5/5'
+    - '&7Efecto: &fAbsorción II &8(210s)'
+    - '&7Efecto: &fRegeneración II &8(25s)'
+    effects:
+      ABSORPTION:
+        duration: 210
+        amplifier: 2
+      REGENERATION:
+        duration: 25
+        amplifier: 2
+HC_LEYENDA_EXQUISITO:
+  base:
+    revision-id: 1
+    material: MUSHROOM_STEW
+    name: '&6Banquete del Eco &aExquisito'
+    tier: RARE
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 7
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &aExquisito'
+    - '&7Ingredientes: &fGrado 5/5'
+    - '&7Efecto: &fAbsorción II &8(263s)'
+    - '&7Efecto: &fRegeneración II &8(31s)'
+    effects:
+      ABSORPTION:
+        duration: 263
+        amplifier: 2
+      REGENERATION:
+        duration: 31
+        amplifier: 2
+HC_LEYENDA_PASADO:
+  base:
+    revision-id: 1
+    material: MUSHROOM_STEW
+    name: '&6Banquete del Eco &6Sobrecocido'
+    tier: COMMON
+    vanilla-eating: true
+    max-stack-size: 1
+    restore-food: 4
+    item-cooldown: 3
+    lore:
+    - '&8Cocina de Hydev'
+    - '&7Calidad: &6Sobrecocido'
+    - '&7Ingredientes: &fGrado 5/5'
+    - '&7Efecto: &fAbsorción II &8(126s)'
+    - '&7Efecto: &fRegeneración II &8(15s)'
+    effects:
+      ABSORPTION:
+        duration: 126
+        amplifier: 2
+      REGENERATION:
+        duration: 15
+        amplifier: 2

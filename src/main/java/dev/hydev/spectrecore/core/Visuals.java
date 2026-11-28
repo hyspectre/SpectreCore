@@ -46,6 +46,6 @@ public final class Visuals {
                 }
             }
         }
-        if (removed > 0) plugin.getLogger().info(Settings.text("equipamiento", "Visuals.mensaje-001", "Displays huérfanos eliminados: {removed}", "removed", removed));
+        if (removed > 0) plugin.getLogger().info(Settings.plain("equipamiento", "Visuals.mensaje-001", "Displays huérfanos eliminados: {removed}", "removed", removed));
     }
 }

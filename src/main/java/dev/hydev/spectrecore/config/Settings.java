@@ -50,6 +50,19 @@ public final class Settings {
         while(matcher.find())matcher.appendReplacement(result,Matcher.quoteReplacement(values.getOrDefault(matcher.group(1),matcher.group())));
         matcher.appendTail(result);return result.toString();
     }
+    /** Native, injection-safe Adventure message from a configurable MiniMessage template. */
+    public static Component message(String module, String key, String fallback, Object... bindings) {
+        if (bindings.length % 2 != 0) throw new IllegalArgumentException("Bindings must be name/value pairs");
+        Map<String, Object> values = new LinkedHashMap<>();
+        for (int i = 0; i < bindings.length; i += 2) values.put(String.valueOf(bindings[i]), bindings[i+1]);
+        return dev.hydev.spectrecore.text.TextService.render(
+                String.valueOf(get(module, "mensajes", key, fallback)), values);
+    }
+    /** Logs are plaintext: never print MiniMessage tags into the console. */
+    public static String plain(String module, String key, String fallback, Object... bindings) {
+        return net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer.plainText()
+                .serialize(message(module, key, fallback, bindings));
+    }
     public static Component component(String text) { return dev.hydev.spectrecore.text.TextService.component(text); }
     public static Component component(String text,TextColor color) { return Component.empty().color(color).append(component(text)); }
     public static Component component(int value) { return Component.text(value); }
@@ -86,6 +99,8 @@ public final class Settings {
                     double v=n.doubleValue();
                     if((number instanceof Integer||number instanceof Long)&&v!=Math.rint(v))throw new IOException(at+": debe ser un entero");
                     if(limits.get(path+"|"+key) instanceof List<?> range && (v<((Number)range.get(0)).doubleValue()||v>((Number)range.get(1)).doubleValue()))throw new IOException(at+": fuera del rango "+range);
+                } else if(expected instanceof Boolean) {
+                    if(!(value instanceof Boolean))throw new IOException(at+": debe ser true/false");
                 } else if(!(value instanceof String))throw new IOException(at+": debe ser texto entre comillas");
                 if(!(value instanceof String string)||path.endsWith("/mensajes.yml"))continue;
                 String leaf=key.substring(key.lastIndexOf('.')+1);

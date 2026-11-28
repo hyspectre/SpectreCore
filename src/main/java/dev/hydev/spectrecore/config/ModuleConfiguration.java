@@ -55,7 +55,42 @@ public final class ModuleConfiguration {
         if(migrating){for(String name:LEGACY){File source=new File(folder,name),backup=new File(folder,"backups/configuration-v1/"+name);if(source.isFile()&&!backup.exists()){Files.createDirectories(backup.toPath().getParent());Files.copy(source.toPath(),backup.toPath());}}}
         Map<String,YamlConfiguration> next=new LinkedHashMap<>();
         for(String path:FILES){File destination=file(path);YamlConfiguration yaml;
-            if(destination.isFile()){yaml=strict(destination);var defaults=resource("modules/"+path);boolean changed=importCommandMetadata(path,yaml,defaults);for(String key:defaults.getKeys(true))if(!defaults.isConfigurationSection(key)&&!yaml.contains(key)){yaml.set(key,defaults.get(key));changed=true;}if(changed){File backup=new File(folder,"backups/configuration-v2/modules/"+path);if(!backup.exists()){Files.createDirectories(backup.toPath().getParent());Files.copy(destination.toPath(),backup.toPath());}save(destination,yaml);}}
+            if(destination.isFile()){
+                if (path.endsWith("/mensajes.yml") || path.equals("nucleo/comandos.yml"))
+                    PresentationMigrations.migrate(folder, destination, "modules/" + path);
+                yaml = strict(destination);
+                var defaults = resource("modules/" + path);
+                boolean changed = importCommandMetadata(path, yaml, defaults);
+                for (String key : defaults.getKeys(true)) {
+                    if (!defaults.isConfigurationSection(key) && !yaml.contains(key)) {
+                        yaml.set(key, defaults.get(key));
+                        changed = true;
+                    }
+                }
+                // The type is no longer configurable: remove the old selector
+                // rather than leaving an option that appears to work.
+                if (path.equals("cocina/config.yml")
+                        && yaml.contains("cooking.rewards.mmoitems-type")) {
+                    File backup = new File(folder, "backups/cocina-tipo-v1/modules/cocina/config.yml");
+                    if (!backup.exists()) {
+                        Files.createDirectories(backup.toPath().getParent());
+                        Files.copy(destination.toPath(), backup.toPath());
+                    }
+                    yaml.set("cooking.rewards.mmoitems-type", null);
+                    var rewards = yaml.getConfigurationSection("cooking.rewards");
+                    if (rewards != null && rewards.getKeys(false).isEmpty())
+                        yaml.set("cooking.rewards", null);
+                    changed = true;
+                }
+                if (changed) {
+                    File backup = new File(folder, "backups/configuration-v2/modules/" + path);
+                    if (!backup.exists()) {
+                        Files.createDirectories(backup.toPath().getParent());
+                        Files.copy(destination.toPath(), backup.toPath());
+                    }
+                    save(destination, yaml);
+                }
+            }
             else{
                 yaml=resource("modules/"+path);
                 switch(path){
@@ -73,6 +108,12 @@ public final class ModuleConfiguration {
                     case "actividades/config.yml"->{merge(yaml,originals.get("activities.yml"),"");if(originals.get("activities.yml").contains("entrada.proteccion"))yaml.set("entrada.enabled",originals.get("activities.yml").getBoolean("entrada.proteccion"));yaml.set("entrada.proteccion",null);}
                     default->{}
                 }
+                if (path.equals("cocina/config.yml")) {
+                    yaml.set("cooking.rewards.mmoitems-type", null);
+                    var rewards = yaml.getConfigurationSection("cooking.rewards");
+                    if (rewards != null && rewards.getKeys(false).isEmpty())
+                        yaml.set("cooking.rewards", null);
+                }
                 save(destination,yaml);
             }
             // Rewrite only explicit references to this plugin's former slash commands.
@@ -84,6 +125,25 @@ public final class ModuleConfiguration {
                     if(!updated.equals(value)){yaml.set(key,updated);changed=true;}
                 }
                 if(changed){File backup=new File(folder,"backups/commands-v1/modules/"+path);if(!backup.exists()){Files.createDirectories(backup.toPath().getParent());Files.copy(destination.toPath(),backup.toPath());}save(destination,yaml);}
+            }
+            // One-time in-place migration for installed message catalogs. Preserve overrides
+            // and write a byte-for-byte backup before converting legacy colours to MiniMessage.
+            // Machine-readable IDs, recipes and command metadata are intentionally excluded.
+            if (path.endsWith("/mensajes.yml")) {
+                boolean converted = false;
+                for (String key : yaml.getKeys(true)) {
+                    if (!(yaml.get(key) instanceof String text)) continue;
+                    String mini = dev.hydev.spectrecore.text.TextService.legacyToMini(text);
+                    if (!mini.equals(text)) { yaml.set(key, mini); converted = true; }
+                }
+                if (converted) {
+                    File backup = new File(folder, "backups/minimessage-v1/modules/" + path);
+                    if (!backup.isFile()) {
+                        Files.createDirectories(backup.toPath().getParent());
+                        Files.copy(destination.toPath(), backup.toPath());
+                    }
+                    save(destination, yaml);
+                }
             }
             next.put(path,yaml);
         }

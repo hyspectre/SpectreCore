@@ -1,5 +1,5 @@
 name: SpectreCore
-version: 0.7.3-m3-alpha
+version: 0.7.6-aura-alpha
 main: dev.hydev.spectrecore.SpectreCorePlugin
 api-version: 1.21.10
 author: Hydev

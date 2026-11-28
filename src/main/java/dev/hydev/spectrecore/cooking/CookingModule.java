@@ -2,8 +2,10 @@ package dev.hydev.spectrecore.cooking;
 
 import dev.hydev.spectrecore.config.Settings;
 import dev.hydev.spectrecore.SpectreCorePlugin;
+import dev.hydev.spectrecore.model.CustomHeads;
+import dev.hydev.spectrecore.text.TextService;
+import net.kyori.adventure.text.format.TextDecoration;
 
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import dev.hydev.spectrecore.api.CookingCompletedEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -80,7 +82,7 @@ import java.util.UUID;
 /**
  * Paper-only cooking minigame. The cooking station is a real water cauldron,
  * not a custom block; displays are decorative. All state mutations run on the
- * primary server thread. The 4 legacy recipes and 12 MMOItems IDs are kept.
+ * primary server thread. Recipes and all three output quality IDs are configured in YAML.
  */
 public final class CookingModule implements Listener, CommandExecutor, TabCompleter {
     private final SpectreCorePlugin plugin;
@@ -92,10 +94,13 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
     private org.bukkit.Server getServer() { return plugin.getServer(); }
     private java.util.logging.Logger getLogger() { return plugin.getLogger(); }
     private static String prefix() { return ChatColor.DARK_GRAY + "[" + ChatColor.GOLD + Settings.text("cocina", "CookingModule.etiqueta-023", "Cocina Arcana") + ChatColor.DARK_GRAY + "] " + ChatColor.RESET; }
+    /** Cooking outputs are exclusively COCINA; no CONSUMABLE fallback. */
+    private static final String COOKING_ITEM_TYPE = "COCINA";
     private static final String LEGACY_TAG = "hydev_cocina_visual";
     private static final String OUR_TAG = "spectrecore_cooking_visual";
     private static final String PREVIOUS_TAG = "spectrecooking_visual";
     private final Map<String, Recipe> recipes = new LinkedHashMap<>();
+    private YamlConfiguration recipeBookLayout;
     private final Map<String, Station> stations = new LinkedHashMap<>();
     private final Map<String, UUID> textDisplays = new HashMap<>();
     private final Map<String, UUID> liquidDisplays = new HashMap<>();
@@ -117,7 +122,8 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
 
     private record Recipe(String id, String name, List<Material> ingredients,
                           int stirFrom, int stirUntil, int readyFrom, int readyUntil,
-                          int burnAt, String hint, String normal, String exquisite, String overcooked) {
+                          int burnAt, String hint, String normal, String exquisite, String overcooked,
+                          int ingredientTier, String utility, String effect, Material icon) {
         String output(String quality) {
             return switch (quality) {
                 case "exquisito" -> exquisite;
@@ -157,18 +163,19 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         displayStationKey = new NamespacedKey(plugin, "cooking_visual_station");
         displayRoleKey = new NamespacedKey(plugin, "cooking_visual_role");
         File directory = new File(plugin.getDataFolder(), "cooking");
-        if (!directory.exists() && !directory.mkdirs()) getLogger().warning(Settings.text("cocina", "CookingModule.mensaje-001", "No se pudo crear carpeta cooking."));
+        if (!directory.exists() && !directory.mkdirs()) getLogger().warning(Settings.plain("cocina", "CookingModule.mensaje-001", "No se pudo crear carpeta cooking."));
         recipesFile = plugin.moduleConfigs().file("cocina/recetas.yml");
         stationsFile = new File(directory, "stations.yml");
         discoveriesFile = new File(directory, "discoveries.yml");
         claimJournal = new ClaimJournal(new File(directory, "claims.yml").toPath());
         migrateLegacyCookingData();
         loadRecipes();
+        loadRecipeBookLayout();
         stationStorageReady = loadStations() && claimJournal.load();
         if (!claimJournal.ready()) getLogger().severe("COCINA: almacenamiento de transacciones dañado o ilegible. Operaciones desactivadas.");
         if (claimJournal.count() > 0) getLogger().warning("COCINA: " + claimJournal.count() + " transacciones interrumpidas; usa /spectrecore cocina transacciones.");
         if (!stationStorageReady) {
-            getLogger().severe(Settings.text("cocina", "CookingModule.mensaje-023",
+            getLogger().severe(Settings.plain("cocina", "CookingModule.mensaje-023",
                     "Cocina desactivada: stations.yml no es legible. Recupera el archivo antes de reiniciar."));
             return;
         }
@@ -183,7 +190,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             for (Station station : stations.values()) if (chunkLoaded(station.blockLocation)) repairVisual(station);
         }, 30L);
-        getLogger().info(Settings.text("cocina", "CookingModule.mensaje-002", "SpectreCore cocina: {stations-size} estaciones, {recipes-size} recetas.", "stations-size", stations.size(), "recipes-size", recipes.size()));
+        getLogger().info(Settings.plain("cocina", "CookingModule.mensaje-002", "Cocina: {stations-size} estaciones, {recipes-size} recetas.", "stations-size", stations.size(), "recipes-size", recipes.size()));
     }
 
     public void disable() {
@@ -195,7 +202,10 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         ingredientDisplays.clear();
     }
 
-    public void reload() { loadRecipes(); for (Station station : stations.values()) updateLabel(station); }
+    public void reload() {
+        loadRecipes(); loadRecipeBookLayout();
+        for (Station station : stations.values()) updateLabel(station);
+    }
     public int stationCount() { return stations.size(); }
     public int pendingClaims() { return claimJournal == null ? -1 : claimJournal.count(); }
     public boolean storageReady() { return stationStorageReady && claimJournal != null && claimJournal.ready(); }
@@ -220,9 +230,9 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
             if (previous.isFile() && !destination.exists()) {
                 try {
                     Files.copy(previous.toPath(), destination.toPath());
-                    getLogger().info(Settings.text("cocina", "CookingModule.etiqueta-024", "Cocina migrada: ") + previous + " -> " + destination);
+                    getLogger().info(Settings.plain("cocina", "CookingModule.etiqueta-024", "Cocina migrada: ") + previous + " -> " + destination);
                 } catch (IOException ex) {
-                    getLogger().severe(Settings.text("cocina", "CookingModule.mensaje-003", "No se pudo copiar {filename}: {ex-getmessage}", "filename", filename, "ex-getmessage", ex.getMessage()));
+                    getLogger().severe(Settings.plain("cocina", "CookingModule.mensaje-003", "No se pudo copiar {filename}: {ex-getmessage}", "filename", filename, "ex-getmessage", ex.getMessage()));
                 }
             }
         }
@@ -230,9 +240,11 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
 
     private void loadRecipes() {
         recipes.clear();
+        Set<Material> firstIngredients = new HashSet<>();
+        Set<String> outputIds = new HashSet<>();
         YamlConfiguration yaml = YamlConfiguration.loadConfiguration(recipesFile);
         ConfigurationSection root = yaml.getConfigurationSection("recetas");
-        if (root == null) { getLogger().severe(Settings.text("cocina", "CookingModule.mensaje-004", "recipes.yml no contiene 'recetas'.")); return; }
+        if (root == null) { getLogger().severe(Settings.plain("cocina", "CookingModule.mensaje-004", "recipes.yml no contiene 'recetas'.")); return; }
         for (String id : root.getKeys(false)) {
             ConfigurationSection sec = root.getConfigurationSection(id);
             if (sec == null) continue;
@@ -245,6 +257,9 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
                     ingredients.add(material);
                 }
                 if (ingredients.size() != 3) throw new IllegalArgumentException("Exige 3 ingredientes");
+                if (!firstIngredients.add(ingredients.getFirst()))
+                    throw new IllegalArgumentException("Ingrediente inicial duplicado: " + ingredients.getFirst()
+                            + " (la receta no podría distinguirse)");
                 int a = sec.getInt("revolver-desde", -1), b = sec.getInt("revolver-hasta", -1);
                 int c = sec.getInt("listo-desde", -1), d = sec.getInt("listo-hasta", -1);
                 int e = sec.getInt("quemado", -1);
@@ -253,11 +268,21 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
                 String normal = required(sec, "resultado-normal");
                 String exquisite = required(sec, "resultado-exquisito");
                 String overcooked = required(sec, "resultado-pasado");
+                for (String reward : List.of(normal, exquisite, overcooked))
+                    if (!outputIds.add(reward))
+                        throw new IllegalArgumentException("Resultado compartido: " + reward);
+                int ingredientTier = sec.getInt("nivel-ingredientes", 1);
+                if (ingredientTier < 1 || ingredientTier > 5)
+                    throw new IllegalArgumentException("Grado de ingredientes fuera de rango");
+                Material icon = Material.matchMaterial(sec.getString("icono", "MUSHROOM_STEW"));
+                if (icon == null || !icon.isItem()) throw new IllegalArgumentException("Icono inválido");
                 Recipe recipe = new Recipe(id, sec.getString("nombre", id), List.copyOf(ingredients),
-                        a, b, c, d, e, sec.getString("pista", defaultHint(id)), normal, exquisite, overcooked);
+                        a, b, c, d, e, sec.getString("pista", defaultHint(id)), normal, exquisite, overcooked,
+                        ingredientTier, sec.getString("uso", "Clásicos"),
+                        sec.getString("efecto-descripcion", "Una ayuda en tus aventuras"), icon);
                 recipes.put(id, recipe);
             } catch (Exception ex) {
-                getLogger().severe(Settings.text("cocina", "CookingModule.mensaje-005", "Receta '{id}' ignorada: {ex-getmessage}", "id", id, "ex-getmessage", ex.getMessage()));
+                getLogger().severe(Settings.plain("cocina", "CookingModule.mensaje-005", "Receta '{id}' ignorada: {ex-getmessage}", "id", id, "ex-getmessage", ex.getMessage()));
             }
         }
     }
@@ -289,21 +314,21 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         unresolvedStations.clear();
         YamlConfiguration yaml = new YamlConfiguration();
         if (stationsFile.exists() && !stationsFile.isFile()) {
-            getLogger().severe(Settings.text("cocina", "CookingModule.mensaje-025",
+            getLogger().severe(Settings.plain("cocina", "CookingModule.mensaje-025",
                     "La ruta de stations.yml existe pero no es un archivo regular."));
             return false;
         }
         if (stationsFile.isFile()) {
             try { yaml.load(stationsFile); }
             catch (IOException | InvalidConfigurationException failure) {
-                getLogger().severe(Settings.text("cocina", "CookingModule.mensaje-024",
+                getLogger().severe(Settings.plain("cocina", "CookingModule.mensaje-024",
                         "No se pudo leer stations.yml: {error}", "error", failure.getMessage()));
                 return false; // NEVER silently replace corrupt existing state with an empty file.
             }
         }
         ConfigurationSection root = yaml.getConfigurationSection("stations");
         if (yaml.contains("stations") && root == null) {
-            getLogger().severe(Settings.text("cocina", "CookingModule.mensaje-026",
+            getLogger().severe(Settings.plain("cocina", "CookingModule.mensaje-026",
                     "La sección stations no tiene un formato válido. Cocina desactivada."));
             return false;
         }
@@ -316,7 +341,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
                 if (worldId == null) throw new IllegalArgumentException(Settings.text("cocina", "CookingModule.etiqueta-028", "Falta UUID del mundo"));
                 World world = Bukkit.getWorld(UUID.fromString(worldId));
                 if (world == null) {
-                    getLogger().warning(Settings.text("cocina", "CookingModule.mensaje-006", "Estacion pendiente, mundo no cargado (se conservara el registro): {id}", "id", id));
+                    getLogger().warning(Settings.plain("cocina", "CookingModule.mensaje-006", "Estacion pendiente, mundo no cargado (se conservara el registro): {id}", "id", id));
                     unresolvedStations.add(new LinkedHashMap<>(s.getValues(false)));
                     continue;
                 }
@@ -339,7 +364,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
                 stations.put(key(l), station);
             } catch (Exception ex) {
                 unresolvedStations.add(new LinkedHashMap<>(s.getValues(false)));
-                getLogger().warning(Settings.text("cocina", "CookingModule.mensaje-007", "Estacion corrupta conservada {id}: {ex-getmessage}", "id", id, "ex-getmessage", ex.getMessage()));
+                getLogger().warning(Settings.plain("cocina", "CookingModule.mensaje-007", "Estacion corrupta conservada {id}: {ex-getmessage}", "id", id, "ex-getmessage", ex.getMessage()));
             }
         }
         return true;
@@ -378,7 +403,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         catch (IOException ex) {
             if (plugin instanceof dev.hydev.spectrecore.SpectreCorePlugin core) core.diagnostics().record("cocina.save", start, false);
             stationStorageReady = false; // Do not allow further item-consuming interactions.
-            getLogger().severe(Settings.text("cocina", "CookingModule.mensaje-008", "No se pudo guardar stations.yml: {ex-getmessage}", "ex-getmessage", ex.getMessage()));
+            getLogger().severe(Settings.plain("cocina", "CookingModule.mensaje-008", "No se pudo guardar stations.yml: {ex-getmessage}", "ex-getmessage", ex.getMessage()));
             return false;
         }
     }
@@ -452,7 +477,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         ItemStack stack = entity.getItemStack();
         if (stack.getAmount() < 1 || stack.getType() == Material.AIR) return;
         if (!getConfig().getBoolean("cooking.ingredients.allow-items-with-custom-meta", false) && stack.hasItemMeta()) {
-            msg(player, ChatColor.GRAY + Settings.text("cocina", "CookingModule.etiqueta-032", "Este ingrediente tiene datos personalizados y no se consumira.")); return;
+            msg(player, ChatColor.GRAY + Settings.text("cocina", "CookingModule.etiqueta-032", "Este ingrediente no se puede usar para cocinar.")); return;
         }
         Recipe recipe = station.recipeId == null ? null : recipes.get(station.recipeId);
         if (recipe == null) {
@@ -479,7 +504,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         UUID claim = claimJournal.begin(key(station.blockLocation), player.getUniqueId(),
                 "INGREDIENT", recipe.id() + ":" + expected.name(), consumed);
         if (claim == null) {
-            msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.mensaje-030", "§cCocina bloqueada: transacción pendiente o error de almacenamiento."));
+            msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.mensaje-030", "§cEsta cocina no está disponible por ahora. Avisa a administración."));
             return;
         }
         station.recipeId = recipe.id();
@@ -499,7 +524,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
             int next = CookingBatch.ingredientIndex(station.accepted, portions);
             label(station, Settings.text("cocina", "CookingModule.etiqueta-039", "§e") + recipe.name() + Settings.text("cocina", "CookingModule.etiqueta-040", " §7| §f") + station.accepted + "/" + required + " ingredientes");
             msg(player, ChatColor.GREEN + "Ingredientes " + station.accepted + "/" + required + ". "
-                    + ChatColor.GRAY + "Siguiente: " + ChatColor.WHITE + recipe.ingredients().get(next));
+                    + ChatColor.GRAY + "Siguiente: " + ChatColor.WHITE + ingredientDisplayName(recipe.ingredients().get(next)));
         }
         if (!saveStations()) return;
         try {
@@ -534,7 +559,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
             if (stations.containsKey(key(block.getLocation())) || block.getType() == Material.WATER_CAULDRON) {
                 event.setCancelled(true);
                 msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.etiqueta-122",
-                        "Cocina en mantenimiento: error de persistencia. Avisa a administración."));
+                        "Esta cocina no está disponible por ahora. Avisa a administración."));
             }
             return;
         }
@@ -542,7 +567,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         Station station = stations.get(key(block.getLocation()));
         if (station != null && claimJournal.blocked(key(station.blockLocation))) {
             event.setCancelled(true);
-            msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.mensaje-031", "§cEsta estación requiere revisión administrativa antes de usarla."));
+            msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.mensaje-031", "§cEsta cocina está temporalmente cerrada. Avisa a administración."));
             return;
         }
         Recipe recipe = station == null || station.recipeId == null ? null : recipes.get(station.recipeId);
@@ -555,7 +580,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
             if (block.getType() != Material.WATER_CAULDRON || use != CookingToolActions.Use.CREATE) return;
             if (claimJournal.blocked(key(block.getLocation()))) {
                 event.setCancelled(true);
-                msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.mensaje-031", "§cEsta estación requiere revisión administrativa antes de usarla."));
+                msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.mensaje-031", "§cEsta cocina está temporalmente cerrada. Avisa a administración."));
                 return;
             }
             event.setCancelled(true);
@@ -629,15 +654,17 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         String rewardId = recipe.output(quality);
         ItemStack reward = resolveMMOItem(rewardId);
         if (reward == null || reward.getType() == Material.AIR) {
-            msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.etiqueta-055", "El MMOItem CONSUMABLE/") + rewardId + Settings.text("cocina", "CookingModule.etiqueta-056", " no esta disponible. No se consumio el cuenco ni se reinicio la receta."));
-            getLogger().warning(Settings.text("cocina", "CookingModule.mensaje-009", "Falta recompensa MMOItems: {rewardid}", "rewardid", rewardId));
+            player.sendMessage(Settings.message("cocina", "CookingModule.plato-no-disponible",
+                    "<red>No se pudo servir {nombre}. Tu cuenco y la preparación siguen intactos.",
+                    "nombre", recipe.name()));
+            getLogger().warning(Settings.plain("cocina", "CookingModule.mensaje-009", "No se pudo generar la recompensa culinaria: {rewardid}", "rewardid", rewardId));
             return;
         }
         // Durable claim -> station commit -> bowl + reward -> claim clearance.
         UUID servingClaim = claimJournal.begin(key(station.blockLocation), player.getUniqueId(),
                 "SERVE", recipe.id() + ":" + quality + ":" + rewardId, 1);
         if (servingClaim == null) {
-            msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.mensaje-030", "§cCocina bloqueada: transacción pendiente o error de almacenamiento."));
+            msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.mensaje-030", "§cEsta cocina no está disponible por ahora. Avisa a administración."));
             return;
         }
         if (firstServing) {
@@ -684,7 +711,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         }
         Location l = cauldron.getLocation();
         if (!worldGuard.canBuild(player, l)) {
-            msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.mensaje-039", "WorldGuard: no puedes colocar ni retirar estaciones en esta región."));
+            msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.mensaje-039", "No puedes colocar ni retirar estaciones en esta región."));
             return;
         }
         double min = getConfig().getDouble("cooking.stations.minimum-separation", 3.0);
@@ -704,12 +731,12 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
 
     private void unregisterStation(Player player, Block cauldron, Station station) {
         if (!worldGuard.canBuild(player, station.blockLocation)) {
-            msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.mensaje-039", "WorldGuard: no puedes colocar ni retirar estaciones en esta región."));
+            msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.mensaje-039", "No puedes colocar ni retirar estaciones en esta región."));
             return;
         }
         UUID removalClaim = claimJournal.begin(key(station.blockLocation), player.getUniqueId(), "REMOVE", "station", 1);
         if (removalClaim == null) {
-            msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.mensaje-030", "§cCocina bloqueada: transacción pendiente o error de almacenamiento."));
+            msg(player, ChatColor.RED + Settings.text("cocina", "CookingModule.mensaje-030", "§cEsta cocina no está disponible por ahora. Avisa a administración."));
             return;
         }
         stations.remove(key(station.blockLocation));
@@ -733,17 +760,28 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         msg(player, ChatColor.GREEN + Settings.text("cocina", "CookingModule.etiqueta-063", "Cocina retirada con la esponja. Los bloques siguen intactos."));
     }
 
+    // Only items from the dedicated COCINA type are ever eligible as cooking rewards.
+    // Display names and lore are not used to identify or authorize them.
+    private String ingredientDisplayName(Material ingredient) {
+        YamlConfiguration ui = recipeBookLayout;
+        String name = ui == null ? null : ui.getString("materiales." + ingredient.name());
+        if (name != null && !name.isBlank()) return name;
+        String lower = ingredient.name().toLowerCase(java.util.Locale.ROOT).replace('_', ' ');
+        return Character.toUpperCase(lower.charAt(0)) + lower.substring(1);
+    }
+
     private ItemStack resolveMMOItem(String id) {
+        if (id == null || id.isBlank()) return null;
         Plugin mmo = getServer().getPluginManager().getPlugin("MMOItems");
         if (mmo == null || !mmo.isEnabled()) return null;
         try {
             Class<?> api = Class.forName("net.Indyuce.mmoitems.MMOItems", true, mmo.getClass().getClassLoader());
             Object instance = api.getField("plugin").get(null);
             Method getItem = api.getMethod("getItem", String.class, String.class);
-            Object value = getItem.invoke(instance, getConfig().getString("cooking.rewards.mmoitems-type", "CONSUMABLE"), id);
+            Object value = getItem.invoke(instance, COOKING_ITEM_TYPE, id);
             return value instanceof ItemStack stack ? stack.clone() : null;
         } catch (ReflectiveOperationException | LinkageError ex) {
-            getLogger().warning(Settings.text("cocina", "CookingModule.mensaje-010","API de MMOItems incompatible: {valor1}: {ex-getmessage}","valor1", ex.getClass().getSimpleName(),"ex-getmessage", ex.getMessage()));
+            getLogger().warning(Settings.plain("cocina", "CookingModule.mensaje-010","No se pudo preparar la recompensa: {valor1}: {ex-getmessage}","valor1", ex.getClass().getSimpleName(),"ex-getmessage", ex.getMessage()));
             return null;
         }
     }
@@ -874,7 +912,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
             status = Settings.text("cocina", "CookingModule.etiqueta-093", "§6") + recipe.name() + Settings.text("cocina", "CookingModule.etiqueta-094", " §7| §f") + progress + Settings.text("cocina", "CookingModule.etiqueta-095", "% §8(") + station.elapsedMs / 1000L
                     + Settings.text("cocina", "CookingModule.etiqueta-096", " s) §7| ") + action;
         }
-        player.sendActionBar(LegacyComponentSerializer.legacySection().deserialize(status));
+        player.sendActionBar(TextService.component(status));
         if (verbose) msg(player, status);
     }
 
@@ -900,7 +938,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         UUID id = textDisplays.get(key(station.blockLocation));
         if (id == null || !chunkLoaded(station.blockLocation)) return;
         Entity entity = Bukkit.getEntity(id);
-        if (entity instanceof TextDisplay display) display.text(LegacyComponentSerializer.legacySection().deserialize(text));
+        if (entity instanceof TextDisplay display) display.text(TextService.component(text));
     }
 
     private boolean chunkLoaded(Location location) {
@@ -1136,7 +1174,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         if (players == null) return;
         for (String id : players.getKeys(false)) {
             try { discoveries.put(UUID.fromString(id), new HashSet<>(players.getStringList(id))); }
-            catch (IllegalArgumentException ex) { getLogger().warning(Settings.text("cocina", "CookingModule.mensaje-012", "UUID de cocinero invalido: {id}", "id", id)); }
+            catch (IllegalArgumentException ex) { getLogger().warning(Settings.plain("cocina", "CookingModule.mensaje-012", "UUID de cocinero invalido: {id}", "id", id)); }
         }
     }
 
@@ -1146,141 +1184,309 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         for (Map.Entry<UUID, Set<String>> entry : discoveries.entrySet())
             yaml.set("players." + entry.getKey(), entry.getValue().stream().sorted().toList());
         try { AtomicFileStore.writeUtf8(discoveriesFile.toPath(), yaml.saveToString()); }
-        catch (IOException ex) { discoveriesStorageReady = false; getLogger().severe(Settings.text("cocina", "CookingModule.mensaje-013", "No se pudieron guardar recetas descubiertas: {ex-getmessage}", "ex-getmessage", ex.getMessage())); }
+        catch (IOException ex) { discoveriesStorageReady = false; getLogger().severe(Settings.plain("cocina", "CookingModule.mensaje-013", "No se pudieron guardar recetas descubiertas: {ex-getmessage}", "ex-getmessage", ex.getMessage())); }
     }
 
     private void discoverRecipe(Player player, String recipeId) {
-        if (!discoveriesStorageReady || !getConfig().getBoolean("cooking.book.discovery-enabled", true)) return;
+        if (!discoveriesStorageReady || !Settings.module("cocina/config.yml").getBoolean("cooking.book.discovery-enabled", true)) return;
         if (!discoveries.computeIfAbsent(player.getUniqueId(), ignored -> new HashSet<>()).add(recipeId)) return;
         saveDiscoveries();
         msg(player, Settings.text("cocina", "CookingModule.etiqueta-097", "§d✦ Nueva receta descubierta: §e") + recipes.get(recipeId).name()
-                + Settings.text("cocina", "CookingModule.etiqueta-098", " §7| Abre §f/mago recetas§7 para consultarla."));
+                + Settings.text("cocina", "CookingModule.etiqueta-098", " §7| Consulta tu recetario para conocerla."));
     }
 
+
     private static final class RecipeBookHolder implements InventoryHolder {
-        private Inventory inventory;
+        final String selected;
+        final int page;
+        final Map<Integer, String> actions = new HashMap<>();
+        Inventory inventory;
+        RecipeBookHolder(String selected, int page) {
+            this.selected = selected;
+            this.page = page;
+        }
         @Override public Inventory getInventory() { return inventory; }
     }
 
-    private ItemStack bookCard(Material material, String name, List<String> lore) {
-        ItemStack stack = new ItemStack(material);
-        ItemMeta meta = stack.getItemMeta();
-        meta.displayName(Settings.component(name));
-        meta.lore(lore.stream().map(Settings::component).toList());
-        stack.setItemMeta(meta);
-        return stack;
+    private void loadRecipeBookLayout() {
+        File file = new File(plugin.getDataFolder(), "ui/recetario.yml");
+        try {
+            if (!file.exists()) plugin.saveResource("ui/recetario.yml", false);
+            if (!file.isFile() || file.length() > 96 * 1024)
+                throw new IOException("ui/recetario.yml ausente o demasiado grande");
+            YamlConfiguration next = new YamlConfiguration();
+            next.load(file);
+            if (!next.getBoolean("enabled", true)) { recipeBookLayout = next; return; }
+            for (String section : List.of("catalogo", "detalle")) {
+                if (next.getInt(section + ".espacios") != 54 || !next.isString(section + ".titulo"))
+                    throw new IOException("Página incompleta: " + section);
+            }
+            List<Integer> positions = next.getIntegerList("catalogo.posiciones");
+            if (positions.size() != 15 || new HashSet<>(positions).size() != 15)
+                throw new IOException("El catálogo requiere quince espacios únicos");
+            Set<Integer> catalogue = new HashSet<>(positions);
+            for (String key : List.of("resumen-slot","anterior-slot","siguiente-slot","cerrar-slot")) {
+                int slot = next.getInt("catalogo." + key, -1);
+                if (slot < 0 || slot >= 54 || !catalogue.add(slot))
+                    throw new IOException("Espacio de catálogo reservado: " + key);
+            }
+            Set<Integer> details = new HashSet<>(next.getIntegerList("detalle.ingrediente-slots"));
+            if (details.size() != 3) throw new IOException("Deben existir tres ingredientes");
+            for (String key : List.of("cabecera-slot","preparacion-slot","resultado-slot","volver-slot","cerrar-slot")) {
+                int slot = next.getInt("detalle." + key, -1);
+                if (slot < 0 || slot >= 54 || !details.add(slot))
+                    throw new IOException("Espacio de detalle reservado: " + key);
+            }
+            if (catalogue.stream().anyMatch(slot -> slot < 0 || slot >= 54)
+                    || details.stream().anyMatch(slot -> slot < 0 || slot >= 54)
+                    || !next.isConfigurationSection("iconos") || !next.isConfigurationSection("materiales"))
+                throw new IOException("Configuración visual inválida");
+            recipeBookLayout = next;
+        } catch (Exception error) {
+            getLogger().warning("Recetario: se conserva la última configuración válida: " + error.getMessage());
+        }
     }
 
-    private void openRecipeBook(Player player) {
-        RecipeBookHolder holder = new RecipeBookHolder();
-        Inventory inventory = Bukkit.createInventory(holder, 27, Settings.component(Settings.text("cocina", "CookingModule.etiqueta-099", "§5✦ Recetario Arcano")));
-        holder.inventory = inventory;
-        ItemStack filler = bookCard(Settings.material("cocina", "CookingModule.material-193", Material.BLACK_STAINED_GLASS_PANE), " ", List.of());
-        for (int i = 0; i < inventory.getSize(); i++) inventory.setItem(i, filler);
-        int[] slots = {10, 12, 14, 16};
-        int index = 0;
-        Set<String> known = discoveries.getOrDefault(player.getUniqueId(), Set.of());
-        for (Recipe recipe : recipes.values()) {
-            if (index >= slots.length) break;
-            boolean unlocked = !getConfig().getBoolean("cooking.book.discovery-enabled", true) || known.contains(recipe.id());
-            ItemStack icon;
-            if (unlocked) {
-                icon = bookCard(Settings.material("cocina", "CookingModule.material-194", Material.KNOWLEDGE_BOOK), Settings.text("cocina", "CookingModule.etiqueta-100", "§e") + recipe.name(), List.of(
-                        Settings.text("cocina", "CookingModule.etiqueta-101", "§7Ingredientes por ración:"),
-                        Settings.text("cocina", "CookingModule.etiqueta-102", "§f1× ") + recipe.ingredients().get(0),
-                        Settings.text("cocina", "CookingModule.etiqueta-103", "§f1× ") + recipe.ingredients().get(1),
-                        Settings.text("cocina", "CookingModule.etiqueta-104", "§f1× ") + recipe.ingredients().get(2),
-                        Settings.text("cocina", "CookingModule.etiqueta-105", "§8Revolver: ") + recipe.stirFrom() + "-" + recipe.stirUntil() + "s",
-                        Settings.text("cocina", "CookingModule.etiqueta-106", "§8Servir: ") + recipe.readyFrom() + "-" + recipe.readyUntil() + "s",
-                        Settings.text("cocina", "CookingModule.etiqueta-107", "§8Caldero: 1-3 raciones según el agua")));
-            } else {
-                icon = bookCard(Settings.material("cocina", "CookingModule.material-195", Material.GRAY_DYE), Settings.text("cocina", "CookingModule.etiqueta-108", "§8??? · Receta desconocida"), List.of(
-                        Settings.text("cocina", "CookingModule.etiqueta-109", "§7Pista: §f") + recipe.hint(),
-                        Settings.text("cocina", "CookingModule.etiqueta-110", "§8Descúbrela preparando y sirviendo el plato.")));
-            }
-            inventory.setItem(slots[index++], icon);
+    private boolean knowsRecipe(Player player, String id) {
+        return !Settings.module("cocina/config.yml").getBoolean("cooking.book.discovery-enabled", true)
+                || discoveries.getOrDefault(player.getUniqueId(), Set.of()).contains(id);
+    }
+
+    private String bookText(String input, Recipe recipe, Player player, int page, int totalPages) {
+        if (input == null) return "";
+        long discovered = !Settings.module("cocina/config.yml").getBoolean("cooking.book.discovery-enabled", true)
+                ? recipes.size() : discoveries.getOrDefault(player.getUniqueId(), Set.of()).stream()
+                    .filter(recipes::containsKey).count();
+        String text = input.replace("{descubiertas}", Long.toString(discovered))
+                .replace("{total}", Integer.toString(recipes.size()))
+                .replace("{pagina}", Integer.toString(page + 1))
+                .replace("{paginas}", Integer.toString(totalPages));
+        if (recipe == null) return text;
+        return text.replace("{nombre}", recipe.name()).replace("{pista}", recipe.hint())
+                .replace("{uso}", recipe.utility()).replace("{efecto}", recipe.effect())
+                .replace("{nivel-ingredientes}", Integer.toString(recipe.ingredientTier()))
+                .replace("{revolver}", recipe.stirFrom() + "–" + recipe.stirUntil())
+                .replace("{servir}", recipe.readyFrom() + "–" + recipe.readyUntil());
+    }
+
+    private ItemStack bookCard(Material material, String texture, String name, List<String> lore) {
+        ItemStack item;
+        try { item = texture == null || texture.isBlank()
+                ? new ItemStack(material) : CustomHeads.fromBase64(texture); }
+        catch (IllegalArgumentException | IllegalStateException error) { item = new ItemStack(material); }
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null) return item;
+        meta.displayName(TextService.component(name).decoration(TextDecoration.ITALIC, false));
+        meta.lore(lore.stream().limit(32).map(line ->
+                TextService.component(line).decoration(TextDecoration.ITALIC, false)).toList());
+        item.setItemMeta(meta);
+        return item;
+    }
+    private String bookHead(String key) { return recipeBookLayout.getString("iconos." + key, ""); }
+    private void openRecipeBook(Player player) { openRecipeBook(player, 0); }
+
+    private void openRecipeBook(Player player, int page) {
+        YamlConfiguration ui = recipeBookLayout;
+        if (ui == null || !ui.getBoolean("enabled", true)) {
+            player.sendMessage(Settings.message("cocina", "CookingModule.recetario-no-disponible",
+                    "<red>El recetario está cerrado por ahora."));
+            return;
         }
-        long discovered = !getConfig().getBoolean("cooking.book.discovery-enabled", true)
-                ? recipes.size() : known.stream().filter(recipes::containsKey).count();
-        inventory.setItem(22, bookCard(Settings.material("cocina", "CookingModule.material-196", Material.BOOK), Settings.text("cocina", "CookingModule.etiqueta-111", "§d✦ Descubrimientos"), List.of(
-                Settings.text("cocina", "CookingModule.etiqueta-112", "§f") + discovered + "/" + recipes.size() + Settings.text("cocina", "CookingModule.etiqueta-113", " recetas conocidas"),
-                Settings.text("cocina", "CookingModule.etiqueta-114", "§7Las recetas se registran al servir un plato."),
-                Settings.text("cocina", "CookingModule.etiqueta-115", "§7Se guardan por jugador."))));
+        List<Integer> slots = ui.getIntegerList("catalogo.posiciones");
+        List<Recipe> ordered = new ArrayList<>(recipes.values());
+        ordered.sort(java.util.Comparator.comparingInt(Recipe::ingredientTier)
+                .thenComparing(Recipe::name)); // affordable dishes first, rare rewards last
+        int pages = Math.max(1, (ordered.size() + slots.size() - 1) / slots.size());
+        page = Math.max(0, Math.min(page, pages - 1));
+        RecipeBookHolder holder = new RecipeBookHolder(null, page);
+        Inventory inventory = Bukkit.createInventory(holder, 54,
+                TextService.component(ui.getString("catalogo.titulo", "<gold>Recetario")));
+        holder.inventory = inventory;
+        for (int i = 0; i < slots.size(); i++) {
+            int index = page * slots.size() + i;
+            if (index >= ordered.size()) break;
+            Recipe recipe = ordered.get(index);
+            boolean known = knowsRecipe(player, recipe.id());
+            boolean hidden = !known && ui.getBoolean("catalogo.ocultar-desconocidas", false);
+            String section = hidden ? "catalogo.desconocido"
+                    : known ? "catalogo.conocido" : "catalogo.pendiente";
+            String title = bookText(ui.getString(section + ".nombre", "Receta"),recipe,player,page,pages);
+            List<String> lore = new ArrayList<>();
+            for (String line : ui.getStringList(section + ".lore"))
+                lore.add(bookText(line,recipe,player,page,pages));
+            String head = hidden ? bookHead("desconocido")
+                    : ui.getString("iconos.recetas." + recipe.id(), "");
+            inventory.setItem(slots.get(i), bookCard(hidden ? Material.GRAY_DYE : recipe.icon(), head, title, lore));
+            holder.actions.put(slots.get(i), "receta:" + recipe.id());
+        }
+        List<String> summary = new ArrayList<>();
+        for (String line : ui.getStringList("catalogo.resumen.lore"))
+            summary.add(bookText(line,null,player,page,pages));
+        inventory.setItem(ui.getInt("catalogo.resumen-slot"), bookCard(Material.BOOK,bookHead("resumen"),
+                ui.getString("catalogo.resumen.nombre", "<gold>Archivo de recetas"),summary));
+        if (page > 0) {
+            int slot = ui.getInt("catalogo.anterior-slot");
+            inventory.setItem(slot, bookCard(Material.ARROW,bookHead("anterior"),
+                    ui.getString("navegacion.anterior-nombre", "<gold>Anterior"),
+                    ui.getStringList("navegacion.lore")));
+            holder.actions.put(slot,"anterior");
+        }
+        if (page + 1 < pages) {
+            int slot = ui.getInt("catalogo.siguiente-slot");
+            inventory.setItem(slot, bookCard(Material.ARROW,bookHead("siguiente"),
+                    ui.getString("navegacion.siguiente-nombre", "<gold>Siguiente"),
+                    ui.getStringList("navegacion.lore")));
+            holder.actions.put(slot,"siguiente");
+        }
+        int close = ui.getInt("catalogo.cerrar-slot");
+        inventory.setItem(close, bookCard(Material.BARRIER,bookHead("cerrar"),
+                ui.getString("navegacion.cerrar-nombre", "<gray>Cerrar"),
+                ui.getStringList("navegacion.lore")));
+        holder.actions.put(close,"cerrar");
+        player.openInventory(inventory);
+    }
+
+    private void openRecipeDetail(Player player, String id, int page) {
+        YamlConfiguration ui = recipeBookLayout;
+        Recipe recipe = recipes.get(id);
+        if (ui == null || recipe == null) { openRecipeBook(player,page); return; }
+        boolean hidden = !knowsRecipe(player,id) && ui.getBoolean("catalogo.ocultar-desconocidas", false);
+        String title = ui.getString("detalle.titulo", "<gold>Receta <gray>│ <white>{nombre}");
+        String heading = !hidden ? recipe.name() : ui.getString("catalogo.desconocido.nombre", "Receta desconocida");
+        RecipeBookHolder holder = new RecipeBookHolder(id,page);
+        Inventory inventory = Bukkit.createInventory(holder,54,
+                TextService.component(title.replace("{nombre}",heading)));
+        holder.inventory = inventory;
+        String headerKey = hidden ? "detalle.desconocido" : "detalle.cabecera";
+        List<String> headerLore = new ArrayList<>();
+        for (String line : ui.getStringList(headerKey + ".lore"))
+            headerLore.add(bookText(line,hidden ? null : recipe,player,page,1)
+                    .replace("{pista}",recipe.hint()));
+        int headerSlot = ui.getInt("detalle.cabecera-slot");
+        inventory.setItem(headerSlot,bookCard(hidden ? Material.GRAY_DYE : recipe.icon(),
+                hidden ? bookHead("desconocido") : ui.getString("iconos.recetas." + id,""),
+                bookText(ui.getString(headerKey + ".nombre","<gold>Receta"),hidden ? null : recipe,player,page,1),
+                headerLore));
+        if (!hidden) {
+            List<Integer> ingredientSlots = ui.getIntegerList("detalle.ingrediente-slots");
+            for (int i = 0; i < 3; i++) {
+                Material ingredient = recipe.ingredients().get(i);
+                String name = ingredientDisplayName(ingredient);
+                String label = ui.getString("detalle.ingrediente.nombre","<white>{nombre-ingrediente}")
+                        .replace("{nombre-ingrediente}",name);
+                List<String> ingredientLore = new ArrayList<>();
+                for (String line : ui.getStringList("detalle.ingrediente.lore"))
+                    ingredientLore.add(line.replace("{indice}",Integer.toString(i+1)));
+                inventory.setItem(ingredientSlots.get(i),bookCard(ingredient,"",label,ingredientLore));
+            }
+            List<String> prepare = new ArrayList<>();
+            for (String line : ui.getStringList("detalle.preparacion.lore"))
+                prepare.add(bookText(line,recipe,player,page,1));
+            inventory.setItem(ui.getInt("detalle.preparacion-slot"),bookCard(Material.CAMPFIRE,
+                    bookHead("preparacion"),ui.getString("detalle.preparacion.nombre","<gold>Preparación"),prepare));
+            List<String> benefit = new ArrayList<>();
+            for (String line : ui.getStringList("detalle.resultado.lore"))
+                benefit.add(bookText(line,recipe,player,page,1));
+            inventory.setItem(ui.getInt("detalle.resultado-slot"),bookCard(Material.POTION,
+                    bookHead("resultado"),ui.getString("detalle.resultado.nombre","<gold>Beneficio"),benefit));
+        }
+        int back = ui.getInt("detalle.volver-slot");
+        inventory.setItem(back,bookCard(Material.ARROW,bookHead("volver"),
+                ui.getString("navegacion.volver-nombre","<gold>Volver"),
+                ui.getStringList("navegacion.lore")));
+        holder.actions.put(back,"volver");
+        int close = ui.getInt("detalle.cerrar-slot");
+        inventory.setItem(close,bookCard(Material.BARRIER,bookHead("cerrar"),
+                ui.getString("navegacion.cerrar-nombre","<gray>Cerrar"),
+                ui.getStringList("navegacion.lore")));
+        holder.actions.put(close,"cerrar");
         player.openInventory(inventory);
     }
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onBookClick(InventoryClickEvent event) {
-        if (!(event.getView().getTopInventory().getHolder() instanceof RecipeBookHolder)) return;
+        if (!(event.getView().getTopInventory().getHolder() instanceof RecipeBookHolder holder)) return;
         event.setCancelled(true);
-        if (!(event.getWhoClicked() instanceof Player player) || event.getRawSlot() >= 27) return;
-        int[] slots = {10, 12, 14, 16};
-        int i = 0;
-        for (Recipe recipe : recipes.values()) {
-            if (i >= slots.length) break;
-            if (event.getRawSlot() == slots[i]
-                    && (!getConfig().getBoolean("cooking.book.discovery-enabled", true)
-                        || discoveries.getOrDefault(player.getUniqueId(), Set.of()).contains(recipe.id()))) {
-                msg(player, Settings.text("cocina", "CookingModule.etiqueta-116", "§e") + recipe.name() + Settings.text("cocina", "CookingModule.etiqueta-117", " §7| ") + recipe.ingredients() + Settings.text("cocina", "CookingModule.etiqueta-118", " §7| ")
-                        + recipe.readyFrom() + "-" + recipe.readyUntil() + Settings.text("cocina", "CookingModule.etiqueta-119", " s para servir."));
-                break;
+        if (!(event.getWhoClicked() instanceof Player player)) return;
+        int slot = event.getRawSlot();
+        if (slot < 0 || slot >= 54) return;
+        String action = holder.actions.get(slot);
+        if (action == null) return;
+        Bukkit.getScheduler().runTask(plugin, () -> {
+            if (!plugin.isEnabled() || !player.isOnline()
+                    || player.getOpenInventory().getTopInventory().getHolder() != holder) return;
+            switch (action) {
+                case "cerrar" -> player.closeInventory();
+                case "volver" -> openRecipeBook(player,holder.page);
+                case "anterior" -> openRecipeBook(player,holder.page-1);
+                case "siguiente" -> openRecipeBook(player,holder.page+1);
+                default -> {
+                    if (action.startsWith("receta:"))
+                        openRecipeDetail(player,action.substring("receta:".length()),holder.page);
+                }
             }
-            i++;
-        }
+        });
     }
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onBookDrag(InventoryDragEvent event) {
-        if (event.getView().getTopInventory().getHolder() instanceof RecipeBookHolder) event.setCancelled(true);
+        if (event.getView().getTopInventory().getHolder() instanceof RecipeBookHolder)
+            for (int slot : event.getRawSlots())
+                if (slot < 54) { event.setCancelled(true); break; }
     }
 
     @Override public boolean onCommand(CommandSender sender, Command command, String alias, String[] args) {
         if (!command.getName().equalsIgnoreCase("cocina")) return false;
         String action = args.length == 0 ? "ayuda" : args[0].toLowerCase(java.util.Locale.ROOT);
         if (action.equals("transacciones")) {
-            if (!cookingAdmin(sender)) { sender.sendMessage(Settings.text("cocina", "CookingModule.mensaje-032", "§cNo tienes permiso.")); return true; }
-            if (!claimJournal.ready()) { sender.sendMessage(Settings.text("cocina", "CookingModule.mensaje-033", "§cRegistro de transacciones ilegible; restaura claims.yml.")); return true; }
-            sender.sendMessage(Settings.text("cocina", "CookingModule.mensaje-034", "§6Transacciones pendientes: {count}", "count", claimJournal.count()));
+            if (!cookingAdmin(sender)) { sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-032", "§cNo tienes permiso.")); return true; }
+            if (!claimJournal.ready()) { sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-033", "§cRegistro de transacciones ilegible; restaura claims.yml.")); return true; }
+            sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-034", "§6Transacciones pendientes: {count}", "count", claimJournal.count()));
             for (ClaimJournal.Claim c : claimJournal.unresolved())
                 sender.sendMessage(c.id() + " " + c.operation() + " " + c.subject() + " jugador=" + c.player() + " estación=" + c.station());
             return true;
         }
         if (action.equals("resolver") && args.length == 3) {
             if (!cookingAdmin(sender) || !(sender instanceof Player admin) || !admin.isOp()) {
-                sender.sendMessage(Settings.text("cocina", "CookingModule.mensaje-035", "§cLa reconciliación exige un operador dentro del juego.")); return true;
+                sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-035", "§cLa reconciliación exige un operador dentro del juego.")); return true;
             }
             if (!args[2].equalsIgnoreCase("confirmado")) {
-                sender.sendMessage(Settings.text("cocina", "CookingModule.mensaje-036", "§cUsa /spectrecore cocina resolver <UUID> confirmado tras auditar.")); return true;
+                sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-036", "§cUsa /spectrecore cocina resolver <UUID> confirmado tras auditar.")); return true;
             }
             try {
                 UUID id = UUID.fromString(args[1]);
                 boolean ok = claimJournal.resolve(id);
-                sender.sendMessage(Settings.text("cocina", "CookingModule.mensaje-037", "§eResultado de reconciliación: {estado}", "estado", ok ? "cerrada sin mover objetos" : "fallida"));
+                sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-037", "§eResultado de reconciliación: {estado}", "estado", ok ? "cerrada sin mover objetos" : "fallida"));
                 if (ok) getLogger().warning("AUDITORIA_COCINA: operador " + admin.getUniqueId() + " cerró transacción " + id);
-            } catch (IllegalArgumentException ex) { sender.sendMessage(Settings.text("cocina", "CookingModule.mensaje-038", "§cUUID inválido.")); }
+            } catch (IllegalArgumentException ex) { sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-038", "§cUUID inválido.")); }
             return true;
         }
         if (action.equals("ayuda")) {
-            sender.sendMessage(Settings.text("cocina", "CookingModule.mensaje-014", "{prefix}§eMechero: crear §7| §ePala de madera: revolver §7| §eEsponja: limpiar/retirar §7| §eCuenco: servir", "prefix", prefix()));
-            sender.sendMessage(Settings.text("cocina", "CookingModule.mensaje-015", "{prefix}§e/mago recetas §7| §e/spectrecore cocina estado §7| admin: reparar, recargar", "prefix", prefix()));
+            sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-014", "{prefix}§eMechero: crear §7| §ePala de madera: revolver §7| §eEsponja: limpiar/retirar §7| §eCuenco: servir", "prefix", Settings.component(prefix())));
+            sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-015", "{prefix}§e/mago recetas §7| §e/spectrecore cocina estado §7| admin: reparar, recargar", "prefix", Settings.component(prefix())));
             return true;
         }
         if (action.equals("recetas") || action.equals("libro")) {
             if (sender instanceof Player player) openRecipeBook(player);
-            else for (Recipe r : recipes.values()) sender.sendMessage(Settings.text("cocina", "CookingModule.mensaje-016", "{prefix}§e{r-name} §7» {r-ingredients}", "prefix", prefix(), "r-name", r.name(), "r-ingredients", r.ingredients()));
+            else for (Recipe r : recipes.values()) sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-016", "{prefix}§e{r-name} §7» {r-ingredients}", "prefix", Settings.component(prefix()), "r-name", r.name(), "r-ingredients", r.ingredients()));
             return true;
         }
         if (action.equals("recargar")) {
-            if (!cookingAdmin(sender)) { sender.sendMessage(Settings.text("cocina", "CookingModule.mensaje-017", "{prefix}§cNo tienes permiso.", "prefix", prefix())); return true; }
-            try { plugin.reloadConfig(); loadRecipes(); sender.sendMessage(Settings.text("cocina", "CookingModule.mensaje-018", "{prefix}§aConfiguracion y recetas recargadas.", "prefix", prefix())); }
-            catch (Exception error) { sender.sendMessage(Settings.text("cocina", "CookingModule.mensaje-019", "{prefix}§c{error-getmessage}", "prefix", prefix(), "error-getmessage", error.getMessage())); }
+            if (!cookingAdmin(sender)) { sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-017", "{prefix}§cNo tienes permiso.", "prefix", Settings.component(prefix()))); return true; }
+            try { plugin.reloadConfig(); loadRecipes(); loadRecipeBookLayout(); sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-018", "{prefix}§aRecetas y preparaciones actualizadas.", "prefix", Settings.component(prefix()))); }
+            catch (Exception error) {
+                getLogger().warning("Cocina: recarga rechazada: " + error.getMessage());
+                sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-019",
+                        "{prefix}<reset><red>No se pudieron actualizar las recetas. Avisa a administración.",
+                        "prefix", Settings.component(prefix())));
+            }
             return true;
         }
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(Settings.text("cocina", "CookingModule.mensaje-020", "{prefix}Este comando requiere un jugador.", "prefix", prefix())); return true;
+            sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-020", "{prefix}Este comando requiere un jugador.", "prefix", Settings.component(prefix()))); return true;
         }
         if (action.equals("reparar") && !cookingAdmin(sender)) {
-            sender.sendMessage(Settings.text("cocina", "CookingModule.mensaje-021", "{prefix}§cNo tienes permiso.", "prefix", prefix())); return true;
+            sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-021", "{prefix}§cNo tienes permiso.", "prefix", Settings.component(prefix()))); return true;
         }
         Block looked = player.getTargetBlockExact(6);
         if (looked == null || !isCookingStation(looked)) {
@@ -1293,7 +1499,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
                 msg(player, ChatColor.GREEN + Settings.text("cocina", "CookingModule.etiqueta-121", "Modelo de cocina reconstruido."));
             }
             case "estado" -> { accrue(station, System.currentTimeMillis()); inspectStation(player, station, true); }
-            default -> sender.sendMessage(Settings.text("cocina", "CookingModule.mensaje-022", "{prefix}§e/spectrecore cocina ayuda | libro | estado | reparar | recargar", "prefix", prefix()));
+            default -> sender.sendMessage(Settings.message("cocina", "CookingModule.mensaje-022", "{prefix}§e/spectrecore cocina ayuda | libro | estado | reparar | recargar", "prefix", Settings.component(prefix())));
         }
         return true;
     }
@@ -1308,7 +1514,7 @@ public final class CookingModule implements Listener, CommandExecutor, TabComple
         return sender.hasPermission("hydev.cocina.admin") || sender.hasPermission("spectrecore.cooking.admin")
                 || sender.hasPermission("spectrecore.admin");
     }
-    private void msg(Player player, String message) { player.sendMessage(prefix() + message); }
+    private void msg(Player player, String message) { player.sendMessage(Settings.component(prefix() + message)); }
     private void sound(Station station, Sound sound, float pitch) {
         station.blockLocation.getWorld().playSound(station.blockLocation.clone().add(Settings.d("cocina", "CookingModule.geometria-168", .5), Settings.d("cocina", "CookingModule.geometria-169", .5), Settings.d("cocina", "CookingModule.geometria-170", .5)), sound,Settings.f("cocina", "CookingModule.playsound-083-arg2", 1f), pitch);
     }

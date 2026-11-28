@@ -4,6 +4,7 @@ import dev.hydev.spectrecore.config.Settings;
 import dev.hydev.spectrecore.SpectreCorePlugin;
 import dev.hydev.spectrecore.core.Effects;
 import dev.hydev.spectrecore.core.CombatRules;
+import dev.hydev.spectrecore.core.AsterionComboRules;
 import dev.hydev.spectrecore.core.SkillModule;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -49,16 +50,18 @@ public final class AsterionSkill implements SkillModule {
         State s = state(player);
         s.lastCombat = tick;
         if (!active(s, tick)) {
+            int before = s.fury;
             s.fury = Math.min(furyCap(),Math.max(0,s.fury+Math.max(0,i("fury-on-hit",12))));
+            if (before < furyCap() && s.fury >= furyCap() && plugin.toasts() != null)
+                plugin.toasts().show(player, "furia");
             return;
         }
-        if (s.prey != null && s.prey.equals(target.getUniqueId()) && tick - s.lastHit <= i("combo-gap-ticks", 50)) {
-            s.combo = Math.min(i("max-combo-stacks", 4), s.combo + 1);
-        } else {
-            s.prey = target.getUniqueId();
-            s.combo = 0;
-        }
-        s.lastHit = tick;
+        var combo = AsterionComboRules.landed(
+                new AsterionComboRules.Combo(s.prey, s.combo, s.lastHit),
+                target.getUniqueId(), tick, i("combo-gap-ticks", 50), i("max-combo-stacks", 4));
+        s.prey = combo.prey();
+        s.combo = combo.stacks();
+        s.lastHit = combo.lastHit();
         if (s.combo == i("max-combo-stacks", 4)) {
             Effects.dust(target.getLocation().add(0, 1, 0),Settings.i("equipamiento", "AsterionSkill.polvo-001-arg1", 162),Settings.i("equipamiento", "AsterionSkill.polvo-002-arg2", 45),Settings.i("equipamiento", "AsterionSkill.polvo-003-arg3", 40),Settings.i("equipamiento", "AsterionSkill.polvo-004-arg4", 4), Settings.f("equipamiento", "AsterionSkill.geometria-001", .75f));
         }
@@ -68,16 +71,23 @@ public final class AsterionSkill implements SkillModule {
         if (!access(player)) return;
         State s = state(player);
         s.lastCombat = tick;
-        if (!active(s, tick)) s.fury = Math.min(furyCap(),Math.max(0,s.fury+Math.max(0,i("fury-on-damage",6))));
+        if (!active(s, tick)) {
+            int before = s.fury;
+            s.fury = Math.min(furyCap(),Math.max(0,s.fury+Math.max(0,i("fury-on-damage",6))));
+            if (before < furyCap() && s.fury >= furyCap() && plugin.toasts() != null)
+                plugin.toasts().show(player, "furia");
+        }
     }
 
     @Override public double outgoingMultiplier(Player p, LivingEntity target, long tick) {
         if (!access(p)) return 1;
         State s = states.get(p.getUniqueId());
-        if (s == null || !active(s, tick) || s.prey == null || !s.prey.equals(target.getUniqueId())
-                || tick - s.lastHit > i("combo-gap-ticks", 50)) return 1;
+        if (s == null || !active(s, tick)) return 1;
         // onMelee runs after damage; include the imminent successful hit in the outgoing multiplier.
-        return CombatRules.comboMultiplier(s.combo + 1, i("max-combo-stacks", 4), d("damage-per-stack", .03));
+        return AsterionComboRules.multiplier(
+                new AsterionComboRules.Combo(s.prey, s.combo, s.lastHit),
+                target.getUniqueId(), tick, i("combo-gap-ticks", 50),
+                i("max-combo-stacks", 4), d("damage-per-stack", .03));
     }
 
     @Override public void onSneakPress(Player p, long tick) {
@@ -90,10 +100,11 @@ public final class AsterionSkill implements SkillModule {
         s.fury = 0;
         s.combo = 0;
         s.prey = null;
+        s.lastHit = -100000;
         s.activeUntil = tick + Math.max(1, i("duration-seconds", 10)) * 20L;
         p.getWorld().playSound(p.getLocation(), Settings.string("equipamiento", "AsterionSkill.sonido-002", "minecraft:entity.ravager.roar"),Settings.f("equipamiento", "AsterionSkill.playsound-001-arg2", 0.85f),Settings.f("equipamiento", "AsterionSkill.playsound-002-arg3", 0.65f));
         p.getWorld().spawnParticle(Settings.particle("equipamiento", "AsterionSkill.particle-001", Particle.LARGE_SMOKE), p.getLocation().add(0, Settings.d("equipamiento", "AsterionSkill.geometria-002", .8), 0),Settings.i("equipamiento", "AsterionSkill.spawnparticle-003-arg2", 26),Settings.d("equipamiento", "AsterionSkill.spawnparticle-004-arg3", .65),Settings.d("equipamiento", "AsterionSkill.spawnparticle-005-arg4", .45),Settings.d("equipamiento", "AsterionSkill.spawnparticle-006-arg5", .65),Settings.d("equipamiento", "AsterionSkill.spawnparticle-007-arg6", .01));
-        p.sendMessage(Settings.text("equipamiento", "AsterionSkill.mensaje-001", "§6✦ §cAsterión §7— La bestia despierta."));
+        p.sendMessage(Settings.message("equipamiento", "AsterionSkill.mensaje-001", "§6✦ §cAsterión §7— La bestia despierta."));
     }
 
     @Override public void tick(long tick) {
@@ -109,6 +120,13 @@ public final class AsterionSkill implements SkillModule {
             if (!active(s, tick) && s.activeUntil != 0) {
                 s.activeUntil = 0; s.combo = 0; s.prey = null;
                 p.getWorld().playSound(p.getLocation(), Settings.string("equipamiento", "AsterionSkill.sonido-003", "minecraft:block.anvil.land"),Settings.f("equipamiento", "AsterionSkill.playsound-008-arg2", .5f),Settings.f("equipamiento", "AsterionSkill.playsound-009-arg3", 1.25f));
+            }
+            if (active(s, tick) && s.prey != null) {
+                var combo = AsterionComboRules.expire(
+                        new AsterionComboRules.Combo(s.prey, s.combo, s.lastHit),
+                        tick, i("combo-gap-ticks", 50));
+                s.prey = combo.prey();
+                s.combo = combo.stacks();
             }
             if (s.fury > 0 && !active(s, tick) && tick - s.lastCombat >= i("fury-decay-delay-ticks", 400)
                     && tick % Math.max(1, i("fury-decay-every-ticks", 10)) == 0) s.fury--;

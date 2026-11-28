@@ -7,6 +7,32 @@ import dev.hydev.spectrecore.config.Settings;
 
 public final class EconomyBridge {
     public enum Result { CONFIRMED, COMMAND_SENT, FAILED }
+    /**
+     * Confirmed Vault withdrawal only. Never run a console economy command for player contracts:
+     * a dispatch "success" cannot prove the money was actually deducted.
+     */
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public Result withdraw(Player player, long amount) {
+        if (player == null || amount < 0 || amount > 1_000_000_000L) return Result.FAILED;
+        if (amount == 0) return Result.CONFIRMED;
+        var vault = Bukkit.getPluginManager().getPlugin("Vault");
+        if (vault == null || !vault.isEnabled()) return Result.FAILED;
+        try {
+            Class<?> api = Class.forName("net.milkbowl.vault.economy.Economy", true, vault.getClass().getClassLoader());
+            var registration = Bukkit.getServicesManager().getRegistration((Class) api);
+            if (registration == null) return Result.FAILED;
+            Object provider = registration.getProvider();
+            Object has = api.getMethod("has", OfflinePlayer.class, double.class).invoke(provider, player, (double) amount);
+            if (!Boolean.TRUE.equals(has)) return Result.FAILED;
+            Object response = api.getMethod("withdrawPlayer", OfflinePlayer.class, double.class)
+                    .invoke(provider, player, (double) amount);
+            return Boolean.TRUE.equals(response.getClass().getMethod("transactionSuccess").invoke(response))
+                    ? Result.CONFIRMED : Result.FAILED;
+        } catch (ReflectiveOperationException | LinkageError | RuntimeException error) {
+            return Result.FAILED;
+        }
+    }
+
     @SuppressWarnings({"unchecked", "rawtypes"})
     public Result deposit(Player player, long amount, boolean fallback) {
         var vault = Bukkit.getPluginManager().getPlugin("Vault");

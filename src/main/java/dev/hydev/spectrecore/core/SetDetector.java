@@ -20,16 +20,16 @@ public final class SetDetector {
     public SetDetector(JavaPlugin plugin) {
         this.plugin = plugin;
         if (plugin.getServer().getPluginManager().getPlugin("MMOItems") == null) {
-            plugin.getLogger().warning(Settings.text("equipamiento", "SetDetector.mensaje-001", "MMOItems ausente: habilidades de set desactivadas; solo funciona demo."));
+            plugin.getLogger().warning(Settings.text("equipamiento", "SetDetector.mensaje-001", "No se pudieron cargar las habilidades de los conjuntos."));
             return;
         }
         try {
             Class<?> api = Class.forName("net.Indyuce.mmoitems.MMOItems");
             getId = api.getMethod("getID", ItemStack.class);
             getTypeName = api.getMethod("getTypeName", ItemStack.class);
-            plugin.getLogger().info(Settings.text("equipamiento", "SetDetector.mensaje-002", "MMOItems detectado: identificación por tipo e ID habilitada."));
+            plugin.getLogger().info(Settings.text("equipamiento", "SetDetector.mensaje-002", "Las habilidades de los conjuntos están disponibles."));
         } catch (ReflectiveOperationException ex) {
-            plugin.getLogger().log(Level.WARNING, Settings.text("equipamiento", "SetDetector.etiqueta-003", "La API de MMOItems difiere; el modo de sets queda desactivado."), ex);
+            plugin.getLogger().log(Level.WARNING, Settings.text("equipamiento", "SetDetector.etiqueta-003", "No se pueden consultar las propiedades del equipamiento."), ex);
         }
     }
 

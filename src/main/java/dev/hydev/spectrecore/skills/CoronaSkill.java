@@ -102,7 +102,7 @@ public final class CoronaSkill implements SkillModule {
             player.getWorld().spawnParticle(Settings.particle("equipamiento", "CoronaSkill.particle-001", Particle.SOUL), particleAt,Settings.i("equipamiento", "CoronaSkill.spawnparticle-001-arg2", 1),Settings.d("equipamiento", "CoronaSkill.spawnparticle-002-arg3", 0),Settings.d("equipamiento", "CoronaSkill.spawnparticle-003-arg4", 0),Settings.d("equipamiento", "CoronaSkill.spawnparticle-004-arg5", 0),Settings.d("equipamiento", "CoronaSkill.spawnparticle-005-arg6", 0.01));
         }
         player.getWorld().playSound(player.getLocation(), Settings.string("equipamiento", "CoronaSkill.sonido-008", "minecraft:entity.wither.ambient"),Settings.f("equipamiento", "CoronaSkill.playsound-006-arg2", 0.85f),Settings.f("equipamiento", "CoronaSkill.playsound-007-arg3", 1.4f));
-        player.sendMessage(Settings.text("equipamiento", "CoronaSkill.mensaje-001", "§3☠ §bCorona de Ánimas §7— Tres almas responden a tu dolor."));
+        player.sendMessage(Settings.message("equipamiento", "CoronaSkill.mensaje-001", "§3☠ §bCorona de Ánimas §7— Tres almas responden a tu dolor."));
     }
 
     @Override public void tick(long engineTick) {

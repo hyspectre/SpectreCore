@@ -25,8 +25,23 @@ public final class PresentationConfigSmoke {
         check(Gameplay.tier("mineria","DIAMOND_ORE")==3,"Configured mining classification");
         check(Gameplay.tier("trabajos-mineria","NETHER_QUARTZ_ORE")==3&&Gameplay.tier("mineria","NETHER_QUARTZ_ORE")==0,"Preserve original jobs distinction");
         var messages=read("trabajos/mensajes.yml");messages.set("JobsModule.mensaje-001","&aMensaje propio {jugador}");save("trabajos/mensajes.yml",messages);manager.reload();
-        check(Settings.text("trabajos","JobsModule.mensaje-001","fallback","jugador","Alex").equals("§aMensaje propio Alex"),"Live text, color and placeholder edits applied");
+        check(Settings.text("trabajos","JobsModule.mensaje-001","fallback","jugador","Alex").equals("<reset><green>Mensaje propio Alex"),"Legacy custom message migrated to MiniMessage");
+        check(Files.isRegularFile(root.resolve("backups/minimessage-v1/modules/trabajos/mensajes.yml")),
+                "Legacy message backup created before migration");
         check(Settings.format("{uno}/{dos}","uno","{dos}","dos","$x\\name").equals("{dos}/$x\\name"),"One-pass literal placeholder replacement");
+        // MiniMessage migration: preserve legacy colors and never parse user-controlled markup.
+        var plainText = net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer.plainText();
+        var decorated = dev.hydev.spectrecore.text.TextService.component("§6§lMonarquía §cRenacida");
+        check(plainText.serialize(decorated).equals("Monarquía Renacida"), "Legacy colors render via MiniMessage");
+        var untrusted = dev.hydev.spectrecore.text.TextService.render(
+                "<gold>Jugador: <white>{nombre}", java.util.Map.of("nombre","<red>INYECCIÓN</red>"));
+        check(plainText.serialize(untrusted).equals("Jugador: <red>INYECCIÓN</red>"),
+                "Untrusted name remains literal, not MiniMessage markup");
+        var trusted = dev.hydev.spectrecore.text.TextService.render("<gray>Estado: {estado}",
+                java.util.Map.of("estado", dev.hydev.spectrecore.text.TextService.component("<green>ACTIVO")));
+        check(plainText.serialize(trusted).equals("Estado: ACTIVO"),
+                "Trusted nested component retains Adventure styling");
+
         var effects=read("trabajos/ajustes.yml");String volume=effects.getKeys(true).stream().filter(k->k.contains("playsound")&&k.endsWith("arg2")).findFirst().orElseThrow();
         effects.set(volume,1.35);save("trabajos/ajustes.yml",effects);manager.reload();
         check(Math.abs(Settings.f("trabajos",volume,0)-1.35)<.00001,"Fractional volume edit applied despite integral original API literal");
@@ -36,6 +51,9 @@ public final class PresentationConfigSmoke {
         var mining=read("nucleo/ajustes.yml");String dust=mining.getKeys(true).stream().filter(k->k.contains(".particle-")&&"DUST".equals(mining.get(k))).findFirst().orElseThrow();
         reject("nucleo/ajustes.yml",dust,"FLAME");
         String sound=effects.getKeys(true).stream().filter(k->k.contains(".sound-")).findFirst().orElseThrow();reject("trabajos/ajustes.yml",sound,"INVALID_SOUND");
+        reject("nucleo/ajustes.yml","toasts.presets.furia.volumen", 9.5);
+        reject("nucleo/ajustes.yml","toasts.presets.furia.tono", 0.1);
+        reject("nucleo/ajustes.yml","toasts.presets.furia.intervalo-segundos", -1);
         reject("equipamiento/config.yml","furia-maxima",0);
         reject("equipamiento/config.yml","pasivos.piezas",5);
         reject("dungeons/jefes.yml","bloqueos.HYDEV_MINO_LOCK35",.9);
@@ -50,6 +68,21 @@ public final class PresentationConfigSmoke {
         check(Settings.module("resonancia/config.yml").getInt("reglas.carga-por-tier.tier3")==9,"Custom resonance charge preserved");
         var tools=read("cocina/config.yml");tools.set("herramientas.revolver","STICK");save("cocina/config.yml",tools);manager.reload();
         check(Gameplay.cookingTool("STICK",true,false)==dev.hydev.spectrecore.cooking.CookingToolActions.Use.STIR,"Configured cooking controls actually used");
+        // Old installations may still say CONSUMABLE: the runtime accepts only COCINA.
+        var oldCooking = read("cocina/config.yml");
+        oldCooking.set("cooking.rewards.mmoitems-type", "CONSUMABLE");
+        save("cocina/config.yml", oldCooking);
+        manager.reload();
+        check(!read("cocina/config.yml").contains("cooking.rewards.mmoitems-type"),
+                "Legacy cooking output selector is removed; output type is fixed in Java");
+        check(Files.isRegularFile(root.resolve(
+                "backups/cocina-tipo-v1/modules/cocina/config.yml")),
+                "Legacy output type backed up before migration");
+        check("CONSUMABLE".equals(YamlConfiguration.loadConfiguration(
+                root.resolve("backups/cocina-tipo-v1/modules/cocina/config.yml").toFile())
+                .getString("cooking.rewards.mmoitems-type")),
+                "Backup retains previous CONSUMABLE type");
+
         var old=read("trabajos/mensajes.yml");old.set("JobsModule.mensaje-001","");old.set("JobsModule.mensaje-002",null);old.set("personalizado","Conservar");save("trabajos/mensajes.yml",old);manager.reload();
         check(Settings.text("trabajos","JobsModule.mensaje-001","fallback").isEmpty(),"Empty text preserved");
         check(read("trabajos/mensajes.yml").contains("JobsModule.mensaje-002")&&read("trabajos/mensajes.yml").getString("personalizado").equals("Conservar"),"Missing defaults added without deleting unknown keys");
@@ -59,6 +92,17 @@ public final class PresentationConfigSmoke {
         var commandTexts=read("nucleo/comandos.yml");commandTexts.set("rutas",null);commandTexts.set("cocina.descripcion","Mi cocina personalizada");commandTexts.set("cocina.uso","/cocina libro");save("nucleo/comandos.yml",commandTexts);manager.reload();
         check(read("nucleo/comandos.yml").getString("rutas.cocina.descripcion").equals("Mi cocina personalizada"),"Custom old command descriptions retained in canonical routes");
         check(read("nucleo/comandos.yml").getString("rutas.cocina.uso").equals("/spectrecore cocina libro"),"Custom old usages migrated and retained");
+        var oldHelp = read("nucleo/comandos.yml");
+        oldHelp.set("rutas.armaduras.descripcion", "Guía de armaduras mediante Dialogs");
+        save("nucleo/comandos.yml", oldHelp);
+        manager.reload();
+        check("Catálogo de armaduras y bonificaciones".equals(
+                read("nucleo/comandos.yml").getString("rutas.armaduras.descripcion")),
+                "Known technical help text migrated safely");
+        check(Files.isRegularFile(root.resolve(
+                "backups/presentation-v2/modules/nucleo/comandos.yml")),
+                "Original help catalog preserved before migration");
+
         Settings.clear();System.out.println("PASS PresentationConfigSmoke: "+assertions+" live configuration/reload assertions");
     }
 }

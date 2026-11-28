@@ -27,8 +27,10 @@ for skill,prefix in expected.items():
 cooking = load('modules/cocina/config.yml')['cooking']
 assert cooking['visuals']['visible-ingredients'] and cooking['servings']['water-level-portions']
 recipes = load('modules/cocina/recetas.yml')['recetas']
-items = yaml.safe_load((root/'integracion-mmoitems/CONSUMABLE_Cocina.yml').read_text(encoding='utf-8'))
-assert set(recipes) == {'guardian','alba','carmesi','espectral'} and len(items) == 12
+items = yaml.safe_load((root/'integracion-mmoitems/COCINA.yml').read_text(encoding='utf-8'))
+assert len(recipes) == 15 and len(items) == 45
+assert not (root/'integracion-mmoitems/CONSUMABLE_Cocina.yml').exists(), 'No debe existir catálogo culinario de CONSUMABLE'
+assert {'guardian','alba','carmesi','espectral','minero','velocidad','espeleologo','mareas','saltador','escudero','brasa','vigor','sombra','maraton','leyenda'} == set(recipes)
 for recipe in recipes.values():
     assert len(recipe['ingredientes']) == 3
     assert recipe['revolver-desde'] < recipe['revolver-hasta'] <= recipe['listo-desde'] < recipe['listo-hasta'] < recipe['quemado']
@@ -45,7 +47,18 @@ assert load('modules/tesoros/combate.yml')['botin'] == {'tipo':'MATERIAL','id':'
 assert load('modules/tesoros/agricultura.yml')['botin'] == {'tier1':'AGRICULTURA_T1','tier2':'AGRICULTURA_T2','tier3':'AGRICULTURA_T3'}
 assert load('modules/tesoros/config.yml')['cooldown-compartido-segundos'] == 5
 jobs = load('modules/trabajos/config.yml')
-assert jobs['cooldowns'] == {} and jobs['minero'] == {'enabled': True}
+expected_jobs = {
+    'minero': ((10,1,4),(7,4,6),(4,8,12)),
+    'granjero': ((8,1,3),(5,3,6),(3,6,10)),
+    'cazador': ((12,2,6),(8,6,12),(5,12,24)),
+}
+for job, tiers in expected_jobs.items():
+    assert jobs[job]['enabled'] is True
+    for name,(cooldown,minimum,maximum) in zip(('novato','experimentado','profesional'),tiers):
+        assert jobs['cooldowns'][job][name] == cooldown
+        assert jobs[job][name]['dinero'] == {'minimo':minimum,'maximo':maximum}
+assert jobs['contratos']['habilitados'] is True
+assert jobs['contratos']['precios'] == {'novato':50,'experimentado':1500,'profesional':3500}
 slayer = load('modules/slayer/config.yml')
 assert slayer['objetivos'] == {'tier1':20,'tier2':50,'tier3':90}
 portal = load('modules/dungeons/portal.yml')
@@ -58,4 +71,4 @@ assert activities['entrada']['nivel-resistencia'] == 100 and activities['entrada
 assert len(list((resources/'modules').rglob('*.yml'))) == 33
 for obsolete in ['mining.yml','jobs.yml','activities.yml','portal.yml','cooking/recipes.yml']:
     assert not (resources/obsolete).exists(), obsolete
-print('PASS: 8 modules, 33 configuration files, unchanged default rewards/skills/recipes, no invented chances or salaries')
+print('PASS: 8 modules, 33 configuration files, unchanged default rewards/skills/recipes, validated exact job salaries, cooldowns and contract prices')

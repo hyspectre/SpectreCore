@@ -1,0 +1,465 @@
+# HYDEV - Armaduras. Diseños inspirados en Misiones y los sets originales.
+# La estética es configurable; no se muestran comandos ni nombres internos.
+indicador:
+  piezas: "<gray>ᴘɪᴇᴢᴀs ᴇǫᴜɪᴘᴀᴅᴀs <yellow>{equipadas}<gray>/4"
+  completo: "<green>✦ ʜᴀʙɪʟɪᴅᴀᴅ ᴅɪsᴘᴏɴɪʙʟᴇ"
+  parcial: "<yellow>✦ ʙᴏɴᴏ ᴘᴀʀᴄɪᴀʟ ᴀᴄᴛɪᴠᴏ"
+  incompleto: "<gray>ᴀúɴ ɴᴏ ᴄᴏᴍᴘʟᴇᴛᴀᴅᴏ"
+  desactivado: "<red>ᴄᴏɴᴊᴜɴᴛᴏ ɪɴᴀᴄᴛɪᴠᴏ"
+
+enabled: true
+pages:
+  armaduras:
+    title: "<white>⇜ <gold>Armaduras <dark_gray>│ <white>Catálogo"
+    size: 54
+    items:
+      "botania":
+        slot: 12
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGQ1YzNmMzk5ZDY2M2VhZDkyNjkzNTk2NDdlOTIyMmZiNTkyNTFkYTY4ZDdjNGI1NDM2MDBiNjM0MzhmZmZjNSJ9fX0="
+        name: "<white>❀ <gradient:#537D3B:#BDD88B>Raigambre Ancestral</gradient>"
+        lore:
+          - ""
+          - "<gray>La naturaleza combate a tu lado."
+          - "<gray>Raíces, magia y control."
+          - ""
+          - "<gray> ʜᴀʙɪʟɪᴅᴀᴅ <#91C578>Botania"
+          - ""
+          - "<#FFDD00>► ᴄʟɪᴄ ᴘᴀʀᴀ ᴇxᴘʟᴏʀᴀʀ"
+      "necrotica":
+        slot: 14
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTE2ZWQ4YjdjNTdjNDZhYWNkY2JiZjRmYmE0MDAwNTJmZGYzOGIzYmEwNTQ5Nzg2NDM4ZWJhMmZhMjk0MTM0ZiJ9fX0="
+        name: "<white>✦ <gradient:#685093:#B5A2D5>Armadura Necrótica</gradient>"
+        lore:
+          - ""
+          - "<gray>El dolor despierta a los muertos."
+          - "<gray>Calaveras, almas y represalias."
+          - ""
+          - "<gray> ʜᴀʙɪʟɪᴅᴀᴅ <#B5A2D5>Trinidad Profana"
+          - ""
+          - "<#FFDD00>► ᴄʟɪᴄ ᴘᴀʀᴀ ᴇxᴘʟᴏʀᴀʀ"
+      "asterion":
+        slot: 16
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTcxMTA2YTk0ZWVhNzRiOTNhMzRmYjJhNzI5OTBmNTk4OWExZTQ0NTJjMWNiODM5OWRjZDkyM2Y4MjU1MGYzMiJ9fX0="
+        name: "<white>◆ <gradient:#A25735:#E3BC7B>Sangre del Laberinto</gradient>"
+        lore:
+          - ""
+          - "<gray>La furia se gana en combate."
+          - "<gray>Embestidas, fuerza y ferocidad."
+          - ""
+          - "<gray> ʜᴀʙɪʟɪᴅᴀᴅ <#E3BC7B>Asterión"
+          - ""
+          - "<#FFDD00>► ᴄʟɪᴄ ᴘᴀʀᴀ ᴇxᴘʟᴏʀᴀʀ"
+      "ultimo-juramento":
+        slot: 30
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWUyOTZlMTJiMWVjODVjMGYxNmM4OTg0ZjBlZTkwNjFiZmVmMzU3MTU1MjRkZjgzMzU0OTNjNjgwZWM4MDA4NiJ9fX0="
+        name: "<white>✧ <gradient:#6F7486:#C7BED7>Voto del Deshonrado</gradient>"
+        lore:
+          - ""
+          - "<gray>Un pacto entre poder y riesgo."
+          - "<gray>Velocidad, filo y sacrificio."
+          - ""
+          - "<gray> ʜᴀʙɪʟɪᴅᴀᴅ <#C7BED7>Último Juramento"
+          - ""
+          - "<#FFDD00>► ᴄʟɪᴄ ᴘᴀʀᴀ ᴇxᴘʟᴏʀᴀʀ"
+      "sangre-primer-dragon":
+        slot: 32
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTExNWFjZjcyNTU0NjkzMWZmMGQ5NTI2M2FmOGRjYmU3ZDE0NzQ3YjNiYjFmYTI1Njg4ZjFiYjdkYWNkOWQ4MyJ9fX0="
+        name: "<white>✧ <gradient:#AA3A29:#EBA366>Herencia Dracónica</gradient>"
+        lore:
+          - ""
+          - "<gray>La sangre ancestral despierta."
+          - "<gray>Fuego, vigor y bendiciones."
+          - ""
+          - "<gray> ʜᴀʙɪʟɪᴅᴀᴅ <#EBA366>Sangre del Primer Dragón"
+          - ""
+          - "<#FFDD00>► ᴄʟɪᴄ ᴘᴀʀᴀ ᴇxᴘʟᴏʀᴀʀ"
+      "guia":
+        slot: 49
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWE2MmI3YzBhYzhhNjI2NDNkNzkzZmEwZWYwN2ZmMWY4ZDJiMWQzOTQ2YjU1YmM3N2VmOGQ3YTQ2ODcxYzEwIn19fQ=="
+        name: "<white>⇜ <gold>Armaduras <dark_gray>│ <white>Guía"
+        lore:
+          - ""
+          - "<gray>Descubre cinco conjuntos legendarios."
+          - "<gray>Consulta sus bonos y habilidades."
+          - ""
+          - "<gray>Combina cuatro piezas de un conjunto"
+          - "<gray>para despertar su habilidad."
+      "rasgos":
+        slot: 10
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWE2MmI3YzBhYzhhNjI2NDNkNzkzZmEwZWYwN2ZmMWY4ZDJiMWQzOTQ2YjU1YmM3N2VmOGQ3YTQ2ODcxYzEwIn19fQ=="
+        name: "<white>⧈ <gold>Guía <dark_gray>│ <white>Bonos"
+        lore:
+          - ""
+          - "<gray>Dos piezas dan ventajas parciales."
+          - "<gray>Cuatro despiertan su poder."
+          - ""
+          - "<gray>Algunas armas refuerzan el conjunto."
+      "habilidades":
+        slot: 19
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTk2Yzg3OWJkOWE3YzExMWZlYmQ0NTM4NGU3MjdhZjdjZDE2MGZjOGQ5YTZkMjlhNTFhYjU3NTRiNzlmMzJkZiJ9fX0="
+        name: "<white> <gold>Guía <dark_gray>│ <white>Habilidades"
+        lore:
+          - ""
+          - "<gray>Cada conjunto tiene una habilidad"
+          - "<gray>con activación y recarga propias."
+          - ""
+          - "<gray>Consulta su ficha para aprender."
+      "vinculos":
+        slot: 28
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWE2MmI3YzBhYzhhNjI2NDNkNzkzZmEwZWYwN2ZmMWY4ZDJiMWQzOTQ2YjU1YmM3N2VmOGQ3YTQ2ODcxYzEwIn19fQ=="
+        name: "<white>✧ <gold>Guía <dark_gray>│ <white>Armas afines"
+        lore:
+          - ""
+          - "<gray>Descubre qué armas acompañan"
+          - "<gray>a cada conjunto."
+          - ""
+          - "<gray>No todas otorgan bonos extra."
+      "cerrar":
+        slot: 48
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTk2Yzg3OWJkOWE3YzExMWZlYmQ0NTM4NGU3MjdhZjdjZDE2MGZjOGQ5YTZkMjlhNTFhYjU3NTRiNzlmMzJkZiJ9fX0="
+        name: "<white>⇜ <gray>Cerrar menú"
+        lore:
+          - ""
+          - "<gray>Abandonar el catálogo."
+          - ""
+          - "<#FFDD00>► ᴄʟɪᴄ ᴘᴀʀᴀ ᴄᴇʀʀᴀʀ"
+  "botania":
+    title: "<white>⇜ <gold>Armaduras <dark_gray>│ <#91C578>Raigambre Ancestral"
+    size: 54
+    items:
+      "informacion":
+        slot: 4
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGQ1YzNmMzk5ZDY2M2VhZDkyNjkzNTk2NDdlOTIyMmZiNTkyNTFkYTY4ZDdjNGI1NDM2MDBiNjM0MzhmZmZjNSJ9fX0="
+        name: "<white>❀ <gradient:#537D3B:#BDD88B>{nombre}</gradient>"
+        lore:
+          - ""
+          - "<gray>La naturaleza combate a tu lado."
+          - "<gray>Raíces, magia y control."
+          - ""
+          - "<gray> ʜᴀʙɪʟɪᴅᴀᴅ <#91C578>{habilidad}"
+          - ""
+      "piezas":
+        slot: 13
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGQ1YzNmMzk5ZDY2M2VhZDkyNjkzNTk2NDdlOTIyMmZiNTkyNTFkYTY4ZDdjNGI1NDM2MDBiNjM0MzhmZmZjNSJ9fX0="
+        name: "<white>⧈ <#91C578>ᴘɪᴇᴢᴀs ᴅᴇ ʟᴀ ᴀʀᴍᴀᴅᴜʀᴀ"
+        lore:
+          - ""
+          - "<gray>ʀᴇúɴᴇ ʟᴀs 4 ᴘɪᴇᴢᴀs"
+          - "<gray>✦ <white>Yelmo de Raigambre"
+          - "<gray>✦ <white>Coraza de Raigambre"
+          - "<gray>✦ <white>Grebas de Raigambre"
+          - "<gray>✦ <white>Botas de Raigambre"
+      "bonos":
+        slot: 21
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWE2MmI3YzBhYzhhNjI2NDNkNzkzZmEwZWYwN2ZmMWY4ZDJiMWQzOTQ2YjU1YmM3N2VmOGQ3YTQ2ODcxYzEwIn19fQ=="
+        name: "<white>❖ <#91C578>ʙᴏɴᴏs ᴅᴇ ᴄᴏɴᴊᴜɴᴛᴏ"
+        lore:
+          - ""
+          - "{bonos}"
+      "habilidad":
+        slot: 23
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTk2Yzg3OWJkOWE3YzExMWZlYmQ0NTM4NGU3MjdhZjdjZDE2MGZjOGQ5YTZkMjlhNTFhYjU3NTRiNzlmMzJkZiJ9fX0="
+        name: "<white> <#91C578>ʜᴀʙɪʟɪᴅᴀᴅ"
+        lore:
+          - ""
+          - "{habilidad}"
+      "arma":
+        slot: 31
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGQ1YzNmMzk5ZDY2M2VhZDkyNjkzNTk2NDdlOTIyMmZiNTkyNTFkYTY4ZDdjNGI1NDM2MDBiNjM0MzhmZmZjNSJ9fX0="
+        name: "<white>⚔ <#91C578>ᴀʀᴍᴀ ᴀғíɴ <dark_gray>│ <white>Verdana"
+        lore:
+          - ""
+          - "<gray>La espada de la raíz viva."
+          - "<gray>Vínculo: <green>Regeneración I"
+          - ""
+          - "<gray>Consulta los bonos del conjunto."
+      "volver":
+        slot: 48
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWE2MmI3YzBhYzhhNjI2NDNkNzkzZmEwZWYwN2ZmMWY4ZDJiMWQzOTQ2YjU1YmM3N2VmOGQ3YTQ2ODcxYzEwIn19fQ=="
+        name: "<white>⇜ <gold>Volver al catálogo"
+        lore:
+          - ""
+          - "<gray>Regresar a los cinco conjuntos."
+          - ""
+          - "<#FFDD00>► ᴄʟɪᴄ ᴘᴀʀᴀ ᴠᴏʟᴠᴇʀ"
+      "cerrar":
+        slot: 50
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTk2Yzg3OWJkOWE3YzExMWZlYmQ0NTM4NGU3MjdhZjdjZDE2MGZjOGQ5YTZkMjlhNTFhYjU3NTRiNzlmMzJkZiJ9fX0="
+        name: "<white>⇜ <gray>Cerrar menú"
+        lore:
+          - ""
+          - "<gray>Salir de Armaduras."
+          - ""
+          - "<#FFDD00>► ᴄʟɪᴄ ᴘᴀʀᴀ ᴄᴇʀʀᴀʀ"
+  "necrotica":
+    title: "<white>⇜ <gold>Armaduras <dark_gray>│ <#B5A2D5>Armadura Necrótica"
+    size: 54
+    items:
+      "informacion":
+        slot: 4
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTE2ZWQ4YjdjNTdjNDZhYWNkY2JiZjRmYmE0MDAwNTJmZGYzOGIzYmEwNTQ5Nzg2NDM4ZWJhMmZhMjk0MTM0ZiJ9fX0="
+        name: "<white>✦ <gradient:#685093:#B5A2D5>{nombre}</gradient>"
+        lore:
+          - ""
+          - "<gray>El dolor despierta a los muertos."
+          - "<gray>Calaveras, almas y represalias."
+          - ""
+          - "<gray> ʜᴀʙɪʟɪᴅᴀᴅ <#B5A2D5>{habilidad}"
+          - ""
+      "piezas":
+        slot: 13
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTE2ZWQ4YjdjNTdjNDZhYWNkY2JiZjRmYmE0MDAwNTJmZGYzOGIzYmEwNTQ5Nzg2NDM4ZWJhMmZhMjk0MTM0ZiJ9fX0="
+        name: "<white>⧈ <#B5A2D5>ᴘɪᴇᴢᴀs ᴅᴇ ʟᴀ ᴀʀᴍᴀᴅᴜʀᴀ"
+        lore:
+          - ""
+          - "<gray>ʀᴇúɴᴇ ʟᴀs 4 ᴘɪᴇᴢᴀs"
+          - "<gray>✦ <white>Yelmo Necrótico"
+          - "<gray>✦ <white>Coraza Necrótica"
+          - "<gray>✦ <white>Grebas Necróticas"
+          - "<gray>✦ <white>Botas Necróticas"
+      "bonos":
+        slot: 21
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWE2MmI3YzBhYzhhNjI2NDNkNzkzZmEwZWYwN2ZmMWY4ZDJiMWQzOTQ2YjU1YmM3N2VmOGQ3YTQ2ODcxYzEwIn19fQ=="
+        name: "<white>❖ <#B5A2D5>ʙᴏɴᴏs ᴅᴇ ᴄᴏɴᴊᴜɴᴛᴏ"
+        lore:
+          - ""
+          - "{bonos}"
+      "habilidad":
+        slot: 23
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTk2Yzg3OWJkOWE3YzExMWZlYmQ0NTM4NGU3MjdhZjdjZDE2MGZjOGQ5YTZkMjlhNTFhYjU3NTRiNzlmMzJkZiJ9fX0="
+        name: "<white> <#B5A2D5>ʜᴀʙɪʟɪᴅᴀᴅ"
+        lore:
+          - ""
+          - "{habilidad}"
+      "arma":
+        slot: 31
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTE2ZWQ4YjdjNTdjNDZhYWNkY2JiZjRmYmE0MDAwNTJmZGYzOGIzYmEwNTQ5Nzg2NDM4ZWJhMmZhMjk0MTM0ZiJ9fX0="
+        name: "<white>⚔ <#B5A2D5>ᴀʀᴍᴀ ᴀғíɴ <dark_gray>│ <white>Necroespada"
+        lore:
+          - ""
+          - "<gray>Reliquia afín al conjunto."
+          - "<gray>Sin bonificación por vínculo."
+          - ""
+          - "<gray>Consulta los bonos del conjunto."
+      "volver":
+        slot: 48
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWE2MmI3YzBhYzhhNjI2NDNkNzkzZmEwZWYwN2ZmMWY4ZDJiMWQzOTQ2YjU1YmM3N2VmOGQ3YTQ2ODcxYzEwIn19fQ=="
+        name: "<white>⇜ <gold>Volver al catálogo"
+        lore:
+          - ""
+          - "<gray>Regresar a los cinco conjuntos."
+          - ""
+          - "<#FFDD00>► ᴄʟɪᴄ ᴘᴀʀᴀ ᴠᴏʟᴠᴇʀ"
+      "cerrar":
+        slot: 50
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTk2Yzg3OWJkOWE3YzExMWZlYmQ0NTM4NGU3MjdhZjdjZDE2MGZjOGQ5YTZkMjlhNTFhYjU3NTRiNzlmMzJkZiJ9fX0="
+        name: "<white>⇜ <gray>Cerrar menú"
+        lore:
+          - ""
+          - "<gray>Salir de Armaduras."
+          - ""
+          - "<#FFDD00>► ᴄʟɪᴄ ᴘᴀʀᴀ ᴄᴇʀʀᴀʀ"
+  "asterion":
+    title: "<white>⇜ <gold>Armaduras <dark_gray>│ <#E3BC7B>Sangre del Laberinto"
+    size: 54
+    items:
+      "informacion":
+        slot: 4
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTcxMTA2YTk0ZWVhNzRiOTNhMzRmYjJhNzI5OTBmNTk4OWExZTQ0NTJjMWNiODM5OWRjZDkyM2Y4MjU1MGYzMiJ9fX0="
+        name: "<white>◆ <gradient:#A25735:#E3BC7B>{nombre}</gradient>"
+        lore:
+          - ""
+          - "<gray>La furia se gana en combate."
+          - "<gray>Embestidas, fuerza y ferocidad."
+          - ""
+          - "<gray> ʜᴀʙɪʟɪᴅᴀᴅ <#E3BC7B>{habilidad}"
+          - ""
+      "piezas":
+        slot: 13
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTcxMTA2YTk0ZWVhNzRiOTNhMzRmYjJhNzI5OTBmNTk4OWExZTQ0NTJjMWNiODM5OWRjZDkyM2Y4MjU1MGYzMiJ9fX0="
+        name: "<white>⧈ <#E3BC7B>ᴘɪᴇᴢᴀs ᴅᴇ ʟᴀ ᴀʀᴍᴀᴅᴜʀᴀ"
+        lore:
+          - ""
+          - "<gray>ʀᴇúɴᴇ ʟᴀs 4 ᴘɪᴇᴢᴀs"
+          - "<gray>✦ <white>Yelmo del Laberinto"
+          - "<gray>✦ <white>Coraza del Laberinto"
+          - "<gray>✦ <white>Grebas del Laberinto"
+          - "<gray>✦ <white>Botas del Laberinto"
+      "bonos":
+        slot: 21
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWE2MmI3YzBhYzhhNjI2NDNkNzkzZmEwZWYwN2ZmMWY4ZDJiMWQzOTQ2YjU1YmM3N2VmOGQ3YTQ2ODcxYzEwIn19fQ=="
+        name: "<white>❖ <#E3BC7B>ʙᴏɴᴏs ᴅᴇ ᴄᴏɴᴊᴜɴᴛᴏ"
+        lore:
+          - ""
+          - "{bonos}"
+      "habilidad":
+        slot: 23
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTk2Yzg3OWJkOWE3YzExMWZlYmQ0NTM4NGU3MjdhZjdjZDE2MGZjOGQ5YTZkMjlhNTFhYjU3NTRiNzlmMzJkZiJ9fX0="
+        name: "<white> <#E3BC7B>ʜᴀʙɪʟɪᴅᴀᴅ"
+        lore:
+          - ""
+          - "{habilidad}"
+      "arma":
+        slot: 31
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTcxMTA2YTk0ZWVhNzRiOTNhMzRmYjJhNzI5OTBmNTk4OWExZTQ0NTJjMWNiODM5OWRjZDkyM2Y4MjU1MGYzMiJ9fX0="
+        name: "<white>⚔ <#E3BC7B>ᴀʀᴍᴀ ᴀғíɴ <dark_gray>│ <white>Hendedora del Laberinto"
+        lore:
+          - ""
+          - "<gray>Una hoja forjada para la bestia."
+          - "<gray>Vínculo: <gold>+5% crítico"
+          - ""
+          - "<gray>Consulta los bonos del conjunto."
+      "volver":
+        slot: 48
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWE2MmI3YzBhYzhhNjI2NDNkNzkzZmEwZWYwN2ZmMWY4ZDJiMWQzOTQ2YjU1YmM3N2VmOGQ3YTQ2ODcxYzEwIn19fQ=="
+        name: "<white>⇜ <gold>Volver al catálogo"
+        lore:
+          - ""
+          - "<gray>Regresar a los cinco conjuntos."
+          - ""
+          - "<#FFDD00>► ᴄʟɪᴄ ᴘᴀʀᴀ ᴠᴏʟᴠᴇʀ"
+      "cerrar":
+        slot: 50
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTk2Yzg3OWJkOWE3YzExMWZlYmQ0NTM4NGU3MjdhZjdjZDE2MGZjOGQ5YTZkMjlhNTFhYjU3NTRiNzlmMzJkZiJ9fX0="
+        name: "<white>⇜ <gray>Cerrar menú"
+        lore:
+          - ""
+          - "<gray>Salir de Armaduras."
+          - ""
+          - "<#FFDD00>► ᴄʟɪᴄ ᴘᴀʀᴀ ᴄᴇʀʀᴀʀ"
+  "ultimo-juramento":
+    title: "<white>⇜ <gold>Armaduras <dark_gray>│ <#C7BED7>Voto del Deshonrado"
+    size: 54
+    items:
+      "informacion":
+        slot: 4
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWUyOTZlMTJiMWVjODVjMGYxNmM4OTg0ZjBlZTkwNjFiZmVmMzU3MTU1MjRkZjgzMzU0OTNjNjgwZWM4MDA4NiJ9fX0="
+        name: "<white>✧ <gradient:#6F7486:#C7BED7>{nombre}</gradient>"
+        lore:
+          - ""
+          - "<gray>Un pacto entre poder y riesgo."
+          - "<gray>Velocidad, filo y sacrificio."
+          - ""
+          - "<gray> ʜᴀʙɪʟɪᴅᴀᴅ <#C7BED7>{habilidad}"
+          - ""
+      "piezas":
+        slot: 13
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWUyOTZlMTJiMWVjODVjMGYxNmM4OTg0ZjBlZTkwNjFiZmVmMzU3MTU1MjRkZjgzMzU0OTNjNjgwZWM4MDA4NiJ9fX0="
+        name: "<white>⧈ <#C7BED7>ᴘɪᴇᴢᴀs ᴅᴇ ʟᴀ ᴀʀᴍᴀᴅᴜʀᴀ"
+        lore:
+          - ""
+          - "<gray>ʀᴇúɴᴇ ʟᴀs 4 ᴘɪᴇᴢᴀs"
+          - "<gray>✦ <white>Yelmo del Deshonrado"
+          - "<gray>✦ <white>Coraza del Deshonrado"
+          - "<gray>✦ <white>Grebas del Deshonrado"
+          - "<gray>✦ <white>Botas del Deshonrado"
+      "bonos":
+        slot: 21
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWE2MmI3YzBhYzhhNjI2NDNkNzkzZmEwZWYwN2ZmMWY4ZDJiMWQzOTQ2YjU1YmM3N2VmOGQ3YTQ2ODcxYzEwIn19fQ=="
+        name: "<white>❖ <#C7BED7>ʙᴏɴᴏs ᴅᴇ ᴄᴏɴᴊᴜɴᴛᴏ"
+        lore:
+          - ""
+          - "{bonos}"
+      "habilidad":
+        slot: 23
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTk2Yzg3OWJkOWE3YzExMWZlYmQ0NTM4NGU3MjdhZjdjZDE2MGZjOGQ5YTZkMjlhNTFhYjU3NTRiNzlmMzJkZiJ9fX0="
+        name: "<white> <#C7BED7>ʜᴀʙɪʟɪᴅᴀᴅ"
+        lore:
+          - ""
+          - "{habilidad}"
+      "arma":
+        slot: 31
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWUyOTZlMTJiMWVjODVjMGYxNmM4OTg0ZjBlZTkwNjFiZmVmMzU3MTU1MjRkZjgzMzU0OTNjNjgwZWM4MDA4NiJ9fX0="
+        name: "<white>⚔ <#C7BED7>ᴀʀᴍᴀ ᴀғíɴ <dark_gray>│ <white>Juramento Profanado"
+        lore:
+          - ""
+          - "<gray>La espada despierta un eco"
+          - "<gray>tras cada Blink confirmado."
+          - ""
+          - "<gray>Consulta los bonos del conjunto."
+      "volver":
+        slot: 48
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWE2MmI3YzBhYzhhNjI2NDNkNzkzZmEwZWYwN2ZmMWY4ZDJiMWQzOTQ2YjU1YmM3N2VmOGQ3YTQ2ODcxYzEwIn19fQ=="
+        name: "<white>⇜ <gold>Volver al catálogo"
+        lore:
+          - ""
+          - "<gray>Regresar a los cinco conjuntos."
+          - ""
+          - "<#FFDD00>► ᴄʟɪᴄ ᴘᴀʀᴀ ᴠᴏʟᴠᴇʀ"
+      "cerrar":
+        slot: 50
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTk2Yzg3OWJkOWE3YzExMWZlYmQ0NTM4NGU3MjdhZjdjZDE2MGZjOGQ5YTZkMjlhNTFhYjU3NTRiNzlmMzJkZiJ9fX0="
+        name: "<white>⇜ <gray>Cerrar menú"
+        lore:
+          - ""
+          - "<gray>Salir de Armaduras."
+          - ""
+          - "<#FFDD00>► ᴄʟɪᴄ ᴘᴀʀᴀ ᴄᴇʀʀᴀʀ"
+  "sangre-primer-dragon":
+    title: "<white>⇜ <gold>Armaduras <dark_gray>│ <#EBA366>Herencia Dracónica"
+    size: 54
+    items:
+      "informacion":
+        slot: 4
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTExNWFjZjcyNTU0NjkzMWZmMGQ5NTI2M2FmOGRjYmU3ZDE0NzQ3YjNiYjFmYTI1Njg4ZjFiYjdkYWNkOWQ4MyJ9fX0="
+        name: "<white>✧ <gradient:#AA3A29:#EBA366>{nombre}</gradient>"
+        lore:
+          - ""
+          - "<gray>La sangre ancestral despierta."
+          - "<gray>Fuego, vigor y bendiciones."
+          - ""
+          - "<gray> ʜᴀʙɪʟɪᴅᴀᴅ <#EBA366>{habilidad}"
+          - ""
+      "piezas":
+        slot: 13
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTExNWFjZjcyNTU0NjkzMWZmMGQ5NTI2M2FmOGRjYmU3ZDE0NzQ3YjNiYjFmYTI1Njg4ZjFiYjdkYWNkOWQ4MyJ9fX0="
+        name: "<white>⧈ <#EBA366>ᴘɪᴇᴢᴀs ᴅᴇ ʟᴀ ᴀʀᴍᴀᴅᴜʀᴀ"
+        lore:
+          - ""
+          - "<gray>ʀᴇúɴᴇ ʟᴀs 4 ᴘɪᴇᴢᴀs"
+          - "<gray>✦ <white>Yelmo Dracónico"
+          - "<gray>✦ <white>Coraza Dracónica"
+          - "<gray>✦ <white>Grebas Dracónicas"
+          - "<gray>✦ <white>Botas Dracónicas"
+      "bonos":
+        slot: 21
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWE2MmI3YzBhYzhhNjI2NDNkNzkzZmEwZWYwN2ZmMWY4ZDJiMWQzOTQ2YjU1YmM3N2VmOGQ3YTQ2ODcxYzEwIn19fQ=="
+        name: "<white>❖ <#EBA366>ʙᴏɴᴏs ᴅᴇ ᴄᴏɴᴊᴜɴᴛᴏ"
+        lore:
+          - ""
+          - "{bonos}"
+      "habilidad":
+        slot: 23
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTk2Yzg3OWJkOWE3YzExMWZlYmQ0NTM4NGU3MjdhZjdjZDE2MGZjOGQ5YTZkMjlhNTFhYjU3NTRiNzlmMzJkZiJ9fX0="
+        name: "<white> <#EBA366>ʜᴀʙɪʟɪᴅᴀᴅ"
+        lore:
+          - ""
+          - "{habilidad}"
+      "arma":
+        slot: 31
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTExNWFjZjcyNTU0NjkzMWZmMGQ5NTI2M2FmOGRjYmU3ZDE0NzQ3YjNiYjFmYTI1Njg4ZjFiYjdkYWNkOWQ4MyJ9fX0="
+        name: "<white>⚔ <#EBA366>ᴀʀᴍᴀ ᴀғíɴ <dark_gray>│ <white>Dracoreliquia"
+        lore:
+          - ""
+          - "<gray>La llama prolonga la bendición"
+          - "<gray>activa durante <gold>2 s<gray> más."
+          - ""
+          - "<gray>Consulta los bonos del conjunto."
+      "volver":
+        slot: 48
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWE2MmI3YzBhYzhhNjI2NDNkNzkzZmEwZWYwN2ZmMWY4ZDJiMWQzOTQ2YjU1YmM3N2VmOGQ3YTQ2ODcxYzEwIn19fQ=="
+        name: "<white>⇜ <gold>Volver al catálogo"
+        lore:
+          - ""
+          - "<gray>Regresar a los cinco conjuntos."
+          - ""
+          - "<#FFDD00>► ᴄʟɪᴄ ᴘᴀʀᴀ ᴠᴏʟᴠᴇʀ"
+      "cerrar":
+        slot: 50
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTk2Yzg3OWJkOWE3YzExMWZlYmQ0NTM4NGU3MjdhZjdjZDE2MGZjOGQ5YTZkMjlhNTFhYjU3NTRiNzlmMzJkZiJ9fX0="
+        name: "<white>⇜ <gray>Cerrar menú"
+        lore:
+          - ""
+          - "<gray>Salir de Armaduras."
+          - ""
+          - "<#FFDD00>► ᴄʟɪᴄ ᴘᴀʀᴀ ᴄᴇʀʀᴀʀ"

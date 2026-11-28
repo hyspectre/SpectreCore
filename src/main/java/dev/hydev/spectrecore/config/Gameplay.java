@@ -38,7 +38,24 @@ public final class Gameplay {
         bounded(values.get("slayer/config.yml"),"avisos.cada-bajas",1,1000000,true);
         bounded(values.get("slayer/config.yml"),"invocacion.reintento-milisegundos",0,3600000,true);
         bounded(values.get("slayer/config.yml"),"invocacion.nivel-mob",1,10000,true);
-        bounded(values.get("trabajos/config.yml"),"avisos.intervalo-cooldown-milisegundos",0,3600000,true);
+        var jobs = values.get("trabajos/config.yml");
+        bounded(jobs,"avisos.intervalo-cooldown-milisegundos",0,3600000,true);
+        if (!jobs.isBoolean("contratos.habilitados"))
+            throw new java.io.IOException("trabajos/config.yml: contratos.habilitados debe ser true/false");
+        for (String level : List.of("novato","experimentado","profesional"))
+            bounded(jobs,"contratos.precios."+level,0,1_000_000_000,true);
+        for (String job : List.of("minero","granjero","cazador")) {
+            if (!jobs.isBoolean(job+".enabled"))
+                throw new java.io.IOException("trabajos/config.yml: "+job+".enabled debe ser true/false");
+            for (String level : List.of("novato","experimentado","profesional")) {
+                bounded(jobs,"cooldowns."+job+"."+level,0,3600,false);
+                bounded(jobs,job+"."+level+".dinero.minimo",0,1_000_000_000,true);
+                bounded(jobs,job+"."+level+".dinero.maximo",0,1_000_000_000,true);
+                if (jobs.getLong(job+"."+level+".dinero.maximo") <
+                        jobs.getLong(job+"."+level+".dinero.minimo"))
+                    throw new java.io.IOException("trabajos/config.yml: maximo menor que minimo en "+job+"."+level);
+            }
+        }
         bounded(equipment,"pasivos.piezas",1,4,true);
         bounded(equipment,"pasivos.laberinto-vida",0,10000,false);
         bounded(equipment,"pasivos.dragon-vida",0,10000,false);

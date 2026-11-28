@@ -1,10 +1,64 @@
-cooldowns: {}
+# Nombres mostrados al jugador; los IDs internos no cambian.
+presentacion:
+  trabajos:
+    minero: "Minería"
+    granjero: "Agricultura"
+    cazador: "Caza"
+  rangos:
+    novato: "Novato"
+    experimentado: "Experimentado"
+    profesional: "Profesional"
+
+# Recompensas por actividad para los tres oficios de Hydev.
+# Los contratos adquieren permisos persistentes de LuckPerms. Todos los valores
+# (rangos, monedas y segundos) se usan también en la GUI nativa.
+cooldowns:
+  minero:
+    novato: 10
+    experimentado: 7
+    profesional: 4
+  granjero:
+    novato: 8
+    experimentado: 5
+    profesional: 3
+  cazador:
+    novato: 12
+    experimentado: 8
+    profesional: 5
+
 minero:
   enabled: true
+  novato:
+    dinero: {minimo: 1, maximo: 4}
+  experimentado:
+    dinero: {minimo: 4, maximo: 6}
+  profesional:
+    dinero: {minimo: 8, maximo: 12}
 granjero:
   enabled: true
+  novato:
+    dinero: {minimo: 1, maximo: 3}
+  experimentado:
+    dinero: {minimo: 3, maximo: 6}
+  profesional:
+    dinero: {minimo: 6, maximo: 10}
 cazador:
   enabled: true
+  novato:
+    dinero: {minimo: 2, maximo: 6}
+  experimentado:
+    dinero: {minimo: 6, maximo: 12}
+  profesional:
+    dinero: {minimo: 12, maximo: 24}
+
+# Precios extraídos de los tres menús originales de zMenu.
+contratos:
+  habilitados: true
+  precios:
+    novato: 50
+    experimentado: 1500
+    profesional: 3500
+
 economia:
   permitir-comando-eco: true
 
