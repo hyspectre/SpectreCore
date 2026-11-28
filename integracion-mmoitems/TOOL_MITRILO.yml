@@ -2,49 +2,65 @@
 # Ambas usan el tipo MMOItems TOOL existente: no crear un tipo adicional.
 PICO_MITRILO:
   base:
-    revision-id: 7
-    gem-sockets: ['1']
+    revision-id: 8
+    gem-sockets:
+    - '1'
     material: DIAMOND_PICKAXE
     name: '<gradient:#6EBCCF:#D4F4E9>Pico de Mitrilo</gradient>'
     tier: RARE
     lore-format: herramienta-minera
     lore:
-    - '&f  <gradient:#74B8B5:#D0B8E9>ᴇsᴛᴀᴅísᴛɪᴄᴀs</gradient>'
-    - '&7 Hallazgo de Mitrilo: &a+25%'
-    - '&7 Hallazgo de gemas: &f1%'
-    - '&7 Menas adicionales: &fHasta 3'
-    - '&7 Resonancia: &f25 + 5 por mena extra'
-    - '&7 Duración: &f15 s &8│ &7Recarga: &f20 s'
-    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fVeta'
-    - '&e Agáchate + clic derecho sobre una mena.'
-    - '&e Extrae la veta marcada.'
+    - '&f'
+    - '&f  <gradient:#6EBCCF:#D4F4E9>ᴇsᴛᴀᴅísᴛɪᴄᴀs</gradient>'
+    - '&f'
+    - '&7 ʜᴀʟʟᴀᴢɢᴏ ᴅᴇ ᴍɪᴛʀɪʟᴏ &a+25%'
+    - '&7 ʜᴀʟʟᴀᴢɢᴏ ᴅᴇ ɢᴇᴍᴀs &f1%'
+    - '&f'
+    - '&f  <gradient:#6EBCCF:#D4F4E9>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fVeta'
+    - '&f'
+    - '&7 Extrae hasta &f3 &7menas adicionales.'
+    - '&7 ʀᴇsᴏɴᴀɴᴄɪᴀ &f25 &8(+5 por mena extra)'
+    - '&7 ᴅᴜʀᴀᴄɪóɴ &f15 s  &8·  &7ʀᴇᴄᴀʀɢᴀ &f20 s'
+    - '&f'
+    - '&8 ᴀɢáᴄʜᴀᴛᴇ + ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ'
+    - '&8 sᴏʙʀᴇ ᴜɴᴀ ᴍᴇɴᴀ'
+    - '&f'
 
 PICO_MITRILO_TEMPLADO:
   base:
-    revision-id: 7
-    gem-sockets: ['1', '1']
+    revision-id: 8
+    gem-sockets:
+    - '1'
+    - '1'
     material: NETHERITE_PICKAXE
     name: '<gradient:#A2ECDE:#F5E7BB>Pico de Mitrilo Templado</gradient>'
     tier: EPIC
     lore-format: herramienta-minera
     lore:
-    - '&f  <gradient:#74B8B5:#D0B8E9>ᴇsᴛᴀᴅísᴛɪᴄᴀs</gradient>'
-    - '&7 Hallazgo de Mitrilo: &a+60%'
-    - '&7 Hallazgo de gemas: &f1%'
-    - '&7 Menas adicionales: &fHasta 3'
-    - '&7 Resonancia: &f25 + 5 por mena extra'
-    - '&7 Duración: &f15 s &8│ &7Recarga: &f20 s'
-    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fVeta'
-    - '&e Agáchate + clic derecho sobre una mena.'
-    - '&e Extrae la veta marcada.'
+    - '&f'
+    - '&f  <gradient:#A2ECDE:#F5E7BB>ᴇsᴛᴀᴅísᴛɪᴄᴀs</gradient>'
+    - '&f'
+    - '&7 ʜᴀʟʟᴀᴢɢᴏ ᴅᴇ ᴍɪᴛʀɪʟᴏ &a+60%'
+    - '&7 ʜᴀʟʟᴀᴢɢᴏ ᴅᴇ ɢᴇᴍᴀs &f1%'
+    - '&f'
+    - '&f  <gradient:#A2ECDE:#F5E7BB>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fVeta'
+    - '&f'
+    - '&7 Extrae hasta &f3 &7menas adicionales.'
+    - '&7 ʀᴇsᴏɴᴀɴᴄɪᴀ &f25 &8(+5 por mena extra)'
+    - '&7 ᴅᴜʀᴀᴄɪóɴ &f15 s  &8·  &7ʀᴇᴄᴀʀɢᴀ &f20 s'
+    - '&f'
+    - '&8 ᴀɢáᴄʜᴀᴛᴇ + ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ'
+    - '&8 sᴏʙʀᴇ ᴜɴᴀ ᴍᴇɴᴀ'
+    - '&f'
 
 # Controles: clic derecho; agacharse + clic derecho para los modos avanzados.
 # La resonancia es del objeto, se conserva en su PDC y nunca se simula con lore.
 # ID conservado para actualizar los faroles existentes sin perderlos.
 FAROL_MITRILO:
   base:
-    revision-id: 7
-    gem-sockets: ['1']
+    revision-id: 8
+    gem-sockets:
+    - '1'
     material: SOUL_LANTERN
     max-stack-size: 1
     name: '<gradient:#8EDCCF:#BDA9E9>Linterna de Mitrilo</gradient>'
@@ -53,52 +69,71 @@ FAROL_MITRILO:
     - hydev.mineria.ingenieria
     lore-format: herramienta-minera
     lore:
-    - '&f  <gradient:#74B8B5:#D0B8E9>ᴇsᴛᴀᴅísᴛɪᴄᴀs</gradient>'
-    - '&7 Visión nocturna: &f60 s'
-    - '&7 Alcance: &f10 bloques'
-    - '&7 Menas reveladas: &fHasta 24'
-    - '&7 Duración: &f3 s &8│ &7Recarga: &f140 s'
-    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fLuz y pulso'
-    - '&e Clic derecho: ilumina tu visión.'
-    - '&e Agáchate + clic derecho: revela menas.'
+    - '&f'
+    - '&f  <gradient:#8EDCCF:#BDA9E9>ᴇsᴛᴀᴅísᴛɪᴄᴀs</gradient>'
+    - '&f'
+    - '&7 ᴠɪsɪóɴ ɴᴏᴄᴛᴜʀɴᴀ &f60 s'
+    - '&7 ᴀʟᴄᴀɴᴄᴇ ᴅᴇʟ ᴘᴜʟsᴏ &f10 bloques'
+    - '&7 ᴍᴇɴᴀs ʀᴇᴠᴇʟᴀᴅᴀs &fHasta 24'
+    - '&7 ᴅᴜʀᴀᴄɪóɴ &f3 s  &8·  &7ʀᴇᴄᴀʀɢᴀ &f140 s'
+    - '&f'
+    - '&f  <gradient:#8EDCCF:#BDA9E9>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fLuz y pulso'
+    - '&f'
+    - '&7 Ilumina tu visión con clic derecho.'
+    - '&7 Agáchate y usa clic derecho'
+    - '&7 para revelar menas cercanas.'
+    - '&f'
 
 BARRENA_MITRILO:
   base:
-    revision-id: 7
-    gem-sockets: ['1']
+    revision-id: 8
+    gem-sockets:
+    - '1'
     material: NETHERITE_PICKAXE
     max-stack-size: 1
     name: '<gradient:#74B8CE:#E7E3BD>Barrena de Mitrilo</gradient>'
     tier: EPIC
     lore-format: herramienta-minera
     lore:
-    - '&f  <gradient:#74B8B5:#D0B8E9>ᴇsᴛᴀᴅísᴛɪᴄᴀs</gradient>'
-    - '&7 Túnel: &f8 × 1 × 2 bloques'
-    - '&7 Intervalo: &f0,25 s por bloque'
-    - '&7 Resonancia: &f50'
-    - '&7 Recarga: &f45 s'
-    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fTúnel'
-    - '&e Agáchate + clic derecho mirando la roca.'
-    - '&e Excava sin extraer minerales.'
+    - '&f'
+    - '&f  <gradient:#74B8CE:#E7E3BD>ᴇsᴛᴀᴅísᴛɪᴄᴀs</gradient>'
+    - '&f'
+    - '&7 ᴛúɴᴇʟ &f8 × 1 × 2'
+    - '&7 ɪɴᴛᴇʀᴠᴀʟᴏ &f0,25 s/bloque'
+    - '&f'
+    - '&f  <gradient:#74B8CE:#E7E3BD>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fTúnel'
+    - '&f'
+    - '&7 Excava un túnel sin romper menas.'
+    - '&7 ʀᴇsᴏɴᴀɴᴄɪᴀ &f50  &8·  &7ʀᴇᴄᴀʀɢᴀ &f45 s'
+    - '&f'
+    - '&8 ᴀɢáᴄʜᴀᴛᴇ + ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴇɴ ʀᴏᴄᴀ'
+    - '&f'
 
 # Pico especial de resonancia minera: consume la misma energía persistente
 # que el equipo de Mitrilo y crea cinco cristales golpeables, sin cambiar terreno.
 PICO_AMATISTA:
   base:
-    revision-id: 7
-    gem-sockets: ['1']
+    revision-id: 8
+    gem-sockets:
+    - '1'
     material: NETHERITE_PICKAXE
     max-stack-size: 1
     name: '<gradient:#BC87FF:#F3D1FC>Pico de Amatista</gradient>'
     tier: LEGENDARY
     lore-format: herramienta-minera
     lore:
-    - '&f  <gradient:#74B8B5:#D0B8E9>ᴇsᴛᴀᴅísᴛɪᴄᴀs</gradient>'
-    - '&7 Cristales invocados: &f3–5'
-    - '&7 Golpes por cristal: &f3'
-    - '&7 Resonancia: &f45–75'
-    - '&7 Duración: &f30 s &8│ &7Recarga: &f120 s'
-    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fCristales'
-    - '&e Agáchate + clic derecho para invocarlos.'
-    - '&e Golpéalos para obtener gemas.'
+    - '&f'
+    - '&f  <gradient:#BC87FF:#F3D1FC>ᴇsᴛᴀᴅísᴛɪᴄᴀs</gradient>'
+    - '&f'
+    - '&7 ᴄʀɪsᴛᴀʟᴇs &f3–5'
+    - '&7 ɢᴏʟᴘᴇs ᴘᴏʀ ᴄʀɪsᴛᴀʟ &f3'
+    - '&f'
+    - '&f  <gradient:#BC87FF:#F3D1FC>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fCristales'
+    - '&f'
+    - '&7 Invoca cristales que contienen gemas.'
+    - '&7 ʀᴇsᴏɴᴀɴᴄɪᴀ &f45–75'
+    - '&7 ᴅᴜʀᴀᴄɪóɴ &f30 s  &8·  &7ʀᴇᴄᴀʀɢᴀ &f120 s'
+    - '&f'
+    - '&8 ᴀɢáᴄʜᴀᴛᴇ + ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ'
+    - '&f'
 

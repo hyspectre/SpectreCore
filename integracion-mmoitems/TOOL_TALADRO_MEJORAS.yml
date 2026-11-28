@@ -2,34 +2,49 @@
 # El TALADRO original de Cygnus se conserva: TOOL:TALADRO.
 TALADRO_REFORZADO:
   base:
-    revision-id: 7
-    gem-sockets: ['1', '1']
+    revision-id: 8
+    gem-sockets:
+    - '1'
+    - '1'
     material: IRON_PICKAXE
     max-stack-size: 1
     name: '<gradient:#CFBBA1:#F2E1B7>Taladro Reforzado</gradient>'
     tier: RARE
     lore-format: herramienta-minera
     lore:
-    - '&f  <gradient:#74B8B5:#D0B8E9>ᴇsᴛᴀᴅísᴛɪᴄᴀs</gradient>'
-    - '&7 Rocas adicionales: &fHasta 1'
-    - '&7 Intervalo: &f0,35 s'
-    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fPerforar'
-    - '&e Pica roca para despejar bloques cercanos.'
-    - '&e Las menas se pican de una a una.'
+    - '&f'
+    - '&f  <gradient:#CFBBA1:#F2E1B7>ᴇsᴛᴀᴅísᴛɪᴄᴀs</gradient>'
+    - '&f'
+    - '&7 ʀᴏᴄᴀs ᴀᴅɪᴄɪᴏɴᴀʟᴇs &fHasta 1'
+    - '&7 ɪɴᴛᴇʀᴠᴀʟᴏ &f0,35 s'
+    - '&f'
+    - '&f  <gradient:#CFBBA1:#F2E1B7>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fPerforar'
+    - '&f'
+    - '&7 Despeja la roca a tu alrededor.'
+    - '&8 No afecta a las menas.'
+    - '&f'
 
 TALADRO_CALIBRADO:
   base:
-    revision-id: 7
-    gem-sockets: ['1', '1', '1']
+    revision-id: 8
+    gem-sockets:
+    - '1'
+    - '1'
+    - '1'
     material: DIAMOND_PICKAXE
     max-stack-size: 1
     name: '<gradient:#C2D6E5:#B4F1E3>Taladro Calibrado</gradient>'
     tier: EPIC
     lore-format: herramienta-minera
     lore:
-    - '&f  <gradient:#74B8B5:#D0B8E9>ᴇsᴛᴀᴅísᴛɪᴄᴀs</gradient>'
-    - '&7 Rocas adicionales: &fHasta 3'
-    - '&7 Intervalo: &f0,25 s'
-    - '&f  <gradient:#FCD05C:#E43A96>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fPerforar'
-    - '&e Pica roca para despejar bloques cercanos.'
-    - '&e Las menas se pican de una a una.'
+    - '&f'
+    - '&f  <gradient:#C2D6E5:#B4F1E3>ᴇsᴛᴀᴅísᴛɪᴄᴀs</gradient>'
+    - '&f'
+    - '&7 ʀᴏᴄᴀs ᴀᴅɪᴄɪᴏɴᴀʟᴇs &fHasta 3'
+    - '&7 ɪɴᴛᴇʀᴠᴀʟᴏ &f0,25 s'
+    - '&f'
+    - '&f  <gradient:#C2D6E5:#B4F1E3>ʜᴀʙɪʟɪᴅᴀᴅ</gradient> &fPerforar'
+    - '&f'
+    - '&7 Despeja la roca a tu alrededor.'
+    - '&8 No afecta a las menas.'
+    - '&f'

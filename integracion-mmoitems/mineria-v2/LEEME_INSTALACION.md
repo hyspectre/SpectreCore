@@ -70,7 +70,16 @@ El instalador fusiona las cinco reliquias, actualiza las herramientas y el lore 
 Rubí, Ónice y Amatista I–III, e instala sus formatos. Para una instalación manual,
 fusiona las entradas por ID en sus tipos, copia los tres formatos en
 `MMOItems/language/lore-formats/` y la estación en `MMOItems/crafting-stations/`.
-Las herramientas usan ranuras reales de MMOItems, con color de texto `'1'`:
+Las herramientas usan ranuras reales de MMOItems con color de texto `'1'`.
+El formato se escribe como lista YAML de bloque, incluso en la instalación
+automática:
+
+```yaml
+    gem-sockets:
+    - '1'
+```
+
+Cantidad de ranuras por herramienta:
 una en el Pico Perdido, Pico de Mitrilo, Pico de Amatista, Guante Minero,
 Linterna y Barrena; dos en el Pico de Mitrilo Templado y Taladro Reforzado;
 tres en el Taladro Calibrado. El instalador conserva las ranuras originales y
@@ -78,8 +87,10 @@ añade solo las necesarias. El formato `herramienta-minera.yml` muestra las
 ranuras y los atributos nativos sin modificar el formato global. El lore
 describe las estadísticas de las habilidades con los valores predeterminados;
 si cambias el balance en minería, actualiza también esas descripciones.
+La revisión 8 utiliza versalitas, gradientes propios y separación visual
+entre títulos, estadísticas, habilidad y espacios de mejora.
 
-Las plantillas revisadas tienen revisión 7 como mínimo. Para actualizar los
+Las plantillas revisadas tienen revisión 8 como mínimo. Para actualizar los
 objetos existentes, comprueba que el mecanismo de revisión de MMOItems esté
 activo y que `item-revision.keep-data.gems` y `item-revision.drop-extra-gems`
 estén habilitados en su configuración; conserva las gemas y respaldos del
@@ -116,6 +127,6 @@ Si una Forja Minera anterior muestra un aviso al cargar la vista de recetas, act
 
 
 ### Linterna de Mitrilo — actualización dev09
-El objeto conserva el ID `TOOL:FAROL_MITRILO` (revisión 7); actualizar la plantilla y las recetas mediante el instalador. Se retiran las ofertas antiguas de brújula y farol, no los objetos poseídos. Las brújulas ya existentes quedan sin habilidad; comprueba las recetas personalizadas que hagan referencia a ellas. La receta `linterna-mitrilo` conserva el costo del farol. Actualiza también `rewards/mining.yml`, reinicia y verifica la revisión de los ítems en Minecraft. El JAR agrega automáticamente los nuevos ajustes y migra la bonificación de Bobina de Cobre con respaldo.
+El objeto conserva el ID `TOOL:FAROL_MITRILO` (revisión 8); actualizar la plantilla y las recetas mediante el instalador. Se retiran las ofertas antiguas de brújula y farol, no los objetos poseídos. Las brújulas ya existentes quedan sin habilidad; comprueba las recetas personalizadas que hagan referencia a ellas. La receta `linterna-mitrilo` conserva el costo del farol. Actualiza también `rewards/mining.yml`, reinicia y verifica la revisión de los ítems en Minecraft. El JAR agrega automáticamente los nuevos ajustes y migra la bonificación de Bobina de Cobre con respaldo.
 
 Al alcanzar Minería 10, AuraSkills ejecuta la entrega de un Cénit existente (`CONSUMABLE:MEJORA_ARMA1`). Verifica que el ID exista en el servidor antes de instalar las recompensas. No es retroactivo para niveles alcanzados antes de la instalación.

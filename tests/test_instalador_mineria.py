@@ -117,7 +117,11 @@ gui-layout:
         base = tool[item]["base"]
         assert base["gem-sockets"] == ["1"] * count
         assert base["lore-format"] == "herramienta-minera"
-        assert base["revision-id"] >= 7 and any("ᴇsᴛᴀᴅí" in line for line in base["lore"])
+        assert base["revision-id"] >= 8 and any("ᴇsᴛᴀᴅí" in line for line in base["lore"])
+        assert base["lore"].count("&f") >= 3
+        rows, spans = module.lines_and_sections((plugin/"item/TOOL.yml").read_text(), module.TOP_ITEM)
+        start, end = spans[item]
+        assert "    gem-sockets:\n" + "    - '1'\n" * count in "".join(rows[start:end])
     fmt = yaml.safe_load((plugin/"language/lore-formats/herramienta-minera.yml").read_text())["lore-format"]
     assert {"#gem-stones#", "#lore#", "#attack-damage#", "#pickaxe-power#"} <= set(fmt)
     assert "lingote-mitrilo" not in definitions["recipes"] and "cristal-mitrilo" not in definitions["recipes"]
@@ -181,6 +185,12 @@ gui-layout:
     module.install(plugin,station,True)
     migrated = yaml.safe_load(dedicated.read_text())
     assert migrated == definitions
+    # Even an equivalent old inline list is written in the owner's block format.
+    toolfile = plugin / "item/TOOL.yml"
+    toolfile.write_text(toolfile.read_text().replace("    gem-sockets:\n    - '1'\n",
+                                                   "    gem-sockets: ['1']\n", 1))
+    module.install(plugin, station, True)
+    assert "    gem-sockets: [" not in toolfile.read_text()
     snapshot={p:p.read_bytes() for p in [*originals, dedicated, plugin/"item/reliquia.yml"]}
     module.install(plugin,station,True)
     assert all(p.read_bytes()==data for p,data in snapshot.items()),"second install changed YAML"
@@ -265,3 +275,33 @@ assert "TALADRO" not in data
 prepared_again = module.prepare_tool_definitions(updated, incoming, legacy)
 assert module.merge_items(updated, prepared_again, "TOOL")[0] == updated
 print("PASS mining tool presentation: real string-color sockets, native lore and safe revision migration")
+
+# Rev 7 original tools: remove the known old generated section, not the original lore.
+for item in ("TALADRO", "PICO_GEMAS"):
+    previous = module.PREVIOUS_TOOL_LORE[item]
+    old = yaml.safe_dump({item: {"base": {"revision-id": 7, "gem-sockets": ["1"],
+                          "lore": ["Mi historia", *previous, "Mi firma"]}}},
+                         allow_unicode=True, sort_keys=False)
+    refreshed = module.prepare_tool_definitions(old, incoming, legacy)
+    new = module.strict_yaml(refreshed)[item]["base"]
+    wanted = module.strict_yaml(legacy)[item]["base"]["lore"]
+    assert new["lore"] == ["Mi historia", *wanted, "Mi firma"]
+    assert new["revision-id"] == 8
+    assert new["lore"].count("&f") >= 3 and not any(line in new["lore"] for line in previous)
+    merged = module.merge_items(old, refreshed, "TOOL")[0]
+    assert module.merge_items(merged, module.prepare_tool_definitions(merged, incoming, legacy), "TOOL")[0] == merged
+
+# Check every shipped variant, not only the installer output.
+for file in (pack/"TOOL_MINERIA_NUEVOS.yml", pack/"TOOL_EXISTENTES_PRESENTACION.yml",
+             pack.parent/"TOOL_MITRILO.yml", pack.parent/"TOOL_TALADRO_MEJORAS.yml"):
+    source = file.read_text()
+    assert "    gem-sockets: [" not in source
+    for item, template in module.strict_yaml(source).items():
+        base = template["base"]
+        assert base["revision-id"] == 8
+        assert all(slot == "1" for slot in base["gem-sockets"])
+        assert base["lore"][0] == "&f" and base["lore"][-1] == "&f"
+        for i, line in enumerate(base["lore"]):
+            if "ᴇsᴛᴀᴅísᴛɪᴄᴀs" in line or "ʜᴀʙɪʟɪᴅᴀᴅ" in line:
+                assert base["lore"][i-1] == "&f" and base["lore"][i+1] == "&f"
+print("PASS revision 8: spaced lore, quoted block sockets, legacy lore migration and idempotence")

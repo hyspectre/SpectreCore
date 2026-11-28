@@ -380,6 +380,35 @@ def detect_forge(plugin: Path, requested: str | None):
                          "indica --forja <archivo.yml>.")
     return candidates[0]
 
+# Exact previously shipped sections; only remove our own unmodified text.
+PREVIOUS_TOOL_LORE = {
+    "TALADRO": [
+        "&f  <gradient:#74B8B5:#D0B8E9>ᴇsᴛᴀᴅísᴛɪᴄᴀs</gradient>",
+        "&7 Minería: &fBloques de roca",
+        "&7 Intervalo: &f0,50 s",
+        "&7 Rocas adicionales: &f0",
+    ],
+    "PICO_GEMAS": [
+        "&f  <gradient:#74B8B5:#D0B8E9>ᴇsᴛᴀᴅísᴛɪᴄᴀs</gradient>",
+        "&7 Resonancia máxima: &f50",
+        "&7 Ventana de activación: &f30 s",
+        "&7 Carga por mena: &f1 / 2 / 4",
+    ],
+}
+
+def refresh_tool_lore(current: list[str], wanted: list[str], previous: list[str]) -> list[str]:
+    # Preserve the original item lore, replacing the exact old managed section.
+    def find_block(block):
+        return next((i for i in range(len(current) - len(block) + 1)
+                     if current[i:i+len(block)] == block), None)
+
+    if find_block(wanted) is not None:
+        return current
+    index = find_block(previous)
+    if index is not None:
+        return current[:index] + wanted + current[index+len(previous):]
+    return current + wanted
+
 def prepare_tool_definitions(original: str, incoming: str, legacy: str) -> str:
     """Minimum real sockets of color '1', preserving existing colors and custom original lore."""
     existing, definitions, patches = strict_yaml(original), strict_yaml(incoming), strict_yaml(legacy)
@@ -391,12 +420,8 @@ def prepare_tool_definitions(original: str, incoming: str, legacy: str) -> str:
         if not isinstance(current_lore, list) or not all(isinstance(line, str) for line in current_lore):
             raise ValueError(f"{item}: revisar el lore original")
         wanted = patch["base"]["lore"]
-        # Retain unrelated lines; do not duplicate our own statistics on reinstallation.
-        if wanted[0] in current_lore:
-            lore = current_lore
-        else:
-            lore = [*current_lore, *wanted]
-        definitions[item] = {"base": {**patch["base"], "lore": lore, "revision-id": 7}}
+        lore = refresh_tool_lore(current_lore, wanted, PREVIOUS_TOOL_LORE[item])
+        definitions[item] = {"base": {**patch["base"], "lore": lore}}
     for item, definition in definitions.items():
         prior = existing.get(item, {}).get("base", {})
         base = definition["base"]
@@ -436,6 +461,21 @@ def install(plugin: Path, forge: Path, apply: bool):
                 (ROOT / "TOOL_EXISTENTES_PRESENTACION.yml").read_text(encoding="utf-8"))
         new, replaced, added = merge_items(old, incoming, typ,
                                           only_missing=(typ == "GEM_STONE"))
+        if typ == "TOOL":
+            # PyYAML emits the requested block list; normalize an equivalent old inline
+            # list too (merge_items otherwise keeps semantically unchanged YAML).
+            for item, definition in strict_yaml(incoming).items():
+                rows, spans = lines_and_sections(new, TOP_ITEM)
+                start, end = spans[item]
+                if any(re.match(r"^    gem-sockets: *\[", row) for row in rows[start:end]):
+                    slots = definition["base"]["gem-sockets"]
+                    replacement = "".join("    " + row + "\n" for row in
+                                          yaml.safe_dump({"gem-sockets": slots},
+                                                         default_flow_style=False).splitlines())
+                    normalized = replace_base_field(new, item, "gem-sockets", replacement)
+                    if strict_yaml(normalized) != strict_yaml(new):
+                        raise ValueError(f"{item}: no se pudo normalizar la lista de ranuras")
+                    new = normalized
         if typ == "GEM_STONE":
             new = repair_gem_lore(new, src.read_text(encoding="utf-8"))
             branches = (ROOT / "GEM_STONE_RAMAS_MINERAS.yml").read_text(encoding="utf-8")
