@@ -65,6 +65,8 @@ AuraSkills es la fuente de experiencia, nivel, Luck y menú de progresión. Por 
 | 22 | Resonancia arcana, Pico de Amatista y geodas |
 | 25 | Ingeniería y prospección: Linterna y Barrena de Mitrilo |
 
+**Geodas resonantes:** desde nivel 22, las menas naturales de diamante, esmeralda y redstone acumulan progreso persistente. El medidor muestra el avance y las menas restantes; a 100 % la siguiente ubicación apta revela una geoda privada. Por defecto son 200 menas (Lupa de Espato: +30 % de avance). El progreso no se pierde si falta una ubicación segura o un recurso configurado. Abre la geoda con la Llave Resonante para seleccionar y obtener una gema IV.
+
 No reemplaces los IDs de ítems preexistentes, ni mezcles las antiguas recetas y paquetes mineros sin verificar el catálogo efectivo.
 
 ## 4. Dónde trabajar

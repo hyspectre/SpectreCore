@@ -16,3 +16,25 @@ MiningModule:
   color-017: WHITE
   color-018: GREEN
   geoda-sonido: BLOCK_AMETHYST_BLOCK_CHIME
+
+MiningDiscoveryEffects:
+  particle-marcador: END_ROD
+  marcador-cantidad: 8
+  marcador-radio: 0.55
+  particle-marcador-secundario: ENCHANT
+  marcador-secundario-cantidad: 6
+  particle-geoda: END_ROD
+  geoda-cantidad: 28
+  geoda-radio: 0.6
+  particle-geoda-destello: ENCHANT
+  geoda-destello-cantidad: 20
+  geoda-volumen: 0.85
+  geoda-tono: 1.25
+  particle-gema: END_ROD
+  gema-cantidad: 20
+  gema-radio: 0.42
+  particle-gema-destello: ENCHANT
+  gema-destello-cantidad: 16
+  sound-gema: BLOCK_AMETHYST_CLUSTER_BREAK
+  gema-volumen: 0.75
+  gema-tono: 1.35

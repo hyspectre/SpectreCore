@@ -118,6 +118,27 @@ Minera fabrica Diamante Loco I con diamantes y Amatista Resonante. También perm
 subir las cuatro ramas a II y III. Los grados IV salen de las geodas reservadas.
 Volcanita tiene un único grado.
 
+### Medidor de geodas
+
+Desde Minería 22, cada mena natural de diamante, esmeralda o redstone suma
+0,5 % de avance; no se requiere un pico específico. La Lupa de Espato aumenta
+el avance un 30 %. El medidor permanece visible 12 segundos después de minar
+y el progreso pertenece al jugador, no a la herramienta. Al alcanzar 100 %
+se revela una geoda si hay roca adyacente en una zona permitida y las cuatro
+gemas IV y la llave están registradas. Si no es posible, el medidor queda
+completo hasta la próxima mena apta. La ubicación se reserva por diez minutos.
+Usa una Llave Resonante, agáchate y haz clic derecho para alternar Veta,
+Magnetita, Fluorita y Diamante Loco IV; clic de pie para abrir. Diamante Loco
+también consume un III.
+
+El JAR migra `geodas.probabilidad-porcentaje` a `geodas.avance-por-mena`
+con respaldo, conservando el valor antiguo como porcentaje de progreso por
+mena. Ajusta `modules/tesoros/mineria.yml` para cambiar el avance; los efectos
+están en `modules/resonancia/ajustes.yml`. Para una prueba rápida de desarrollo,
+establece el avance en 100, pica una mena natural en una región permitida y
+vuelve al valor de balance. Comprueba relog, el bono de Lupa de Espato, selección
+y pago de cada núcleo, y que los efectos sean visibles para el descubridor.
+
 Las habilidades leen las gemas instaladas en la herramienta de la mano principal.
 Si hay varias de la misma rama cuenta el grado mayor. Para comprobar la instalación,
 genera una gema con /mi give GEM_STONE GEMA_MAGNETITA_I, arrástrala sobre una

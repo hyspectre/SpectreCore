@@ -284,6 +284,7 @@ public final class AmethystResonanceField implements Listener {
                 8, .25, .25, .25, .03);
         if (node.session.mineralTool == null && node.strikes < amount("golpes")) return;
 
+        Location rewardAt = target.getLocation().add(0, .5, 0);
         // One-shot claim is made before the item enters any inventory.
         node.claimed = true;
         node.session.nodes.remove(node);
@@ -301,6 +302,7 @@ public final class AmethystResonanceField implements Listener {
             });
         }
         player.getWorld().playSound(player.getLocation(), Sound.BLOCK_AMETHYST_CLUSTER_BREAK, .65f, 1.25f);
+        MiningDiscoveryEffects.gemSparkles(player, rewardAt);
         if (node.session.mineralTool == null) player.sendMessage(Settings.message("tesoros", "AmethystField.resonante",
                 "<light_purple>✦ <white>Amatista Resonante"));
         if (node.session.nodes.isEmpty()) close(node.session.owner);

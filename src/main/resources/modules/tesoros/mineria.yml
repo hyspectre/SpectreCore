@@ -130,5 +130,10 @@ visuales:
   max-animaciones: 32
 
 geodas:
-  probabilidad-porcentaje: 0.5
+  # Progreso acumulado por cada mena natural elegible. 0.5 = 200 menas.
+  # Lupa de Espato aumenta el progreso por mena de forma relativa.
+  avance-por-mena: 0.5
   duracion-minutos: 10
+  medidor-segundos: 12
+  max-marcadores-visibles: 8
+  distancia-marcador: 32

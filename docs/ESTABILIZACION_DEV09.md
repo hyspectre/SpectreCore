@@ -51,3 +51,17 @@ Al instalar el JAR, los textos nuevos se cargan con los valores por defecto sin
 reemplazar la configuración personalizada. Verificación ingame: alternar entre
 dos picos con cargas distintas y un pico normal; cargar, activar y esperar
 la recarga de cada habilidad, comprobar nivel insuficiente y campo de amatista.
+
+### Medidor de geodas y feedback (28/11/2026)
+
+La frecuencia aleatoria base del 0,5 % pasa a avance acumulativo por mena
+elegible (200 menas sin bonificaciones). La Lupa de Espato conserva su bono
+relativo del 30 % y el avance restante se conserva tras el hallazgo. Progreso
+por jugador en PDC, independiente de carga, inventario y motor de tesoros;
+barra temporal sin actionbar. La migración de YAML conserva el valor anterior
+con respaldo en `backups/geodas-medidor-v1/`. Los marcadores y destellos nuevos
+son privados, acotados y no crean entidades ni cambian bloques. Se validan
+regiones y disponibilidad de recompensas antes de reiniciar el medidor.
+La prueba de reglas `GeodeProgressSmoke` cubre umbral, Lupa, resto y reintento;
+la prueba del cliente, permisos, partículas y conservación tras relog
+permanece pendiente en Paper.

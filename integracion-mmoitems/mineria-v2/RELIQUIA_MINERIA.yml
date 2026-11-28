@@ -59,7 +59,7 @@ LUPA_ESPATO:
     tooltip: SILVER
     lore:
     - '&f  <gradient:#FCD05C:#E43A96>ʀᴇʟɪǫᴜɪᴀ</gradient>'
-    - '&f Hallazgo de geodas &a+30%'
+    - '&f Progreso de geodas &a+30%'
     - '&8 Forja Minera'
     - '&e ᴄʟɪᴄ ᴅᴇʀᴇᴄʜᴏ ᴘᴀʀᴀ ᴀʙsᴏʀʙᴇʀ'
 BOBINA_COBRE:

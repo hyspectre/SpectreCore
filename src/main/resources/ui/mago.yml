@@ -252,7 +252,7 @@ pages:
       - "<gray>Fragmentos: restaura el Pico Perdido."
       - "<gray>Paladio y Mitrilo: forja picos y herramientas."
       - "<gray>Amatista Resonante: llaves, cargas y herramientas."
-      - "<gray>Llave: abre geodas. Carga: recarga herramientas."
+      - "<gray>Geodas: llena el medidor y usa una llave."
     buttons:
       - label: '<gray>Guías</gray>'
         page: guias

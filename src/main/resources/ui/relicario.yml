@@ -110,7 +110,7 @@ estadisticas:
   title: "<white>⧇ <gold>Relicario <dark_gray>│ <white>Bonificaciones"
   nombres:
     lantern_radius: "Alcance de la Linterna"
-    geode_chance: "Hallazgo de geodas"
+    geode_chance: "Progreso de geodas"
     resonance_extra: "Carga extra al minar"
     prospector_chance: "Aparición de prospectores"
     duende_chance: "Aparición de duendes"

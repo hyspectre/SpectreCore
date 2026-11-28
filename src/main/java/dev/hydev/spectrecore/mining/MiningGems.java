@@ -93,7 +93,7 @@ final class MiningGems implements Listener {
             ItemStack gem = mmo.build("GEM_STONE", POOL.get(random.nextInt(POOL.size())),1);
             if (gem != null) {
                 deliver.accept(player,gem);
-                player.sendMessage("§d✦ Has encontrado una gema minera.");
+                MiningDiscoveryEffects.gem(player, block.getLocation().add(.5, .5, .5), gem);
             }
         }
         var ranks = socketed(held);
@@ -112,7 +112,10 @@ final class MiningGems implements Listener {
         }
         if (ranks.containsKey("VOLCANITA") && random.nextDouble() < .03 && progression.meets(player,"arcana")) {
             var crystal = mmo.build("MATERIAL","AMATISTA_RESONANTE",1);
-            if (crystal != null) deliver.accept(player,crystal);
+            if (crystal != null) {
+                deliver.accept(player, crystal);
+                MiningDiscoveryEffects.gemSparkles(player, block.getLocation().add(.5, .5, .5));
+            }
         }
         int diamond = ranks.getOrDefault("DIAMANTE_LOCO",0);
         if (diamond > 0 && random.nextInt(100) < diamond && progression.meets(player,"arcana")) {

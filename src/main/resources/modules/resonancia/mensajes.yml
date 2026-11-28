@@ -56,3 +56,9 @@ MiningModule:
   mensaje-050: "<reset><yellow>Mejora esta herramienta en la Forja Minera actualizada."
   forja-error-ranuras: "<red>No se pudo conservar la configuración de ranuras. Conservas los ingredientes."
   geoda-abierta: "<green>✦ Geoda abierta: <white>{gema} IV"
+
+GeodeProgress:
+  preparada: "<light_purple>✦ Geoda preparada <gray>· Sigue minando en una zona libre"
+  medidor: "<aqua>✦ Geoda <white>{progreso}% <gray>· {menas} menas restantes"
+MiningDiscoveryEffects:
+  gema-obtenida: "<light_purple>✦ <gray>Gema encontrada: <white>{gema}"

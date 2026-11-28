@@ -105,3 +105,24 @@ drill_src=(src/"mining/StoneDrill.java").read_text(encoding="utf-8")
 assert 'tier==3?"resonancia":tier==2?"duendes":"paladio"' in drill_src
 assert "progression.meets(player,requiredStage)" in drill_src
 print("PASS AuraSkills Luck: levels 1/3/6/10/12/15/18/22/25, old Pico identity, native encounters and stone drill")
+
+assert cfg["geodas"] == {"avance-por-mena": .5, "duracion-minutos": 10, "medidor-segundos": 12,
+                         "max-marcadores-visibles": 8, "distancia-marcador": 32}
+discover = mining.split("private void discoverGeode",1)[1].split("private boolean geodeRewardAvailable",1)[0]
+assert 'progression.meets(player, "arcana")' in discover
+assert "GeodeProgressRules.step(" in discover and "ThreadLocalRandom" not in discover
+assert '"geode_chance"' in discover
+assert discover.index("geodeProgress.advance") < discover.index("geodeRegions.canBuild")
+assert discover.index("data.set(key, type") < discover.index("geodeProgress.discovered")
+assert "isChunkLoaded" in discover
+assert "relocated ||" in mining and "MithrilAutomationGuard.active()" in mining
+hud = (src/"mining/GeodeProgress.java").read_text()
+assert "PersistentDataType.LONG" in hud and "player.showBossBar" in hud and "hideBossBar" in hud
+assert "geodeProgress.hide(event.getPlayer())" in mining and "geodeProgress.tick(player)" in mining
+effects = (src/"mining/MiningDiscoveryEffects.java").read_text()
+assert "player.spawnParticle" in effects and "Math.clamp(count, 0, 64)" in effects
+assert "runTask" not in effects and "getWorld().spawn" not in effects
+assert 'deliver.accept(player,gem);' in (src/"mining/MiningGems.java").read_text()
+assert "MiningDiscoveryEffects.gem(player," in (src/"mining/MiningGems.java").read_text()
+assert "geodas.probabilidad-porcentaje" in (src/"config/ModuleConfiguration.java").read_text()
+print("PASS geodas: medidor persistente, migración, aparición autorizada y efectos acotados")

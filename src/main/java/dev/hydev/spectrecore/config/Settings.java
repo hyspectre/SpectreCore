@@ -105,7 +105,7 @@ public final class Settings {
                 if(!(value instanceof String string)||path.endsWith("/mensajes.yml"))continue;
                 String leaf=key.substring(key.lastIndexOf('.')+1);
                 try {
-                    if(leaf.startsWith("sound-")) {
+                    if(leaf.startsWith("sound-") || key.equals("MiningModule.geoda-sonido")) {
                         try { if(Sound.class.getField(string).getType()!=Sound.class)throw new NoSuchFieldException(string); }
                         catch(NoSuchFieldException error){throw new IllegalArgumentException("sonido desconocido: "+string);}
                     }

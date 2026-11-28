@@ -148,6 +148,17 @@ public final class ModuleConfiguration {
                     }
                     changed = true;
                 }
+                if (path.equals("tesoros/mineria.yml") && yaml.contains("geodas.probabilidad-porcentaje")) {
+                    File backup = new File(folder, "backups/geodas-medidor-v1/modules/" + path);
+                    if (!backup.exists()) {
+                        Files.createDirectories(backup.toPath().getParent());
+                        Files.copy(destination.toPath(), backup.toPath());
+                    }
+                    if (!yaml.contains("geodas.avance-por-mena"))
+                        yaml.set("geodas.avance-por-mena", yaml.get("geodas.probabilidad-porcentaje"));
+                    yaml.set("geodas.probabilidad-porcentaje", null);
+                    changed = true;
+                }
                 for (String key : defaults.getKeys(true)) {
                     if (!defaults.isConfigurationSection(key) && !yaml.contains(key)) {
                         yaml.set(key, defaults.get(key));
